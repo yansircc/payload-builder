@@ -1,5 +1,6 @@
 import type { Field } from 'payload'
 
+import * as fields from '@/fields'
 import {
   FixedToolbarFeature,
   HeadingFeature,
@@ -9,6 +10,15 @@ import {
 
 import { linkGroup } from '@/fields/linkGroup'
 
+const heroOptions = {
+  none: 'None',
+  highImpact: 'High Impact',
+  hero1: 'Hero 1',
+  hero7: 'Hero 7',
+  hero8: 'Hero 8',
+  hero12: 'Hero 12',
+} as const
+
 export const hero: Field = {
   name: 'hero',
   type: 'group',
@@ -16,57 +26,26 @@ export const hero: Field = {
     {
       name: 'type',
       type: 'select',
-      defaultValue: 'lowImpact',
+      defaultValue: 'none',
       label: 'Type',
-      options: [
-        {
-          label: 'None',
-          value: 'none',
-        },
-        {
-          label: 'High Impact',
-          value: 'highImpact',
-        },
-        {
-          label: 'Medium Impact',
-          value: 'mediumImpact',
-        },
-        {
-          label: 'Low Impact',
-          value: 'lowImpact',
-        },
-      ],
+      options: Object.entries(heroOptions).map(([value, label]) => ({
+        label,
+        value,
+      })),
       required: true,
-    },
-    {
-      name: 'richText',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
-        },
-      }),
-      label: false,
     },
     linkGroup({
       overrides: {
         maxRows: 2,
       },
     }),
-    {
-      name: 'media',
-      type: 'upload',
-      admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
-      },
-      relationTo: 'media',
-      required: true,
-    },
+    fields.richText(),
+    fields.media(),
+    fields.avatars(),
+    fields.badge(),
+    fields.features(),
+    fields.partners(),
+    fields.reviewStats(),
   ],
   label: false,
 }

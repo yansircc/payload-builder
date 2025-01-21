@@ -18,6 +18,8 @@ type CMSLinkType = {
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
   url?: string | null
+  prefixElement?: React.ReactNode
+  suffixElement?: React.ReactNode
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -31,6 +33,8 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     reference,
     size: sizeFromProps,
     url,
+    prefixElement,
+    suffixElement,
   } = props
 
   const href =
@@ -49,8 +53,10 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   if (appearance === 'inline') {
     return (
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+        {prefixElement && prefixElement}
         {label && label}
         {children && children}
+        {suffixElement && suffixElement}
       </Link>
     )
   }
@@ -58,8 +64,10 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   return (
     <Button asChild className={className} size={size} variant={appearance}>
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+        {prefixElement && prefixElement}
         {label && label}
         {children && children}
+        {suffixElement && suffixElement}
       </Link>
     </Button>
   )
