@@ -93,7 +93,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'hero1' | 'hero7' | 'hero8' | 'hero12';
+    type: 'none' | 'highImpact' | 'hero1' | 'hero7' | 'hero8' | 'hero12' | 'hero24' | 'hero34';
     links?:
       | {
           link: {
@@ -136,7 +136,7 @@ export interface Page {
     /**
      * 用于展示在首屏的特色图片
      */
-    media: number | Media;
+    media?: (number | null) | Media;
     /**
      * 最多支持5个头像
      */

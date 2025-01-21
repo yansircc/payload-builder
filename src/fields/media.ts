@@ -5,7 +5,6 @@ const baseMedia: UploadField = {
   label: 'Media',
   type: 'upload',
   relationTo: 'media',
-  required: true,
   admin: {
     description: '用于展示在首屏的特色图片',
   },
