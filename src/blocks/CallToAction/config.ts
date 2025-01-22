@@ -7,7 +7,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
-import { linkGroup } from '@/fields'
+import { linkGroup } from '@/fields/linkGroup'
 
 export const CallToAction: Block = {
   slug: 'cta',
@@ -29,8 +29,10 @@ export const CallToAction: Block = {
       label: false,
     },
     linkGroup({
-      maxRows: 2,
       appearances: ['default', 'outline', 'ghost'],
+      overrides: {
+        maxRows: 2,
+      },
     }),
   ],
   labels: {

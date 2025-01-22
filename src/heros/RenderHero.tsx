@@ -1,28 +1,20 @@
 import React from 'react'
-
 import type { Page } from '@/payload-types'
+import { heroConfigs } from './config'
 
-import { HighImpactHero } from '@/heros/HighImpact'
-import * as _ from '@/heros/custom'
+type HeroProps = Page['hero']
+type HeroType = keyof typeof heroConfigs
+type HeroData<T extends HeroType> = NonNullable<HeroProps[T & keyof HeroProps]>
 
-const heroes = {
-  highImpact: HighImpactHero,
-  hero1: _.Hero1,
-  hero7: _.Hero7,
-  hero8: _.Hero8,
-  hero12: _.Hero12,
-  hero24: _.Hero24,
-  hero34: _.Hero34,
-}
-
-export const RenderHero: React.FC<Page['hero']> = (props) => {
-  const { type } = props || {}
+export const RenderHero: React.FC<HeroProps> = (props) => {
+  const { type } = props
 
   if (!type || type === 'none') return null
+  if (!(type in heroConfigs)) return null
 
-  const HeroToRender = heroes[type]
+  const config = heroConfigs[type as HeroType]
+  const heroProps = props[type as keyof HeroProps] as HeroData<HeroType>
+  if (!heroProps) return null
 
-  if (!HeroToRender) return null
-
-  return <HeroToRender {...props} />
+  return <config.Component {...heroProps} />
 }

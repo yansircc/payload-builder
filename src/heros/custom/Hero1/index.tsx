@@ -8,30 +8,12 @@ import type { Page } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { StyledRichText } from '@/components/RichText/StyledRichText'
-
 import { Badge } from '@/components/ui/badge'
 import { ArrowDownRight } from 'lucide-react'
-import { NodeStyle } from '@/utilities/rich-text'
 
-const IMPACT_STYLES = [
-  {
-    type: 'heading',
-    tag: 'h1',
-    className: 'text-5xl font-bold tracking-tight lg:text-7xl mb-6',
-  },
-  {
-    type: 'heading',
-    tag: 'h2',
-    className: 'text-3xl font-semibold mb-4',
-  },
-  {
-    type: 'paragraph',
-    className: 'text-muted-foreground text-xl leading-relaxed max-w-[45ch]',
-  },
-] satisfies NodeStyle[]
+type Hero1Data = NonNullable<NonNullable<Page['hero']>['hero1']>
 
-export default function Hero1({ richText, links, media, badge }: Page['hero']) {
+export default function Hero1({ badge, title, subtitle, links, media }: Hero1Data) {
   const { setHeaderTheme } = useHeaderTheme()
 
   useEffect(() => {
@@ -58,8 +40,14 @@ export default function Hero1({ richText, links, media, badge }: Page['hero']) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-4"
             >
-              {richText && <StyledRichText data={richText} styles={IMPACT_STYLES} />}
+              <h1 className="text-5xl font-bold tracking-tight lg:text-7xl">{title}</h1>
+              {subtitle && (
+                <p className="text-muted-foreground text-xl leading-relaxed max-w-[45ch]">
+                  {subtitle}
+                </p>
+              )}
             </motion.div>
 
             {links && links.length > 0 && (

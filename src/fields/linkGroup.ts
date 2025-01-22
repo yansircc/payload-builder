@@ -1,36 +1,28 @@
-import type { ArrayField } from 'payload'
-import createLinkField from './link'
+import type { ArrayField, Field } from 'payload'
 
-type LinkGroupOptions = {
-  appearances?: ('default' | 'outline' | 'ghost')[]
-  maxRows?: number
-  types?: string[]
-}
+import type { LinkAppearances } from './link'
 
-const baseLinkGroup = (options: LinkGroupOptions = {}): ArrayField => {
-  const { appearances, maxRows, types } = options
+import deepMerge from '@/utilities/deepMerge'
+import { link } from './link'
 
-  const result: ArrayField = {
+type LinkGroupType = (options?: {
+  appearances?: LinkAppearances[] | false
+  overrides?: Partial<ArrayField>
+}) => Field
+
+export const linkGroup: LinkGroupType = ({ appearances, overrides = {} } = {}) => {
+  const generatedLinkGroup: Field = {
     name: 'links',
     type: 'array',
-    fields: [createLinkField({ appearances })],
-    maxRows,
+    fields: [
+      link({
+        appearances,
+      }),
+    ],
     admin: {
       initCollapsed: true,
-      description: '链接组，用于展示一组按钮',
     },
   }
 
-  if (types) {
-    result.admin = {
-      ...result.admin,
-      condition: (_, { type } = {}) => types.includes(type),
-    }
-  }
-
-  return result
-}
-
-export default function createLinkGroupField(options: LinkGroupOptions = {}): ArrayField {
-  return baseLinkGroup(options)
+  return deepMerge(generatedLinkGroup, overrides)
 }

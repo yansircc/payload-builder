@@ -93,119 +93,52 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'hero1' | 'hero7' | 'hero8' | 'hero12' | 'hero24' | 'hero34';
+    type: 'none' | 'highImpact' | 'hero1';
     /**
-     * 链接组，用于展示一组按钮
+     * 首屏大图布局，适合展示产品主要信息
      */
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: number | Post;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    richText?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    /**
-     * 用于展示在首屏的特色图片
-     */
-    media?: (number | null) | Media;
-    /**
-     * 最多支持5个头像
-     */
-    avatars?:
-      | {
-          avatar: number | Media;
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * 评论统计, 用于展示在卡片上
-     */
-    reviewStats?: {
+    hero1?: {
       /**
-       * 评分 (0-5)
+       * 主标题文本
        */
-      rating?: number | null;
+      title: string;
       /**
-       * 评论数量
+       * 副标题文本，支持多行
        */
-      reviewCount?: number | null;
+      subtitle?: string | null;
+      /**
+       * 用于展示在首屏的特色图片，建议尺寸 1200x800
+       */
+      media: number | Media;
+      /**
+       * 通常用于显示在标题上方的徽章文本，1~3个单词
+       */
+      badge?: string | null;
+      links?:
+        | {
+            link: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: number | Post;
+                  } | null);
+              url?: string | null;
+              label: string;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost') | null;
+            };
+            id?: string | null;
+          }[]
+        | null;
     };
-    /**
-     * 通常用于显示在标题上方的徽章文本，1~3个单词
-     */
-    badge?: string | null;
-    /**
-     * 特性列表，用于展示产品或服务的主要功能特点
-     */
-    features?:
-      | {
-          /**
-           * 特性的图标名称，例如: Globe, Rocket, Expand, Wrench
-           */
-          icon: string;
-          /**
-           * 特性标题
-           */
-          title: string;
-          /**
-           * 特性描述
-           */
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * 合作伙伴列表, 用于展示在卡片上
-     */
-    partners?:
-      | {
-          /**
-           * 合作伙伴的Logo
-           */
-          logo: number | Media;
-          /**
-           * 合作伙伴的链接
-           */
-          link: string;
-          /**
-           * Logo的高度（单位：像素）
-           */
-          height?: number | null;
-          id?: string | null;
-        }[]
-      | null;
   };
   layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
@@ -217,53 +150,6 @@ export interface Page {
     description?: string | null;
   };
   publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -364,6 +250,53 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  relatedPosts?: (number | Post)[] | null;
+  categories?: (number | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
 export interface Category {
@@ -421,9 +354,6 @@ export interface CallToActionBlock {
     };
     [k: string]: unknown;
   } | null;
-  /**
-   * 链接组，用于展示一组按钮
-   */
   links?:
     | {
         link: {
@@ -1009,51 +939,28 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        links?:
+        hero1?:
           | T
           | {
-              link?:
+              title?: T;
+              subtitle?: T;
+              media?: T;
+              badge?: T;
+              links?:
                 | T
                 | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                    appearance?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          appearance?: T;
+                        };
+                    id?: T;
                   };
-              id?: T;
-            };
-        richText?: T;
-        media?: T;
-        avatars?:
-          | T
-          | {
-              avatar?: T;
-              id?: T;
-            };
-        reviewStats?:
-          | T
-          | {
-              rating?: T;
-              reviewCount?: T;
-            };
-        badge?: T;
-        features?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              description?: T;
-              id?: T;
-            };
-        partners?:
-          | T
-          | {
-              logo?: T;
-              link?: T;
-              height?: T;
-              id?: T;
             };
       };
   layout?:

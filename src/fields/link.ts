@@ -1,15 +1,31 @@
 import type { Field, GroupField } from 'payload'
 
-type Appearance = 'default' | 'outline' | 'ghost'
+import deepMerge from '@/utilities/deepMerge'
 
-type LinkOptions = {
-  appearances?: Appearance[]
-  disableLabel?: boolean
+export type LinkAppearances = 'default' | 'outline' | 'ghost'
+
+export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
+  default: {
+    label: 'Default',
+    value: 'default',
+  },
+  outline: {
+    label: 'Outline',
+    value: 'outline',
+  },
+  ghost: {
+    label: 'Ghost',
+    value: 'ghost',
+  },
 }
 
-const baseLink = (options: LinkOptions = {}): GroupField => {
-  const { appearances, disableLabel = false } = options
+type LinkType = (options?: {
+  appearances?: LinkAppearances[] | false
+  disableLabel?: boolean
+  overrides?: Partial<GroupField>
+}) => Field
 
+export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
@@ -105,25 +121,16 @@ const baseLink = (options: LinkOptions = {}): GroupField => {
     linkResult.fields = [...linkResult.fields, ...linkTypes]
   }
 
-  const appearanceOptions = [
-    {
-      label: 'Default',
-      value: 'default' as const,
-    },
-    {
-      label: 'Outline',
-      value: 'outline' as const,
-    },
-    {
-      label: 'Ghost',
-      value: 'ghost' as const,
-    },
-  ]
+  if (appearances !== false) {
+    let appearanceOptionsToUse = [
+      appearanceOptions.default,
+      appearanceOptions.outline,
+      appearanceOptions.ghost,
+    ]
 
-  if (appearances?.length) {
-    const appearanceOptionsToUse = appearanceOptions.filter((option) =>
-      appearances.includes(option.value),
-    )
+    if (appearances) {
+      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
+    }
 
     linkResult.fields.push({
       name: 'appearance',
@@ -134,21 +141,7 @@ const baseLink = (options: LinkOptions = {}): GroupField => {
       defaultValue: 'default',
       options: appearanceOptionsToUse,
     })
-  } else if (appearances === undefined) {
-    linkResult.fields.push({
-      name: 'appearance',
-      type: 'select',
-      admin: {
-        description: 'Choose how the link should be rendered.',
-      },
-      defaultValue: 'default',
-      options: appearanceOptions,
-    })
   }
 
-  return linkResult
-}
-
-export default function createLinkField(options: LinkOptions = {}): GroupField {
-  return baseLink(options)
+  return deepMerge(linkResult, overrides)
 }
