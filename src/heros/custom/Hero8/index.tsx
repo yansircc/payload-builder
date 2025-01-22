@@ -1,82 +1,65 @@
-'use client'
-
-import { useHeaderTheme } from '@/providers/HeaderTheme'
-import React, { useEffect } from 'react'
-import { motion } from 'framer-motion'
-
-import type { Page } from '@/payload-types'
-
-import { ChevronRight } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { StyledRichText } from '@/components/RichText/StyledRichText'
-import { NodeStyle } from '@/utilities/rich-text'
+import { ClientMotionDiv } from '@/heros/share/motion'
 
-const HERO8_STYLES = [
-  {
-    type: 'heading',
-    tag: 'h1',
-    className: 'mb-8 text-pretty text-4xl font-medium lg:text-8xl',
-  },
-  {
-    type: 'paragraph',
-    className: 'mx-auto max-w-screen-md text-muted-foreground lg:text-xl',
-  },
-] satisfies NodeStyle[]
+import type { Page } from '@/payload-types'
+import { ChevronRight } from 'lucide-react'
 
-export default function Hero8({ richText, links, media }: Page['hero']) {
-  const { setHeaderTheme } = useHeaderTheme()
+type Hero8Data = NonNullable<NonNullable<Page['hero']>['hero8']>
 
-  useEffect(() => {
-    setHeaderTheme('dark')
-  })
-
+export default function Hero8({ title, description, media, links }: Hero8Data) {
   return (
     <section className="py-32">
       <div className="overflow-hidden border-b border-muted">
         <div className="container">
+          {/* 内容区域 */}
           <div className="mx-auto flex max-w-5xl flex-col items-center">
-            <motion.div
+            <ClientMotionDiv
               className="z-10 items-center text-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              {richText && <StyledRichText data={richText} styles={HERO8_STYLES} />}
+              {/* 标题 */}
+              <h1 className="mb-8 text-pretty text-4xl font-medium lg:text-8xl">{title}</h1>
 
+              {/* 描述文本 */}
+              {description && (
+                <p className="mx-auto max-w-screen-md text-muted-foreground lg:text-xl">
+                  {description}
+                </p>
+              )}
+
+              {/* 按钮组 */}
               {links && links.length > 0 && (
-                <motion.div
-                  className="mt-12 flex w-full flex-col justify-center gap-2 sm:flex-row"
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.4 }}
-                >
+                <div className="mt-12 flex w-full flex-col justify-center gap-2 sm:flex-row">
                   {links.map(({ link }, i) => (
                     <CMSLink
                       key={i}
                       {...link}
-                      appearance={i === 0 ? 'default' : 'ghost'}
+                      className="w-full sm:w-auto"
                       suffixElement={<ChevronRight className="ml-2 h-4" />}
                     />
                   ))}
-                </motion.div>
+                </div>
               )}
-            </motion.div>
+            </ClientMotionDiv>
           </div>
 
-          {media && (
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-24"
-            >
-              <Media
-                resource={media}
-                className="mx-auto max-h-[700px] w-full max-w-7xl rounded-t-lg object-cover shadow-lg"
-              />
-            </motion.div>
-          )}
+          {/* 底部图片 */}
+          <ClientMotionDiv
+            className="mt-24"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Media
+              resource={media}
+              className="mx-auto max-h-[700px] w-full max-w-7xl rounded-t-lg shadow-lg"
+              imgClassName="object-cover w-full h-full"
+              priority
+            />
+          </ClientMotionDiv>
         </div>
       </div>
     </section>

@@ -1,38 +1,42 @@
 import type { Field } from 'payload'
 
-import Hero1 from '@/heros/custom/Hero1'
-import { hero1Config } from '@/heros/custom/Hero1/config'
-import Hero7 from '@/heros/custom/Hero7'
-import { hero7Config } from '@/heros/custom/Hero7/config'
-import Hero12 from '@/heros/custom/Hero12'
-import { hero12Config } from '@/heros/custom/Hero12/config'
+import * as h from '@/heros/custom'
 
 // Hero 配置和组件映射
 export const heroConfigs = {
   hero1: {
-    config: hero1Config,
-    Component: Hero1,
+    config: h.hero1Config,
+    Component: h.Hero1,
+  },
+  hero8: {
+    config: h.hero8Config,
+    Component: h.Hero8,
   },
   hero7: {
-    config: hero7Config,
-    Component: Hero7,
+    config: h.hero7Config,
+    Component: h.Hero7,
   },
   hero12: {
-    config: hero12Config,
-    Component: Hero12,
+    config: h.hero12Config,
+    Component: h.Hero12,
+  },
+  Hero34: {
+    config: h.hero34Config,
+    Component: h.Hero34,
   },
 } as const
 
 // 导出配置列表
-const heros = Object.values(heroConfigs).map(({ config }) => config)
+export const heroes = Object.values(heroConfigs).map(({ config }) => config)
 
 // Hero 选项
 const options = [
   { label: 'None', value: 'none' },
-  { label: 'High Impact', value: 'highImpact' },
   { label: 'Hero 1', value: 'hero1' },
   { label: 'Hero 7', value: 'hero7' },
+  { label: 'Hero 8', value: 'hero8' },
   { label: 'Hero 12', value: 'hero12' },
+  { label: 'Hero 34', value: 'hero34' },
 ]
 
 // Payload 字段配置
@@ -49,6 +53,6 @@ export const hero: Field = {
       options,
       required: true,
     },
-    ...heros,
+    ...heroes,
   ],
 }

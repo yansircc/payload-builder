@@ -67,9 +67,7 @@ export default function Hero1({ badge, title, subtitle, links, media }: Hero1Dat
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <div className="relative h-full w-full">
-              {media && typeof media === 'object' && (
-                <Media fill imgClassName="-z-10 object-cover" priority resource={media} />
-              )}
+              <Media fill imgClassName="-z-10 object-cover" priority resource={media} />
             </div>
           </ClientMotionDiv>
         </div>

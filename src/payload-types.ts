@@ -93,7 +93,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'hero1' | 'hero7' | 'hero12';
+    type: 'none' | 'hero1' | 'hero7' | 'hero8' | 'hero12' | 'hero34';
     /**
      * 首屏大图布局，适合展示产品主要信息
      */
@@ -114,6 +114,50 @@ export interface Page {
        * 通常用于显示在标题上方的徽章文本，1~3个单词
        */
       badge?: string | null;
+      links?:
+        | {
+            link: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: number | Post;
+                  } | null);
+              url?: string | null;
+              label: string;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost') | null;
+            };
+            id?: string | null;
+          }[]
+        | null;
+    };
+    /**
+     * 居中布局的大标题Hero，带有底部大图展示
+     */
+    hero8?: {
+      /**
+       * 主标题文本，建议不超过30个字
+       */
+      title: string;
+      /**
+       * 描述文本，支持多行
+       */
+      description?: string | null;
+      /**
+       * 底部大图展示，建议尺寸 1400x700，格式为 WebP
+       */
+      media: number | Media;
+      /**
+       * 按钮组，建议添加1-2个按钮
+       */
       links?:
         | {
             link: {
@@ -233,6 +277,54 @@ export interface Page {
              * 合作伙伴 Logo，建议尺寸 100x100
              */
             logo: number | Media;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    /**
+     * 左文右图布局的Hero，带有圆角背景和渐变效果
+     */
+    hero34?: {
+      /**
+       * 显示在标题上方的小标签文本，建议1-3个单词
+       */
+      badge?: string | null;
+      /**
+       * 主标题文本，建议不超过30个字
+       */
+      title: string;
+      /**
+       * 描述文本，支持多行
+       */
+      description?: string | null;
+      /**
+       * 右侧展示图片，建议尺寸 800x800，格式为 WebP
+       */
+      media: number | Media;
+      /**
+       * 按钮组，建议添加1-2个按钮
+       */
+      links?:
+        | {
+            link: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: number | Post;
+                  } | null);
+              url?: string | null;
+              label: string;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost') | null;
+            };
             id?: string | null;
           }[]
         | null;
@@ -1060,6 +1152,28 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
             };
+        hero8?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              media?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          appearance?: T;
+                        };
+                    id?: T;
+                  };
+            };
         hero7?:
           | T
           | {
@@ -1109,6 +1223,29 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     logo?: T;
+                    id?: T;
+                  };
+            };
+        hero34?:
+          | T
+          | {
+              badge?: T;
+              title?: T;
+              description?: T;
+              media?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          appearance?: T;
+                        };
                     id?: T;
                   };
             };

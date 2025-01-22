@@ -150,7 +150,7 @@ type HeroNData = NonNullable<NonNullable<Page['hero']>['heroN']>
 
 ### 3.3 动画效果
 
-使用 `ClientMotionDiv` 实现动画效果：
+使用 `ClientMotionDiv` 实现动画效果，例如：
 
 ```typescript
 <ClientMotionDiv
@@ -209,6 +209,9 @@ type HeroNData = NonNullable<NonNullable<Page['hero']>['heroN']>
   suffixElement={i === 1 ? <ExternalLink className="ml-2 h-4" /> : undefined}
 />
 ```
+
+- 使用 `suffixElement` 添加图标
+- 使用 `prefixElement` 添加图标
 
 ### 4.3 链接组处理
 
@@ -357,7 +360,7 @@ export default function HeroN({ badge, title, description, logo, links, partners
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {/* Logo */}
+            {/* Logo，注意，如果logo的required为true，则不需要做额外判断 */}
             {logo && typeof logo === 'object' && (
               <div className="inline-flex h-16">
                 <Media

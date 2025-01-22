@@ -4,25 +4,7 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
   slug: 'home',
   _status: 'published',
   hero: {
-    type: 'highImpact',
-    links: [
-      {
-        link: {
-          type: 'custom',
-          appearance: 'default',
-          label: 'All posts',
-          url: '/posts',
-        },
-      },
-      {
-        link: {
-          type: 'custom',
-          appearance: 'outline',
-          label: 'Contact',
-          url: '/contact',
-        },
-      },
-    ],
+    type: 'hero1',
     // @ts-ignore
     media: '{{IMAGE_1}}',
     richText: {
