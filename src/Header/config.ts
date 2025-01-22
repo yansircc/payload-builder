@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-import { link } from '@/fields/link'
+import { link } from '@/fields'
 import { revalidateHeader } from './hooks/revalidateHeader'
 
 export const Header: GlobalConfig = {
@@ -14,7 +14,7 @@ export const Header: GlobalConfig = {
       type: 'array',
       fields: [
         link({
-          appearances: false,
+          appearances: [],
         }),
       ],
       maxRows: 6,

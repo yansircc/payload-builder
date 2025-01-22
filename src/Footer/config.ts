@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-import { link } from '@/fields/link'
+import { link } from '@/fields'
 import { revalidateFooter } from './hooks/revalidateFooter'
 
 export const Footer: GlobalConfig = {
@@ -14,7 +14,7 @@ export const Footer: GlobalConfig = {
       type: 'array',
       fields: [
         link({
-          appearances: false,
+          appearances: [],
         }),
       ],
       maxRows: 6,

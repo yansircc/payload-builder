@@ -68,27 +68,71 @@ export default function Hero7({ richText, links, avatars, reviewStats }: Page['h
             {avatars && avatars.length > 0 && (
               <span className="mx-4 inline-flex items-center -space-x-4">
                 {avatars.map((item, i) => (
-                  <Avatar key={i} className="size-14 border">
-                    {item.avatar && typeof item.avatar === 'object' && (
-                      <Media resource={item.avatar} imgClassName="object-cover" fill />
-                    )}
-                  </Avatar>
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.5, x: -20 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.5 + i * 0.15,
+                      ease: 'easeOut',
+                    }}
+                  >
+                    <Avatar className="size-14 border">
+                      {item.avatar && typeof item.avatar === 'object' && (
+                        <Media resource={item.avatar} imgClassName="object-cover" fill />
+                      )}
+                    </Avatar>
+                  </motion.div>
                 ))}
               </span>
             )}
 
             {reviewStats && (
-              <div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  duration: 0.4,
+                  delay: avatars ? 0.5 + avatars.length * 0.15 : 0.5,
+                }}
+              >
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="size-5 fill-yellow-400 text-yellow-400" />
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: (avatars ? 0.5 + avatars.length * 0.15 : 0.5) + i * 0.1,
+                      }}
+                    >
+                      <Star className="size-5 fill-yellow-400 text-yellow-400" />
+                    </motion.div>
                   ))}
-                  <span className="font-semibold">{reviewStats.rating?.toFixed(1) || 5}</span>
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{
+                      delay: (avatars ? 0.5 + avatars.length * 0.15 : 0.5) + 0.5,
+                    }}
+                    className="font-semibold"
+                  >
+                    {reviewStats.rating?.toFixed(1) || 5}
+                  </motion.span>
                 </div>
-                <p className="text-left font-medium text-muted-foreground">
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{
+                    delay: (avatars ? 0.5 + avatars.length * 0.15 : 0.5) + 0.6,
+                  }}
+                  className="text-left font-medium text-muted-foreground"
+                >
                   from {reviewStats.reviewCount}+ reviews
-                </p>
-              </div>
+                </motion.p>
+              </motion.div>
             )}
           </motion.div>
         ) : null}

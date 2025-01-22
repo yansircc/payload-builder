@@ -94,6 +94,9 @@ export interface Page {
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'hero1' | 'hero7' | 'hero8' | 'hero12' | 'hero24' | 'hero34';
+    /**
+     * 链接组，用于展示一组按钮
+     */
     links?:
       | {
           link: {
@@ -113,7 +116,7 @@ export interface Page {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline') | null;
+            appearance?: ('default' | 'outline' | 'ghost') | null;
           };
           id?: string | null;
         }[]
@@ -146,6 +149,19 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    /**
+     * 评论统计, 用于展示在卡片上
+     */
+    reviewStats?: {
+      /**
+       * 评分 (0-5)
+       */
+      rating?: number | null;
+      /**
+       * 评论数量
+       */
+      reviewCount?: number | null;
+    };
     /**
      * 通常用于显示在标题上方的徽章文本，1~3个单词
      */
@@ -190,19 +206,6 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    /**
-     * 评论统计, 用于展示在卡片上
-     */
-    reviewStats?: {
-      /**
-       * 评分 (0-5)
-       */
-      rating?: number | null;
-      /**
-       * 评论数量
-       */
-      reviewCount?: number | null;
-    };
   };
   layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
@@ -418,6 +421,9 @@ export interface CallToActionBlock {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * 链接组，用于展示一组按钮
+   */
   links?:
     | {
         link: {
@@ -437,7 +443,7 @@ export interface CallToActionBlock {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'outline') | null;
+          appearance?: ('default' | 'outline' | 'ghost') | null;
         };
         id?: string | null;
       }[]
@@ -487,7 +493,7 @@ export interface ContentBlock {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'outline') | null;
+          appearance?: ('default' | 'outline' | 'ghost') | null;
         };
         id?: string | null;
       }[]
@@ -1026,6 +1032,12 @@ export interface PagesSelect<T extends boolean = true> {
               avatar?: T;
               id?: T;
             };
+        reviewStats?:
+          | T
+          | {
+              rating?: T;
+              reviewCount?: T;
+            };
         badge?: T;
         features?:
           | T
@@ -1042,12 +1054,6 @@ export interface PagesSelect<T extends boolean = true> {
               link?: T;
               height?: T;
               id?: T;
-            };
-        reviewStats?:
-          | T
-          | {
-              rating?: T;
-              reviewCount?: T;
             };
       };
   layout?:

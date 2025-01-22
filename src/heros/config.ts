@@ -1,7 +1,6 @@
 import type { Field } from 'payload'
 
 import * as fields from '@/fields'
-import { linkGroup } from '@/fields/linkGroup'
 
 export const hero: Field = {
   name: 'hero',
@@ -24,18 +23,17 @@ export const hero: Field = {
       ],
       required: true,
     },
-    linkGroup({
-      overrides: {
-        maxRows: 2,
-      },
+    fields.linkGroup({
+      maxRows: 2,
+      appearances: ['default', 'outline', 'ghost'],
     }),
     fields.richText(),
     fields.media(),
     fields.avatars(['hero7']),
+    fields.reviewStats(['hero7']),
     fields.badge(),
-    fields.features(),
+    fields.features(['hero24']),
     fields.partners(),
-    fields.reviewStats(),
   ],
   label: false,
 }
