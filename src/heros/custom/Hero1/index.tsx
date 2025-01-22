@@ -1,31 +1,23 @@
-'use client'
-
-import { useHeaderTheme } from '@/providers/HeaderTheme'
-import React, { useEffect } from 'react'
-import { motion } from 'framer-motion'
-
-import type { Page } from '@/payload-types'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import { ArrowDownRight } from 'lucide-react'
 
+import { ClientMotionDiv } from '@/heros/share/motion'
+import { ThemeEffect } from '@/heros/share/ThemeEffect'
+
+import type { Page } from '@/payload-types'
+
 type Hero1Data = NonNullable<NonNullable<Page['hero']>['hero1']>
 
 export default function Hero1({ badge, title, subtitle, links, media }: Hero1Data) {
-  const { setHeaderTheme } = useHeaderTheme()
-
-  useEffect(() => {
-    setHeaderTheme('dark')
-  })
-
   return (
     <section className="relative overflow-hidden bg-background py-24 md:py-32">
+      <ThemeEffect theme="dark" />
       <div className="container relative z-10">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-24">
           <div className="flex flex-col items-start gap-6">
-            <motion.div
+            <ClientMotionDiv
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -34,9 +26,9 @@ export default function Hero1({ badge, title, subtitle, links, media }: Hero1Dat
                 {badge}
                 <ArrowDownRight className="ml-2 size-4" />
               </Badge>
-            </motion.div>
+            </ClientMotionDiv>
 
-            <motion.div
+            <ClientMotionDiv
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -48,10 +40,10 @@ export default function Hero1({ badge, title, subtitle, links, media }: Hero1Dat
                   {subtitle}
                 </p>
               )}
-            </motion.div>
+            </ClientMotionDiv>
 
             {links && links.length > 0 && (
-              <motion.div
+              <ClientMotionDiv
                 className="flex flex-wrap gap-4"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -64,11 +56,11 @@ export default function Hero1({ badge, title, subtitle, links, media }: Hero1Dat
                     suffixElement={i === 1 ? <ArrowDownRight className="ml-2 h-4" /> : undefined}
                   />
                 ))}
-              </motion.div>
+              </ClientMotionDiv>
             )}
           </div>
 
-          <motion.div
+          <ClientMotionDiv
             className="relative aspect-square lg:aspect-auto"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -79,7 +71,7 @@ export default function Hero1({ badge, title, subtitle, links, media }: Hero1Dat
                 <Media fill imgClassName="-z-10 object-cover" priority resource={media} />
               )}
             </div>
-          </motion.div>
+          </ClientMotionDiv>
         </div>
       </div>
 

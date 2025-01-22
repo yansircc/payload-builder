@@ -4,7 +4,6 @@ import { heroConfigs } from './config'
 
 type HeroProps = Page['hero']
 type HeroType = keyof typeof heroConfigs
-type HeroData<T extends HeroType> = NonNullable<HeroProps[T & keyof HeroProps]>
 
 export const RenderHero: React.FC<HeroProps> = (props) => {
   const { type } = props
@@ -13,8 +12,8 @@ export const RenderHero: React.FC<HeroProps> = (props) => {
   if (!(type in heroConfigs)) return null
 
   const config = heroConfigs[type as HeroType]
-  const heroProps = props[type as keyof HeroProps] as HeroData<HeroType>
+  const heroProps = props[type as keyof HeroProps]
   if (!heroProps) return null
 
-  return <config.Component {...heroProps} />
+  return <config.Component {...(heroProps as any)} />
 }

@@ -93,7 +93,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'hero1';
+    type: 'none' | 'highImpact' | 'hero1' | 'hero7' | 'hero12';
     /**
      * 首屏大图布局，适合展示产品主要信息
      */
@@ -135,6 +135,104 @@ export interface Page {
                */
               appearance?: ('default' | 'outline' | 'ghost') | null;
             };
+            id?: string | null;
+          }[]
+        | null;
+    };
+    /**
+     * 带有头像墙和评分的 Hero 布局
+     */
+    hero7?: {
+      /**
+       * 主标题文本
+       */
+      title: string;
+      /**
+       * 描述文本，支持多行
+       */
+      description?: string | null;
+      cta: {
+        /**
+         * 按钮文本
+         */
+        label: string;
+      };
+      /**
+       * 用户头像展示墙
+       */
+      avatars?:
+        | {
+            /**
+             * 用户头像，建议尺寸 100x100
+             */
+            avatar: number | Media;
+            id?: string | null;
+          }[]
+        | null;
+      review?: {
+        /**
+         * 评分，0-5分
+         */
+        rating?: number | null;
+        /**
+         * 评价总数
+         */
+        count?: number | null;
+      };
+    };
+    /**
+     * 带有 Logo、徽章和合作伙伴的 Hero 布局
+     */
+    hero12?: {
+      /**
+       * Logo 图片
+       */
+      logo?: (number | null) | Media;
+      /**
+       * 显示在 Logo 下方的徽章文本
+       */
+      badge?: string | null;
+      /**
+       * 主标题文本
+       */
+      title: string;
+      /**
+       * 描述文本，支持多行
+       */
+      description?: string | null;
+      links?:
+        | {
+            link: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: number | Post;
+                  } | null);
+              url?: string | null;
+              label: string;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost') | null;
+            };
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * 合作伙伴 Logo 列表
+       */
+      partners?:
+        | {
+            /**
+             * 合作伙伴 Logo，建议尺寸 100x100
+             */
+            logo: number | Media;
             id?: string | null;
           }[]
         | null;
@@ -959,6 +1057,58 @@ export interface PagesSelect<T extends boolean = true> {
                           label?: T;
                           appearance?: T;
                         };
+                    id?: T;
+                  };
+            };
+        hero7?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              cta?:
+                | T
+                | {
+                    label?: T;
+                  };
+              avatars?:
+                | T
+                | {
+                    avatar?: T;
+                    id?: T;
+                  };
+              review?:
+                | T
+                | {
+                    rating?: T;
+                    count?: T;
+                  };
+            };
+        hero12?:
+          | T
+          | {
+              logo?: T;
+              badge?: T;
+              title?: T;
+              description?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          appearance?: T;
+                        };
+                    id?: T;
+                  };
+              partners?:
+                | T
+                | {
+                    logo?: T;
                     id?: T;
                   };
             };
