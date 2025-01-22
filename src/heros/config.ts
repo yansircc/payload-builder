@@ -24,6 +24,10 @@ export const heroConfigs = {
     config: h.hero34Config,
     Component: h.Hero34,
   },
+  hero24: {
+    config: h.hero24Config,
+    Component: h.Hero24,
+  },
 } as const
 
 // 导出配置列表
@@ -37,6 +41,7 @@ const options = [
   { label: 'Hero 8', value: 'hero8' },
   { label: 'Hero 12', value: 'hero12' },
   { label: 'Hero 34', value: 'hero34' },
+  { label: 'Hero 24', value: 'hero24' },
 ]
 
 // Payload 字段配置
