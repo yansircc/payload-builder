@@ -30,6 +30,7 @@ const heros = {
   hero12: h.Hero12,
   hero34: h.Hero34,
   hero24: h.Hero24,
+  hero25: h.Hero25,
 } as const
 
 export const RenderHero: React.FC<Page['hero']> = (props) => {

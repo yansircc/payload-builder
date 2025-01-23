@@ -93,7 +93,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'hero1' | 'hero7' | 'hero8' | 'hero12' | 'hero34' | 'hero24';
+    type: 'none' | 'hero1' | 'hero7' | 'hero8' | 'hero12' | 'hero34' | 'hero24' | 'hero25';
     /**
      * 首屏大图布局，适合展示产品主要信息
      */
@@ -389,6 +389,60 @@ export interface Page {
              * 特性描述，建议一句话
              */
             description: string;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    /**
+     * 居中布局的系统介绍页面，适合展示产品或系统的主要特点
+     */
+    hero25?: {
+      /**
+       * 顶部展示的Logo图片，建议尺寸 112x112
+       */
+      logo: number | Media;
+      /**
+       * 显示在标题上方的标签文本
+       */
+      badge: string;
+      /**
+       * 主标题文本
+       */
+      title: string;
+      links?:
+        | {
+            link: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: number | Post;
+                  } | null);
+              url?: string | null;
+              label: string;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost') | null;
+            };
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * 底部展示的特性列表
+       */
+      features?:
+        | {
+            text: string;
+            /**
+             * 输入Lucide图标名称，例如: "zap", "blocks", "wrench", "code" 等。访问 https://lucide.dev/icons/ 查看所有图标
+             */
+            icon: string;
             id?: string | null;
           }[]
         | null;
@@ -1340,6 +1394,35 @@ export interface PagesSelect<T extends boolean = true> {
                     icon?: T;
                     title?: T;
                     description?: T;
+                    id?: T;
+                  };
+            };
+        hero25?:
+          | T
+          | {
+              logo?: T;
+              badge?: T;
+              title?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          appearance?: T;
+                        };
+                    id?: T;
+                  };
+              features?:
+                | T
+                | {
+                    text?: T;
+                    icon?: T;
                     id?: T;
                   };
             };
