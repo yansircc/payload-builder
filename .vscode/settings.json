@@ -1,13 +1,31 @@
 {
-  "npm.packageManager": "pnpm",
+  "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSaveMode": "file",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript-return-type-inference-plugin": {
+    "mode": "file",
+    "supportedFunctionTypes": [
+      "isFunctionDeclaration",
+      "isFunctionExpression",
+      "ArrowFunction",
+      "isMethodDeclaration"
+    ]
+  },
+  "keyboard.shortcuts": {
+    "typescript-return-type-inference-plugin.inferFuncReturnTypes": "ctrl+alt+i"
+  },
+
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "explicit"
+      "source.organizeImports": "always",
+      "source.fixAll.eslint": "always"
     }
   },
+
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
@@ -15,6 +33,7 @@
       "source.fixAll.eslint": "explicit"
     }
   },
+
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
@@ -22,19 +41,14 @@
       "source.fixAll.eslint": "explicit"
     }
   },
+
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
+
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
-  },
-  "editor.formatOnSaveMode": "file",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "[javascript][typescript][typescriptreact]": {
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "explicit"
-    }
   }
 }
