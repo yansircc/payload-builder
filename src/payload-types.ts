@@ -650,8 +650,29 @@ export interface CallToActionBlock {
   /**
    * 选择 CTA 组件类型
    */
-  type: 'none' | 'cta1';
+  type: 'none' | 'cta1' | 'cta11';
   cta1?: {
+    /**
+     * 主标题文本
+     */
+    title: string;
+    /**
+     * 描述文本
+     */
+    description?: string | null;
+    /**
+     * 最多支持两个按钮
+     */
+    buttons?:
+      | {
+          label: string;
+          link: string;
+          variant?: ('default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary') | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  cta11?: {
     /**
      * 主标题文本
      */
@@ -1443,6 +1464,20 @@ export interface PagesSelect<T extends boolean = true> {
 export interface CallToActionBlockSelect<T extends boolean = true> {
   type?: T;
   cta1?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        buttons?:
+          | T
+          | {
+              label?: T;
+              link?: T;
+              variant?: T;
+              id?: T;
+            };
+      };
+  cta11?:
     | T
     | {
         title?: T;

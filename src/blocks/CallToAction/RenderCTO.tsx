@@ -1,6 +1,9 @@
+'use client'
+
 import React from 'react'
 import type { CallToActionBlock } from '@/payload-types'
 import * as c from './custom'
+import { ctaConfigs } from './config'
 
 const ctos = {
   cta1: c.CTA1,
@@ -8,18 +11,21 @@ const ctos = {
 
 type CTOType = keyof typeof ctos
 
-export const RenderCTO: React.FC<CallToActionBlock> = (props) => {
-  const { type } = props || {}
+interface RenderCTOProps {
+  type: keyof typeof ctaConfigs
+  blockType: string
+  [key: string]: any
+}
 
-  if (!type || type === 'none') return null
+export const RenderCTO: React.FC<RenderCTOProps> = ({ type = 'cta1', ...props }) => {
+  // 获取对应的 CTA 组件
+  const Component = ctaConfigs[type]?.Component
 
-  const CTOToRender = ctos[type as CTOType]
+  if (!Component) {
+    console.warn(`No component found for CTA type: ${type}`)
+    return null
+  }
 
-  if (!CTOToRender) return null
-
-  // 获取对应类型的 props
-  const ctoProps = props[type]
-  if (!ctoProps) return null
-
-  return <CTOToRender {...ctoProps} />
+  // 渲染对应的 CTA 组件
+  return <Component {...props[type]} />
 }
