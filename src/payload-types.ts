@@ -651,32 +651,27 @@ export interface CallToActionBlock {
    * 选择 CTA 组件类型
    */
   type: 'none' | 'cta1';
-  blocks?:
-    | {
-        /**
-         * 主标题文本
-         */
-        title: string;
-        /**
-         * 描述文本
-         */
-        description?: string | null;
-        /**
-         * 最多支持两个按钮
-         */
-        buttons?:
-          | {
-              label: string;
-              link: string;
-              variant?: ('default' | 'outline' | 'ghost') | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'cta1';
-      }[]
-    | null;
+  cta1?: {
+    /**
+     * 主标题文本
+     */
+    title: string;
+    /**
+     * 描述文本
+     */
+    description?: string | null;
+    /**
+     * 最多支持两个按钮
+     */
+    buttons?:
+      | {
+          label: string;
+          link: string;
+          variant?: ('default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary') | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
@@ -1447,24 +1442,18 @@ export interface PagesSelect<T extends boolean = true> {
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
   type?: T;
-  blocks?:
+  cta1?:
     | T
     | {
-        cta1?:
+        title?: T;
+        description?: T;
+        buttons?:
           | T
           | {
-              title?: T;
-              description?: T;
-              buttons?:
-                | T
-                | {
-                    label?: T;
-                    link?: T;
-                    variant?: T;
-                    id?: T;
-                  };
+              label?: T;
+              link?: T;
+              variant?: T;
               id?: T;
-              blockName?: T;
             };
       };
   id?: T;

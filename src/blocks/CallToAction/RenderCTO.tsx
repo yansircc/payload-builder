@@ -1,4 +1,5 @@
 import React from 'react'
+import type { CallToActionBlock } from '@/payload-types'
 import * as c from './custom'
 
 const ctos = {
@@ -7,20 +8,7 @@ const ctos = {
 
 type CTOType = keyof typeof ctos
 
-interface CTOProps {
-  type: CTOType | 'none'
-  cta1?: {
-    title: string
-    description?: string
-    buttons?: Array<{
-      label: string
-      link: string
-      variant: 'default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary'
-    }>
-  }
-}
-
-export const RenderCTO: React.FC<CTOProps> = (props) => {
+export const RenderCTO: React.FC<CallToActionBlock> = (props) => {
   const { type } = props || {}
 
   if (!type || type === 'none') return null

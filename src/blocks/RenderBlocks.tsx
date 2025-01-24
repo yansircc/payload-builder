@@ -30,31 +30,37 @@ function renderBlock(block: BaseBlock & Record<string, any>, index: number) {
     return null
   }
 
-  const commonProps = { key: id || index, className: "my-16" }
+  const blockKey = id || index
+  const className = "my-16"
 
   switch (blockType) {
     case 'cta':
       return (
-        <div {...commonProps}>
-          <RenderCTO type={block.type || 'none'} {...restProps} />
+        <div key={blockKey} className={className}>
+          <RenderCTO 
+            blockType="cta"
+            type={restProps.type || 'cta1'} 
+            cta1={restProps.cta1}
+            {...restProps} 
+          />
         </div>
       )
     case 'archive':
       return (
-        <div {...commonProps}>
+        <div key={blockKey} className={className}>
           <ArchiveBlock blockType="archive" {...restProps} />
         </div>
       )
     case 'content':
       return (
-        <div {...commonProps}>
+        <div key={blockKey} className={className}>
           <ContentBlock blockType="content" {...restProps} />
         </div>
       )
     case 'formBlock':
       if (!restProps.form) return null
       return (
-        <div {...commonProps}>
+        <div key={blockKey} className={className}>
           <FormBlock
             blockType="formBlock"
             enableIntro={!!restProps.enableIntro}
@@ -66,7 +72,7 @@ function renderBlock(block: BaseBlock & Record<string, any>, index: number) {
     case 'mediaBlock':
       if (!restProps.media) return null
       return (
-        <div {...commonProps}>
+        <div key={blockKey} className={className}>
           <MediaBlock
             blockType="mediaBlock"
             media={restProps.media}

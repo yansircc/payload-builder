@@ -1,20 +1,19 @@
 import { Button } from '@/components/ui/button'
 import { ClientMotionDiv } from '../../share/motion'
 
-interface ButtonType {
-  label: string
-  link: string
-  variant: 'default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary'
-}
-
-interface CTA1Props {
+export interface CTA1Props {
   title: string
-  description?: string
-  buttons?: ButtonType[]
+  description?: string | null
+  buttons?: {
+    label: string
+    link: string
+    variant?: ('default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary') | null
+    id?: string | null
+  }[] | null
 }
 
 // CTA1 组件 - 基础的 CTA 布局，包含标题、描述和按钮组
-export default function CTA1({ title, description, buttons }: CTA1Props) {
+export const CTA1: React.FC<CTA1Props> = ({ title, description, buttons }) => {
   return (
     <section className="py-32">
       <div className="container">
@@ -35,8 +34,8 @@ export default function CTA1({ title, description, buttons }: CTA1Props) {
           {/* 按钮组 */}
           {buttons && buttons.length > 0 && (
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              {buttons.map(({ label, link, variant }, i: number) => (
-                <Button key={i} variant={variant} asChild>
+              {buttons.map(({ label, link, variant }, i) => (
+                <Button key={i} variant={variant || 'default'} asChild>
                   <a href={link}>{label}</a>
                 </Button>
               ))}
