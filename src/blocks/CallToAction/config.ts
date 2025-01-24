@@ -1,39 +1,45 @@
 import type { Block } from 'payload'
 
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
+import * as c from './custom'
 
-import { linkGroup } from '@/fields/linkGroup'
+// CTA 配置和组件映射
+export const ctaConfigs = {
+  cta1: {
+    config: c.cta1Config,
+    Component: c.CTA1,
+  },
+} as const
 
+// 导出配置列表
+export const ctas = Object.values(ctaConfigs).map(({ config }) => config)
+
+// CTA 选项
+const options = [
+  { label: 'None', value: 'none' },
+  { label: 'CTA 1', value: 'cta1' },
+]
+
+// Payload Block 配置
 export const CallToAction: Block = {
   slug: 'cta',
   interfaceName: 'CallToActionBlock',
   fields: [
     {
-      name: 'richText',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
-        },
-      }),
-      label: false,
-    },
-    linkGroup({
-      appearances: ['default', 'outline', 'ghost'],
-      overrides: {
-        maxRows: 2,
+      name: 'type',
+      type: 'select',
+      defaultValue: 'none',
+      label: 'Type', 
+      options,
+      required: true,
+      admin: {
+        description: '选择 CTA 组件类型',
       },
-    }),
+    },
+    {
+      type: 'blocks',
+      name: 'blocks',
+      blocks: ctas,
+    },
   ],
   labels: {
     plural: 'Calls to Action',

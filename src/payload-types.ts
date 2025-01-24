@@ -647,43 +647,34 @@ export interface User {
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  links?:
+  /**
+   * 选择 CTA 组件类型
+   */
+  type: 'none' | 'cta1';
+  blocks?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline' | 'ghost') | null;
-        };
+        /**
+         * 主标题文本
+         */
+        title: string;
+        /**
+         * 描述文本
+         */
+        description?: string | null;
+        /**
+         * 最多支持两个按钮
+         */
+        buttons?:
+          | {
+              label: string;
+              link: string;
+              variant?: ('default' | 'outline' | 'ghost') | null;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
+        blockName?: string | null;
+        blockType: 'cta1';
       }[]
     | null;
   id?: string | null;
@@ -1455,21 +1446,26 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "CallToActionBlock_select".
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
-  richText?: T;
-  links?:
+  type?: T;
+  blocks?:
     | T
     | {
-        link?:
+        cta1?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
+              title?: T;
+              description?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    link?: T;
+                    variant?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
             };
-        id?: T;
       };
   id?: T;
   blockName?: T;
