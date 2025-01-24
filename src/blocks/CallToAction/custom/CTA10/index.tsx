@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { ClientMotionDiv } from '../../share/motion'
 
-export interface CTA1Props {
+export interface CTA10Props {
   title: string
   description?: string | null
   buttons?: {
@@ -12,8 +12,8 @@ export interface CTA1Props {
   }[] | null
 }
 
-// CTA1 组件 - 基础的 CTA 布局，包含标题、描述和按钮组
-export const CTA1: React.FC<CTA1Props> = ({ title, description, buttons }) => {
+// CTA10 组件 - 基础的 CTA 布局，包含标题、描述和按钮组
+export const CTA10: React.FC<CTA10Props> = ({ title, description, buttons }) => {
   return (
     <section className="py-32">
       <div className="container">

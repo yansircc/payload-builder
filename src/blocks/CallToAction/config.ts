@@ -4,8 +4,8 @@ import * as c from './custom'
 
 // CTA 配置和组件映射
 export const ctaConfigs = {
-  cta1: {
-    Component: c.CTA1,
+  cta10: {
+    Component: c.CTA10,
   },
   cta11: {
     Component: c.CTA11,
@@ -24,7 +24,7 @@ export const CallToAction: Block = {
       required: true,
       options: [
         { label: 'Select CTA Type', value: 'none' },
-        { label: 'CTA 1 - 基础按钮', value: 'cta1' },
+        { label: 'CTA 10 - 基础按钮', value: 'cta10' },
         { label: 'CTA 11 - 居中布局', value: 'cta11' },
       ],
       admin: {
@@ -33,11 +33,11 @@ export const CallToAction: Block = {
     },
     {
       type: 'group',
-      name: 'cta1',
+      name: 'cta10',
       label: false,
       admin: {
         condition: (data, siblingData) => {
-          return siblingData?.type === 'cta1'
+          return siblingData?.type === 'cta10'
         },
       },
       fields: [

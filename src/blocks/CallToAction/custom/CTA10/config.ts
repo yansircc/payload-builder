@@ -1,11 +1,11 @@
 import type { Block } from 'payload'
 
 // CTA1 的配置
-export const cta1Config: Block = {
-  slug: 'cta1',
+export const cta10Config: Block = {
+  slug: 'cta10',
   labels: {
-    singular: 'CTA 1',
-    plural: 'CTA 1s',
+    singular: 'CTA 10',
+    plural: 'CTA 10s',
   },
   fields: [
     {

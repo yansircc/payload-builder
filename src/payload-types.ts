@@ -650,8 +650,8 @@ export interface CallToActionBlock {
   /**
    * 选择 CTA 组件类型
    */
-  type: 'none' | 'cta1' | 'cta11';
-  cta1?: {
+  type: 'none' | 'cta10' | 'cta11';
+  cta10?: {
     /**
      * 主标题文本
      */
@@ -1463,7 +1463,7 @@ export interface PagesSelect<T extends boolean = true> {
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
   type?: T;
-  cta1?:
+  cta10?:
     | T
     | {
         title?: T;
