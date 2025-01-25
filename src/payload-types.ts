@@ -47,10 +47,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'api-key': ApiKey;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'api-key': ApiKeySelect<false> | ApiKeySelect<true>;
   };
   locale: null;
   user: User & {
@@ -93,7 +95,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'hero1' | 'hero7' | 'hero8' | 'hero12' | 'hero34' | 'hero24' | 'hero25';
+    type: 'none' | 'hero1' | 'hero7' | 'hero8' | 'hero12' | 'hero34' | 'hero24' | 'hero25' | 'hero5';
     /**
      * 首屏大图布局，适合展示产品主要信息
      */
@@ -447,8 +449,99 @@ export interface Page {
           }[]
         | null;
     };
+    /**
+     * 左文右图布局的Hero，适合展示产品主要特性
+     */
+    hero5?: {
+      /**
+       * 主标题文本，建议不超过30个字
+       */
+      title: string;
+      /**
+       * 描述文本，建议简短精炼
+       */
+      description?: string | null;
+      /**
+       * 右侧展示图片，建议尺寸 1200x800，格式为 WebP
+       */
+      media: number | Media;
+      /**
+       * 按钮配置，建议只添加一个按钮
+       */
+      links?:
+        | {
+            link: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: number | Post;
+                  } | null);
+              url?: string | null;
+              label: string;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost') | null;
+            };
+            id?: string | null;
+          }[]
+        | null;
+    };
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | {
+        style?: 'gallery-6' | null;
+        'gallery-6'?: {
+          /**
+           * Max 6 cards
+           */
+          cards?:
+            | {
+                title: string;
+                excerpt: string;
+                /**
+                 * A related link address
+                 */
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: number | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: number | Post;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost') | null;
+                };
+                image: number | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'gallery';
+      }
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -1426,6 +1519,28 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
             };
+        hero5?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              media?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          appearance?: T;
+                        };
+                    id?: T;
+                  };
+            };
       };
   layout?:
     | T
@@ -1435,6 +1550,35 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        gallery?:
+          | T
+          | {
+              style?: T;
+              'gallery-6'?:
+                | T
+                | {
+                    cards?:
+                      | T
+                      | {
+                          title?: T;
+                          excerpt?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                                appearance?: T;
+                              };
+                          image?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T
@@ -2007,6 +2151,28 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "api-key".
+ */
+export interface ApiKey {
+  id: number;
+  keys?:
+    | {
+        /**
+         * ⚠️ OpenAI API密钥将以加密形式存储
+         */
+        openai?: string | null;
+        /**
+         * ⚠️ DeepSeek API密钥将以加密形式存储
+         */
+        deepseek?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2045,6 +2211,22 @@ export interface FooterSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "api-key_select".
+ */
+export interface ApiKeySelect<T extends boolean = true> {
+  keys?:
+    | T
+    | {
+        openai?: T;
+        deepseek?: T;
         id?: T;
       };
   updatedAt?: T;
