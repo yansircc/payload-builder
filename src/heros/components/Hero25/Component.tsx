@@ -9,8 +9,7 @@ import type { Hero25Fields } from '@/payload-types'
 type IconComponent = React.ComponentType<{ className?: string; size?: number | string }>
 
 export default function Hero25({ hero }: Hero25Fields) {
-  const { logo, badge, features, heroBase } = hero
-  const { title, links } = heroBase
+  const { logo, badge, features, title, links } = hero
 
   return (
     <section className="py-32">
@@ -23,7 +22,9 @@ export default function Hero25({ hero }: Hero25Fields) {
             transition={{ duration: 0.5 }}
             className="mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28"
           >
-            <Media resource={logo} className="w-full" priority />
+            {logo && typeof logo === 'object' && (
+              <Media resource={logo} className="w-full" priority />
+            )}
           </ClientMotionDiv>
 
           {/* Badge */}
@@ -73,7 +74,7 @@ export default function Hero25({ hero }: Hero25Fields) {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               <ul className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground lg:text-base">
-                {features.map(({ text, icon }, i) => {
+                {features.map(({ title, icon }, i) => {
                   const IconComponent =
                     (LucideIcons as unknown as Record<string, IconComponent>)[icon] ??
                     LucideIcons.HelpCircle
@@ -81,7 +82,7 @@ export default function Hero25({ hero }: Hero25Fields) {
                   return (
                     <li key={i} className="flex items-center gap-2 whitespace-nowrap">
                       <IconComponent className="size-4" />
-                      {text}
+                      {title}
                     </li>
                   )
                 })}

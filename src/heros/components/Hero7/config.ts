@@ -1,19 +1,14 @@
 import { GroupField } from 'payload'
-import { z } from 'zod'
-import { baseSchemas, heroBase } from '../shared/base-field'
+import { createHeroField, heroSchemas, ratingFields } from '../shared/base-field'
 
 /**
  * Hero 7 field validation and type definitions
  */
 export const schemas = {
-  ...baseSchemas,
-  rate: z.array(
-    z.object({
-      avatars: z.array(z.string().describe('The link to the avatar')),
-      rate: z.number().describe('The rating of the avatar'),
-      count: z.number().describe('The number of people who rated the avatar'),
-    }),
-  ),
+  title: heroSchemas.title,
+  subtitle: heroSchemas.subtitle,
+  link: heroSchemas.link,
+  rating: heroSchemas.rating,
 }
 
 /**
@@ -28,50 +23,28 @@ export const hero7Fields: GroupField = {
     description: 'Hero with a rating on the center',
   },
   fields: [
-    {
-      name: 'hero',
-      type: 'group',
-      label: false,
-      fields: [
-        heroBase,
+    createHeroField({
+      includeFields: ['title', 'subtitle', 'link'],
+      groups: [
         {
-          name: 'rate',
-          type: 'group',
-          fields: [
+          name: 'rating',
+          fields: ['rate', 'count'],
+          arrays: [
             {
               name: 'avatars',
-              type: 'array',
-              fields: [
-                {
-                  name: 'avatar',
-                  type: 'upload',
-                  relationTo: 'media',
-                  admin: {
-                    description: 'The avatar image',
-                  },
-                },
-              ],
-            },
-            {
-              name: 'rate',
-              type: 'number',
+              fields: [ratingFields.avatar],
+              minRows: 3,
+              maxRows: 5,
               admin: {
-                description: 'The rating of the avatar',
-              },
-            },
-            {
-              name: 'count',
-              type: 'number',
-              admin: {
-                description: 'The number of people who rated the avatar',
+                description: 'User avatars (3-5)',
               },
             },
           ],
+          admin: {
+            description: 'Rating information',
+          },
         },
       ],
-      admin: {
-        description: 'The hero cards',
-      },
-    },
+    }),
   ],
 }

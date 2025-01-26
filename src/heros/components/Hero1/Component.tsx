@@ -8,8 +8,7 @@ import { ThemeEffect } from '../shared/ThemeEffect'
 import type { Hero1Fields } from '@/payload-types'
 
 export default function Hero1({ hero }: Hero1Fields) {
-  const { badge, heroBase } = hero
-  const { title, subtitle, links, image } = heroBase
+  const { title, subtitle, links, image, badge } = hero
   return (
     <section className="relative overflow-hidden bg-background py-24 md:py-32">
       <ThemeEffect />

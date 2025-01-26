@@ -9,8 +9,7 @@ import { ThemeEffect } from '../shared/ThemeEffect'
 import type { Hero12Fields } from '@/payload-types'
 
 export default function Hero12({ hero }: Hero12Fields) {
-  const { logo, badge, partners, heroBase } = hero
-  const { title, subtitle: description, links } = heroBase
+  const { logo, badge, partners, title, subtitle, links } = hero
 
   return (
     <section className="relative overflow-hidden py-32">
@@ -41,7 +40,7 @@ export default function Hero12({ hero }: Hero12Fields) {
             {/* Title & Description */}
             <div>
               <h1 className="mb-6 text-pretty text-2xl font-bold lg:text-5xl">{title}</h1>
-              {description && <p className="text-muted-foreground lg:text-xl">{description}</p>}
+              {subtitle && <p className="text-muted-foreground lg:text-xl">{subtitle}</p>}
             </div>
 
             {/* Buttons */}

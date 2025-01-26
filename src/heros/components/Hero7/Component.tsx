@@ -8,9 +8,8 @@ import { ThemeEffect } from '../shared/ThemeEffect'
 import type { Hero7Fields } from '@/payload-types'
 
 export default function Hero7({ hero }: Hero7Fields) {
-  const { heroBase, rate } = hero
-  const { title, subtitle, links } = heroBase
-  const { avatars = [], rate: rating = 5, count = 0 } = rate || {}
+  const { title, subtitle, link, rating } = hero
+  const { rate = 5, count = 0, avatars = [] } = rating || {}
   const reviewCount = typeof count === 'number' ? count : 0
 
   return (
@@ -27,16 +26,14 @@ export default function Hero7({ hero }: Hero7Fields) {
           {subtitle && <p className="text-balance text-muted-foreground lg:text-lg">{subtitle}</p>}
         </ClientMotionDiv>
 
-        {links && links.length > 0 && (
+        {link && (
           <ClientMotionDiv
             className="mt-10 flex flex-wrap justify-center gap-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {links.map(({ link }, i) => (
-              <CMSLink key={i} {...link} size="lg" />
-            ))}
+            <CMSLink {...link} size="lg" />
           </ClientMotionDiv>
         )}
 
@@ -60,13 +57,13 @@ export default function Hero7({ hero }: Hero7Fields) {
           )}
 
           {/* Rating */}
-          {rating && reviewCount > 0 && (
+          {reviewCount > 0 && (
             <div>
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, index) => (
                   <Star key={index} className="size-5 fill-yellow-400 text-yellow-400" />
                 ))}
-                <span className="font-semibold">{rating.toFixed(1)}</span>
+                <span className="font-semibold">{rate}</span>
               </div>
               <p className="text-left font-medium text-muted-foreground">
                 from {reviewCount}+ reviews

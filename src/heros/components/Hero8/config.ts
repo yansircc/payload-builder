@@ -1,11 +1,15 @@
 import { GroupField } from 'payload'
-import { baseSchemas, heroBase } from '../shared/base-field'
+import { z } from 'zod'
+import { basicFields, createHeroField, heroSchemas } from '../shared/base-field'
 
 /**
  * Hero 8 field validation and type definitions
  */
 export const schemas = {
-  ...baseSchemas,
+  title: heroSchemas.title,
+  subtitle: heroSchemas.subtitle,
+  links: z.array(heroSchemas.link).min(2).max(2),
+  image: heroSchemas.image,
 }
 
 /**
@@ -20,14 +24,19 @@ export const hero8Fields: GroupField = {
     description: 'Hero with centered layout and large bottom image',
   },
   fields: [
-    {
-      name: 'hero',
-      type: 'group',
-      label: false,
-      fields: [heroBase],
-      admin: {
-        description: 'The hero content',
-      },
-    },
+    createHeroField({
+      includeFields: ['title', 'subtitle', 'image'],
+      arrays: [
+        {
+          name: 'links',
+          fields: [basicFields.link],
+          minRows: 2,
+          maxRows: 2,
+          admin: {
+            description: 'Hero buttons (exactly 2)',
+          },
+        },
+      ],
+    }),
   ],
 }

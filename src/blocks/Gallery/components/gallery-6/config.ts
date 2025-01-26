@@ -1,22 +1,14 @@
-import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { cardSchemas, galleryCard } from '../shared/card-field'
+import { cardFields, createGalleryField, gallerySchemas } from '../shared/base-field'
 
 /**
- * Gallery card field validation and type definitions
+ * Gallery 6 field validation and type definitions
  */
 export const schemas = {
-  heading: z.string().describe('A short and powerful title, max 20 characters'),
-  galleryLink: z.string().describe('A related link address'),
-  cards: z
-    .array(
-      z.object({
-        ...cardSchemas,
-      }),
-    )
-    .min(1)
-    .max(6),
+  title: gallerySchemas.title,
+  link: gallerySchemas.link,
+  cards: z.array(gallerySchemas.card).min(3).max(6),
 }
 
 /**
@@ -27,35 +19,23 @@ export const gallery6Fields: GroupField = {
   interfaceName: 'Gallery6Fields',
   label: false,
   type: 'group',
+  admin: {
+    description: 'Gallery with title, description and card grid',
+  },
   fields: [
-    {
-      name: 'gallery',
-      type: 'group',
-      label: false,
-      fields: [
+    createGalleryField({
+      includeFields: ['title', 'link'],
+      arrays: [
         {
-          name: 'heading',
-          type: 'text',
-          label: 'Heading',
-          defaultValue: 'Gallery',
+          name: 'cards',
+          fields: Object.values(cardFields),
+          minRows: 3,
+          maxRows: 6,
           admin: {
-            description: 'A short and powerful title, max 20 characters',
+            description: 'Gallery cards (3-6)',
           },
         },
-        link({
-          overrides: {
-            name: 'galleryLink',
-            label: 'Gallery Link',
-            admin: {
-              description: 'A related link address',
-            },
-          },
-        }),
-        galleryCard,
       ],
-      admin: {
-        description: 'Max 6 cards',
-      },
-    },
+    }),
   ],
 }

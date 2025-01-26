@@ -6,8 +6,7 @@ import { ClientMotionDiv } from '../shared/motion'
 import type { Hero34Fields } from '@/payload-types'
 
 export default function Hero34({ hero }: Hero34Fields) {
-  const { badge, heroBase } = hero
-  const { title, subtitle: description, links, image } = heroBase
+  const { badge, title, subtitle, links, image } = hero
 
   return (
     <section>
@@ -33,8 +32,8 @@ export default function Hero34({ hero }: Hero34Fields) {
                 <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">{title}</h1>
 
                 {/* Description */}
-                {description && (
-                  <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl">{description}</p>
+                {subtitle && (
+                  <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl">{subtitle}</p>
                 )}
 
                 {/* Buttons */}

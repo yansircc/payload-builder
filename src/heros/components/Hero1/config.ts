@@ -1,13 +1,16 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { baseSchemas, heroBase } from '../shared/base-field'
+import { basicFields, createHeroField, heroSchemas } from '../shared/base-field'
 
 /**
  * Hero 1 field validation and type definitions
  */
 export const schemas = {
-  ...baseSchemas,
-  badge: z.string().describe('The badge text on the top left of the hero'),
+  title: heroSchemas.title,
+  subtitle: heroSchemas.subtitle,
+  links: z.array(heroSchemas.link).min(2).max(2),
+  image: heroSchemas.image,
+  badge: heroSchemas.badge,
 }
 
 /**
@@ -22,24 +25,19 @@ export const hero1Fields: GroupField = {
     description: 'Hero with a badge on the top left',
   },
   fields: [
-    {
-      name: 'hero',
-      type: 'group',
-      label: false,
-      fields: [
-        heroBase,
+    createHeroField({
+      includeFields: ['title', 'subtitle', 'image', 'badge'],
+      arrays: [
         {
-          name: 'badge',
-          type: 'text',
-          defaultValue: 'New Release',
+          name: 'links',
+          fields: [basicFields.link],
+          minRows: 2,
+          maxRows: 2,
           admin: {
-            description: 'The badge text on the top left of the hero',
+            description: 'Hero buttons (exactly 2)',
           },
         },
       ],
-      admin: {
-        description: 'The hero cards',
-      },
-    },
+    }),
   ],
 }

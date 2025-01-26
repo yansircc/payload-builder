@@ -1,7 +1,0 @@
-export { default as reviewStats } from './reviewStats'
-export { default as avatars } from './avatars'
-export { default as badge } from './badge'
-export { default as features } from './features'
-export { default as partners } from './partners'
-export { default as richText } from './richText'
-export { default as media } from './media'

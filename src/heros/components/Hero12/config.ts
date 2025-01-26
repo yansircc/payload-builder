@@ -1,21 +1,20 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { baseSchemas, heroBase } from '../shared/base-field'
+import { basicFields, createHeroField, heroSchemas, partnerFields } from '../shared/base-field'
 
 /**
  * Hero 12 field validation and type definitions
  */
 export const schemas = {
-  ...baseSchemas,
-  logo: z.object({}).describe('The logo image displayed at the top'),
-  badge: z.string().describe('The badge text displayed below the logo'),
+  title: heroSchemas.title,
+  subtitle: heroSchemas.subtitle,
+  links: z.array(heroSchemas.link).min(1).max(2),
+  logo: heroSchemas.logo,
+  badge: heroSchemas.badge,
   partners: z
-    .array(
-      z.object({
-        logo: z.object({}).describe('Partner logo image'),
-      }),
-    )
-    .describe('List of partner logos'),
+    .array(z.object({ logo: heroSchemas.logo }))
+    .min(1)
+    .max(6),
 }
 
 /**
@@ -30,52 +29,28 @@ export const hero12Fields: GroupField = {
     description: 'Hero with logo, badge and partner logos',
   },
   fields: [
-    {
-      name: 'hero',
-      type: 'group',
-      label: false,
-      fields: [
-        heroBase,
+    createHeroField({
+      includeFields: ['title', 'subtitle', 'logo', 'badge'],
+      arrays: [
         {
-          name: 'logo',
-          type: 'upload',
-          relationTo: 'media',
-          label: 'Logo',
+          name: 'links',
+          fields: [basicFields.link],
+          minRows: 1,
+          maxRows: 2,
           admin: {
-            description: 'The main logo image',
-          },
-        },
-        {
-          name: 'badge',
-          type: 'text',
-          defaultValue: 'UI Blocks',
-          admin: {
-            description: 'Badge text displayed below the logo',
+            description: 'Hero buttons (1-2)',
           },
         },
         {
           name: 'partners',
-          type: 'array',
-          label: 'Partners',
+          fields: [partnerFields.logo],
+          minRows: 1,
+          maxRows: 6,
           admin: {
-            description: 'Partner logo list',
+            description: 'Partner logos (1-6)',
           },
-          fields: [
-            {
-              name: 'logo',
-              type: 'upload',
-              relationTo: 'media',
-              required: true,
-              admin: {
-                description: 'Partner logo (recommended size: 100x100)',
-              },
-            },
-          ],
         },
       ],
-      admin: {
-        description: 'The hero content',
-      },
-    },
+    }),
   ],
 }

@@ -16,8 +16,7 @@ type Feature = {
 type IconComponent = React.ComponentType<{ className?: string; size?: number | string }>
 
 export default function Hero24({ hero }: Hero24Fields) {
-  const { badge, logo, features, heroBase } = hero
-  const { title, links } = heroBase
+  const { badge, logo, features, title, link } = hero
 
   return (
     <section className="py-32">
@@ -30,12 +29,14 @@ export default function Hero24({ hero }: Hero24Fields) {
             className="flex flex-col items-center"
           >
             {/* Logo */}
-            <Media
-              resource={logo}
-              className="mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28"
-              imgClassName="w-full h-auto"
-              priority
-            />
+            {logo && typeof logo === 'object' && (
+              <Media
+                resource={logo}
+                className="mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28"
+                imgClassName="w-full h-auto"
+                priority
+              />
+            )}
 
             {/* Badge */}
             {badge && (
@@ -48,10 +49,10 @@ export default function Hero24({ hero }: Hero24Fields) {
             <h1 className="mt-4 text-balance text-4xl font-semibold lg:text-6xl">{title}</h1>
 
             {/* Button */}
-            {links?.[0] && (
+            {link && (
               <div className="mt-8">
                 <CMSLink
-                  {...links[0].link}
+                  {...link}
                   size="lg"
                   suffixElement={<MoveRight className="ml-2" strokeWidth={1} />}
                 />

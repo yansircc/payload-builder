@@ -7,8 +7,7 @@ import { ThemeEffect } from '../shared/ThemeEffect'
 import type { Hero8Fields } from '@/payload-types'
 
 export default function Hero8({ hero }: Hero8Fields) {
-  const { heroBase } = hero
-  const { title, subtitle, links, image } = heroBase
+  const { title, subtitle, links, image } = hero
 
   return (
     <section className="relative overflow-hidden bg-background py-24 md:py-32">

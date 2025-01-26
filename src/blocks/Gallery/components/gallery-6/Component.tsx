@@ -7,7 +7,7 @@ import { CarouselWrapper, CarouselControls } from './CarouselWrapper'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Gallery6({ gallery }: Gallery6Fields) {
-  const { heading, galleryLink: link, galleryCard: cards } = gallery
+  const { title, link, cards } = gallery
   if (!cards?.length) return null
 
   const header = (
@@ -18,15 +18,17 @@ export default function Gallery6({ gallery }: Gallery6Fields) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="mb-3 text-3xl font-semibold md:mb-4 md:text-4xl lg:mb-6">{heading}</h2>
-          <CMSLink
-            className="group flex items-center gap-1 text-sm font-medium md:text-base lg:text-lg"
-            label={link.label || 'Book a demo'}
-            url={link.url || '#'}
-            appearance="inline"
-          >
-            <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1" />
-          </CMSLink>
+          <h2 className="mb-3 text-3xl font-semibold md:mb-4 md:text-4xl lg:mb-6">{title}</h2>
+          {link && (
+            <CMSLink
+              className="group flex items-center gap-1 text-sm font-medium md:text-base lg:text-lg"
+              label={link.label || 'Book a demo'}
+              url={link.url || '#'}
+              appearance="inline"
+            >
+              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1" />
+            </CMSLink>
+          )}
         </ClientMotionDiv>
         <ClientMotionDiv
           initial={{ opacity: 0, y: 20 }}
