@@ -1,11 +1,11 @@
 import { Play, Zap } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
+import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero115Fields } from '@/payload-types'
 
 export default function Hero115({ hero }: { hero: Hero115Fields['hero'] }) {
-  const { title, description, buttonText, image, trustText } = hero
+  const { title, description, link, image, trustText } = hero
 
   return (
     <section className="overflow-hidden py-32">
@@ -33,9 +33,9 @@ export default function Hero115({ hero }: { hero: Hero115Fields['hero'] }) {
               {description}
             </p>
             <div className="flex flex-col items-center justify-center gap-3 pb-12 pt-3">
-              <Button size="lg">
-                {buttonText} <Zap className="ml-2 size-4" />
-              </Button>
+              <CMSLink {...link} size="lg">
+                <Zap className="ml-2 size-4" />
+              </CMSLink>
               <div className="text-xs text-muted-foreground">{trustText}</div>
             </div>
           </div>

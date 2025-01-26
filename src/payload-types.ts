@@ -1085,13 +1085,31 @@ export interface Hero115Fields {
      */
     description: string;
     /**
-     * Text for the primary button
-     */
-    buttonText: string;
-    /**
      * Text showing trust metrics (e.g., "Trusted by X businesses")
      */
     trustText: string;
+    /**
+     * Hero button
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost') | null;
+    };
     /**
      * Hero image
      */
@@ -2223,8 +2241,17 @@ export interface Hero115FieldsSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        buttonText?: T;
         trustText?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
         image?: T;
       };
 }
