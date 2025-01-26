@@ -20,6 +20,7 @@ import Hero25Component from './components/Hero25/Component'
 import Hero3Component from './components/Hero3/Component'
 import Hero32Component from './components/Hero32/Component'
 import Hero34Component from './components/Hero34/Component'
+import Hero45Component from './components/Hero45/Component'
 import Hero5Component from './components/Hero5/Component'
 import Hero6Component from './components/Hero6/Component'
 import Hero7Component from './components/Hero7/Component'
@@ -33,6 +34,7 @@ export { hero25Fields } from './components/Hero25/config'
 export { hero3Fields } from './components/Hero3/config'
 export { hero32Fields } from './components/Hero32/config'
 export { hero34Fields } from './components/Hero34/config'
+export { hero45Fields } from './components/Hero45/config'
 export { hero5Fields } from './components/Hero5/config'
 export { hero6Fields } from './components/Hero6/config'
 export { hero7Fields } from './components/Hero7/config'
@@ -50,6 +52,7 @@ export const Hero32 = Hero32Component
 export const Hero34 = Hero34Component
 export const Hero6 = Hero6Component
 export const Hero3 = Hero3Component
+export const Hero45 = Hero45Component
 
 // Define Gallery component props type
 type HeroComponentProps<T extends NonNullable<HeroField['style']>> = NonNullable<HeroField[T]>
@@ -70,6 +73,7 @@ export const heroComponents: Record<
   'hero-34': Hero34,
   'hero-6': Hero6,
   'hero-3': Hero3,
+  'hero-45': Hero45,
 }
 
 // Export type

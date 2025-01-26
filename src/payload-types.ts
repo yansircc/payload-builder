@@ -129,6 +129,7 @@ export interface HeroField {
         | 'hero-34'
         | 'hero-6'
         | 'hero-3'
+        | 'hero-45'
       )
     | null;
   'hero-1'?: Hero1Fields;
@@ -142,6 +143,7 @@ export interface HeroField {
   'hero-34'?: Hero34Fields;
   'hero-6'?: Hero6Fields;
   'hero-3'?: Hero3Fields;
+  'hero-45'?: Hero45Fields;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1022,6 +1024,49 @@ export interface Hero3Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero45Fields".
+ */
+export interface Hero45Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Hero image
+     */
+    image: string | Media;
+    /**
+     * Badge text displayed above title
+     */
+    badge?: string | null;
+    /**
+     * Features section (exactly 3 items)
+     */
+    features?:
+      | {
+          /**
+           * Feature icon
+           */
+          icon: 'HandHelping' | 'Users' | 'Zap';
+          /**
+           * Feature title
+           */
+          title: string;
+          /**
+           * Feature description
+           */
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
@@ -1754,6 +1799,7 @@ export interface HeroFieldSelect<T extends boolean = true> {
   'hero-34'?: T | Hero34FieldsSelect<T>;
   'hero-6'?: T | Hero6FieldsSelect<T>;
   'hero-3'?: T | Hero3FieldsSelect<T>;
+  'hero-45'?: T | Hero45FieldsSelect<T>;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2109,6 +2155,27 @@ export interface Hero3FieldsSelect<T extends boolean = true> {
           | T
           | {
               image?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero45Fields_select".
+ */
+export interface Hero45FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        badge?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              id?: T;
             };
       };
 }
