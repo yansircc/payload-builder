@@ -117,7 +117,19 @@ export interface Page {
  */
 export interface HeroField {
   style?:
-    | ('hero-1' | 'hero-5' | 'hero-7' | 'hero-8' | 'hero-12' | 'hero-24' | 'hero-25' | 'hero-32' | 'hero-34' | 'hero-6')
+    | (
+        | 'hero-1'
+        | 'hero-5'
+        | 'hero-7'
+        | 'hero-8'
+        | 'hero-12'
+        | 'hero-24'
+        | 'hero-25'
+        | 'hero-32'
+        | 'hero-34'
+        | 'hero-6'
+        | 'hero-3'
+      )
     | null;
   'hero-1'?: Hero1Fields;
   'hero-5'?: Hero5Fields;
@@ -129,6 +141,7 @@ export interface HeroField {
   'hero-32'?: Hero32Fields;
   'hero-34'?: Hero34Fields;
   'hero-6'?: Hero6Fields;
+  'hero-3'?: Hero3Fields;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -926,6 +939,89 @@ export interface Hero6Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero3Fields".
+ */
+export interface Hero3Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Avatar images (exactly 5)
+     */
+    avatars?:
+      | {
+          /**
+           * Hero image
+           */
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Hero buttons (exactly 2)
+     */
+    links?:
+      | {
+          /**
+           * Hero button
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Review section configuration
+     */
+    review: {
+      /**
+       * Rating value (0-5)
+       */
+      rate: number;
+      /**
+       * Number of ratings
+       */
+      count: number;
+    };
+    /**
+     * Hero media
+     */
+    media: {
+      /**
+       * Hero image
+       */
+      image: string | Media;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
@@ -1657,6 +1753,7 @@ export interface HeroFieldSelect<T extends boolean = true> {
   'hero-32'?: T | Hero32FieldsSelect<T>;
   'hero-34'?: T | Hero34FieldsSelect<T>;
   'hero-6'?: T | Hero6FieldsSelect<T>;
+  'hero-3'?: T | Hero3FieldsSelect<T>;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1965,6 +2062,50 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
               id?: T;
             };
         secondaryImage?:
+          | T
+          | {
+              image?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero3Fields_select".
+ */
+export interface Hero3FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        avatars?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        review?:
+          | T
+          | {
+              rate?: T;
+              count?: T;
+            };
+        media?:
           | T
           | {
               image?: T;
