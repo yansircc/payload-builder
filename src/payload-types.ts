@@ -116,7 +116,9 @@ export interface Page {
  * via the `definition` "HeroField".
  */
 export interface HeroField {
-  style?: ('hero-1' | 'hero-5' | 'hero-7' | 'hero-8' | 'hero-12' | 'hero-24' | 'hero-25' | 'hero-34' | 'hero-6') | null;
+  style?:
+    | ('hero-1' | 'hero-5' | 'hero-7' | 'hero-8' | 'hero-12' | 'hero-24' | 'hero-25' | 'hero-32' | 'hero-34' | 'hero-6')
+    | null;
   'hero-1'?: Hero1Fields;
   'hero-5'?: Hero5Fields;
   'hero-7'?: Hero7Fields;
@@ -124,6 +126,7 @@ export interface HeroField {
   'hero-12'?: Hero12Fields;
   'hero-24'?: Hero24Fields;
   'hero-25'?: Hero25Fields;
+  'hero-32'?: Hero32Fields;
   'hero-34'?: Hero34Fields;
   'hero-6'?: Hero6Fields;
 }
@@ -736,6 +739,55 @@ export interface Hero25Fields {
            * Feature description
            */
           description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero32Fields".
+ */
+export interface Hero32Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Hero button
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost') | null;
+    };
+    /**
+     * Integration images (exactly 15)
+     */
+    integrations?:
+      | {
+          /**
+           * Integration logo/image
+           */
+          image: string | Media;
           id?: string | null;
         }[]
       | null;
@@ -1602,6 +1654,7 @@ export interface HeroFieldSelect<T extends boolean = true> {
   'hero-12'?: T | Hero12FieldsSelect<T>;
   'hero-24'?: T | Hero24FieldsSelect<T>;
   'hero-25'?: T | Hero25FieldsSelect<T>;
+  'hero-32'?: T | Hero32FieldsSelect<T>;
   'hero-34'?: T | Hero34FieldsSelect<T>;
   'hero-6'?: T | Hero6FieldsSelect<T>;
 }
@@ -1819,6 +1872,33 @@ export interface Hero25FieldsSelect<T extends boolean = true> {
               icon?: T;
               title?: T;
               description?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero32Fields_select".
+ */
+export interface Hero32FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        integrations?:
+          | T
+          | {
+              image?: T;
               id?: T;
             };
       };
