@@ -21,8 +21,6 @@ export const heroSchemas = {
   logo: z.object({}).describe('Logo image'),
   /** Button text schema */
   buttonText: z.string().describe('Text for the primary button'),
-  /** Description schema */
-  description: z.string().describe('Main description text'),
   /** Trust text schema */
   trustText: z.string().describe('Text showing trust metrics'),
   /** Feature schema */
@@ -41,7 +39,7 @@ export const heroSchemas = {
   partner: z.object({
     logo: z.object({}).describe('Partner logo image'),
   }),
-}
+} as const
 
 /**
  * Basic fields configuration
@@ -60,13 +58,6 @@ const basicFields = {
     type: 'textarea',
     admin: {
       description: 'Subtitle text',
-    },
-  },
-  description: {
-    name: 'description',
-    type: 'textarea',
-    admin: {
-      description: 'Main description text',
     },
   },
   buttonText: {

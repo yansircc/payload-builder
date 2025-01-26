@@ -1081,9 +1081,9 @@ export interface Hero115Fields {
      */
     title: string;
     /**
-     * Feature description
+     * Subtitle text
      */
-    description: string;
+    subtitle?: string | null;
     /**
      * Text showing trust metrics (e.g., "Trusted by X businesses")
      */
@@ -2240,7 +2240,7 @@ export interface Hero115FieldsSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        description?: T;
+        subtitle?: T;
         trustText?: T;
         link?:
           | T

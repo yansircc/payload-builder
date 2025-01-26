@@ -5,7 +5,7 @@ import { Media } from '@/components/Media'
 import type { Hero115Fields } from '@/payload-types'
 
 export default function Hero115({ hero }: { hero: Hero115Fields['hero'] }) {
-  const { title, description, link, image, trustText } = hero
+  const { title, subtitle, link, image, trustText } = hero
 
   return (
     <section className="overflow-hidden py-32">
@@ -30,7 +30,7 @@ export default function Hero115({ hero }: { hero: Hero115Fields['hero'] }) {
               {title}
             </h1>
             <p className="mx-auto max-w-screen-md text-center text-muted-foreground md:text-lg">
-              {description}
+              {subtitle}
             </p>
             <div className="flex flex-col items-center justify-center gap-3 pb-12 pt-3">
               <CMSLink {...link} size="lg">

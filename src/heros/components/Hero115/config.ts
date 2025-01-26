@@ -6,7 +6,7 @@ import { createHeroField, heroSchemas } from '../shared/base-field'
  */
 export const schemas = {
   title: heroSchemas.title,
-  description: heroSchemas.description,
+  subtitle: heroSchemas.subtitle,
   link: heroSchemas.link,
   trustText: heroSchemas.trustText,
   image: heroSchemas.image,
@@ -26,7 +26,7 @@ export const hero115Fields: GroupField = {
   },
   fields: [
     createHeroField({
-      includeFields: ['title', 'description', 'link', 'trustText', 'image'],
+      includeFields: ['title', 'subtitle', 'link', 'trustText', 'image'],
     }),
   ],
 }
