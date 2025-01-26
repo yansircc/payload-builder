@@ -116,7 +116,7 @@ export interface Page {
  * via the `definition` "HeroField".
  */
 export interface HeroField {
-  style?: ('hero-1' | 'hero-5' | 'hero-7' | 'hero-8' | 'hero-12' | 'hero-24' | 'hero-25' | 'hero-34') | null;
+  style?: ('hero-1' | 'hero-5' | 'hero-7' | 'hero-8' | 'hero-12' | 'hero-24' | 'hero-25' | 'hero-34' | 'hero-6') | null;
   'hero-1'?: Hero1Fields;
   'hero-5'?: Hero5Fields;
   'hero-7'?: Hero7Fields;
@@ -125,6 +125,7 @@ export interface HeroField {
   'hero-24'?: Hero24Fields;
   'hero-25'?: Hero25Fields;
   'hero-34'?: Hero34Fields;
+  'hero-6'?: Hero6Fields;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -799,6 +800,80 @@ export interface Hero34Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero6Fields".
+ */
+export interface Hero6Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Hero image
+     */
+    image: string | Media;
+    /**
+     * Hero buttons (exactly 3)
+     */
+    links?:
+      | {
+          /**
+           * Hero button
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Partner logos (exactly 4)
+     */
+    partners?:
+      | {
+          /**
+           * Logo image
+           */
+          logo?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Secondary image with button
+     */
+    secondaryImage: {
+      /**
+       * Hero image
+       */
+      image: string | Media;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
@@ -1164,10 +1239,6 @@ export interface Gallery6Fields {
      */
     title: string;
     /**
-     * Gallery description
-     */
-    description?: string | null;
-    /**
      * Gallery button
      */
     link: {
@@ -1532,6 +1603,7 @@ export interface HeroFieldSelect<T extends boolean = true> {
   'hero-24'?: T | Hero24FieldsSelect<T>;
   'hero-25'?: T | Hero25FieldsSelect<T>;
   'hero-34'?: T | Hero34FieldsSelect<T>;
+  'hero-6'?: T | Hero6FieldsSelect<T>;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1782,6 +1854,45 @@ export interface Hero34FieldsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero6Fields_select".
+ */
+export interface Hero6FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        image?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        partners?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+        secondaryImage?:
+          | T
+          | {
+              image?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock_select".
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
@@ -1884,7 +1995,6 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        description?: T;
         link?:
           | T
           | {

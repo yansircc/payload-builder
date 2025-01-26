@@ -6,6 +6,7 @@ import { hero24Fields } from './components/Hero24/config'
 import { hero25Fields } from './components/Hero25/config'
 import { hero34Fields } from './components/Hero34/config'
 import { hero5Fields } from './components/Hero5/config'
+import { hero6Fields } from './components/Hero6/config'
 import { hero7Fields } from './components/Hero7/config'
 import { hero8Fields } from './components/Hero8/config'
 
@@ -20,7 +21,17 @@ export const HeroField: Field = {
     {
       name: 'style',
       type: 'select',
-      options: ['hero-1', 'hero-5', 'hero-7', 'hero-8', 'hero-12', 'hero-24', 'hero-25', 'hero-34'],
+      options: [
+        'hero-1',
+        'hero-5',
+        'hero-7',
+        'hero-8',
+        'hero-12',
+        'hero-24',
+        'hero-25',
+        'hero-34',
+        'hero-6',
+      ],
     },
     {
       ...hero1Fields,
@@ -68,6 +79,12 @@ export const HeroField: Field = {
       ...hero34Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'hero-34',
+      },
+    },
+    {
+      ...hero6Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-6',
       },
     },
   ],
