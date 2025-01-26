@@ -1,16 +1,17 @@
 import type { Block } from 'payload'
-import { gallery6Fields } from './fields/gallery-6'
-
+import { gallery6Fields } from './components/gallery-6/config'
+import { gallery7Fields } from './components/gallery-7/config'
 /**
- * Gallery 区块配置
+ * Gallery block configuration
  */
 export const GalleryBlock: Block = {
   slug: 'gallery',
+  interfaceName: 'GalleryBlock',
   fields: [
     {
       name: 'style',
       type: 'select',
-      options: ['gallery-6'],
+      options: ['gallery-6', 'gallery-7'],
     },
     {
       ...gallery6Fields,
@@ -18,6 +19,12 @@ export const GalleryBlock: Block = {
         condition: (_, siblingData) => siblingData.style === 'gallery-6',
       },
       // TODO: Add AI hook to generate copy in the next release
+    },
+    {
+      ...gallery7Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'gallery-7',
+      },
     },
   ],
 }

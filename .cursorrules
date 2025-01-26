@@ -71,4 +71,4 @@
 ### Summary of New Rules:
 
 - Replace `npm` with `bun` for package management and task execution.
-- Ensure all the comments and explainations in the code is Chinese.
+- Ensure all the comments and explainations in the code is English.

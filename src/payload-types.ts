@@ -494,54 +494,7 @@ export interface Page {
         | null;
     };
   };
-  layout: (
-    | CallToActionBlock
-    | ContentBlock
-    | MediaBlock
-    | ArchiveBlock
-    | FormBlock
-    | {
-        style?: 'gallery-6' | null;
-        'gallery-6'?: {
-          /**
-           * Max 6 cards
-           */
-          cards?:
-            | {
-                title: string;
-                excerpt: string;
-                /**
-                 * A related link address
-                 */
-                link: {
-                  type?: ('reference' | 'custom') | null;
-                  newTab?: boolean | null;
-                  reference?:
-                    | ({
-                        relationTo: 'pages';
-                        value: number | Page;
-                      } | null)
-                    | ({
-                        relationTo: 'posts';
-                        value: number | Post;
-                      } | null);
-                  url?: string | null;
-                  label: string;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost') | null;
-                };
-                image: number | Media;
-                id?: string | null;
-              }[]
-            | null;
-        };
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'gallery';
-      }
-  )[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | GalleryBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -1078,6 +1031,83 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  style?: ('gallery-6' | 'gallery-7') | null;
+  'gallery-6'?: Gallery6Fields;
+  'gallery-7'?: {};
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Gallery6Fields".
+ */
+export interface Gallery6Fields {
+  /**
+   * A short and powerful title, max 20 characters
+   */
+  heading?: string | null;
+  /**
+   * A related link address
+   */
+  galleryLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost') | null;
+  };
+  /**
+   * Max 6 cards
+   */
+  cards?:
+    | {
+        title: string;
+        excerpt: string;
+        /**
+         * A related link address
+         */
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost') | null;
+        };
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1550,35 +1580,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
-        gallery?:
-          | T
-          | {
-              style?: T;
-              'gallery-6'?:
-                | T
-                | {
-                    cards?:
-                      | T
-                      | {
-                          title?: T;
-                          excerpt?: T;
-                          link?:
-                            | T
-                            | {
-                                type?: T;
-                                newTab?: T;
-                                reference?: T;
-                                url?: T;
-                                label?: T;
-                                appearance?: T;
-                              };
-                          image?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        gallery?: T | GalleryBlockSelect<T>;
       };
   meta?:
     | T
@@ -1677,6 +1679,52 @@ export interface FormBlockSelect<T extends boolean = true> {
   introContent?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock_select".
+ */
+export interface GalleryBlockSelect<T extends boolean = true> {
+  style?: T;
+  'gallery-6'?: T | Gallery6FieldsSelect<T>;
+  'gallery-7'?: T | {};
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Gallery6Fields_select".
+ */
+export interface Gallery6FieldsSelect<T extends boolean = true> {
+  heading?: T;
+  galleryLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  cards?:
+    | T
+    | {
+        title?: T;
+        excerpt?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        image?: T;
+        id?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

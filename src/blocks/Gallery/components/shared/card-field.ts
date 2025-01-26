@@ -3,7 +3,7 @@ import { Field, GroupField } from 'payload'
 import { z } from 'zod'
 
 /**
- * Gallery card字段配置
+ * Gallery card field configuration
  */
 export const galleryCardFields: Field[] = [
   {
@@ -35,23 +35,23 @@ export const galleryCardFields: Field[] = [
 ]
 
 /**
- * Gallery card字段验证和类型定义
+ * Gallery card field validation and type definitions
  */
 export const schemas = {
-  /** 标题字段: 简短有力的标题 */
+  /** Title field: A short and powerful title */
   title: z.string().describe('A short and powerful title, max 20 characters'),
-  /** 描述字段: 详细的描述文本 */
+  /** Description field: Detailed description text */
   excerpt: z
     .string()
     .describe(
-      'A detailed description text, in Chinese, max 100 characters, include exclamation marks to add emotion',
+      'A detailed description text, in English, max 100 characters, include exclamation marks to add emotion',
     ),
-  /** 链接字段: 相关链接 */
+  /** Link field: Related link */
   link: z.string().describe('A related link address'),
 }
 
 /**
- * Gallery card的完整配置
+ * Complete configuration for Gallery card
  */
 export const galleryCard: GroupField = {
   name: 'gallery-card',
