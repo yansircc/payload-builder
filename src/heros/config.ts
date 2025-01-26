@@ -1,6 +1,7 @@
 import type { Field } from 'payload'
 
 import { hero1Fields } from './components/Hero1/config'
+import { hero115Fields } from './components/Hero115/config'
 import { hero12Fields } from './components/Hero12/config'
 import { hero24Fields } from './components/Hero24/config'
 import { hero25Fields } from './components/Hero25/config'
@@ -37,6 +38,7 @@ export const HeroField: Field = {
         'hero-6',
         'hero-3',
         'hero-45',
+        'hero-115',
       ],
     },
     {
@@ -109,6 +111,12 @@ export const HeroField: Field = {
       ...hero45Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'hero-45',
+      },
+    },
+    {
+      ...hero115Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-115',
       },
     },
   ],

@@ -14,6 +14,7 @@ import type { ComponentType } from 'react'
 
 // Import all Gallery components
 import Hero1Component from './components/Hero1/Component'
+import Hero115Component from './components/Hero115/Component'
 import Hero12Component from './components/Hero12/Component'
 import Hero24Component from './components/Hero24/Component'
 import Hero25Component from './components/Hero25/Component'
@@ -28,6 +29,7 @@ import Hero8Component from './components/Hero8/Component'
 
 // Export config
 export { hero1Fields } from './components/Hero1/config'
+export { hero115Fields } from './components/Hero115/config'
 export { hero12Fields } from './components/Hero12/config'
 export { hero24Fields } from './components/Hero24/config'
 export { hero25Fields } from './components/Hero25/config'
@@ -53,6 +55,7 @@ export const Hero34 = Hero34Component
 export const Hero6 = Hero6Component
 export const Hero3 = Hero3Component
 export const Hero45 = Hero45Component
+export const Hero115 = Hero115Component
 
 // Define Gallery component props type
 type HeroComponentProps<T extends NonNullable<HeroField['style']>> = NonNullable<HeroField[T]>
@@ -74,6 +77,7 @@ export const heroComponents: Record<
   'hero-6': Hero6,
   'hero-3': Hero3,
   'hero-45': Hero45,
+  'hero-115': Hero115,
 }
 
 // Export type

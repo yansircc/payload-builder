@@ -130,6 +130,7 @@ export interface HeroField {
         | 'hero-6'
         | 'hero-3'
         | 'hero-45'
+        | 'hero-115'
       )
     | null;
   'hero-1'?: Hero1Fields;
@@ -144,6 +145,7 @@ export interface HeroField {
   'hero-6'?: Hero6Fields;
   'hero-3'?: Hero3Fields;
   'hero-45'?: Hero45Fields;
+  'hero-115'?: Hero115Fields;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1067,6 +1069,37 @@ export interface Hero45Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero115Fields".
+ */
+export interface Hero115Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Feature description
+     */
+    description: string;
+    /**
+     * Text for the primary button
+     */
+    buttonText: string;
+    /**
+     * Text showing trust metrics (e.g., "Trusted by X businesses")
+     */
+    trustText: string;
+    /**
+     * Hero image
+     */
+    image: string | Media;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
@@ -1800,6 +1833,7 @@ export interface HeroFieldSelect<T extends boolean = true> {
   'hero-6'?: T | Hero6FieldsSelect<T>;
   'hero-3'?: T | Hero3FieldsSelect<T>;
   'hero-45'?: T | Hero45FieldsSelect<T>;
+  'hero-115'?: T | Hero115FieldsSelect<T>;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2177,6 +2211,21 @@ export interface Hero45FieldsSelect<T extends boolean = true> {
               description?: T;
               id?: T;
             };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero115Fields_select".
+ */
+export interface Hero115FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        buttonText?: T;
+        trustText?: T;
+        image?: T;
       };
 }
 /**
