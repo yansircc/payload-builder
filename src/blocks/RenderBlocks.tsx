@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
-import { RenderCTO } from '@/blocks/CallToAction/RenderCTO'
+import { RenderCTA } from '@/blocks/CallToAction/RenderCTA'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
@@ -10,7 +10,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 const blockComponents = {
   archive: ArchiveBlock,
   content: ContentBlock,
-  cta: RenderCTO,
+  cta: RenderCTA,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
 }
@@ -41,7 +41,7 @@ function renderBlock(block: BaseBlock & Record<string, any>, index: number) {
     case 'cta':
       return (
         <div key={blockKey} className={className}>
-          <RenderCTO 
+          <RenderCTA
             blockType="cta"
             type={restProps.type || 'cta1'} 
             cta1={restProps.cta1}

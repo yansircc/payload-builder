@@ -19,7 +19,7 @@ import type {
   MediaBlock as MediaBlockProps,
 } from '@/payload-types'
 import { BannerBlock } from '@/blocks/Banner/Component'
-import { RenderCTO } from '@/blocks/CallToAction/RenderCTO'
+import { RenderCTA } from '@/blocks/CallToAction/RenderCTA'
 import { cn } from '@/utilities/ui'
 
 type NodeTypes =
@@ -81,8 +81,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       
       return (
         <div className="my-16">
-          <RenderCTO 
-            type="cta1"
+          <RenderCTA 
+            type="cta10"
+            blockType="cta"
             cta1={ctaData}
           />
         </div>

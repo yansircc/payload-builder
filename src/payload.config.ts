@@ -20,9 +20,9 @@ import { getServerSideURL } from './utilities/getURL';
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const mongoUrl = process.env.MONGODB_URI
+const mongoUrl = process.env.DATABASE_URI
 if (!mongoUrl) {
-  throw new Error('MONGODB_URI environment variable is required')
+  throw new Error('DATABASE_URI environment variable is required')
 }
 
 export default buildConfig({
