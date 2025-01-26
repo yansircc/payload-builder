@@ -18,8 +18,12 @@ const blockComponents = {
 type BlockType = keyof typeof blockComponents
 
 interface BaseBlock {
-  id?: string
-  blockType: BlockType
+  id?: string | null
+  blockType: string
+}
+
+interface RenderBlocksProps {
+  blocks: (BaseBlock & Record<string, any>)[]
 }
 
 // 渲染单个区块的函数
@@ -85,18 +89,16 @@ function renderBlock(block: BaseBlock & Record<string, any>, index: number) {
   }
 }
 
-export const RenderBlocks: React.FC<{
-  blocks: Array<BaseBlock & Record<string, any>>
-}> = (props) => {
-  const { blocks } = props
-
+export const RenderBlocks: React.FC<RenderBlocksProps> = ({ blocks }) => {
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
   if (!hasBlocks) return null
 
   return (
     <Fragment>
-      {blocks.map(renderBlock)}
+      {blocks.map((block) => (
+        <div key={block.id || Math.random()}>{renderBlock(block, 0)}</div>
+      ))}
     </Fragment>
   )
 }

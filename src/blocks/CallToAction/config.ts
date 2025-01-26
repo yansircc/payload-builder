@@ -86,6 +86,7 @@ export const CallToAction: Block = {
                 { label: 'Destructive', value: 'destructive' },
                 { label: 'Secondary', value: 'secondary' },
               ],
+              required: true,
             },
           ],
         },
