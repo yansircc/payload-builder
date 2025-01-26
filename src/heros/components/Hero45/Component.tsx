@@ -1,4 +1,4 @@
-import { HandHelping, Users, Zap } from 'lucide-react'
+import * as LucideIcons from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -7,16 +7,10 @@ import type { Hero45Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
 interface Feature {
-  icon: keyof typeof ICONS
+  icon: string
   title: string
   description: string
 }
-
-const ICONS = {
-  HandHelping,
-  Users,
-  Zap,
-} as const
 
 export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
   if (!hero) return null
@@ -61,7 +55,7 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
           className="mx-auto mt-10 flex max-w-screen-lg flex-col md:flex-row"
         >
           {features?.map((feature: Feature, index: number) => {
-            const Icon = ICONS[feature.icon]
+            const Icon = (LucideIcons as any)[feature.icon] || LucideIcons.HelpCircle
             return (
               <div key={index} className="flex grow basis-0 flex-col rounded-md bg-background p-4">
                 {index > 0 && (

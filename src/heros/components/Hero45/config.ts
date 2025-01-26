@@ -12,7 +12,7 @@ export const schemas = {
   features: z
     .array(
       z.object({
-        icon: z.enum(['HandHelping', 'Users', 'Zap']).describe('Feature icon'),
+        icon: z.string().describe('Lucide icon name (e.g., "HandHelping", "Users", "Zap")'),
         title: z.string().describe('Feature title'),
         description: z.string().describe('Feature description'),
       }),
@@ -41,11 +41,11 @@ export const hero45Fields: GroupField = {
           fields: [
             {
               name: 'icon',
-              type: 'select',
+              type: 'text',
               required: true,
-              options: ['HandHelping', 'Users', 'Zap'],
               admin: {
-                description: 'Feature icon',
+                description:
+                  'Lucide icon name (e.g., "HandHelping", "Users", "Zap"). Visit https://lucide.dev/icons for all available icons.',
               },
             },
             {

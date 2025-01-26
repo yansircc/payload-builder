@@ -1049,9 +1049,9 @@ export interface Hero45Fields {
     features?:
       | {
           /**
-           * Feature icon
+           * Lucide icon name (e.g., "HandHelping", "Users", "Zap"). Visit https://lucide.dev/icons for all available icons.
            */
-          icon: 'HandHelping' | 'Users' | 'Zap';
+          icon: string;
           /**
            * Feature title
            */
