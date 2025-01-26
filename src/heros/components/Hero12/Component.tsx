@@ -1,19 +1,17 @@
-import type { Page } from '@/payload-types'
-
 import { ExternalLink } from 'lucide-react'
-
 import { cn } from '@/utilities/ui'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
 import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
+import { ClientMotionDiv } from '../shared/motion'
+import { ThemeEffect } from '../shared/ThemeEffect'
+import type { Hero12Fields } from '@/payload-types'
 
-import { ClientMotionDiv } from '@/heros/share/motion'
-import { ThemeEffect } from '@/heros/share/ThemeEffect'
+export default function Hero12({ hero }: Hero12Fields) {
+  const { logo, badge, partners, heroBase } = hero
+  const { title, subtitle: description, links } = heroBase
 
-type Hero12Data = NonNullable<NonNullable<Page['hero']>['hero12']>
-
-export default function Hero12({ title, description, badge, logo, links, partners }: Hero12Data) {
   return (
     <section className="relative overflow-hidden py-32">
       <ThemeEffect theme="dark" />

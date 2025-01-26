@@ -6,7 +6,8 @@ import type { Gallery6Fields } from '@/payload-types'
 import { CarouselWrapper, CarouselControls } from './CarouselWrapper'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Gallery6({ cards, heading, galleryLink }: Gallery6Fields) {
+export default function Gallery6({ gallery }: Gallery6Fields) {
+  const { heading, galleryLink: link, galleryCard: cards } = gallery
   if (!cards?.length) return null
 
   const header = (
@@ -20,8 +21,8 @@ export default function Gallery6({ cards, heading, galleryLink }: Gallery6Fields
           <h2 className="mb-3 text-3xl font-semibold md:mb-4 md:text-4xl lg:mb-6">{heading}</h2>
           <CMSLink
             className="group flex items-center gap-1 text-sm font-medium md:text-base lg:text-lg"
-            label={galleryLink.label || 'Book a demo'}
-            url={galleryLink.url || '#'}
+            label={link.label || 'Book a demo'}
+            url={link.url || '#'}
             appearance="inline"
           >
             <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1" />

@@ -1,15 +1,24 @@
 import { MoveRight } from 'lucide-react'
 import * as LucideIcons from 'lucide-react'
 
-import type { Page } from '@/payload-types'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '@/heros/share/motion'
+import { ClientMotionDiv } from '../shared/motion'
+import type { Hero24Fields } from '@/payload-types'
 
-type Hero24Data = NonNullable<NonNullable<Page['hero']>['hero24']>
+// 移除不必要的 FeatureItem 接口
+type Feature = {
+  icon: string
+  title: string
+  description: string
+}
 
-export default function Hero24({ badge, title, logo, links, features }: Hero24Data) {
+type IconComponent = React.ComponentType<{ className?: string; size?: number | string }>
+
+export default function Hero24({ hero }: Hero24Fields) {
+  const { badge, logo, features, heroBase } = hero
+  const { title, links } = heroBase
+
   return (
     <section className="py-32">
       <div className="container">
@@ -28,17 +37,17 @@ export default function Hero24({ badge, title, logo, links, features }: Hero24Da
               priority
             />
 
-            {/* 标签 */}
+            {/* Badge */}
             {badge && (
               <span className="mb-3 text-sm tracking-widest text-muted-foreground md:text-base">
                 {badge}
               </span>
             )}
 
-            {/* 标题 */}
+            {/* Title */}
             <h1 className="mt-4 text-balance text-4xl font-semibold lg:text-6xl">{title}</h1>
 
-            {/* 按钮 */}
+            {/* Button */}
             {links?.[0] && (
               <div className="mt-8">
                 <CMSLink
@@ -51,7 +60,7 @@ export default function Hero24({ badge, title, logo, links, features }: Hero24Da
           </ClientMotionDiv>
         </div>
 
-        {/* 功能特性列表 */}
+        {/* Feature List */}
         {features && (
           <ClientMotionDiv
             className="mt-16 grid gap-px overflow-hidden rounded-lg border bg-input md:grid-cols-2 lg:grid-cols-4"
@@ -59,13 +68,14 @@ export default function Hero24({ badge, title, logo, links, features }: Hero24Da
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {features.map(({ icon, title, description }, i) => {
-              // 动态获取图标组件
-              const Icon = (LucideIcons as any)[icon] || LucideIcons.Globe
+            {features.map(({ icon, title, description }: Feature, i) => {
+              // 使用双重类型转换来安全地获取图标组件
+              const IconComponent =
+                (LucideIcons as unknown as Record<string, IconComponent>)[icon] ?? LucideIcons.Globe
 
               return (
                 <div key={i} className="flex flex-col gap-3 bg-background p-5 md:gap-6">
-                  <Icon className="size-6 shrink-0" />
+                  <IconComponent className="size-6 shrink-0" />
                   <div>
                     <h2 className="text-sm font-semibold md:text-base">{title}</h2>
                     <p className="text-sm text-muted-foreground md:text-base">{description}</p>

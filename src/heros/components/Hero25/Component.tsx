@@ -3,12 +3,15 @@ import * as LucideIcons from 'lucide-react'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '@/heros/share/motion'
-import type { Page } from '@/payload-types'
+import { ClientMotionDiv } from '../shared/motion'
+import type { Hero25Fields } from '@/payload-types'
 
-type Hero25Data = NonNullable<NonNullable<Page['hero']>['hero25']>
+type IconComponent = React.ComponentType<{ className?: string; size?: number | string }>
 
-export default function Hero25({ logo, badge, title, links, features }: Hero25Data) {
+export default function Hero25({ hero }: Hero25Fields) {
+  const { logo, badge, features, heroBase } = hero
+  const { title, links } = heroBase
+
   return (
     <section className="py-32">
       <div className="container">
@@ -20,7 +23,7 @@ export default function Hero25({ logo, badge, title, links, features }: Hero25Da
             transition={{ duration: 0.5 }}
             className="mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28"
           >
-            <Media resource={logo} className="w-full" />
+            <Media resource={logo} className="w-full" priority />
           </ClientMotionDiv>
 
           {/* Badge */}
@@ -55,7 +58,6 @@ export default function Hero25({ logo, badge, title, links, features }: Hero25Da
                 <CMSLink
                   key={i}
                   {...link}
-                  className={i === 0 ? 'btn-primary' : 'btn-secondary'}
                   suffixElement={<MoveRight className="ml-2" strokeWidth={1} />}
                 />
               ))}
@@ -72,10 +74,13 @@ export default function Hero25({ logo, badge, title, links, features }: Hero25Da
             >
               <ul className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground lg:text-base">
                 {features.map(({ text, icon }, i) => {
-                  const Icon = (LucideIcons as any)[icon] || LucideIcons.HelpCircle
+                  const IconComponent =
+                    (LucideIcons as unknown as Record<string, IconComponent>)[icon] ??
+                    LucideIcons.HelpCircle
+
                   return (
                     <li key={i} className="flex items-center gap-2 whitespace-nowrap">
-                      <Icon className="size-4" />
+                      <IconComponent className="size-4" />
                       {text}
                     </li>
                   )

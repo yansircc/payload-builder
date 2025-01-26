@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { slugField } from '@/fields/slug'
-import { hero } from '@/heros/config'
+import { HeroField } from '@/heros/config'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
@@ -68,7 +68,7 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'tabs',
       tabs: [
         {
-          fields: [hero],
+          fields: [HeroField],
           label: 'Hero',
         },
         {

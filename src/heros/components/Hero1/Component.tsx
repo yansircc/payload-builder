@@ -3,17 +3,16 @@ import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import { ArrowDownRight } from 'lucide-react'
 
-import { ClientMotionDiv } from '@/heros/share/motion'
-import { ThemeEffect } from '@/heros/share/ThemeEffect'
+import { ClientMotionDiv } from '../shared/motion'
+import { ThemeEffect } from '../shared/ThemeEffect'
+import type { Hero1Fields } from '@/payload-types'
 
-import type { Page } from '@/payload-types'
-
-type Hero1Data = NonNullable<NonNullable<Page['hero']>['hero1']>
-
-export default function Hero1({ badge, title, subtitle, links, media }: Hero1Data) {
+export default function Hero1({ hero }: Hero1Fields) {
+  const { badge, heroBase } = hero
+  const { title, subtitle, links, image } = heroBase
   return (
     <section className="relative overflow-hidden bg-background py-24 md:py-32">
-      <ThemeEffect theme="dark" />
+      <ThemeEffect />
       <div className="container relative z-10">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-24">
           <div className="flex flex-col items-start gap-6">
@@ -67,7 +66,7 @@ export default function Hero1({ badge, title, subtitle, links, media }: Hero1Dat
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <div className="relative h-full w-full">
-              <Media fill imgClassName="-z-10 object-cover" priority resource={media} />
+              <Media fill imgClassName="-z-10 object-cover" priority resource={image} />
             </div>
           </ClientMotionDiv>
         </div>
