@@ -877,55 +877,120 @@ export interface Hero6Fields {
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
+  type?: ('cta-10' | 'cta-11') | null;
+  'cta-10'?: CTA10Fields;
+  'cta-11'?: CTA11Fields;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTA10Fields".
+ */
+export interface CTA10Fields {
   /**
-   * 选择 CTA 组件类型
+   * CTA section fields
    */
-  type: 'none' | 'cta10' | 'cta11';
-  cta10?: {
+  cta: {
     /**
-     * 主标题文本
+     * CTA title
      */
     title: string;
     /**
-     * 描述文本
+     * CTA description
      */
     description?: string | null;
     /**
-     * 最多支持两个按钮
+     * CTA buttons (1-2)
      */
     buttons?:
       | {
+          /**
+           * Button label
+           */
           label: string;
-          link: string;
+          /**
+           * Button link
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
           variant: 'default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary';
           id?: string | null;
         }[]
       | null;
   };
-  cta11?: {
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTA11Fields".
+ */
+export interface CTA11Fields {
+  /**
+   * CTA section fields
+   */
+  cta: {
     /**
-     * 主标题文本
+     * CTA title
      */
     title: string;
     /**
-     * 描述文本
+     * CTA description
      */
     description?: string | null;
     /**
-     * 最多支持两个按钮
+     * CTA buttons (1-2)
      */
     buttons?:
       | {
+          /**
+           * Button label
+           */
           label: string;
-          link: string;
-          variant?: ('default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary') | null;
+          /**
+           * Button link
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          variant: 'default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary';
           id?: string | null;
         }[]
       | null;
   };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cta';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1904,36 +1969,68 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
   type?: T;
-  cta10?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        buttons?:
-          | T
-          | {
-              label?: T;
-              link?: T;
-              variant?: T;
-              id?: T;
-            };
-      };
-  cta11?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        buttons?:
-          | T
-          | {
-              label?: T;
-              link?: T;
-              variant?: T;
-              id?: T;
-            };
-      };
+  'cta-10'?: T | CTA10FieldsSelect<T>;
+  'cta-11'?: T | CTA11FieldsSelect<T>;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTA10Fields_select".
+ */
+export interface CTA10FieldsSelect<T extends boolean = true> {
+  cta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        buttons?:
+          | T
+          | {
+              label?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              variant?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTA11Fields_select".
+ */
+export interface CTA11FieldsSelect<T extends boolean = true> {
+  cta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        buttons?:
+          | T
+          | {
+              label?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              variant?: T;
+              id?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

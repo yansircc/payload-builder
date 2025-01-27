@@ -1,160 +1,40 @@
 import type { Block } from 'payload'
+import { cta10Fields } from './components/cta-10/config'
+import { cta11Fields } from './components/cta-11/config'
 
-import * as c from './custom'
-
-// CTA 配置和组件映射
-export const ctaConfigs = {
-  cta10: {
-    Component: c.CTA10,
-  },
-  cta11: {
-    Component: c.CTA11,
-  },
-} as const
-
-// Payload Block 配置
+/**
+ * CallToAction block configuration
+ */
 export const CallToAction: Block = {
   slug: 'cta',
   interfaceName: 'CallToActionBlock',
   fields: [
     {
-      type: 'select',
       name: 'type',
-      label: 'Type',
-      required: true,
+      type: 'select',
+      defaultValue: 'cta-10',
       options: [
-        { label: 'Select CTA Type', value: 'none' },
-        { label: 'CTA 10 - 基础按钮', value: 'cta10' },
-        { label: 'CTA 11 - 居中布局', value: 'cta11' },
-      ],
-      admin: {
-        description: '选择 CTA 组件类型',
-      },
-    },
-    {
-      type: 'group',
-      name: 'cta10',
-      label: false,
-      admin: {
-        condition: (data, siblingData) => {
-          return siblingData?.type === 'cta10'
-        },
-      },
-      fields: [
         {
-          name: 'title',
-          type: 'text',
-          required: true,
-          admin: {
-            description: '主标题文本',
-          },
+          label: 'CTA 10',
+          value: 'cta-10',
         },
         {
-          name: 'description',
-          type: 'text',
-          admin: {
-            description: '描述文本',
-          },
-        },
-        {
-          name: 'buttons',
-          type: 'array',
-          maxRows: 2,
-          admin: {
-            description: '最多支持两个按钮',
-          },
-          fields: [
-            {
-              name: 'label',
-              type: 'text',
-              required: true,
-            },
-            {
-              name: 'link',
-              type: 'text',
-              required: true,
-            },
-            {
-              name: 'variant',
-              type: 'select',
-              defaultValue: 'default',
-              options: [
-                { label: 'Default', value: 'default' },
-                { label: 'Outline', value: 'outline' },
-                { label: 'Ghost', value: 'ghost' },
-                { label: 'Link', value: 'link' },
-                { label: 'Destructive', value: 'destructive' },
-                { label: 'Secondary', value: 'secondary' },
-              ],
-              required: true,
-            },
-          ],
+          label: 'CTA 11',
+          value: 'cta-11',
         },
       ],
     },
     {
-      type: 'group',
-      name: 'cta11',
-      label: false,
+      ...cta10Fields,
       admin: {
-        condition: (data, siblingData) => {
-          return siblingData?.type === 'cta11'
-        },
+        condition: (_, siblingData) => siblingData.type === 'cta-10',
       },
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-          admin: {
-            description: '主标题文本',
-          },
-        },
-        {
-          name: 'description',
-          type: 'text',
-          admin: {
-            description: '描述文本',
-          },
-        },
-        {
-          name: 'buttons',
-          type: 'array',
-          maxRows: 2,
-          admin: {
-            description: '最多支持两个按钮',
-          },
-          fields: [
-            {
-              name: 'label',
-              type: 'text',
-              required: true,
-            },
-            {
-              name: 'link',
-              type: 'text',
-              required: true,
-            },
-            {
-              name: 'variant',
-              type: 'select',
-              defaultValue: 'default',
-              options: [
-                { label: 'Default', value: 'default' },
-                { label: 'Outline', value: 'outline' },
-                { label: 'Ghost', value: 'ghost' },
-                { label: 'Link', value: 'link' },
-                { label: 'Destructive', value: 'destructive' },
-                { label: 'Secondary', value: 'secondary' },
-              ],
-            },
-          ],
-        },
-      ],
+    },
+    {
+      ...cta11Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.type === 'cta-11',
+      },
     },
   ],
-  labels: {
-    plural: 'Calls to Action',
-    singular: 'Call to Action',
-  },
 }

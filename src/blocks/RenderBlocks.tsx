@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react'
-import type { Page, GalleryBlock } from '@/payload-types'
+import type { Page, GalleryBlock, CallToActionBlock } from '@/payload-types'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
-import { RenderCTA } from '@/blocks/CallToAction/RenderCTA'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { galleryComponents } from '@/blocks/Gallery/components'
+import { ctaComponents } from '@/blocks/CallToAction/components'
 
 interface BaseBlock {
   id?: string | null
@@ -19,7 +19,6 @@ interface RenderBlocksProps {
 const blockComponents = {
   archive: ArchiveBlock,
   content: ContentBlock,
-  cta: RenderCTA,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   gallery: (props: GalleryBlock) => {
@@ -27,6 +26,12 @@ const blockComponents = {
     const GalleryComponent = galleryComponents[props.style]
     if (!GalleryComponent) return null
     return <GalleryComponent {...(props[props.style] as any)} />
+  },
+  cta: (props: CallToActionBlock) => {
+    if (!props.type) return null
+    const CTAComponent = ctaComponents[props.type]
+    if (!CTAComponent) return null
+    return <CTAComponent cta={props[props.type]?.cta} />
   },
 }
 
@@ -39,12 +44,7 @@ function renderBlock(block: BaseBlock & Record<string, any>, index: number) {
     case 'cta':
       return (
         <div key={blockKey} className={className}>
-          <RenderCTA
-            blockType="cta"
-            type={restProps.type || 'cta1'} 
-            cta1={restProps.cta1}
-            {...restProps} 
-          />
+          {blockComponents.cta(block as CallToActionBlock)}
         </div>
       )
     case 'archive':

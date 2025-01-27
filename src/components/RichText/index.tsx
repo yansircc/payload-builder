@@ -19,7 +19,7 @@ import type {
   MediaBlock as MediaBlockProps,
 } from '@/payload-types'
 import { BannerBlock } from '@/blocks/Banner/Component'
-import { RenderCTA } from '@/blocks/CallToAction/RenderCTA'
+import { ctaComponents } from '@/blocks/CallToAction/components'
 import { cn } from '@/utilities/ui'
 
 type NodeTypes =
@@ -52,40 +52,12 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     ),
     code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
     cta: ({ node }) => {
-      console.log('CTA Node:', node)
-      
-      // 获取 CTA 数据
-      const { blocks } = node.fields
-      
-      // 如果没有 blocks 数据，返回 null
-      if (!blocks || !Array.isArray(blocks) || blocks.length === 0) {
-        return null
-      }
-
-      // 获取第一个 block 的数据并转换为正确的类型
-      const block = blocks[0]
-      if (!block || !block.title) {
-        return null
-      }
-
-      // 构建 CTA 数据
-      const ctaData = {
-        title: block.title,
-        description: block.description || undefined,
-        buttons: block.buttons?.map(btn => ({
-          label: btn.label,
-          link: btn.link,
-          variant: (btn.variant || 'default') as 'default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary'
-        })) || []
-      }
-      
+      if (!node.fields.type) return null
+      const CTAComponent = ctaComponents[node.fields.type]
+      if (!CTAComponent) return null
       return (
         <div className="my-16">
-          <RenderCTA 
-            type="cta10"
-            blockType="cta"
-            cta1={ctaData}
-          />
+          <CTAComponent cta={node.fields[node.fields.type]} />
         </div>
       )
     },
