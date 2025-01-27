@@ -1807,11 +1807,13 @@ export interface Gallery6Fields {
  * via the `definition` "FeatureBlock".
  */
 export interface FeatureBlock {
-  style?: ('feature-1' | 'feature-2' | 'feature-3' | 'feature-5') | null;
+  style?: ('feature-1' | 'feature-2' | 'feature-3' | 'feature-5' | 'feature-6' | 'feature-7') | null;
   'feature-1'?: Feature1Fields;
   'feature-2'?: Feature2Fields;
   'feature-3'?: Feature3Fields;
   'feature-5'?: Feature5Fields;
+  'feature-6'?: Feature6Fields;
+  'feature-7'?: Feature7Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'feature';
@@ -1838,7 +1840,7 @@ export interface Feature1Fields {
      */
     image?: (string | null) | Media;
     /**
-     * Lucide icon name
+     * Optional: Lucide icon name (e.g., CheckCircle)
      */
     icon?: string | null;
     /**
@@ -1933,7 +1935,7 @@ export interface Feature2Fields {
      */
     image?: (string | null) | Media;
     /**
-     * Lucide icon name
+     * Optional: Lucide icon name (e.g., CheckCircle)
      */
     icon?: string | null;
     /**
@@ -2100,6 +2102,92 @@ export interface Feature5Fields {
        */
       company: string;
     };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature6Fields".
+ */
+export interface Feature6Fields {
+  /**
+   * Feature section fields
+   */
+  feature: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Feature description
+     */
+    description: string;
+    /**
+     * Author profile image
+     */
+    image?: (string | null) | Media;
+    /**
+     * Optional: Lucide icon name (e.g., CheckCircle)
+     */
+    icon?: string | null;
+    /**
+     * List of features with icons
+     */
+    features?:
+      | {
+          /**
+           * Optional: Lucide icon name (e.g., CheckCircle)
+           */
+          icon?: string | null;
+          /**
+           * List item text
+           */
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature7Fields".
+ */
+export interface Feature7Fields {
+  /**
+   * Feature section fields
+   */
+  feature: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Feature description
+     */
+    description: string;
+    /**
+     * Author profile image
+     */
+    image?: (string | null) | Media;
+    /**
+     * Optional: Lucide icon name (e.g., CheckCircle)
+     */
+    icon?: string | null;
+    /**
+     * List of features with icons
+     */
+    features?:
+      | {
+          /**
+           * Optional: Lucide icon name (e.g., CheckCircle)
+           */
+          icon?: string | null;
+          /**
+           * List item text
+           */
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
   };
 }
 /**
@@ -3049,6 +3137,8 @@ export interface FeatureBlockSelect<T extends boolean = true> {
   'feature-2'?: T | Feature2FieldsSelect<T>;
   'feature-3'?: T | Feature3FieldsSelect<T>;
   'feature-5'?: T | Feature5FieldsSelect<T>;
+  'feature-6'?: T | Feature6FieldsSelect<T>;
+  'feature-7'?: T | Feature7FieldsSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -3183,6 +3273,48 @@ export interface Feature5FieldsSelect<T extends boolean = true> {
               name?: T;
               role?: T;
               company?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature6Fields_select".
+ */
+export interface Feature6FieldsSelect<T extends boolean = true> {
+  feature?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        icon?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature7Fields_select".
+ */
+export interface Feature7FieldsSelect<T extends boolean = true> {
+  feature?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        icon?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              text?: T;
+              id?: T;
             };
       };
 }

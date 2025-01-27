@@ -38,6 +38,14 @@ export const featureSchemas = {
     company: z.string().describe('Author company'),
     image: z.object({}).optional().describe('Author profile image'),
   }),
+  /** List schema */
+  list: z.array(
+    z.object({
+      icon: z.string().optional(),
+      text: z.string(),
+    }),
+  ),
+  /** Card schema */
   card: z.array(
     z.object({
       icon: z.string().optional(),
@@ -193,6 +201,28 @@ const testimonialFields = {
 } as const
 
 /**
+ * List fields for list-based layouts
+ */
+const listFields = {
+  icon: {
+    name: 'icon',
+    type: 'text',
+    required: false,
+    admin: {
+      description: 'Optional: Lucide icon name (e.g., CheckCircle)',
+    },
+  },
+  text: {
+    name: 'text',
+    type: 'textarea',
+    required: true,
+    admin: {
+      description: 'List item text',
+    },
+  },
+} as const
+
+/**
  * Combine all feature fields for the field group
  */
 const featureFields: Record<string, Field> = {
@@ -201,12 +231,13 @@ const featureFields: Record<string, Field> = {
   ...iconFields,
   ...cardsFields,
   ...testimonialFields,
+  ...listFields,
 }
 
 /**
  * Export all field groups for type safety
  */
-export { basicFields, cardsFields, iconFields, mediaFields, testimonialFields }
+export { basicFields, cardsFields, iconFields, listFields, mediaFields, testimonialFields }
 
 /**
  * Create a custom feature field with selected fields, array fields and groups

@@ -3,6 +3,8 @@ import { feature1Fields } from './components/Feature1/config'
 import { feature2Fields } from './components/Feature2/config'
 import { feature3Fields } from './components/Feature3/config'
 import { feature5Fields } from './components/Feature5/config'
+import { feature6Fields } from './components/Feature6/config'
+import { feature7Fields } from './components/Feature7/config'
 /**
  * Feature Block configuration
  */
@@ -35,6 +37,14 @@ export const Feature: Block = {
           label: 'Feature 5',
           value: 'feature-5',
         },
+        {
+          label: 'Feature 6',
+          value: 'feature-6',
+        },
+        {
+          label: 'Feature 7',
+          value: 'feature-7',
+        },
       ],
     },
     {
@@ -59,6 +69,18 @@ export const Feature: Block = {
       ...feature5Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'feature-5',
+      },
+    },
+    {
+      ...feature6Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'feature-6',
+      },
+    },
+    {
+      ...feature7Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'feature-7',
       },
     },
   ],
