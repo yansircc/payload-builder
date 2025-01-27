@@ -1,21 +1,11 @@
 import React, { Fragment } from 'react'
-
-import type { Page } from '@/payload-types'
+import type { Page, GalleryBlock } from '@/payload-types'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { RenderCTA } from '@/blocks/CallToAction/RenderCTA'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
-
-const blockComponents = {
-  archive: ArchiveBlock,
-  content: ContentBlock,
-  cta: RenderCTA,
-  formBlock: FormBlock,
-  mediaBlock: MediaBlock,
-}
-
-type BlockType = keyof typeof blockComponents
+import { galleryComponents } from '@/blocks/Gallery/components'
 
 interface BaseBlock {
   id?: string | null
@@ -26,14 +16,22 @@ interface RenderBlocksProps {
   blocks: (BaseBlock & Record<string, any>)[]
 }
 
-// 渲染单个区块的函数
+const blockComponents = {
+  archive: ArchiveBlock,
+  content: ContentBlock,
+  cta: RenderCTA,
+  formBlock: FormBlock,
+  mediaBlock: MediaBlock,
+  gallery: (props: GalleryBlock) => {
+    if (!props.style) return null
+    const GalleryComponent = galleryComponents[props.style]
+    if (!GalleryComponent) return null
+    return <GalleryComponent {...(props[props.style] as any)} />
+  },
+}
+
 function renderBlock(block: BaseBlock & Record<string, any>, index: number) {
   const { blockType, id, ...restProps } = block
-
-  if (!blockType || !(blockType in blockComponents)) {
-    return null
-  }
-
   const blockKey = id || index
   const className = "my-16"
 
@@ -84,6 +82,12 @@ function renderBlock(block: BaseBlock & Record<string, any>, index: number) {
           />
         </div>
       )
+    case 'gallery':
+      return (
+        <div key={blockKey} className={className}>
+          {blockComponents.gallery(block as GalleryBlock)}
+        </div>
+      )
     default:
       return null
   }
@@ -96,9 +100,7 @@ export const RenderBlocks: React.FC<RenderBlocksProps> = ({ blocks }) => {
 
   return (
     <Fragment>
-      {blocks.map((block) => (
-        <div key={block.id || Math.random()}>{renderBlock(block, 0)}</div>
-      ))}
+      {blocks.map((block, index) => renderBlock(block, index))}
     </Fragment>
   )
 }

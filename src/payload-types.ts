@@ -47,10 +47,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'api-key': ApiKey;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'api-key': ApiKeySelect<false> | ApiKeySelect<true>;
   };
   locale: null;
   user: User & {
@@ -92,363 +94,8 @@ export interface UserAuthOperations {
 export interface Page {
   id: string;
   title: string;
-  hero: {
-    type: 'none' | 'hero1' | 'hero7' | 'hero8' | 'hero12' | 'hero34' | 'hero24' | 'hero25';
-    /**
-     * 首屏大图布局，适合展示产品主要信息
-     */
-    hero1?: {
-      /**
-       * 主标题文本
-       */
-      title: string;
-      /**
-       * 副标题文本，支持多行
-       */
-      subtitle?: string | null;
-      /**
-       * 用于展示在首屏的特色图片，建议尺寸 1200x800
-       */
-      media: string | Media;
-      /**
-       * 通常用于显示在标题上方的徽章文本，1~3个单词
-       */
-      badge?: string | null;
-      links?:
-        | {
-            link: {
-              type?: ('reference' | 'custom') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: string | Post;
-                  } | null);
-              url?: string | null;
-              label: string;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost') | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
-    };
-    /**
-     * 居中布局的大标题Hero，带有底部大图展示
-     */
-    hero8?: {
-      /**
-       * 主标题文本，建议不超过30个字
-       */
-      title: string;
-      /**
-       * 描述文本，支持多行
-       */
-      description?: string | null;
-      /**
-       * 底部大图展示，建议尺寸 1400x700，格式为 WebP
-       */
-      media: string | Media;
-      /**
-       * 按钮组，建议添加1-2个按钮
-       */
-      links?:
-        | {
-            link: {
-              type?: ('reference' | 'custom') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: string | Post;
-                  } | null);
-              url?: string | null;
-              label: string;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost') | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
-    };
-    /**
-     * 带有头像墙和评分的 Hero 布局
-     */
-    hero7?: {
-      /**
-       * 主标题文本
-       */
-      title: string;
-      /**
-       * 描述文本，支持多行
-       */
-      description?: string | null;
-      cta: {
-        /**
-         * 按钮文本
-         */
-        label: string;
-      };
-      /**
-       * 用户头像展示墙
-       */
-      avatars?:
-        | {
-            /**
-             * 用户头像，建议尺寸 100x100
-             */
-            avatar: string | Media;
-            id?: string | null;
-          }[]
-        | null;
-      review?: {
-        /**
-         * 评分，0-5分
-         */
-        rating?: number | null;
-        /**
-         * 评价总数
-         */
-        count?: number | null;
-      };
-    };
-    /**
-     * 带有 Logo、徽章和合作伙伴的 Hero 布局
-     */
-    hero12?: {
-      /**
-       * Logo 图片
-       */
-      logo?: (string | null) | Media;
-      /**
-       * 显示在 Logo 下方的徽章文本
-       */
-      badge?: string | null;
-      /**
-       * 主标题文本
-       */
-      title: string;
-      /**
-       * 描述文本，支持多行
-       */
-      description?: string | null;
-      links?:
-        | {
-            link: {
-              type?: ('reference' | 'custom') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: string | Post;
-                  } | null);
-              url?: string | null;
-              label: string;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost') | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
-      /**
-       * 合作伙伴 Logo 列表
-       */
-      partners?:
-        | {
-            /**
-             * 合作伙伴 Logo，建议尺寸 100x100
-             */
-            logo: string | Media;
-            id?: string | null;
-          }[]
-        | null;
-    };
-    /**
-     * 左文右图布局的Hero，带有圆角背景和渐变效果
-     */
-    hero34?: {
-      /**
-       * 显示在标题上方的小标签文本，建议1-3个单词
-       */
-      badge?: string | null;
-      /**
-       * 主标题文本，建议不超过30个字
-       */
-      title: string;
-      /**
-       * 描述文本，支持多行
-       */
-      description?: string | null;
-      /**
-       * 右侧展示图片，建议尺寸 800x800，格式为 WebP
-       */
-      media: string | Media;
-      /**
-       * 按钮组，建议添加1-2个按钮
-       */
-      links?:
-        | {
-            link: {
-              type?: ('reference' | 'custom') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: string | Post;
-                  } | null);
-              url?: string | null;
-              label: string;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost') | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
-    };
-    /**
-     * 带有功能特性列表的居中布局Hero
-     */
-    hero24?: {
-      /**
-       * 显示在标题上方的小标签文本
-       */
-      badge?: string | null;
-      /**
-       * 主标题文本，建议不超过50个字
-       */
-      title: string;
-      /**
-       * 顶部展示的Logo图片，建议尺寸 112x112，格式为 WebP
-       */
-      logo: string | Media;
-      /**
-       * 按钮配置，建议只添加一个按钮
-       */
-      links?:
-        | {
-            link: {
-              type?: ('reference' | 'custom') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: string | Post;
-                  } | null);
-              url?: string | null;
-              label: string;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost') | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
-      /**
-       * 底部功能特性列表，固定4个特性
-       */
-      features?:
-        | {
-            /**
-             * 图标名称，来自 lucide-icons。例如: Globe, Rocket, Wrench, Star 等
-             */
-            icon: string;
-            /**
-             * 特性标题，建议2-3个单词
-             */
-            title: string;
-            /**
-             * 特性描述，建议一句话
-             */
-            description: string;
-            id?: string | null;
-          }[]
-        | null;
-    };
-    /**
-     * 居中布局的系统介绍页面，适合展示产品或系统的主要特点
-     */
-    hero25?: {
-      /**
-       * 顶部展示的Logo图片，建议尺寸 112x112
-       */
-      logo: string | Media;
-      /**
-       * 显示在标题上方的标签文本
-       */
-      badge: string;
-      /**
-       * 主标题文本
-       */
-      title: string;
-      links?:
-        | {
-            link: {
-              type?: ('reference' | 'custom') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: string | Post;
-                  } | null);
-              url?: string | null;
-              label: string;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost') | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
-      /**
-       * 底部展示的特性列表
-       */
-      features?:
-        | {
-            text: string;
-            /**
-             * 输入Lucide图标名称，例如: "zap", "blocks", "wrench", "code" 等。访问 https://lucide.dev/icons/ 查看所有图标
-             */
-            icon: string;
-            id?: string | null;
-          }[]
-        | null;
-    };
-  };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  hero?: HeroField;
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | GalleryBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -463,6 +110,79 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroField".
+ */
+export interface HeroField {
+  style?: ('hero-1' | 'hero-5' | 'hero-7' | 'hero-8' | 'hero-12' | 'hero-24' | 'hero-25' | 'hero-34' | 'hero-6') | null;
+  'hero-1'?: Hero1Fields;
+  'hero-5'?: Hero5Fields;
+  'hero-7'?: Hero7Fields;
+  'hero-8'?: Hero8Fields;
+  'hero-12'?: Hero12Fields;
+  'hero-24'?: Hero24Fields;
+  'hero-25'?: Hero25Fields;
+  'hero-34'?: Hero34Fields;
+  'hero-6'?: Hero6Fields;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero1Fields".
+ */
+export interface Hero1Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Hero image
+     */
+    image: string | Media;
+    /**
+     * Badge text displayed above title
+     */
+    badge?: string | null;
+    /**
+     * Hero buttons (exactly 2)
+     */
+    links?:
+      | {
+          /**
+           * Hero button
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -641,6 +361,516 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero5Fields".
+ */
+export interface Hero5Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Hero button
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost') | null;
+    };
+    /**
+     * Hero image
+     */
+    image: string | Media;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero7Fields".
+ */
+export interface Hero7Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Hero button
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost') | null;
+    };
+    /**
+     * Rating information
+     */
+    rating: {
+      /**
+       * Rating value (0-5)
+       */
+      rate: number;
+      /**
+       * Number of ratings
+       */
+      count: number;
+      /**
+       * User avatars (3-5)
+       */
+      avatars?:
+        | {
+            /**
+             * User avatar
+             */
+            avatar: string | Media;
+            id?: string | null;
+          }[]
+        | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero8Fields".
+ */
+export interface Hero8Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Hero image
+     */
+    image: string | Media;
+    /**
+     * Hero buttons (exactly 2)
+     */
+    links?:
+      | {
+          /**
+           * Hero button
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero12Fields".
+ */
+export interface Hero12Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Partner logo image
+     */
+    logo: string | Media;
+    /**
+     * Badge text displayed above title
+     */
+    badge?: string | null;
+    /**
+     * Hero buttons (1-2)
+     */
+    links?:
+      | {
+          /**
+           * Hero button
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Partner logos (1-6)
+     */
+    partners?:
+      | {
+          /**
+           * Partner logo image
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero24Fields".
+ */
+export interface Hero24Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Hero button
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost') | null;
+    };
+    /**
+     * Partner logo image
+     */
+    logo: string | Media;
+    /**
+     * Badge text displayed above title
+     */
+    badge?: string | null;
+    /**
+     * Feature list (exactly 4 items)
+     */
+    features?:
+      | {
+          /**
+           * Lucide icon name
+           */
+          icon: string;
+          /**
+           * Feature title
+           */
+          title: string;
+          /**
+           * Feature description
+           */
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero25Fields".
+ */
+export interface Hero25Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Partner logo image
+     */
+    logo: string | Media;
+    /**
+     * Badge text displayed above title
+     */
+    badge?: string | null;
+    /**
+     * Hero buttons (1-2)
+     */
+    links?:
+      | {
+          /**
+           * Hero button
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Feature list (1-4 items)
+     */
+    features?:
+      | {
+          /**
+           * Lucide icon name
+           */
+          icon: string;
+          /**
+           * Feature title
+           */
+          title: string;
+          /**
+           * Feature description
+           */
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero34Fields".
+ */
+export interface Hero34Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Hero image
+     */
+    image: string | Media;
+    /**
+     * Badge text displayed above title
+     */
+    badge?: string | null;
+    /**
+     * Hero buttons (exactly 2)
+     */
+    links?:
+      | {
+          /**
+           * Hero button
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero6Fields".
+ */
+export interface Hero6Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Hero image
+     */
+    image: string | Media;
+    /**
+     * Hero buttons (exactly 3)
+     */
+    links?:
+      | {
+          /**
+           * Hero button
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Partner logos (exactly 4)
+     */
+    partners?:
+      | {
+          /**
+           * Logo image
+           */
+          logo?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Secondary image with button
+     */
+    secondaryImage: {
+      /**
+       * Hero image
+       */
+      image: string | Media;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -992,6 +1222,97 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  style?: ('gallery-6' | 'gallery-7') | null;
+  'gallery-6'?: Gallery6Fields;
+  'gallery-7'?: {};
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Gallery6Fields".
+ */
+export interface Gallery6Fields {
+  /**
+   * Gallery section fields
+   */
+  gallery: {
+    /**
+     * Gallery title
+     */
+    title: string;
+    /**
+     * Gallery button
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost') | null;
+    };
+    /**
+     * Gallery cards (3-6)
+     */
+    cards?:
+      | {
+          /**
+           * Card title (max 20 characters)
+           */
+          title: string;
+          /**
+           * Card description (max 100 characters)
+           */
+          excerpt: string;
+          /**
+           * Card link
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          /**
+           * Card image
+           */
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1250,190 +1571,7 @@ export interface PayloadMigration {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
-  hero?:
-    | T
-    | {
-        type?: T;
-        hero1?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              media?: T;
-              badge?: T;
-              links?:
-                | T
-                | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
-                  };
-            };
-        hero8?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              media?: T;
-              links?:
-                | T
-                | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
-                  };
-            };
-        hero7?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              cta?:
-                | T
-                | {
-                    label?: T;
-                  };
-              avatars?:
-                | T
-                | {
-                    avatar?: T;
-                    id?: T;
-                  };
-              review?:
-                | T
-                | {
-                    rating?: T;
-                    count?: T;
-                  };
-            };
-        hero12?:
-          | T
-          | {
-              logo?: T;
-              badge?: T;
-              title?: T;
-              description?: T;
-              links?:
-                | T
-                | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
-                  };
-              partners?:
-                | T
-                | {
-                    logo?: T;
-                    id?: T;
-                  };
-            };
-        hero34?:
-          | T
-          | {
-              badge?: T;
-              title?: T;
-              description?: T;
-              media?: T;
-              links?:
-                | T
-                | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
-                  };
-            };
-        hero24?:
-          | T
-          | {
-              badge?: T;
-              title?: T;
-              logo?: T;
-              links?:
-                | T
-                | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
-                  };
-              features?:
-                | T
-                | {
-                    icon?: T;
-                    title?: T;
-                    description?: T;
-                    id?: T;
-                  };
-            };
-        hero25?:
-          | T
-          | {
-              logo?: T;
-              badge?: T;
-              title?: T;
-              links?:
-                | T
-                | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
-                  };
-              features?:
-                | T
-                | {
-                    text?: T;
-                    icon?: T;
-                    id?: T;
-                  };
-            };
-      };
+  hero?: T | HeroFieldSelect<T>;
   layout?:
     | T
     | {
@@ -1442,6 +1580,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        gallery?: T | GalleryBlockSelect<T>;
       };
   meta?:
     | T
@@ -1456,6 +1595,308 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroField_select".
+ */
+export interface HeroFieldSelect<T extends boolean = true> {
+  style?: T;
+  'hero-1'?: T | Hero1FieldsSelect<T>;
+  'hero-5'?: T | Hero5FieldsSelect<T>;
+  'hero-7'?: T | Hero7FieldsSelect<T>;
+  'hero-8'?: T | Hero8FieldsSelect<T>;
+  'hero-12'?: T | Hero12FieldsSelect<T>;
+  'hero-24'?: T | Hero24FieldsSelect<T>;
+  'hero-25'?: T | Hero25FieldsSelect<T>;
+  'hero-34'?: T | Hero34FieldsSelect<T>;
+  'hero-6'?: T | Hero6FieldsSelect<T>;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero1Fields_select".
+ */
+export interface Hero1FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        image?: T;
+        badge?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero5Fields_select".
+ */
+export interface Hero5FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        image?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero7Fields_select".
+ */
+export interface Hero7FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        rating?:
+          | T
+          | {
+              rate?: T;
+              count?: T;
+              avatars?:
+                | T
+                | {
+                    avatar?: T;
+                    id?: T;
+                  };
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero8Fields_select".
+ */
+export interface Hero8FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        image?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero12Fields_select".
+ */
+export interface Hero12FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        logo?: T;
+        badge?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        partners?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero24Fields_select".
+ */
+export interface Hero24FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        logo?: T;
+        badge?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero25Fields_select".
+ */
+export interface Hero25FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        logo?: T;
+        badge?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        features?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero34Fields_select".
+ */
+export interface Hero34FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        image?: T;
+        badge?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero6Fields_select".
+ */
+export interface Hero6FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        image?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        partners?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+        secondaryImage?:
+          | T
+          | {
+              image?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1553,6 +1994,56 @@ export interface FormBlockSelect<T extends boolean = true> {
   introContent?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock_select".
+ */
+export interface GalleryBlockSelect<T extends boolean = true> {
+  style?: T;
+  'gallery-6'?: T | Gallery6FieldsSelect<T>;
+  'gallery-7'?: T | {};
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Gallery6Fields_select".
+ */
+export interface Gallery6FieldsSelect<T extends boolean = true> {
+  gallery?:
+    | T
+    | {
+        title?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        cards?:
+          | T
+          | {
+              title?: T;
+              excerpt?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              image?: T;
+              id?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2027,6 +2518,28 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "api-key".
+ */
+export interface ApiKey {
+  id: string;
+  keys?:
+    | {
+        /**
+         * ⚠️ OpenAI API密钥将以加密形式存储
+         */
+        openai?: string | null;
+        /**
+         * ⚠️ DeepSeek API密钥将以加密形式存储
+         */
+        deepseek?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2065,6 +2578,22 @@ export interface FooterSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "api-key_select".
+ */
+export interface ApiKeySelect<T extends boolean = true> {
+  keys?:
+    | T
+    | {
+        openai?: T;
+        deepseek?: T;
         id?: T;
       };
   updatedAt?: T;

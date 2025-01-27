@@ -3,7 +3,7 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb';
 
 import path from 'path';
 import { buildConfig, PayloadRequest } from 'payload';
-import sharp from 'sharp';
+import sharp from 'sharp'; // sharp-import
 import { fileURLToPath } from 'url';
 
 import { defaultLexical } from '@/fields/defaultLexical';
@@ -13,6 +13,7 @@ import { Pages } from './collections/Pages';
 import { Posts } from './collections/Posts';
 import { Users } from './collections/Users';
 import { Footer } from './Footer/config';
+import { ApiKey } from './globals/api-keys';
 import { Header } from './Header/config';
 import { plugins } from './plugins';
 import { getServerSideURL } from './utilities/getURL';
@@ -68,8 +69,8 @@ export default buildConfig({
     url: mongoUrl,
   }),
   collections: [Pages, Posts, Media, Categories, Users],
-  cors: [getServerSideURL()].filter((url): url is string => typeof url === 'string'),
-  globals: [Header, Footer],
+  cors: [getServerSideURL()].filter(Boolean),
+  globals: [Header, Footer, ApiKey],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

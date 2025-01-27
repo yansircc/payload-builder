@@ -1,68 +1,91 @@
 import type { Field } from 'payload'
 
-import * as h from '@/heros/custom'
+import { hero1Fields } from './components/Hero1/config'
+import { hero12Fields } from './components/Hero12/config'
+import { hero24Fields } from './components/Hero24/config'
+import { hero25Fields } from './components/Hero25/config'
+import { hero34Fields } from './components/Hero34/config'
+import { hero5Fields } from './components/Hero5/config'
+import { hero6Fields } from './components/Hero6/config'
+import { hero7Fields } from './components/Hero7/config'
+import { hero8Fields } from './components/Hero8/config'
 
-// Hero 配置和组件映射
-export const heroConfigs = {
-  hero1: {
-    config: h.hero1Config,
-    Component: h.Hero1,
-  },
-  hero8: {
-    config: h.hero8Config,
-    Component: h.Hero8,
-  },
-  hero7: {
-    config: h.hero7Config,
-    Component: h.Hero7,
-  },
-  hero12: {
-    config: h.hero12Config,
-    Component: h.Hero12,
-  },
-  Hero34: {
-    config: h.hero34Config,
-    Component: h.Hero34,
-  },
-  hero24: {
-    config: h.hero24Config,
-    Component: h.Hero24,
-  },
-  hero25: {
-    config: h.hero25Config,
-    Component: h.Hero25,
-  },
-} as const
-
-// 导出配置列表
-export const heroes = Object.values(heroConfigs).map(({ config }) => config)
-
-// Hero 选项
-const options = [
-  { label: 'None', value: 'none' },
-  { label: 'Hero 1', value: 'hero1' },
-  { label: 'Hero 7', value: 'hero7' },
-  { label: 'Hero 8', value: 'hero8' },
-  { label: 'Hero 12', value: 'hero12' },
-  { label: 'Hero 34', value: 'hero34' },
-  { label: 'Hero 24', value: 'hero24' },
-  { label: 'Hero 25', value: 'hero25' },
-]
-
-// Payload 字段配置
-export const hero: Field = {
+/**
+ * Hero Field configuration
+ */
+export const HeroField: Field = {
   name: 'hero',
+  interfaceName: 'HeroField',
   type: 'group',
-  label: false,
   fields: [
     {
-      name: 'type',
+      name: 'style',
       type: 'select',
-      defaultValue: 'none',
-      label: 'Type',
-      options,
-      required: true,
+      options: [
+        'hero-1',
+        'hero-5',
+        'hero-7',
+        'hero-8',
+        'hero-12',
+        'hero-24',
+        'hero-25',
+        'hero-34',
+        'hero-6',
+      ],
     },
-    ...heroes,
+    {
+      ...hero1Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-1',
+      },
+    },
+    {
+      ...hero5Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-5',
+      },
+    },
+    {
+      ...hero7Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-7',
+      },
+    },
+    {
+      ...hero8Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-8',
+      },
+    },
+    {
+      ...hero12Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-12',
+      },
+    },
+    {
+      ...hero24Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-24',
+      },
+    },
+    {
+      ...hero25Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-25',
+      },
+    },
+    {
+      ...hero34Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-34',
+      },
+    },
+    {
+      ...hero6Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-6',
+      },
+    },
   ],
 }
