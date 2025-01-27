@@ -34,6 +34,7 @@ export const feature5Fields: GroupField = {
   },
   fields: [
     createFeatureField({
+      includeFields: ['testimonial'],
       arrays: [
         {
           name: 'features',

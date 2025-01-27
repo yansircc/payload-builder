@@ -2055,68 +2055,6 @@ export interface Feature5Fields {
    */
   feature: {
     /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Feature description
-     */
-    description: string;
-    /**
-     * Feature button
-     */
-    link: {
-      type?: ('reference' | 'custom') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      label: string;
-      /**
-       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-       */
-      prefixIcon?: string | null;
-      /**
-       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-       */
-      suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost') | null;
-    };
-    /**
-     * Author profile image
-     */
-    image?: (string | null) | Media;
-    /**
-     * Lucide icon name
-     */
-    icon?: string | null;
-    /**
-     * Testimonial quote text
-     */
-    quote: string;
-    /**
-     * Author name
-     */
-    name: string;
-    /**
-     * Author role or position
-     */
-    role: string;
-    /**
-     * Author company
-     */
-    company: string;
-    /**
      * Feature cards (first card will be larger)
      */
     features?:
@@ -3228,26 +3166,6 @@ export interface Feature5FieldsSelect<T extends boolean = true> {
   feature?:
     | T
     | {
-        title?: T;
-        description?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              prefixIcon?: T;
-              suffixIcon?: T;
-              appearance?: T;
-            };
-        image?: T;
-        icon?: T;
-        quote?: T;
-        name?: T;
-        role?: T;
-        company?: T;
         features?:
           | T
           | {
