@@ -47,11 +47,15 @@ export default function Hero1({ hero }: Hero1Fields) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
-                {links.map((linkGroup) => (
-                  <>
-                    {linkGroup['link-1'] && <CMSLink key="link-1" {...linkGroup['link-1']} />}
-                    {linkGroup['link-2'] && <CMSLink key="link-2" {...linkGroup['link-2']} />}
-                  </>
+                {links.map((linkGroup, index) => (
+                  <div key={index} className="flex flex-col gap-2 sm:flex-row">
+                    {Object.entries(linkGroup)
+                      .filter(([key]) => key.startsWith('link-'))
+                      .map(
+                        ([key, link]) =>
+                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                      )}
+                  </div>
                 ))}
               </ClientMotionDiv>
             )}
