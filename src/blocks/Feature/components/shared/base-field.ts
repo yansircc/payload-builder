@@ -109,7 +109,7 @@ const iconFields: Record<string, Field> = {
 /**
  * Card fields for card-based layouts
  */
-export const cardsFields = {
+const cardsFields = {
   icon: {
     name: 'icon',
     type: 'text',
@@ -148,7 +148,7 @@ export const cardsFields = {
 /**
  * Testimonial fields configuration
  */
-export const testimonialFields = {
+const testimonialFields = {
   quote: {
     name: 'quote',
     type: 'textarea',
@@ -205,8 +205,8 @@ const featureFields: Record<string, Field> = {
 
 /**
  * Export all field groups for type safety
-export { basicFields, iconFields, mediaFields }
-export { basicFields, iconFields, mediaFields, }
+ */
+export { basicFields, cardsFields, iconFields, mediaFields, testimonialFields }
 
 /**
  * Create a custom feature field with selected fields, array fields and groups
