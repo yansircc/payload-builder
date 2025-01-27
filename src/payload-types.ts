@@ -1134,12 +1134,12 @@ export interface Hero45Fields {
      */
     badge?: string | null;
     /**
-     * Features section (exactly 3 items)
+     * Feature list (exactly 3 items)
      */
     features?:
       | {
           /**
-           * Lucide icon name (e.g., "HandHelping", "Users", "Zap"). Visit https://lucide.dev/icons for all available icons.
+           * Lucide icon name
            */
           icon: string;
           /**
