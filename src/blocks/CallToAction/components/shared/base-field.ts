@@ -1,6 +1,4 @@
-import { link } from '@/fields/link'
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
-import { Field, GroupField } from 'payload'
+import type { Field } from 'payload'
 import { z } from 'zod'
 
 /**
@@ -43,37 +41,82 @@ const basicFields = {
 /**
  * Button fields configuration
  */
-export const buttonFields: Record<string, Field> = {
+export const buttonFields = {
   label: {
-    name: 'label',
     type: 'text',
+    name: 'label',
+    label: 'Button Text',
     required: true,
-    admin: {
-      description: 'Button label',
-    },
   },
-  link: link({
-    overrides: {
-      admin: {
-        description: 'Button link',
+  link: {
+    type: 'group',
+    name: 'link',
+    label: 'Link',
+    fields: [
+      {
+        type: 'select',
+        name: 'type',
+        label: 'Type',
+        defaultValue: 'reference',
+        options: [
+          { label: 'Internal Link', value: 'reference' },
+          { label: 'Custom URL', value: 'custom' },
+        ],
       },
-    },
-  }),
+      {
+        type: 'checkbox',
+        name: 'newTab',
+        label: 'Open in new tab',
+      },
+      {
+        type: 'relationship',
+        name: 'reference',
+        relationTo: ['pages', 'posts'],
+        required: true,
+        admin: {
+          condition: (_, siblingData) => siblingData?.type === 'reference',
+        },
+      },
+      {
+        type: 'text',
+        name: 'url',
+        label: 'URL',
+        required: true,
+        admin: {
+          condition: (_, siblingData) => siblingData?.type === 'custom',
+        },
+      },
+      {
+        type: 'select',
+        name: 'appearance',
+        label: 'Appearance',
+        admin: {
+          description: 'Choose how the link should be rendered.',
+        },
+        options: [
+          { label: 'Default', value: 'default' },
+          { label: 'Outline', value: 'outline' },
+          { label: 'Ghost', value: 'ghost' },
+        ],
+      },
+    ],
+  },
   variant: {
-    name: 'variant',
     type: 'select',
+    name: 'variant',
+    label: 'Style',
+    required: true,
     defaultValue: 'default',
     options: [
-      { label: 'Default', value: 'default' },
+      { label: 'Primary', value: 'default' },
+      { label: 'Secondary', value: 'secondary' },
       { label: 'Outline', value: 'outline' },
       { label: 'Ghost', value: 'ghost' },
       { label: 'Link', value: 'link' },
       { label: 'Destructive', value: 'destructive' },
-      { label: 'Secondary', value: 'secondary' },
     ],
-    required: true,
   },
-}
+} as Record<string, Field>
 
 /**
  * Combine all CTA fields for the field group
@@ -92,16 +135,47 @@ export { basicFields }
  * @param options - Field group configuration options
  * @returns - CTA field configuration
  */
-export function createCTAField(
-  options: Omit<FieldGroupOptions<typeof ctaFields>, 'name' | 'fields'>,
-): GroupField {
-  return createFieldGroup({
+export function createCTAField({ includeFields, arrays = [] }: { includeFields: ('title' | 'description')[]; arrays?: { name: string; fields: Field[]; minRows?: number; maxRows?: number; admin?: { description?: string } }[] }): Field {
+  const fields: Field[] = [
+    includeFields.includes('title')
+      ? {
+          type: 'text',
+          name: 'title',
+          label: 'Title',
+          required: true,
+        }
+      : null,
+    includeFields.includes('description')
+      ? {
+          type: 'text',
+          name: 'description',
+          label: 'Description',
+        }
+      : null,
+    ...arrays.map(
+      (array): Field => ({
+        type: 'array',
+        name: array.name,
+        label: array.name === 'buttons' ? 'Buttons' : false,
+        admin: {
+          ...array.admin,
+          description: array.name === 'buttons' ? 'Add or remove buttons' : array.admin?.description,
+        },
+        labels: {
+          singular: 'Button',
+          plural: 'Buttons',
+        },
+        minRows: array.minRows,
+        maxRows: array.maxRows,
+        fields: array.fields,
+      }),
+    ),
+  ].filter(Boolean) as Field[]
+
+  return {
     name: 'cta',
-    fields: ctaFields,
-    ...options,
-    admin: {
-      description: 'CTA section fields',
-      ...options.admin,
-    },
-  })
+    type: 'group',
+    label: false,
+    fields,
+  }
 }

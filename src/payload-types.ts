@@ -877,7 +877,10 @@ export interface Hero6Fields {
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
-  type?: ('cta-10' | 'cta-11') | null;
+  /**
+   * Select a Call to Action style
+   */
+  type: 'cta-10' | 'cta-11';
   'cta-10'?: CTA10Fields;
   'cta-11'?: CTA11Fields;
   id?: string | null;
@@ -889,31 +892,16 @@ export interface CallToActionBlock {
  * via the `definition` "CTA10Fields".
  */
 export interface CTA10Fields {
-  /**
-   * CTA section fields
-   */
   cta: {
-    /**
-     * CTA title
-     */
     title: string;
-    /**
-     * CTA description
-     */
     description?: string | null;
     /**
-     * CTA buttons (1-2)
+     * Add or remove buttons
      */
     buttons?:
       | {
-          /**
-           * Button label
-           */
           label: string;
-          /**
-           * Button link
-           */
-          link: {
+          link?: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
             reference?:
@@ -926,13 +914,12 @@ export interface CTA10Fields {
                   value: string | Post;
                 } | null);
             url?: string | null;
-            label: string;
             /**
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
           };
-          variant: 'default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary';
+          variant: 'default' | 'secondary' | 'outline' | 'ghost' | 'link' | 'destructive';
           id?: string | null;
         }[]
       | null;
@@ -943,31 +930,16 @@ export interface CTA10Fields {
  * via the `definition` "CTA11Fields".
  */
 export interface CTA11Fields {
-  /**
-   * CTA section fields
-   */
   cta: {
-    /**
-     * CTA title
-     */
     title: string;
-    /**
-     * CTA description
-     */
     description?: string | null;
     /**
-     * CTA buttons (1-2)
+     * Add or remove buttons
      */
     buttons?:
       | {
-          /**
-           * Button label
-           */
           label: string;
-          /**
-           * Button link
-           */
-          link: {
+          link?: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
             reference?:
@@ -980,13 +952,12 @@ export interface CTA11Fields {
                   value: string | Post;
                 } | null);
             url?: string | null;
-            label: string;
             /**
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
           };
-          variant: 'default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary';
+          variant: 'default' | 'secondary' | 'outline' | 'ghost' | 'link' | 'destructive';
           id?: string | null;
         }[]
       | null;
@@ -1995,7 +1966,6 @@ export interface CTA10FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    label?: T;
                     appearance?: T;
                   };
               variant?: T;
@@ -2024,7 +1994,6 @@ export interface CTA11FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    label?: T;
                     appearance?: T;
                   };
               variant?: T;

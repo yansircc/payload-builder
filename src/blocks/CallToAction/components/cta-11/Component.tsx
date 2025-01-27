@@ -29,7 +29,7 @@ const CTA11 = ({ cta }: Props) => {
                 className="w-full sm:w-auto"
                 asChild
               >
-                <a href={button.link.url || '#'}>{button.label}</a>
+                <a href={button.link?.url || '#'}>{button.label}</a>
               </Button>
             ))}
           </div>

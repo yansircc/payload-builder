@@ -8,18 +8,25 @@ import { cta11Fields } from './components/cta-11/config'
 export const CallToAction: Block = {
   slug: 'cta',
   interfaceName: 'CallToActionBlock',
+  labels: {
+    singular: 'Call to Action',
+    plural: 'Call to Actions',
+  },
   fields: [
     {
       name: 'type',
       type: 'select',
-      defaultValue: 'cta-10',
+      required: true,
+      admin: {
+        description: 'Select a Call to Action style',
+      },
       options: [
         {
-          label: 'CTA 10',
+          label: 'Style 10 - Side by Side',
           value: 'cta-10',
         },
         {
-          label: 'CTA 11',
+          label: 'Style 11 - Centered',
           value: 'cta-11',
         },
       ],

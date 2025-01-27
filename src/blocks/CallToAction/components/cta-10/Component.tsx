@@ -37,7 +37,7 @@ const CTA10 = ({ cta }: Props) => {
                   asChild
                   className={cn('text-sm font-semibold')}
                 >
-                  <a href={button.link.url || '#'}>{button.label}</a>
+                  <a href={button.link?.url || '#'}>{button.label}</a>
                 </Button>
               ))}
             </div>
