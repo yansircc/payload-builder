@@ -20,14 +20,20 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
 }
 
 type LinkType = (options?: {
+  name?: string
   appearances?: LinkAppearances[] | false
   disableLabel?: boolean
   overrides?: Partial<GroupField>
 }) => Field
 
-export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
+export const link: LinkType = ({
+  name = 'link',
+  appearances,
+  disableLabel = false,
+  overrides = {},
+} = {}) => {
   const linkResult: GroupField = {
-    name: 'link',
+    name: name,
     type: 'group',
     admin: {
       hideGutter: true,
@@ -121,6 +127,9 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     linkResult.fields = [...linkResult.fields, ...linkTypes]
   }
 
+  // Add appearance and icons in the same row
+  const rowFields: Field[] = []
+
   if (appearances !== false) {
     let appearanceOptionsToUse = [
       appearanceOptions.default,
@@ -132,14 +141,45 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
     }
 
-    linkResult.fields.push({
+    rowFields.push({
       name: 'appearance',
       type: 'select',
       admin: {
         description: 'Choose how the link should be rendered.',
+        width: '50%',
       },
       defaultValue: 'default',
       options: appearanceOptionsToUse,
+    })
+  }
+
+  // Add icon fields
+  linkResult.fields.push({
+    type: 'row',
+    fields: [
+      {
+        name: 'prefixIcon',
+        type: 'text',
+        admin: {
+          description: 'Optional: Lucide icon name for prefix (e.g., "ArrowLeft")',
+          width: '50%',
+        },
+      },
+      {
+        name: 'suffixIcon',
+        type: 'text',
+        admin: {
+          description: 'Optional: Lucide icon name for suffix (e.g., "ArrowRight")',
+          width: '50%',
+        },
+      },
+    ],
+  })
+
+  if (rowFields.length > 0) {
+    linkResult.fields.push({
+      type: 'row',
+      fields: rowFields,
     })
   }
 

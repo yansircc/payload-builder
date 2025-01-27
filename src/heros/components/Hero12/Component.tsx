@@ -51,12 +51,11 @@ export default function Hero12({ hero }: Hero12Fields) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                {links.map(({ link }, i) => (
-                  <CMSLink
-                    key={i}
-                    {...link}
-                    suffixElement={i === 1 ? <ExternalLink className="ml-2 h-4" /> : undefined}
-                  />
+                {links.map((linkGroup) => (
+                  <>
+                    {linkGroup['link-1'] && <CMSLink key="link-1" {...linkGroup['link-1']} />}
+                    {linkGroup['link-2'] && <CMSLink key="link-2" {...linkGroup['link-2']} />}
+                  </>
                 ))}
               </ClientMotionDiv>
             )}

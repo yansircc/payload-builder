@@ -1,4 +1,3 @@
-import { MoveRight } from 'lucide-react'
 import * as LucideIcons from 'lucide-react'
 
 import { CMSLink } from '@/components/Link'
@@ -16,7 +15,7 @@ type Feature = {
 type IconComponent = React.ComponentType<{ className?: string; size?: number | string }>
 
 export default function Hero24({ hero }: Hero24Fields) {
-  const { badge, logo, features, title, link } = hero
+  const { badge, logo, features, title, links } = hero
 
   return (
     <section className="py-32">
@@ -49,13 +48,13 @@ export default function Hero24({ hero }: Hero24Fields) {
             <h1 className="mt-4 text-balance text-4xl font-semibold lg:text-6xl">{title}</h1>
 
             {/* Button */}
-            {link && (
+            {links && (
               <div className="mt-8">
-                <CMSLink
-                  {...link}
-                  size="lg"
-                  suffixElement={<MoveRight className="ml-2" strokeWidth={1} />}
-                />
+                {links.map((linkGroup) => (
+                  <>
+                    {linkGroup['link'] && <CMSLink key="link" size="lg" {...linkGroup['link']} />}
+                  </>
+                ))}
               </div>
             )}
           </ClientMotionDiv>

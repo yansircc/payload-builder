@@ -1,5 +1,3 @@
-import { ArrowRight } from 'lucide-react'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { ClientMotionDiv } from '../shared/motion'
@@ -39,13 +37,22 @@ export default function Hero34({ hero }: Hero34Fields) {
                 {/* Buttons */}
                 {links && links.length > 0 && (
                   <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-                    {links.map(({ link }, i) => (
-                      <CMSLink
-                        key={i}
-                        {...link}
-                        className="w-full sm:w-auto"
-                        prefixElement={i === 0 ? <ArrowRight className="mr-2 size-4" /> : undefined}
-                      />
+                    {links?.map((linkGroup, index) => (
+                      <div key={index} className="flex w-full flex-col gap-2 sm:flex-row">
+                        {Object.entries(linkGroup)
+                          .filter(([key]) => key.startsWith('link-'))
+                          .map(
+                            ([key, link]) =>
+                              link &&
+                              typeof link === 'object' && (
+                                <CMSLink
+                                  key={key}
+                                  className="inline-flex w-full items-center sm:w-auto"
+                                  {...link}
+                                />
+                              ),
+                          )}
+                      </div>
                     ))}
                   </div>
                 )}

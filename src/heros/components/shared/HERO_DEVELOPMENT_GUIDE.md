@@ -166,7 +166,41 @@ export const HeroField: Field = {
 }
 ```
 
-### 2.5 Generate Types
+### 2.5 Update Config File
+
+After creating your hero component, you need to update the main config file at `src/heros/config.ts`:
+
+1. Import your new hero fields at the top of the file:
+
+```typescript
+import { heroNFields } from './components/HeroN/config'
+```
+
+2. Add your hero style to the options array:
+
+```typescript
+{
+  name: 'style',
+  type: 'select',
+  options: [
+    // ... existing options
+    'hero-n', // Add your new hero style
+  ],
+}
+```
+
+3. Add your hero fields with the condition:
+
+```typescript
+{
+  ...heroNFields,
+  admin: {
+    condition: (_, siblingData) => siblingData.style === 'hero-n',
+  },
+}
+```
+
+### 2.6 Generate Types
 
 Run the type generation command:
 
@@ -205,21 +239,96 @@ This command will automatically generate TypeScript type definitions based on ou
 
 > Tip: Using types generated from `interfaceName` is more direct, reliable, and maintainable than deriving from the `Page` type.
 
-### 2.6 Implement Component Logic
+### 2.7 Implement Component Logic
 
-Create `Component.tsx` and implement component logic:
+Create `Component.tsx` and implement component logic. Here's a reference implementation based on Hero1:
 
 ```typescript
-import type { Hero5Fields } from '@/payload-types'
-import { CMSLink } from '@/components/Link' // Must use CMSLink for links
-import { Media } from '@/components/Media' // Must use Media for images
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
+import { Badge } from '@/components/ui/badge'
+import type { HeroNFields } from '@/payload-types'
+import { ClientMotionDiv } from '../shared/motion'
 
-export default function Hero5({ title, subtitle, link, image }: Hero5Fields) {
+export default function HeroN({ hero }: HeroNFields) {
+  const { title, subtitle, links, image, badge } = hero
+
   return (
-    // Implement component logic
+    <section className="relative overflow-hidden bg-background py-24 md:py-32">
+      <div className="container relative z-10">
+        {/* Implement your hero layout here */}
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-24">
+          {/* Content side */}
+          <div className="flex flex-col items-start gap-6">
+            <ClientMotionDiv
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Your hero content */}
+            </ClientMotionDiv>
+          </div>
+
+          {/* Media side */}
+          <ClientMotionDiv
+            className="relative aspect-square lg:aspect-auto"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            {/* Your hero media content */}
+          </ClientMotionDiv>
+        </div>
+      </div>
+    </section>
   )
 }
 ```
+
+Key points to remember:
+
+- Use `CMSLink` for links
+- Use `Media` component for images
+- Implement motion animations with `ClientMotionDiv`
+- Type your component with generated types
+- Follow the responsive design pattern
+- Use Tailwind CSS for styling
+
+### 2.8 Register the New Hero
+
+After implementing your hero component, you need to register it in `src/heros/index.ts`:
+
+1. Import your component and config:
+
+```typescript
+import HeroNComponent from './components/HeroN/Component'
+export { heroNFields } from './components/HeroN/config'
+```
+
+2. Export your component:
+
+```typescript
+export const HeroN = HeroNComponent
+```
+
+3. Add it to the heroComponents mapping:
+
+```typescript
+export const heroComponents: Record<
+  NonNullable<Required<HeroField>['style']>,
+  ComponentType<HeroComponentProps<any>>
+> = {
+  // ... existing components
+  'hero-n': HeroN,
+}
+```
+
+This registration process ensures your hero component is:
+
+- Properly exported
+- Available for use in the CMS
+- Correctly typed
+- Included in the component mapping
 
 ## 3. Configuration File Guide
 

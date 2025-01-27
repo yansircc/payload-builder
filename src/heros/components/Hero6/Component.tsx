@@ -1,7 +1,6 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero6Fields } from '@/payload-types'
-import { ChevronRight } from 'lucide-react'
 
 import { ClientMotionDiv } from '../shared/motion'
 
@@ -25,12 +24,7 @@ export default function Hero6({ hero }: Hero6Fields) {
             {links && links.length > 0 && (
               <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
                 {links.slice(0, 2).map(({ link }, i) => (
-                  <CMSLink
-                    key={i}
-                    {...link}
-                    appearance={i === 1 ? 'ghost' : 'default'}
-                    suffixElement={<ChevronRight className="ml-2 h-4" />}
-                  />
+                  <CMSLink key={i} {...link} appearance={i === 1 ? 'ghost' : 'default'} />
                 ))}
               </div>
             )}
@@ -56,7 +50,6 @@ export default function Hero6({ hero }: Hero6Fields) {
                 {...links[2].link}
                 appearance="outline"
                 className="absolute bottom-5 right-5"
-                suffixElement={<ChevronRight className="ml-2 h-4" />}
               />
             )}
           </div>

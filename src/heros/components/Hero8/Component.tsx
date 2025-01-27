@@ -1,6 +1,5 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { ChevronRight } from 'lucide-react'
 
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
@@ -33,12 +32,7 @@ export default function Hero8({ hero }: Hero8Fields) {
             {links && links.length > 0 && (
               <div className="mt-12 flex w-full flex-col justify-center gap-2 sm:flex-row">
                 {links.map(({ link }, i) => (
-                  <CMSLink
-                    key={i}
-                    {...link}
-                    className="w-full sm:w-auto"
-                    suffixElement={<ChevronRight className="ml-2 h-4" />}
-                  />
+                  <CMSLink key={i} {...link} className="w-full sm:w-auto" />
                 ))}
               </div>
             )}

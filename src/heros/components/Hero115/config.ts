@@ -1,54 +1,51 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
-import { z } from 'zod'
 import { createHeroField, heroSchemas } from '../shared/base-field'
 
 /**
- * Hero 1 field validation and type definitions
+ * Hero 115 field validation and type definitions
  */
 export const schemas = {
   title: heroSchemas.title,
   subtitle: heroSchemas.subtitle,
-  links: z.array(heroSchemas.link).min(2).max(2),
+  link: heroSchemas.link,
+  trustText: heroSchemas.trustText,
   image: heroSchemas.image,
-  badge: heroSchemas.badge,
 }
 
 /**
- * Complete configuration for Hero 1
+ * Complete configuration for Hero 115
  */
-export const hero1Fields: GroupField = {
-  name: 'hero-1',
-  interfaceName: 'Hero1Fields',
+export const hero115Fields: GroupField = {
+  name: 'hero-115',
+  interfaceName: 'Hero115Fields',
   label: false,
   type: 'group',
   admin: {
-    description: 'Hero with a badge on the top left',
+    description:
+      'Hero section with centered content, circular decorative borders, and a large image',
   },
   fields: [
     createHeroField({
-      includeFields: ['title', 'subtitle', 'image', 'badge'],
+      includeFields: ['title', 'subtitle', 'trustText', 'image'],
       arrays: [
         {
           name: 'links',
           fields: [
             link({
-              name: 'link-1',
-            }),
-            link({
-              name: 'link-2',
+              name: 'link',
               overrides: {
                 admin: {
-                  description: 'Hero button with ArrowDownRight suffix icon',
+                  description: 'Hero button with Zap suffix icon',
                 },
                 defaultValue: {
-                  suffixIcon: 'ArrowDownRight',
+                  suffixIcon: 'Zap',
                 },
               },
             }),
           ],
           admin: {
-            description: 'Hero buttons',
+            description: 'Hero button',
           },
           minRows: 1,
           maxRows: 1,

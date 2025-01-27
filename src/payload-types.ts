@@ -116,7 +116,23 @@ export interface Page {
  * via the `definition` "HeroField".
  */
 export interface HeroField {
-  style?: ('hero-1' | 'hero-5' | 'hero-7' | 'hero-8' | 'hero-12' | 'hero-24' | 'hero-25' | 'hero-34' | 'hero-6') | null;
+  style?:
+    | (
+        | 'hero-1'
+        | 'hero-5'
+        | 'hero-7'
+        | 'hero-8'
+        | 'hero-12'
+        | 'hero-24'
+        | 'hero-25'
+        | 'hero-32'
+        | 'hero-34'
+        | 'hero-6'
+        | 'hero-3'
+        | 'hero-45'
+        | 'hero-115'
+      )
+    | null;
   'hero-1'?: Hero1Fields;
   'hero-5'?: Hero5Fields;
   'hero-7'?: Hero7Fields;
@@ -124,8 +140,12 @@ export interface HeroField {
   'hero-12'?: Hero12Fields;
   'hero-24'?: Hero24Fields;
   'hero-25'?: Hero25Fields;
+  'hero-32'?: Hero32Fields;
   'hero-34'?: Hero34Fields;
   'hero-6'?: Hero6Fields;
+  'hero-3'?: Hero3Fields;
+  'hero-45'?: Hero45Fields;
+  'hero-115'?: Hero115Fields;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -153,14 +173,11 @@ export interface Hero1Fields {
      */
     badge?: string | null;
     /**
-     * Hero buttons (exactly 2)
+     * Hero buttons
      */
     links?:
       | {
-          /**
-           * Hero button
-           */
-          link: {
+          'link-1': {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
             reference?:
@@ -174,6 +191,44 @@ export interface Hero1Fields {
                 } | null);
             url?: string | null;
             label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          /**
+           * Hero button with ArrowDownRight suffix icon
+           */
+          'link-2': {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
              */
@@ -380,31 +435,47 @@ export interface Hero5Fields {
      */
     subtitle?: string | null;
     /**
-     * Hero button
-     */
-    link: {
-      type?: ('reference' | 'custom') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      label: string;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost') | null;
-    };
-    /**
      * Hero image
      */
     image: string | Media;
+    /**
+     * Hero button
+     */
+    links?:
+      | {
+          /**
+           * Hero button with ArrowRight prefix icon
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
   };
 }
 /**
@@ -441,6 +512,14 @@ export interface Hero7Fields {
           } | null);
       url?: string | null;
       label: string;
+      /**
+       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+       */
+      prefixIcon?: string | null;
+      /**
+       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+       */
+      suffixIcon?: string | null;
       /**
        * Choose how the link should be rendered.
        */
@@ -499,9 +578,6 @@ export interface Hero8Fields {
      */
     links?:
       | {
-          /**
-           * Hero button
-           */
           link: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
@@ -516,6 +592,14 @@ export interface Hero8Fields {
                 } | null);
             url?: string | null;
             label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
              */
@@ -556,10 +640,7 @@ export interface Hero12Fields {
      */
     links?:
       | {
-          /**
-           * Hero button
-           */
-          link: {
+          'link-1': {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
             reference?:
@@ -573,6 +654,44 @@ export interface Hero12Fields {
                 } | null);
             url?: string | null;
             label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          /**
+           * Hero button with ExternalLink suffix icon
+           */
+          'link-2': {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
              */
@@ -613,28 +732,6 @@ export interface Hero24Fields {
      */
     subtitle?: string | null;
     /**
-     * Hero button
-     */
-    link: {
-      type?: ('reference' | 'custom') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      label: string;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost') | null;
-    };
-    /**
      * Partner logo image
      */
     logo: string | Media;
@@ -642,6 +739,44 @@ export interface Hero24Fields {
      * Badge text displayed above title
      */
     badge?: string | null;
+    /**
+     * Hero button
+     */
+    links?:
+      | {
+          /**
+           * Hero button with MoveRight suffix icon
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
     /**
      * Feature list (exactly 4 items)
      */
@@ -712,6 +847,14 @@ export interface Hero25Fields {
             url?: string | null;
             label: string;
             /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
@@ -743,6 +886,63 @@ export interface Hero25Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero32Fields".
+ */
+export interface Hero32Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Hero button
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+       */
+      prefixIcon?: string | null;
+      /**
+       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+       */
+      suffixIcon?: string | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost') | null;
+    };
+    /**
+     * Integration images (exactly 15)
+     */
+    integrations?:
+      | {
+          /**
+           * Integration logo/image
+           */
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero34Fields".
  */
 export interface Hero34Fields {
@@ -767,14 +967,14 @@ export interface Hero34Fields {
      */
     badge?: string | null;
     /**
-     * Hero buttons (exactly 2)
+     * Hero buttons
      */
     links?:
       | {
           /**
-           * Hero button
+           * Hero button with ArrowRight prefix icon
            */
-          link: {
+          'link-1': {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
             reference?:
@@ -788,6 +988,41 @@ export interface Hero34Fields {
                 } | null);
             url?: string | null;
             label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          'link-2': {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
              */
@@ -824,9 +1059,6 @@ export interface Hero6Fields {
      */
     links?:
       | {
-          /**
-           * Hero button
-           */
           link: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
@@ -841,6 +1073,14 @@ export interface Hero6Fields {
                 } | null);
             url?: string | null;
             label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
              */
@@ -870,6 +1110,232 @@ export interface Hero6Fields {
        */
       image: string | Media;
     };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero3Fields".
+ */
+export interface Hero3Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Avatar images (exactly 5)
+     */
+    avatars?:
+      | {
+          /**
+           * Hero image
+           */
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Hero buttons (exactly 2)
+     */
+    links?:
+      | {
+          'link-1': {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          /**
+           * Hero button with ArrowDownRight suffix icon
+           */
+          'link-2': {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Review section configuration
+     */
+    review: {
+      /**
+       * Rating value (0-5)
+       */
+      rate: number;
+      /**
+       * Number of ratings
+       */
+      count: number;
+    };
+    /**
+     * Hero media
+     */
+    media: {
+      /**
+       * Hero image
+       */
+      image: string | Media;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero45Fields".
+ */
+export interface Hero45Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Hero image
+     */
+    image: string | Media;
+    /**
+     * Badge text displayed above title
+     */
+    badge?: string | null;
+    /**
+     * Feature list (exactly 3 items)
+     */
+    features?:
+      | {
+          /**
+           * Lucide icon name
+           */
+          icon: string;
+          /**
+           * Feature title
+           */
+          title: string;
+          /**
+           * Feature description
+           */
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero115Fields".
+ */
+export interface Hero115Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Text showing trust metrics (e.g., "Trusted by X businesses")
+     */
+    trustText: string;
+    /**
+     * Hero image
+     */
+    image: string | Media;
+    /**
+     * Hero button
+     */
+    links?:
+      | {
+          /**
+           * Hero button with Zap suffix icon
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
   };
 }
 /**
@@ -908,6 +1374,14 @@ export interface CallToActionBlock {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+           */
+          prefixIcon?: string | null;
+          /**
+           * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+           */
+          suffixIcon?: string | null;
           /**
            * Choose how the link should be rendered.
            */
@@ -958,6 +1432,14 @@ export interface ContentBlock {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+           */
+          prefixIcon?: string | null;
+          /**
+           * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+           */
+          suffixIcon?: string | null;
           /**
            * Choose how the link should be rendered.
            */
@@ -1256,6 +1738,14 @@ export interface Gallery6Fields {
       url?: string | null;
       label: string;
       /**
+       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+       */
+      prefixIcon?: string | null;
+      /**
+       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+       */
+      suffixIcon?: string | null;
+      /**
        * Choose how the link should be rendered.
        */
       appearance?: ('default' | 'outline' | 'ghost') | null;
@@ -1290,6 +1780,14 @@ export interface Gallery6Fields {
                 } | null);
             url?: string | null;
             label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
              */
@@ -1602,8 +2100,12 @@ export interface HeroFieldSelect<T extends boolean = true> {
   'hero-12'?: T | Hero12FieldsSelect<T>;
   'hero-24'?: T | Hero24FieldsSelect<T>;
   'hero-25'?: T | Hero25FieldsSelect<T>;
+  'hero-32'?: T | Hero32FieldsSelect<T>;
   'hero-34'?: T | Hero34FieldsSelect<T>;
   'hero-6'?: T | Hero6FieldsSelect<T>;
+  'hero-3'?: T | Hero3FieldsSelect<T>;
+  'hero-45'?: T | Hero45FieldsSelect<T>;
+  'hero-115'?: T | Hero115FieldsSelect<T>;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1620,7 +2122,7 @@ export interface Hero1FieldsSelect<T extends boolean = true> {
         links?:
           | T
           | {
-              link?:
+              'link-1'?:
                 | T
                 | {
                     type?: T;
@@ -1628,6 +2130,20 @@ export interface Hero1FieldsSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              'link-2'?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
                     appearance?: T;
                   };
               id?: T;
@@ -1644,17 +2160,24 @@ export interface Hero5FieldsSelect<T extends boolean = true> {
     | {
         title?: T;
         subtitle?: T;
-        link?:
+        image?: T;
+        links?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
             };
-        image?: T;
       };
 }
 /**
@@ -1675,6 +2198,8 @@ export interface Hero7FieldsSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
               appearance?: T;
             };
         rating?:
@@ -1713,6 +2238,8 @@ export interface Hero8FieldsSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
                     appearance?: T;
                   };
               id?: T;
@@ -1734,7 +2261,7 @@ export interface Hero12FieldsSelect<T extends boolean = true> {
         links?:
           | T
           | {
-              link?:
+              'link-1'?:
                 | T
                 | {
                     type?: T;
@@ -1742,6 +2269,20 @@ export interface Hero12FieldsSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              'link-2'?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
                     appearance?: T;
                   };
               id?: T;
@@ -1764,18 +2305,25 @@ export interface Hero24FieldsSelect<T extends boolean = true> {
     | {
         title?: T;
         subtitle?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
         logo?: T;
         badge?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
         features?:
           | T
           | {
@@ -1809,6 +2357,8 @@ export interface Hero25FieldsSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
                     appearance?: T;
                   };
               id?: T;
@@ -1819,6 +2369,35 @@ export interface Hero25FieldsSelect<T extends boolean = true> {
               icon?: T;
               title?: T;
               description?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero32Fields_select".
+ */
+export interface Hero32FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+        integrations?:
+          | T
+          | {
+              image?: T;
               id?: T;
             };
       };
@@ -1838,7 +2417,7 @@ export interface Hero34FieldsSelect<T extends boolean = true> {
         links?:
           | T
           | {
-              link?:
+              'link-1'?:
                 | T
                 | {
                     type?: T;
@@ -1846,6 +2425,20 @@ export interface Hero34FieldsSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              'link-2'?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
                     appearance?: T;
                   };
               id?: T;
@@ -1874,6 +2467,8 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
                     appearance?: T;
                   };
               id?: T;
@@ -1888,6 +2483,116 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
           | T
           | {
               image?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero3Fields_select".
+ */
+export interface Hero3FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        avatars?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+        links?:
+          | T
+          | {
+              'link-1'?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              'link-2'?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        review?:
+          | T
+          | {
+              rate?: T;
+              count?: T;
+            };
+        media?:
+          | T
+          | {
+              image?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero45Fields_select".
+ */
+export interface Hero45FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        badge?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero115Fields_select".
+ */
+export interface Hero115FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        trustText?: T;
+        image?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
             };
       };
 }
@@ -1908,6 +2613,8 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
               appearance?: T;
             };
         id?: T;
@@ -1934,6 +2641,8 @@ export interface ContentBlockSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
               appearance?: T;
             };
         id?: T;
@@ -2003,6 +2712,8 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
               appearance?: T;
             };
         cards?:
@@ -2018,6 +2729,8 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
                     appearance?: T;
                   };
               image?: T;
@@ -2460,6 +3173,14 @@ export interface Header {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+           */
+          prefixIcon?: string | null;
+          /**
+           * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+           */
+          suffixIcon?: string | null;
         };
         id?: string | null;
       }[]
@@ -2489,6 +3210,14 @@ export interface Footer {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+           */
+          prefixIcon?: string | null;
+          /**
+           * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+           */
+          suffixIcon?: string | null;
         };
         id?: string | null;
       }[]
@@ -2534,6 +3263,8 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
             };
         id?: T;
       };
@@ -2557,6 +3288,8 @@ export interface FooterSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
             };
         id?: T;
       };

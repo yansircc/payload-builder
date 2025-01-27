@@ -1,3 +1,4 @@
+import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
 import { createHeroField, featureFields, heroSchemas } from '../shared/base-field'
@@ -27,8 +28,28 @@ export const hero24Fields: GroupField = {
   },
   fields: [
     createHeroField({
-      includeFields: ['logo', 'badge', 'title', 'subtitle', 'link'],
+      includeFields: ['logo', 'badge', 'title', 'subtitle'],
       arrays: [
+        {
+          name: 'links',
+          fields: [
+            link({
+              overrides: {
+                admin: {
+                  description: 'Hero button with MoveRight suffix icon',
+                },
+                defaultValue: {
+                  suffixIcon: 'MoveRight',
+                },
+              },
+            }),
+          ],
+          minRows: 1,
+          maxRows: 1,
+          admin: {
+            description: 'Hero button',
+          },
+        },
         {
           name: 'features',
           fields: [featureFields.icon, featureFields.title, featureFields.description],

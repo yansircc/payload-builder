@@ -19,6 +19,8 @@ export const heroSchemas = {
   badge: z.string().describe('Badge text displayed above title'),
   /** Logo schema */
   logo: z.object({}).describe('Logo image'),
+  /** Trust text schema */
+  trustText: z.string().describe('Text showing trust metrics'),
   /** Feature schema */
   feature: z.object({
     icon: z.string().describe('Lucide icon name'),
@@ -35,7 +37,7 @@ export const heroSchemas = {
   partner: z.object({
     logo: z.object({}).describe('Partner logo image'),
   }),
-}
+} as const
 
 /**
  * Basic fields configuration
@@ -54,6 +56,14 @@ const basicFields = {
     type: 'textarea',
     admin: {
       description: 'Subtitle text',
+    },
+  },
+  trustText: {
+    name: 'trustText',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Text showing trust metrics (e.g., "Trusted by X businesses")',
     },
   },
   link: link({
