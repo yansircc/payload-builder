@@ -1062,9 +1062,6 @@ export interface Hero6Fields {
      */
     links?:
       | {
-          /**
-           * Hero button
-           */
           link: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
