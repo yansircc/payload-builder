@@ -57,7 +57,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       if (!CTAComponent) return null
       return (
         <div className="my-16">
-          <CTAComponent cta={node.fields[node.fields.type]} />
+          <CTAComponent cta={node.fields[node.fields.type]?.cta as any} />
         </div>
       )
     },

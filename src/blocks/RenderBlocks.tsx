@@ -31,7 +31,11 @@ const blockComponents = {
     if (!props.type) return null
     const CTAComponent = ctaComponents[props.type]
     if (!CTAComponent) return null
-    return <CTAComponent cta={props[props.type]?.cta} />
+
+    const ctaData = props[props.type]?.cta
+    if (!ctaData) return null
+
+    return <CTAComponent cta={ctaData as any} />
   },
 }
 

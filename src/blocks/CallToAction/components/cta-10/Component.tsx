@@ -1,10 +1,25 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import type { CTA10Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
 interface Props {
-  cta: CTA10Fields['cta']
+  cta: {
+    title: string
+    description?: string | null
+    buttons?: Array<{
+      label: string
+      link?: {
+        type?: 'custom' | 'reference' | null
+        newTab?: boolean | null
+        reference?: {
+          relationTo: 'pages' | 'posts'
+          value: string
+        } | null
+        url?: string | null
+        appearance?: 'default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary'
+      } | null
+    }> | null
+  }
 }
 
 const CTA10 = ({ cta }: Props) => {
@@ -33,7 +48,7 @@ const CTA10 = ({ cta }: Props) => {
               {buttons.map((button, index) => (
                 <Button
                   key={index}
-                  variant={button.variant}
+                  variant={button.link?.appearance || 'default'}
                   asChild
                   className={cn('text-sm font-semibold')}
                 >

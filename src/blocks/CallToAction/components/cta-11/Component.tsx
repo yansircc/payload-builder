@@ -1,8 +1,17 @@
 import { Button } from '@/components/ui/button'
-import type { CTA11Fields } from '@/payload-types'
 
 interface Props {
-  cta: CTA11Fields['cta']
+  cta: {
+    title: string
+    description?: string | null
+    buttons?: Array<{
+      label: string
+      variant?: 'default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary'
+      link?: {
+        url: string
+      } | null
+    }> | null
+  }
 }
 
 const CTA11 = ({ cta }: Props) => {
