@@ -51,7 +51,9 @@ export default function Hero24({ hero }: Hero24Fields) {
             {links && (
               <div className="mt-8">
                 {links.map((linkGroup) => (
-                  <>{linkGroup['link'] && <CMSLink key="link" {...linkGroup['link']} />}</>
+                  <>
+                    {linkGroup['link'] && <CMSLink key="link" size="lg" {...linkGroup['link']} />}
+                  </>
                 ))}
               </div>
             )}
