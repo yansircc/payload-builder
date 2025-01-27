@@ -172,6 +172,9 @@ export interface Hero1Fields {
      * Badge text displayed above title
      */
     badge?: string | null;
+    /**
+     * Hero buttons
+     */
     links?:
       | {
           'link-1': {

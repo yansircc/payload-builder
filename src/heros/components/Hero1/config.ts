@@ -47,6 +47,9 @@ export const hero1Fields: GroupField = {
               },
             }),
           ],
+          admin: {
+            description: 'Hero buttons',
+          },
           minRows: 1,
           maxRows: 1,
         },
