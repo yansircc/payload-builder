@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { createFeatureField, featureSchemas } from '../shared/base-field'
 
 /**
- * Feature 1 field validation and type definitions
+ * Feature 2 field validation and type definitions
  */
 export const schemas = {
   title: featureSchemas.title,
@@ -15,21 +15,21 @@ export const schemas = {
 }
 
 /**
- * Feature 1 configuration
+ * Feature 2 configuration
  *
  * This feature includes:
  * - Icon with accent background
  * - Title and description
  * - Two links (primary and secondary)
- * - Feature image
+ * - Feature image on the left
  */
-export const feature1Fields: GroupField = {
-  name: 'feature-1',
-  interfaceName: 'Feature1Fields',
+export const feature2Fields: GroupField = {
+  name: 'feature-2',
+  interfaceName: 'Feature2Fields',
   label: false,
   type: 'group',
   admin: {
-    description: 'Feature with image on the right',
+    description: 'Feature with image on the left',
   },
   fields: [
     createFeatureField({

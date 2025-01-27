@@ -1,3 +1,4 @@
+import { link } from '@/fields/link'
 import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
@@ -14,14 +15,20 @@ export const featureSchemas = {
   icon: z.string().describe('Lucide icon name'),
   /** Image schema */
   image: z.object({}).describe('Feature image'),
-  /** Primary button schema */
-  primaryButton: z.object({
-    icon: z.string().describe('Button icon name'),
-    label: z.string().describe('Button label'),
-  }),
-  /** Secondary button schema */
-  secondaryButton: z.object({
-    label: z.string().describe('Button label'),
+  /** Link schema */
+  link: z.object({
+    type: z.enum(['reference', 'custom']).optional(),
+    newTab: z.boolean().optional(),
+    reference: z
+      .object({
+        relationTo: z.enum(['pages', 'posts']),
+        value: z.string(),
+      })
+      .optional(),
+    url: z.string().optional(),
+    label: z.string(),
+    prefixIcon: z.string().optional(),
+    suffixIcon: z.string().optional(),
   }),
 }
 
@@ -45,6 +52,13 @@ const basicFields: Record<string, Field> = {
       description: 'Feature description text',
     },
   },
+  link: link({
+    overrides: {
+      admin: {
+        description: 'Feature button',
+      },
+    },
+  }),
 }
 
 /**
@@ -77,61 +91,18 @@ const iconFields: Record<string, Field> = {
 }
 
 /**
- * Button fields configuration
- */
-const buttonFields: Record<string, GroupField> = {
-  primaryButton: {
-    name: 'primaryButton',
-    type: 'group',
-    fields: [
-      {
-        name: 'icon',
-        type: 'text',
-        required: true,
-        admin: {
-          description: 'Button icon name (e.g., Play)',
-        },
-      },
-      {
-        name: 'label',
-        type: 'text',
-        required: true,
-        admin: {
-          description: 'Button text',
-        },
-      },
-    ],
-  },
-  secondaryButton: {
-    name: 'secondaryButton',
-    type: 'group',
-    fields: [
-      {
-        name: 'label',
-        type: 'text',
-        required: true,
-        admin: {
-          description: 'Button text',
-        },
-      },
-    ],
-  },
-}
-
-/**
  * Combine all feature fields for the field group
  */
 const featureFields: Record<string, Field> = {
   ...basicFields,
   ...mediaFields,
   ...iconFields,
-  ...buttonFields,
 }
 
 /**
  * Export all field groups for type safety
  */
-export { basicFields, buttonFields, iconFields, mediaFields }
+export { basicFields, iconFields, mediaFields }
 
 /**
  * Create a custom feature field with selected fields, array fields and groups

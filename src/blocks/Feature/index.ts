@@ -14,35 +14,29 @@ import type { ComponentType } from 'react'
 
 // Import all Feature components
 import Feature1Component from './components/Feature1/Component'
+import Feature2Component from './components/Feature2/Component'
 
 // Export config
 export { feature1Fields } from './components/Feature1/config'
+export { feature2Fields } from './components/Feature2/config'
 
 // Export components
 export const Feature1 = Feature1Component
+export const Feature2 = Feature2Component
 
 // Define Feature component props type
-type FeatureStyle = 'feature-1'
-type FeatureProps = Omit<FeatureBlock, 'style' | 'blockType'>
-
-type FeatureComponentProps = {
-  title?: string
-  description?: string
-  image?: any
-  icon?: string
-  primaryButton?: {
-    icon: string
-    label: string
-  }
-  secondaryButton?: {
-    label: string
-  }
-}
+type FeatureComponentProps<T extends NonNullable<FeatureBlock['style']>> = NonNullable<
+  FeatureBlock[T]
+>
 
 // Feature component mapping
-export const featureComponents: Record<FeatureStyle, ComponentType<FeatureComponentProps>> = {
+export const featureComponents: Record<
+  NonNullable<Required<FeatureBlock>['style']>,
+  ComponentType<FeatureComponentProps<any>>
+> = {
   'feature-1': Feature1,
+  'feature-2': Feature2,
 }
 
 // Export type
-export type { FeatureComponentProps, FeatureStyle }
+export type { FeatureComponentProps }
