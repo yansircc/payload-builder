@@ -198,6 +198,10 @@ export interface Hero1Fields {
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
+            /**
+             * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+             */
+            icon?: string | null;
           };
           id?: string | null;
         }[]
@@ -420,6 +424,10 @@ export interface Hero5Fields {
        * Choose how the link should be rendered.
        */
       appearance?: ('default' | 'outline' | 'ghost') | null;
+      /**
+       * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+       */
+      icon?: string | null;
     };
     /**
      * Hero image
@@ -465,6 +473,10 @@ export interface Hero7Fields {
        * Choose how the link should be rendered.
        */
       appearance?: ('default' | 'outline' | 'ghost') | null;
+      /**
+       * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+       */
+      icon?: string | null;
     };
     /**
      * Rating information
@@ -540,6 +552,10 @@ export interface Hero8Fields {
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
+            /**
+             * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+             */
+            icon?: string | null;
           };
           id?: string | null;
         }[]
@@ -597,6 +613,10 @@ export interface Hero12Fields {
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
+            /**
+             * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+             */
+            icon?: string | null;
           };
           id?: string | null;
         }[]
@@ -653,6 +673,10 @@ export interface Hero24Fields {
        * Choose how the link should be rendered.
        */
       appearance?: ('default' | 'outline' | 'ghost') | null;
+      /**
+       * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+       */
+      icon?: string | null;
     };
     /**
      * Partner logo image
@@ -735,6 +759,10 @@ export interface Hero25Fields {
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
+            /**
+             * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+             */
+            icon?: string | null;
           };
           id?: string | null;
         }[]
@@ -795,6 +823,10 @@ export interface Hero32Fields {
        * Choose how the link should be rendered.
        */
       appearance?: ('default' | 'outline' | 'ghost') | null;
+      /**
+       * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+       */
+      icon?: string | null;
     };
     /**
      * Integration images (exactly 15)
@@ -861,6 +893,10 @@ export interface Hero34Fields {
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
+            /**
+             * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+             */
+            icon?: string | null;
           };
           id?: string | null;
         }[]
@@ -914,6 +950,10 @@ export interface Hero6Fields {
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
+            /**
+             * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+             */
+            icon?: string | null;
           };
           id?: string | null;
         }[]
@@ -996,6 +1036,10 @@ export interface Hero3Fields {
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
+            /**
+             * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+             */
+            icon?: string | null;
           };
           id?: string | null;
         }[]
@@ -1109,6 +1153,10 @@ export interface Hero115Fields {
        * Choose how the link should be rendered.
        */
       appearance?: ('default' | 'outline' | 'ghost') | null;
+      /**
+       * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+       */
+      icon?: string | null;
     };
     /**
      * Hero image
@@ -1156,6 +1204,10 @@ export interface CallToActionBlock {
            * Choose how the link should be rendered.
            */
           appearance?: ('default' | 'outline' | 'ghost') | null;
+          /**
+           * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+           */
+          icon?: string | null;
         };
         id?: string | null;
       }[]
@@ -1206,6 +1258,10 @@ export interface ContentBlock {
            * Choose how the link should be rendered.
            */
           appearance?: ('default' | 'outline' | 'ghost') | null;
+          /**
+           * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+           */
+          icon?: string | null;
         };
         id?: string | null;
       }[]
@@ -1503,6 +1559,10 @@ export interface Gallery6Fields {
        * Choose how the link should be rendered.
        */
       appearance?: ('default' | 'outline' | 'ghost') | null;
+      /**
+       * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+       */
+      icon?: string | null;
     };
     /**
      * Gallery cards (3-6)
@@ -1538,6 +1598,10 @@ export interface Gallery6Fields {
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
+            /**
+             * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+             */
+            icon?: string | null;
           };
           /**
            * Card image
@@ -1877,6 +1941,7 @@ export interface Hero1FieldsSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                     appearance?: T;
+                    icon?: T;
                   };
               id?: T;
             };
@@ -1901,6 +1966,7 @@ export interface Hero5FieldsSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              icon?: T;
             };
         image?: T;
       };
@@ -1924,6 +1990,7 @@ export interface Hero7FieldsSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              icon?: T;
             };
         rating?:
           | T
@@ -1962,6 +2029,7 @@ export interface Hero8FieldsSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                     appearance?: T;
+                    icon?: T;
                   };
               id?: T;
             };
@@ -1991,6 +2059,7 @@ export interface Hero12FieldsSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                     appearance?: T;
+                    icon?: T;
                   };
               id?: T;
             };
@@ -2021,6 +2090,7 @@ export interface Hero24FieldsSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              icon?: T;
             };
         logo?: T;
         badge?: T;
@@ -2058,6 +2128,7 @@ export interface Hero25FieldsSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                     appearance?: T;
+                    icon?: T;
                   };
               id?: T;
             };
@@ -2089,6 +2160,7 @@ export interface Hero32FieldsSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              icon?: T;
             };
         integrations?:
           | T
@@ -2122,6 +2194,7 @@ export interface Hero34FieldsSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                     appearance?: T;
+                    icon?: T;
                   };
               id?: T;
             };
@@ -2150,6 +2223,7 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                     appearance?: T;
+                    icon?: T;
                   };
               id?: T;
             };
@@ -2194,6 +2268,7 @@ export interface Hero3FieldsSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                     appearance?: T;
+                    icon?: T;
                   };
               id?: T;
             };
@@ -2251,6 +2326,7 @@ export interface Hero115FieldsSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              icon?: T;
             };
         image?: T;
       };
@@ -2273,6 +2349,7 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              icon?: T;
             };
         id?: T;
       };
@@ -2299,6 +2376,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              icon?: T;
             };
         id?: T;
       };
@@ -2368,6 +2446,7 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              icon?: T;
             };
         cards?:
           | T
@@ -2383,6 +2462,7 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                     appearance?: T;
+                    icon?: T;
                   };
               image?: T;
               id?: T;
@@ -2824,6 +2904,10 @@ export interface Header {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+           */
+          icon?: string | null;
         };
         id?: string | null;
       }[]
@@ -2853,6 +2937,10 @@ export interface Footer {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Optional: Lucide icon name (e.g., "Zap", "ArrowRight")
+           */
+          icon?: string | null;
         };
         id?: string | null;
       }[]
@@ -2898,6 +2986,7 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              icon?: T;
             };
         id?: T;
       };
@@ -2921,6 +3010,7 @@ export interface FooterSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              icon?: T;
             };
         id?: T;
       };

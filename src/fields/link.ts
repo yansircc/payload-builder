@@ -22,10 +22,16 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
 type LinkType = (options?: {
   appearances?: LinkAppearances[] | false
   disableLabel?: boolean
+  disableIcon?: boolean
   overrides?: Partial<GroupField>
 }) => Field
 
-export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
+export const link: LinkType = ({
+  appearances,
+  disableLabel = false,
+  disableIcon = false,
+  overrides = {},
+} = {}) => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
@@ -121,6 +127,9 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     linkResult.fields = [...linkResult.fields, ...linkTypes]
   }
 
+  // Add appearance and icon in the same row
+  const rowFields: Field[] = []
+
   if (appearances !== false) {
     let appearanceOptionsToUse = [
       appearanceOptions.default,
@@ -132,14 +141,33 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
     }
 
-    linkResult.fields.push({
+    rowFields.push({
       name: 'appearance',
       type: 'select',
       admin: {
         description: 'Choose how the link should be rendered.',
+        width: '50%',
       },
       defaultValue: 'default',
       options: appearanceOptionsToUse,
+    })
+  }
+
+  if (!disableIcon) {
+    rowFields.push({
+      name: 'icon',
+      type: 'text',
+      admin: {
+        description: 'Optional: Lucide icon name (e.g., "Zap", "ArrowRight")',
+        width: '50%',
+      },
+    })
+  }
+
+  if (rowFields.length > 0) {
+    linkResult.fields.push({
+      type: 'row',
+      fields: rowFields,
     })
   }
 

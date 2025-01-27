@@ -1,7 +1,8 @@
-import { Play, Zap } from 'lucide-react'
+import { Play } from 'lucide-react'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
+import DynamicIcon from '@/components/DynamicIcon'
 import type { Hero115Fields } from '@/payload-types'
 
 export default function Hero115({ hero }: { hero: Hero115Fields['hero'] }) {
@@ -34,7 +35,7 @@ export default function Hero115({ hero }: { hero: Hero115Fields['hero'] }) {
             </p>
             <div className="flex flex-col items-center justify-center gap-3 pb-12 pt-3">
               <CMSLink {...link} size="lg">
-                <Zap className="ml-2 size-4" />
+                {link?.icon && <DynamicIcon name={link.icon} className="ml-2 size-4" />}
               </CMSLink>
               <div className="text-xs text-muted-foreground">{trustText}</div>
             </div>
