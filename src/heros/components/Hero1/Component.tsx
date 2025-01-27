@@ -48,11 +48,7 @@ export default function Hero1({ hero }: Hero1Fields) {
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
                 {links.map(({ link }, i) => (
-                  <CMSLink
-                    key={i}
-                    {...link}
-                    suffixElement={i === 1 ? <ArrowDownRight className="ml-2 h-4" /> : undefined}
-                  />
+                  <CMSLink key={i} {...link} />
                 ))}
               </ClientMotionDiv>
             )}

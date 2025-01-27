@@ -56,11 +56,7 @@ export default function Hero25({ hero }: Hero25Fields) {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               {links.map(({ link }, i) => (
-                <CMSLink
-                  key={i}
-                  {...link}
-                  suffixElement={<MoveRight className="ml-2" strokeWidth={1} />}
-                />
+                <CMSLink key={i} {...link} />
               ))}
             </ClientMotionDiv>
           )}

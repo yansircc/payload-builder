@@ -52,11 +52,7 @@ export default function Hero12({ hero }: Hero12Fields) {
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 {links.map(({ link }, i) => (
-                  <CMSLink
-                    key={i}
-                    {...link}
-                    suffixElement={i === 1 ? <ExternalLink className="ml-2 h-4" /> : undefined}
-                  />
+                  <CMSLink key={i} {...link} />
                 ))}
               </ClientMotionDiv>
             )}

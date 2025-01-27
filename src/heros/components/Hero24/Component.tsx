@@ -51,11 +51,7 @@ export default function Hero24({ hero }: Hero24Fields) {
             {/* Button */}
             {link && (
               <div className="mt-8">
-                <CMSLink
-                  {...link}
-                  size="lg"
-                  suffixElement={<MoveRight className="ml-2" strokeWidth={1} />}
-                />
+                <CMSLink {...link} />
               </div>
             )}
           </ClientMotionDiv>

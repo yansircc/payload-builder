@@ -1,6 +1,5 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { Download } from 'lucide-react'
 
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
@@ -40,12 +39,7 @@ export default function Hero5({ hero }: Hero5Fields) {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex w-full justify-center lg:justify-start"
               >
-                <CMSLink
-                  {...link}
-                  size="lg"
-                  className="w-full sm:w-auto"
-                  prefixElement={<Download className="mr-2 size-5" />}
-                />
+                <CMSLink {...link} />
               </ClientMotionDiv>
             )}
           </div>

@@ -19,9 +19,8 @@ type CMSLinkType = {
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
   url?: string | null
-  prefixElement?: React.ReactNode
-  suffixElement?: React.ReactNode
-  icon?: string | null
+  prefixIcon?: string | null
+  suffixIcon?: string | null
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -35,9 +34,8 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     reference,
     size: sizeFromProps,
     url,
-    prefixElement,
-    suffixElement,
-    icon,
+    prefixIcon,
+    suffixIcon,
   } = props
 
   const href =
@@ -50,17 +48,20 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const size = appearance === 'inline' ? undefined : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
-  const iconElement = icon ? <DynamicIcon name={icon} className="ml-2 size-4" /> : null
+  const content = (
+    <>
+      {prefixIcon && <DynamicIcon name={prefixIcon} className="mr-2 size-4" />}
+      {label}
+      {children}
+      {suffixIcon && <DynamicIcon name={suffixIcon} className="ml-2 size-4" />}
+    </>
+  )
 
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
     return (
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {prefixElement}
-        {label}
-        {children}
-        {iconElement}
-        {suffixElement}
+        {content}
       </Link>
     )
   }
@@ -68,11 +69,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   return (
     <Button asChild className={className} size={size} variant={appearance}>
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {prefixElement}
-        {label}
-        {children}
-        {iconElement}
-        {suffixElement}
+        {content}
       </Link>
     </Button>
   )

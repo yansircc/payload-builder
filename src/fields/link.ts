@@ -22,16 +22,10 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
 type LinkType = (options?: {
   appearances?: LinkAppearances[] | false
   disableLabel?: boolean
-  disableIcon?: boolean
   overrides?: Partial<GroupField>
 }) => Field
 
-export const link: LinkType = ({
-  appearances,
-  disableLabel = false,
-  disableIcon = false,
-  overrides = {},
-} = {}) => {
+export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
@@ -127,7 +121,7 @@ export const link: LinkType = ({
     linkResult.fields = [...linkResult.fields, ...linkTypes]
   }
 
-  // Add appearance and icon in the same row
+  // Add appearance and icons in the same row
   const rowFields: Field[] = []
 
   if (appearances !== false) {
@@ -153,16 +147,28 @@ export const link: LinkType = ({
     })
   }
 
-  if (!disableIcon) {
-    rowFields.push({
-      name: 'icon',
-      type: 'text',
-      admin: {
-        description: 'Optional: Lucide icon name (e.g., "Zap", "ArrowRight")',
-        width: '50%',
+  // Add icon fields
+  linkResult.fields.push({
+    type: 'row',
+    fields: [
+      {
+        name: 'prefixIcon',
+        type: 'text',
+        admin: {
+          description: 'Optional: Lucide icon name for prefix (e.g., "ArrowLeft")',
+          width: '50%',
+        },
       },
-    })
-  }
+      {
+        name: 'suffixIcon',
+        type: 'text',
+        admin: {
+          description: 'Optional: Lucide icon name for suffix (e.g., "ArrowRight")',
+          width: '50%',
+        },
+      },
+    ],
+  })
 
   if (rowFields.length > 0) {
     linkResult.fields.push({
