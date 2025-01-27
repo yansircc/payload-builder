@@ -880,7 +880,7 @@ export interface CallToActionBlock {
   /**
    * Select a Call to Action style
    */
-  type: 'cta-4' | 'cta-10' | 'cta-11';
+  type: 'cta-4' | 'cta-10' | 'cta-11' | 'cta-13';
   'cta-4'?: {
     cta: {
       title: string;
@@ -990,6 +990,62 @@ export interface CallToActionBlock {
             id?: string | null;
           }[]
         | null;
+    };
+  };
+  'cta-13'?: {
+    cta: {
+      title: string;
+      description?: string | null;
+      /**
+       * Subscribe button
+       */
+      button?:
+        | {
+            label: string;
+            link?: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: string | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: string | Post;
+                  } | null);
+              url?: string | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost') | null;
+            };
+            variant: 'default' | 'secondary' | 'outline' | 'ghost' | 'link' | 'destructive';
+            id?: string | null;
+          }[]
+        | null;
+    };
+    privacyPolicy: {
+      label: string;
+      link?: {
+        type?: ('reference' | 'custom') | null;
+        newTab?: boolean | null;
+        reference?:
+          | ({
+              relationTo: 'pages';
+              value: string | Page;
+            } | null)
+          | ({
+              relationTo: 'posts';
+              value: string | Post;
+            } | null);
+        url?: string | null;
+        /**
+         * Choose how the link should be rendered.
+         */
+        appearance?: ('default' | 'outline' | 'ghost') | null;
+      };
+      variant: 'default' | 'secondary' | 'outline' | 'ghost' | 'link' | 'destructive';
     };
   };
   id?: string | null;
@@ -2055,6 +2111,47 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
                     variant?: T;
                     id?: T;
                   };
+            };
+      };
+  'cta-13'?:
+    | T
+    | {
+        cta?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              button?:
+                | T
+                | {
+                    label?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          appearance?: T;
+                        };
+                    variant?: T;
+                    id?: T;
+                  };
+            };
+        privacyPolicy?:
+          | T
+          | {
+              label?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    appearance?: T;
+                  };
+              variant?: T;
             };
       };
   id?: T;

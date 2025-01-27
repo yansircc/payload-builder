@@ -1,6 +1,7 @@
 import type { Block, Field } from 'payload'
 import { cta10Fields } from './components/cta-10/config'
 import { cta11Fields } from './components/cta-11/config'
+import { cta13Fields } from './components/cta-13/config'
 import { cta4Fields } from './components/cta-4/config'
 
 /**
@@ -34,6 +35,10 @@ export const CallToAction: Block = {
           label: 'Style 11 - Centered',
           value: 'cta-11',
         },
+        {
+          label: 'Style 13 - Email Subscription',
+          value: 'cta-13',
+        },
       ],
     },
     {
@@ -58,6 +63,14 @@ export const CallToAction: Block = {
       fields: (cta11Fields as { fields: Field[] }).fields,
       admin: {
         condition: (_, siblingData) => siblingData.type === 'cta-11',
+      },
+    },
+    {
+      name: 'cta-13',
+      type: 'group',
+      fields: (cta13Fields as { fields: Field[] }).fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.type === 'cta-13',
       },
     },
   ],
