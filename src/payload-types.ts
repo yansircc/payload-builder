@@ -727,36 +727,6 @@ export interface Hero24Fields {
      */
     subtitle?: string | null;
     /**
-     * Hero button
-     */
-    link: {
-      type?: ('reference' | 'custom') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      label: string;
-      /**
-       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-       */
-      prefixIcon?: string | null;
-      /**
-       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-       */
-      suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost') | null;
-    };
-    /**
      * Partner logo image
      */
     logo: string | Media;
@@ -764,6 +734,44 @@ export interface Hero24Fields {
      * Badge text displayed above title
      */
     badge?: string | null;
+    /**
+     * Hero button
+     */
+    links?:
+      | {
+          /**
+           * Hero button with MoveRight suffix icon
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
     /**
      * Feature list (exactly 4 items)
      */
@@ -2236,20 +2244,25 @@ export interface Hero24FieldsSelect<T extends boolean = true> {
     | {
         title?: T;
         subtitle?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              prefixIcon?: T;
-              suffixIcon?: T;
-              appearance?: T;
-            };
         logo?: T;
         badge?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
         features?:
           | T
           | {
