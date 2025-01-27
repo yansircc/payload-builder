@@ -43,21 +43,23 @@ export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
             </div>
           </div>
           <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-            {links?.map((link, i) => {
-              const isSecondary = i === 1
-              const { label, ...linkProps } = link.link
-              return (
-                <CMSLink
-                  key={i}
-                  {...linkProps}
-                  className="inline-flex w-full items-center sm:w-auto"
-                  appearance={isSecondary ? 'outline' : 'default'}
-                >
-                  {label}
-                  {isSecondary && <ArrowDownRight className="ml-2 size-4" />}
-                </CMSLink>
-              )
-            })}
+            {links?.map((linkGroup, index) => (
+              <div key={index} className="flex w-full flex-col gap-2 sm:flex-row">
+                {Object.entries(linkGroup)
+                  .filter(([key]) => key.startsWith('link-'))
+                  .map(
+                    ([key, link]) =>
+                      link &&
+                      typeof link === 'object' && (
+                        <CMSLink
+                          key={key}
+                          className="inline-flex w-full items-center sm:w-auto"
+                          {...link}
+                        />
+                      ),
+                  )}
+              </div>
+            ))}
           </div>
         </ClientMotionDiv>
 
