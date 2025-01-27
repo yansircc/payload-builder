@@ -880,7 +880,7 @@ export interface CallToActionBlock {
   /**
    * Choose a Call to Action style
    */
-  type?: ('cta-7' | 'cta-4' | 'cta-10' | 'cta-11' | 'cta-13') | null;
+  type?: ('cta-7' | 'cta-4' | 'cta-5' | 'cta-10' | 'cta-11' | 'cta-13') | null;
   'cta-4'?: {
     cta: {
       title: string;
@@ -923,6 +923,41 @@ export interface CallToActionBlock {
           }[]
         | null;
     };
+  };
+  'cta-5'?: {
+    title: string;
+    description?: string | null;
+    images?:
+      | {
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+    buttons?:
+      | {
+          label: string;
+          link?: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          variant: 'default' | 'secondary' | 'outline' | 'ghost' | 'link' | 'destructive';
+          id?: string | null;
+        }[]
+      | null;
   };
   'cta-7'?: {
     cta: {
@@ -2105,6 +2140,34 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
                     variant?: T;
                     id?: T;
                   };
+            };
+      };
+  'cta-5'?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+        buttons?:
+          | T
+          | {
+              label?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    appearance?: T;
+                  };
+              variant?: T;
+              id?: T;
             };
       };
   'cta-7'?:

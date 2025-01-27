@@ -3,6 +3,7 @@ import { cta10Fields } from './components/cta-10/config'
 import { cta11Fields } from './components/cta-11/config'
 import { cta13Fields } from './components/cta-13/config'
 import { cta4Fields } from './components/cta-4/config'
+import { cta5Fields } from './components/cta-5/config'
 import { cta7Fields } from './components/cta-7/config'
 
 /**
@@ -30,6 +31,10 @@ export const CallToAction: Block = {
           value: 'cta-4',
         },
         {
+          label: 'CTA with Floating Cards',
+          value: 'cta-5',
+        },
+        {
           label: 'CTA with Buttons',
           value: 'cta-10',
         },
@@ -52,6 +57,14 @@ export const CallToAction: Block = {
       fields: (cta4Fields as { fields: Field[] }).fields,
       admin: {
         condition: (_, siblingData) => siblingData.type === 'cta-4',
+      },
+    },
+    {
+      name: 'cta-5',
+      type: 'group',
+      fields: (cta5Fields as { fields: Field[] }).fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.type === 'cta-5',
       },
     },
     {
