@@ -19,8 +19,6 @@ export const heroSchemas = {
   badge: z.string().describe('Badge text displayed above title'),
   /** Logo schema */
   logo: z.object({}).describe('Logo image'),
-  /** Button text schema */
-  buttonText: z.string().describe('Text for the primary button'),
   /** Trust text schema */
   trustText: z.string().describe('Text showing trust metrics'),
   /** Feature schema */
@@ -58,14 +56,6 @@ const basicFields = {
     type: 'textarea',
     admin: {
       description: 'Subtitle text',
-    },
-  },
-  buttonText: {
-    name: 'buttonText',
-    type: 'text',
-    required: true,
-    admin: {
-      description: 'Text for the primary button',
     },
   },
   trustText: {
