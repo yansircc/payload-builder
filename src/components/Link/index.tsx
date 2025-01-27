@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { Page, Post } from '@/payload-types'
+import { DynamicIcon } from './DynamicIcon'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -20,6 +21,7 @@ type CMSLinkType = {
   url?: string | null
   prefixElement?: React.ReactNode
   suffixElement?: React.ReactNode
+  icon?: string | null
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -35,13 +37,12 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     url,
     prefixElement,
     suffixElement,
+    icon,
   } = props
 
   const href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
-          reference.value.slug
-        }`
+      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${reference.value.slug}`
       : url
 
   if (!href) return null
@@ -49,14 +50,17 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const size = appearance === 'inline' ? undefined : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
+  const iconElement = icon ? <DynamicIcon name={icon} className="ml-2 size-4" /> : null
+
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
     return (
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {prefixElement && prefixElement}
-        {label && label}
-        {children && children}
-        {suffixElement && suffixElement}
+        {prefixElement}
+        {label}
+        {children}
+        {iconElement}
+        {suffixElement}
       </Link>
     )
   }
@@ -64,10 +68,11 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   return (
     <Button asChild className={className} size={size} variant={appearance}>
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {prefixElement && prefixElement}
-        {label && label}
-        {children && children}
-        {suffixElement && suffixElement}
+        {prefixElement}
+        {label}
+        {children}
+        {iconElement}
+        {suffixElement}
       </Link>
     </Button>
   )
