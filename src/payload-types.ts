@@ -1807,10 +1807,11 @@ export interface Gallery6Fields {
  * via the `definition` "FeatureBlock".
  */
 export interface FeatureBlock {
-  style?: ('feature-1' | 'feature-2' | 'feature-3') | null;
+  style?: ('feature-1' | 'feature-2' | 'feature-3' | 'feature-5') | null;
   'feature-1'?: Feature1Fields;
   'feature-2'?: Feature2Fields;
   'feature-3'?: Feature3Fields;
+  'feature-5'?: Feature5Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'feature';
@@ -1833,7 +1834,7 @@ export interface Feature1Fields {
      */
     description: string;
     /**
-     * Feature image
+     * Author profile image
      */
     image?: (string | null) | Media;
     /**
@@ -1928,7 +1929,7 @@ export interface Feature2Fields {
      */
     description: string;
     /**
-     * Feature image
+     * Author profile image
      */
     image?: (string | null) | Media;
     /**
@@ -2042,6 +2043,125 @@ export interface Feature3Fields {
           id?: string | null;
         }[]
       | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature5Fields".
+ */
+export interface Feature5Fields {
+  /**
+   * Feature section fields
+   */
+  feature: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Feature description
+     */
+    description: string;
+    /**
+     * Feature button
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+       */
+      prefixIcon?: string | null;
+      /**
+       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+       */
+      suffixIcon?: string | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost') | null;
+    };
+    /**
+     * Author profile image
+     */
+    image?: (string | null) | Media;
+    /**
+     * Lucide icon name
+     */
+    icon?: string | null;
+    /**
+     * Testimonial quote text
+     */
+    quote: string;
+    /**
+     * Author name
+     */
+    name: string;
+    /**
+     * Author role or position
+     */
+    role: string;
+    /**
+     * Author company
+     */
+    company: string;
+    /**
+     * Feature cards (first card will be larger)
+     */
+    features?:
+      | {
+          /**
+           * Lucide icon name
+           */
+          icon?: string | null;
+          /**
+           * Feature title
+           */
+          title: string;
+          /**
+           * Feature description
+           */
+          description: string;
+          /**
+           * Feature image
+           */
+          image?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+    testimonial: {
+      /**
+       * Author profile image
+       */
+      image?: (string | null) | Media;
+      /**
+       * Testimonial quote text
+       */
+      quote: string;
+      /**
+       * Author name
+       */
+      name: string;
+      /**
+       * Author role or position
+       */
+      role: string;
+      /**
+       * Author company
+       */
+      company: string;
+    };
   };
 }
 /**
@@ -2990,6 +3110,7 @@ export interface FeatureBlockSelect<T extends boolean = true> {
   'feature-1'?: T | Feature1FieldsSelect<T>;
   'feature-2'?: T | Feature2FieldsSelect<T>;
   'feature-3'?: T | Feature3FieldsSelect<T>;
+  'feature-5'?: T | Feature5FieldsSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -3096,6 +3217,54 @@ export interface Feature3FieldsSelect<T extends boolean = true> {
               description?: T;
               image?: T;
               id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature5Fields_select".
+ */
+export interface Feature5FieldsSelect<T extends boolean = true> {
+  feature?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+        image?: T;
+        icon?: T;
+        quote?: T;
+        name?: T;
+        role?: T;
+        company?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              image?: T;
+              id?: T;
+            };
+        testimonial?:
+          | T
+          | {
+              image?: T;
+              quote?: T;
+              name?: T;
+              role?: T;
+              company?: T;
             };
       };
 }

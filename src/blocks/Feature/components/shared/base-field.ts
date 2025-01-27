@@ -30,17 +30,22 @@ export const featureSchemas = {
     prefixIcon: z.string().optional(),
     suffixIcon: z.string().optional(),
   }),
-  features: z.object({
-    title: z.string(),
-    features: z.array(
-      z.object({
-        icon: z.string().optional(),
-        title: z.string(),
-        description: z.string(),
-        image: z.string().optional(),
-      }),
-    ),
+  /** Testimonial schema */
+  testimonial: z.object({
+    quote: z.string().describe('Testimonial quote text'),
+    name: z.string().describe('Author name'),
+    role: z.string().describe('Author role or position'),
+    company: z.string().describe('Author company'),
+    image: z.object({}).optional().describe('Author profile image'),
   }),
+  card: z.array(
+    z.object({
+      icon: z.string().optional(),
+      title: z.string(),
+      description: z.string(),
+      image: z.string().optional(),
+    }),
+  ),
 }
 
 /**
@@ -102,9 +107,9 @@ const iconFields: Record<string, Field> = {
 }
 
 /**
- * Feature fields for card-based layouts
+ * Card fields for card-based layouts
  */
-export const featuresFields = {
+export const cardsFields = {
   icon: {
     name: 'icon',
     type: 'text',
@@ -141,13 +146,61 @@ export const featuresFields = {
 } as const
 
 /**
+ * Testimonial fields configuration
+ */
+export const testimonialFields = {
+  quote: {
+    name: 'quote',
+    type: 'textarea',
+    required: true,
+    admin: {
+      description: 'Testimonial quote text',
+    },
+  },
+  name: {
+    name: 'name',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Author name',
+    },
+  },
+  role: {
+    name: 'role',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Author role or position',
+    },
+  },
+  company: {
+    name: 'company',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Author company',
+    },
+  },
+  image: {
+    name: 'image',
+    type: 'upload',
+    relationTo: 'media',
+    required: false,
+    admin: {
+      description: 'Author profile image',
+    },
+  },
+} as const
+
+/**
  * Combine all feature fields for the field group
  */
 const featureFields: Record<string, Field> = {
   ...basicFields,
   ...mediaFields,
   ...iconFields,
-  ...featuresFields,
+  ...cardsFields,
+  ...testimonialFields,
 }
 
 /**

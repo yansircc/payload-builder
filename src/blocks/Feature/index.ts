@@ -16,16 +16,18 @@ import type { ComponentType } from 'react'
 import Feature1Component from './components/Feature1/Component'
 import Feature2Component from './components/Feature2/Component'
 import Feature3Component from './components/Feature3/Component'
+import Feature5Component from './components/Feature5/Component'
 
 // Export config
 export { feature1Fields } from './components/Feature1/config'
 export { feature2Fields } from './components/Feature2/config'
 export { feature3Fields } from './components/Feature3/config'
-
+export { feature5Fields } from './components/Feature5/config'
 // Export components
 export const Feature1 = Feature1Component
 export const Feature2 = Feature2Component
 export const Feature3 = Feature3Component
+export const Feature5 = Feature5Component
 
 // Define Feature component props type
 type FeatureComponentProps<T extends NonNullable<FeatureBlock['style']>> = NonNullable<
@@ -40,6 +42,7 @@ export const featureComponents: Record<
   'feature-1': Feature1,
   'feature-2': Feature2,
   'feature-3': Feature3,
+  'feature-5': Feature5,
 }
 
 // Export type
