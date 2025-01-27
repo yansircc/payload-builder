@@ -95,7 +95,7 @@ export interface Page {
   id: string;
   title: string;
   hero?: HeroField;
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | GalleryBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | GalleryBlock | FeatureBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -1804,6 +1804,48 @@ export interface Gallery6Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureBlock".
+ */
+export interface FeatureBlock {
+  style: 'feature-1';
+  /**
+   * Main heading text
+   */
+  title: string;
+  /**
+   * Feature description text
+   */
+  description: string;
+  /**
+   * Lucide icon name (e.g., MessagesSquare)
+   */
+  icon: string;
+  /**
+   * Feature image
+   */
+  image: string | Media;
+  primaryButton: {
+    /**
+     * Button icon name (e.g., Play)
+     */
+    icon: string;
+    /**
+     * Button text
+     */
+    label: string;
+  };
+  secondaryButton: {
+    /**
+     * Button text
+     */
+    label: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'feature';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -2072,6 +2114,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         gallery?: T | GalleryBlockSelect<T>;
+        feature?: T | FeatureBlockSelect<T>;
       };
   meta?:
     | T
@@ -2737,6 +2780,30 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
               id?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureBlock_select".
+ */
+export interface FeatureBlockSelect<T extends boolean = true> {
+  style?: T;
+  title?: T;
+  description?: T;
+  icon?: T;
+  image?: T;
+  primaryButton?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+      };
+  secondaryButton?:
+    | T
+    | {
+        label?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
