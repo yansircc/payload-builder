@@ -878,9 +878,9 @@ export interface Hero6Fields {
  */
 export interface CallToActionBlock {
   /**
-   * Select a Call to Action style
+   * Choose a Call to Action style
    */
-  type: 'cta-4' | 'cta-10' | 'cta-11' | 'cta-13';
+  type?: ('cta-7' | 'cta-4' | 'cta-10' | 'cta-11' | 'cta-13') | null;
   'cta-4'?: {
     cta: {
       title: string;
@@ -923,6 +923,52 @@ export interface CallToActionBlock {
           }[]
         | null;
     };
+  };
+  'cta-7'?: {
+    cta: {
+      title: string;
+      /**
+       * Feature list items (1-4)
+       */
+      features?:
+        | {
+            text: string;
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * Add or remove buttons
+       */
+      buttons?:
+        | {
+            label: string;
+            link?: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: string | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: string | Post;
+                  } | null);
+              url?: string | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost') | null;
+            };
+            variant: 'default' | 'secondary' | 'outline' | 'ghost' | 'link' | 'destructive';
+            id?: string | null;
+          }[]
+        | null;
+    };
+    /**
+     * Appears above the feature list
+     */
+    subtitle?: string | null;
   };
   'cta-10'?: {
     cta: {
@@ -2060,6 +2106,38 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
                     id?: T;
                   };
             };
+      };
+  'cta-7'?:
+    | T
+    | {
+        cta?:
+          | T
+          | {
+              title?: T;
+              features?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          appearance?: T;
+                        };
+                    variant?: T;
+                    id?: T;
+                  };
+            };
+        subtitle?: T;
       };
   'cta-10'?:
     | T

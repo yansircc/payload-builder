@@ -3,6 +3,7 @@ import { cta10Fields } from './components/cta-10/config'
 import { cta11Fields } from './components/cta-11/config'
 import { cta13Fields } from './components/cta-13/config'
 import { cta4Fields } from './components/cta-4/config'
+import { cta7Fields } from './components/cta-7/config'
 
 /**
  * CallToAction block configuration
@@ -18,28 +19,32 @@ export const CallToAction: Block = {
     {
       name: 'type',
       type: 'select',
-      required: true,
-      admin: {
-        description: 'Select a Call to Action style',
-      },
+      defaultValue: 'cta-10',
       options: [
         {
-          label: 'Style 4 - Features List',
+          label: 'CTA with Feature List and Pattern',
+          value: 'cta-7',
+        },
+        {
+          label: 'CTA with Feature List',
           value: 'cta-4',
         },
         {
-          label: 'Style 10 - Side by Side',
+          label: 'CTA with Buttons',
           value: 'cta-10',
         },
         {
-          label: 'Style 11 - Centered',
+          label: 'CTA Centered',
           value: 'cta-11',
         },
         {
-          label: 'Style 13 - Email Subscription',
+          label: 'CTA with Email Subscription',
           value: 'cta-13',
         },
       ],
+      admin: {
+        description: 'Choose a Call to Action style',
+      },
     },
     {
       name: 'cta-4',
@@ -47,6 +52,14 @@ export const CallToAction: Block = {
       fields: (cta4Fields as { fields: Field[] }).fields,
       admin: {
         condition: (_, siblingData) => siblingData.type === 'cta-4',
+      },
+    },
+    {
+      name: 'cta-7',
+      type: 'group',
+      fields: (cta7Fields as { fields: Field[] }).fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.type === 'cta-7',
       },
     },
     {
