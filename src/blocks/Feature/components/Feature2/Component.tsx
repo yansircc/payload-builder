@@ -1,24 +1,12 @@
-import { Button } from '@/components/ui/button'
 import { Media } from '@/components/Media'
-import { Play, Zap } from 'lucide-react'
 import type { Feature2Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
 import { CMSLink } from '@/components/Link'
+import { DynamicIcon } from '@/components/DynamicIcon'
 
 export default function Feature2({ feature }: Feature2Fields) {
   const { title, description, icon, image, links } = feature
-
-  // Function to get the icon component based on name
-  const getIcon = (iconName: string) => {
-    const icons = {
-      Zap,
-      Play,
-    }
-    return icons[iconName as keyof typeof icons] || Zap
-  }
-
-  const IconComponent = icon ? getIcon(icon) : Zap
 
   return (
     <section className="py-32">
@@ -45,15 +33,17 @@ export default function Feature2({ feature }: Feature2Fields) {
           </ClientMotionDiv>
 
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <ClientMotionDiv
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <span className="flex size-12 items-center justify-center rounded-full bg-accent">
-                <IconComponent className="size-6" />
-              </span>
-            </ClientMotionDiv>
+            {icon && (
+              <ClientMotionDiv
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="flex size-12 items-center justify-center rounded-full bg-accent">
+                  <DynamicIcon name={icon} className="size-6" />
+                </span>
+              </ClientMotionDiv>
+            )}
 
             <ClientMotionDiv
               initial={{ opacity: 0, y: 30 }}

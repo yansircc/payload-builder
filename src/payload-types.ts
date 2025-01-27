@@ -1807,9 +1807,10 @@ export interface Gallery6Fields {
  * via the `definition` "FeatureBlock".
  */
 export interface FeatureBlock {
-  style?: ('feature-1' | 'feature-2') | null;
+  style?: ('feature-1' | 'feature-2' | 'feature-3') | null;
   'feature-1'?: Feature1Fields;
   'feature-2'?: Feature2Fields;
+  'feature-3'?: Feature3Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'feature';
@@ -1824,21 +1825,21 @@ export interface Feature1Fields {
    */
   feature: {
     /**
-     * Main heading text
+     * Feature title
      */
     title: string;
     /**
-     * Feature description text
+     * Feature description
      */
     description: string;
     /**
      * Feature image
      */
-    image: string | Media;
+    image?: (string | null) | Media;
     /**
-     * Lucide icon name (e.g., MessagesSquare)
+     * Lucide icon name
      */
-    icon: string;
+    icon?: string | null;
     /**
      * Feature links
      */
@@ -1919,21 +1920,21 @@ export interface Feature2Fields {
    */
   feature: {
     /**
-     * Main heading text
+     * Feature title
      */
     title: string;
     /**
-     * Feature description text
+     * Feature description
      */
     description: string;
     /**
      * Feature image
      */
-    image: string | Media;
+    image?: (string | null) | Media;
     /**
-     * Lucide icon name (e.g., MessagesSquare)
+     * Lucide icon name
      */
-    icon: string;
+    icon?: string | null;
     /**
      * Feature links
      */
@@ -1999,6 +2000,45 @@ export interface Feature2Fields {
              */
             appearance?: ('default' | 'outline' | 'ghost') | null;
           };
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature3Fields".
+ */
+export interface Feature3Fields {
+  /**
+   * Feature section fields
+   */
+  feature: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Feature cards
+     */
+    features?:
+      | {
+          /**
+           * Lucide icon name
+           */
+          icon?: string | null;
+          /**
+           * Feature title
+           */
+          title: string;
+          /**
+           * Feature description
+           */
+          description: string;
+          /**
+           * Feature image
+           */
+          image?: (string | null) | Media;
           id?: string | null;
         }[]
       | null;
@@ -2949,6 +2989,7 @@ export interface FeatureBlockSelect<T extends boolean = true> {
   style?: T;
   'feature-1'?: T | Feature1FieldsSelect<T>;
   'feature-2'?: T | Feature2FieldsSelect<T>;
+  'feature-3'?: T | Feature3FieldsSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -3034,6 +3075,26 @@ export interface Feature2FieldsSelect<T extends boolean = true> {
                     suffixIcon?: T;
                     appearance?: T;
                   };
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature3Fields_select".
+ */
+export interface Feature3FieldsSelect<T extends boolean = true> {
+  feature?:
+    | T
+    | {
+        title?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              image?: T;
               id?: T;
             };
       };

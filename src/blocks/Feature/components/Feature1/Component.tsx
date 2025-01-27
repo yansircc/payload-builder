@@ -1,24 +1,12 @@
-import { Button } from '@/components/ui/button'
 import { Media } from '@/components/Media'
-import { MessagesSquare, Play } from 'lucide-react'
 import type { Feature1Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
 import { CMSLink } from '@/components/Link'
+import { DynamicIcon } from '@/components/DynamicIcon'
 
 export default function Feature1({ feature }: Feature1Fields) {
   const { title, description, icon, image, links } = feature
-
-  // Function to get the icon component based on name
-  const getIcon = (iconName: string) => {
-    const icons = {
-      MessagesSquare,
-      Play,
-    }
-    return icons[iconName as keyof typeof icons] || MessagesSquare
-  }
-
-  const IconComponent = icon ? getIcon(icon) : MessagesSquare
 
   return (
     <section className="relative overflow-hidden bg-background py-24 md:py-32">
@@ -26,15 +14,17 @@ export default function Feature1({ feature }: Feature1Fields) {
       <div className="container relative z-10">
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <ClientMotionDiv
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <span className="flex size-12 items-center justify-center rounded-full bg-accent">
-                <IconComponent className="size-6" />
-              </span>
-            </ClientMotionDiv>
+            {icon && (
+              <ClientMotionDiv
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="flex size-12 items-center justify-center rounded-full bg-accent">
+                  <DynamicIcon name={icon} className="size-6" />
+                </span>
+              </ClientMotionDiv>
+            )}
 
             <ClientMotionDiv
               initial={{ opacity: 0, y: 30 }}

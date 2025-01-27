@@ -11,8 +11,8 @@ export const featureSchemas = {
   title: z.string().describe('The feature title text'),
   /** Description schema */
   description: z.string().describe('The feature description text'),
-  /** Icon schema */
-  icon: z.string().describe('Lucide icon name'),
+  /** Icon schema (optional) */
+  icon: z.string().optional().describe('Optional: Lucide icon name'),
   /** Image schema */
   image: z.object({}).describe('Feature image'),
   /** Link schema */
@@ -29,6 +29,17 @@ export const featureSchemas = {
     label: z.string(),
     prefixIcon: z.string().optional(),
     suffixIcon: z.string().optional(),
+  }),
+  features: z.object({
+    title: z.string(),
+    features: z.array(
+      z.object({
+        icon: z.string().optional(),
+        title: z.string(),
+        description: z.string(),
+        image: z.string().optional(),
+      }),
+    ),
   }),
 }
 
@@ -83,12 +94,51 @@ const iconFields: Record<string, Field> = {
   icon: {
     name: 'icon',
     type: 'text',
-    required: true,
+    required: false,
     admin: {
-      description: 'Lucide icon name (e.g., MessagesSquare)',
+      description: 'Optional: Lucide icon name (e.g., MessagesSquare)',
     },
   },
 }
+
+/**
+ * Feature fields for card-based layouts
+ */
+export const featuresFields = {
+  icon: {
+    name: 'icon',
+    type: 'text',
+    required: false,
+    admin: {
+      description: 'Lucide icon name',
+    },
+  },
+  title: {
+    name: 'title',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Feature title',
+    },
+  },
+  description: {
+    name: 'description',
+    type: 'textarea',
+    required: true,
+    admin: {
+      description: 'Feature description',
+    },
+  },
+  image: {
+    name: 'image',
+    type: 'upload',
+    relationTo: 'media',
+    required: false,
+    admin: {
+      description: 'Feature image',
+    },
+  },
+} as const
 
 /**
  * Combine all feature fields for the field group
@@ -97,12 +147,13 @@ const featureFields: Record<string, Field> = {
   ...basicFields,
   ...mediaFields,
   ...iconFields,
+  ...featuresFields,
 }
 
 /**
  * Export all field groups for type safety
- */
 export { basicFields, iconFields, mediaFields }
+export { basicFields, iconFields, mediaFields, }
 
 /**
  * Create a custom feature field with selected fields, array fields and groups

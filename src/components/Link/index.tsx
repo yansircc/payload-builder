@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { Page, Post } from '@/payload-types'
-import { DynamicIcon } from './DynamicIcon'
+import { DynamicIcon } from '../DynamicIcon'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
