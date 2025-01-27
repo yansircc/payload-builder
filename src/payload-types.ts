@@ -578,9 +578,6 @@ export interface Hero8Fields {
      */
     links?:
       | {
-          /**
-           * Hero button
-           */
           link: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
