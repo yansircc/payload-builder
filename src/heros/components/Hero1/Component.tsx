@@ -47,8 +47,11 @@ export default function Hero1({ hero }: Hero1Fields) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
-                {links.map(({ link }, i) => (
-                  <CMSLink key={i} {...link} />
+                {links.map((linkGroup) => (
+                  <>
+                    {linkGroup['link-1'] && <CMSLink key="link-1" {...linkGroup['link-1']} />}
+                    {linkGroup['link-2'] && <CMSLink key="link-2" {...linkGroup['link-2']} />}
+                  </>
                 ))}
               </ClientMotionDiv>
             )}

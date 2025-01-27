@@ -20,14 +20,20 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
 }
 
 type LinkType = (options?: {
+  name?: string
   appearances?: LinkAppearances[] | false
   disableLabel?: boolean
   overrides?: Partial<GroupField>
 }) => Field
 
-export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
+export const link: LinkType = ({
+  name = 'link',
+  appearances,
+  disableLabel = false,
+  overrides = {},
+} = {}) => {
   const linkResult: GroupField = {
-    name: 'link',
+    name: name,
     type: 'group',
     admin: {
       hideGutter: true,

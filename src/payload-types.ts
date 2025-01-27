@@ -172,15 +172,39 @@ export interface Hero1Fields {
      * Badge text displayed above title
      */
     badge?: string | null;
-    /**
-     * Hero buttons (exactly 2)
-     */
     links?:
       | {
+          'link-1': {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
           /**
-           * Hero button
+           * Hero button with ArrowDownRight suffix icon
            */
-          link: {
+          'link-2': {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
             reference?:
@@ -1996,7 +2020,19 @@ export interface Hero1FieldsSelect<T extends boolean = true> {
         links?:
           | T
           | {
-              link?:
+              'link-1'?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              'link-2'?:
                 | T
                 | {
                     type?: T;

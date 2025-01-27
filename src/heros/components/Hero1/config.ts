@@ -1,6 +1,7 @@
+import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { basicFields, createHeroField, heroSchemas } from '../shared/base-field'
+import { createHeroField, heroSchemas } from '../shared/base-field'
 
 /**
  * Hero 1 field validation and type definitions
@@ -30,12 +31,24 @@ export const hero1Fields: GroupField = {
       arrays: [
         {
           name: 'links',
-          fields: [basicFields.link],
-          minRows: 2,
-          maxRows: 2,
-          admin: {
-            description: 'Hero buttons (exactly 2)',
-          },
+          fields: [
+            link({
+              name: 'link-1',
+            }),
+            link({
+              name: 'link-2',
+              overrides: {
+                admin: {
+                  description: 'Hero button with ArrowDownRight suffix icon',
+                },
+                defaultValue: {
+                  suffixIcon: 'ArrowDownRight',
+                },
+              },
+            }),
+          ],
+          minRows: 1,
+          maxRows: 1,
         },
       ],
     }),
