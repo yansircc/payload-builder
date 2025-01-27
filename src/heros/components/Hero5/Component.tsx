@@ -6,7 +6,9 @@ import { ThemeEffect } from '../shared/ThemeEffect'
 import type { Hero5Fields } from '@/payload-types'
 
 export default function Hero5({ hero }: Hero5Fields) {
-  const { title, subtitle, link, image } = hero
+  const { title, subtitle, links, image } = hero
+  const link = links?.[0].link
+
   return (
     <section className="overflow-hidden py-32">
       <ThemeEffect />
@@ -39,7 +41,7 @@ export default function Hero5({ hero }: Hero5Fields) {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex w-full justify-center lg:justify-start"
               >
-                <CMSLink {...link} />
+                <CMSLink {...link} size="lg" className="w-full sm:w-auto" />
               </ClientMotionDiv>
             )}
           </div>
