@@ -14,24 +14,25 @@ import type { ComponentType } from 'react'
 
 // Import CTA components
 import CTA1Component from './components/CTA1/Component'
+import CTA10Component from './components/CTA10/Component'
 import CTA3Component from './components/CTA3/Component'
 import CTA4Component from './components/CTA4/Component'
 import CTA5Component from './components/CTA5/Component'
 import CTA7Component from './components/CTA7/Component'
 // Export config
 export { cta1Fields } from './components/CTA1/config'
+export { cta10Fields } from './components/CTA10/config'
 export { cta3Fields } from './components/CTA3/config'
 export { cta4Fields } from './components/CTA4/config'
 export { cta5Fields } from './components/CTA5/config'
 export { cta7Fields } from './components/CTA7/config'
-
 // Export components
 export const CTA1 = CTA1Component
 export const CTA3 = CTA3Component
 export const CTA4 = CTA4Component
 export const CTA5 = CTA5Component
 export const CTA7 = CTA7Component
-
+export const CTA10 = CTA10Component
 // Define CTA component props type
 type CTAComponentProps<T extends NonNullable<CTABlock['style']>> = NonNullable<CTABlock[T]>
 
@@ -45,6 +46,7 @@ export const ctaComponents: Record<
   'cta-4': CTA4,
   'cta-5': CTA5,
   'cta-7': CTA7,
+  'cta-10': CTA10,
 }
 
 // Export type
