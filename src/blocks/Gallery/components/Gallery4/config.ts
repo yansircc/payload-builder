@@ -1,4 +1,4 @@
-import type { GroupField } from 'payload/dist/fields/config/types'
+import type { GroupField } from 'payload'
 import { z } from 'zod'
 import { createGalleryField, gallerySchemas } from '../shared/base-field'
 
