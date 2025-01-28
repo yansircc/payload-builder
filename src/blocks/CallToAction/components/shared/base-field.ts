@@ -98,14 +98,15 @@ const listFields = {
   icon: {
     name: 'icon',
     type: 'text',
-    required: false,
+    required: true,
+    defaultValue: 'Check',
     admin: {
       description: 'Optional: Lucide icon name (e.g., CheckCircle)',
     },
   },
   text: {
     name: 'text',
-    type: 'textarea',
+    type: 'text',
     required: true,
     admin: {
       description: 'List item text',

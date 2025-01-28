@@ -49,11 +49,7 @@ export default function CTA4({ cta }: CTA4Fields) {
               >
                 {lists.map((item, index) => (
                   <li key={index} className="flex items-center">
-                    {item.icon ? (
-                      <DynamicIcon name={item.icon} className="mr-4 size-5" />
-                    ) : (
-                      <DynamicIcon name="Check" className="mr-4 size-5" />
-                    )}
+                    <DynamicIcon name={item.icon} className="mr-4 size-5" />
                     {item.text}
                   </li>
                 ))}
