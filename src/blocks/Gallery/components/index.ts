@@ -13,12 +13,12 @@ import type { GalleryBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
 
 // Import all Gallery components
-import Gallery6Component from './gallery-6/Component'
-import Gallery7Component from './gallery-7/Component'
+import Gallery6Component from './Gallery6/Component'
+import Gallery7Component from './Gallery7/Component'
 
 // Export config
-export { gallery6Fields } from './gallery-6/config'
-export { gallery7Fields } from './gallery-7/config'
+export { gallery6Fields } from './Gallery6/config'
+export { gallery7Fields } from './Gallery7/config'
 
 // Export components
 export const Gallery6 = Gallery6Component

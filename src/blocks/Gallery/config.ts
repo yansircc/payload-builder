@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
-import { gallery6Fields } from './components/gallery-6/config'
-import { gallery7Fields } from './components/gallery-7/config'
+import { gallery6Fields } from './components/Gallery6/config'
+import { gallery7Fields } from './components/Gallery7/config'
 /**
  * Gallery block configuration
  */
