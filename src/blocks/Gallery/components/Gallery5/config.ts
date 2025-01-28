@@ -1,3 +1,4 @@
+import { link } from '@/fields/link'
 import type { Field, GroupField } from 'payload'
 import { z } from 'zod'
 import { createGalleryField, gallerySchemas } from '../shared/base-field'
@@ -8,7 +9,7 @@ import { createGalleryField, gallerySchemas } from '../shared/base-field'
 export const schemas = {
   title: gallerySchemas.title,
   description: gallerySchemas.description,
-  link: gallerySchemas.link,
+  links: z.array(gallerySchemas.link).min(1).max(1),
   items: z
     .array(
       z.object({
@@ -70,8 +71,25 @@ export const gallery5Fields: GroupField = {
   },
   fields: [
     createGalleryField({
-      includeFields: ['title', 'description', 'link'],
+      includeFields: ['title', 'description'],
       arrays: [
+        {
+          name: 'links',
+          fields: [
+            link({
+              overrides: {
+                defaultValue: {
+                  suffixIcon: 'ArrowRight',
+                },
+              },
+            }),
+          ],
+          admin: {
+            description: 'CTA Button',
+          },
+          minRows: 1,
+          maxRows: 1,
+        },
         {
           name: 'items',
           fields: itemFields,

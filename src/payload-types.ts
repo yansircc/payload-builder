@@ -1901,35 +1901,40 @@ export interface Gallery5Fields {
      */
     description?: string | null;
     /**
-     * Gallery button
+     * CTA Button
      */
-    link: {
-      type?: ('reference' | 'custom') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      label: string;
-      /**
-       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-       */
-      prefixIcon?: string | null;
-      /**
-       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-       */
-      suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost') | null;
-    };
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
     /**
      * Gallery items (1-10)
      */
@@ -3040,17 +3045,22 @@ export interface Gallery5FieldsSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        link?:
+        links?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              prefixIcon?: T;
-              suffixIcon?: T;
-              appearance?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
             };
         items?:
           | T

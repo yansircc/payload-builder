@@ -28,7 +28,8 @@ export default function Gallery5({ gallery }: Gallery5Props) {
   const [canScrollNext, setCanScrollNext] = useState(false)
   const [selection, setSelection] = useState(0)
 
-  const { title, description, link, items } = gallery
+  const { title, description, links = [], items } = gallery
+  const link = links?.[0]?.link
 
   useEffect(() => {
     if (!carouselApi) {
@@ -70,7 +71,6 @@ export default function Gallery5({ gallery }: Gallery5Props) {
               {...link}
               appearance="inline"
               className="group flex items-center text-xs font-medium md:text-base lg:text-lg"
-              suffixIcon="ArrowRight"
             />
           )}
         </div>
