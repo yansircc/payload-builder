@@ -2091,9 +2091,9 @@ export interface Gallery9Fields {
            */
           text: string;
           /**
-           * Section icon
+           * Section icon name (e.g., Code, GitBranch, Sparkle)
            */
-          icon: 'code' | 'git-branch' | 'sparkle';
+          icon: string;
           id?: string | null;
         }[]
       | null;

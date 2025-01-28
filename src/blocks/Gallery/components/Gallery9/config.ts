@@ -10,7 +10,7 @@ export const schemas = {
       image: gallerySchemas.image,
       title: z.string().describe('Section title'),
       text: z.string().describe('Section text'),
-      icon: z.enum(['code', 'git-branch', 'sparkle']).describe('Section icon name'),
+      icon: z.string().describe('Section icon name'),
     }),
   ),
 }
@@ -43,15 +43,10 @@ const sectionFields: Record<string, Field> = {
   },
   icon: {
     name: 'icon',
-    type: 'select',
+    type: 'text',
     required: true,
-    options: [
-      { label: 'Code', value: 'code' },
-      { label: 'Git Branch', value: 'git-branch' },
-      { label: 'Sparkle', value: 'sparkle' },
-    ],
     admin: {
-      description: 'Section icon',
+      description: 'Section icon name (e.g., Code, GitBranch, Sparkle)',
     },
   },
 }

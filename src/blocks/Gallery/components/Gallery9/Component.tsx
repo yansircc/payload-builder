@@ -1,6 +1,5 @@
 'use client'
 
-import { Code, GitBranch, Sparkle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { Badge } from '@/components/ui/badge'
@@ -12,14 +11,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+import { DynamicIcon } from '@/components/Link/DynamicIcon'
 import { Media } from '@/components/Media'
 import type { Gallery9Fields } from '@/payload-types'
-
-const iconMap = {
-  code: <Code className="h-5 w-5" />,
-  'git-branch': <GitBranch className="h-5 w-5" />,
-  sparkle: <Sparkle className="h-5 w-5" />,
-} as const
 
 export default function Gallery9({ gallery }: { gallery: Gallery9Fields['gallery'] }) {
   const { title, description, sections } = gallery
@@ -65,7 +59,7 @@ export default function Gallery9({ gallery }: { gallery: Gallery9Fields['gallery
                   imgClassName="object-cover"
                 />
                 <div className="mt-8 flex cursor-pointer flex-col gap-2 md:hidden">
-                  <div>{iconMap[item.icon]}</div>
+                  <DynamicIcon name={item.icon} className="h-5 w-5" />
                   <div className="text-lg font-medium">{item.title}</div>
                   <div className="text-lg text-muted-foreground">{item.text}</div>
                 </div>
@@ -79,7 +73,7 @@ export default function Gallery9({ gallery }: { gallery: Gallery9Fields['gallery
                 onClick={() => scrollToSection(index)}
                 className="flex cursor-pointer flex-col gap-2"
               >
-                <div>{iconMap[section.icon]}</div>
+                <DynamicIcon name={section.icon} className="h-5 w-5" />
                 <div className="text-lg font-medium">{section.title}</div>
                 <div
                   className={`text-lg ${
