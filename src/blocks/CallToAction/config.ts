@@ -1,42 +1,35 @@
 import type { Block } from 'payload'
 
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
+import { cta1Fields } from './components/CTA1/config'
+import { cta3Fields } from './components/CTA3/config'
 
-import { linkGroup } from '@/fields/linkGroup'
-
+/**
+ * Call to Action Block configuration
+ */
 export const CallToAction: Block = {
   slug: 'cta',
-  interfaceName: 'CallToActionBlock',
+  interfaceName: 'CTABlock',
+  labels: {
+    singular: 'Block',
+    plural: 'Blocks',
+  },
   fields: [
     {
-      name: 'richText',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
-        },
-      }),
-      label: false,
+      name: 'style',
+      type: 'select',
+      options: ['cta-1', 'cta-3'],
     },
-    linkGroup({
-      appearances: ['default', 'outline', 'ghost'],
-      overrides: {
-        maxRows: 2,
+    {
+      ...cta1Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'cta-1',
       },
-    }),
+    },
+    {
+      ...cta3Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'cta-3',
+      },
+    },
   ],
-  labels: {
-    plural: 'Calls to Action',
-    singular: 'Call to Action',
-  },
 }
