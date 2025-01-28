@@ -1700,9 +1700,10 @@ export interface Form {
  * via the `definition` "GalleryBlock".
  */
 export interface GalleryBlock {
-  style?: ('gallery-1' | 'gallery-3' | 'gallery-6' | 'gallery-7') | null;
+  style?: ('gallery-1' | 'gallery-3' | 'gallery-4' | 'gallery-6' | 'gallery-7') | null;
   'gallery-1'?: Gallery1Fields;
   'gallery-3'?: Gallery3Fields;
+  'gallery-4'?: Gallery4Fields;
   'gallery-6'?: Gallery6Fields;
   'gallery-7'?: {};
   id?: string | null;
@@ -1838,6 +1839,45 @@ export interface Gallery3Fields {
            * Image for the case study or feature
            */
           image: string | Media;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Gallery4Fields".
+ */
+export interface Gallery4Fields {
+  /**
+   * Gallery section fields
+   */
+  gallery: {
+    /**
+     * Gallery title
+     */
+    title: string;
+    /**
+     * Gallery items (1-12)
+     */
+    items?:
+      | {
+          /**
+           * Item title
+           */
+          title: string;
+          /**
+           * Item description
+           */
+          description: string;
+          /**
+           * Item image
+           */
+          image: string | Media;
+          /**
+           * Item link URL
+           */
+          href: string;
+          id?: string | null;
         }[]
       | null;
   };
@@ -2827,6 +2867,7 @@ export interface GalleryBlockSelect<T extends boolean = true> {
   style?: T;
   'gallery-1'?: T | Gallery1FieldsSelect<T>;
   'gallery-3'?: T | Gallery3FieldsSelect<T>;
+  'gallery-4'?: T | Gallery4FieldsSelect<T>;
   'gallery-6'?: T | Gallery6FieldsSelect<T>;
   'gallery-7'?: T | {};
   id?: T;
@@ -2891,6 +2932,26 @@ export interface Gallery3FieldsSelect<T extends boolean = true> {
               label?: T;
               href?: T;
               image?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Gallery4Fields_select".
+ */
+export interface Gallery4FieldsSelect<T extends boolean = true> {
+  gallery?:
+    | T
+    | {
+        title?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              image?: T;
+              href?: T;
+              id?: T;
             };
       };
 }
