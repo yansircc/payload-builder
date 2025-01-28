@@ -216,6 +216,7 @@ const listFields = {
     name: 'icon',
     type: 'text',
     required: false,
+    defaultValue: 'CheckCircle',
     admin: {
       description: 'Optional: Lucide icon name (e.g., CheckCircle)',
     },
