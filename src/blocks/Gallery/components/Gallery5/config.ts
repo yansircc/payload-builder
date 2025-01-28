@@ -8,10 +8,7 @@ import { createGalleryField, gallerySchemas } from '../shared/base-field'
 export const schemas = {
   title: gallerySchemas.title,
   description: gallerySchemas.description,
-  cta: z.object({
-    ctaText: z.string().describe('Call to action text'),
-    ctaLink: z.string().describe('Call to action link'),
-  }),
+  link: gallerySchemas.link,
   items: z
     .array(
       z.object({
@@ -73,7 +70,7 @@ export const gallery5Fields: GroupField = {
   },
   fields: [
     createGalleryField({
-      includeFields: ['title', 'description'],
+      includeFields: ['title', 'description', 'link'],
       arrays: [
         {
           name: 'items',
@@ -82,15 +79,6 @@ export const gallery5Fields: GroupField = {
           maxRows: 10,
           admin: {
             description: 'Gallery items (1-10)',
-          },
-        },
-      ],
-      groups: [
-        {
-          name: 'cta',
-          fields: ['ctaText', 'ctaLink'],
-          admin: {
-            description: 'Call to action settings',
           },
         },
       ],

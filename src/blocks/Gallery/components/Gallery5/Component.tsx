@@ -3,6 +3,7 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
+import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
@@ -21,18 +22,13 @@ interface GalleryItem {
   href: string
 }
 
-interface CTAType {
-  ctaText: string
-  ctaLink: string
-}
-
 export default function Gallery5({ gallery }: Gallery5Props) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>()
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
   const [selection, setSelection] = useState(0)
 
-  const { title, description, cta, items } = gallery
+  const { title, description, link, items } = gallery
 
   useEffect(() => {
     if (!carouselApi) {
@@ -59,7 +55,6 @@ export default function Gallery5({ gallery }: Gallery5Props) {
 
   if (!items?.length) return null
 
-  const typedCta = cta as CTAType | undefined
   const currentItem = items[selection]
 
   return (
@@ -70,14 +65,13 @@ export default function Gallery5({ gallery }: Gallery5Props) {
             <h2 className="mb-3 text-xl font-semibold md:mb-4 md:text-4xl lg:mb-6">{title}</h2>
           )}
           {description && <p className="mb-8 text-muted-foreground lg:text-lg">{description}</p>}
-          {typedCta?.ctaText && (
-            <a
-              href={typedCta.ctaLink}
+          {link?.label && (
+            <CMSLink
+              {...link}
+              appearance="inline"
               className="group flex items-center text-xs font-medium md:text-base lg:text-lg"
-            >
-              {typedCta.ctaText}{' '}
-              <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />
-            </a>
+              suffixIcon="ArrowRight"
+            />
           )}
         </div>
         <div className="flex shrink-0 justify-center gap-2 md:hidden">

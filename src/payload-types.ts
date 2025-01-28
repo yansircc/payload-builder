@@ -1901,6 +1901,36 @@ export interface Gallery5Fields {
      */
     description?: string | null;
     /**
+     * Gallery button
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+       */
+      prefixIcon?: string | null;
+      /**
+       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+       */
+      suffixIcon?: string | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost') | null;
+    };
+    /**
      * Gallery items (1-10)
      */
     items?:
@@ -1924,10 +1954,6 @@ export interface Gallery5Fields {
           id?: string | null;
         }[]
       | null;
-    /**
-     * Call to action settings
-     */
-    cta?: {};
   };
 }
 /**
@@ -3014,6 +3040,18 @@ export interface Gallery5FieldsSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
         items?:
           | T
           | {
@@ -3023,7 +3061,6 @@ export interface Gallery5FieldsSelect<T extends boolean = true> {
               href?: T;
               id?: T;
             };
-        cta?: T | {};
       };
 }
 /**
