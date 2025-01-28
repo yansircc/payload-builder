@@ -2,24 +2,7 @@ import { DynamicIcon } from '@/components/DynamicIcon'
 import { Media } from '@/components/Media'
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
-
-interface Feature7Fields {
-  feature: {
-    title: string
-    description: string
-    icon?: string
-    image?: {
-      id: string
-      url: string
-      updatedAt: string
-      createdAt: string
-    }
-    features: Array<{
-      icon?: string
-      text: string
-    }>
-  }
-}
+import { Feature7Fields } from '@/payload-types'
 
 export default function Feature7({ feature }: Feature7Fields) {
   const { title, description, icon, image, features } = feature
@@ -80,7 +63,7 @@ export default function Feature7({ feature }: Feature7Fields) {
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
                 <ul className="ml-4 space-y-4 text-left">
-                  {features.map((item: { icon?: string; text: string }, index: number) => (
+                  {features.map((item, index) => (
                     <li key={index} className="flex items-center gap-3">
                       <DynamicIcon name={item.icon || 'CheckCircle'} className="size-6" />
                       <p className="text-muted-foreground lg:text-lg">{item.text}</p>
