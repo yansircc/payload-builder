@@ -96,6 +96,17 @@ const basicFields = {
 
 Create `config.ts` in the component directory:
 
+> **Important**: Always import types directly from 'payload', not from 'payload/types' or other subdirectories:
+>
+> ```typescript
+> // ✅ Correct
+> import { GroupField } from 'payload'
+>
+> // ❌ Incorrect
+> // import { GroupField } from 'payload/types'
+> // import { GroupField } from 'payload/dist/fields/config/types'
+> ```
+
 ```typescript
 import { GroupField } from 'payload'
 import { z } from 'zod'
