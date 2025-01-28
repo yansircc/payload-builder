@@ -4,7 +4,12 @@ import { z } from 'zod'
 import { createCTAField, ctaSchemas } from '../shared/base-field'
 
 /**
- * CTA 10 field validation and type definitions
+ * CTA 10: Full-width banner with background image
+ * Features:
+ * - Full-width background image
+ * - Overlay text content
+ * - Dual action buttons
+ * - High-impact design
  */
 export const schemas = {
   title: ctaSchemas.title,
@@ -21,7 +26,7 @@ export const cta10Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'CTA with button and list of links',
+    description: 'Full-width banner with background image and dual action buttons',
   },
   fields: [
     createCTAField({

@@ -4,7 +4,12 @@ import { z } from 'zod'
 import { createCTAField, ctaSchemas } from '../shared/base-field'
 
 /**
- * CTA 16 field validation and type definitions
+ * CTA 16: Full-height hero section with dynamic icon and background image
+ * Features:
+ * - Dynamic icon with subtitle
+ * - Full-height (620px) hero layout
+ * - Background image with dark overlay
+ * - Dual CTA buttons with backdrop blur effect
  */
 export const schemas = {
   title: ctaSchemas.title,
@@ -23,7 +28,7 @@ export const cta16Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'CTA with button and list of links',
+    description: 'Full-height hero section with icon, background image, and dual CTA buttons',
   },
   fields: [
     createCTAField({

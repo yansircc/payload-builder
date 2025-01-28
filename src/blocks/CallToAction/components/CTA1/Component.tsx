@@ -1,9 +1,8 @@
-import { ArrowRight } from 'lucide-react'
-
-import { Button } from '@/components/ui/button'
 import { Media } from '@/components/Media'
 import type { CTA1Fields } from '@/payload-types'
 import { DynamicIcon } from '@/components/Link/DynamicIcon'
+import { CMSLink } from '@/components/Link'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function CTA1({ cta }: CTA1Fields) {
   const { title, subtitle, links, image, icon } = cta
@@ -22,10 +21,27 @@ export default function CTA1({ cta }: CTA1Fields) {
               <h4 className="text-2xl font-bold">{title}</h4>
             </div>
             {subtitle && <p className="text-muted-foreground">{subtitle}</p>}
-            {links?.[0]?.['link-1'] && (
-              <Button className="mt-8">
-                {links[0]['link-1'].label} <ArrowRight className="ml-2 size-4" />
-              </Button>
+            {links && links.length > 0 && (
+              <ClientMotionDiv
+                className="mt-11 flex flex-col justify-center gap-2 sm:flex-row"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                {links.map((linkGroup, index) => (
+                  <div key={index} className="w-full sm:w-auto">
+                    {Object.entries(linkGroup)
+                      .filter(([key]) => key.startsWith('link-'))
+                      .map(
+                        ([key, link]) =>
+                          link &&
+                          typeof link === 'object' && (
+                            <CMSLink key={key} {...link} className="w-full sm:w-auto" />
+                          ),
+                      )}
+                  </div>
+                ))}
+              </ClientMotionDiv>
             )}
           </div>
           <div className="aspect-video md:max-w-96">

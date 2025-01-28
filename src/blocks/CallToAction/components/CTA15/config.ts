@@ -4,7 +4,12 @@ import { z } from 'zod'
 import { createCTAField, ctaSchemas } from '../shared/base-field'
 
 /**
- * CTA 15 field validation and type definitions
+ * CTA 15: Modern split layout with radial gradient background
+ * Features:
+ * - Radial gradient background effect
+ * - Split content layout (text and image)
+ * - Optional heading above title
+ * - Responsive design with image placement
  */
 export const schemas = {
   title: ctaSchemas.title,
@@ -23,7 +28,7 @@ export const cta15Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Simple CTA card with image and single button',
+    description: 'Modern split layout with radial gradient and optional heading',
   },
   fields: [
     createCTAField({

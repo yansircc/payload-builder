@@ -4,7 +4,12 @@ import { z } from 'zod'
 import { createCTAField, ctaSchemas } from '../shared/base-field'
 
 /**
- * CTA 1 field validation and type definitions
+ * CTA 1: Simple side-by-side layout with icon badge
+ * Features:
+ * - Icon badge with title
+ * - Side-by-side content and image layout
+ * - Optional subtitle text
+ * - Single CTA button with arrow
  */
 export const schemas = {
   title: ctaSchemas.title,
@@ -23,7 +28,7 @@ export const cta1Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Simple CTA card with image and single button',
+    description: 'Side-by-side layout with icon badge and single action button',
   },
   fields: [
     createCTAField({

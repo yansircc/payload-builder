@@ -4,7 +4,12 @@ import { z } from 'zod'
 import { createCTAField, ctaSchemas } from '../shared/base-field'
 
 /**
- * CTA 3 field validation and type definitions
+ * CTA 3: Feature list with dual action layout
+ * Features:
+ * - Primary CTA button with arrow
+ * - Multiple feature links with chevron
+ * - Optional descriptions for each feature
+ * - Clean list-based layout
  */
 export const schemas = {
   title: ctaSchemas.title,
@@ -22,7 +27,7 @@ export const cta3Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'CTA with button and list of links',
+    description: 'Feature list layout with primary action and multiple feature links',
   },
   fields: [
     createCTAField({

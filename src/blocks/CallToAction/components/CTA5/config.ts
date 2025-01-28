@@ -4,7 +4,12 @@ import { z } from 'zod'
 import { createCTAField, ctaSchemas } from '../shared/base-field'
 
 /**
- * CTA 5 field validation and type definitions
+ * CTA 5: Image-focused side content layout
+ * Features:
+ * - Large image placement
+ * - Side-by-side content structure
+ * - Single action button
+ * - Clean, minimal design
  */
 export const schemas = {
   title: ctaSchemas.title,
@@ -17,9 +22,9 @@ export const schemas = {
  * CTA 5 configuration
  *
  * This CTA includes:
- * - Title and subtitle
- * - A link
- * - Image on the left
+ * - Title and subtitle for main content
+ * - Featured image placement
+ * - Single action button
  */
 export const cta5Fields: GroupField = {
   name: 'cta-5',
@@ -27,7 +32,7 @@ export const cta5Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'CTA with image on the left',
+    description: 'Image-focused layout with side content and action button',
   },
   fields: [
     createCTAField({
