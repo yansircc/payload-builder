@@ -7,6 +7,7 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { galleryComponents } from '@/blocks/Gallery/components'
+import { RenderFeature } from '@/blocks/Feature/RenderFeature'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -14,6 +15,7 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  feature: RenderFeature,
   gallery: (props: GalleryBlock) => {
     if (!props.style) return null
     const GalleryComponent = galleryComponents[props.style]
