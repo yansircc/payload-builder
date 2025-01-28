@@ -1,30 +1,11 @@
 import type { Field } from 'payload';
-import { buttonFields } from '../shared/base-field';
+import { buttonFields, createCTAField } from '../shared/base-field';
 
-export const cta5Fields: Field = {
-  name: 'cta',
-  interfaceName: 'CTA5Fields',
-  label: 'Call to Action',
-  type: 'group',
-  admin: {
-    description: 'A call to action section with floating image cards',
-  },
-  fields: [
-    {
-      name: 'title',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'description',
-      type: 'textarea',
-    },
+export const cta5Fields: Field = createCTAField({
+  includeFields: ['title', 'description'],
+  arrays: [
     {
       name: 'images',
-      type: 'array',
-      label: 'Floating Cards',
-      minRows: 1,
-      maxRows: 3,
       fields: [
         {
           name: 'image',
@@ -33,14 +14,17 @@ export const cta5Fields: Field = {
           required: true,
         },
       ],
+      minRows: 1,
+      maxRows: 3,
+      admin: {
+        description: 'Add up to 3 floating image cards',
+      },
     },
     {
       name: 'buttons',
-      type: 'array',
-      label: 'Button',
-      minRows: 1,
-      maxRows: 1,
       fields: Object.values(buttonFields),
+      minRows: 0,
+      maxRows: 1,
     },
   ],
-}; 
+}); 

@@ -927,12 +927,18 @@ export interface CallToActionBlock {
   'cta-5'?: {
     title: string;
     description?: string | null;
+    /**
+     * Add up to 3 floating image cards
+     */
     images?:
       | {
           image: string | Media;
           id?: string | null;
         }[]
       | null;
+    /**
+     * Add or remove buttons
+     */
     buttons?:
       | {
           label: string;
