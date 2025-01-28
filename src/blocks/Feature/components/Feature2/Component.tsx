@@ -59,30 +59,21 @@ export default function Feature2({ feature }: Feature2Fields) {
 
             {links && links.length > 0 && (
               <ClientMotionDiv
-                className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start"
+                className="flex flex-wrap gap-4"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
-                {links && links.length > 0 && (
-                  <ClientMotionDiv
-                    className="flex flex-wrap gap-4"
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.4 }}
-                  >
-                    {links.map((linkGroup, index) => (
-                      <div key={index} className="flex flex-col gap-2 sm:flex-row">
-                        {Object.entries(linkGroup)
-                          .filter(([key]) => key.startsWith('link-'))
-                          .map(
-                            ([key, link]) =>
-                              link && typeof link === 'object' && <CMSLink key={key} {...link} />,
-                          )}
-                      </div>
-                    ))}
-                  </ClientMotionDiv>
-                )}
+                {links.map((linkGroup, index) => (
+                  <div key={index} className="flex flex-col gap-2 sm:flex-row">
+                    {Object.entries(linkGroup)
+                      .filter(([key]) => key.startsWith('link-'))
+                      .map(
+                        ([key, link]) =>
+                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                      )}
+                  </div>
+                ))}
               </ClientMotionDiv>
             )}
           </div>
