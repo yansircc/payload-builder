@@ -17,19 +17,20 @@ export default function CTA4({ cta }: CTA4Fields) {
             {/* Links */}
             {links && links.length > 0 && (
               <ClientMotionDiv
+                className="flex w-full flex-col gap-2 sm:flex-row mt-6 lg:justify-start"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
                 {links.map((linkGroup, index) => (
-                  <div key={index}>
+                  <div key={index} className="w-full sm:w-auto">
                     {Object.entries(linkGroup)
                       .filter(([key]) => key.startsWith('link-'))
                       .map(
                         ([key, link]) =>
                           link &&
                           typeof link === 'object' && (
-                            <CMSLink key={key} className="mt-8 px-0 underline" {...link} />
+                            <CMSLink key={key} {...link} className="w-full sm:w-auto" />
                           ),
                       )}
                   </div>
