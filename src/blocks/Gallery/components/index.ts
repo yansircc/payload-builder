@@ -23,9 +23,9 @@ export { gallery6Fields } from './Gallery6/config'
 export { gallery7Fields } from './Gallery7/config'
 
 // Export components
+export const Gallery1 = Gallery1Component
 export const Gallery6 = Gallery6Component
 export const Gallery7 = Gallery7Component
-export const Gallery1 = Gallery1Component
 
 // Define Gallery component props type
 type GalleryComponentProps<T extends NonNullable<GalleryBlock['style']>> = NonNullable<
@@ -37,9 +37,9 @@ export const galleryComponents: Record<
   NonNullable<Required<GalleryBlock>['style']>,
   ComponentType<GalleryComponentProps<any>>
 > = {
+  'gallery-1': Gallery1,
   'gallery-6': Gallery6,
   'gallery-7': Gallery7,
-  'gallery-1': Gallery1,
 }
 
 // Export type

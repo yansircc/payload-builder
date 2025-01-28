@@ -1700,13 +1700,103 @@ export interface Form {
  * via the `definition` "GalleryBlock".
  */
 export interface GalleryBlock {
-  style?: ('gallery-6' | 'gallery-7' | 'gallery-1') | null;
+  style?: ('gallery-1' | 'gallery-6' | 'gallery-7') | null;
+  'gallery-1'?: Gallery1Fields;
   'gallery-6'?: Gallery6Fields;
   'gallery-7'?: {};
-  'gallery-1'?: Gallery1Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Gallery1Fields".
+ */
+export interface Gallery1Fields {
+  /**
+   * Gallery section fields
+   */
+  gallery: {
+    /**
+     * Gallery title
+     */
+    title: string;
+    /**
+     * Gallery description
+     */
+    description?: string | null;
+    /**
+     * Gallery button
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+       */
+      prefixIcon?: string | null;
+      /**
+       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+       */
+      suffixIcon?: string | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost') | null;
+    };
+    /**
+     * Gallery image
+     */
+    image: string | Media;
+    /**
+     * Gallery items (1-6)
+     */
+    items?:
+      | {
+          /**
+           * Case study title
+           */
+          title: string;
+          /**
+           * Case study link
+           */
+          href: string;
+          /**
+           * Main image
+           */
+          image: string | Media;
+          /**
+           * Company logo
+           */
+          logo: string | Media;
+          /**
+           * Company name
+           */
+          company: string;
+          /**
+           * List of badges (max 4)
+           */
+          badges?:
+            | {
+                text: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1798,96 +1888,6 @@ export interface Gallery6Fields {
            * Card image
            */
           image: string | Media;
-          id?: string | null;
-        }[]
-      | null;
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Gallery1Fields".
- */
-export interface Gallery1Fields {
-  /**
-   * Gallery section fields
-   */
-  gallery: {
-    /**
-     * Gallery title
-     */
-    title: string;
-    /**
-     * Gallery description
-     */
-    description?: string | null;
-    /**
-     * Gallery button
-     */
-    link: {
-      type?: ('reference' | 'custom') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      label: string;
-      /**
-       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-       */
-      prefixIcon?: string | null;
-      /**
-       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-       */
-      suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost') | null;
-    };
-    /**
-     * Gallery image
-     */
-    image: string | Media;
-    /**
-     * Gallery items (1-6)
-     */
-    items?:
-      | {
-          /**
-           * Case study title
-           */
-          title: string;
-          /**
-           * Case study link
-           */
-          href: string;
-          /**
-           * Main image
-           */
-          image: string | Media;
-          /**
-           * Company logo
-           */
-          logo: string | Media;
-          /**
-           * Company name
-           */
-          company: string;
-          /**
-           * List of badges (max 4)
-           */
-          badges?:
-            | {
-                text: string;
-                id?: string | null;
-              }[]
-            | null;
           id?: string | null;
         }[]
       | null;
@@ -2781,11 +2781,52 @@ export interface FormBlockSelect<T extends boolean = true> {
  */
 export interface GalleryBlockSelect<T extends boolean = true> {
   style?: T;
+  'gallery-1'?: T | Gallery1FieldsSelect<T>;
   'gallery-6'?: T | Gallery6FieldsSelect<T>;
   'gallery-7'?: T | {};
-  'gallery-1'?: T | Gallery1FieldsSelect<T>;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Gallery1Fields_select".
+ */
+export interface Gallery1FieldsSelect<T extends boolean = true> {
+  gallery?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+        image?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              href?: T;
+              image?: T;
+              logo?: T;
+              company?: T;
+              badges?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2826,47 +2867,6 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
                     appearance?: T;
                   };
               image?: T;
-              id?: T;
-            };
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Gallery1Fields_select".
- */
-export interface Gallery1FieldsSelect<T extends boolean = true> {
-  gallery?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              prefixIcon?: T;
-              suffixIcon?: T;
-              appearance?: T;
-            };
-        image?: T;
-        items?:
-          | T
-          | {
-              title?: T;
-              href?: T;
-              image?: T;
-              logo?: T;
-              company?: T;
-              badges?:
-                | T
-                | {
-                    text?: T;
-                    id?: T;
-                  };
               id?: T;
             };
       };

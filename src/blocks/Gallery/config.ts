@@ -12,7 +12,13 @@ export const GalleryBlock: Block = {
     {
       name: 'style',
       type: 'select',
-      options: ['gallery-6', 'gallery-7', 'gallery-1'],
+      options: ['gallery-1', 'gallery-6', 'gallery-7'],
+    },
+    {
+      ...gallery1Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'gallery-1',
+      },
     },
     {
       ...gallery6Fields,
@@ -25,12 +31,6 @@ export const GalleryBlock: Block = {
       ...gallery7Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'gallery-7',
-      },
-    },
-    {
-      ...gallery1Fields,
-      admin: {
-        condition: (_, siblingData) => siblingData.style === 'gallery-1',
       },
     },
   ],
