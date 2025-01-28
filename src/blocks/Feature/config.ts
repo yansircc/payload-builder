@@ -1,5 +1,6 @@
 import type { Block } from 'payload'
 import { feature1Fields } from './components/Feature1/config'
+import { feature10Fields } from './components/Feature10/config'
 import { feature2Fields } from './components/Feature2/config'
 import { feature3Fields } from './components/Feature3/config'
 import { feature5Fields } from './components/Feature5/config'
@@ -45,6 +46,10 @@ export const Feature: Block = {
           label: 'Feature 7',
           value: 'feature-7',
         },
+        {
+          label: 'Feature 10',
+          value: 'feature-10',
+        },
       ],
     },
     {
@@ -81,6 +86,12 @@ export const Feature: Block = {
       ...feature7Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'feature-7',
+      },
+    },
+    {
+      ...feature10Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'feature-10',
       },
     },
   ],
