@@ -134,6 +134,14 @@ const cardsFields = {
       description: 'Feature title',
     },
   },
+  subtitle: {
+    name: 'subtitle',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Feature subtitle',
+    },
+  },
   description: {
     name: 'description',
     type: 'textarea',
