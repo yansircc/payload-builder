@@ -1700,12 +1700,13 @@ export interface Form {
  * via the `definition` "GalleryBlock".
  */
 export interface GalleryBlock {
-  style?: ('gallery-1' | 'gallery-3' | 'gallery-4' | 'gallery-5' | 'gallery-6') | null;
+  style?: ('gallery-1' | 'gallery-3' | 'gallery-4' | 'gallery-5' | 'gallery-6' | 'gallery-9') | null;
   'gallery-1'?: Gallery1Fields;
   'gallery-3'?: Gallery3Fields;
   'gallery-4'?: Gallery4Fields;
   'gallery-5'?: Gallery5Fields;
   'gallery-6'?: Gallery6Fields;
+  'gallery-9'?: Gallery9Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'gallery';
@@ -2050,6 +2051,49 @@ export interface Gallery6Fields {
            * Card image
            */
           image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Gallery9Fields".
+ */
+export interface Gallery9Fields {
+  /**
+   * Gallery section fields
+   */
+  gallery: {
+    /**
+     * Gallery title
+     */
+    title: string;
+    /**
+     * Gallery description
+     */
+    description?: string | null;
+    /**
+     * Gallery sections (1-6)
+     */
+    sections?:
+      | {
+          /**
+           * Section image
+           */
+          image: string | Media;
+          /**
+           * Section title
+           */
+          title: string;
+          /**
+           * Section text
+           */
+          text: string;
+          /**
+           * Section icon
+           */
+          icon: 'code' | 'git-branch' | 'sparkle';
           id?: string | null;
         }[]
       | null;
@@ -2948,6 +2992,7 @@ export interface GalleryBlockSelect<T extends boolean = true> {
   'gallery-4'?: T | Gallery4FieldsSelect<T>;
   'gallery-5'?: T | Gallery5FieldsSelect<T>;
   'gallery-6'?: T | Gallery6FieldsSelect<T>;
+  'gallery-9'?: T | Gallery9FieldsSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -3110,6 +3155,27 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
                     appearance?: T;
                   };
               image?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Gallery9Fields_select".
+ */
+export interface Gallery9FieldsSelect<T extends boolean = true> {
+  gallery?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        sections?:
+          | T
+          | {
+              image?: T;
+              title?: T;
+              text?: T;
+              icon?: T;
               id?: T;
             };
       };

@@ -5,6 +5,7 @@ import { gallery3Fields } from './components/Gallery3/config'
 import { gallery4Fields } from './components/Gallery4/config'
 import { gallery5Fields } from './components/Gallery5/config'
 import { gallery6Fields } from './components/Gallery6/config'
+import { gallery9Fields } from './components/Gallery9/config'
 
 /**
  * Gallery block configuration
@@ -16,7 +17,7 @@ export const GalleryBlock: Block = {
     {
       name: 'style',
       type: 'select',
-      options: ['gallery-1', 'gallery-3', 'gallery-4', 'gallery-5', 'gallery-6'],
+      options: ['gallery-1', 'gallery-3', 'gallery-4', 'gallery-5', 'gallery-6', 'gallery-9'],
     },
     {
       ...gallery1Fields,
@@ -48,6 +49,12 @@ export const GalleryBlock: Block = {
         condition: (_, siblingData) => siblingData.style === 'gallery-6',
       },
     },
+    {
+      ...gallery9Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'gallery-9',
+      },
+    },
   ],
 }
 
@@ -64,6 +71,7 @@ export const GalleryField: Field = {
         { label: 'Gallery 4', value: 'gallery-4' },
         { label: 'Gallery 5', value: 'gallery-5' },
         { label: 'Gallery 6', value: 'gallery-6' },
+        { label: 'Gallery 9', value: 'gallery-9' },
       ],
     },
     {
@@ -94,6 +102,12 @@ export const GalleryField: Field = {
       ...gallery6Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'gallery-6',
+      },
+    },
+    {
+      ...gallery9Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'gallery-9',
       },
     },
   ],
