@@ -11,7 +11,7 @@ export const schemas = {
   subtitle: ctaSchemas.subtitle,
   links: z.array(ctaSchemas.link).min(1).max(1),
   image: ctaSchemas.image,
-  icon: z.string().optional().describe('Lucide icon name'),
+  icon: ctaSchemas.icon,
 }
 
 /**
@@ -27,7 +27,7 @@ export const cta1Fields: GroupField = {
   },
   fields: [
     createCTAField({
-      includeFields: ['icon', 'title', 'subtitle', 'image'],
+      includeFields: ['title', 'subtitle', 'image', 'icon'],
       arrays: [
         {
           name: 'links',

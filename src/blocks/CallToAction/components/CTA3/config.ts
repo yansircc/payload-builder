@@ -1,7 +1,7 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { createCTAField, ctaSchemas, mediaFields } from '../shared/base-field'
+import { createCTAField, ctaSchemas } from '../shared/base-field'
 
 /**
  * CTA 3 field validation and type definitions
@@ -9,11 +9,8 @@ import { createCTAField, ctaSchemas, mediaFields } from '../shared/base-field'
 export const schemas = {
   title: ctaSchemas.title,
   subtitle: ctaSchemas.subtitle,
-  reviewCount: z.string().describe('Text showing review count'),
-  rating: z.number().min(0).max(5).describe('Rating value out of 5'),
-  primaryButton: ctaSchemas.link,
-  secondaryButton: ctaSchemas.link,
-  image: ctaSchemas.image,
+  buttonLinks: z.array(ctaSchemas.link).min(1).max(2),
+  listLinks: z.array(ctaSchemas.link).min(1).max(3),
 }
 
 /**
@@ -25,58 +22,60 @@ export const cta3Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'CTA section with rating, avatars, and dual CTA buttons',
+    description: 'CTA with button and list of links',
   },
   fields: [
     createCTAField({
       includeFields: ['title', 'subtitle'],
-      groups: [
-        {
-          name: 'review',
-          fields: ['rate', 'count'],
-          admin: {
-            description: 'Review section configuration',
-          },
-        },
-        {
-          name: 'media',
-          fields: ['image'],
-          admin: {
-            description: 'CTA media',
-          },
-        },
-      ],
       arrays: [
         {
-          name: 'avatars',
-          fields: [mediaFields.image],
-          minRows: 5,
-          maxRows: 5,
-          admin: {
-            description: 'Avatar images (exactly 5)',
-          },
-        },
-        {
-          name: 'links',
+          name: 'buttonLinks',
           fields: [
-            link({ name: 'link-1' }),
             link({
-              name: 'link-2',
+              name: 'link-1',
               overrides: {
                 admin: {
-                  description: 'CTA button with ArrowDownRight suffix icon',
+                  description: 'CTA buttons',
                 },
                 defaultValue: {
-                  suffixIcon: 'ArrowDownRight',
+                  suffixIcon: 'ArrowRight',
                 },
               },
             }),
           ],
+          admin: {
+            description: 'CTA buttons',
+          },
           minRows: 1,
           maxRows: 1,
+        },
+        {
+          name: 'listLinks',
+          fields: [
+            link({
+              name: 'link',
+              overrides: {
+                admin: {
+                  description: 'List item link',
+                },
+                defaultValue: {
+                  suffixIcon: 'ChevronRight',
+                },
+              },
+            }),
+            {
+              name: 'description',
+              type: 'textarea',
+              admin: {
+                description: 'Description text for the link',
+              },
+            },
+          ],
           admin: {
-            description: 'CTA buttons (exactly 2)',
+            description: 'List of links',
           },
+          minRows: 1,
+          maxRows: 5,
         },
       ],
     }),
