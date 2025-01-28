@@ -17,6 +17,7 @@ import CTA1Component from './components/CTA1/Component'
 import CTA10Component from './components/CTA10/Component'
 import CTA11Component from './components/CTA11/Component'
 import CTA15Component from './components/CTA15/Component'
+import CTA16Component from './components/CTA16/Component'
 import CTA17Component from './components/CTA17/Component'
 import CTA3Component from './components/CTA3/Component'
 import CTA4Component from './components/CTA4/Component'
@@ -27,6 +28,7 @@ export { cta1Fields } from './components/CTA1/config'
 export { cta10Fields } from './components/CTA10/config'
 export { cta11Fields } from './components/CTA11/config'
 export { cta15Fields } from './components/CTA15/config'
+export { cta16Fields } from './components/CTA16/config'
 export { cta17Fields } from './components/CTA17/config'
 export { cta3Fields } from './components/CTA3/config'
 export { cta4Fields } from './components/CTA4/config'
@@ -41,6 +43,7 @@ export const CTA7 = CTA7Component
 export const CTA10 = CTA10Component
 export const CTA11 = CTA11Component
 export const CTA15 = CTA15Component
+export const CTA16 = CTA16Component
 export const CTA17 = CTA17Component
 // Define CTA component props type
 type CTAComponentProps<T extends NonNullable<CTABlock['style']>> = NonNullable<CTABlock[T]>
@@ -58,6 +61,7 @@ export const ctaComponents: Record<
   'cta-10': CTA10,
   'cta-11': CTA11,
   'cta-15': CTA15,
+  'cta-16': CTA16,
   'cta-17': CTA17,
 }
 
