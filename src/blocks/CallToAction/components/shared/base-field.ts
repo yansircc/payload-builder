@@ -24,6 +24,8 @@ export const ctaSchemas = {
       text: z.string(),
     }),
   ),
+  /** Heading schema */
+  heading: z.string().describe('The heading text above the title'),
 } as const
 
 /**
@@ -43,6 +45,14 @@ const basicFields = {
     type: 'textarea',
     admin: {
       description: 'Subtitle text',
+    },
+  },
+  heading: {
+    name: 'heading',
+    type: 'text',
+    required: false,
+    admin: {
+      description: 'The heading text above the title',
     },
   },
   link: link({
