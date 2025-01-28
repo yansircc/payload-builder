@@ -17,6 +17,13 @@ export const ctaSchemas = {
   image: z.object({}).describe('CTA image'),
   /** Icon schema (optional) */
   icon: z.string().optional().describe('Optional: Lucide icon name'),
+  /** List schema */
+  list: z.array(
+    z.object({
+      icon: z.string().optional(),
+      text: z.string(),
+    }),
+  ),
 } as const
 
 /**
@@ -85,18 +92,41 @@ const iconFields = {
 } as const
 
 /**
+ * List fields for list-based layouts
+ */
+const listFields = {
+  icon: {
+    name: 'icon',
+    type: 'text',
+    required: false,
+    admin: {
+      description: 'Optional: Lucide icon name (e.g., CheckCircle)',
+    },
+  },
+  text: {
+    name: 'text',
+    type: 'textarea',
+    required: true,
+    admin: {
+      description: 'List item text',
+    },
+  },
+} as const
+
+/**
  * Combine all CTA fields for the field group
  */
 const ctaFields = {
   ...basicFields,
   ...mediaFields,
   ...iconFields,
+  ...listFields,
 } as const
 
 /**
  * Export all field groups for type safety
  */
-export { basicFields, iconFields, mediaFields }
+export { basicFields, iconFields, listFields, mediaFields }
 
 /**
  * Create a custom CTA field with selected fields, array fields and groups
