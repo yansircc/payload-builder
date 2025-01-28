@@ -154,12 +154,19 @@ export const galleryNFields: GroupField = {
 
 In `src/blocks/Gallery/config.ts`:
 
-1. Import new component configuration
-2. Add to style options
-3. Add conditional rendering configuration
+> **Important**: When adding a new gallery component:
+>
+> 1. Do not modify the existing structure of `config.ts`
+> 2. Only add your new component by following these steps:
+>    - Import your new gallery fields
+>    - Add your gallery option to the existing options array
+>    - Add your gallery fields with the appropriate condition
+> 3. Keep all existing imports and configurations intact
+
+Example of adding a new gallery component:
 
 ```typescript
-import { galleryNFields } from './components/GalleryN/config'
+import { galleryNFields } from './components/GalleryN/config' // Add your import
 
 export const GalleryField: Field = {
   name: 'gallery',
@@ -169,12 +176,13 @@ export const GalleryField: Field = {
       name: 'style',
       type: 'select',
       options: [
-        // ... existing options
-        'gallery-n',
+        // ... existing options ...
+        { label: 'Gallery N', value: 'gallery-n' }, // Add your option here
       ],
     },
+    // ... existing fields ...
     {
-      ...galleryNFields,
+      ...galleryNFields, // Add your fields here
       admin: {
         condition: (_, siblingData) => siblingData.style === 'gallery-n',
       },
