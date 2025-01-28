@@ -3,6 +3,8 @@ import type { Block } from 'payload'
 import { cta1Fields } from './components/CTA1/config'
 import { cta3Fields } from './components/CTA3/config'
 import { cta4Fields } from './components/CTA4/config'
+import { cta5Fields } from './components/CTA5/config'
+
 /**
  * Call to Action Block configuration
  */
@@ -17,7 +19,7 @@ export const CallToAction: Block = {
     {
       name: 'style',
       type: 'select',
-      options: ['cta-1', 'cta-3', 'cta-4'],
+      options: ['cta-1', 'cta-3', 'cta-4', 'cta-5'],
     },
     {
       ...cta1Fields,
@@ -35,6 +37,12 @@ export const CallToAction: Block = {
       ...cta4Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'cta-4',
+      },
+    },
+    {
+      ...cta5Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'cta-5',
       },
     },
   ],
