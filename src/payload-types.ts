@@ -2472,11 +2472,58 @@ export interface Feature15Fields {
  * via the `definition` "TestimonialBlock".
  */
 export interface TestimonialBlock {
-  style?: 'testimonial-14' | null;
+  style?: ('testimonial-7' | 'testimonial-14') | null;
+  'testimonial-7'?: Testimonial7Fields;
   'testimonial-14'?: Testimonial14Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonial';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Testimonial7Fields".
+ */
+export interface Testimonial7Fields {
+  /**
+   * Main title for the testimonial section
+   */
+  title?: string | null;
+  /**
+   * Description text below the title
+   */
+  description?: string | null;
+  /**
+   * Text for the call-to-action button
+   */
+  buttonText?: string | null;
+  /**
+   * Link for the call-to-action button
+   */
+  buttonLink?: string | null;
+  /**
+   * Testimonial items (4-12)
+   */
+  testimonials?:
+    | {
+        /**
+         * Testimonial quote text
+         */
+        quote: string;
+        /**
+         * Name of the testimonial author
+         */
+        authorName: string;
+        /**
+         * Role/position of the author
+         */
+        authorRole?: string | null;
+        /**
+         * Author profile image
+         */
+        authorImage?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3776,9 +3823,29 @@ export interface Feature15FieldsSelect<T extends boolean = true> {
  */
 export interface TestimonialBlockSelect<T extends boolean = true> {
   style?: T;
+  'testimonial-7'?: T | Testimonial7FieldsSelect<T>;
   'testimonial-14'?: T | Testimonial14FieldsSelect<T>;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Testimonial7Fields_select".
+ */
+export interface Testimonial7FieldsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  buttonText?: T;
+  buttonLink?: T;
+  testimonials?:
+    | T
+    | {
+        quote?: T;
+        authorName?: T;
+        authorRole?: T;
+        authorImage?: T;
+        id?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
