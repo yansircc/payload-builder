@@ -2472,13 +2472,48 @@ export interface Feature15Fields {
  * via the `definition` "TestimonialBlock".
  */
 export interface TestimonialBlock {
-  style?: ('testimonial-6' | 'testimonial-7' | 'testimonial-14') | null;
+  style?: ('testimonial-4' | 'testimonial-6' | 'testimonial-7' | 'testimonial-14') | null;
+  'testimonial-4'?: Testimonial4Fields;
   'testimonial-6'?: Testimonial6Fields;
   'testimonial-7'?: Testimonial7Fields;
   'testimonial-14'?: Testimonial14Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonial';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Testimonial4Fields".
+ */
+export interface Testimonial4Fields {
+  /**
+   * Featured image displayed in the left column
+   */
+  featuredImage?: (string | null) | Media;
+  /**
+   * Testimonial items (exactly 4 required - 1 featured + 3 grid)
+   */
+  testimonials?:
+    | {
+        /**
+         * Testimonial quote text
+         */
+        quote: string;
+        /**
+         * Name of the testimonial author
+         */
+        authorName: string;
+        /**
+         * Role/position of the author
+         */
+        authorRole?: string | null;
+        /**
+         * Author profile image
+         */
+        authorImage?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3858,11 +3893,28 @@ export interface Feature15FieldsSelect<T extends boolean = true> {
  */
 export interface TestimonialBlockSelect<T extends boolean = true> {
   style?: T;
+  'testimonial-4'?: T | Testimonial4FieldsSelect<T>;
   'testimonial-6'?: T | Testimonial6FieldsSelect<T>;
   'testimonial-7'?: T | Testimonial7FieldsSelect<T>;
   'testimonial-14'?: T | Testimonial14FieldsSelect<T>;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Testimonial4Fields_select".
+ */
+export interface Testimonial4FieldsSelect<T extends boolean = true> {
+  featuredImage?: T;
+  testimonials?:
+    | T
+    | {
+        quote?: T;
+        authorName?: T;
+        authorRole?: T;
+        authorImage?: T;
+        id?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
