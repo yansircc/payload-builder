@@ -11,9 +11,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { DynamicIcon } from '@/components/Link/DynamicIcon'
 import { Media } from '@/components/Media'
 import type { Gallery9Fields } from '@/payload-types'
+import { DynamicIcon } from '@/components/DynamicIcon'
 
 export default function Gallery9({ gallery }: { gallery: Gallery9Fields['gallery'] }) {
   const { title, description, sections } = gallery
