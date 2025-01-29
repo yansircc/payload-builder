@@ -2472,11 +2472,12 @@ export interface Feature15Fields {
  * via the `definition` "TestimonialBlock".
  */
 export interface TestimonialBlock {
-  style?: ('testimonial-4' | 'testimonial-6' | 'testimonial-7' | 'testimonial-14') | null;
+  style?: ('testimonial-4' | 'testimonial-6' | 'testimonial-7' | 'testimonial-14' | 'testimonial-15') | null;
   'testimonial-4'?: Testimonial4Fields;
   'testimonial-6'?: Testimonial6Fields;
   'testimonial-7'?: Testimonial7Fields;
   'testimonial-14'?: Testimonial14Fields;
+  'testimonial-15'?: Testimonial15Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonial';
@@ -2625,6 +2626,64 @@ export interface Testimonial14Fields {
          * Rating out of 5 stars
          */
         rating?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Testimonial15Fields".
+ */
+export interface Testimonial15Fields {
+  /**
+   * Main title for the testimonial section
+   */
+  title?: string | null;
+  /**
+   * Description text below the title
+   */
+  description?: string | null;
+  /**
+   * Text for the call-to-action button
+   */
+  buttonText?: string | null;
+  /**
+   * Link for the call-to-action button
+   */
+  buttonLink?: string | null;
+  /**
+   * Company logos (1-5)
+   */
+  companyLogos?:
+    | {
+        /**
+         * Company logo image
+         */
+        image: string | Media;
+        /**
+         * Alternative text for the logo image
+         */
+        altText?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Testimonial items (exactly 4 required)
+   */
+  testimonials?:
+    | {
+        /**
+         * Testimonial quote text
+         */
+        quote: string;
+        /**
+         * Name of the testimonial author
+         */
+        authorName: string;
+        /**
+         * Author profile image
+         */
+        authorImage?: (string | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -3897,6 +3956,7 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
   'testimonial-6'?: T | Testimonial6FieldsSelect<T>;
   'testimonial-7'?: T | Testimonial7FieldsSelect<T>;
   'testimonial-14'?: T | Testimonial14FieldsSelect<T>;
+  'testimonial-15'?: T | Testimonial15FieldsSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -3964,6 +4024,31 @@ export interface Testimonial14FieldsSelect<T extends boolean = true> {
         authorRole?: T;
         authorImage?: T;
         rating?: T;
+        id?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Testimonial15Fields_select".
+ */
+export interface Testimonial15FieldsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  buttonText?: T;
+  buttonLink?: T;
+  companyLogos?:
+    | T
+    | {
+        image?: T;
+        altText?: T;
+        id?: T;
+      };
+  testimonials?:
+    | T
+    | {
+        quote?: T;
+        authorName?: T;
+        authorImage?: T;
         id?: T;
       };
 }

@@ -14,12 +14,14 @@ import type { ComponentType } from 'react'
 
 // Import all Testimonial components
 import Testimonial14Component from './testimonial-14/Component'
+import Testimonial15Component from './testimonial-15/Component'
 import Testimonial4Component from './testimonial-4/Component'
 import Testimonial6Component from './testimonial-6/Component'
 import Testimonial7Component from './testimonial-7/Component'
 
 // Export config
 export { testimonial14Fields } from './testimonial-14/config'
+export { testimonial15Fields } from './testimonial-15/config'
 export { testimonial4Fields } from './testimonial-4/config'
 export { testimonial6Fields } from './testimonial-6/config'
 export { testimonial7Fields } from './testimonial-7/config'
@@ -29,6 +31,7 @@ export const Testimonial4 = Testimonial4Component
 export const Testimonial6 = Testimonial6Component
 export const Testimonial7 = Testimonial7Component
 export const Testimonial14 = Testimonial14Component
+export const Testimonial15 = Testimonial15Component
 
 // Define Testimonial component props type
 type TestimonialComponentProps<T extends NonNullable<TestimonialBlock['style']>> = NonNullable<
@@ -37,11 +40,12 @@ type TestimonialComponentProps<T extends NonNullable<TestimonialBlock['style']>>
 
 // Define testimonial components mapping
 export const testimonialComponents: Record<
-  'testimonial-4' | 'testimonial-6' | 'testimonial-7' | 'testimonial-14',
+  'testimonial-4' | 'testimonial-6' | 'testimonial-7' | 'testimonial-14' | 'testimonial-15',
   ComponentType<TestimonialComponentProps<any>>
 > = {
   'testimonial-4': Testimonial4,
   'testimonial-6': Testimonial6,
   'testimonial-7': Testimonial7,
   'testimonial-14': Testimonial14,
+  'testimonial-15': Testimonial15,
 }
