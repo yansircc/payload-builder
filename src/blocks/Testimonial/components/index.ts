@@ -13,18 +13,18 @@ import type { TestimonialBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
 
 // Import all Testimonial components
-import Testimonial14Component from './testimonial-14/Component'
-import Testimonial15Component from './testimonial-15/Component'
-import Testimonial4Component from './testimonial-4/Component'
-import Testimonial6Component from './testimonial-6/Component'
-import Testimonial7Component from './testimonial-7/Component'
+import Testimonial14Component from './Testimonial14/Component'
+import Testimonial15Component from './Testimonial15/Component'
+import Testimonial4Component from './Testimonial4/Component'
+import Testimonial6Component from './Testimonial6/Component'
+import Testimonial7Component from './Testimonial7/Component'
 
 // Export config
-export { testimonial14Fields } from './testimonial-14/config'
-export { testimonial15Fields } from './testimonial-15/config'
-export { testimonial4Fields } from './testimonial-4/config'
-export { testimonial6Fields } from './testimonial-6/config'
-export { testimonial7Fields } from './testimonial-7/config'
+export { testimonial14Fields } from './Testimonial14/config'
+export { testimonial15Fields } from './Testimonial15/config'
+export { testimonial4Fields } from './Testimonial4/config'
+export { testimonial6Fields } from './Testimonial6/config'
+export { testimonial7Fields } from './Testimonial7/config'
 
 // Export components
 export const Testimonial4 = Testimonial4Component

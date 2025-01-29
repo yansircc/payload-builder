@@ -1,10 +1,10 @@
 // Import payload types here
 import { Block, Field } from 'payload'
-import { testimonial14Fields } from './components/testimonial-14/config'
-import { testimonial15Fields } from './components/testimonial-15/config'
-import { testimonial4Fields } from './components/testimonial-4/config'
-import { testimonial6Fields } from './components/testimonial-6/config'
-import { testimonial7Fields } from './components/testimonial-7/config'
+import { testimonial14Fields } from './components/Testimonial14/config'
+import { testimonial15Fields } from './components/Testimonial15/config'
+import { testimonial4Fields } from './components/Testimonial4/config'
+import { testimonial6Fields } from './components/Testimonial6/config'
+import { testimonial7Fields } from './components/Testimonial7/config'
 
 // Import the testimonial fields config here
 
