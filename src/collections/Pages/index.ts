@@ -6,6 +6,7 @@ import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
+import { Contact } from '../../blocks/Contact/config'
 import { Content } from '../../blocks/Content/config'
 import { Feature } from '../../blocks/Feature/config'
 import { FormBlock } from '../../blocks/Form/config'
@@ -85,6 +86,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 FormBlock,
                 GalleryBlock,
                 Feature,
+                Contact,
               ],
               required: true,
               admin: {
