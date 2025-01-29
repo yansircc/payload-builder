@@ -9,6 +9,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { galleryComponents } from '@/blocks/Gallery/components'
 import { RenderFeature } from '@/blocks/Feature/RenderFeature'
 import { testimonialComponents } from '@/blocks/Testimonial/components'
+import { RenderContact } from '@/blocks/Contact/RenderContact'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -33,6 +34,7 @@ const blockComponents = {
     // Use type assertion to ensure type safety
     return <TestimonialComponent {...(props[props.style] as any)} />
   },
+  contact: RenderContact,
 }
 
 export const RenderBlocks: React.FC<{

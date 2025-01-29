@@ -1,6 +1,6 @@
 import { Media } from '@/components/Media'
 import type { CTA1Fields } from '@/payload-types'
-import { DynamicIcon } from '@/components/Link/DynamicIcon'
+import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import { ClientMotionDiv } from '../shared/motion'
 
