@@ -1,5 +1,5 @@
 import { CMSLink } from '@/components/Link'
-import { DynamicIcon } from '@/components/Link/DynamicIcon'
+import { DynamicIcon } from '@/components/DynamicIcon'
 import type { CTA16Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
