@@ -4,6 +4,7 @@ import { contact2Fields } from './components/Contact2/config'
 import { contact3Fields } from './components/Contact3/config'
 import { contact4Fields } from './components/Contact4/config'
 import { contact5Fields } from './components/Contact5/config'
+import { contact6Fields } from './components/Contact6/config'
 
 /**
  * Contact Block configuration
@@ -41,6 +42,10 @@ export const Contact: Block = {
           label: 'Contact 5',
           value: 'contact-5',
         },
+        {
+          label: 'Contact 6',
+          value: 'contact-6',
+        },
       ],
     },
     {
@@ -71,6 +76,12 @@ export const Contact: Block = {
       ...contact5Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'contact-5',
+      },
+    },
+    {
+      ...contact6Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'contact-6',
       },
     },
   ],

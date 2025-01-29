@@ -1,50 +1,37 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { cardsFields, contactSchemas, createContactField } from '../shared/base-field'
+import { cardsFields, contactSchemas, createContactField, formFields } from '../shared/base-field'
 
 /**
- * Contact 4 field validation and type definitions
+ * Contact 6 field validation and type definitions
  */
 export const schemas = {
   title: contactSchemas.title,
   subtitle: contactSchemas.subtitle,
   description: contactSchemas.description,
-  links: z.array(
-    z.object({
-      link: z.object({
-        label: z.string(),
-        href: z.string().optional(),
-        appearances: z.string().optional(),
-      }),
-    }),
-  ),
   supportList: z.object({
     supports: z.array(
       z.object({
+        icon: z.string(),
         title: contactSchemas.title,
         subtitle: contactSchemas.subtitle,
         link: contactSchemas.link,
       }),
     ),
   }),
-  officeList: z.object({
-    title: contactSchemas.title,
-    offices: z.array(
-      z.object({
-        title: contactSchemas.title,
-        subtitle: contactSchemas.subtitle,
-      }),
-    ),
+  form: z.object({
+    fields: z.array(contactSchemas.formField),
+    submitButton: contactSchemas.submitButton,
   }),
 }
 
 /**
- * Contact 4 configuration
+ * Contact 6 configuration
  */
-export const contact4Fields: GroupField = {
-  name: 'contact-4',
-  interfaceName: 'Contact4Fields',
+export const contact6Fields: GroupField = {
+  name: 'contact-6',
+  interfaceName: 'Contact6Fields',
   label: false,
   type: 'group',
   admin: {
@@ -52,7 +39,7 @@ export const contact4Fields: GroupField = {
   },
   fields: [
     createContactField({
-      includeFields: ['title', 'subtitle'],
+      includeFields: ['title', 'description', 'subtitle'],
       groups: [
         {
           name: 'supportList',
@@ -62,6 +49,7 @@ export const contact4Fields: GroupField = {
             {
               name: 'supports',
               fields: [
+                cardsFields.icon,
                 cardsFields.title,
                 cardsFields.subtitle,
                 link({
@@ -88,38 +76,21 @@ export const contact4Fields: GroupField = {
           },
         },
         {
-          name: 'locationList',
-          label: 'Location list',
-          fields: ['locations'],
+          name: 'form',
+          label: 'Contact Form',
+          fields: ['submitButton'],
           arrays: [
             {
-              name: 'locations',
-              fields: [
-                cardsFields.image,
-                cardsFields.subtitle,
-                cardsFields.title,
-                link({
-                  name: 'link',
-                  overrides: {
-                    admin: {
-                      description: 'Support card link',
-                    },
-                    defaultValue: {
-                      label: 'See on Google Maps',
-                      appearances: 'link',
-                    },
-                  },
-                }),
-              ],
+              name: 'fields',
+              fields: Object.values(formFields),
               minRows: 1,
-              maxRows: 6,
               admin: {
-                description: 'Location carousel',
+                description: 'Fields',
               },
             },
           ],
           admin: {
-            description: 'Location list',
+            description: 'Contact form',
           },
         },
       ],
