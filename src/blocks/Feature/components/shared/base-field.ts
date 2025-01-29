@@ -134,6 +134,14 @@ const cardsFields = {
       description: 'Feature title',
     },
   },
+  subtitle: {
+    name: 'subtitle',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Feature subtitle',
+    },
+  },
   description: {
     name: 'description',
     type: 'textarea',
@@ -208,6 +216,7 @@ const listFields = {
     name: 'icon',
     type: 'text',
     required: false,
+    defaultValue: 'CheckCircle',
     admin: {
       description: 'Optional: Lucide icon name (e.g., CheckCircle)',
     },
