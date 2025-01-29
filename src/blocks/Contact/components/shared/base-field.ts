@@ -14,6 +14,21 @@ export const contactSchemas = {
   description: z.string().describe('The contact form description'),
   /** Image schema */
   image: z.object({}).describe('Feature image'),
+  /** Link schema */
+  link: z.object({
+    type: z.enum(['reference', 'custom']).optional(),
+    newTab: z.boolean().optional(),
+    reference: z
+      .object({
+        relationTo: z.enum(['pages', 'posts']),
+        value: z.string(),
+      })
+      .optional(),
+    url: z.string().optional(),
+    label: z.string(),
+    prefixIcon: z.string().optional(),
+    suffixIcon: z.string().optional(),
+  }),
   /** Form field schema */
   formField: z.object({
     label: z.string().describe('Input field label'),

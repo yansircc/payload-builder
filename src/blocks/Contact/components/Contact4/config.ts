@@ -4,34 +4,28 @@ import { z } from 'zod'
 import { cardsFields, contactSchemas, createContactField } from '../shared/base-field'
 
 /**
- * Contact 3 field validation and type definitions
+ * Contact 4 field validation and type definitions
  */
 export const schemas = {
   title: contactSchemas.title,
   subtitle: contactSchemas.subtitle,
+  description: contactSchemas.description,
   links: z.array(
     z.object({
-      'link-1': z.object({
+      link: z.object({
         label: z.string(),
         href: z.string().optional(),
-      }),
-      'link-2': z.object({
-        label: z.string(),
-        href: z.string().optional(),
+        appearances: z.string().optional(),
       }),
     }),
   ),
   supportList: z.object({
-    title: contactSchemas.title,
     supports: z.array(
       z.object({
-        image: contactSchemas.image,
+        icon: z.string(),
         title: contactSchemas.title,
         subtitle: contactSchemas.subtitle,
-        link: z.object({
-          label: z.string(),
-          href: z.string().optional(),
-        }),
+        link: contactSchemas.link,
       }),
     ),
   }),
@@ -47,11 +41,11 @@ export const schemas = {
 }
 
 /**
- * Contact 3 configuration
+ * Contact 4 configuration
  */
-export const contact3Fields: GroupField = {
-  name: 'contact-3',
-  interfaceName: 'Contact3Fields',
+export const contact4Fields: GroupField = {
+  name: 'contact-4',
+  interfaceName: 'Contact4Fields',
   label: false,
   type: 'group',
   admin: {
@@ -60,26 +54,6 @@ export const contact3Fields: GroupField = {
   fields: [
     createContactField({
       includeFields: ['title', 'subtitle'],
-      arrays: [
-        {
-          name: 'links',
-          fields: [
-            link({
-              name: 'link',
-              overrides: {
-                admin: {
-                  description: 'Link button',
-                },
-              },
-            }),
-          ],
-          admin: {
-            description: 'Links',
-          },
-          minRows: 1,
-          maxRows: 2,
-        },
-      ],
       groups: [
         {
           name: 'supportList',
@@ -89,9 +63,8 @@ export const contact3Fields: GroupField = {
             {
               name: 'supports',
               fields: [
-                cardsFields.icon,
-                cardsFields.subtitle,
                 cardsFields.title,
+                cardsFields.subtitle,
                 link({
                   name: 'link',
                   overrides: {
@@ -99,7 +72,6 @@ export const contact3Fields: GroupField = {
                       description: 'Support card link',
                     },
                     defaultValue: {
-                      label: 'Contact support',
                       appearances: 'link',
                     },
                   },
@@ -117,22 +89,38 @@ export const contact3Fields: GroupField = {
           },
         },
         {
-          name: 'officeList',
-          label: 'Offices list',
-          fields: ['title'],
+          name: 'locationList',
+          label: 'Location list',
+          fields: ['locations'],
           arrays: [
             {
-              name: 'offices',
-              fields: [cardsFields.subtitle, cardsFields.title],
+              name: 'locations',
+              fields: [
+                cardsFields.image,
+                cardsFields.subtitle,
+                cardsFields.title,
+                link({
+                  name: 'link',
+                  overrides: {
+                    admin: {
+                      description: 'Support card link',
+                    },
+                    defaultValue: {
+                      label: 'See on Google Maps',
+                      appearances: 'link',
+                    },
+                  },
+                }),
+              ],
               minRows: 1,
               maxRows: 6,
               admin: {
-                description: 'Office cards',
+                description: 'Location carousel',
               },
             },
           ],
           admin: {
-            description: 'Office list',
+            description: 'Location list',
           },
         },
       ],
