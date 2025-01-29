@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 import { contact1Fields } from './components/Contact1/config'
 import { contact2Fields } from './components/Contact2/config'
+import { contact5Fields } from './components/Contact5/config'
 
 /**
  * Contact Block configuration
@@ -26,6 +27,10 @@ export const Contact: Block = {
           label: 'Contact 2',
           value: 'contact-2',
         },
+        {
+          label: 'Contact 5',
+          value: 'contact-5',
+        },
       ],
     },
     {
@@ -38,6 +43,12 @@ export const Contact: Block = {
       ...contact2Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'contact-2',
+      },
+    },
+    {
+      ...contact5Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'contact-5',
       },
     },
   ],

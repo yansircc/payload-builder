@@ -15,14 +15,17 @@ import type { ComponentType } from 'react'
 // Import all Contact components
 import Contact1Component from './components/Contact1/Component'
 import Contact2Component from './components/Contact2/Component'
+import Contact5Component from './components/Contact5/Component'
 
 // Export config
 export { contact1Fields } from './components/Contact1/config'
 export { contact2Fields } from './components/Contact2/config'
+export { contact5Fields } from './components/Contact5/config'
 
 // Export components
 export const Contact1 = Contact1Component
 export const Contact2 = Contact2Component
+export const Contact5 = Contact5Component
 
 // Define Contact component props type
 type ContactComponentProps<T extends NonNullable<ContactBlock['style']>> = NonNullable<
@@ -36,6 +39,7 @@ export const contactComponents: Record<
 > = {
   'contact-1': Contact1,
   'contact-2': Contact2,
+  'contact-5': Contact5,
 }
 
 // Export type
