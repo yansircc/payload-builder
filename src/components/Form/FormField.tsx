@@ -33,10 +33,20 @@ export interface FormFieldProps {
 export function FormField({ formField, className }: FormFieldProps) {
   const { label, type, placeholder, required, options } = formField
 
+  const labelWithAsterisk =
+    required === 'yes' ? (
+      <>
+        {label}
+        <sup className="ml-0.5">*</sup>
+      </>
+    ) : (
+      label
+    )
+
   if (type === 'textarea') {
     return (
       <div className={cn('grid w-full gap-1.5', className)}>
-        <Label htmlFor={label}>{label}</Label>
+        <Label htmlFor={label}>{labelWithAsterisk}</Label>
         <Textarea
           id={label}
           name={label}
@@ -50,7 +60,7 @@ export function FormField({ formField, className }: FormFieldProps) {
   if (type === 'select' || type === 'radio') {
     return (
       <div className={cn('grid w-full items-center gap-1.5', className)}>
-        <Label htmlFor={label}>{label}</Label>
+        <Label htmlFor={label}>{labelWithAsterisk}</Label>
         <Select>
           <SelectTrigger id={label} name={label}>
             <SelectValue placeholder={placeholder || undefined} />
@@ -69,7 +79,7 @@ export function FormField({ formField, className }: FormFieldProps) {
 
   return (
     <div className={cn('grid w-full items-center gap-1.5', className)}>
-      <Label htmlFor={label}>{label}</Label>
+      <Label htmlFor={label}>{labelWithAsterisk}</Label>
       <Input
         id={label}
         name={label}
