@@ -20,6 +20,7 @@ import Contact4Component from './components/Contact4/Component'
 import Contact5Component from './components/Contact5/Component'
 import Contact6Component from './components/Contact6/Component'
 import Contact7Component from './components/Contact7/Component'
+import Contact8Component from './components/Contact8/Component'
 // Export config
 export { contact1Fields } from './components/Contact1/config'
 export { contact2Fields } from './components/Contact2/config'
@@ -28,6 +29,7 @@ export { contact4Fields } from './components/Contact4/config'
 export { contact5Fields } from './components/Contact5/config'
 export { contact6Fields } from './components/Contact6/config'
 export { contact7Fields } from './components/Contact7/config'
+export { contact8Fields } from './components/Contact8/config'
 // Export components
 export const Contact1 = Contact1Component
 export const Contact2 = Contact2Component
@@ -36,6 +38,7 @@ export const Contact4 = Contact4Component
 export const Contact5 = Contact5Component
 export const Contact6 = Contact6Component
 export const Contact7 = Contact7Component
+export const Contact8 = Contact8Component
 // Define Contact component props type
 type ContactComponentProps<T extends NonNullable<ContactBlock['style']>> = NonNullable<
   ContactBlock[T]
@@ -53,6 +56,7 @@ export const contactComponents: Record<
   'contact-5': Contact5,
   'contact-6': Contact6,
   'contact-7': Contact7,
+  'contact-8': Contact8,
 }
 
 // Export type
