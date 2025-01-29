@@ -208,6 +208,53 @@ const listFields = {
 } as const
 
 /**
+ * Card fields for card-based layouts
+ */
+const cardsFields = {
+  icon: {
+    name: 'icon',
+    type: 'text',
+    required: false,
+    admin: {
+      description: 'Lucide icon name',
+    },
+  },
+  title: {
+    name: 'title',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Feature title',
+    },
+  },
+  subtitle: {
+    name: 'subtitle',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Feature subtitle',
+    },
+  },
+  description: {
+    name: 'description',
+    type: 'textarea',
+    required: true,
+    admin: {
+      description: 'Feature description',
+    },
+  },
+  image: {
+    name: 'image',
+    type: 'upload',
+    relationTo: 'media',
+    required: false,
+    admin: {
+      description: 'Feature image',
+    },
+  },
+} as const
+
+/**
  * Combine all contact fields for the field group
  */
 const contactFields: Record<string, Field> = {
@@ -216,12 +263,13 @@ const contactFields: Record<string, Field> = {
   ...buttonFields,
   ...listFields,
   ...mediaFields,
+  ...cardsFields,
 }
 
 /**
  * Export all field groups for type safety
  */
-export { basicFields, buttonFields, formFields, listFields, mediaFields }
+export { basicFields, buttonFields, cardsFields, formFields, listFields, mediaFields }
 
 /**
  * Create a custom contact field with selected fields and arrays
