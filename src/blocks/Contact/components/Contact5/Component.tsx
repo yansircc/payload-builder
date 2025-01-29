@@ -1,4 +1,4 @@
-import { Form } from '@/components/Form/Form'
+import { Form } from '@/components/Form'
 import { Contact5Fields } from '@/payload-types'
 
 export default function Contact5({ contact }: Contact5Fields) {
