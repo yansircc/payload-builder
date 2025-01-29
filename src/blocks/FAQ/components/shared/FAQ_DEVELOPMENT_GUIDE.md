@@ -1,6 +1,6 @@
-# Contact Component Development Guide
+# FAQ Component Development Guide
 
-This guide aims to help developers understand and implement the Contact component development process.
+This guide aims to help developers understand and implement the FAQ component development process.
 
 ## Table of Contents
 
@@ -12,7 +12,7 @@ This guide aims to help developers understand and implement the Contact componen
 
 ## 1. Development Process Overview
 
-The Contact component development process follows these steps:
+The FAQ component development process follows these steps:
 
 1. Get TSX code from design
 2. Analyze and atomize fields
@@ -40,12 +40,12 @@ Get static TSX code from the design. This code typically includes:
 For example:
 
 ```typescript
-// src/blocks/Contact/components/shared/base-field.ts
+// src/blocks/FAQ/components/shared/base-field.ts
 
 // 1. Add schema definition
-export const contactSchemas = {
+export const faqSchemas = {
   /** Title schema */
-  title: z.string().describe('The contact form title'),
+  title: z.string().describe('The faq form title'),
   /** Form field schema */
   formField: z.object({
     label: z.string(),
@@ -62,7 +62,7 @@ const basicFields = {
     type: 'text',
     required: true,
     admin: {
-      description: 'Contact form title',
+      description: 'FAQ form title',
     },
   },
   formField: {
@@ -102,30 +102,30 @@ Create `config.ts` in the component directory:
 ```typescript
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { createContactField, contactSchemas } from '../shared/base-field'
+import { createFAQField, faqSchemas } from '../shared/base-field'
 
 /**
- * Contact N field validation and type definitions
+ * FAQ N field validation and type definitions
  */
 export const schemas = {
-  title: contactSchemas.title,
-  subtitle: contactSchemas.subtitle,
-  formFields: z.array(contactSchemas.formField),
+  title: faqSchemas.title,
+  subtitle: faqSchemas.subtitle,
+  formFields: z.array(faqSchemas.formField),
 }
 
 /**
- * Complete configuration for Contact N
+ * Complete configuration for FAQ N
  */
-export const contactNFields: GroupField = {
-  name: 'contact-n',
-  interfaceName: 'ContactNFields',
+export const faqNFields: GroupField = {
+  name: 'faq-n',
+  interfaceName: 'FAQNFields',
   label: false,
   type: 'group',
   admin: {
-    description: 'Description of this contact component',
+    description: 'Description of this faq component',
   },
   fields: [
-    createContactField({
+    createFAQField({
       includeFields: ['title', 'subtitle'],
       arrays: [
         // Array fields
@@ -135,7 +135,7 @@ export const contactNFields: GroupField = {
           minRows: 1,
           maxRows: 6,
           admin: {
-            description: 'Contact form fields',
+            description: 'FAQ form fields',
           },
         },
       ],
@@ -146,17 +146,17 @@ export const contactNFields: GroupField = {
 
 ### 2.4 Update Global Configuration
 
-In `src/blocks/Contact/config.ts`:
+In `src/blocks/FAQ/config.ts`:
 
 1. Import new component configuration
 2. Add to style options
 3. Add conditional rendering configuration
 
 ```typescript
-import { contactNFields } from './components/ContactN/config'
+import { faqNFields } from './components/FAQN/config'
 
-export const ContactField: Field = {
-  name: 'contact',
+export const FAQField: Field = {
+  name: 'faq',
   type: 'group',
   fields: [
     {
@@ -164,13 +164,13 @@ export const ContactField: Field = {
       type: 'select',
       options: [
         // ... existing options
-        'contact-n',
+        'faq-n',
       ],
     },
     {
-      ...contactNFields,
+      ...faqNFields,
       admin: {
-        condition: (_, siblingData) => siblingData.style === 'contact-n',
+        condition: (_, siblingData) => siblingData.style === 'faq-n',
       },
     },
   ],
@@ -225,19 +225,19 @@ import type { Feature5Fields } from '@/payload-types'
 import { CMSLink } from '@/components/Link' // Must use CMSLink for links
 import { Media } from '@/components/Media' // Must use Media for images
 
-export default function ContactN({ title, subtitle, formFields }: ContactNFields) {
+export default function FAQN({ title, subtitle, formFields }: FAQNFields) {
 
   return (
-    // Implement contact form logic
+    // Implement faq form logic
   )
 }
 ```
 
 ## 3. Configuration File Guide
 
-### 3.1 createContactField Function
+### 3.1 createFAQField Function
 
-`createContactField` function supports:
+`createFAQField` function supports:
 
 1. **Basic Field Configuration**
 
@@ -259,7 +259,7 @@ export default function ContactN({ title, subtitle, formFields }: ContactNFields
          minRows: 1,
          maxRows: 2,
          admin: {
-           description: 'Contact links (1-2)',
+           description: 'FAQ links (1-2)',
          },
        },
      ],
@@ -352,4 +352,4 @@ Before submitting code, check the following:
 
 ## Conclusion
 
-Following this guide will help you create high-quality Contact components. If you have questions, refer to existing Contact component implementations or consult team members.
+Following this guide will help you create high-quality FAQ components. If you have questions, refer to existing FAQ component implementations or consult team members.
