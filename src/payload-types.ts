@@ -95,7 +95,16 @@ export interface Page {
   id: string;
   title: string;
   hero?: HeroField;
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | GalleryBlock | FeatureBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | GalleryBlock
+    | FeatureBlock
+    | TestimonialBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -1807,13 +1816,32 @@ export interface Gallery6Fields {
  * via the `definition` "FeatureBlock".
  */
 export interface FeatureBlock {
-  style?: ('feature-1' | 'feature-2' | 'feature-3' | 'feature-5' | 'feature-6' | 'feature-7') | null;
+  style?:
+    | (
+        | 'feature-1'
+        | 'feature-2'
+        | 'feature-3'
+        | 'feature-5'
+        | 'feature-6'
+        | 'feature-7'
+        | 'feature-10'
+        | 'feature-11'
+        | 'feature-13'
+        | 'feature-14'
+        | 'feature-15'
+      )
+    | null;
   'feature-1'?: Feature1Fields;
   'feature-2'?: Feature2Fields;
   'feature-3'?: Feature3Fields;
   'feature-5'?: Feature5Fields;
   'feature-6'?: Feature6Fields;
   'feature-7'?: Feature7Fields;
+  'feature-10'?: Feature10Fields;
+  'feature-11'?: Feature11Fields;
+  'feature-13'?: Feature13Fields;
+  'feature-14'?: Feature14Fields;
+  'feature-15'?: Feature15Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'feature';
@@ -2192,6 +2220,300 @@ export interface Feature7Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature10Fields".
+ */
+export interface Feature10Fields {
+  /**
+   * Feature section fields
+   */
+  feature: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Feature description
+     */
+    description: string;
+    /**
+     * Feature cards
+     */
+    features?:
+      | {
+          /**
+           * Lucide icon name
+           */
+          icon?: string | null;
+          /**
+           * Feature title
+           */
+          title: string;
+          /**
+           * Feature description
+           */
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature11Fields".
+ */
+export interface Feature11Fields {
+  /**
+   * Feature section fields
+   */
+  feature: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Feature description
+     */
+    description: string;
+    /**
+     * Author profile image
+     */
+    image?: (string | null) | Media;
+    /**
+     * Feature links
+     */
+    links?:
+      | {
+          /**
+           * Primary link with icon
+           */
+          'link-1': {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * List of features with icons
+     */
+    features?:
+      | {
+          /**
+           * Optional: Lucide icon name (e.g., CheckCircle)
+           */
+          icon?: string | null;
+          /**
+           * List item text
+           */
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature13Fields".
+ */
+export interface Feature13Fields {
+  /**
+   * Feature section fields
+   */
+  feature: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Feature cards
+     */
+    features?:
+      | {
+          /**
+           * Feature image
+           */
+          image?: (string | null) | Media;
+          /**
+           * Feature subtitle
+           */
+          subtitle: string;
+          /**
+           * Feature title
+           */
+          title: string;
+          /**
+           * Feature description
+           */
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature14Fields".
+ */
+export interface Feature14Fields {
+  /**
+   * Feature section fields
+   */
+  feature: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Feature cards
+     */
+    features?:
+      | {
+          /**
+           * Feature image
+           */
+          image?: (string | null) | Media;
+          /**
+           * Feature title
+           */
+          title: string;
+          /**
+           * Feature description
+           */
+          description: string;
+          /**
+           * List of features with icons
+           */
+          list?:
+            | {
+                /**
+                 * Optional: Lucide icon name (e.g., CheckCircle)
+                 */
+                icon?: string | null;
+                /**
+                 * List item text
+                 */
+                text: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature15Fields".
+ */
+export interface Feature15Fields {
+  /**
+   * Feature section fields
+   */
+  feature: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Feature description
+     */
+    description: string;
+    /**
+     * Feature subtitle
+     */
+    subtitle: string;
+    /**
+     * Feature cards
+     */
+    features?:
+      | {
+          /**
+           * Lucide icon name
+           */
+          icon?: string | null;
+          /**
+           * Feature title
+           */
+          title: string;
+          /**
+           * Feature description
+           */
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBlock".
+ */
+export interface TestimonialBlock {
+  style?: 'testimonial-14' | null;
+  'testimonial-14'?: Testimonial14Fields;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonial';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Testimonial14Fields".
+ */
+export interface Testimonial14Fields {
+  /**
+   * Testimonial items (1-10)
+   */
+  testimonials?:
+    | {
+        /**
+         * Testimonial quote text
+         */
+        quote: string;
+        /**
+         * Name of the testimonial author
+         */
+        authorName: string;
+        /**
+         * Role/position of the author
+         */
+        authorRole?: string | null;
+        /**
+         * Author profile image
+         */
+        authorImage?: (string | null) | Media;
+        /**
+         * Rating out of 5 stars
+         */
+        rating?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -2461,6 +2783,7 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         gallery?: T | GalleryBlockSelect<T>;
         feature?: T | FeatureBlockSelect<T>;
+        testimonial?: T | TestimonialBlockSelect<T>;
       };
   meta?:
     | T
@@ -3139,6 +3462,11 @@ export interface FeatureBlockSelect<T extends boolean = true> {
   'feature-5'?: T | Feature5FieldsSelect<T>;
   'feature-6'?: T | Feature6FieldsSelect<T>;
   'feature-7'?: T | Feature7FieldsSelect<T>;
+  'feature-10'?: T | Feature10FieldsSelect<T>;
+  'feature-11'?: T | Feature11FieldsSelect<T>;
+  'feature-13'?: T | Feature13FieldsSelect<T>;
+  'feature-14'?: T | Feature14FieldsSelect<T>;
+  'feature-15'?: T | Feature15FieldsSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -3316,6 +3644,156 @@ export interface Feature7FieldsSelect<T extends boolean = true> {
               text?: T;
               id?: T;
             };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature10Fields_select".
+ */
+export interface Feature10FieldsSelect<T extends boolean = true> {
+  feature?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature11Fields_select".
+ */
+export interface Feature11FieldsSelect<T extends boolean = true> {
+  feature?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        links?:
+          | T
+          | {
+              'link-1'?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        features?:
+          | T
+          | {
+              icon?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature13Fields_select".
+ */
+export interface Feature13FieldsSelect<T extends boolean = true> {
+  feature?:
+    | T
+    | {
+        title?: T;
+        features?:
+          | T
+          | {
+              image?: T;
+              subtitle?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature14Fields_select".
+ */
+export interface Feature14FieldsSelect<T extends boolean = true> {
+  feature?:
+    | T
+    | {
+        title?: T;
+        features?:
+          | T
+          | {
+              image?: T;
+              title?: T;
+              description?: T;
+              list?:
+                | T
+                | {
+                    icon?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature15Fields_select".
+ */
+export interface Feature15FieldsSelect<T extends boolean = true> {
+  feature?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        subtitle?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBlock_select".
+ */
+export interface TestimonialBlockSelect<T extends boolean = true> {
+  style?: T;
+  'testimonial-14'?: T | Testimonial14FieldsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Testimonial14Fields_select".
+ */
+export interface Testimonial14FieldsSelect<T extends boolean = true> {
+  testimonials?:
+    | T
+    | {
+        quote?: T;
+        authorName?: T;
+        authorRole?: T;
+        authorImage?: T;
+        rating?: T;
+        id?: T;
       };
 }
 /**

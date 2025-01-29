@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import type { Page, GalleryBlock } from '@/payload-types'
+import type { Page, GalleryBlock, TestimonialBlock } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
@@ -8,6 +8,7 @@ import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { galleryComponents } from '@/blocks/Gallery/components'
 import { RenderFeature } from '@/blocks/Feature/RenderFeature'
+import { testimonialComponents } from '@/blocks/Testimonial/components'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -23,6 +24,14 @@ const blockComponents = {
 
     // Use type assertion to ensure type safety
     return <GalleryComponent {...(props[props.style] as any)} />
+  },
+  testimonial: (props: TestimonialBlock) => {
+    if (!props.style) return null
+    const TestimonialComponent = testimonialComponents[props.style]
+    if (!TestimonialComponent) return null
+
+    // Use type assertion to ensure type safety
+    return <TestimonialComponent {...(props[props.style] as any)} />
   },
 }
 
