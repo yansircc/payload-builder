@@ -11,3 +11,6 @@ public/media/
 
 public/robots.txt
 public/sitemap*.xml
+
+# Generated types
+./src/payload-types.ts
