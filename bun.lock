@@ -29,6 +29,7 @@
         "clsx": "^2.1.1",
         "cross-env": "^7.0.3",
         "embla-carousel-auto-scroll": "^8.5.2",
+        "embla-carousel-fade": "^8.5.2",
         "embla-carousel-react": "^8.5.2",
         "framer-motion": "^12.0.1",
         "geist": "^1.3.0",
@@ -983,6 +984,8 @@
     "embla-carousel": ["embla-carousel@8.5.2", "", {}, "sha512-xQ9oVLrun/eCG/7ru3R+I5bJ7shsD8fFwLEY7yPe27/+fDHCNj0OT5EoG5ZbFyOxOcG6yTwW8oTz/dWyFnyGpg=="],
 
     "embla-carousel-auto-scroll": ["embla-carousel-auto-scroll@8.5.2", "", { "peerDependencies": { "embla-carousel": "8.5.2" } }, "sha512-B0QF4vcHRLu7DJwDpgTq5q8qsX4185hOuXfpWPtOlZW+a+QG7ZIN3zTSUTI3Xt0MTWkAB5ZJ0gsFj2zUMKL3ig=="],
+
+    "embla-carousel-fade": ["embla-carousel-fade@8.5.2", "", { "peerDependencies": { "embla-carousel": "8.5.2" } }, "sha512-QJ46Xy+mpijjquQeIY0d0sPSy34XduREUnz7tn1K20hcKyZYTONNIXQZu3GGNwG59cvhMqYJMw9ki92Rjd14YA=="],
 
     "embla-carousel-react": ["embla-carousel-react@8.5.2", "", { "dependencies": { "embla-carousel": "8.5.2", "embla-carousel-reactive-utils": "8.5.2" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.1 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-Tmx+uY3MqseIGdwp0ScyUuxpBgx5jX1f7od4Cm5mDwg/dptEiTKf9xp6tw0lZN2VA9JbnVMl/aikmbc53c6QFA=="],
 
