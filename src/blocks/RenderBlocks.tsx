@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react'
-import type { Page, GalleryBlock } from '@/payload-types'
+import type { Page } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { RenderCTA } from '@/blocks/CallToAction/RenderCTA'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
-import { galleryComponents } from '@/blocks/Gallery/components'
 import { RenderFeature } from '@/blocks/Feature/RenderFeature'
 import { RenderContact } from '@/blocks/Contact/RenderContact'
-import { RenderTestimonial } from './Testimonial/RenderTestimonial'
+import { RenderTestimonial } from '@/blocks/Testimonial/RenderTestimonial'
+import { RenderGallery } from '@/blocks/Gallery/RenderGallery'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -18,14 +18,7 @@ const blockComponents = {
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   feature: RenderFeature,
-  gallery: (props: GalleryBlock) => {
-    if (!props.style) return null
-    const GalleryComponent = galleryComponents[props.style]
-    if (!GalleryComponent) return null
-
-    // Use type assertion to ensure type safety
-    return <GalleryComponent {...(props[props.style] as any)} />
-  },
+  gallery: RenderGallery,
   testimonial: RenderTestimonial,
   contact: RenderContact,
 }
