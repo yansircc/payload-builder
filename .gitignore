@@ -1,5 +1,5 @@
 build
-dist / media
+dist/media
 node_modules
 .DS_Store
 .env
@@ -11,3 +11,6 @@ public/media/
 
 public/robots.txt
 public/sitemap*.xml
+
+# Generated types
+src/payload-types.ts
