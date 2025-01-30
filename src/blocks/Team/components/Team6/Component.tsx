@@ -17,9 +17,7 @@ export default function Team6({ team }: Team6Fields) {
         {people?.map((person) => (
           <div key={person.id} className="flex flex-col sm:flex-row">
             <div className="mb-4 aspect-square w-full shrink-0 overflow-clip bg-accent sm:mb-0 sm:mr-5 sm:size-48">
-              <Avatar>
-                <Media resource={person.avatar} imgClassName="aspect-square" />
-              </Avatar>
+              <Media resource={person.avatar} imgClassName="aspect-square" />
             </div>
             <div className="flex flex-1 flex-col items-start">
               <p className="w-full text-left font-medium">{person.name}</p>
