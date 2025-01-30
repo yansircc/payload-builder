@@ -45,14 +45,37 @@ For example:
 // 1. Add schema definition
 export const teamSchemas = {
   /** Title schema */
-  title: z.string().describe('The team section title'),
-  /** Team member schema */
-  teamMember: z.object({
-    name: z.string(),
-    position: z.string(),
-    bio: z.string(),
-    type: z.enum(['leadership', 'developer', 'designer']),
+  title: z.string().describe('The team title'),
+  /** Subtitle schema */
+  subtitle: z.string().describe('The team subtitle'),
+  /** Description schema */
+  description: z.string().describe('The team description'),
+  /** Image schema */
+  image: z.object({}).describe('Team image'),
+  /** Link schema */
+  link: z.object({
+    type: z.enum(['reference', 'custom']).optional(),
+    newTab: z.boolean().optional(),
+    reference: z
+      .object({
+        relationTo: z.enum(['pages', 'posts']),
+        value: z.string(),
+      })
+      .optional(),
+    url: z.string().optional(),
+    label: z.string(),
+    prefixIcon: z.string().optional(),
+    suffixIcon: z.string().optional(),
   }),
+  /** People schema */
+  people: z.array(
+    z.object({
+      name: z.string(),
+      role: z.string(),
+      description: z.string(),
+      avatar: z.string(),
+    }),
+  ),
 }
 
 // 2. Add field configuration
@@ -62,35 +85,78 @@ const basicFields = {
     type: 'text',
     required: true,
     admin: {
-      description: 'Team section title',
+      description: 'Team title',
     },
   },
-  teamMember: {
-    name: 'teamMember',
-    type: 'group',
-    fields: [
-      {
-        name: 'name',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'position',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'bio',
-        type: 'textarea',
-        required: true,
-      },
-      {
-        name: 'type',
-        type: 'select',
-        options: ['leadership', 'developer', 'designer'],
-        required: true,
-      },
-    ],
+  subtitle: {
+    name: 'subtitle',
+    type: 'text',
+    required: false,
+    admin: {
+      description: 'Team subtitle',
+    },
+  },
+  description: {
+    name: 'description',
+    type: 'textarea',
+    required: false,
+    admin: {
+      description: 'Team description',
+    },
+  },
+}
+
+/**
+ * Media fields configuration
+ */
+const mediaFields = {
+  image: {
+    name: 'image',
+    type: 'upload',
+    relationTo: 'media',
+    required: true,
+    admin: {
+      description: 'Media',
+    },
+  },
+}
+
+/**
+ * People fields for team-based layouts
+ */
+const peopleFields = {
+  name: {
+    name: 'name',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Team member name',
+    },
+  },
+  role: {
+    name: 'role',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Team member role/position',
+    },
+  },
+  description: {
+    name: 'description',
+    type: 'textarea',
+    required: true,
+    admin: {
+      description: 'Team member bio',
+    },
+  },
+  avatar: {
+    name: 'avatar',
+    type: 'upload',
+    relationTo: 'media',
+    required: true,
+    admin: {
+      description: 'Team member avatar image',
+    },
   },
 }
 ```
@@ -102,40 +168,66 @@ Create `config.ts` in the component directory:
 ```typescript
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { createContactField, contactSchemas } from '../shared/base-field'
+import { createTeamField, teamSchemas } from '../shared/base-field'
 
 /**
- * Contact N field validation and type definitions
+ * Team N field validation and type definitions
  */
 export const schemas = {
-  title: contactSchemas.title,
-  subtitle: contactSchemas.subtitle,
-  formFields: z.array(contactSchemas.formField),
+  title: teamSchemas.title,
+  subtitle: teamSchemas.subtitle,
+  people: z.object({
+    members: z.array(teamSchemas.people),
+  }),
 }
 
 /**
- * Complete configuration for Contact N
+ * Complete configuration for Team N
  */
-export const contactNFields: GroupField = {
-  name: 'contact-n',
-  interfaceName: 'ContactNFields',
+export const teamNFields: GroupField = {
+  name: 'team-n',
+  interfaceName: 'TeamNFields',
   label: false,
   type: 'group',
   admin: {
-    description: 'Description of this contact component',
+    description: 'Description of this team component',
   },
   fields: [
-    createContactField({
+    createTeamField({
       includeFields: ['title', 'subtitle'],
       arrays: [
-        // Array fields
         {
-          name: 'formFields',
-          fields: [basicFields.formField],
+          name: 'members',
+          fields: [
+            ...Object.values(peopleFields),
+            {
+              name: 'links',
+              type: 'array',
+              label: 'Social Links',
+              admin: {
+                description: 'Member social links',
+              },
+              fields: [
+                link({
+                  name: 'link',
+                  disableLabel: true,
+                  overrides: {
+                    admin: {
+                      description: 'Link',
+                    },
+                    defaultValue: {
+                      appearance: 'link',
+                    },
+                  },
+                }),
+              ],
+              minRows: 1,
+              maxRows: 3,
+            },
+          ],
           minRows: 1,
-          maxRows: 6,
           admin: {
-            description: 'Contact form fields',
+            description: 'Team members',
           },
         },
       ],
@@ -153,10 +245,10 @@ In `src/blocks/Contact/config.ts`:
 3. Add conditional rendering configuration
 
 ```typescript
-import { contactNFields } from './components/ContactN/config'
+import { teamNFields } from './components/TeamN/config'
 
-export const ContactField: Field = {
-  name: 'contact',
+export const TeamField: Field = {
+  name: 'team',
   type: 'group',
   fields: [
     {
@@ -164,13 +256,13 @@ export const ContactField: Field = {
       type: 'select',
       options: [
         // ... existing options
-        'contact-n',
+        'team-n',
       ],
     },
     {
-      ...contactNFields,
+      ...teamNFields,
       admin: {
-        condition: (_, siblingData) => siblingData.style === 'contact-n',
+        condition: (_, siblingData) => siblingData.style === 'team-n',
       },
     },
   ],
@@ -191,9 +283,9 @@ This command will automatically generate TypeScript type definitions based on ou
 
    ```typescript
    // config.ts
-   export const feature5Fields: GroupField = {
-     name: 'feature-5',
-     interfaceName: 'Feature5Fields', // Interface name defined here
+   export const team5Fields: GroupField = {
+     name: 'team-5',
+     interfaceName: 'Team5Fields', // Interface name defined here
      // ...
    }
    ```
@@ -207,11 +299,11 @@ This command will automatically generate TypeScript type definitions based on ou
 
    ```typescript
    // Correct type import
-   import type { Feature5Fields } from '@/payload-types'
+   import type { Team5Fields } from '@/payload-types'
 
    // ❌ Not recommended
    // import type { Page } from '@/payload-types'
-   // type Feature5Data = NonNullable<NonNullable<Page['feature']>['feature5']>
+   // type Team5Data = NonNullable<NonNullable<Page['team']>['team5']>
    ```
 
 > Tip: Using types generated from `interfaceName` is more direct, reliable, and maintainable than deriving from the `Page` type.
@@ -221,14 +313,13 @@ This command will automatically generate TypeScript type definitions based on ou
 Create `Component.tsx` and implement component logic:
 
 ```typescript
-import type { Feature5Fields } from '@/payload-types'
-import { CMSLink } from '@/components/Link' // Must use CMSLink for links
-import { Media } from '@/components/Media' // Must use Media for images
+import type { TeamNFields } from '@/payload-types'
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 
-export default function ContactN({ title, subtitle, formFields }: ContactNFields) {
-
+export default function TeamN({ title, subtitle, members }: TeamNFields) {
   return (
-    // Implement contact form logic
+    // Implement team section logic
   )
 }
 ```
@@ -242,7 +333,7 @@ export default function ContactN({ title, subtitle, formFields }: ContactNFields
 1. **Basic Field Configuration**
 
    ```typescript
-   createFeatureField({
+   createTeamField({
      includeFields: ['title', 'subtitle', 'link'],
    })
    ```
@@ -250,7 +341,7 @@ export default function ContactN({ title, subtitle, formFields }: ContactNFields
 2. **Array Configuration**
 
    ```typescript
-   createFeatureField({
+   createTeamField({
      includeFields: ['title'],
      arrays: [
        {
@@ -269,7 +360,7 @@ export default function ContactN({ title, subtitle, formFields }: ContactNFields
 3. **Group Configuration**
 
    ```typescript
-   createFeatureField({
+   createTeamField({
      includeFields: ['title'],
      groups: [
        {
@@ -286,7 +377,7 @@ export default function ContactN({ title, subtitle, formFields }: ContactNFields
 4. **Combined Configuration**
 
    ```typescript
-   createFeatureField({
+   createTeamField({
      includeFields: ['title', 'subtitle'],
      arrays: [
        {
@@ -319,7 +410,7 @@ Solution:
 
 ### 4.2 Conditional Rendering Issues
 
-Issue: Feature component not showing in admin interface
+Issue: Team component not showing in admin interface
 Solution:
 
 1. Check if style option value is correct
