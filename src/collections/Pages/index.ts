@@ -8,6 +8,7 @@ import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Contact } from '../../blocks/Contact/config'
 import { Content } from '../../blocks/Content/config'
+import { FAQ } from '../../blocks/FAQ/config'
 import { Feature } from '../../blocks/Feature/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { GalleryBlock } from '../../blocks/Gallery/config'
@@ -87,6 +88,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 GalleryBlock,
                 Feature,
                 Contact,
+                FAQ,
               ],
               required: true,
               admin: {

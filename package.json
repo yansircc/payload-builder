@@ -37,6 +37,7 @@
     "@payloadcms/plugin-seo": "3.19.0",
     "@payloadcms/richtext-lexical": "3.19.0",
     "@payloadcms/ui": "3.19.0",
+    "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-avatar": "^1.1.2",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-label": "^2.0.2",
