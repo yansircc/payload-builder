@@ -9,6 +9,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { galleryComponents } from '@/blocks/Gallery/components'
 import { RenderFeature } from '@/blocks/Feature/RenderFeature'
 import { RenderContact } from '@/blocks/Contact/RenderContact'
+import { RenderTeam } from '@/blocks/Team/RenderTeam'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -26,6 +27,7 @@ const blockComponents = {
     return <GalleryComponent {...(props[props.style] as any)} />
   },
   contact: RenderContact,
+  team: RenderTeam,
 }
 
 export const RenderBlocks: React.FC<{
