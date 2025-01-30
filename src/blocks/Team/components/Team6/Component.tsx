@@ -1,6 +1,5 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { Avatar } from '@/components/ui/avatar'
 import { Team6Fields } from '@/payload-types'
 import { Fragment } from 'react'
 
