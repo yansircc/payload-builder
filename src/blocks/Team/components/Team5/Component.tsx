@@ -1,84 +1,41 @@
-import { Button } from '@/components/ui/button'
-
-const people = [
-  {
-    id: 'person-1',
-    name: 'Name',
-    role: 'Role',
-    description:
-      'Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.',
-  },
-  {
-    id: 'person-2',
-    name: 'Name',
-    role: 'Role',
-    description: 'Elig doloremque mollitia fugiat omnis!',
-  },
-  {
-    id: 'person-3',
-    name: 'Name',
-    role: 'Role',
-    description:
-      'Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.',
-  },
-  {
-    id: 'person-4',
-    name: 'Name',
-    role: 'Role',
-    description: 'Elig doloremque mollitia fugiat omnis!',
-  },
-  {
-    id: 'person-5',
-    name: 'Name',
-    role: 'Role',
-    description:
-      'Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.',
-  },
-  {
-    id: 'person-6',
-    name: 'Name',
-    role: 'Role',
-    description:
-      'Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.',
-  },
-  {
-    id: 'person-7',
-    name: 'Name',
-    role: 'Role',
-    description:
-      'Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.',
-  },
-  {
-    id: 'person-8',
-    name: 'Name',
-    role: 'Role',
-    description:
-      'Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.',
-  },
-]
-
-const Team5 = () => {
+import { ClientMotionDiv } from '../shared/motion'
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
+import { Avatar } from '@/components/ui/avatar'
+import { Team5Fields } from '@/payload-types'
+export default function Team5({ team }: Team5Fields) {
+  const { title, subtitle, description, people, links } = team
   return (
     <section className="py-32">
       <div className="container flex flex-col items-center text-center">
-        <p className="semibold">We&apos;re hiring</p>
-        <h2 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">Meet our team</h2>
-        <p className="mb-8 max-w-3xl text-muted-foreground lg:text-xl">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat
-          omnis! Porro facilis quo animi consequatur. Explicabo.
-        </p>
-        <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
-          <Button variant="outline" className="w-full sm:w-auto">
-            Secondary
-          </Button>
-          <Button className="w-full sm:w-auto">Primary</Button>
-        </div>
+        <p className="semibold">{subtitle}</p>
+        <h2 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">{title}</h2>
+        <p className="mb-8 max-w-3xl text-muted-foreground lg:text-xl">{description}</p>
+        {links && links.length > 0 && (
+          <ClientMotionDiv
+            className="flex w-full flex-col justify-center gap-2 sm:flex-row"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+          >
+            {links.map((linkGroup, index) => (
+              <div key={index} className="flex flex-col gap-2 sm:flex-row">
+                {Object.entries(linkGroup).map(
+                  ([key, link]) =>
+                    link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                )}
+              </div>
+            ))}
+          </ClientMotionDiv>
+        )}
       </div>
       <div className="container mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:px-32">
-        {people.map((person) => (
+        {people?.map((person) => (
           <div key={person.id} className="flex flex-col items-center">
             <div className="mb-4 aspect-square w-full overflow-clip bg-accent md:mb-5">
-              {/* Avatar */}
+              <Avatar>
+                <Media resource={person.avatar} imgClassName="aspect-square" />
+              </Avatar>
             </div>
             <p className="w-full text-left font-medium">{person.name}</p>
             <p className="w-full text-left text-muted-foreground">{person.role}</p>
@@ -89,5 +46,3 @@ const Team5 = () => {
     </section>
   )
 }
-
-export default Team5
