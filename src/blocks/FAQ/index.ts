@@ -17,7 +17,7 @@ import FAQ1Component from './components/FAQ1/Component'
 import FAQ2Component from './components/FAQ2/Component'
 import FAQ3Component from './components/FAQ3/Component'
 import FAQ4Component from './components/FAQ4/Component'
-// import FAQ5Component from './components/FAQ5/Component'
+import FAQ5Component from './components/FAQ5/Component'
 // import FAQ6Component from './components/FAQ6/Component'
 // Export config
 export { faq1Fields } from './components/FAQ1/config'
@@ -31,7 +31,7 @@ export const FAQ1 = FAQ1Component
 export const FAQ2 = FAQ2Component
 export const FAQ3 = FAQ3Component
 export const FAQ4 = FAQ4Component
-// export const FAQ5 = FAQ5Component
+export const FAQ5 = FAQ5Component
 // export const FAQ6 = FAQ6Component
 // Define FAQ component props type
 type FAQComponentProps<T extends NonNullable<FAQBlock['style']>> = NonNullable<FAQBlock[T]>
@@ -45,7 +45,7 @@ export const faqComponents: Record<
   'faq-2': FAQ2,
   'faq-3': FAQ3,
   'faq-4': FAQ4,
-  // 'faq-5': FAQ5,
+  'faq-5': FAQ5,
   // 'faq-6': FAQ6,
 }
 

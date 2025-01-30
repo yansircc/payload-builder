@@ -30,9 +30,9 @@ export const faq4Fields: GroupField = {
           name: 'faqs',
           fields: Object.values(faqsFields),
           admin: {
-            description: 'List with icons',
+            description: 'List FAQ',
           },
-          minRows: 4,
+          minRows: 1,
           maxRows: 6,
         },
       ],

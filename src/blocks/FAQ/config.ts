@@ -3,6 +3,7 @@ import { faq1Fields } from './components/FAQ1/config'
 import { faq2Fields } from './components/FAQ2/config'
 import { faq3Fields } from './components/FAQ3/config'
 import { faq4Fields } from './components/FAQ4/config'
+import { faq5Fields } from './components/FAQ5/config'
 
 /**
  * FAQ Block configuration
@@ -36,10 +37,10 @@ export const FAQ: Block = {
           label: 'FAQ 4',
           value: 'faq-4',
         },
-        // {
-        //   label: 'FAQ 5',
-        //   value: 'faq-5',
-        // },
+        {
+          label: 'FAQ 5',
+          value: 'faq-5',
+        },
         // {
         //   label: 'FAQ 6',
         //   value: 'faq-6',
@@ -70,12 +71,12 @@ export const FAQ: Block = {
         condition: (_, siblingData) => siblingData.style === 'faq-4',
       },
     },
-    // {
-    //   ...faq5Fields,
-    //   admin: {
-    //     condition: (_, siblingData) => siblingData.style === 'faq-5',
-    //   },
-    // },
+    {
+      ...faq5Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'faq-5',
+      },
+    },
     // {
     //   ...faq6Fields,
     //   admin: {
