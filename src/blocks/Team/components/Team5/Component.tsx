@@ -33,9 +33,7 @@ export default function Team5({ team }: Team5Fields) {
         {people?.map((person) => (
           <div key={person.id} className="flex flex-col items-center">
             <div className="mb-4 aspect-square w-full overflow-clip bg-accent md:mb-5">
-              <Avatar>
-                <Media resource={person.avatar} imgClassName="aspect-square" />
-              </Avatar>
+              <Media resource={person.avatar} imgClassName="aspect-square" />
             </div>
             <p className="w-full text-left font-medium">{person.name}</p>
             <p className="w-full text-left text-muted-foreground">{person.role}</p>
