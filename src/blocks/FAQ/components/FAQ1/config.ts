@@ -25,7 +25,7 @@ export const faq1Fields: GroupField = {
       includeFields: ['title'],
       arrays: [
         {
-          label: 'What you can expect:',
+          label: 'List FAQ:',
           name: 'faqs',
           fields: Object.values(faqsFields),
           admin: {
