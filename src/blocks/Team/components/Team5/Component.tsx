@@ -1,7 +1,6 @@
 import { ClientMotionDiv } from '../shared/motion'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { Avatar } from '@/components/ui/avatar'
 import { Team5Fields } from '@/payload-types'
 export default function Team5({ team }: Team5Fields) {
   const { title, subtitle, description, people, links } = team
