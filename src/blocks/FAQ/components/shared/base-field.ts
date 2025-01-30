@@ -12,6 +12,21 @@ export const faqSchemas = {
   subtitle: z.string().describe('The faq subtitle'),
   /** Description schema */
   description: z.string().describe('The faq description'),
+  /** Link schema */
+  link: z.object({
+    type: z.enum(['reference', 'custom']).optional(),
+    newTab: z.boolean().optional(),
+    reference: z
+      .object({
+        relationTo: z.enum(['pages', 'posts']),
+        value: z.string(),
+      })
+      .optional(),
+    url: z.string().optional(),
+    label: z.string(),
+    prefixIcon: z.string().optional(),
+    suffixIcon: z.string().optional(),
+  }),
   /** List schema */
   list: z.array(
     z.object({

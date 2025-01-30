@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 import { faq1Fields } from './components/FAQ1/config'
 import { faq2Fields } from './components/FAQ2/config'
+import { faq3Fields } from './components/FAQ3/config'
 
 /**
  * FAQ Block configuration
@@ -26,10 +27,10 @@ export const FAQ: Block = {
           label: 'FAQ 2',
           value: 'faq-2',
         },
-        // {
-        //   label: 'FAQ 3',
-        //   value: 'faq-3',
-        // },
+        {
+          label: 'FAQ 3',
+          value: 'faq-3',
+        },
         // {
         //   label: 'FAQ 4',
         //   value: 'faq-4',
@@ -56,12 +57,12 @@ export const FAQ: Block = {
         condition: (_, siblingData) => siblingData.style === 'faq-2',
       },
     },
-    // {
-    //   ...faq3Fields,
-    //   admin: {
-    //     condition: (_, siblingData) => siblingData.style === 'faq-3',
-    //   },
-    // },
+    {
+      ...faq3Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'faq-3',
+      },
+    },
     // {
     //   ...faq4Fields,
     //   admin: {
