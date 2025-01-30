@@ -1,5 +1,5 @@
 import { GroupField } from 'payload'
-import { createFAQField, faqSchemas } from '../shared/base-field'
+import { createFAQField, faqSchemas, faqsFields } from '../shared/base-field'
 
 /**
  * FAQ 6 field validation and type definitions
@@ -22,7 +22,19 @@ export const faq6Fields: GroupField = {
   },
   fields: [
     createFAQField({
-      includeFields: ['title', 'faqs'],
+      includeFields: ['title', 'subtitle', 'description'],
+      arrays: [
+        {
+          label: 'List FAQ:',
+          name: 'faqs',
+          fields: Object.values(faqsFields),
+          admin: {
+            description: 'List FAQ',
+          },
+          minRows: 1,
+          maxRows: 6,
+        },
+      ],
     }),
   ],
 }
