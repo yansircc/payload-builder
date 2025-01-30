@@ -1,8 +1,11 @@
-import type { GlobalConfig } from 'payload'
-
-import { link } from '@/fields/link'
+import { GlobalConfig } from 'payload'
+import { footer1Fields } from './components/Footer1/config'
+import { footer2Fields } from './components/Footer2/config'
 import { revalidateFooter } from './hooks/revalidateFooter'
 
+/**
+ * Footer Block configuration
+ */
 export const Footer: GlobalConfig = {
   slug: 'footer',
   access: {
@@ -10,19 +13,30 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
-      name: 'navItems',
-      type: 'array',
-      fields: [
-        link({
-          appearances: false,
-        }),
-      ],
-      maxRows: 6,
-      admin: {
-        initCollapsed: true,
-        components: {
-          RowLabel: '@/Footer/RowLabel#RowLabel',
+      name: 'style',
+      type: 'select',
+      defaultValue: 'footer-1',
+      options: [
+        {
+          label: 'Footer 1',
+          value: 'footer-1',
         },
+        {
+          label: 'Footer 2',
+          value: 'footer-2',
+        },
+      ],
+    },
+    {
+      ...footer1Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'footer-1',
+      },
+    },
+    {
+      ...footer2Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'footer-2',
       },
     },
   ],
