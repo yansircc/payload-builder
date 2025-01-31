@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label'
 import { Footer3Fields } from '@/payload-types'
 
 export default function Footer3({ footer }: Footer3Fields) {
-  const { sections, logo, rightLinks, copyright, socialLinks } = footer || {}
+  const { sections, logo, rightLinks, copyright, socialLinks } = footer
   return (
     <section className="py-32">
       <div className="container">
