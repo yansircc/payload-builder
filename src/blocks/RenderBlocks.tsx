@@ -10,6 +10,7 @@ import { RenderFeature } from '@/blocks/Feature/RenderFeature'
 import { RenderContact } from '@/blocks/Contact/RenderContact'
 import { RenderTestimonial } from '@/blocks/Testimonial/RenderTestimonial'
 import { RenderGallery } from '@/blocks/Gallery/RenderGallery'
+import { RenderFAQ } from '@/blocks/FAQ/RenderFAQ'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -21,6 +22,7 @@ const blockComponents = {
   gallery: RenderGallery,
   testimonial: RenderTestimonial,
   contact: RenderContact,
+  faq: RenderFAQ,
 }
 
 export const RenderBlocks: React.FC<{
