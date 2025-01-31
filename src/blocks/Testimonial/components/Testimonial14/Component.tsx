@@ -2,22 +2,14 @@
 
 import { Star } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import type { TestimonialBlock } from '@/payload-types'
+import type { Testimonial14Fields } from '@/payload-types'
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { Media } from '@/components/Media'
 
-type TestimonialItem = NonNullable<
-  NonNullable<TestimonialBlock['testimonial-14']>['testimonials']
->[number]
-
-interface Testimonial14Props {
-  testimonials: TestimonialItem[]
-}
-
-export default function Testimonial14({ testimonials }: Testimonial14Props) {
+export default function Testimonial14({ testimonials }: Testimonial14Fields) {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
 
