@@ -2,7 +2,7 @@
 
 import AutoScroll from 'embla-carousel-auto-scroll'
 import { useRef } from 'react'
-import type { Media } from '@/payload-types'
+import type { Testimonial7Fields } from '@/payload-types'
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -10,31 +10,16 @@ import { Card } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { Media as MediaComponent } from '@/components/Media'
 
-interface TestimonialItem {
-  quote: string
-  authorName: string
-  authorRole?: string
-  authorImage?: Media
-}
-
-interface Testimonial7Props {
-  testimonials: TestimonialItem[]
-  title?: string
-  description?: string
-  buttonText?: string
-  buttonLink?: string
-}
-
 export default function Testimonial7({
   testimonials,
   title = 'Meet our happy clients',
   description = 'All of our 1000+ clients are happy',
   buttonText = 'Get started for free',
   buttonLink = '#',
-}: Testimonial7Props) {
+}: Testimonial7Fields) {
   // Split testimonials into two arrays for different scroll directions
-  const testimonials1 = testimonials.slice(0, Math.ceil(testimonials.length / 2))
-  const testimonials2 = testimonials.slice(Math.ceil(testimonials.length / 2))
+  const testimonials1 = testimonials?.slice(0, Math.ceil(testimonials?.length / 2)) ?? []
+  const testimonials2 = testimonials?.slice(Math.ceil(testimonials?.length / 2)) ?? []
 
   const plugin1 = useRef(
     AutoScroll({
@@ -57,7 +42,7 @@ export default function Testimonial7({
         <h2 className="mb-2 text-center text-3xl font-semibold lg:text-5xl">{title}</h2>
         <p className="text-muted-foreground lg:text-lg">{description}</p>
         <Button asChild className="mt-6">
-          <a href={buttonLink}>{buttonText}</a>
+          <a href={buttonLink ?? '#'}>{buttonText}</a>
         </Button>
       </div>
       <div className="lg:container">
