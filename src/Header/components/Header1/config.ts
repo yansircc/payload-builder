@@ -98,9 +98,6 @@ export const header1Fields: GroupField = {
                     admin: {
                       description: 'Auth link',
                     },
-                    defaultValue: {
-                      appearance: 'link',
-                    },
                   },
                 }),
               ],
@@ -112,7 +109,7 @@ export const header1Fields: GroupField = {
             },
           ],
           minRows: 0,
-          maxRows: 2,
+          maxRows: 1,
         },
       ],
     }),
