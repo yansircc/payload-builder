@@ -3,6 +3,7 @@ import { Block, Field } from 'payload'
 import { testimonial14Fields } from './components/Testimonial14/config'
 import { testimonial15Fields } from './components/Testimonial15/config'
 import { testimonial18Fields } from './components/Testimonial18/config'
+import { testimonial19Fields } from './components/Testimonial19/config'
 import { testimonial4Fields } from './components/Testimonial4/config'
 import { testimonial6Fields } from './components/Testimonial6/config'
 import { testimonial7Fields } from './components/Testimonial7/config'
@@ -23,6 +24,7 @@ export const TestimonialBlock: Block = {
         { label: 'Testimonial 14', value: 'testimonial-14' },
         { label: 'Testimonial 15', value: 'testimonial-15' },
         { label: 'Testimonial 18', value: 'testimonial-18' },
+        { label: 'Testimonial 19', value: 'testimonial-19' },
       ],
     },
     {
@@ -59,6 +61,12 @@ export const TestimonialBlock: Block = {
       ...testimonial18Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'testimonial-18',
+      },
+    },
+    {
+      ...testimonial19Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'testimonial-19',
       },
     },
   ],
@@ -78,6 +86,7 @@ export const TestimonialField: Field = {
         { label: 'Testimonial 14', value: 'testimonial-14' },
         { label: 'Testimonial 15', value: 'testimonial-15' },
         { label: 'Testimonial 18', value: 'testimonial-18' },
+        { label: 'Testimonial 19', value: 'testimonial-19' },
       ],
     },
     {
@@ -114,6 +123,12 @@ export const TestimonialField: Field = {
       ...testimonial18Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'testimonial-18',
+      },
+    },
+    {
+      ...testimonial19Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'testimonial-19',
       },
     },
   ],
