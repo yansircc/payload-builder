@@ -15,6 +15,7 @@ import type { ComponentType } from 'react'
 // Import all Testimonial components
 import Testimonial14Component from './Testimonial14/Component'
 import Testimonial15Component from './Testimonial15/Component'
+import Testimonial17Component from './Testimonial17/Component'
 import Testimonial18Component from './Testimonial18/Component'
 import Testimonial19Component from './Testimonial19/Component'
 import Testimonial4Component from './Testimonial4/Component'
@@ -24,6 +25,7 @@ import Testimonial7Component from './Testimonial7/Component'
 // Export config
 export { testimonial14Fields } from './Testimonial14/config'
 export { testimonial15Fields } from './Testimonial15/config'
+export { testimonial17Fields } from './Testimonial17/config'
 export { testimonial18Fields } from './Testimonial18/config'
 export { testimonial19Fields } from './Testimonial19/config'
 export { testimonial4Fields } from './Testimonial4/config'
@@ -36,6 +38,7 @@ export const Testimonial6 = Testimonial6Component
 export const Testimonial7 = Testimonial7Component
 export const Testimonial14 = Testimonial14Component
 export const Testimonial15 = Testimonial15Component
+export const Testimonial17 = Testimonial17Component
 export const Testimonial18 = Testimonial18Component
 export const Testimonial19 = Testimonial19Component
 
@@ -51,6 +54,7 @@ export const testimonialComponents: Record<
   | 'testimonial-7'
   | 'testimonial-14'
   | 'testimonial-15'
+  | 'testimonial-17'
   | 'testimonial-18'
   | 'testimonial-19',
   ComponentType<TestimonialComponentProps<any>>
@@ -60,6 +64,7 @@ export const testimonialComponents: Record<
   'testimonial-7': Testimonial7,
   'testimonial-14': Testimonial14,
   'testimonial-15': Testimonial15,
+  'testimonial-17': Testimonial17,
   'testimonial-18': Testimonial18,
   'testimonial-19': Testimonial19,
 }
