@@ -40,7 +40,7 @@ export default function Footer8({ footer }: Footer8Fields) {
                   {section.links?.map((linkGroup, index) => (
                     <li key={index} className="font-medium hover:text-primary">
                       {linkGroup.link && (
-                        <CMSLink {...linkGroup.link} className="text-muted-foreground p-0" />
+                        <CMSLink {...linkGroup.link} className="text-muted-foreground p-0 h-auto" />
                       )}
                     </li>
                   ))}

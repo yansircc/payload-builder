@@ -39,7 +39,7 @@ export default function Footer6({ footer }: Footer6Fields) {
                         {linkGroup.link && (
                           <CMSLink
                             {...linkGroup.link}
-                            className="whitespace-nowrap text-base hover:text-accent-foreground text-muted-foreground p-0"
+                            className="whitespace-nowrap text-base hover:text-accent-foreground text-muted-foreground p-0 h-auto"
                           />
                         )}
                       </li>

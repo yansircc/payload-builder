@@ -14,7 +14,9 @@ export default function Footer5({ footer }: Footer5Fields) {
                 <ul className="space-y-4 text-muted-foreground">
                   {section.links?.map((linkGroup, index) => (
                     <li key={index} className="font-medium hover:text-primary">
-                      {linkGroup.link && <CMSLink {...linkGroup.link} className="p-0" />}
+                      {linkGroup.link && (
+                        <CMSLink {...linkGroup.link} className="text-muted-foreground h-auto p-0" />
+                      )}
                     </li>
                   ))}
                 </ul>

@@ -38,7 +38,11 @@ export default function Footer1({ footer }: Footer1Fields) {
                         ([key, link]) =>
                           link &&
                           typeof link === 'object' && (
-                            <CMSLink key={key} {...link} className="p-0" />
+                            <CMSLink
+                              key={key}
+                              {...link}
+                              className="text-muted-foreground h-auto p-0"
+                            />
                           ),
                       )}
                     </li>

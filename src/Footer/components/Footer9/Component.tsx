@@ -66,7 +66,7 @@ export default function Footer9({ footer }: Footer9Fields) {
             <ul className="flex justify-center items-center gap-4 lg:justify-start">
               {leftLinks?.links?.map((linkGroup, index) => (
                 <li key={index} className="hover:text-primary">
-                  {linkGroup.link && <CMSLink {...linkGroup.link} className="p-0" />}
+                  {linkGroup.link && <CMSLink {...linkGroup.link} className="p-0 h-auto" />}
                 </li>
               ))}
               <li>
