@@ -19,7 +19,7 @@ const collections: CollectionSlug[] = [
   'form-submissions',
   'search',
 ]
-const globals: GlobalSlug[] = ['header']
+const globals: GlobalSlug[] = ['header', 'footer']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
@@ -362,36 +362,416 @@ export const seed = async ({
         ],
       },
     }),
-    // payload.updateGlobal({
-    //   slug: 'footer',
-    //   data: {
-    //     navItems: [
-    //       {
-    //         link: {
-    //           type: 'custom',
-    //           label: 'Admin',
-    //           url: '/admin',
-    //         },
-    //       },
-    //       {
-    //         link: {
-    //           type: 'custom',
-    //           label: 'Source Code',
-    //           newTab: true,
-    //           url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
-    //         },
-    //       },
-    //       {
-    //         link: {
-    //           type: 'custom',
-    //           label: 'Payload',
-    //           newTab: true,
-    //           url: 'https://payloadcms.com/',
-    //         },
-    //       },
-    //     ],
-    //   },
-    // }),
+    payload.updateGlobal({
+      slug: 'footer',
+      data: {
+        style: 'footer-2',
+        'footer-2': {
+          footer: {
+            title: 'Shadcnblocks.com',
+            subtitle: 'Components made easy.',
+            copyright: '©2024 All rights reserved.',
+            logo: {
+              id: '679ca0eb107af722f9560073',
+            },
+            sections: [
+              {
+                title: 'Product',
+                links: [
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Overview',
+                      appearance: 'link',
+                    },
+                    id: '679cb7e0ad51924ab0d97376',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Pricing',
+                      appearance: 'link',
+                    },
+                    id: '679cb7f1da44575f6c18f981',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Pricing',
+                      appearance: 'link',
+                    },
+                    id: '679cb7d7da44575f6c18f97f',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Marketplace',
+                      appearance: 'link',
+                    },
+                    id: '679cb801da44575f6c18f983',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Features',
+                      appearance: 'link',
+                    },
+                    id: '679cb80cda44575f6c18f985',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Integrations',
+                      appearance: 'link',
+                    },
+                    id: '679cb814da44575f6c18f987',
+                  },
+                ],
+                id: '679cb7cfda44575f6c18f97b',
+              },
+              {
+                title: 'Product',
+                links: [
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Overview',
+                      appearance: 'link',
+                    },
+                    id: '679cb883da44575f6c18f9da',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Pricing',
+                      appearance: 'link',
+                    },
+                    id: '679cb883da44575f6c18f9dc',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Pricing',
+                      appearance: 'link',
+                    },
+                    id: '679cb883da44575f6c18f9de',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Marketplace',
+                      appearance: 'link',
+                    },
+                    id: '679cb883da44575f6c18f9e0',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Features',
+                      appearance: 'link',
+                    },
+                    id: '679cb883da44575f6c18f9e2',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Integrations',
+                      appearance: 'link',
+                    },
+                    id: '679cb883da44575f6c18f9e4',
+                  },
+                ],
+                id: '679cb883da44575f6c18f9d8',
+              },
+              {
+                title: 'Product',
+                links: [
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Overview',
+                      appearance: 'link',
+                    },
+                    id: '679cb882da44575f6c18f9bc',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Pricing',
+                      appearance: 'link',
+                    },
+                    id: '679cb882da44575f6c18f9be',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Pricing',
+                      appearance: 'link',
+                    },
+                    id: '679cb882da44575f6c18f9c0',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Marketplace',
+                      appearance: 'link',
+                    },
+                    id: '679cb882da44575f6c18f9c2',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Features',
+                      appearance: 'link',
+                    },
+                    id: '679cb882da44575f6c18f9c4',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Integrations',
+                      appearance: 'link',
+                    },
+                    id: '679cb882da44575f6c18f9c6',
+                  },
+                ],
+                id: '679cb882da44575f6c18f9ba',
+              },
+              {
+                title: 'Product',
+                links: [
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Overview',
+                      appearance: 'link',
+                    },
+                    id: '679cb87fda44575f6c18f99e',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Pricing',
+                      appearance: 'link',
+                    },
+                    id: '679cb87fda44575f6c18f9a0',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Pricing',
+                      appearance: 'link',
+                    },
+                    id: '679cb87fda44575f6c18f9a2',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Marketplace',
+                      appearance: 'link',
+                    },
+                    id: '679cb87fda44575f6c18f9a4',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Features',
+                      appearance: 'link',
+                    },
+                    id: '679cb87fda44575f6c18f9a6',
+                  },
+                  {
+                    link: {
+                      type: 'reference',
+                      reference: {
+                        relationTo: 'pages',
+                        value: {
+                          id: '679ca0ec107af722f95600d8',
+                        },
+                      },
+                      label: 'Integrations',
+                      appearance: 'link',
+                    },
+                    id: '679cb87fda44575f6c18f9a8',
+                  },
+                ],
+                id: '679cb87fda44575f6c18f99c',
+              },
+            ],
+            rightLinks: {
+              links: [
+                {
+                  link: {
+                    type: 'reference',
+                    reference: {
+                      relationTo: 'pages',
+                      value: {
+                        id: '679ca0ec107af722f95600d8',
+                      },
+                    },
+                    label: 'Terms and Conditions',
+                    appearance: 'link',
+                  },
+                  id: '679cb82dda44575f6c18f989',
+                },
+                {
+                  link: {
+                    type: 'reference',
+                    reference: {
+                      relationTo: 'pages',
+                      value: {
+                        id: '679ca0ec107af722f95600d8',
+                      },
+                    },
+                    label: 'Privacy Policy',
+                    appearance: 'link',
+                  },
+                  id: '679cb832da44575f6c18f98b',
+                },
+              ],
+            },
+          },
+        },
+      },
+    }),
   ])
 
   payload.logger.info('Seeded database successfully!')
