@@ -7,10 +7,8 @@ import { createFooterField, footerSchemas } from '../shared/base-field'
  * Footer 2 field validation and type definitions
  */
 export const schemas = {
-  title: footerSchemas.title,
-  description: footerSchemas.description,
   image: footerSchemas.image,
-  links: z.array(footerSchemas.link).min(2).max(2),
+  sections: z.array(footerSchemas.link).min(2).max(2),
 }
 
 /**
@@ -28,14 +26,47 @@ export const footer2Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Footer with image on the right',
+    description: 'Footer with image on the left',
   },
   fields: [
     createFooterField({
-      includeFields: ['image'],
+      includeFields: ['title', 'subtitle', 'logo'],
+      groups: [
+        {
+          name: 'rightLinks',
+          label: 'Right Links',
+          fields: ['links'],
+          arrays: [
+            {
+              name: 'links',
+              fields: [
+                link({
+                  name: 'link',
+                  overrides: {
+                    admin: {
+                      description: 'Link',
+                    },
+                    defaultValue: {
+                      appearance: 'link',
+                    },
+                  },
+                }),
+              ],
+              minRows: 0,
+              maxRows: 2,
+            },
+          ],
+        },
+        {
+          name: 'copyright',
+          label: 'Copyright text',
+          fields: ['description'],
+        },
+      ],
       arrays: [
         {
           name: 'sections',
+          label: 'Footer sections',
           fields: [
             {
               name: 'title',
@@ -55,20 +86,23 @@ export const footer2Fields: GroupField = {
                     admin: {
                       description: 'Navigation link',
                     },
+                    defaultValue: {
+                      appearances: 'link',
+                    },
                   },
                 }),
               ],
               admin: {
                 description: 'Links in this column',
               },
-              minRows: 1,
+              minRows: 2,
               maxRows: 6,
             },
           ],
           admin: {
             description: 'Footer navigation columns',
           },
-          minRows: 1,
+          minRows: 2,
           maxRows: 4,
         },
       ],

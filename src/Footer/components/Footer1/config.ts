@@ -7,7 +7,6 @@ import { createFooterField, footerSchemas } from '../shared/base-field'
  * Footer 1 field validation and type definitions
  */
 export const schemas = {
-  title: footerSchemas.title,
   image: footerSchemas.image,
   sections: z.array(footerSchemas.link).min(2).max(2),
 }
@@ -27,7 +26,7 @@ export const footer1Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Footer with image on the right',
+    description: 'Footer with image on the left',
   },
   fields: [
     createFooterField({
