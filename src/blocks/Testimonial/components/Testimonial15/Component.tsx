@@ -1,30 +1,10 @@
 'use client'
 
-import type { Media } from '@/payload-types'
+import type { Testimonial15Fields } from '@/payload-types'
 
 import { Avatar } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Media as MediaComponent } from '@/components/Media'
-
-interface TestimonialItem {
-  quote: string
-  authorName: string
-  authorImage?: Media
-}
-
-interface CompanyLogo {
-  image: Media
-  altText?: string
-}
-
-interface Testimonial15Props {
-  title: string
-  description: string
-  buttonText: string
-  buttonLink?: string
-  companyLogos: CompanyLogo[]
-  testimonials: TestimonialItem[]
-}
 
 export default function Testimonial15({
   title = 'Explore the Innovators Community Today',
@@ -33,7 +13,7 @@ export default function Testimonial15({
   buttonLink = '#',
   companyLogos = [],
   testimonials = [],
-}: Testimonial15Props) {
+}: Testimonial15Fields) {
   return (
     <section className="mb-32 bg-muted pt-32">
       <div className="container">
@@ -42,13 +22,13 @@ export default function Testimonial15({
             <h1 className="mb-4 text-balance text-3xl font-bold lg:text-4xl">{title}</h1>
             <p className="mb-8 text-muted-foreground">{description}</p>
             <Button asChild className="mb-10 lg:mb-20">
-              <a href={buttonLink}>{buttonText}</a>
+              <a href={buttonLink ?? '#'}>{buttonText}</a>
             </Button>
             <p className="mb-7 text-xs uppercase text-muted-foreground">
               Used by leading companies
             </p>
             <div className="flex flex-wrap items-center justify-center gap-10 lg:justify-start">
-              {companyLogos.map((logo, idx) => (
+              {companyLogos?.map((logo, idx) => (
                 <div
                   key={idx}
                   className="relative flex h-8 w-32 items-center justify-center overflow-hidden sm:h-11"
@@ -63,7 +43,7 @@ export default function Testimonial15({
             </div>
           </div>
           <div className="flex flex-col gap-5">
-            {testimonials.map((testimonial, idx) => {
+            {testimonials?.map((testimonial, idx) => {
               const isLast = idx === testimonials.length - 1
               const isOdd = idx % 2 === 1
 
