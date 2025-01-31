@@ -8,9 +8,8 @@ import { createFooterField, footerSchemas } from '../shared/base-field'
  */
 export const schemas = {
   title: footerSchemas.title,
-  description: footerSchemas.description,
   image: footerSchemas.image,
-  links: z.array(footerSchemas.link).min(2).max(2),
+  sections: z.array(footerSchemas.link).min(2).max(2),
 }
 
 /**
@@ -32,7 +31,46 @@ export const footer1Fields: GroupField = {
   },
   fields: [
     createFooterField({
-      includeFields: ['image'],
+      includeFields: ['logo'],
+      groups: [
+        {
+          name: 'rightLinks',
+          label: 'Right Links',
+          fields: ['title'],
+          arrays: [
+            {
+              name: 'links',
+              fields: [
+                link({
+                  name: 'link',
+                  overrides: {
+                    admin: {
+                      description: 'Link',
+                    },
+                    defaultValue: {
+                      prefixIcon: 'Linkedin',
+                    },
+                  },
+                  disableLabel: true,
+                }),
+              ],
+              minRows: 0,
+              maxRows: 2,
+              admin: {
+                description: 'Support cards',
+              },
+            },
+          ],
+          admin: {
+            description: 'Support list',
+          },
+        },
+        {
+          name: 'copyright',
+          label: 'Copyright text',
+          fields: ['description'],
+        },
+      ],
       arrays: [
         {
           name: 'sections',
@@ -54,6 +92,9 @@ export const footer1Fields: GroupField = {
                   overrides: {
                     admin: {
                       description: 'Navigation link',
+                    },
+                    defaultValue: {
+                      appearances: 'link',
                     },
                   },
                 }),

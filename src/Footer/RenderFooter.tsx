@@ -1,8 +1,10 @@
 import type { Footer } from '@/payload-types'
 import { footerComponents } from '.'
+import { getFooter } from '@/utilities/getGlobals'
 
-export const RenderFooter: React.FC<Footer> = async (props) => {
-  const { style } = props || {}
+export const RenderFooter = async () => {
+  const footerData: Footer = await getFooter()
+  const { style } = footerData || {}
 
   if (!style) return null
 
@@ -10,7 +12,7 @@ export const RenderFooter: React.FC<Footer> = async (props) => {
 
   if (!FooterToRender) return null
 
-  const footerProps = props[style]
+  const footerProps = footerData[style]
 
   if (!footerProps) return null
 

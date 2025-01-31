@@ -81,6 +81,15 @@ const basicFields: Record<string, Field> = {
       description: 'Footer description',
     },
   },
+  logo: {
+    name: 'logo',
+    type: 'upload',
+    relationTo: 'media',
+    required: true,
+    admin: {
+      description: 'Footer logo',
+    },
+  },
 }
 
 /**
