@@ -3,7 +3,7 @@ import { footer1Fields } from './components/Footer1/config'
 import { footer2Fields } from './components/Footer2/config'
 import { footer3Fields } from './components/Footer3/config'
 import { footer4Fields } from './components/Footer4/config'
-// import { footer5Fields } from './components/Footer5/config'
+import { footer5Fields } from './components/Footer5/config'
 // import { footer6Fields } from './components/Footer6/config'
 // import { footer7Fields } from './components/Footer7/config'
 // import { footer8Fields } from './components/Footer8/config'
@@ -41,10 +41,10 @@ export const Footer: GlobalConfig = {
           label: 'Footer 4',
           value: 'footer-4',
         },
-        // {
-        //   label: 'Footer 5',
-        //   value: 'footer-5',
-        // },
+        {
+          label: 'Footer 5',
+          value: 'footer-5',
+        },
         // {
         //   label: 'Footer 6',
         //   value: 'footer-6',
@@ -91,12 +91,12 @@ export const Footer: GlobalConfig = {
         condition: (_, siblingData) => siblingData.style === 'footer-4',
       },
     },
-    // {
-    //   ...footer5Fields,
-    //   admin: {
-    //     condition: (_, siblingData) => siblingData.style === 'footer-5',
-    //   },
-    // },
+    {
+      ...footer5Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'footer-5',
+      },
+    },
     // {
     //   ...footer6Fields,
     //   admin: {

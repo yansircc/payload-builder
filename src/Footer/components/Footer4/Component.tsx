@@ -58,7 +58,7 @@ export default function Footer4({ footer }: Footer4Fields) {
                 </li>
               ))}
             </ul>
-            <p>{copyright?.description}</p>
+            <p>{copyright}</p>
           </div>
         </footer>
       </div>

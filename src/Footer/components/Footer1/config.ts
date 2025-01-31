@@ -30,7 +30,7 @@ export const footer1Fields: GroupField = {
   },
   fields: [
     createFooterField({
-      includeFields: ['logo'],
+      includeFields: ['logo', 'copyright'],
       groups: [
         {
           name: 'rightLinks',
@@ -63,11 +63,6 @@ export const footer1Fields: GroupField = {
           admin: {
             description: 'Support list',
           },
-        },
-        {
-          name: 'copyright',
-          label: 'Copyright text',
-          fields: ['description'],
         },
       ],
       arrays: [

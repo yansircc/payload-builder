@@ -48,7 +48,7 @@ export default function Footer1({ footer }: Footer1Fields) {
             ))}
           </div>
           <Separator className="my-14" />
-          <p className="text-sm text-muted-foreground">{copyright?.description}</p>
+          <p className="text-sm text-muted-foreground">{copyright}</p>
         </footer>
       </div>
     </section>

@@ -51,7 +51,7 @@ export default function Footer3({ footer }: Footer3Fields) {
             </div>
           </div>
           <div className="mt-24 flex flex-col flex-wrap justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center">
-            <p>{copyright?.description}</p>
+            <p>{copyright}</p>
             <ul className="flex gap-4">
               {rightLinks?.links?.map((linkGroup, index) => (
                 <li key={index} className="whitespace-nowrap underline hover:text-primary">

@@ -17,7 +17,7 @@ import Footer1Component from './components/Footer1/Component'
 import Footer2Component from './components/Footer2/Component'
 import Footer3Component from './components/Footer3/Component'
 import Footer4Component from './components/Footer4/Component'
-// import Footer5Component from './components/Footer5/Component'
+import Footer5Component from './components/Footer5/Component'
 // import Footer6Component from './components/Footer6/Component'
 // import Footer7Component from './components/Footer7/Component'
 // import Footer8Component from './components/Footer8/Component'
@@ -41,7 +41,7 @@ export const Footer1 = Footer1Component
 export const Footer2 = Footer2Component
 export const Footer3 = Footer3Component
 export const Footer4 = Footer4Component
-// export const Footer5 = Footer5Component
+export const Footer5 = Footer5Component
 // export const Footer6 = Footer6Component
 // export const Footer7 = Footer7Component
 // export const Footer8 = Footer8Component
@@ -60,7 +60,7 @@ export const footerComponents: Record<
   'footer-2': Footer2,
   'footer-3': Footer3,
   'footer-4': Footer4,
-  // 'footer-5': Footer5,
+  'footer-5': Footer5,
   // 'footer-6': Footer6,
   // 'footer-7': Footer7,
   // 'footer-8': Footer8,

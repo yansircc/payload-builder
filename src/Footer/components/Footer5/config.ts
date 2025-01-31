@@ -4,15 +4,15 @@ import { z } from 'zod'
 import { createFooterField, footerSchemas } from '../shared/base-field'
 
 /**
- * Footer 4 field validation and type definitions
+ * Footer 5 field validation and type definitions
  */
 export const schemas = {
   image: footerSchemas.image,
-  sections: z.array(footerSchemas.link).min(4).max(4),
+  sections: z.array(footerSchemas.link).min(5).max(5),
 }
 
 /**
- * Footer 4 configuration
+ * Footer 5 configuration
  *
  * This footer includes:
  * - Icon with accent background
@@ -20,9 +20,9 @@ export const schemas = {
  * - Two links (primary and secondary)
  * - Footer image
  */
-export const footer4Fields: GroupField = {
-  name: 'footer-4',
-  interfaceName: 'Footer4Fields',
+export const footer5Fields: GroupField = {
+  name: 'footer-5',
+  interfaceName: 'Footer5Fields',
   label: false,
   type: 'group',
   admin: {
@@ -30,37 +30,12 @@ export const footer4Fields: GroupField = {
   },
   fields: [
     createFooterField({
-      includeFields: ['logo', 'copyright'],
+      includeFields: ['copyright'],
       groups: [
-        {
-          name: 'leftLinks',
-          label: 'Left Links',
-          fields: ['links'],
-          arrays: [
-            {
-              name: 'links',
-              fields: [
-                link({
-                  name: 'link',
-                  overrides: {
-                    admin: {
-                      description: 'Link',
-                    },
-                    defaultValue: {
-                      appearance: 'link',
-                    },
-                  },
-                }),
-              ],
-              minRows: 0,
-              maxRows: 4,
-            },
-          ],
-        },
         {
           name: 'socialLinks',
           label: 'Social Links',
-          fields: ['links'],
+          fields: ['title'],
           arrays: [
             {
               name: 'links',
@@ -84,9 +59,30 @@ export const footer4Fields: GroupField = {
           ],
         },
         {
-          name: 'newsletter',
-          label: 'Newsletter',
-          fields: ['title', 'subtitle'],
+          name: 'appLinks',
+          label: 'App Links',
+          fields: ['title'],
+          arrays: [
+            {
+              name: 'links',
+              fields: [
+                link({
+                  name: 'link',
+                  overrides: {
+                    admin: {
+                      description: 'Link',
+                    },
+                    defaultValue: {
+                      appearance: 'link',
+                    },
+                  },
+                  disableLabel: true,
+                }),
+              ],
+              minRows: 0,
+              maxRows: 2,
+            },
+          ],
         },
       ],
       arrays: [
@@ -129,7 +125,7 @@ export const footer4Fields: GroupField = {
             description: 'Footer navigation columns',
           },
           minRows: 2,
-          maxRows: 4,
+          maxRows: 5,
         },
       ],
     }),

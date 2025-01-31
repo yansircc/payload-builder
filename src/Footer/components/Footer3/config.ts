@@ -30,7 +30,7 @@ export const footer3Fields: GroupField = {
   },
   fields: [
     createFooterField({
-      includeFields: ['logo'],
+      includeFields: ['logo', 'copyright'],
       groups: [
         {
           name: 'rightLinks',
@@ -82,11 +82,6 @@ export const footer3Fields: GroupField = {
               maxRows: 5,
             },
           ],
-        },
-        {
-          name: 'copyright',
-          label: 'Copyright text',
-          fields: ['description'],
         },
       ],
       arrays: [

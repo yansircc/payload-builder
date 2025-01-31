@@ -81,6 +81,15 @@ const basicFields: Record<string, Field> = {
       description: 'Footer description',
     },
   },
+  copyright: {
+    name: 'copyright',
+    type: 'text',
+    required: false,
+    admin: {
+      description: 'Footer copyright',
+    },
+    defaultValue: '©2024 All rights reserved.',
+  },
   logo: {
     name: 'logo',
     type: 'upload',
