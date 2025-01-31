@@ -1,15 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import type { Media } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
-import { Avatar } from '@/components/ui/avatar'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
-import { Media as MediaComponent } from '@/components/Media'
 
 type TestimonialItem = {
-  author: string
+  authorName: string
   tag: string
   authorImage?: Media | string | null
   content: string
@@ -66,6 +65,13 @@ const TweetExcerpt = ({
   )
 }
 
+const getImageUrl = (authorImage: Media | string | null | undefined): string => {
+  if (!authorImage) return 'https://shadcnblocks.com/images/block/avatar-1.webp'
+  if (typeof authorImage === 'string') return authorImage
+  if ('url' in authorImage && authorImage.url) return authorImage.url
+  return 'https://shadcnblocks.com/images/block/avatar-1.webp'
+}
+
 export default function Testimonial16({ heading, subheading, testimonials }: Props) {
   const [expandedTweetId, setExpandedTweetId] = useState<number | null>(null)
 
@@ -80,7 +86,7 @@ export default function Testimonial16({ heading, subheading, testimonials }: Pro
             <p className="mb-4 text-2xl font-medium text-muted-foreground">{subheading}</p>
             <Separator />
             {testimonials?.map((tweet: TestimonialItem, index: number) => (
-              <div key={index}>
+              <React.Fragment key={index}>
                 <div className="select-none">
                   <div
                     onClick={() =>
@@ -97,16 +103,16 @@ export default function Testimonial16({ heading, subheading, testimonials }: Pro
                       {expandedTweetId === index ? (
                         <div className="py-4">
                           <div className="mb-3 flex gap-4 leading-5">
-                            <Avatar className="size-9 rounded-full ring-1 ring-input">
-                              {tweet.authorImage && (
-                                <MediaComponent
-                                  resource={tweet.authorImage}
-                                  className="size-9 rounded-full object-cover"
-                                />
-                              )}
+                            <Avatar className="size-9 flex-shrink-0 overflow-hidden rounded-full ring-1 ring-input">
+                              <AvatarImage
+                                src={getImageUrl(tweet.authorImage)}
+                                alt={tweet.authorName}
+                                className="aspect-square h-full w-full object-cover"
+                              />
+                              <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
                             </Avatar>
                             <div className="text-sm">
-                              <p className="font-medium">{tweet.author}</p>
+                              <p className="font-medium">{tweet.authorName}</p>
                               <p className="text-muted-foreground">{tweet.tag}</p>
                             </div>
                           </div>
@@ -119,21 +125,15 @@ export default function Testimonial16({ heading, subheading, testimonials }: Pro
                       ) : (
                         <div className="py-4 transition-colors hover:bg-muted">
                           <div className="flex gap-3 px-2">
-                            <Avatar className="h-full w-8">
-                              {tweet.authorImage && (
-                                <MediaComponent
-                                  resource={tweet.authorImage}
-                                  className="size-8 rounded-full object-cover"
-                                />
-                              )}
+                            <Avatar className="size-8 flex-shrink-0 overflow-hidden rounded-full">
+                              <AvatarImage
+                                src={getImageUrl(tweet.authorImage)}
+                                alt={tweet.authorName}
+                                className="aspect-square h-full w-full object-cover"
+                              />
+                              <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
                             </Avatar>
-                            <div className="flex w-full flex-col gap-0.5">
-                              <div className="flex items-center gap-2 text-base">
-                                <span className="font-semibold text-foreground">
-                                  {tweet.author}
-                                </span>
-                                <span className="text-sm text-muted-foreground">{tweet.tag}</span>
-                              </div>
+                            <div>
                               <TweetExcerpt
                                 excerpt={tweet.excerpt}
                                 link={tweet.link}
@@ -147,7 +147,7 @@ export default function Testimonial16({ heading, subheading, testimonials }: Pro
                   </div>
                 </div>
                 <Separator />
-              </div>
+              </React.Fragment>
             ))}
           </div>
         </div>
