@@ -4,15 +4,15 @@ import { z } from 'zod'
 import { createFooterField, footerSchemas } from '../shared/base-field'
 
 /**
- * Footer 2 field validation and type definitions
+ * Footer 8 field validation and type definitions
  */
 export const schemas = {
   image: footerSchemas.image,
-  sections: z.array(footerSchemas.link).min(2).max(2),
+  sections: z.array(footerSchemas.link).min(8).max(8),
 }
 
 /**
- * Footer 2 configuration
+ * Footer 8 configuration
  *
  * This footer includes:
  * - Icon with accent background
@@ -20,9 +20,9 @@ export const schemas = {
  * - Two links (primary and secondary)
  * - Footer image
  */
-export const footer2Fields: GroupField = {
-  name: 'footer-2',
-  interfaceName: 'Footer2Fields',
+export const footer8Fields: GroupField = {
+  name: 'footer-8',
+  interfaceName: 'Footer8Fields',
   label: false,
   type: 'group',
   admin: {
@@ -30,12 +30,12 @@ export const footer2Fields: GroupField = {
   },
   fields: [
     createFooterField({
-      includeFields: ['title', 'subtitle', 'logo', 'copyright'],
+      includeFields: ['title', 'subtitle', 'logo'],
       groups: [
         {
-          name: 'rightLinks',
-          label: 'Right Links',
-          fields: ['links'],
+          name: 'socialLinks',
+          label: 'Social Links',
+          fields: ['title'],
           arrays: [
             {
               name: 'links',
@@ -50,12 +50,18 @@ export const footer2Fields: GroupField = {
                       appearance: 'link',
                     },
                   },
+                  disableLabel: true,
                 }),
               ],
               minRows: 0,
-              maxRows: 2,
+              maxRows: 5,
             },
           ],
+        },
+        {
+          name: 'bottomText',
+          label: 'Bottom text',
+          fields: ['copyright', 'description'],
         },
       ],
       arrays: [
@@ -90,7 +96,7 @@ export const footer2Fields: GroupField = {
               admin: {
                 description: 'Links in this column',
               },
-              minRows: 2,
+              minRows: 1,
               maxRows: 6,
             },
           ],
@@ -98,7 +104,7 @@ export const footer2Fields: GroupField = {
             description: 'Footer navigation columns',
           },
           minRows: 1,
-          maxRows: 4,
+          maxRows: 2,
         },
       ],
     }),

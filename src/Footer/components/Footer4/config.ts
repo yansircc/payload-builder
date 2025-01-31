@@ -128,7 +128,7 @@ export const footer4Fields: GroupField = {
           admin: {
             description: 'Footer navigation columns',
           },
-          minRows: 2,
+          minRows: 1,
           maxRows: 4,
         },
       ],

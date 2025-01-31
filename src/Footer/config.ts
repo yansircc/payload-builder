@@ -1,14 +1,14 @@
 import { GlobalConfig } from 'payload'
 import { footer1Fields } from './components/Footer1/config'
+import { footer10Fields } from './components/Footer10/config'
 import { footer2Fields } from './components/Footer2/config'
 import { footer3Fields } from './components/Footer3/config'
 import { footer4Fields } from './components/Footer4/config'
 import { footer5Fields } from './components/Footer5/config'
-// import { footer6Fields } from './components/Footer6/config'
-// import { footer7Fields } from './components/Footer7/config'
-// import { footer8Fields } from './components/Footer8/config'
-// import { footer9Fields } from './components/Footer9/config'
-// import { footer10Fields } from './components/Footer10/config'
+import { footer6Fields } from './components/Footer6/config'
+import { footer7Fields } from './components/Footer7/config'
+import { footer8Fields } from './components/Footer8/config'
+import { footer9Fields } from './components/Footer9/config'
 import { revalidateFooter } from './hooks/revalidateFooter'
 
 /**
@@ -45,26 +45,26 @@ export const Footer: GlobalConfig = {
           label: 'Footer 5',
           value: 'footer-5',
         },
-        // {
-        //   label: 'Footer 6',
-        //   value: 'footer-6',
-        // },
-        // {
-        //   label: 'Footer 7',
-        //   value: 'footer-7',
-        // },
-        // {
-        //   label: 'Footer 8',
-        //   value: 'footer-8',
-        // },
-        // {
-        //   label: 'Footer 9',
-        //   value: 'footer-9',
-        // },
-        // {
-        //   label: 'Footer 10',
-        //   value: 'footer-10',
-        // },
+        {
+          label: 'Footer 6',
+          value: 'footer-6',
+        },
+        {
+          label: 'Footer 7',
+          value: 'footer-7',
+        },
+        {
+          label: 'Footer 8',
+          value: 'footer-8',
+        },
+        {
+          label: 'Footer 9',
+          value: 'footer-9',
+        },
+        {
+          label: 'Footer 10',
+          value: 'footer-10',
+        },
       ],
     },
     {
@@ -97,36 +97,36 @@ export const Footer: GlobalConfig = {
         condition: (_, siblingData) => siblingData.style === 'footer-5',
       },
     },
-    // {
-    //   ...footer6Fields,
-    //   admin: {
-    //     condition: (_, siblingData) => siblingData.style === 'footer-6',
-    //   },
-    // },
-    // {
-    //   ...footer7Fields,
-    //   admin: {
-    //     condition: (_, siblingData) => siblingData.style === 'footer-7',
-    //   },
-    // },
-    // {
-    //   ...footer8Fields,
-    //   admin: {
-    //     condition: (_, siblingData) => siblingData.style === 'footer-8',
-    //   },
-    // },
-    // {
-    //   ...footer9Fields,
-    //   admin: {
-    //     condition: (_, siblingData) => siblingData.style === 'footer-9',
-    //   },
-    // },
-    // {
-    //   ...footer10Fields,
-    //   admin: {
-    //     condition: (_, siblingData) => siblingData.style === 'footer-10',
-    //   },
-    // },
+    {
+      ...footer6Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'footer-6',
+      },
+    },
+    {
+      ...footer7Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'footer-7',
+      },
+    },
+    {
+      ...footer8Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'footer-8',
+      },
+    },
+    {
+      ...footer9Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'footer-9',
+      },
+    },
+    {
+      ...footer10Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'footer-10',
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidateFooter],
