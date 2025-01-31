@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import type { Page, GalleryBlock } from '@/payload-types'
+import type { GalleryBlock, Page } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { RenderCTA } from '@/blocks/CallToAction/RenderCTA'
@@ -10,6 +10,7 @@ import { galleryComponents } from '@/blocks/Gallery/components'
 import { RenderFeature } from '@/blocks/Feature/RenderFeature'
 import { RenderContact } from '@/blocks/Contact/RenderContact'
 import { RenderFAQ } from '@/blocks/FAQ/RenderFAQ'
+import { RenderLogos } from '@/blocks/Logos/RenderLogos'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -26,6 +27,7 @@ const blockComponents = {
     // Use type assertion to ensure type safety
     return <GalleryComponent {...(props[props.style] as any)} />
   },
+  logos: RenderLogos,
   contact: RenderContact,
   faq: RenderFAQ,
 }

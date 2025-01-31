@@ -12,6 +12,7 @@ import { FAQ } from '../../blocks/FAQ/config'
 import { Feature } from '../../blocks/Feature/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { GalleryBlock } from '../../blocks/Gallery/config'
+import { LogosBlock } from '../../blocks/Logos/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
@@ -89,6 +90,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Feature,
                 Contact,
                 FAQ,
+                LogosBlock,
               ],
               required: true,
               admin: {
