@@ -87,7 +87,7 @@ export const footer2Fields: GroupField = {
                       description: 'Navigation link',
                     },
                     defaultValue: {
-                      appearances: 'link',
+                      appearance: 'link',
                     },
                   },
                 }),

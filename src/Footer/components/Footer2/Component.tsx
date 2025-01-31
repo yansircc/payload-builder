@@ -3,7 +3,7 @@ import { Media } from '@/components/Media'
 import { Footer2Fields } from '@/payload-types'
 
 export default function Footer2({ footer }: Footer2Fields) {
-  const { sections, title, subtitle, logo, rightLinks, copyright } = footer || {}
+  const { sections, title, subtitle, logo, rightLinks, copyright } = footer
   return (
     <section className="py-32">
       <div className="container">

@@ -4,15 +4,15 @@ import { z } from 'zod'
 import { createFooterField, footerSchemas } from '../shared/base-field'
 
 /**
- * Footer 1 field validation and type definitions
+ * Footer 3 field validation and type definitions
  */
 export const schemas = {
   image: footerSchemas.image,
-  sections: z.array(footerSchemas.link).min(2).max(2),
+  sections: z.array(footerSchemas.link).min(3).max(3),
 }
 
 /**
- * Footer 1 configuration
+ * Footer 3 configuration
  *
  * This footer includes:
  * - Icon with accent background
@@ -20,9 +20,9 @@ export const schemas = {
  * - Two links (primary and secondary)
  * - Footer image
  */
-export const footer1Fields: GroupField = {
-  name: 'footer-1',
-  interfaceName: 'Footer1Fields',
+export const footer3Fields: GroupField = {
+  name: 'footer-3',
+  interfaceName: 'Footer3Fields',
   label: false,
   type: 'group',
   admin: {
@@ -35,7 +35,7 @@ export const footer1Fields: GroupField = {
         {
           name: 'rightLinks',
           label: 'Right Links',
-          fields: ['title'],
+          fields: ['links'],
           arrays: [
             {
               name: 'links',
@@ -47,22 +47,41 @@ export const footer1Fields: GroupField = {
                       description: 'Link',
                     },
                     defaultValue: {
-                      prefixIcon: 'Linkedin',
+                      appearance: 'link',
+                    },
+                  },
+                }),
+              ],
+              minRows: 0,
+              maxRows: 3,
+            },
+          ],
+        },
+        {
+          name: 'socialLinks',
+          label: 'Social Links',
+          fields: ['links'],
+          arrays: [
+            {
+              name: 'links',
+              fields: [
+                link({
+                  name: 'link',
+                  overrides: {
+                    admin: {
+                      description: 'Link',
+                    },
+                    defaultValue: {
+                      appearance: 'link',
                     },
                   },
                   disableLabel: true,
                 }),
               ],
               minRows: 0,
-              maxRows: 2,
-              admin: {
-                description: 'Support cards',
-              },
+              maxRows: 5,
             },
           ],
-          admin: {
-            description: 'Support list',
-          },
         },
         {
           name: 'copyright',
@@ -73,6 +92,7 @@ export const footer1Fields: GroupField = {
       arrays: [
         {
           name: 'sections',
+          label: 'Footer sections',
           fields: [
             {
               name: 'title',
@@ -108,7 +128,7 @@ export const footer1Fields: GroupField = {
           admin: {
             description: 'Footer navigation columns',
           },
-          minRows: 1,
+          minRows: 2,
           maxRows: 4,
         },
       ],
