@@ -1,6 +1,6 @@
-# Logo Component Development Guide
+# Logos Component Development Guide
 
-This guide aims to help developers understand and implement the Logo component development process.
+This guide aims to help developers understand and implement the Logos component development process.
 
 ## Table of Contents
 
@@ -12,7 +12,7 @@ This guide aims to help developers understand and implement the Logo component d
 
 ## 1. Development Process Overview
 
-The Logo component development process follows these steps:
+The Logos component development process follows these steps:
 
 1. Get TSX code from design
 2. Analyze and atomize fields
@@ -30,7 +30,7 @@ Get static TSX code from the design. This code typically includes:
 - Layout structure
 - Style classnames
 - Static content
-- Logo grid or list structure
+- Logos grid or list structure
 
 ### 2.2 Analyze and Atomize Fields
 
@@ -41,17 +41,17 @@ Get static TSX code from the design. This code typically includes:
 For example:
 
 ```typescript
-// src/blocks/Logo/components/shared/base-field.ts
+// src/blocks/Logos/components/shared/base-field.ts
 
 // 1. Add schema definition
-export const logoSchemas = {
+export const logosSchemas = {
   /** Title schema */
   title: z.string().describe('The main title text'),
   /** Subtitle schema */
   subtitle: z.string().describe('The subtitle text'),
   /** Description schema */
   description: z.string().describe('The description text'),
-  /** Logo schema */
+  /** Logos schema */
   logo: z.any().describe('The logo image'),
   /** Logos array schema */
   logos: z.array(z.any()).describe('Array of logo images'),
@@ -111,31 +111,31 @@ Create `config.ts` in the component directory:
 ```typescript
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { createLogoField, logoSchemas } from '../shared/base-field'
+import { createLogosField, logosSchemas } from '../shared/base-field'
 
 /**
- * Logo N field validation and type definitions
+ * Logos N field validation and type definitions
  */
 export const schemas = {
-  title: logoSchemas.title,
-  subtitle: logoSchemas.subtitle,
-  description: logoSchemas.description,
-  logos: logoSchemas.logos,
+  title: logosSchemas.title,
+  subtitle: logosSchemas.subtitle,
+  description: logosSchemas.description,
+  logos: logosSchemas.logos,
 }
 
 /**
- * Complete configuration for Logo N
+ * Complete configuration for Logos N
  */
-export const logoNFields: GroupField = {
-  name: 'logo-n',
-  interfaceName: 'LogoNFields',
+export const logosNFields: GroupField = {
+  name: 'logos-n',
+  interfaceName: 'LogosNFields',
   label: false,
   type: 'group',
   admin: {
-    description: 'Description of this logo component',
+    description: 'Description of this logos component',
   },
   fields: [
-    createLogoField({
+    createLogosField({
       includeFields: ['title', 'subtitle', 'description'],
       arrays: [
         {
@@ -153,7 +153,7 @@ export const logoNFields: GroupField = {
           name: 'settings',
           fields: ['columns', 'gap', 'grayscale'],
           admin: {
-            description: 'Logo display settings',
+            description: 'Logos display settings',
           },
         },
       ],
@@ -164,24 +164,24 @@ export const logoNFields: GroupField = {
 
 ### 2.4 Update Global Configuration
 
-In `src/blocks/Logo/config.ts`:
+In `src/blocks/Logos/config.ts`:
 
-> **Important**: When adding a new logo component:
+> **Important**: When adding a new logos component:
 >
 > 1. Do not modify the existing structure of `config.ts`
 > 2. Only add your new component by following these steps:
->    - Import your new logo fields
->    - Add your logo option to the existing options array
->    - Add your logo fields with the appropriate condition
+>    - Import your new logos fields
+>    - Add your logos option to the existing options array
+>    - Add your logos fields with the appropriate condition
 > 3. Keep all existing imports and configurations intact
 
-Example of adding a new logo component:
+Example of adding a new logos component:
 
 ```typescript
-import { logoNFields } from './components/LogoN/config' // Add your import
+import { logosNFields } from './components/LogosN/config' // Add your import
 
-export const LogoField: Field = {
-  name: 'logo',
+export const LogosField: Field = {
+  name: 'logos',
   type: 'group',
   fields: [
     {
@@ -189,14 +189,14 @@ export const LogoField: Field = {
       type: 'select',
       options: [
         // ... existing options ...
-        { label: 'Logo N', value: 'logo-n' }, // Add your option here
+        { label: 'Logos N', value: 'logos-n' }, // Add your option here
       ],
     },
     // ... existing fields ...
     {
-      ...logoNFields, // Add your fields here
+      ...logosNFields, // Add your fields here
       admin: {
-        condition: (_, siblingData) => siblingData.style === 'logo-n',
+        condition: (_, siblingData) => siblingData.style === 'logos-n',
       },
     },
   ],
@@ -217,9 +217,9 @@ This command will automatically generate TypeScript type definitions based on ou
 
    ```typescript
    // config.ts
-   export const logo1Fields: GroupField = {
-     name: 'logo-1',
-     interfaceName: 'Logo1Fields', // Interface name defined here
+   export const logos1Fields: GroupField = {
+     name: 'logos-1',
+     interfaceName: 'Logos1Fields', // Interface name defined here
      // ...
    }
    ```
@@ -233,11 +233,11 @@ This command will automatically generate TypeScript type definitions based on ou
 
    ```typescript
    // Correct type import
-   import type { Logo1Fields } from '@/payload-types'
+   import type { Logos1Fields } from '@/payload-types'
 
    // ❌ Not recommended
    // import type { Page } from '@/payload-types'
-   // type Logo1Data = NonNullable<NonNullable<Page['blocks']>['logo1']>
+   // type Logos1Data = NonNullable<NonNullable<Page['blocks']>['logos1']>
    ```
 
 ### 2.6 Implement Component Logic
@@ -246,11 +246,11 @@ Create `Component.tsx` and implement component logic:
 
 ```typescript
 import { Media } from '@/components/Media'
-import type { Logo1Fields } from '@/payload-types'
+import type { Logos1Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Logo1({ logo }: Logo1Fields) {
-  const { title, subtitle, description, logos, settings } = logo
+export default function Logos1({ logos }: Logos1Fields) {
+  const { title, subtitle, description, logos, settings } = logos
 
   return (
     <section className="relative overflow-hidden bg-background py-24 md:py-32">
@@ -305,45 +305,45 @@ Key points to remember:
 - Use Tailwind CSS for styling
 - Consider grayscale and hover effects for logos
 
-### 2.7 Register the New Logo
+### 2.7 Register the New Logos
 
-After implementing your logo component, register it in `src/blocks/Logo/index.ts`:
+After implementing your logos component, register it in `src/blocks/Logos/index.ts`:
 
 1. Import your component and config:
 
 ```typescript
-import Logo1Component from './components/Logo1/Component'
-export { logo1Fields } from './components/Logo1/config'
+import Logos1Component from './components/Logos1/Component'
+export { logos1Fields } from './components/Logos1/config'
 ```
 
 2. Export your component:
 
 ```typescript
-export const Logo1 = Logo1Component
+export const Logos1 = Logos1Component
 ```
 
-3. Add it to the logoComponents mapping:
+3. Add it to the logosComponents mapping:
 
 ```typescript
-export const logoComponents: Record<
-  NonNullable<Required<LogoField>['style']>,
-  ComponentType<LogoComponentProps<any>>
+export const logosComponents: Record<
+  NonNullable<Required<LogosField>['style']>,
+  ComponentType<LogosComponentProps<any>>
 > = {
   // ... existing components
-  'logo-1': Logo1,
+  'logos-1': Logos1,
 }
 ```
 
 ## 3. Configuration File Guide
 
-### 3.1 createLogoField Function
+### 3.1 createLogosField Function
 
-`createLogoField` function supports the following configuration patterns:
+`createLogosField` function supports the following configuration patterns:
 
 1. **Basic Field Configuration**
 
    ```typescript
-   createLogoField({
+   createLogosField({
      includeFields: ['title', 'subtitle', 'description'],
    })
    ```
@@ -351,7 +351,7 @@ export const logoComponents: Record<
 2. **Array Configuration**
 
    ```typescript
-   createLogoField({
+   createLogosField({
      includeFields: ['title'],
      arrays: [
        {
@@ -370,14 +370,14 @@ export const logoComponents: Record<
 3. **Group Configuration**
 
    ```typescript
-   createLogoField({
+   createLogosField({
      includeFields: ['title'],
      groups: [
        {
          name: 'settings',
          fields: ['columns', 'gap', 'grayscale'],
          admin: {
-           description: 'Logo display settings',
+           description: 'Logos display settings',
          },
        },
      ],
@@ -386,7 +386,7 @@ export const logoComponents: Record<
 
 4. **Combined Configuration**
    ```typescript
-   createLogoField({
+   createLogosField({
      includeFields: ['title', 'subtitle', 'description'],
      arrays: [
        {
@@ -419,14 +419,14 @@ Solution:
 
 ### 4.2 Conditional Rendering Issues
 
-Issue: Logo component not showing in admin interface
+Issue: Logos component not showing in admin interface
 Solution:
 
 1. Check if style option value is correct
 2. Verify condition function
 3. Ensure field names match those in `includeFields`
 
-### 4.3 Logo Display Issues
+### 4.3 Logos Display Issues
 
 Issue: Logos appear distorted or misaligned
 Solution:
@@ -449,7 +449,7 @@ Before submitting code, check the following:
 - [ ] Project code standards are followed
 - [ ] `interfaceName` follows naming convention and is unique
 - [ ] Field references are correct and exist
-- [ ] Logo display settings are appropriate
+- [ ] Logos display settings are appropriate
 - [ ] Grayscale and hover effects work correctly
 
 ## 6. Best Practices
@@ -471,4 +471,4 @@ Before submitting code, check the following:
 
 ## Conclusion
 
-Following this guide will help you create high-quality Logo components. If you have any questions, refer to existing Logo component implementations or consult team members.
+Following this guide will help you create high-quality Logos components. If you have any questions, refer to existing Logos component implementations or consult team members.
