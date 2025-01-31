@@ -50,7 +50,6 @@ export const footer9Fields: GroupField = {
                       appearance: 'link',
                     },
                   },
-                  disableLabel: true,
                 }),
               ],
               minRows: 0,

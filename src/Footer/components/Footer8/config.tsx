@@ -35,7 +35,7 @@ export const footer8Fields: GroupField = {
         {
           name: 'socialLinks',
           label: 'Social Links',
-          fields: ['title'],
+          fields: ['links'],
           arrays: [
             {
               name: 'links',

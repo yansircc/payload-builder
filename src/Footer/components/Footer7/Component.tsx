@@ -12,7 +12,7 @@ export default function Footer7({ footer }: Footer7Fields) {
             <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 lg:items-start">
               <div>
                 <span className="flex items-center justify-center gap-4 lg:justify-start">
-                  {logo && <Media resource={logo} className="h-11" priority alt="logo" />}
+                  {logo && <Media resource={logo} imgClassName="h-11 w-fit" priority alt="logo" />}
                   <p className="text-3xl font-semibold">{title}</p>
                 </span>
                 <p className="mt-6 text-sm text-muted-foreground">{subtitle}</p>
@@ -37,7 +37,9 @@ export default function Footer7({ footer }: Footer7Fields) {
                   <ul className="space-y-4 text-sm text-muted-foreground">
                     {section.links?.map((linkGroup, index) => (
                       <li key={index} className="font-medium hover:text-primary">
-                        {linkGroup.link && <CMSLink {...linkGroup.link} />}
+                        {linkGroup.link && (
+                          <CMSLink {...linkGroup.link} className="text-muted-foreground p-0" />
+                        )}
                       </li>
                     ))}
                   </ul>

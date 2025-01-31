@@ -53,7 +53,9 @@ export default function Footer9({ footer }: Footer9Fields) {
                 <ul className="space-y-4 text-muted-foreground">
                   {section.links?.map((linkGroup, index) => (
                     <li key={index} className="font-medium hover:text-primary">
-                      {linkGroup.link && <CMSLink {...linkGroup.link} />}
+                      {linkGroup.link && (
+                        <CMSLink {...linkGroup.link} className="text-muted-foreground p-0" />
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -61,10 +63,10 @@ export default function Footer9({ footer }: Footer9Fields) {
             ))}
           </div>
           <div className="mt-20 flex flex-col items-start justify-between gap-4 border-t pt-8 text-center text-sm font-medium text-muted-foreground lg:flex-row lg:items-center">
-            <ul className="flex justify-center gap-4 lg:justify-start">
+            <ul className="flex justify-center items-center gap-4 lg:justify-start">
               {leftLinks?.links?.map((linkGroup, index) => (
                 <li key={index} className="hover:text-primary">
-                  {linkGroup.link && <CMSLink {...linkGroup.link} />}
+                  {linkGroup.link && <CMSLink {...linkGroup.link} className="p-0" />}
                 </li>
               ))}
               <li>

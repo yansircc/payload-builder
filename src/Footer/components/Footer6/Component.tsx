@@ -33,13 +33,13 @@ export default function Footer6({ footer }: Footer6Fields) {
                   <h4 className="mb-6 whitespace-nowrap text-base font-semibold">
                     {section.title}
                   </h4>
-                  <ul className="space-y-2 text-base font-medium text-muted-foreground">
+                  <ul className="space-y-2 text-base font-medium">
                     {section.links?.map((linkGroup, index) => (
                       <li key={index}>
                         {linkGroup.link && (
                           <CMSLink
                             {...linkGroup.link}
-                            className="whitespace-nowrap text-base hover:text-accent-foreground"
+                            className="whitespace-nowrap text-base hover:text-accent-foreground text-muted-foreground p-0"
                           />
                         )}
                       </li>
