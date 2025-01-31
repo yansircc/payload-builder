@@ -15,6 +15,7 @@ import type { ComponentType } from 'react'
 // Import all Testimonial components
 import Testimonial14Component from './Testimonial14/Component'
 import Testimonial15Component from './Testimonial15/Component'
+import Testimonial18Component from './Testimonial18/Component'
 import Testimonial4Component from './Testimonial4/Component'
 import Testimonial6Component from './Testimonial6/Component'
 import Testimonial7Component from './Testimonial7/Component'
@@ -32,6 +33,7 @@ export const Testimonial6 = Testimonial6Component
 export const Testimonial7 = Testimonial7Component
 export const Testimonial14 = Testimonial14Component
 export const Testimonial15 = Testimonial15Component
+export const Testimonial18 = Testimonial18Component
 
 // Define Testimonial component props type
 type TestimonialComponentProps<T extends NonNullable<TestimonialBlock['style']>> = NonNullable<
@@ -40,7 +42,12 @@ type TestimonialComponentProps<T extends NonNullable<TestimonialBlock['style']>>
 
 // Define testimonial components mapping
 export const testimonialComponents: Record<
-  'testimonial-4' | 'testimonial-6' | 'testimonial-7' | 'testimonial-14' | 'testimonial-15',
+  | 'testimonial-4'
+  | 'testimonial-6'
+  | 'testimonial-7'
+  | 'testimonial-14'
+  | 'testimonial-15'
+  | 'testimonial-18',
   ComponentType<TestimonialComponentProps<any>>
 > = {
   'testimonial-4': Testimonial4,
@@ -48,4 +55,5 @@ export const testimonialComponents: Record<
   'testimonial-7': Testimonial7,
   'testimonial-14': Testimonial14,
   'testimonial-15': Testimonial15,
+  'testimonial-18': Testimonial18,
 }
