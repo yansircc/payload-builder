@@ -1,5 +1,6 @@
 // Import payload types here
 import { Block, Field } from 'payload'
+import { testimonial12Fields } from './components/Testimonial12/config'
 import { testimonial14Fields } from './components/Testimonial14/config'
 import { testimonial15Fields } from './components/Testimonial15/config'
 import { testimonial16Fields } from './components/Testimonial16/config'
@@ -23,6 +24,7 @@ export const TestimonialBlock: Block = {
         { label: 'Testimonial 4', value: 'testimonial-4' },
         { label: 'Testimonial 6', value: 'testimonial-6' },
         { label: 'Testimonial 7', value: 'testimonial-7' },
+        { label: 'Testimonial 12', value: 'testimonial-12' },
         { label: 'Testimonial 14', value: 'testimonial-14' },
         { label: 'Testimonial 15', value: 'testimonial-15' },
         { label: 'Testimonial 16', value: 'testimonial-16' },
@@ -47,6 +49,12 @@ export const TestimonialBlock: Block = {
       ...testimonial7Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'testimonial-7',
+      },
+    },
+    {
+      ...testimonial12Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'testimonial-12',
       },
     },
     {
@@ -99,6 +107,7 @@ export const TestimonialField: Field = {
         { label: 'Testimonial 4', value: 'testimonial-4' },
         { label: 'Testimonial 6', value: 'testimonial-6' },
         { label: 'Testimonial 7', value: 'testimonial-7' },
+        { label: 'Testimonial 12', value: 'testimonial-12' },
         { label: 'Testimonial 14', value: 'testimonial-14' },
         { label: 'Testimonial 15', value: 'testimonial-15' },
         { label: 'Testimonial 16', value: 'testimonial-16' },
@@ -123,6 +132,12 @@ export const TestimonialField: Field = {
       ...testimonial7Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'testimonial-7',
+      },
+    },
+    {
+      ...testimonial12Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'testimonial-12',
       },
     },
     {
