@@ -32,3 +32,11 @@ export const getCachedGlobal = (slug: Global, depth = 0) =>
 export async function getFooter(depth = 2) {
   return getGlobal('footer', depth)
 }
+
+/**
+ * Retrieves the header global configuration with populated relationships
+ * @returns The header configuration with populated relationships
+ */
+export async function getHeader(depth = 2) {
+  return getGlobal('header', depth)
+}
