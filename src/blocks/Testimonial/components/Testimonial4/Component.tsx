@@ -1,24 +1,13 @@
 'use client'
 
-import type { Media } from '@/payload-types'
+import type { Testimonial4Fields } from '@/payload-types'
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Media as MediaComponent } from '@/components/Media'
+import Image from 'next/image'
 
-interface TestimonialItem {
-  quote: string
-  authorName: string
-  authorRole?: string
-  authorImage?: Media
-}
-
-interface Testimonial4Props {
-  testimonials: TestimonialItem[]
-  featuredImage?: Media
-}
-
-export default function Testimonial4({ testimonials, featuredImage }: Testimonial4Props) {
+export default function Testimonial4({ testimonials, featuredImage }: Testimonial4Fields) {
   if (!testimonials?.length || testimonials.length < 4) {
     return null
   }
@@ -39,21 +28,28 @@ export default function Testimonial4({ testimonials, featuredImage }: Testimonia
                 className="h-72 w-full rounded-md object-cover lg:h-auto"
               />
             ) : (
-              <img
+              <Image
                 src="https://shadcnblocks.com/images/block/placeholder-1.svg"
                 alt="placeholder"
                 className="h-72 w-full rounded-md object-cover lg:h-auto"
+                width={800}
+                height={600}
+                priority
               />
             )}
             <Card className="col-span-2 flex items-center justify-center p-6">
               <div className="flex flex-col gap-4">
-                <q className="text-xl font-medium lg:text-3xl">{featuredTestimonial.quote}</q>
-                <div className="flex flex-col items-start">
-                  <p>{featuredTestimonial.authorName}</p>
-                  {featuredTestimonial.authorRole && (
-                    <p className="text-muted-foreground">{featuredTestimonial.authorRole}</p>
-                  )}
-                </div>
+                {featuredTestimonial && (
+                  <>
+                    <q className="text-xl font-medium lg:text-3xl">{featuredTestimonial.quote}</q>
+                    <div className="flex flex-col items-start">
+                      <p>{featuredTestimonial.authorName}</p>
+                      {featuredTestimonial.authorRole && (
+                        <p className="text-muted-foreground">{featuredTestimonial.authorRole}</p>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
             </Card>
           </div>
