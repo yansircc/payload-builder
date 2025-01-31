@@ -2,7 +2,6 @@ import type { CollectionSlug, File, GlobalSlug, Payload, PayloadRequest } from '
 
 import { contactForm as contactFormData } from './contact-form'
 import { contact as contactPageData } from './contact-page'
-import { footer } from './footer'
 import { home } from './home'
 import { image1 } from './image-1'
 import { image2 } from './image-2'
@@ -338,36 +337,36 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding globals...`)
 
-  await Promise.all([
-    payload.updateGlobal({
-      slug: 'header',
-      data: {
-        navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Posts',
-              url: '/posts',
-            },
-          },
-          {
-            link: {
-              type: 'reference',
-              label: 'Contact',
-              reference: {
-                relationTo: 'pages',
-                value: contactPage.id,
-              },
-            },
-          },
-        ],
-      },
-    }),
-    payload.updateGlobal({
-      slug: 'footer',
-      data: footer,
-    }),
-  ])
+  // await Promise.all([
+  //   payload.updateGlobal({
+  //     slug: 'header',
+  //     data: {
+  //       navItems: [
+  //         {
+  //           link: {
+  //             type: 'custom',
+  //             label: 'Posts',
+  //             url: '/posts',
+  //           },
+  //         },
+  //         {
+  //           link: {
+  //             type: 'reference',
+  //             label: 'Contact',
+  //             reference: {
+  //               relationTo: 'pages',
+  //               value: contactPage.id,
+  //             },
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   }),
+  //   payload.updateGlobal({
+  //     slug: 'footer',
+  //     data: footer,
+  //   }),
+  // ])
 
   payload.logger.info('Seeded database successfully!')
 }

@@ -62,11 +62,19 @@ export const header1Fields: GroupField = {
                     },
                   },
                 }),
+                {
+                  name: 'description',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    description: 'Description for this sub menu',
+                  },
+                },
               ],
               admin: {
                 description: 'Links in this column',
               },
-              minRows: 1,
+              minRows: 0,
               maxRows: 6,
             },
           ],
