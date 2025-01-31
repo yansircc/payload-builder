@@ -1,6 +1,6 @@
 'use client'
 
-import type { Media } from '@/payload-types'
+import type { Testimonial6Fields } from '@/payload-types'
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -12,22 +12,10 @@ import {
 } from '@/components/ui/carousel'
 import { Media as MediaComponent } from '@/components/Media'
 
-interface TestimonialItem {
-  quote: string
-  authorName: string
-  authorRole?: string
-  authorImage?: Media
-}
-
-interface Testimonial6Props {
-  testimonials: TestimonialItem[]
-  title?: string
-}
-
 export default function Testimonial6({
   testimonials,
   title = 'Why Clients Love Us',
-}: Testimonial6Props) {
+}: Testimonial6Fields) {
   return (
     <section className="py-32">
       <div className="container">
@@ -40,7 +28,7 @@ export default function Testimonial6({
             </div>
           </div>
           <CarouselContent>
-            {testimonials.map((testimonial, idx) => (
+            {testimonials?.map((testimonial, idx) => (
               <CarouselItem key={idx} className="basis-full md:basis-1/2 lg:basis-1/3">
                 <div className="h-full p-1">
                   <div className="flex h-full flex-col justify-between rounded-lg border p-6">
