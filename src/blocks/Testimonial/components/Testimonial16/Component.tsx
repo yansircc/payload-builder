@@ -1,33 +1,35 @@
 'use client'
 
 import React, { useState } from 'react'
-import type { Media } from '@/payload-types'
+import type { Media, Testimonial16Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 
-type TestimonialItem = {
+interface TestimonialItem {
   authorName: string
   tag: string
-  authorImage?: Media | string | null
+  authorImage?: string | Media | null
   content: string
   excerpt: string
   link?: string | null
   linkText?: string | null
 }
 
-type Props = {
-  heading: string
-  subheading: string
-  testimonials: TestimonialItem[]
+interface TweetContentProps {
+  content: string
+  link?: string | null
+  linkText?: string | null
 }
 
-const TweetContent = ({
-  content,
-  link,
-  linkText,
-}: Pick<TestimonialItem, 'content' | 'link' | 'linkText'>) => {
+interface TweetExcerptProps {
+  excerpt: string
+  link?: string | null
+  linkText?: string | null
+}
+
+const TweetContent = ({ content, link, linkText }: TweetContentProps) => {
   if (!link || !linkText) {
     return <p className="text-sm text-muted-foreground">{content}</p>
   }
@@ -44,11 +46,7 @@ const TweetContent = ({
   )
 }
 
-const TweetExcerpt = ({
-  excerpt,
-  link,
-  linkText,
-}: Pick<TestimonialItem, 'excerpt' | 'link' | 'linkText'>) => {
+const TweetExcerpt = ({ excerpt, link, linkText }: TweetExcerptProps) => {
   if (!link || !linkText) {
     return <p className="line-clamp-1 font-medium md:text-xl">{excerpt}</p>
   }
@@ -72,7 +70,7 @@ const getImageUrl = (authorImage: Media | string | null | undefined): string => 
   return 'https://shadcnblocks.com/images/block/avatar-1.webp'
 }
 
-export default function Testimonial16({ heading, subheading, testimonials }: Props) {
+export default function Testimonial16({ heading, subheading, testimonials }: Testimonial16Fields) {
   const [expandedTweetId, setExpandedTweetId] = useState<number | null>(null)
 
   return (
