@@ -10,6 +10,7 @@ import { RenderFeature } from '@/blocks/Feature/RenderFeature'
 import { RenderContact } from '@/blocks/Contact/RenderContact'
 import { RenderTestimonial } from '@/blocks/Testimonial/RenderTestimonial'
 import { RenderGallery } from '@/blocks/Gallery/RenderGallery'
+import { RenderTeam } from '@/blocks/Team/RenderTeam'
 import { RenderFAQ } from '@/blocks/FAQ/RenderFAQ'
 
 const blockComponents = {
@@ -22,6 +23,7 @@ const blockComponents = {
   gallery: RenderGallery,
   testimonial: RenderTestimonial,
   contact: RenderContact,
+  team: RenderTeam,
   faq: RenderFAQ,
 }
 
