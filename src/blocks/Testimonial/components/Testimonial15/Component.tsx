@@ -10,7 +10,7 @@ export default function Testimonial15({
   title,
   description,
   cta,
-  companyLogos,
+  companySection,
   testimonials,
 }: Testimonial15Fields) {
   return (
@@ -21,11 +21,9 @@ export default function Testimonial15({
             <h1 className="mb-4 text-balance text-3xl font-bold lg:text-4xl">{title}</h1>
             <p className="mb-8 text-muted-foreground">{description}</p>
             {cta && <CMSLink className="mb-10 lg:mb-20" {...cta} />}
-            <p className="mb-7 text-xs uppercase text-muted-foreground">
-              Used by leading companies
-            </p>
+            <p className="mb-7 text-xs uppercase text-muted-foreground">{companySection?.text}</p>
             <div className="flex flex-wrap items-center justify-center gap-10 lg:justify-start">
-              {companyLogos?.map((logo, idx) => (
+              {companySection?.logos?.map((logo, idx) => (
                 <div
                   key={idx}
                   className="relative flex h-8 w-32 items-center justify-center overflow-hidden sm:h-11"

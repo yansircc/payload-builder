@@ -72,14 +72,31 @@ export const testimonial15Fields: GroupField = {
       },
     }),
     {
-      type: 'array',
-      name: 'companyLogos',
-      fields: companyLogoFields,
-      minRows: 1,
-      maxRows: 5,
+      name: 'companySection',
+      type: 'group',
       admin: {
-        description: 'Company logos (1-5)',
+        description: 'Company section configuration',
       },
+      fields: [
+        {
+          name: 'text',
+          type: 'text',
+          defaultValue: 'Used by leading companies',
+          admin: {
+            description: 'Text displayed above company logos',
+          },
+        },
+        {
+          type: 'array',
+          name: 'logos',
+          fields: companyLogoFields,
+          minRows: 1,
+          maxRows: 5,
+          admin: {
+            description: 'Company logos (1-5)',
+          },
+        },
+      ],
     },
     ...createTestimonialField({
       arrays: [
