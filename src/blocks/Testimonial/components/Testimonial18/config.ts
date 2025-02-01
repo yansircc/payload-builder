@@ -1,4 +1,4 @@
-import { Field, GroupField } from 'payload'
+import { GroupField } from 'payload'
 import { z } from 'zod'
 import { basicFields, testimonialSchemas } from '../shared/base-field'
 
@@ -36,7 +36,7 @@ export const testimonial18Fields: GroupField = {
       admin: {
         description: 'Main heading text',
       },
-    } as Field,
+    },
     {
       name: 'subheading',
       type: 'text',
@@ -44,7 +44,7 @@ export const testimonial18Fields: GroupField = {
       admin: {
         description: 'Subheading text',
       },
-    } as Field,
+    },
     {
       name: 'statsText',
       type: 'text',
@@ -52,7 +52,7 @@ export const testimonial18Fields: GroupField = {
       admin: {
         description: 'Stats text shown with icon',
       },
-    } as Field,
+    },
     {
       name: 'testimonial',
       type: 'group',
@@ -65,7 +65,7 @@ export const testimonial18Fields: GroupField = {
           admin: {
             description: 'Detailed testimonial description',
           },
-        } as Field,
+        },
         basicFields.authorName,
         basicFields.authorRole,
         basicFields.authorImage,
@@ -74,6 +74,6 @@ export const testimonial18Fields: GroupField = {
       admin: {
         description: 'Single testimonial content',
       },
-    } as GroupField,
+    },
   ],
 }
