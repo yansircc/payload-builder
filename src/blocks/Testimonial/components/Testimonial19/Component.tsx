@@ -1,7 +1,7 @@
 'use client'
 
 import AutoScroll from 'embla-carousel-auto-scroll'
-import { ChevronRight, Star, Zap } from 'lucide-react'
+import { Star, Zap } from 'lucide-react'
 import { useRef } from 'react'
 import type { Media, TestimonialBlock } from '@/payload-types'
 
@@ -9,6 +9,7 @@ import { Avatar } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { Media as MediaComponent } from '@/components/Media'
+import { CMSLink } from '@/components/Link'
 
 type TestimonialItem = {
   quote: string
@@ -24,7 +25,7 @@ export default function Testimonial19({
   heading,
   subheading,
   statsText,
-  viewAllLink,
+  viewAll,
   testimonials,
 }: Props) {
   const plugin = useRef(
@@ -43,10 +44,7 @@ export default function Testimonial19({
         </div>
         <h2 className="text-center text-3xl font-semibold lg:text-4xl">{heading}</h2>
         <p className="text-center text-muted-foreground lg:text-lg">{subheading}</p>
-        <a href={viewAllLink ?? '#'} className="flex items-center gap-1 font-semibold">
-          View all testimonials
-          <ChevronRight className="mt-0.5 h-4 w-auto" />
-        </a>
+        {viewAll && <CMSLink {...viewAll} />}
       </div>
       <div className="lg:container">
         <div className="mt-16 space-y-4">

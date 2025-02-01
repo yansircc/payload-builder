@@ -1,3 +1,4 @@
+import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
 import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
@@ -9,7 +10,6 @@ export const schemas = {
   heading: z.string().describe('Main heading text'),
   subheading: z.string().describe('Subheading text'),
   statsText: z.string().describe('Stats text (e.g. "Rated 5 stars by 1000+ clients")'),
-  viewAllLink: z.string().describe('Link for "View all testimonials" button'),
   authorName: testimonialSchemas.authorName,
   authorRole: testimonialSchemas.authorRole,
   authorImage: testimonialSchemas.authorImage,
@@ -53,14 +53,19 @@ export const testimonial19Fields: GroupField = {
         description: 'Stats text shown with icon',
       },
     },
-    {
-      name: 'viewAllLink',
-      type: 'text',
-      defaultValue: '#',
-      admin: {
-        description: 'Link for "View all testimonials" button',
+    link({
+      name: 'viewAll',
+      overrides: {
+        admin: {
+          description: 'View all testimonials link',
+        },
+        defaultValue: {
+          label: 'View all testimonials',
+          suffixIcon: 'ChevronRight',
+          appearance: 'link',
+        },
       },
-    },
+    }),
     ...createTestimonialField({
       arrays: [
         {
