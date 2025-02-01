@@ -27,7 +27,11 @@ export default function Logos1({ logos }: Logos1Fields) {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <Media resource={item.logo} className="h-12 w-auto object-contain" size="thumbnail" />
+            <Media
+              resource={item.logo}
+              className="h-12 w-auto max-w-[109px] object-contain"
+              size="thumbnail"
+            />
           </ClientMotionDiv>
         ))}
       </div>
