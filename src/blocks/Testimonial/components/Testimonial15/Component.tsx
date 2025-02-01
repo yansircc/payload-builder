@@ -3,14 +3,13 @@
 import type { Testimonial15Fields } from '@/payload-types'
 
 import { Avatar } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
+import { CMSLink } from '@/components/Link'
 import { Media as MediaComponent } from '@/components/Media'
 
 export default function Testimonial15({
   title = 'Explore the Innovators Community Today',
   description = 'Join a global network of thought leaders, product developers, and innovators to exchange ideas, learn from each other, and participate in unique events and discussions.',
-  buttonText = 'Become a Member',
-  buttonLink = '#',
+  cta,
   companyLogos = [],
   testimonials = [],
 }: Testimonial15Fields) {
@@ -21,9 +20,7 @@ export default function Testimonial15({
           <div className="text-center lg:text-left">
             <h1 className="mb-4 text-balance text-3xl font-bold lg:text-4xl">{title}</h1>
             <p className="mb-8 text-muted-foreground">{description}</p>
-            <Button asChild className="mb-10 lg:mb-20">
-              <a href={buttonLink ?? '#'}>{buttonText}</a>
-            </Button>
+            {cta && <CMSLink className="mb-10 lg:mb-20" {...cta} />}
             <p className="mb-7 text-xs uppercase text-muted-foreground">
               Used by leading companies
             </p>

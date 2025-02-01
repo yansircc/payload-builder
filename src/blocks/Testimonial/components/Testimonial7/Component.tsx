@@ -40,7 +40,7 @@ export default function Testimonial7({
       <div className="container flex flex-col items-center gap-6">
         <h2 className="mb-2 text-center text-3xl font-semibold lg:text-5xl">{title}</h2>
         <p className="text-muted-foreground lg:text-lg">{description}</p>
-        {cta && <CMSLink className="mt-6" appearance="default" {...cta} />}
+        {cta && <CMSLink className="mt-6" {...cta} />}
       </div>
       <div className="lg:container">
         <div className="mt-16 space-y-4">

@@ -1,3 +1,4 @@
+import { link } from '@/fields/link'
 import { Field, GroupField } from 'payload'
 import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
 
@@ -59,22 +60,17 @@ export const testimonial15Fields: GroupField = {
         description: 'Description text below the title',
       },
     },
-    {
-      name: 'buttonText',
-      type: 'text',
-      defaultValue: 'Become a Member',
-      admin: {
-        description: 'Text for the call-to-action button',
+    link({
+      name: 'cta',
+      overrides: {
+        admin: {
+          description: 'Call-to-action button',
+        },
+        defaultValue: {
+          label: 'Become a Member',
+        },
       },
-    },
-    {
-      name: 'buttonLink',
-      type: 'text',
-      defaultValue: '#',
-      admin: {
-        description: 'Link for the call-to-action button',
-      },
-    },
+    }),
     {
       type: 'array',
       name: 'companyLogos',
