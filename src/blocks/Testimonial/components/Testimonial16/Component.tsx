@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import { Fragment, useState } from 'react'
 import type { Testimonial16Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
@@ -68,7 +68,7 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
             <p className="mb-4 text-2xl font-medium text-muted-foreground">{subheading}</p>
             <Separator />
             {testimonials?.map((tweet, index: number) => (
-              <React.Fragment key={index}>
+              <Fragment key={index}>
                 <div className="select-none">
                   <div
                     onClick={() =>
@@ -133,7 +133,7 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                   </div>
                 </div>
                 <Separator />
-              </React.Fragment>
+              </Fragment>
             ))}
           </div>
         </div>
