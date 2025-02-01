@@ -1,5 +1,5 @@
-import { Field, GroupField } from 'payload'
-import { testimonialSchemas } from '../shared/base-field'
+import { GroupField } from 'payload'
+import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
 
 /**
  * Testimonial 7 field validation and type definitions
@@ -30,7 +30,7 @@ export const testimonial7Fields: GroupField = {
       admin: {
         description: 'Main title for the testimonial section',
       },
-    } as Field,
+    },
     {
       name: 'description',
       type: 'text',
@@ -38,7 +38,7 @@ export const testimonial7Fields: GroupField = {
       admin: {
         description: 'Description text below the title',
       },
-    } as Field,
+    },
     {
       name: 'buttonText',
       type: 'text',
@@ -46,7 +46,7 @@ export const testimonial7Fields: GroupField = {
       admin: {
         description: 'Text for the call-to-action button',
       },
-    } as Field,
+    },
     {
       name: 'buttonLink',
       type: 'text',
@@ -54,48 +54,24 @@ export const testimonial7Fields: GroupField = {
       admin: {
         description: 'Link for the call-to-action button',
       },
-    } as Field,
-    {
-      type: 'array',
-      name: 'testimonials',
-      fields: [
+    },
+    ...createTestimonialField({
+      arrays: [
         {
-          name: 'quote',
-          type: 'textarea',
-          required: true,
+          name: 'testimonials',
+          fields: [
+            basicFields.quote,
+            basicFields.authorName,
+            basicFields.authorRole,
+            basicFields.authorImage,
+          ],
+          minRows: 4,
+          maxRows: 12,
           admin: {
-            description: 'Testimonial quote text',
+            description: 'Testimonial items (4-12)',
           },
-        } as Field,
-        {
-          name: 'authorName',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Name of the testimonial author',
-          },
-        } as Field,
-        {
-          name: 'authorRole',
-          type: 'text',
-          admin: {
-            description: 'Role/position of the author',
-          },
-        } as Field,
-        {
-          name: 'authorImage',
-          type: 'upload',
-          relationTo: 'media',
-          admin: {
-            description: 'Author profile image',
-          },
-        } as Field,
+        },
       ],
-      minRows: 4,
-      maxRows: 12,
-      admin: {
-        description: 'Testimonial items (4-12)',
-      },
-    } as Field,
+    }).fields,
   ],
 }
