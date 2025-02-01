@@ -12,10 +12,7 @@ import {
 } from '@/components/ui/carousel'
 import { Media as MediaComponent } from '@/components/Media'
 
-export default function Testimonial6({
-  testimonials,
-  title = 'Why Clients Love Us',
-}: Testimonial6Fields) {
+export default function Testimonial6({ testimonials, title }: Testimonial6Fields) {
   return (
     <section className="py-32">
       <div className="container">

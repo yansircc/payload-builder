@@ -12,8 +12,8 @@ import { CMSLink } from '@/components/Link'
 
 export default function Testimonial7({
   testimonials,
-  title = 'Meet our happy clients',
-  description = 'All of our 1000+ clients are happy',
+  title,
+  description,
   cta,
 }: Testimonial7Fields) {
   // Split testimonials into two arrays for different scroll directions

@@ -7,11 +7,11 @@ import { CMSLink } from '@/components/Link'
 import { Media as MediaComponent } from '@/components/Media'
 
 export default function Testimonial15({
-  title = 'Explore the Innovators Community Today',
-  description = 'Join a global network of thought leaders, product developers, and innovators to exchange ideas, learn from each other, and participate in unique events and discussions.',
+  title,
+  description,
   cta,
-  companyLogos = [],
-  testimonials = [],
+  companyLogos,
+  testimonials,
 }: Testimonial15Fields) {
   return (
     <section className="mb-32 bg-muted pt-32">
