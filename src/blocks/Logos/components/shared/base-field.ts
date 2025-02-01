@@ -1,3 +1,4 @@
+import { link } from '@/fields/link'
 import { Field } from 'payload'
 import { z } from 'zod'
 
@@ -11,6 +12,8 @@ export const logosSchemas = {
   description: z.string().describe('The description text'),
   /** Logos array schema */
   logos: z.array(z.any()).describe('Array of logo images'),
+  /** Link schema */
+  link: z.string().describe('Main button link'),
 }
 
 /**
@@ -41,6 +44,13 @@ export const basicFields = {
       description: 'Logo image',
     },
   } as Field,
+  link: link({
+    overrides: {
+      admin: {
+        description: 'Button link',
+      },
+    },
+  }),
 }
 
 interface CreateLogosFieldOptions {

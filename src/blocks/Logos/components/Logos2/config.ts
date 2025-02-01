@@ -1,5 +1,4 @@
 import { GroupField } from 'payload'
-import { z } from 'zod'
 import { basicFields, createLogosField, logosSchemas } from '../shared/base-field'
 
 /**
@@ -9,10 +8,7 @@ export const schemas = {
   title: logosSchemas.title,
   description: logosSchemas.description,
   logos: logosSchemas.logos,
-  button: {
-    label: z.string().describe('Button label'),
-    url: z.string().describe('Button URL'),
-  },
+  link: logosSchemas.link,
 }
 
 /**
@@ -28,7 +24,7 @@ export const logos2Fields: GroupField = {
   },
   fields: [
     createLogosField({
-      includeFields: ['title', 'description'],
+      includeFields: ['title', 'description', 'link'],
       arrays: [
         {
           name: 'logos',
@@ -37,15 +33,6 @@ export const logos2Fields: GroupField = {
           maxRows: 6,
           admin: {
             description: 'Logo images (6 required)',
-          },
-        },
-      ],
-      groups: [
-        {
-          name: 'button',
-          fields: ['label', 'url'],
-          admin: {
-            description: 'Call-to-action button',
           },
         },
       ],

@@ -1,11 +1,10 @@
-import { ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { Media } from '@/components/Media'
 import { ClientMotionDiv } from '../shared/motion'
 import { Logos2Fields } from '@/payload-types'
+import { CMSLink } from '@/components/Link'
 
 export default function Logos2({ logos }: Logos2Fields) {
-  const { title, description, logos: logoItems, button } = logos
+  const { title, description, logos: logoItems, link } = logos
 
   return (
     <section className="py-32">
@@ -15,14 +14,7 @@ export default function Logos2({ logos }: Logos2Fields) {
             <div className="w-full md:max-w-md">
               {title && <h2 className="mb-4 text-2xl font-semibold lg:text-3xl">{title}</h2>}
               {description && <p className="mb-6 text-lg">{description}</p>}
-              {button?.label && button?.url && (
-                <Button asChild>
-                  <a href={button.url} className="w-full md:w-fit">
-                    <ArrowRight className="mr-2 size-5" />
-                    {button.label}
-                  </a>
-                </Button>
-              )}
+              {link && <CMSLink {...link} />}
             </div>
           </div>
           <div className="grid grid-cols-3 border-t border-border md:border-l md:border-t-0">
@@ -36,7 +28,7 @@ export default function Logos2({ logos }: Logos2Fields) {
               >
                 <Media
                   resource={item.logo}
-                  alt={item.logo.alt}
+                  alt={typeof item.logo === 'string' ? item.logo : item.logo?.alt || 'default-alt'}
                   className="size-12 object-cover object-center sm:size-16 lg:size-24"
                   size="thumbnail"
                 />
