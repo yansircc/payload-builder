@@ -13,6 +13,7 @@ import { Feature } from '../../blocks/Feature/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { GalleryBlock } from '../../blocks/Gallery/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { Team } from '../../blocks/Team/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
@@ -88,6 +89,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 GalleryBlock,
                 Feature,
                 Contact,
+                Team,
                 FAQ,
               ],
               required: true,
