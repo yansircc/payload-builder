@@ -1,23 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { Media, TestimonialBlock } from '@/payload-types'
+import type { Media, Testimonial17Fields } from '@/payload-types'
 
 import { Avatar } from '@/components/ui/avatar'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { Media as MediaComponent } from '@/components/Media'
 import { cn } from '@/utilities/ui'
-
-type TestimonialItem = {
-  logo: Media | string
-  logoAlt: string
-  quote: string
-  authorName: string
-  authorRole?: string | null
-  authorImage?: Media | string | null
-}
-
-type Props = NonNullable<TestimonialBlock['testimonial-17']>
 
 const LogoWrapper = ({
   logo,
@@ -47,7 +36,7 @@ const LogoWrapper = ({
   )
 }
 
-export default function Testimonial17({ heading, testimonials }: Props) {
+export default function Testimonial17({ heading, testimonials }: Testimonial17Fields) {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
@@ -72,7 +61,7 @@ export default function Testimonial17({ heading, testimonials }: Props) {
           <h2 className="text-center text-3xl font-bold lg:text-left lg:text-4xl">{heading}</h2>
           <Carousel setApi={setApi} className="w-full lg:hidden">
             <CarouselContent>
-              {testimonials?.map((testimonial: TestimonialItem, index: number) => (
+              {testimonials?.map((testimonial, index: number) => (
                 <CarouselItem key={index}>
                   <div className="select-none rounded-2xl border p-8">
                     <LogoWrapper logo={testimonial.logo} logoAlt={testimonial.logoAlt} />
@@ -136,7 +125,7 @@ export default function Testimonial17({ heading, testimonials }: Props) {
               )}
             </div>
             <div className="flex flex-col gap-6">
-              {testimonials?.slice(1).map((testimonial: TestimonialItem, index: number) => (
+              {testimonials?.slice(1).map((testimonial, index: number) => (
                 <div key={index} className="rounded-2xl border p-8">
                   <LogoWrapper
                     logo={testimonial.logo}
