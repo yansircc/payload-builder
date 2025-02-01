@@ -7,6 +7,8 @@ import { z } from 'zod'
 export const logosSchemas = {
   /** Title schema */
   title: z.string().describe('The main title text'),
+  /** Description schema */
+  description: z.string().describe('The description text'),
   /** Logos array schema */
   logos: z.array(z.any()).describe('Array of logo images'),
 }
@@ -21,6 +23,13 @@ export const basicFields = {
     required: true,
     admin: {
       description: 'Main title text',
+    },
+  } as Field,
+  description: {
+    name: 'description',
+    type: 'textarea',
+    admin: {
+      description: 'Description text',
     },
   } as Field,
   uploadField: {
@@ -78,16 +87,11 @@ export function createLogosField(options: CreateLogosFieldOptions): Field {
       fields.push({
         name: group.name,
         type: 'group',
-        fields: [
-          {
-            name: 'grayscale',
-            type: 'checkbox',
-            defaultValue: false,
-            admin: {
-              description: 'Enable grayscale effect on logos',
-            },
-          },
-        ],
+        fields: group.fields.map((fieldName) => ({
+          name: fieldName,
+          type: 'text',
+          required: true,
+        })),
         admin: group.admin,
       })
     })
