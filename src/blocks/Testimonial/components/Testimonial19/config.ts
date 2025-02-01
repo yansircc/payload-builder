@@ -1,6 +1,6 @@
-import { Field, GroupField } from 'payload'
+import { GroupField } from 'payload'
 import { z } from 'zod'
-import { basicFields, testimonialSchemas } from '../shared/base-field'
+import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
 
 /**
  * Testimonial 19 field validation and type definitions
@@ -36,7 +36,7 @@ export const testimonial19Fields: GroupField = {
       admin: {
         description: 'Main heading text',
       },
-    } as Field,
+    },
     {
       name: 'subheading',
       type: 'text',
@@ -44,7 +44,7 @@ export const testimonial19Fields: GroupField = {
       admin: {
         description: 'Subheading text',
       },
-    } as Field,
+    },
     {
       name: 'statsText',
       type: 'text',
@@ -52,7 +52,7 @@ export const testimonial19Fields: GroupField = {
       admin: {
         description: 'Stats text shown with icon',
       },
-    } as Field,
+    },
     {
       name: 'viewAllLink',
       type: 'text',
@@ -60,22 +60,25 @@ export const testimonial19Fields: GroupField = {
       admin: {
         description: 'Link for "View all testimonials" button',
       },
-    } as Field,
-    {
-      type: 'array',
-      name: 'testimonials',
-      fields: [
-        basicFields.quote,
-        basicFields.authorName,
-        basicFields.authorRole,
-        basicFields.authorImage,
-        basicFields.rating,
+    },
+    ...createTestimonialField({
+      arrays: [
+        {
+          name: 'testimonials',
+          fields: [
+            basicFields.quote,
+            basicFields.authorName,
+            basicFields.authorRole,
+            basicFields.authorImage,
+            basicFields.rating,
+          ],
+          minRows: 3,
+          maxRows: 12,
+          admin: {
+            description: 'Testimonial items (3-12)',
+          },
+        },
       ],
-      minRows: 3,
-      maxRows: 12,
-      admin: {
-        description: 'Testimonial items (3-12)',
-      },
-    } as Field,
+    }).fields,
   ],
 }
