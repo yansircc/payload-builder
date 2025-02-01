@@ -3,7 +3,7 @@
 import AutoScroll from 'embla-carousel-auto-scroll'
 import { Star, Zap } from 'lucide-react'
 import { useRef } from 'react'
-import type { Media, TestimonialBlock } from '@/payload-types'
+import type { Testimonial19Fields } from '@/payload-types'
 
 import { Avatar } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
@@ -11,23 +11,13 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import { Media as MediaComponent } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
 
-type TestimonialItem = {
-  quote: string
-  authorName: string
-  authorRole?: string | null
-  authorImage?: Media | string | null
-  rating?: number | null
-}
-
-type Props = NonNullable<TestimonialBlock['testimonial-19']>
-
 export default function Testimonial19({
   heading,
   subheading,
   statsText,
   viewAll,
   testimonials,
-}: Props) {
+}: Testimonial19Fields) {
   const plugin = useRef(
     AutoScroll({
       startDelay: 500,
@@ -57,7 +47,7 @@ export default function Testimonial19({
             className="relative before:absolute before:bottom-0 before:left-0 before:top-0 before:z-10 before:w-36 before:bg-gradient-to-r before:from-background before:to-transparent after:absolute after:bottom-0 after:right-0 after:top-0 after:z-10 after:w-36 after:bg-gradient-to-l after:from-background after:to-transparent"
           >
             <CarouselContent>
-              {testimonials?.map((testimonial: TestimonialItem, index: number) => (
+              {testimonials?.map((testimonial, index: number) => (
                 <CarouselItem key={index} className="basis-auto">
                   <Card className="max-w-96 select-none p-6">
                     <div className="flex justify-between">
