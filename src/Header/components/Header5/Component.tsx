@@ -21,9 +21,10 @@ import {
 } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Header5Fields } from '@/payload-types'
+import { CMSLink } from '@/components/Link'
 
 export default function Header5({ header }: Header5Fields) {
-  const { logo, menu, title } = header
+  const { logo, menu, title, auth } = header
   return (
     <section className="py-4">
       <div className="container">
@@ -95,40 +96,57 @@ export default function Header5({ header }: Header5Fields) {
 
               <div className="flex flex-col">
                 <Accordion type="single" collapsible className="mb-2 mt-4">
-                  <AccordionItem value="solutions" className="border-none">
-                    <AccordionTrigger className="hover:no-underline">Features</AccordionTrigger>
-                    <AccordionContent>
-                      <div className="grid md:grid-cols-2">
-                        {/* {features.map((feature, index) => (
-                          <a
-                            href={feature.href}
-                            key={index}
-                            className="rounded-md p-3 transition-colors hover:bg-muted/70"
-                          >
-                            <div key={feature.title}>
-                              <p className="mb-1 font-semibold">{feature.title}</p>
-                              <p className="text-sm text-muted-foreground">{feature.description}</p>
+                  {menu?.map((menuItem) => (
+                    <AccordionItem
+                      key={menuItem.id}
+                      value={menuItem.id || ''}
+                      className="border-none"
+                    >
+                      {menuItem.subMenus && menuItem.subMenus.length > 0 ? (
+                        <>
+                          <AccordionTrigger className="hover:no-underline">
+                            {menuItem.parentLink.label}
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="grid md:grid-cols-2">
+                              {menuItem.subMenus.map((subItem) => (
+                                <a
+                                  key={subItem.id}
+                                  href={subItem.link.url || '#'}
+                                  className="rounded-md p-3 transition-colors hover:bg-muted/70"
+                                >
+                                  <div>
+                                    <p className="mb-1 font-semibold">{subItem.link.label}</p>
+                                    {subItem.description && (
+                                      <p className="text-sm text-muted-foreground">
+                                        {subItem.description}
+                                      </p>
+                                    )}
+                                  </div>
+                                </a>
+                              ))}
                             </div>
+                          </AccordionContent>
+                        </>
+                      ) : (
+                        <div className="py-2">
+                          <a href={menuItem.parentLink.url || '#'} className="font-medium">
+                            {menuItem.parentLink.label}
                           </a>
-                        ))} */}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
+                        </div>
+                      )}
+                    </AccordionItem>
+                  ))}
                 </Accordion>
-                <div className="flex flex-col gap-6">
-                  <a href="#" className="font-medium">
-                    Templates
-                  </a>
-                  <a href="#" className="font-medium">
-                    Blog
-                  </a>
-                  <a href="#" className="font-medium">
-                    Pricing
-                  </a>
-                </div>
                 <div className="mt-6 flex flex-col gap-4">
-                  <Button variant="outline">Sign in</Button>
-                  <Button>Start for free</Button>
+                  {auth?.map((linkGroup, index) => (
+                    <div key={index} className="flex flex-col gap-2">
+                      {Object.entries(linkGroup).map(
+                        ([key, link]) =>
+                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             </SheetContent>

@@ -88,28 +88,17 @@ export const header5Fields: GroupField = {
           name: 'auth',
           label: 'Auth link',
           fields: [
-            {
-              name: 'links',
-              type: 'array',
-              fields: [
-                link({
-                  name: 'link',
-                  overrides: {
-                    admin: {
-                      description: 'Auth link',
-                    },
-                    defaultValue: {
-                      appearance: 'link',
-                    },
-                  },
-                }),
-              ],
-              admin: {
-                description: 'Auth link in this column',
+            link({
+              name: 'link',
+              overrides: {
+                admin: {
+                  description: 'Auth link',
+                },
+                defaultValue: {
+                  appearance: 'link',
+                },
               },
-              minRows: 1,
-              maxRows: 2,
-            },
+            }),
           ],
           minRows: 0,
           maxRows: 2,
