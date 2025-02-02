@@ -1,0 +1,4 @@
+# If package.json changed, run bun install
+if git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep --quiet package.json; then
+  bun install
+fi 
