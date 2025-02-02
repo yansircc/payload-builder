@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# If package.json changed, run bun install
+changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
+echo "$changed_files" | grep "^package.json$" >/dev/null 2>&1
+if [ $? = 0 ]; then
+  echo "📦 package.json changed. Running bun install..."
+  bun install
+fi 

@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Extract type prefix from branch name (feat/, fix/ 等)
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+TYPE=$(echo $BRANCH_NAME | grep -Eo '^(feat|fix|docs|style|refactor|test|chore)/' | sed 's/\///')
+
+if [ ! -z "$TYPE" ]; then
+  # If commit message doesn't have type prefix, add it
+  if ! grep -q "^$TYPE:" "$(cat $1)"; then
+    echo "$TYPE: $(cat $1)" > $1
+  fi
+fi 

@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Generate types
+bun run generate:types
+
+# Run format:write first
+bun run format:write && 
+
+# Run other checks
+bun run lint && bun run typecheck
