@@ -96,10 +96,9 @@ export default function Header1({ header }: Header1Fields) {
               })}
             </div>
           </div>
-          {/* Desktop auth buttons */}
-          <div className="hidden items-center gap-4 lg:flex">
+          <div className="flex gap-2">
             {auth?.map((linkGroup, index) => (
-              <div key={index} className="flex gap-2">
+              <div key={index}>
                 {Object.entries(linkGroup).map(
                   ([key, link]) =>
                     link && typeof link === 'object' && <CMSLink key={key} {...link} />,
@@ -107,15 +106,6 @@ export default function Header1({ header }: Header1Fields) {
               </div>
             ))}
           </div>
-
-          {auth?.map((linkGroup, index) => (
-            <div key={index} className="flex gap-2">
-              {Object.entries(linkGroup).map(
-                ([key, link]) =>
-                  link && typeof link === 'object' && <CMSLink key={key} {...link} />,
-              )}
-            </div>
-          ))}
         </nav>
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
