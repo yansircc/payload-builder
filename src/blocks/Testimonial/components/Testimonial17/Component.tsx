@@ -8,28 +8,15 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/componen
 import { Media as MediaComponent } from '@/components/Media'
 import { cn } from '@/utilities/ui'
 
-const LogoWrapper = ({
-  logo,
-  logoAlt,
-  size = 'medium',
-}: {
-  logo: Media | string
-  logoAlt: string
-  size?: 'small' | 'medium' | 'large'
-}) => {
-  const sizeClasses = {
-    small: 'h-5',
-    medium: 'h-8',
-    large: 'h-10',
-  }
-
+const LogoWrapper = ({ logo, logoAlt }: { logo: Media | string; logoAlt: string }) => {
   return (
-    <div className={cn('mb-8 flex items-center justify-start', sizeClasses[size])}>
-      <div className="relative h-full w-[120px]">
+    <div className="mb-8 flex items-center justify-start">
+      <div className="relative h-10 w-[120px]">
         <MediaComponent
           resource={logo}
           alt={logoAlt}
-          className="absolute left-0 top-0 h-full w-auto object-contain object-left"
+          className="!h-10 !w-auto !object-contain !object-left"
+          imgClassName="!h-10 !w-auto !object-contain !object-left"
         />
       </div>
     </div>
@@ -101,11 +88,7 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
             <div className="rounded-2xl border p-8">
               {testimonials?.[0] && (
                 <>
-                  <LogoWrapper
-                    logo={testimonials[0].logo}
-                    logoAlt={testimonials[0].logoAlt}
-                    size="large"
-                  />
+                  <LogoWrapper logo={testimonials[0].logo} logoAlt={testimonials[0].logoAlt} />
                   <p className="mb-10 text-xl font-semibold">{testimonials[0].quote}</p>
                   <div className="mb-3 flex gap-4">
                     <Avatar className="size-12 rounded-full ring-1 ring-input">
@@ -127,11 +110,7 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
             <div className="flex flex-col gap-6">
               {testimonials?.slice(1).map((testimonial, index: number) => (
                 <div key={index} className="rounded-2xl border p-8">
-                  <LogoWrapper
-                    logo={testimonial.logo}
-                    logoAlt={testimonial.logoAlt}
-                    size={index === 0 ? 'medium' : 'small'}
-                  />
+                  <LogoWrapper logo={testimonial.logo} logoAlt={testimonial.logoAlt} />
                   <p className="mb-10 text-xl font-semibold">{testimonial.quote}</p>
                   <div className="mb-3 flex gap-4">
                     <Avatar className="size-12 rounded-full ring-1 ring-input">
