@@ -27,6 +27,7 @@ export const testimonial4Fields: GroupField = {
       name: 'featuredImage',
       type: 'upload',
       relationTo: 'media',
+      required: true,
       admin: {
         description: 'Featured image displayed in the left column',
       },
