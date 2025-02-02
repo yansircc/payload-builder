@@ -42,5 +42,12 @@ module.exports = {
     // Generated files
     'generated/',
     '*.generated.*',
+
+    // Husky
+    '.husky/',
+    '.lintstagedrc.js',
+
+    // Tailwind
+    'tailwind.config.mjs',
   ],
 }

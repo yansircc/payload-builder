@@ -1,1 +1,2 @@
-# bun test
+# Run staged files check
+bunx lint-staged
