@@ -1,0 +1,5 @@
+# Clean up unnecessary build files
+if [ -d ".next" ]; then
+  echo "🧹 Cleaning .next directory..."
+  rm -rf .next
+fi
