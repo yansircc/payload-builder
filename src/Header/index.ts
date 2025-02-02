@@ -14,20 +14,17 @@ import type { ComponentType } from 'react'
 
 // Import all Header components
 import Header1Component from './components/Header1/Component'
-// import Header3Component from './components/Header3/Component'
-// import Header4Component from './components/Header4/Component'
+import Header3Component from './components/Header3/Component'
 import Header5Component from './components/Header5/Component'
 
 // Export config
 export { header1Fields } from './components/Header1/config'
-// export { header3Fields } from './components/Header3/config'
-// export { header4Fields } from './components/Header4/config'
+export { header3Fields } from './components/Header3/config'
 export { header5Fields } from './components/Header5/config'
 
 // Export components
 export const Header1 = Header1Component
-// export const Header3 = Header3Component
-// export const Header4 = Header4Component
+export const Header3 = Header3Component
 export const Header5 = Header5Component
 
 // Define Header component props type
@@ -39,8 +36,7 @@ export const headerComponents: Record<
   ComponentType<HeaderComponentProps<any>>
 > = {
   'header-1': Header1,
-  // 'header-3': Header3,
-  // 'header-4': Header4,
+  'header-3': Header3,
   'header-5': Header5,
 }
 

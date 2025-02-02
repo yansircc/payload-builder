@@ -44,9 +44,17 @@ const basicFields: Record<string, Field> = {
     name: 'title',
     type: 'text',
     required: true,
-    admin: {
-      description: 'Header title',
-    },
+  },
+  image: {
+    name: 'image',
+    type: 'upload',
+    relationTo: 'media',
+    required: true,
+  },
+  description: {
+    name: 'description',
+    type: 'text',
+    required: true,
   },
 }
 
