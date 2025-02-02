@@ -2,6 +2,11 @@ import type { FormFieldBlock } from '@payloadcms/plugin-form-builder/types'
 
 export const buildInitialFormState = (fields: FormFieldBlock[]) => {
   return fields?.reduce((initialSchema, field) => {
+    // 如果字段没有 name 属性，跳过
+    if (!('name' in field)) {
+      return initialSchema
+    }
+
     if (field.blockType === 'checkbox') {
       return {
         ...initialSchema,
@@ -38,6 +43,16 @@ export const buildInitialFormState = (fields: FormFieldBlock[]) => {
         [field.name]: '',
       }
     }
-    throw new Error('invalid blocktype')
+    if (field.blockType === 'textarea') {
+      return {
+        ...initialSchema,
+        [field.name]: '',
+      }
+    }
+    // Provide default empty string value for unknown block types
+    return {
+      ...initialSchema,
+      [field.name]: '',
+    }
   }, {})
 }
