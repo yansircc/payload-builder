@@ -31,10 +31,7 @@ export default function Testimonial6({ testimonials, title }: Testimonial6Fields
                     <div className="mt-6 flex gap-4 leading-5">
                       <Avatar className="size-9 rounded-full ring-1 ring-input">
                         {testimonial.authorImage ? (
-                          <Media
-                            resource={testimonial.authorImage}
-                            className="size-full object-cover"
-                          />
+                          <Media resource={testimonial.authorImage} />
                         ) : (
                           <AvatarImage
                             src="https://shadcnblocks.com/images/block/avatar-1.webp"
