@@ -4,7 +4,7 @@ import type { Testimonial15Fields } from '@/payload-types'
 
 import { Avatar } from '@/components/ui/avatar'
 import { CMSLink } from '@/components/Link'
-import { Media as MediaComponent } from '@/components/Media'
+import { Media } from '@/components/Media'
 
 export default function Testimonial15({
   title,
@@ -28,7 +28,7 @@ export default function Testimonial15({
                   key={idx}
                   className="relative flex h-8 w-32 items-center justify-center overflow-hidden sm:h-11"
                 >
-                  <MediaComponent
+                  <Media
                     resource={logo.image}
                     className="max-h-full w-auto object-contain"
                     alt={logo.altText || 'Company logo'}
@@ -55,7 +55,7 @@ export default function Testimonial15({
                 >
                   <Avatar className="size-9 rounded-full ring-1 ring-input">
                     {testimonial.authorImage && (
-                      <MediaComponent
+                      <Media
                         resource={testimonial.authorImage}
                         className="size-full object-cover"
                       />

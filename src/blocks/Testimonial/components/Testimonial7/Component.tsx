@@ -7,7 +7,7 @@ import type { Testimonial7Fields } from '@/payload-types'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media as MediaComponent } from '@/components/Media'
+import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
 
 export default function Testimonial7({
@@ -58,7 +58,7 @@ export default function Testimonial7({
                     <div className="mb-4 flex gap-4">
                       <Avatar className="size-9 rounded-full ring-1 ring-input">
                         {testimonial.authorImage ? (
-                          <MediaComponent
+                          <Media
                             resource={testimonial.authorImage}
                             className="size-full object-cover"
                           />
@@ -96,7 +96,7 @@ export default function Testimonial7({
                     <div className="mb-4 flex gap-4">
                       <Avatar className="size-9 rounded-full ring-1 ring-input">
                         {testimonial.authorImage ? (
-                          <MediaComponent
+                          <Media
                             resource={testimonial.authorImage}
                             className="size-full object-cover"
                           />

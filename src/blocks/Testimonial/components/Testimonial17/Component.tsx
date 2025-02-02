@@ -1,18 +1,21 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { Media, Testimonial17Fields } from '@/payload-types'
+import type { Testimonial17Fields } from '@/payload-types'
 
 import { Avatar } from '@/components/ui/avatar'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media as MediaComponent } from '@/components/Media'
+import { Media } from '@/components/Media'
 import { cn } from '@/utilities/ui'
 
-const LogoWrapper = ({ logo, logoAlt }: { logo: Media | string; logoAlt: string }) => {
+const LogoWrapper = ({
+  logo,
+  logoAlt,
+}: Pick<NonNullable<Testimonial17Fields['testimonials']>[number], 'logo' | 'logoAlt'>) => {
   return (
     <div className="mb-8 flex items-center justify-start">
       <div className="relative h-10 w-[120px]">
-        <MediaComponent
+        <Media
           resource={logo}
           alt={logoAlt}
           className="!h-10 !w-auto !object-contain !object-left"
@@ -56,7 +59,7 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                     <div className="mb-3 flex gap-4">
                       <Avatar className="size-12 rounded-full ring-1 ring-input">
                         {testimonial.authorImage && (
-                          <MediaComponent
+                          <Media
                             resource={testimonial.authorImage}
                             className="size-12 rounded-full object-cover"
                           />
@@ -93,7 +96,7 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                   <div className="mb-3 flex gap-4">
                     <Avatar className="size-12 rounded-full ring-1 ring-input">
                       {testimonials[0].authorImage && (
-                        <MediaComponent
+                        <Media
                           resource={testimonials[0].authorImage}
                           className="size-12 rounded-full object-cover"
                         />
@@ -115,7 +118,7 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                   <div className="mb-3 flex gap-4">
                     <Avatar className="size-12 rounded-full ring-1 ring-input">
                       {testimonial.authorImage && (
-                        <MediaComponent
+                        <Media
                           resource={testimonial.authorImage}
                           className="size-12 rounded-full object-cover"
                         />

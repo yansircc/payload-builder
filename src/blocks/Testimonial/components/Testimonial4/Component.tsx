@@ -4,7 +4,7 @@ import type { Testimonial4Fields } from '@/payload-types'
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Media as MediaComponent } from '@/components/Media'
+import { Media } from '@/components/Media'
 import Image from 'next/image'
 
 export default function Testimonial4({ testimonials, featuredImage }: Testimonial4Fields) {
@@ -23,7 +23,7 @@ export default function Testimonial4({ testimonials, featuredImage }: Testimonia
         <div className="flex flex-col gap-6">
           <div className="grid grid-cols-1 items-stretch gap-x-0 gap-y-4 lg:grid-cols-3 lg:gap-4">
             {featuredImage ? (
-              <MediaComponent
+              <Media
                 resource={featuredImage}
                 className="h-72 w-full rounded-md object-cover lg:h-auto"
               />
@@ -63,7 +63,7 @@ export default function Testimonial4({ testimonials, featuredImage }: Testimonia
                   <div className="flex gap-4 leading-5">
                     <Avatar className="size-9 rounded-full ring-1 ring-input">
                       {testimonial.authorImage ? (
-                        <MediaComponent
+                        <Media
                           resource={testimonial.authorImage}
                           className="size-full object-cover"
                         />

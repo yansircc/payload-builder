@@ -8,7 +8,7 @@ import type { Testimonial19Fields } from '@/payload-types'
 import { Avatar } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media as MediaComponent } from '@/components/Media'
+import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
 
 export default function Testimonial19({
@@ -54,7 +54,7 @@ export default function Testimonial19({
                       <div className="mb-4 flex gap-4">
                         <Avatar className="size-14 rounded-full ring-1 ring-input">
                           {testimonial.authorImage && (
-                            <MediaComponent
+                            <Media
                               resource={testimonial.authorImage}
                               className="size-14 rounded-full object-cover"
                             />
