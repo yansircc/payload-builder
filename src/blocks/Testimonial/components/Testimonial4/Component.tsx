@@ -1,5 +1,3 @@
-'use client'
-
 import type { Testimonial4Fields } from '@/payload-types'
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar'

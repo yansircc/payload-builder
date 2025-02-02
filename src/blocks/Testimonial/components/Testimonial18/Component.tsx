@@ -1,5 +1,3 @@
-'use client'
-
 import { Star, Zap } from 'lucide-react'
 import { Avatar } from '@/components/ui/avatar'
 import { Media } from '@/components/Media'
