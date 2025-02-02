@@ -16,6 +16,14 @@ const eslintConfig = [
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-empty-object-type': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/explicit-function-return-type': [
+        'error',
+        {
+          allowExpressions: false,
+          allowTypedFunctionExpressions: false,
+        },
+      ],
+      '@typescript-eslint/explicit-module-boundary-types': 'error',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
@@ -29,6 +37,44 @@ const eslintConfig = [
         },
       ],
     },
+    ignorePatterns: [
+      // Build outputs
+      '.next/',
+      'dist/',
+      'build/',
+      'out/',
+
+      // Dependencies
+      'node_modules/',
+
+      // Config files
+      '*.config.js',
+      '*.config.ts',
+      'next-env.d.ts',
+
+      // Other
+      '.vercel/',
+      '.coverage/',
+      '*.log',
+      '.git/',
+      '.husky/',
+      '.vscode/',
+      'tsconfig.json',
+
+      // Public assets
+      'public/',
+
+      // Generated files
+      'generated/',
+      '*.generated.*',
+
+      // Husky
+      '.husky/',
+      '.lintstagedrc.js',
+
+      // Tailwind
+      'tailwind.config.mjs',
+    ],
   },
 ]
 
