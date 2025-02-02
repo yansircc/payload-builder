@@ -41,6 +41,7 @@ export const testimonial4Fields: GroupField = {
             basicFields.authorRole,
             basicFields.authorImage,
           ],
+          required: true,
           minRows: 4,
           maxRows: 4,
           admin: {

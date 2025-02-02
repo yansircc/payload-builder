@@ -5,15 +5,19 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Media } from '@/components/Media'
 import Image from 'next/image'
 
-export default function Testimonial4({ testimonials, featuredImage }: Testimonial4Fields) {
-  if (!testimonials?.length || testimonials.length < 4) {
-    return null
-  }
+type TestimonialItem = Testimonial4Fields['testimonials'][number]
 
-  // Get the first testimonial as featured
-  const featuredTestimonial = testimonials[0]
-  // Get the rest of the testimonials for the grid
-  const gridTestimonials = testimonials.slice(1, 4)
+function assertValidTestimonials(
+  testimonials: Testimonial4Fields['testimonials'],
+): asserts testimonials is [TestimonialItem, TestimonialItem, TestimonialItem, TestimonialItem] {
+  if (!testimonials || !Array.isArray(testimonials) || testimonials.length !== 4) {
+    throw new Error('Testimonial4 requires exactly 4 testimonials')
+  }
+}
+
+export default function Testimonial4({ testimonials, featuredImage }: Testimonial4Fields) {
+  assertValidTestimonials(testimonials)
+  const [featuredTestimonial, ...gridTestimonials] = testimonials
 
   return (
     <section className="py-32">
@@ -37,17 +41,13 @@ export default function Testimonial4({ testimonials, featuredImage }: Testimonia
             )}
             <Card className="col-span-2 flex items-center justify-center p-6">
               <div className="flex flex-col gap-4">
-                {featuredTestimonial && (
-                  <>
-                    <q className="text-xl font-medium lg:text-3xl">{featuredTestimonial.quote}</q>
-                    <div className="flex flex-col items-start">
-                      <p>{featuredTestimonial.authorName}</p>
-                      {featuredTestimonial.authorRole && (
-                        <p className="text-muted-foreground">{featuredTestimonial.authorRole}</p>
-                      )}
-                    </div>
-                  </>
-                )}
+                <q className="text-xl font-medium lg:text-3xl">{featuredTestimonial.quote}</q>
+                <div className="flex flex-col items-start">
+                  <p>{featuredTestimonial.authorName}</p>
+                  {featuredTestimonial.authorRole && (
+                    <p className="text-muted-foreground">{featuredTestimonial.authorRole}</p>
+                  )}
+                </div>
               </div>
             </Card>
           </div>

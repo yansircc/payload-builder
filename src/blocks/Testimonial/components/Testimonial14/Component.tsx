@@ -28,10 +28,6 @@ export default function Testimonial14({ testimonials }: Testimonial14Fields) {
     }
   }, [api])
 
-  if (!testimonials?.length) {
-    return null
-  }
-
   return (
     <section className="py-32">
       <Carousel setApi={setApi}>

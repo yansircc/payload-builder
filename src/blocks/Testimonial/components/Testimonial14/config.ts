@@ -37,6 +37,7 @@ export const testimonial14Fields: GroupField = {
           ],
           minRows: 1,
           maxRows: 10,
+          required: true,
           admin: {
             description: 'Testimonial items (1-10)',
           },
