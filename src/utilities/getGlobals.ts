@@ -1,4 +1,4 @@
-import type { Config } from 'src/payload-types'
+import type { Config, Footer, Header } from 'src/payload-types'
 
 import configPromise from '@payload-config'
 import { unstable_cache } from 'next/cache'
@@ -29,14 +29,14 @@ export const getCachedGlobal = (slug: Global, depth = 0) =>
  * Retrieves the footer global configuration with populated relationships
  * @returns The footer configuration with populated relationships
  */
-export async function getFooter(depth = 2) {
-  return getGlobal('footer', depth)
+export async function getFooter(depth = 2): Promise<Footer> {
+  return getGlobal('footer', depth) as Promise<Footer>
 }
 
 /**
  * Retrieves the header global configuration with populated relationships
  * @returns The header configuration with populated relationships
  */
-export async function getHeader(depth = 2) {
-  return getGlobal('header', depth)
+export async function getHeader(depth = 2): Promise<Header> {
+  return getGlobal('header', depth) as Promise<Header>
 }
