@@ -3,7 +3,7 @@ import { ClientMotionDiv } from '../shared/motion'
 import { Logos1Fields } from '@/payload-types'
 
 export default function Logos1({ logos }: Logos1Fields) {
-  const { title, logos: logoItems, settings } = logos
+  const { title, logos: logoItems } = logos
 
   return (
     <section className="container flex flex-wrap items-center justify-between gap-12 py-32">
@@ -17,9 +17,7 @@ export default function Logos1({ logos }: Logos1Fields) {
         </ClientMotionDiv>
       )}
 
-      <div
-        className={`flex flex-wrap items-center gap-x-8 gap-y-6 opacity-70 lg:gap-[60px] ${settings?.grayscale ? 'grayscale' : ''}`}
-      >
+      <div className="flex flex-wrap items-center gap-x-8 gap-y-6 opacity-70 grayscale hover:grayscale-0 transition-all duration-300 lg:gap-[60px]">
         {logoItems?.map((item, index) => (
           <ClientMotionDiv
             key={item.id}

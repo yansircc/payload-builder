@@ -34,15 +34,6 @@ export const logos1Fields: GroupField = {
           },
         },
       ],
-      groups: [
-        {
-          name: 'settings',
-          fields: ['grayscale'],
-          admin: {
-            description: 'Logos display settings',
-          },
-        },
-      ],
     }),
   ],
 }
