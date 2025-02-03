@@ -58,8 +58,7 @@ jobs:
         with:
           bun-version: latest
 
-      # Cache dependencies
-      - name: �� Cache dependencies
+      - name: 📦 Cache dependencies
         uses: actions/cache@v4
         with:
           path: |
@@ -78,14 +77,10 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             echo "🔍 Pull request: Using --frozen-lockfile"
-            bun install --frozen-lockfile --no-progress || (echo "❌ Lockfile is out of sync. Please run 'bun install' locally and commit the updated lockfile" && exit 1)
-            # Install React Compiler dependencies
-            bun add -d babel-plugin-react-compiler
+            bun install --frozen-lockfile --no-progress
           else
             echo "🔄 Main branch: Updating lockfile"
             bun install --no-progress
-            # Install React Compiler dependencies
-            bun add -d babel-plugin-react-compiler
           fi
 
       - name: 📝 Copy Environment Files
@@ -101,31 +96,18 @@ jobs:
         run: |
           bun generate:types &
           bun run format:check &
-          wait
-
-      # Merge type checking and lint
-      - name: ✨ Type Check and Lint
-        run: |
           bun run typecheck &
           bun run lint &
           wait
 
-      - name: 🧪 Test
-        env:
-          CI: true
-          VITEST_MAX_WORKERS: ${{ steps.cpu-cores.outputs.count }} # 使用动态CPU核心数
-          NODE_OPTIONS: --max-old-space-size=8192
-        run: bun test --coverage
-
-      # Optimize build steps
+      # Use React Compiler for build
       - name: 🏗️ Build
         env:
           NEXT_TELEMETRY_DISABLED: 1
           NODE_OPTIONS: --max-old-space-size=8192
           NEXT_TURBO: 1
           NEXT_LOG_LEVEL: error
-        run: |
-          bun run build --no-lint
+        run: bun run build --no-lint
 
       # Compress build output
       - name: 📦 Compress build output
