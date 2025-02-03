@@ -46,30 +46,28 @@ export default function Header1({ header }: Header1Fields) {
                           </NavigationMenuTrigger>
                           <NavigationMenuContent>
                             <ul className="w-80 p-3">
-                              <NavigationMenuLink>
-                                {menuItem.subMenu.map((subItem, idx) => (
-                                  <li key={idx}>
-                                    <a
-                                      className={cn(
-                                        'flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-                                      )}
-                                      href={subItem.link.url || ''}
-                                    >
-                                      {subItem?.link?.prefixIcon && (
-                                        <DynamicIcon name={subItem.link.prefixIcon} />
-                                      )}
-                                      <div>
-                                        <div className="text-sm font-semibold">
-                                          {subItem.link.label}
-                                        </div>
-                                        <p className="text-sm leading-snug text-muted-foreground">
-                                          {subItem.description}
-                                        </p>
+                              {menuItem.subMenu.map((subItem, idx) => (
+                                <li key={idx}>
+                                  <NavigationMenuLink
+                                    className={cn(
+                                      'flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+                                    )}
+                                    href={subItem.link.url || ''}
+                                  >
+                                    {subItem?.link?.prefixIcon && (
+                                      <DynamicIcon name={subItem.link.prefixIcon} />
+                                    )}
+                                    <div>
+                                      <div className="text-sm font-semibold">
+                                        {subItem.link.label}
                                       </div>
-                                    </a>
-                                  </li>
-                                ))}
-                              </NavigationMenuLink>
+                                      <p className="text-sm leading-snug text-muted-foreground">
+                                        {subItem.description}
+                                      </p>
+                                    </div>
+                                  </NavigationMenuLink>
+                                </li>
+                              ))}
                             </ul>
                           </NavigationMenuContent>
                         </NavigationMenuItem>
