@@ -1,2 +1,20 @@
+# Store GPG_TTY
+export GPG_TTY=$(tty)
+
+echo "🔍 Checking lockfile consistency..."
+# Check if package.json and bun.lockb are in sync
+bun install --dry-run --frozen-lockfile >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+  echo "❌ Lockfile is out of sync with package.json"
+  echo "👉 Please run 'bun install' and commit the changes"
+  exit 1
+fi
+
 # Run staged files check
-bunx lint-staged
+echo "🔍 Running pre-commit checks..."
+bunx lint-staged --debug
+
+# Export GPG_TTY for git commit signing
+if [ -t 1 ]; then
+  export GPG_TTY=$(tty)
+fi
