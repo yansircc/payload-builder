@@ -8803,10 +8803,10 @@ export interface Header1Fields {
           id?: string | null;
         }[]
       | null;
-    auth?:
+    rightSideLinks?:
       | {
           /**
-           * Auth link
+           * Right side link
            */
           link: {
             type?: ('reference' | 'custom') | null;
@@ -9297,10 +9297,10 @@ export interface Header5Fields {
           id?: string | null;
         }[]
       | null;
-    auth?:
+    rightSideLinks?:
       | {
           /**
-           * Auth link
+           * Right side link
            */
           link: {
             type?: ('reference' | 'custom') | null;
@@ -10706,7 +10706,7 @@ export interface Header1FieldsSelect<T extends boolean = true> {
                   };
               id?: T;
             };
-        auth?:
+        rightSideLinks?:
           | T
           | {
               link?:
@@ -10996,7 +10996,7 @@ export interface Header5FieldsSelect<T extends boolean = true> {
                   };
               id?: T;
             };
-        auth?:
+        rightSideLinks?:
           | T
           | {
               link?:

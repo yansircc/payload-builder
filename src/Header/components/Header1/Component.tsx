@@ -24,9 +24,9 @@ import { Media } from '@/components/Media'
 import { DynamicIcon } from '@/components/DynamicIcon'
 
 export default function Header1({ header }: Header1Fields) {
-  const { logo, menu, title, auth } = header
+  const { logo, menu, title, rightSideLinks } = header
   return (
-    <section className="py-4">
+    <section className="py-4 z-50">
       <div className="container">
         <nav className="hidden justify-between lg:flex">
           <div className="flex items-center gap-6">
@@ -95,7 +95,7 @@ export default function Header1({ header }: Header1Fields) {
             </div>
           </div>
           <div className="flex gap-2">
-            {auth?.map((linkGroup, index) => (
+            {rightSideLinks?.map((linkGroup, index) => (
               <div key={index}>
                 {Object.entries(linkGroup).map(
                   ([key, link]) =>
@@ -177,7 +177,7 @@ export default function Header1({ header }: Header1Fields) {
                 </div>
                 <div className="border-t py-4"></div>
                 <div className="flex flex-col gap-3">
-                  {auth?.map((linkGroup, index) => (
+                  {rightSideLinks?.map((linkGroup, index) => (
                     <div key={index} className="flex flex-col gap-2">
                       {Object.entries(linkGroup).map(
                         ([key, link]) =>

@@ -85,14 +85,14 @@ export const header1Fields: GroupField = {
           maxRows: 5,
         },
         {
-          name: 'auth',
-          label: 'Auth link',
+          name: 'rightSideLinks',
+          label: 'Right side link',
           fields: [
             link({
               name: 'link',
               overrides: {
                 admin: {
-                  description: 'Auth link',
+                  description: 'Right side link',
                 },
               },
             }),

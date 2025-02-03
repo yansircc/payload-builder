@@ -24,9 +24,9 @@ import { Header5Fields } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 
 export default function Header5({ header }: Header5Fields) {
-  const { logo, menu, title, auth } = header
+  const { logo, menu, title, rightSideLinks } = header
   return (
-    <section className="py-4">
+    <section className="py-4 z-50">
       <div className="container">
         <nav className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -74,9 +74,15 @@ export default function Header5({ header }: Header5Fields) {
               ))}
             </NavigationMenuList>
           </NavigationMenu>
-          <div className="hidden items-center gap-4 lg:flex">
-            <Button variant="outline">Sign in</Button>
-            <Button>Start for free</Button>
+          <div className="flex gap-2">
+            {rightSideLinks?.map((linkGroup, index) => (
+              <div key={index} className="hidden items-center gap-4 lg:flex">
+                {Object.entries(linkGroup).map(
+                  ([key, link]) =>
+                    link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                )}
+              </div>
+            ))}
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
@@ -139,7 +145,7 @@ export default function Header5({ header }: Header5Fields) {
                   ))}
                 </Accordion>
                 <div className="mt-6 flex flex-col gap-4">
-                  {auth?.map((linkGroup, index) => (
+                  {rightSideLinks?.map((linkGroup, index) => (
                     <div key={index} className="flex flex-col gap-2">
                       {Object.entries(linkGroup).map(
                         ([key, link]) =>
