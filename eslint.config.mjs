@@ -10,12 +10,55 @@ const compat = new FlatCompat({
 })
 
 const eslintConfig = [
+  {
+    // 全局忽略模式需要放在配置的最前面
+    ignores: [
+      // Build outputs
+      '.next/**',
+      'dist/**',
+      'build/**',
+      'out/**',
+
+      // Dependencies
+      'node_modules/**',
+
+      // Config files
+      '*.config.js',
+      '*.config.ts',
+      'next-env.d.ts',
+
+      // Other
+      '.vercel/**',
+      '.coverage/**',
+      '*.log',
+      '.git/**',
+      '.husky/**',
+      '.vscode/**',
+      'tsconfig.json',
+
+      // Public assets
+      'public/**',
+
+      // Generated files
+      'generated/**',
+      '*.generated.*',
+
+      // Husky
+      '.husky/**',
+      '.lintstagedrc.js',
+
+      // Tailwind
+      'tailwind.config.mjs',
+    ],
+  },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
     rules: {
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-empty-object-type': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {

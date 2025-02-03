@@ -1,0 +1,16 @@
+# Clean up unnecessary build files
+if [ -d ".next" ]; then
+  echo "🧹 Cleaning .next directory..."
+  rm -rf .next
+fi
+
+# Check if a branch was switched (not a file checkout)
+if [ $3 -eq 1 ]; then
+  echo "🔄 Branch changed, checking dependencies..."
+
+  # Check if package.json or bun.lockb has changed
+  if git diff --name-only $1 $2 | grep -E "package.json|bun.lockb" >/dev/null; then
+    echo "📦 Dependencies changed. Running bun install..."
+    bun install
+  fi
+fi

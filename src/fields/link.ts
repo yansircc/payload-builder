@@ -22,22 +22,39 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
     value: 'link',
   },
 }
-
+type LinkUIEnhancements = {
+  image?: boolean
+  title?: boolean
+  subtitle?: boolean
+  description?: boolean
+  icons?: boolean
+}
 type LinkType = (options?: {
   name?: string
+  label?: string
   appearances?: LinkAppearances[] | false
   disableLabel?: boolean
+  ui?: LinkUIEnhancements
   overrides?: Partial<GroupField>
 }) => Field
 
 export const link: LinkType = ({
   name = 'link',
+  label,
   appearances,
   disableLabel = false,
+  ui = {
+    image: false,
+    title: false,
+    subtitle: false,
+    description: false,
+    icons: true,
+  },
   overrides = {},
 } = {}) => {
   const linkResult: GroupField = {
     name: name,
+    label: label,
     type: 'group',
     admin: {
       hideGutter: true,
@@ -158,28 +175,95 @@ export const link: LinkType = ({
     })
   }
 
-  // Add icon fields
-  linkResult.fields.push({
-    type: 'row',
-    fields: [
-      {
-        name: 'prefixIcon',
-        type: 'text',
-        admin: {
-          description: 'Optional: Lucide icon name for prefix (e.g., "ArrowLeft")',
-          width: '50%',
+  if (ui.icons) {
+    // Add icon fields
+    linkResult.fields.push({
+      type: 'row',
+      fields: [
+        {
+          name: 'prefixIcon',
+          type: 'text',
+          admin: {
+            description: 'Optional: Lucide icon name for prefix (e.g., "ArrowLeft")',
+            width: '50%',
+          },
         },
-      },
-      {
-        name: 'suffixIcon',
-        type: 'text',
-        admin: {
-          description: 'Optional: Lucide icon name for suffix (e.g., "ArrowRight")',
-          width: '50%',
+        {
+          name: 'suffixIcon',
+          type: 'text',
+          admin: {
+            description: 'Optional: Lucide icon name for suffix (e.g., "ArrowRight")',
+            width: '50%',
+          },
         },
-      },
-    ],
-  })
+      ],
+    })
+  }
+
+  if (ui.image) {
+    // Add image link
+    linkResult.fields.push({
+      type: 'row',
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description: 'Image URL for the link',
+          },
+        },
+      ],
+    })
+  }
+
+  if (ui.title) {
+    // Add image link
+    linkResult.fields.push({
+      type: 'row',
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          admin: {
+            description: 'Title for the link',
+          },
+        },
+      ],
+    })
+  }
+
+  if (ui.subtitle) {
+    // Add image link
+    linkResult.fields.push({
+      type: 'row',
+      fields: [
+        {
+          name: 'subtitle',
+          type: 'text',
+          admin: {
+            description: 'Subtitle for the link',
+          },
+        },
+      ],
+    })
+  }
+
+  if (ui.description) {
+    // Add image link
+    linkResult.fields.push({
+      type: 'row',
+      fields: [
+        {
+          name: 'description',
+          type: 'textarea',
+          admin: {
+            description: 'Description for the link',
+          },
+        },
+      ],
+    })
+  }
 
   if (rowFields.length > 0) {
     linkResult.fields.push({
