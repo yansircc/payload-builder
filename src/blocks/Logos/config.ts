@@ -2,6 +2,7 @@ import { Block } from 'payload'
 import { logos1Fields } from './components/Logos1/config'
 import { logos2Fields } from './components/Logos2/config'
 import { logos3Fields } from './components/Logos3/config'
+import { logos8Fields } from './components/Logos8/config'
 
 export const LogosBlock: Block = {
   slug: 'logos',
@@ -28,6 +29,10 @@ export const LogosBlock: Block = {
           label: 'Logos 3',
           value: 'logos-3',
         },
+        {
+          label: 'Logos 8',
+          value: 'logos-8',
+        },
       ],
     },
     {
@@ -46,6 +51,12 @@ export const LogosBlock: Block = {
       ...logos3Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'logos-3',
+      },
+    },
+    {
+      ...logos8Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'logos-8',
       },
     },
   ],
