@@ -11,7 +11,8 @@ import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
-import { Users } from './collections/Users'
+import { Tenants } from './collections/Tenants'
+import Users from './collections/Users'
 import { Footer } from './Footer/config'
 import { ApiKey } from './globals/api-keys'
 import { Header } from './Header/config'
@@ -63,7 +64,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || false,
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Categories, Users, Tenants],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, ApiKey],
   plugins: [

@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
 import { slugField } from '@/fields/slug'
 import { HeroField } from '@/heros/config'
-import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
@@ -13,8 +13,8 @@ import { Feature } from '../../blocks/Feature/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { GalleryBlock } from '../../blocks/Gallery/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { TestimonialBlock } from '../../blocks/Testimonial/config'
 import { Team } from '../../blocks/Team/config'
+import { TestimonialBlock } from '../../blocks/Testimonial/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
@@ -30,10 +30,10 @@ import {
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
   access: {
-    create: authenticated,
-    delete: authenticated,
+    create: superAdminOrTenantAdminAccess,
+    delete: superAdminOrTenantAdminAccess,
     read: authenticatedOrPublished,
-    update: authenticated,
+    update: superAdminOrTenantAdminAccess,
   },
   // This config controls what's populated by default when a page is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property

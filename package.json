@@ -36,6 +36,7 @@
     "@payloadcms/next": "3.20.0",
     "@payloadcms/payload-cloud": "3.20.0",
     "@payloadcms/plugin-form-builder": "3.20.0",
+    "@payloadcms/plugin-multi-tenant": "^3.20.0",
     "@payloadcms/plugin-nested-docs": "3.20.0",
     "@payloadcms/plugin-redirects": "3.20.0",
     "@payloadcms/plugin-search": "3.20.0",

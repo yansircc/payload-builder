@@ -105,16 +105,16 @@ export const seed = async ({
     financeCategory,
     designCategory,
     softwareCategory,
-    engineeringCategory,
+    // engineeringCategory,
   ] = await Promise.all([
-    payload.create({
-      collection: 'users',
-      data: {
-        name: 'Demo Author',
-        email: 'demo-author@example.com',
-        password: 'password',
-      },
-    }),
+    // payload.create({
+    //   collection: 'users',
+    //   data: {
+    //     usernam: 'demo',
+    //     email: 'demo-author@example.com',
+    //     password: 'password',
+    //   },
+    // }),
     payload.create({
       collection: 'media',
       data: image1,
