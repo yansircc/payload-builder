@@ -79,9 +79,13 @@ jobs:
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             echo "🔍 Pull request: Using --frozen-lockfile"
             bun install --frozen-lockfile --no-progress || (echo "❌ Lockfile is out of sync. Please run 'bun install' locally and commit the updated lockfile" && exit 1)
+            # Install React Compiler dependencies
+            bun add -d babel-plugin-react-compiler
           else
             echo "🔄 Main branch: Updating lockfile"
             bun install --no-progress
+            # Install React Compiler dependencies
+            bun add -d babel-plugin-react-compiler
           fi
 
       - name: 📝 Copy Environment Files
