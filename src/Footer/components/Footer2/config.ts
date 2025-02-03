@@ -34,7 +34,7 @@ export const footer2Fields: GroupField = {
       groups: [
         {
           name: 'rightLinks',
-          label: 'Right Links',
+          label: 'Right side',
           fields: ['links'],
           arrays: [
             {

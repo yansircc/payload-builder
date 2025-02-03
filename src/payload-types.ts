@@ -8702,9 +8702,196 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: string;
-  navItems?:
+  style?: ('header-1' | 'header-3' | 'header-5') | null;
+  'header-1'?: Header1Fields;
+  'header-3'?: Header3Fields;
+  'header-5'?: Header5Fields;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header1Fields".
+ */
+export interface Header1Fields {
+  /**
+   * Header fields
+   */
+  header: {
+    /**
+     * Header logo
+     */
+    logo: string | Media;
+    title: string;
+    /**
+     * Header navigation columns
+     */
+    menu?:
+      | {
+          /**
+           * Parent link
+           */
+          parentLink: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
+          /**
+           * Links in this column
+           */
+          subMenu?:
+            | {
+                /**
+                 * Navigation link
+                 */
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                  /**
+                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+                   */
+                  prefixIcon?: string | null;
+                  /**
+                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+                   */
+                  suffixIcon?: string | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                };
+                /**
+                 * Description for this sub menu
+                 */
+                description: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    rightSideLinks?:
+      | {
+          /**
+           * Right side link
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header3Fields".
+ */
+export interface Header3Fields {
+  /**
+   * Header fields
+   */
+  header: {
+    /**
+     * Header logo
+     */
+    logo: string | Media;
+    rightLinks?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  menu?:
     | {
-        link: {
+        /**
+         * Menu
+         */
+        parentMenu: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
           reference?:
@@ -8726,12 +8913,426 @@ export interface Header {
            * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
            */
           suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+        };
+        submenu?: {
+          style?: ('style-1' | 'style-2' | 'style-3' | 'style-4') | null;
+          style1Config?: {
+            leftSection?: {
+              link?: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null);
+                url?: string | null;
+                /**
+                 * Image URL for the link
+                 */
+                image?: (string | null) | Media;
+                /**
+                 * Title for the link
+                 */
+                title?: string | null;
+                /**
+                 * Description for the link
+                 */
+                description?: string | null;
+                /**
+                 * Choose how the link should be rendered.
+                 */
+                appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              };
+            };
+            rightSection: {
+              title: string;
+              links?:
+                | {
+                    link?: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      /**
+                       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+                       */
+                      prefixIcon?: string | null;
+                      /**
+                       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+                       */
+                      suffixIcon?: string | null;
+                      /**
+                       * Title for the link
+                       */
+                      title?: string | null;
+                      /**
+                       * Description for the link
+                       */
+                      description?: string | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+          };
+          style2Config?: {
+            leftSection: {
+              title: string;
+              links?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                      /**
+                       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+                       */
+                      prefixIcon?: string | null;
+                      /**
+                       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+                       */
+                      suffixIcon?: string | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            rightSection?: {
+              link?: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null);
+                url?: string | null;
+                /**
+                 * Image URL for the link
+                 */
+                image?: (string | null) | Media;
+                /**
+                 * Title for the link
+                 */
+                title?: string | null;
+                /**
+                 * Subtitle for the link
+                 */
+                subtitle?: string | null;
+                /**
+                 * Description for the link
+                 */
+                description?: string | null;
+              };
+            };
+          };
+          style3Config?: {
+            leftSection: {
+              title: string;
+              description: string;
+              links?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            rightSection?: {
+              links?:
+                | {
+                    link?: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      /**
+                       * Image URL for the link
+                       */
+                      image?: (string | null) | Media;
+                      /**
+                       * Title for the link
+                       */
+                      title?: string | null;
+                      /**
+                       * Description for the link
+                       */
+                      description?: string | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+          };
+          style4Config?: {
+            leftSection: {
+              title: string;
+              links?:
+                | {
+                    link?: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      /**
+                       * Title for the link
+                       */
+                      title?: string | null;
+                      /**
+                       * Description for the link
+                       */
+                      description?: string | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            rightSection: {
+              title: string;
+              links?:
+                | {
+                    link?: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      /**
+                       * Image URL for the link
+                       */
+                      image?: (string | null) | Media;
+                      /**
+                       * Title for the link
+                       */
+                      title?: string | null;
+                      /**
+                       * Description for the link
+                       */
+                      description?: string | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+          };
         };
         id?: string | null;
       }[]
     | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header5Fields".
+ */
+export interface Header5Fields {
+  /**
+   * Header fields
+   */
+  header: {
+    /**
+     * Header logo
+     */
+    logo: string | Media;
+    title: string;
+    /**
+     * Header navigation columns
+     */
+    menu?:
+      | {
+          /**
+           * Parent link
+           */
+          parentLink: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
+          /**
+           * Links in this column
+           */
+          subMenus?:
+            | {
+                /**
+                 * Navigation link
+                 */
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                  /**
+                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+                   */
+                  prefixIcon?: string | null;
+                  /**
+                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+                   */
+                  suffixIcon?: string | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                };
+                /**
+                 * Description for this sub menu
+                 */
+                description: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    rightSideLinks?:
+      | {
+          /**
+           * Right side link
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -10052,10 +10653,109 @@ export interface ApiKey {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
-  navItems?:
+  style?: T;
+  'header-1'?: T | Header1FieldsSelect<T>;
+  'header-3'?: T | Header3FieldsSelect<T>;
+  'header-5'?: T | Header5FieldsSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header1Fields_select".
+ */
+export interface Header1FieldsSelect<T extends boolean = true> {
+  header?:
     | T
     | {
-        link?:
+        logo?: T;
+        title?: T;
+        menu?:
+          | T
+          | {
+              parentLink?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              subMenu?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          prefixIcon?: T;
+                          suffixIcon?: T;
+                          appearance?: T;
+                        };
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        rightSideLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header3Fields_select".
+ */
+export interface Header3FieldsSelect<T extends boolean = true> {
+  header?:
+    | T
+    | {
+        logo?: T;
+        rightLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+      };
+  menu?:
+    | T
+    | {
+        parentMenu?:
           | T
           | {
               type?: T;
@@ -10065,12 +10765,255 @@ export interface HeaderSelect<T extends boolean = true> {
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
+              appearance?: T;
+            };
+        submenu?:
+          | T
+          | {
+              style?: T;
+              style1Config?:
+                | T
+                | {
+                    leftSection?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                image?: T;
+                                title?: T;
+                                description?: T;
+                                appearance?: T;
+                              };
+                        };
+                    rightSection?:
+                      | T
+                      | {
+                          title?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      prefixIcon?: T;
+                                      suffixIcon?: T;
+                                      title?: T;
+                                      description?: T;
+                                      appearance?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                  };
+              style2Config?:
+                | T
+                | {
+                    leftSection?:
+                      | T
+                      | {
+                          title?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                      prefixIcon?: T;
+                                      suffixIcon?: T;
+                                      appearance?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    rightSection?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                image?: T;
+                                title?: T;
+                                subtitle?: T;
+                                description?: T;
+                              };
+                        };
+                  };
+              style3Config?:
+                | T
+                | {
+                    leftSection?:
+                      | T
+                      | {
+                          title?: T;
+                          description?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                      appearance?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    rightSection?:
+                      | T
+                      | {
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      image?: T;
+                                      title?: T;
+                                      description?: T;
+                                      appearance?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                  };
+              style4Config?:
+                | T
+                | {
+                    leftSection?:
+                      | T
+                      | {
+                          title?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      title?: T;
+                                      description?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    rightSection?:
+                      | T
+                      | {
+                          title?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      image?: T;
+                                      title?: T;
+                                      description?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                  };
             };
         id?: T;
       };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header5Fields_select".
+ */
+export interface Header5FieldsSelect<T extends boolean = true> {
+  header?:
+    | T
+    | {
+        logo?: T;
+        title?: T;
+        menu?:
+          | T
+          | {
+              parentLink?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              subMenus?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          prefixIcon?: T;
+                          suffixIcon?: T;
+                          appearance?: T;
+                        };
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        rightSideLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -15,4 +15,7 @@ export default {
   '*.{json,mdx}': (files) => {
     return [`bun run format:write ${files.join(' ')}`]
   },
+
+  // 明确忽略 tsbuildinfo 文件
+  '!tsconfig.tsbuildinfo': [],
 }
