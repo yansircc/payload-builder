@@ -7,7 +7,7 @@ import type { Hero5Fields } from '@/payload-types'
 
 export default function Hero5({ hero }: Hero5Fields) {
   const { title, subtitle, links, image } = hero
-  const link = links?.[0].link
+  const link = links?.[0]?.link
 
   return (
     <section className="overflow-hidden py-32">

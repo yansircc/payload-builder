@@ -1,7 +1,7 @@
 'use client'
 
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer } from 'react'
 
 import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'
@@ -17,24 +17,57 @@ interface GalleryItem {
   title: string
   description: string
   href: string
-  image: any // This should match your Media type
+  image: any
+}
+
+interface CarouselState {
+  carouselApi: CarouselApi | undefined
+  canScrollPrev: boolean
+  canScrollNext: boolean
+}
+
+type CarouselAction =
+  | { type: 'SET_API'; payload: CarouselApi }
+  | { type: 'UPDATE_NAVIGATION'; payload: { canScrollPrev: boolean; canScrollNext: boolean } }
+
+function carouselReducer(state: CarouselState, action: CarouselAction): CarouselState {
+  switch (action.type) {
+    case 'SET_API':
+      return {
+        ...state,
+        carouselApi: action.payload,
+      }
+    case 'UPDATE_NAVIGATION':
+      return {
+        ...state,
+        canScrollPrev: action.payload.canScrollPrev,
+        canScrollNext: action.payload.canScrollNext,
+      }
+    default:
+      return state
+  }
 }
 
 export default function Gallery4({ gallery }: Props) {
-  if (!gallery?.items?.length) return null
+  const [state, dispatch] = useReducer(carouselReducer, {
+    carouselApi: undefined,
+    canScrollPrev: false,
+    canScrollNext: false,
+  })
 
-  const [carouselApi, setCarouselApi] = useState<CarouselApi>()
-  const [canScrollPrev, setCanScrollPrev] = useState(false)
-  const [canScrollNext, setCanScrollNext] = useState(false)
+  const { carouselApi, canScrollPrev, canScrollNext } = state
 
   useEffect(() => {
-    if (!carouselApi) {
-      return
-    }
+    if (!carouselApi) return
 
     const updateSelection = () => {
-      setCanScrollPrev(carouselApi.canScrollPrev())
-      setCanScrollNext(carouselApi.canScrollNext())
+      dispatch({
+        type: 'UPDATE_NAVIGATION',
+        payload: {
+          canScrollPrev: carouselApi.canScrollPrev(),
+          canScrollNext: carouselApi.canScrollNext(),
+        },
+      })
     }
 
     updateSelection()
@@ -43,6 +76,8 @@ export default function Gallery4({ gallery }: Props) {
       carouselApi.off('select', updateSelection)
     }
   }, [carouselApi])
+
+  if (!gallery?.items?.length) return null
 
   return (
     <section className="py-32">
@@ -77,7 +112,7 @@ export default function Gallery4({ gallery }: Props) {
       </div>
       <div className="w-full">
         <Carousel
-          setApi={setCarouselApi}
+          setApi={(api) => dispatch({ type: 'SET_API', payload: api })}
           opts={{
             breakpoints: {
               '(max-width: 768px)': {
