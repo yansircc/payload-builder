@@ -4,7 +4,6 @@ import type { FormEvent } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 
-import './index.scss'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
