@@ -1,2 +1,11 @@
+# Temporarily store GPG_TTY
+export GPG_TTY=$(tty)
+
 # Run staged files check
+echo "🔍 Running pre-commit checks..."
 bunx lint-staged
+
+# Export GPG_TTY for git commit signing
+if [ -t 1 ]; then
+  export GPG_TTY=$(tty)
+fi

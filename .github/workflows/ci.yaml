@@ -3,11 +3,25 @@ name: CI
 on:
   push:
     branches: [main, develop]
+    # Only trigger on relevant file changes
+    paths:
+      - '**.js'
+      - '**.jsx'
+      - '**.ts'
+      - '**.tsx'
+      - 'package.json'
+      - 'bun.lockb'
+      - '.github/workflows/**'
   pull_request:
     branches: [main, develop]
 
+# Prevent concurrent builds and cancel outdated ones
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
-  contents: read # Minimum permissions, only for checking out code
+  contents: read
 
 jobs:
   build:
@@ -15,7 +29,20 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.9.0] # According to the engines configuration in package.json
+        node-version: [20.9.0]
+      # Enable fast failure for faster feedback
+      fail-fast: true
+
+    services:
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd mongosh
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout
@@ -31,6 +58,7 @@ jobs:
         with:
           bun-version: latest
 
+      # Cache dependencies
       - name: Cache dependencies
         uses: actions/cache@v4
         with:
@@ -41,13 +69,30 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-bun-
 
+      # Cache Next.js build
+      - name: Cache Next.js build
+        id: next-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/*.{js,jsx,ts,tsx}') }}-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-
+
       - name: Install Dependencies
         run: bun install
 
       - name: Copy Environment Files
         run: |
           cp .env.example .env
+          echo "DATABASE_URL=mongodb://localhost:27017/try_payload" >> .env
+          echo "PAYLOAD_SECRET=test-secret-for-ci-environment" >> .env
           echo "NEXT_PUBLIC_SERVER_URL=http://localhost:3000" >> .env
+          echo "CRON_SECRET=test-cron-secret-for-ci" >> .env
+
+      - name: Generate Payload CMS Types
+        run: bun generate:types
 
       - name: Format Check
         run: bun run format:check
@@ -58,8 +103,32 @@ jobs:
       - name: Lint
         run: bun run lint
 
-      # - name: Test
-      #   run: bun test
+      - name: Test
+        env:
+          CI: true
+          # Enable parallel test execution
+          VITEST_MAX_WORKERS: 2
+        run: bun test
 
-      # - name: Build Check
-      #   run: bun run build
+      # Optimize build step with increased memory and telemetry disabled
+      - name: Build Check
+        id: build
+        env:
+          NODE_OPTIONS: --no-deprecation --max-old-space-size=4096
+          NEXT_TELEMETRY_DISABLED: 1
+          PAYLOAD_TELEMETRY_DISABLED: 1
+        run: bun run build
+
+      # Upload build artifact for main branch
+      - name: Upload build artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: .next
+          retention-days: 7
+
+      # Log cache status
+      - name: Log cache hit
+        if: steps.next-cache.outputs.cache-hit == 'true'
+        run: echo "Cache hit! Using cached Next.js build"

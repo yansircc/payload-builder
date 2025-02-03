@@ -1,0 +1,7 @@
+[gpg]
+    program = gpg
+[commit]
+    gpgsign = true
+[user]
+    # Make sure to use --global when setting these
+    signingkey = 2465A8BF13923DF9B4948A6619155ECDE5AB6ADA
