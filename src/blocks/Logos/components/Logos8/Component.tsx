@@ -45,7 +45,7 @@ export default function Logos8({ logos }: Logos8Props) {
                 <Media
                   resource={logo.logo}
                   alt={logo.name}
-                  className={logo.className || 'h-7 w-auto'}
+                  className={`${logo.className || 'max-h-12 max-w-[120px] object-contain object-center'}`}
                   size="thumbnail"
                 />
               </ClientMotionDiv>
