@@ -80,6 +80,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-
 
+      # Add cache status log
+      - name: Log cache status
+        run: |
+          if [ "${{ steps.next-cache.outputs.cache-hit }}" = "true" ]; then
+            echo "✅ Cache hit! Using cached Next.js build"
+          else
+            echo "📦 Cache miss. Will create new cache after build"
+          fi
+
       - name: Install Dependencies
         run: bun install
 
@@ -110,14 +119,19 @@ jobs:
           VITEST_MAX_WORKERS: 2
         run: bun test
 
-      # Optimize build step with increased memory and telemetry disabled
+      # Build with cache status awareness
       - name: Build Check
         id: build
         env:
           NODE_OPTIONS: --no-deprecation --max-old-space-size=4096
           NEXT_TELEMETRY_DISABLED: 1
-          PAYLOAD_TELEMETRY_DISABLED: 1
-        run: bun run build
+        run: |
+          if [ "${{ steps.next-cache.outputs.cache-hit }}" = "true" ]; then
+            echo "Using cached build files"
+          else
+            echo "Creating fresh build"
+          fi
+          bun run build
 
       # Upload build artifact for main branch
       - name: Upload build artifact
@@ -127,8 +141,3 @@ jobs:
           name: build-output
           path: .next
           retention-days: 7
-
-      # Log cache status
-      - name: Log cache hit
-        if: steps.next-cache.outputs.cache-hit == 'true'
-        run: echo "Cache hit! Using cached Next.js build"

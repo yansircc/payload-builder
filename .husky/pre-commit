@@ -3,7 +3,7 @@ export GPG_TTY=$(tty)
 
 # Run staged files check
 echo "🔍 Running pre-commit checks..."
-bunx lint-staged
+bunx lint-staged --debug
 
 # Export GPG_TTY for git commit signing
 if [ -t 1 ]; then
