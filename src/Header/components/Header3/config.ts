@@ -39,7 +39,7 @@ export const header3Fields: GroupField = {
       arrays: [
         {
           name: 'rightLinks',
-          label: 'Right links',
+          label: 'Right side',
           fields: [
             link({
               name: 'link',
@@ -72,7 +72,6 @@ export const header3Fields: GroupField = {
               name: 'style',
               type: 'select',
               required: false,
-              defaultValue: 'none',
               options: [
                 {
                   label: 'Style 1',

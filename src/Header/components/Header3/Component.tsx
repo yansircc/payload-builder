@@ -7,6 +7,7 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
+  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
@@ -19,6 +20,7 @@ import { Media } from '@/components/Media'
 import Link from 'next/link'
 import { CMSLink } from '@/components/Link'
 import renderMobileSubmenu from './utils/renderMobileSubmenu'
+import { cn } from '@/utilities/ui'
 
 export default function Header3({ header, menu }: Header3Fields) {
   const { logo, rightLinks } = header
@@ -44,17 +46,30 @@ export default function Header3({ header, menu }: Header3Fields) {
               )}
             </div>
             <NavigationMenuList className="hidden lg:flex">
-              {menu?.map((item) => (
-                <NavigationMenuItem key={item.id}>
-                  <NavigationMenuTrigger>{item.parentMenu.label}</NavigationMenuTrigger>
-                  <NavigationMenuContent className="min-w-[calc(100vw-4rem)] p-12 2xl:min-w-[calc(1400px-4rem)]">
-                    {item.submenu?.style === 'style-1' && <Style1 data={item.submenu} />}
-                    {item.submenu?.style === 'style-2' && <Style2 data={item.submenu} />}
-                    {item.submenu?.style === 'style-3' && <Style3 data={item.submenu} />}
-                    {item.submenu?.style === 'style-4' && <Style4 data={item.submenu} />}
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              ))}
+              {menu?.map((item) =>
+                item.submenu?.style ? (
+                  <NavigationMenuItem key={item.id}>
+                    <NavigationMenuTrigger>{item.parentMenu.label}</NavigationMenuTrigger>
+                    <NavigationMenuContent className="min-w-[calc(100vw-4rem)] p-12 2xl:min-w-[calc(1400px-4rem)]">
+                      {item.submenu?.style === 'style-1' && <Style1 data={item.submenu} />}
+                      {item.submenu?.style === 'style-2' && <Style2 data={item.submenu} />}
+                      {item.submenu?.style === 'style-3' && <Style3 data={item.submenu} />}
+                      {item.submenu?.style === 'style-4' && <Style4 data={item.submenu} />}
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                ) : (
+                  <NavigationMenuItem key={item.id}>
+                    <NavigationMenuLink
+                      className={cn(
+                        'flex text-sm font-medium select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+                      )}
+                      href={item.parentMenu.url || ''}
+                    >
+                      {item.parentMenu.label}
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                ),
+              )}
             </NavigationMenuList>
             <div className="hidden items-center gap-4 lg:flex">
               {rightLinks?.map((linkGroup, index) => (
