@@ -1,35 +1,13 @@
 'use client'
 
 import { CircleArrowRight, Files, Settings } from 'lucide-react'
-import type { Media as MediaType } from '@/payload-types'
+import type { About1Fields } from '@/payload-types'
 import { Media } from '@/components/Media'
 
 interface Feature {
   icon: 'Files' | 'CircleArrowRight' | 'Settings'
   title: string
   description: string
-}
-
-interface About1Fields {
-  mainSection: {
-    title: string
-    description: string
-  }
-  missionSection: {
-    label: string
-    description: string
-  }
-  featuresSection: {
-    title: string
-    description: string
-    features: Feature[]
-  }
-  teamSection: {
-    label: string
-    title: string
-    image: MediaType
-    description: string
-  }
 }
 
 const ICON_MAP = {
@@ -54,7 +32,7 @@ export default function About1({
 
         <div className="grid gap-6 md:grid-cols-2">
           <Media
-            resource={teamSection.image}
+            resource={teamSection.media}
             className="size-full max-h-96 rounded-2xl object-cover"
           />
           <div className="flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10">
@@ -69,7 +47,7 @@ export default function About1({
             <p className="text-muted-foreground">{featuresSection.description}</p>
           </div>
           <div className="grid gap-10 md:grid-cols-3">
-            {featuresSection.features.map((feature: Feature, index: number) => {
+            {featuresSection.features?.map((feature: Feature, index: number) => {
               const Icon = ICON_MAP[feature.icon]
               return (
                 <div key={index} className="flex flex-col">
@@ -91,7 +69,7 @@ export default function About1({
           </div>
           <div>
             <Media
-              resource={teamSection.image}
+              resource={teamSection.media}
               className="mb-6 max-h-36 w-full rounded-xl object-cover"
             />
             <p className="text-muted-foreground">{teamSection.description}</p>
