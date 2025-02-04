@@ -14,6 +14,9 @@ interface TweetContentProps {
 }
 
 const TweetContent = ({ content, isCollapsed }: TweetContentProps) => {
+  // Split content by Twitter handles (@username)
+  const parts = content.split(/(@\w+)/)
+
   return (
     <p
       className={cn(
@@ -21,7 +24,23 @@ const TweetContent = ({ content, isCollapsed }: TweetContentProps) => {
         isCollapsed ? 'line-clamp-1 text-base font-medium md:text-xl' : 'text-sm',
       )}
     >
-      {content}
+      {parts.map((part, index) => {
+        // Check if part is a Twitter handle
+        if (part.match(/^@\w+$/)) {
+          return (
+            <a
+              key={index}
+              href={`https://x.com/${part}`}
+              className="mx-1 text-blue-600 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {part}
+            </a>
+          )
+        }
+        return part
+      })}
     </p>
   )
 }
