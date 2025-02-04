@@ -93,8 +93,8 @@ export const Login = ({ tenantSlug, tenantDomain }: Props) => {
             <form onSubmit={handleSubmit}>
               <div className="grid gap-4">
                 <div className="grid w-full max-w-sm items-center gap-1.5">
-                  <Label htmlFor="email">Username</Label>
-                  <Input type="text" placeholder="Enter your username" required ref={usernameRef} />
+                  <Label htmlFor="email">Email</Label>
+                  <Input type="text" placeholder="Enter your email" required ref={usernameRef} />
                 </div>
                 <div>
                   <div className="grid w-full max-w-sm items-center gap-1.5">
