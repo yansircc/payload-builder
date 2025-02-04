@@ -107,6 +107,7 @@ export interface Page {
     | ContactBlock
     | TeamBlock
     | FAQBlock
+    | LogosBlock
   )[];
   meta?: {
     title?: string | null;
@@ -5583,6 +5584,166 @@ export interface FAQ6Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogosBlock".
+ */
+export interface LogosBlock {
+  style?: ('logos-1' | 'logos-2' | 'logos-3' | 'logos-8') | null;
+  'logos-1'?: Logos1Fields;
+  'logos-2'?: Logos2Fields;
+  'logos-3'?: Logos3Fields;
+  'logos-8'?: Logos8Fields;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'logos';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos1Fields".
+ */
+export interface Logos1Fields {
+  /**
+   * Logos fields
+   */
+  logos: {
+    /**
+     * Main title text
+     */
+    title: string;
+    /**
+     * Logo images (1-5)
+     */
+    logos?:
+      | {
+          /**
+           * Logo image
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos2Fields".
+ */
+export interface Logos2Fields {
+  /**
+   * Logos fields
+   */
+  logos: {
+    /**
+     * Main title text
+     */
+    title: string;
+    /**
+     * Description text
+     */
+    description?: string | null;
+    /**
+     * Button link
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+       */
+      prefixIcon?: string | null;
+      /**
+       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+       */
+      suffixIcon?: string | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    };
+    /**
+     * Logo images (6 required)
+     */
+    logos?:
+      | {
+          /**
+           * Logo image
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos3Fields".
+ */
+export interface Logos3Fields {
+  /**
+   * Logos fields
+   */
+  logos: {
+    /**
+     * Main title text
+     */
+    title: string;
+    /**
+     * Logo images (7-12)
+     */
+    logos?:
+      | {
+          /**
+           * Logo image
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos8Fields".
+ */
+export interface Logos8Fields {
+  /**
+   * Logos fields
+   */
+  logos: {
+    /**
+     * Main title text
+     */
+    title: string;
+    /**
+     * Description text
+     */
+    description?: string | null;
+    /**
+     * Logo images (1-12)
+     */
+    logos?:
+      | {
+          /**
+           * Logo image
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -5856,6 +6017,7 @@ export interface PagesSelect<T extends boolean = true> {
         contact?: T | ContactBlockSelect<T>;
         team?: T | TeamBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
+        logos?: T | LogosBlockSelect<T>;
       };
   meta?:
     | T
@@ -8370,6 +8532,101 @@ export interface FAQ6FieldsSelect<T extends boolean = true> {
           | {
               question?: T;
               answer?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogosBlock_select".
+ */
+export interface LogosBlockSelect<T extends boolean = true> {
+  style?: T;
+  'logos-1'?: T | Logos1FieldsSelect<T>;
+  'logos-2'?: T | Logos2FieldsSelect<T>;
+  'logos-3'?: T | Logos3FieldsSelect<T>;
+  'logos-8'?: T | Logos8FieldsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos1Fields_select".
+ */
+export interface Logos1FieldsSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        title?: T;
+        logos?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos2Fields_select".
+ */
+export interface Logos2FieldsSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+        logos?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos3Fields_select".
+ */
+export interface Logos3FieldsSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        title?: T;
+        logos?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos8Fields_select".
+ */
+export interface Logos8FieldsSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        logos?:
+          | T
+          | {
+              logo?: T;
               id?: T;
             };
       };
