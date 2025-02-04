@@ -31,9 +31,13 @@ export default function Testimonial18({
           <q className="text-2xl font-semibold md:text-4xl">{quote}</q>
           <p className="mt-6 text-muted-foreground">{description}</p>
           <div className="mt-6 flex gap-4">
-            <Avatar className="size-14 rounded-full ring-1 ring-input">
+            <Avatar className="size-14 rounded-full ring-1 ring-input overflow-hidden">
               {authorImage && (
-                <Media resource={authorImage} className="size-14 rounded-full object-cover" />
+                <Media
+                  resource={authorImage}
+                  imgClassName="aspect-square size-full object-cover object-center"
+                  className="!block size-full"
+                />
               )}
             </Avatar>
             <div>

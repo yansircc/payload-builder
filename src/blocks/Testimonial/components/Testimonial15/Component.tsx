@@ -26,11 +26,7 @@ export default function Testimonial15({
                   key={idx}
                   className="relative flex h-8 w-32 items-center justify-center overflow-hidden sm:h-11"
                 >
-                  <Media
-                    resource={logo.image}
-                    className="max-h-full w-auto object-contain"
-                    alt={logo.altText || 'Company logo'}
-                  />
+                  <Media resource={logo.image} className="max-h-full w-auto object-contain" />
                 </div>
               ))}
             </div>
@@ -51,11 +47,12 @@ export default function Testimonial15({
                         : 'rounded-xl bg-background p-6'
                   }`}
                 >
-                  <Avatar className="size-9 rounded-full ring-1 ring-input">
+                  <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
                     {testimonial.authorImage && (
                       <Media
                         resource={testimonial.authorImage}
-                        className="size-full object-cover"
+                        imgClassName="aspect-square size-full object-cover object-center"
+                        className="!block size-full"
                       />
                     )}
                   </Avatar>

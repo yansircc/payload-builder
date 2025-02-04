@@ -47,11 +47,12 @@ export default function Testimonial4({ testimonials, featuredImage }: Testimonia
                 </CardContent>
                 <CardFooter>
                   <div className="flex gap-4 leading-5">
-                    <Avatar className="size-9 rounded-full ring-1 ring-input">
+                    <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
                       {testimonial.authorImage ? (
                         <Media
                           resource={testimonial.authorImage}
-                          className="size-full object-cover"
+                          imgClassName="aspect-square size-full object-cover object-center"
+                          className="!block size-full"
                         />
                       ) : (
                         <AvatarImage

@@ -56,11 +56,12 @@ export default function Testimonial7({
                 <CarouselItem key={index} className="basis-auto">
                   <Card className="max-w-96 select-none p-6">
                     <div className="mb-4 flex gap-4">
-                      <Avatar className="size-9 rounded-full ring-1 ring-input">
+                      <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
                         {testimonial.authorImage ? (
                           <Media
                             resource={testimonial.authorImage}
-                            className="size-full object-cover"
+                            imgClassName="aspect-square size-full object-cover object-center"
+                            className="!block size-full"
                           />
                         ) : (
                           <AvatarImage
@@ -94,11 +95,12 @@ export default function Testimonial7({
                 <CarouselItem key={index} className="basis-auto">
                   <Card className="max-w-96 select-none p-6">
                     <div className="mb-4 flex gap-4">
-                      <Avatar className="size-9 rounded-full ring-1 ring-input">
+                      <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
                         {testimonial.authorImage ? (
                           <Media
                             resource={testimonial.authorImage}
-                            className="size-full object-cover"
+                            imgClassName="aspect-square size-full object-cover object-center"
+                            className="!block size-full"
                           />
                         ) : (
                           <AvatarImage

@@ -3727,10 +3727,6 @@ export interface Testimonial15Fields {
            * Company logo image
            */
           image: string | Media;
-          /**
-           * Alternative text for the logo image
-           */
-          altText?: string | null;
           id?: string | null;
         }[]
       | null;
@@ -3790,18 +3786,6 @@ export interface Testimonial16Fields {
          * Full testimonial content
          */
         content: string;
-        /**
-         * Short excerpt of the testimonial (shown in collapsed view)
-         */
-        excerpt: string;
-        /**
-         * Optional link in the testimonial
-         */
-        link?: string | null;
-        /**
-         * Optional link text (e.g., @company)
-         */
-        linkText?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -7633,7 +7617,6 @@ export interface Testimonial15FieldsSelect<T extends boolean = true> {
           | T
           | {
               image?: T;
-              altText?: T;
               id?: T;
             };
       };
@@ -7660,9 +7643,6 @@ export interface Testimonial16FieldsSelect<T extends boolean = true> {
         authorImage?: T;
         tag?: T;
         content?: T;
-        excerpt?: T;
-        link?: T;
-        linkText?: T;
         id?: T;
       };
 }

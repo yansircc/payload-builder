@@ -14,9 +14,6 @@ export const schemas = {
       tag: z.string().describe('Social media tag/handle'),
       authorImage: testimonialSchemas.authorImage,
       content: z.string().describe('Full testimonial content'),
-      excerpt: z.string().describe('Short excerpt of the testimonial'),
-      link: z.string().optional().describe('Optional link in the testimonial'),
-      linkText: z.string().optional().describe('Optional link text'),
     }),
   ),
 }
@@ -37,28 +34,6 @@ const tweetFields: Field[] = [
     required: true,
     admin: {
       description: 'Full testimonial content',
-    },
-  },
-  {
-    name: 'excerpt',
-    type: 'textarea',
-    required: true,
-    admin: {
-      description: 'Short excerpt of the testimonial (shown in collapsed view)',
-    },
-  },
-  {
-    name: 'link',
-    type: 'text',
-    admin: {
-      description: 'Optional link in the testimonial',
-    },
-  },
-  {
-    name: 'linkText',
-    type: 'text',
-    admin: {
-      description: 'Optional link text (e.g., @company)',
     },
   },
 ]

@@ -10,46 +10,37 @@ import { Media } from '@/components/Media'
 
 interface TweetContentProps {
   content: string
-  link?: string | null
-  linkText?: string | null
+  isCollapsed?: boolean
 }
 
-interface TweetExcerptProps {
-  excerpt: string
-  link?: string | null
-  linkText?: string | null
-}
+const TweetContent = ({ content, isCollapsed }: TweetContentProps) => {
+  // Split content by Twitter handles (@username)
+  const parts = content.split(/(@\w+)/)
 
-const TweetContent = ({ content, link, linkText }: TweetContentProps) => {
-  if (!link || !linkText) {
-    return <p className="text-sm text-muted-foreground">{content}</p>
-  }
-
-  const parts = content.split(linkText)
   return (
-    <p className="text-sm text-muted-foreground">
-      {parts[0]}
-      <a href={link} className="mx-1 text-blue-600">
-        {linkText}
-      </a>
-      {parts[1]}
-    </p>
-  )
-}
-
-const TweetExcerpt = ({ excerpt, link, linkText }: TweetExcerptProps) => {
-  if (!link || !linkText) {
-    return <p className="line-clamp-1 font-medium md:text-xl">{excerpt}</p>
-  }
-
-  const parts = excerpt.split(linkText)
-  return (
-    <p className="line-clamp-1 font-medium md:text-xl">
-      {parts[0]}
-      <a href={link} className="mx-1 text-blue-600">
-        {linkText}
-      </a>
-      {parts[1]}
+    <p
+      className={cn(
+        'text-muted-foreground',
+        isCollapsed ? 'line-clamp-1 text-base font-medium md:text-xl' : 'text-sm',
+      )}
+    >
+      {parts.map((part, index) => {
+        // Check if part is a Twitter handle
+        if (part.match(/^@\w+$/)) {
+          return (
+            <a
+              key={index}
+              href={`https://x.com/${part}`}
+              className="mx-1 text-blue-600 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {part}
+            </a>
+          )
+        }
+        return part
+      })}
     </p>
   )
 }
@@ -100,11 +91,7 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                               <p className="text-muted-foreground">{tweet.tag}</p>
                             </div>
                           </div>
-                          <TweetContent
-                            content={tweet.content}
-                            link={tweet.link}
-                            linkText={tweet.linkText}
-                          />
+                          <TweetContent content={tweet.content} isCollapsed={false} />
                         </div>
                       ) : (
                         <div className="py-4 transition-colors hover:bg-muted">
@@ -120,11 +107,7 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                               <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
                             </Avatar>
                             <div>
-                              <TweetExcerpt
-                                excerpt={tweet.excerpt}
-                                link={tweet.link}
-                                linkText={tweet.linkText}
-                              />
+                              <TweetContent content={tweet.content} isCollapsed={true} />
                             </div>
                           </div>
                         </div>
