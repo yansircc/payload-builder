@@ -28,7 +28,7 @@ export default function Logos2({ logos }: Logos2Fields) {
               >
                 <Media
                   resource={item.logo}
-                  alt={typeof item.logo === 'string' ? item.logo : item.logo?.alt || 'default-alt'}
+                  alt={`Logo ${index + 1}`}
                   className="size-12 object-cover object-center sm:size-16 lg:size-24"
                   size="thumbnail"
                 />
