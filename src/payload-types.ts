@@ -5617,6 +5617,9 @@ export interface LogosBlock {
  * via the `definition` "Logos1Fields".
  */
 export interface Logos1Fields {
+  /**
+   * Logos fields
+   */
   logos: {
     /**
      * Main title text
@@ -5641,6 +5644,9 @@ export interface Logos1Fields {
  * via the `definition` "Logos2Fields".
  */
 export interface Logos2Fields {
+  /**
+   * Logos fields
+   */
   logos: {
     /**
      * Main title text
@@ -5699,6 +5705,9 @@ export interface Logos2Fields {
  * via the `definition` "Logos3Fields".
  */
 export interface Logos3Fields {
+  /**
+   * Logos fields
+   */
   logos: {
     /**
      * Main title text
@@ -5723,6 +5732,9 @@ export interface Logos3Fields {
  * via the `definition` "Logos8Fields".
  */
 export interface Logos8Fields {
+  /**
+   * Logos fields
+   */
   logos: {
     /**
      * Main title text
