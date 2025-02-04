@@ -5705,7 +5705,7 @@ export interface Logos3Fields {
      */
     title: string;
     /**
-     * Logo images (1-12)
+     * Logo images (7-12)
      */
     logos?:
       | {

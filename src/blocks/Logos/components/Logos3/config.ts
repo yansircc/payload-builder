@@ -37,10 +37,10 @@ export const logos3Fields: GroupField = {
               },
             },
           ],
-          minRows: 1,
+          minRows: 7,
           maxRows: 12,
           admin: {
-            description: 'Logo images (1-12)',
+            description: 'Logo images (7-12)',
           },
         },
       ],
