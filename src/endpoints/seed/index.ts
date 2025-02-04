@@ -107,14 +107,15 @@ export const seed = async ({
     softwareCategory,
     // engineeringCategory,
   ] = await Promise.all([
-    // payload.create({
-    //   collection: 'users',
-    //   data: {
-    //     usernam: 'demo',
-    //     email: 'demo-author@example.com',
-    //     password: 'password',
-    //   },
-    // }),
+    payload.create({
+      collection: 'users',
+      data: {
+        username: 'demo',
+        email: 'demo-author@example.com',
+        password: 'password',
+        roles: ['super-admin'],
+      },
+    }),
 
     payload.create({
       collection: 'media',
@@ -299,77 +300,6 @@ export const seed = async ({
     },
   })
 
-  payload.logger.info(`— Seeding contact form...`)
-
-  const contactForm = await payload.create({
-    collection: 'forms',
-    depth: 0,
-    data: JSON.parse(JSON.stringify(contactFormData)),
-  })
-
-  let contactFormID: number | string = contactForm.id
-
-  if (payload.db.defaultIDType === 'text') {
-    contactFormID = `"${contactFormID}"`
-  }
-
-  payload.logger.info(`— Seeding pages...`)
-
-  const [_, contactPage] = await Promise.all([
-    payload.create({
-      collection: 'pages',
-      depth: 0,
-      data: JSON.parse(
-        JSON.stringify(home)
-          .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
-          .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
-      ),
-    }),
-    payload.create({
-      collection: 'pages',
-      depth: 0,
-      data: JSON.parse(
-        JSON.stringify(contactPageData).replace(
-          /"\{\{CONTACT_FORM_ID\}\}"/g,
-          String(contactFormID),
-        ),
-      ),
-    }),
-  ])
-
-  payload.logger.info(`— Seeding globals...`)
-
-  await Promise.all([
-    payload.updateGlobal({
-      slug: 'header',
-      data: {
-        navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Posts',
-              url: '/posts',
-            },
-          },
-          {
-            link: {
-              type: 'reference',
-              label: 'Contact',
-              reference: {
-                relationTo: 'pages',
-                value: contactPage.id,
-              },
-            },
-          },
-        ],
-      },
-    }),
-    payload.updateGlobal({
-      slug: 'footer',
-      data: footer,
-    }),
-  ])
-
   payload.logger.info(`— Seeding tenants and users...`)
   // Create super admin
   await payload.create({
@@ -457,27 +387,101 @@ export const seed = async ({
   await Promise.all([
     payload.create({
       collection: 'pages',
-      data: JSON.parse(
-        JSON.stringify(home)
-          .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
-          .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
-      ),
+      data: {
+        ...JSON.parse(
+          JSON.stringify(home)
+            .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
+            .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
+        ),
+        tenant: tenant1.id,
+      },
     }),
     payload.create({
       collection: 'pages',
-      data: JSON.parse(
-        JSON.stringify(home)
-          .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
-          .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
-      ),
+      data: {
+        ...JSON.parse(
+          JSON.stringify(home)
+            .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
+            .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
+        ),
+        tenant: tenant2.id,
+      },
     }),
     payload.create({
       collection: 'pages',
-      data: JSON.parse(
-        JSON.stringify(home)
-          .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
-          .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
-      ),
+      data: {
+        ...JSON.parse(
+          JSON.stringify(home)
+            .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
+            .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
+        ),
+        tenant: tenant3.id,
+      },
+    }),
+  ])
+
+  payload.logger.info(`— Seeding contact form...`)
+
+  const contactForm = await payload.create({
+    collection: 'forms',
+    depth: 0,
+    data: JSON.parse(JSON.stringify(contactFormData)),
+  })
+
+  let contactFormID: number | string = contactForm.id
+
+  if (payload.db.defaultIDType === 'text') {
+    contactFormID = `"${contactFormID}"`
+  }
+
+  payload.logger.info(`— Seeding pages...`)
+
+  const [contactPage] = await Promise.all([
+    payload.create({
+      collection: 'pages',
+      depth: 0,
+      data: {
+        ...JSON.parse(
+          JSON.stringify(contactPageData).replace(
+            /"\{\{CONTACT_FORM_ID\}\}"/g,
+            String(contactFormID),
+          ),
+        ),
+        tenant: tenant1.id,
+      },
+    }),
+  ])
+
+  payload.logger.info(`— Seeding globals...`)
+
+  await Promise.all([
+    payload.updateGlobal({
+      slug: 'header',
+      data: {
+        navItems: [
+          {
+            link: {
+              type: 'custom',
+              label: 'Posts',
+              url: '/posts',
+            },
+          },
+          {
+            link: {
+              type: 'reference',
+              label: 'Contact',
+              reference: {
+                relationTo: 'pages',
+                value: contactPage.id,
+              },
+            },
+          },
+        ],
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'footer',
+      data: footer,
     }),
   ])
 
