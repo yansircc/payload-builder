@@ -1,5 +1,5 @@
 import { GroupField } from 'payload'
-import { createLogosField, logosSchemas } from '../shared/base-field'
+import { basicFields, createLogosField, logosSchemas } from '../shared/base-field'
 
 /**
  * Logos8 field validation and type definitions
@@ -27,38 +27,7 @@ export const logos8Fields: GroupField = {
       arrays: [
         {
           name: 'logos',
-          fields: [
-            {
-              name: 'logo',
-              type: 'group',
-              fields: [
-                {
-                  name: 'name',
-                  type: 'text',
-                  required: true,
-                  admin: {
-                    description: 'Logo name',
-                  },
-                },
-                {
-                  name: 'image',
-                  type: 'upload',
-                  relationTo: 'media',
-                  required: true,
-                  admin: {
-                    description: 'Logo image',
-                  },
-                },
-                {
-                  name: 'className',
-                  type: 'text',
-                  admin: {
-                    description: 'Optional CSS classes for the logo',
-                  },
-                },
-              ],
-            },
-          ],
+          fields: [basicFields.uploadField],
           minRows: 1,
           maxRows: 12,
           admin: {
