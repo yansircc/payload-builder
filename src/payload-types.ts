@@ -3446,31 +3446,29 @@ export interface Testimonial4Fields {
   /**
    * Featured image displayed in the left column
    */
-  featuredImage?: (string | null) | Media;
+  featuredImage: string | Media;
   /**
    * Testimonial items (exactly 4 required - 1 featured + 3 grid)
    */
-  testimonials?:
-    | {
-        /**
-         * Testimonial quote text
-         */
-        quote: string;
-        /**
-         * Name of the testimonial author
-         */
-        authorName: string;
-        /**
-         * Role/position of the author
-         */
-        authorRole?: string | null;
-        /**
-         * Author profile image
-         */
-        authorImage?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
+  testimonials: {
+    /**
+     * Testimonial quote text
+     */
+    quote: string;
+    /**
+     * Name of the testimonial author
+     */
+    authorName: string;
+    /**
+     * Role/position of the author
+     */
+    authorRole?: string | null;
+    /**
+     * Author profile image
+     */
+    authorImage?: (string | null) | Media;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3520,13 +3518,35 @@ export interface Testimonial7Fields {
    */
   description?: string | null;
   /**
-   * Text for the call-to-action button
+   * Call-to-action button
    */
-  buttonText?: string | null;
-  /**
-   * Link for the call-to-action button
-   */
-  buttonLink?: string | null;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+     */
+    prefixIcon?: string | null;
+    /**
+     * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+     */
+    suffixIcon?: string | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+  };
   /**
    * Testimonial items (4-12)
    */
@@ -3563,17 +3583,21 @@ export interface Testimonial12Fields {
   testimonials?:
     | {
         /**
+         * Testimonial quote text
+         */
+        quote: string;
+        /**
          * Name of the testimonial author
          */
         authorName: string;
         /**
          * Role/position of the author
          */
-        authorRole: string;
+        authorRole?: string | null;
         /**
          * Author profile image
          */
-        authorImage: string | Media;
+        authorImage?: (string | null) | Media;
         /**
          * Name of the company
          */
@@ -3582,10 +3606,6 @@ export interface Testimonial12Fields {
          * Company logo
          */
         companyLogo: string | Media;
-        /**
-         * Testimonial quote text
-         */
-        quote: string;
         /**
          * Monthly active users metric (e.g. 2.2x)
          */
@@ -3622,31 +3642,29 @@ export interface Testimonial14Fields {
   /**
    * Testimonial items (1-10)
    */
-  testimonials?:
-    | {
-        /**
-         * Testimonial quote text
-         */
-        quote: string;
-        /**
-         * Name of the testimonial author
-         */
-        authorName: string;
-        /**
-         * Role/position of the author
-         */
-        authorRole?: string | null;
-        /**
-         * Author profile image
-         */
-        authorImage?: (string | null) | Media;
-        /**
-         * Rating out of 5 stars
-         */
-        rating?: number | null;
-        id?: string | null;
-      }[]
-    | null;
+  testimonials: {
+    /**
+     * Testimonial quote text
+     */
+    quote: string;
+    /**
+     * Name of the testimonial author
+     */
+    authorName: string;
+    /**
+     * Role/position of the author
+     */
+    authorRole?: string | null;
+    /**
+     * Author profile image
+     */
+    authorImage?: (string | null) | Media;
+    /**
+     * Rating out of 5 stars
+     */
+    rating?: number | null;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3662,29 +3680,56 @@ export interface Testimonial15Fields {
    */
   description?: string | null;
   /**
-   * Text for the call-to-action button
+   * Call-to-action button
    */
-  buttonText?: string | null;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+     */
+    prefixIcon?: string | null;
+    /**
+     * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+     */
+    suffixIcon?: string | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+  };
   /**
-   * Link for the call-to-action button
+   * Company section configuration
    */
-  buttonLink?: string | null;
-  /**
-   * Company logos (1-5)
-   */
-  companyLogos?:
-    | {
-        /**
-         * Company logo image
-         */
-        image: string | Media;
-        /**
-         * Alternative text for the logo image
-         */
-        altText?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  companySection?: {
+    /**
+     * Text displayed above company logos
+     */
+    text?: string | null;
+    /**
+     * Company logos (1-5)
+     */
+    logos?:
+      | {
+          /**
+           * Company logo image
+           */
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
   /**
    * Testimonial items (exactly 4 required)
    */
@@ -3729,29 +3774,17 @@ export interface Testimonial16Fields {
          */
         authorName: string;
         /**
-         * Social media tag/handle (e.g., @username)
-         */
-        tag: string;
-        /**
          * Author profile image
          */
         authorImage?: (string | null) | Media;
         /**
+         * Social media tag/handle (e.g., @username)
+         */
+        tag: string;
+        /**
          * Full testimonial content
          */
         content: string;
-        /**
-         * Short excerpt of the testimonial (shown in collapsed view)
-         */
-        excerpt: string;
-        /**
-         * Optional link in the testimonial
-         */
-        link?: string | null;
-        /**
-         * Optional link text (e.g., @company)
-         */
-        linkText?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -3863,9 +3896,35 @@ export interface Testimonial19Fields {
    */
   statsText?: string | null;
   /**
-   * Link for "View all testimonials" button
+   * View all testimonials link
    */
-  viewAllLink?: string | null;
+  viewAll: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+     */
+    prefixIcon?: string | null;
+    /**
+     * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+     */
+    suffixIcon?: string | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+  };
   /**
    * Testimonial items (3-12)
    */
@@ -7308,8 +7367,18 @@ export interface Testimonial6FieldsSelect<T extends boolean = true> {
 export interface Testimonial7FieldsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  buttonText?: T;
-  buttonLink?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
+      };
   testimonials?:
     | T
     | {
@@ -7328,12 +7397,12 @@ export interface Testimonial12FieldsSelect<T extends boolean = true> {
   testimonials?:
     | T
     | {
+        quote?: T;
         authorName?: T;
         authorRole?: T;
         authorImage?: T;
         companyName?: T;
         companyLogo?: T;
-        quote?: T;
         monthlyActiveUsers?: T;
         monthlyActiveUsersLabel?: T;
         monthlyActiveUsersPeriod?: T;
@@ -7366,14 +7435,28 @@ export interface Testimonial14FieldsSelect<T extends boolean = true> {
 export interface Testimonial15FieldsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  buttonText?: T;
-  buttonLink?: T;
-  companyLogos?:
+  cta?:
     | T
     | {
-        image?: T;
-        altText?: T;
-        id?: T;
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
+      };
+  companySection?:
+    | T
+    | {
+        text?: T;
+        logos?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
       };
   testimonials?:
     | T
@@ -7395,12 +7478,9 @@ export interface Testimonial16FieldsSelect<T extends boolean = true> {
     | T
     | {
         authorName?: T;
-        tag?: T;
         authorImage?: T;
+        tag?: T;
         content?: T;
-        excerpt?: T;
-        link?: T;
-        linkText?: T;
         id?: T;
       };
 }
@@ -7449,7 +7529,18 @@ export interface Testimonial19FieldsSelect<T extends boolean = true> {
   heading?: T;
   subheading?: T;
   statsText?: T;
-  viewAllLink?: T;
+  viewAll?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
+      };
   testimonials?:
     | T
     | {

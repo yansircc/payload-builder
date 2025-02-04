@@ -52,11 +52,12 @@ export default function Testimonial19({
                   <Card className="max-w-96 select-none p-6">
                     <div className="flex justify-between">
                       <div className="mb-4 flex gap-4">
-                        <Avatar className="size-14 rounded-full ring-1 ring-input">
+                        <Avatar className="size-14 rounded-full ring-1 ring-input overflow-hidden">
                           {testimonial.authorImage && (
                             <Media
                               resource={testimonial.authorImage}
-                              className="size-14 rounded-full object-cover"
+                              imgClassName="aspect-square size-full object-cover object-center"
+                              className="!block size-full"
                             />
                           )}
                         </Avatar>

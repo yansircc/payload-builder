@@ -57,11 +57,12 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                     <LogoWrapper logo={testimonial.logo} logoAlt={testimonial.logoAlt} />
                     <p className="mb-10 text-xl font-semibold">{testimonial.quote}</p>
                     <div className="mb-3 flex gap-4">
-                      <Avatar className="size-12 rounded-full ring-1 ring-input">
+                      <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
                         {testimonial.authorImage && (
                           <Media
                             resource={testimonial.authorImage}
-                            className="size-12 rounded-full object-cover"
+                            imgClassName="aspect-square size-full object-cover object-center"
+                            className="!block size-full"
                           />
                         )}
                       </Avatar>
@@ -94,11 +95,12 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                   <LogoWrapper logo={testimonials[0].logo} logoAlt={testimonials[0].logoAlt} />
                   <p className="mb-10 text-xl font-semibold">{testimonials[0].quote}</p>
                   <div className="mb-3 flex gap-4">
-                    <Avatar className="size-12 rounded-full ring-1 ring-input">
+                    <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
                       {testimonials[0].authorImage && (
                         <Media
                           resource={testimonials[0].authorImage}
-                          className="size-12 rounded-full object-cover"
+                          imgClassName="aspect-square size-full object-cover object-center"
+                          className="!block size-full"
                         />
                       )}
                     </Avatar>
@@ -116,11 +118,12 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                   <LogoWrapper logo={testimonial.logo} logoAlt={testimonial.logoAlt} />
                   <p className="mb-10 text-xl font-semibold">{testimonial.quote}</p>
                   <div className="mb-3 flex gap-4">
-                    <Avatar className="size-12 rounded-full ring-1 ring-input">
+                    <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
                       {testimonial.authorImage && (
                         <Media
                           resource={testimonial.authorImage}
-                          className="size-12 rounded-full object-cover"
+                          imgClassName="aspect-square size-full object-cover object-center"
+                          className="!block size-full"
                         />
                       )}
                     </Avatar>
