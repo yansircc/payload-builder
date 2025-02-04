@@ -29,7 +29,6 @@ export default function Logos8({ logos }: Logos8Fields) {
               >
                 <Media
                   resource={logo.logo}
-                  alt={`Logo ${index + 1}`}
                   className={'max-h-12 max-w-[120px] object-contain object-center'}
                   size="thumbnail"
                 />

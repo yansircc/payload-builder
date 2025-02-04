@@ -41,7 +41,6 @@ export default function Logos3({ logos }: Logos3Fields) {
                     <div>
                       <Media
                         resource={item.logo}
-                        alt={`Logo ${index + 1}`}
                         className="max-h-12 max-w-[120px] object-contain object-center"
                         size="thumbnail"
                       />
