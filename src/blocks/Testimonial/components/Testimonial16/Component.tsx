@@ -12,39 +12,31 @@ interface TweetContentProps {
   content: string
   link?: string | null
   linkText?: string | null
+  isCollapsed?: boolean
 }
 
-interface TweetExcerptProps {
-  excerpt: string
-  link?: string | null
-  linkText?: string | null
-}
-
-const TweetContent = ({ content, link, linkText }: TweetContentProps) => {
+const TweetContent = ({ content, link, linkText, isCollapsed }: TweetContentProps) => {
   if (!link || !linkText) {
-    return <p className="text-sm text-muted-foreground">{content}</p>
+    return (
+      <p
+        className={cn(
+          'text-muted-foreground',
+          isCollapsed ? 'line-clamp-1 text-base font-medium md:text-xl' : 'text-sm',
+        )}
+      >
+        {content}
+      </p>
+    )
   }
 
   const parts = content.split(linkText)
   return (
-    <p className="text-sm text-muted-foreground">
-      {parts[0]}
-      <a href={link} className="mx-1 text-blue-600">
-        {linkText}
-      </a>
-      {parts[1]}
-    </p>
-  )
-}
-
-const TweetExcerpt = ({ excerpt, link, linkText }: TweetExcerptProps) => {
-  if (!link || !linkText) {
-    return <p className="line-clamp-1 font-medium md:text-xl">{excerpt}</p>
-  }
-
-  const parts = excerpt.split(linkText)
-  return (
-    <p className="line-clamp-1 font-medium md:text-xl">
+    <p
+      className={cn(
+        'text-muted-foreground',
+        isCollapsed ? 'line-clamp-1 text-base font-medium md:text-xl' : 'text-sm',
+      )}
+    >
       {parts[0]}
       <a href={link} className="mx-1 text-blue-600">
         {linkText}
@@ -104,6 +96,7 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                             content={tweet.content}
                             link={tweet.link}
                             linkText={tweet.linkText}
+                            isCollapsed={false}
                           />
                         </div>
                       ) : (
@@ -120,10 +113,11 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                               <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
                             </Avatar>
                             <div>
-                              <TweetExcerpt
-                                excerpt={tweet.excerpt}
+                              <TweetContent
+                                content={tweet.content}
                                 link={tweet.link}
                                 linkText={tweet.linkText}
+                                isCollapsed={true}
                               />
                             </div>
                           </div>

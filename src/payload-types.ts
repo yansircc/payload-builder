@@ -3786,10 +3786,6 @@ export interface Testimonial16Fields {
          */
         content: string;
         /**
-         * Short excerpt of the testimonial (shown in collapsed view)
-         */
-        excerpt: string;
-        /**
          * Optional link in the testimonial
          */
         link?: string | null;
@@ -7493,7 +7489,6 @@ export interface Testimonial16FieldsSelect<T extends boolean = true> {
         authorImage?: T;
         tag?: T;
         content?: T;
-        excerpt?: T;
         link?: T;
         linkText?: T;
         id?: T;
