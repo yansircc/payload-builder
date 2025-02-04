@@ -22,13 +22,6 @@ const companyLogoFields: Field[] = [
       description: 'Company logo image',
     },
   },
-  {
-    name: 'altText',
-    type: 'text',
-    admin: {
-      description: 'Alternative text for the logo image',
-    },
-  },
 ]
 
 /**

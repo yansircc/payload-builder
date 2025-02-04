@@ -26,11 +26,7 @@ export default function Testimonial15({
                   key={idx}
                   className="relative flex h-8 w-32 items-center justify-center overflow-hidden sm:h-11"
                 >
-                  <Media
-                    resource={logo.image}
-                    className="max-h-full w-auto object-contain"
-                    alt={logo.altText || 'Company logo'}
-                  />
+                  <Media resource={logo.image} className="max-h-full w-auto object-contain" />
                 </div>
               ))}
             </div>

@@ -3726,10 +3726,6 @@ export interface Testimonial15Fields {
            * Company logo image
            */
           image: string | Media;
-          /**
-           * Alternative text for the logo image
-           */
-          altText?: string | null;
           id?: string | null;
         }[]
       | null;
@@ -7471,7 +7467,6 @@ export interface Testimonial15FieldsSelect<T extends boolean = true> {
           | T
           | {
               image?: T;
-              altText?: T;
               id?: T;
             };
       };
