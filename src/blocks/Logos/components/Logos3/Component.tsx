@@ -2,23 +2,11 @@
 
 import AutoScroll from 'embla-carousel-auto-scroll'
 import { Media } from '@/components/Media'
-import type { Media as MediaType } from '@/payload-types'
+import type { Logos3Fields } from '@/payload-types'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { ClientMotionDiv } from '../shared/motion'
 
-interface LogosFields {
-  title: string
-  logos: {
-    id?: string | null
-    logo: MediaType | string
-  }[]
-}
-
-interface Logos3Props {
-  logos: LogosFields
-}
-
-export default function Logos3({ logos }: Logos3Props) {
+export default function Logos3({ logos }: Logos3Fields) {
   const { title, logos: logoItems } = logos
 
   return (
