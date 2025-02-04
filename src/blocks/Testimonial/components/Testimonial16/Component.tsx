@@ -10,26 +10,10 @@ import { Media } from '@/components/Media'
 
 interface TweetContentProps {
   content: string
-  link?: string | null
-  linkText?: string | null
   isCollapsed?: boolean
 }
 
-const TweetContent = ({ content, link, linkText, isCollapsed }: TweetContentProps) => {
-  if (!link || !linkText) {
-    return (
-      <p
-        className={cn(
-          'text-muted-foreground',
-          isCollapsed ? 'line-clamp-1 text-base font-medium md:text-xl' : 'text-sm',
-        )}
-      >
-        {content}
-      </p>
-    )
-  }
-
-  const parts = content.split(linkText)
+const TweetContent = ({ content, isCollapsed }: TweetContentProps) => {
   return (
     <p
       className={cn(
@@ -37,11 +21,7 @@ const TweetContent = ({ content, link, linkText, isCollapsed }: TweetContentProp
         isCollapsed ? 'line-clamp-1 text-base font-medium md:text-xl' : 'text-sm',
       )}
     >
-      {parts[0]}
-      <a href={link} className="mx-1 text-blue-600">
-        {linkText}
-      </a>
-      {parts[1]}
+      {content}
     </p>
   )
 }
@@ -92,12 +72,7 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                               <p className="text-muted-foreground">{tweet.tag}</p>
                             </div>
                           </div>
-                          <TweetContent
-                            content={tweet.content}
-                            link={tweet.link}
-                            linkText={tweet.linkText}
-                            isCollapsed={false}
-                          />
+                          <TweetContent content={tweet.content} isCollapsed={false} />
                         </div>
                       ) : (
                         <div className="py-4 transition-colors hover:bg-muted">
@@ -113,12 +88,7 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                               <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
                             </Avatar>
                             <div>
-                              <TweetContent
-                                content={tweet.content}
-                                link={tweet.link}
-                                linkText={tweet.linkText}
-                                isCollapsed={true}
-                              />
+                              <TweetContent content={tweet.content} isCollapsed={true} />
                             </div>
                           </div>
                         </div>
