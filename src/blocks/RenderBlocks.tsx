@@ -13,8 +13,10 @@ import { RenderGallery } from '@/blocks/Gallery/RenderGallery'
 import { RenderTeam } from '@/blocks/Team/RenderTeam'
 import { RenderFAQ } from '@/blocks/FAQ/RenderFAQ'
 import { RenderLogos } from '@/blocks/Logos/RenderLogos'
+import { RenderAbout } from './About/RenderAbout'
 
 const blockComponents = {
+  about: RenderAbout,
   archive: ArchiveBlock,
   content: ContentBlock,
   cta: RenderCTA,

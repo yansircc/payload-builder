@@ -96,6 +96,7 @@ export interface Page {
   title: string;
   hero?: HeroField;
   layout: (
+    | AboutBlock
     | CTABlock
     | ContentBlock
     | MediaBlock
@@ -1349,6 +1350,64 @@ export interface Hero115Fields {
           id?: string | null;
         }[]
       | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock".
+ */
+export interface AboutBlock {
+  style?: 'about-1' | null;
+  'about-1'?: About1Fields;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About1Fields".
+ */
+export interface About1Fields {
+  mainSection: {
+    title: string;
+    description: string;
+  };
+  missionSection: {
+    /**
+     * Mission section label (e.g., "OUR MISSION")
+     */
+    label: string;
+    description: string;
+  };
+  featuresSection: {
+    title: string;
+    description: string;
+    features?:
+      | {
+          /**
+           * Select an icon for this feature
+           */
+          icon: 'Files' | 'CircleArrowRight' | 'Settings';
+          /**
+           * Feature title
+           */
+          title: string;
+          /**
+           * Feature description
+           */
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  teamSection: {
+    /**
+     * Team section label (e.g., "JOIN OUR TEAM")
+     */
+    label: string;
+    title: string;
+    media: string | Media;
+    description: string;
   };
 }
 /**
@@ -6006,6 +6065,7 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
+        about?: T | AboutBlockSelect<T>;
         cta?: T | CTABlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -6540,6 +6600,56 @@ export interface Hero115FieldsSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock_select".
+ */
+export interface AboutBlockSelect<T extends boolean = true> {
+  style?: T;
+  'about-1'?: T | About1FieldsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About1Fields_select".
+ */
+export interface About1FieldsSelect<T extends boolean = true> {
+  mainSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  missionSection?:
+    | T
+    | {
+        label?: T;
+        description?: T;
+      };
+  featuresSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  teamSection?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        media?: T;
+        description?: T;
       };
 }
 /**

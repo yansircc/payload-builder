@@ -4,6 +4,7 @@ import { slugField } from '@/fields/slug'
 import { HeroField } from '@/heros/config'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { AboutBlock } from '../../blocks/About/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Contact } from '../../blocks/Contact/config'
@@ -14,8 +15,8 @@ import { FormBlock } from '../../blocks/Form/config'
 import { GalleryBlock } from '../../blocks/Gallery/config'
 import { LogosBlock } from '../../blocks/Logos/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { TestimonialBlock } from '../../blocks/Testimonial/config'
 import { Team } from '../../blocks/Team/config'
+import { TestimonialBlock } from '../../blocks/Testimonial/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
@@ -83,6 +84,7 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
+                AboutBlock,
                 CallToAction,
                 Content,
                 MediaBlock,
