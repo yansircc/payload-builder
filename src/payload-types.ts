@@ -5623,7 +5623,7 @@ export interface Logos1Fields {
      */
     title: string;
     /**
-     * Logo images (1-12)
+     * Logo images (1-5)
      */
     logos?:
       | {

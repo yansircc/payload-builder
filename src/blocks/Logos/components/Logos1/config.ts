@@ -28,9 +28,9 @@ export const logos1Fields: GroupField = {
           name: 'logos',
           fields: [basicFields.uploadField],
           minRows: 1,
-          maxRows: 12,
+          maxRows: 5,
           admin: {
-            description: 'Logo images (1-12)',
+            description: 'Logo images (1-5)',
           },
         },
       ],
