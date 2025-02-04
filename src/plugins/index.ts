@@ -97,6 +97,8 @@ export const plugins: Plugin[] = [
   multiTenantPlugin<Config>({
     collections: {
       pages: {},
+      header: { isGlobal: true },
+      footer: { isGlobal: true },
     },
     tenantField: {
       access: {

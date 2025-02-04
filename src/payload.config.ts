@@ -64,9 +64,9 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || false,
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Tenants],
+  collections: [Pages, Posts, Media, Categories, Users, Tenants, Header, Footer],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, ApiKey],
+  globals: [ApiKey],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

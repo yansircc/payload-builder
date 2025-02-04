@@ -1,14 +1,13 @@
-import { GlobalConfig } from 'payload'
+import { CollectionConfig } from 'payload'
 import { header1Fields } from './components/Header1/config'
 import { header3Fields } from './components/Header3/config'
 // import { header4Fields } from './components/Header4/config'
 import { header5Fields } from './components/Header5/config'
-import { revalidateHeader } from './hooks/revalidateHeader'
 
 /**
  * Header Block configuration
  */
-export const Header: GlobalConfig = {
+export const Header: CollectionConfig = {
   slug: 'header',
   access: {
     read: () => true,
@@ -52,7 +51,4 @@ export const Header: GlobalConfig = {
       },
     },
   ],
-  hooks: {
-    afterChange: [revalidateHeader],
-  },
 }
