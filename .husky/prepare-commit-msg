@@ -7,4 +7,4 @@ if [ ! -z "$TYPE" ]; then
   if ! grep -q "^$TYPE:" "$(cat $1)"; then
     echo "$TYPE: $(cat $1)" > $1
   fi
-fi 
+fi

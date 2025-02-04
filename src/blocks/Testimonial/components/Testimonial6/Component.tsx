@@ -1,5 +1,3 @@
-'use client'
-
 import type { Testimonial6Fields } from '@/payload-types'
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
@@ -10,12 +8,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { Media as MediaComponent } from '@/components/Media'
+import { Media } from '@/components/Media'
 
-export default function Testimonial6({
-  testimonials,
-  title = 'Why Clients Love Us',
-}: Testimonial6Fields) {
+export default function Testimonial6({ testimonials, title }: Testimonial6Fields) {
   return (
     <section className="py-32">
       <div className="container">
@@ -34,11 +29,12 @@ export default function Testimonial6({
                   <div className="flex h-full flex-col justify-between rounded-lg border p-6">
                     <q className="leading-7 text-foreground/70">{testimonial.quote}</q>
                     <div className="mt-6 flex gap-4 leading-5">
-                      <Avatar className="size-9 rounded-full ring-1 ring-input">
+                      <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
                         {testimonial.authorImage ? (
-                          <MediaComponent
+                          <Media
                             resource={testimonial.authorImage}
-                            className="size-full object-cover"
+                            imgClassName="aspect-square size-full object-cover object-center"
+                            className="!block size-full"
                           />
                         ) : (
                           <AvatarImage

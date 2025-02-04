@@ -1,4 +1,7 @@
-# If package.json changed, run bun install
-if git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep --quiet package.json; then
+echo "🔄 Checking for dependency changes..."
+
+# 检查 package.json 或 bun.lockb 是否有变更
+if git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep -E "package.json|bun.lockb" >/dev/null; then
+  echo "📦 Dependencies changed. Running bun install..."
   bun install
-fi 
+fi

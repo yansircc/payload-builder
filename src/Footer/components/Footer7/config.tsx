@@ -60,7 +60,7 @@ export const footer7Fields: GroupField = {
         },
         {
           name: 'rightLinks',
-          label: 'Right Links',
+          label: 'Right side',
           fields: ['links'],
           arrays: [
             {

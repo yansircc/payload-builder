@@ -81,6 +81,7 @@ export function createTestimonialField({
     fields: Field[]
     minRows?: number
     maxRows?: number
+    required?: boolean
     admin?: {
       description?: string
     }
@@ -103,6 +104,7 @@ export function createTestimonialField({
           fields: array.fields,
           minRows: array.minRows,
           maxRows: array.maxRows,
+          required: array.required,
           admin: array.admin,
         }),
       ),

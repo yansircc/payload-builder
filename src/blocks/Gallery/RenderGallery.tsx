@@ -6,12 +6,12 @@ export const RenderGallery: React.FC<GalleryBlock> = (props) => {
 
   if (!style) return null
 
-  const TestimonialToRender = galleryComponents[style]
+  const GalleryToRender = galleryComponents[style]
 
-  if (!TestimonialToRender) return null
+  if (!GalleryToRender) return null
 
-  const contactProps = props[style]
-  if (!contactProps) return null
+  const galleryProps = props[style]
+  if (!galleryProps) return null
 
-  return <TestimonialToRender {...contactProps} />
+  return <GalleryToRender {...galleryProps} />
 }

@@ -19,6 +19,7 @@ import { FAQ } from '../../blocks/FAQ/config'
 import { Feature } from '../../blocks/Feature/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { GalleryBlock } from '../../blocks/Gallery/config'
+import { LogosBlock } from '../../blocks/Logos/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { Team } from '../../blocks/Team/config'
 import { TestimonialBlock } from '../../blocks/Testimonial/config'
@@ -88,6 +89,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Contact,
                 Team,
                 FAQ,
+                LogosBlock,
               ],
               required: true,
               admin: {

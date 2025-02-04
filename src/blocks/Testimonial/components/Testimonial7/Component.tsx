@@ -5,17 +5,16 @@ import { useRef } from 'react'
 import type { Testimonial7Fields } from '@/payload-types'
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media as MediaComponent } from '@/components/Media'
+import { Media } from '@/components/Media'
+import { CMSLink } from '@/components/Link'
 
 export default function Testimonial7({
   testimonials,
-  title = 'Meet our happy clients',
-  description = 'All of our 1000+ clients are happy',
-  buttonText = 'Get started for free',
-  buttonLink = '#',
+  title,
+  description,
+  cta,
 }: Testimonial7Fields) {
   // Split testimonials into two arrays for different scroll directions
   const testimonials1 = testimonials?.slice(0, Math.ceil(testimonials?.length / 2)) ?? []
@@ -41,9 +40,7 @@ export default function Testimonial7({
       <div className="container flex flex-col items-center gap-6">
         <h2 className="mb-2 text-center text-3xl font-semibold lg:text-5xl">{title}</h2>
         <p className="text-muted-foreground lg:text-lg">{description}</p>
-        <Button asChild className="mt-6">
-          <a href={buttonLink ?? '#'}>{buttonText}</a>
-        </Button>
+        {cta && <CMSLink className="mt-6" {...cta} />}
       </div>
       <div className="lg:container">
         <div className="mt-16 space-y-4">
@@ -59,11 +56,12 @@ export default function Testimonial7({
                 <CarouselItem key={index} className="basis-auto">
                   <Card className="max-w-96 select-none p-6">
                     <div className="mb-4 flex gap-4">
-                      <Avatar className="size-9 rounded-full ring-1 ring-input">
+                      <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
                         {testimonial.authorImage ? (
-                          <MediaComponent
+                          <Media
                             resource={testimonial.authorImage}
-                            className="size-full object-cover"
+                            imgClassName="aspect-square size-full object-cover object-center"
+                            className="!block size-full"
                           />
                         ) : (
                           <AvatarImage
@@ -97,11 +95,12 @@ export default function Testimonial7({
                 <CarouselItem key={index} className="basis-auto">
                   <Card className="max-w-96 select-none p-6">
                     <div className="mb-4 flex gap-4">
-                      <Avatar className="size-9 rounded-full ring-1 ring-input">
+                      <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
                         {testimonial.authorImage ? (
-                          <MediaComponent
+                          <Media
                             resource={testimonial.authorImage}
-                            className="size-full object-cover"
+                            imgClassName="aspect-square size-full object-cover object-center"
+                            className="!block size-full"
                           />
                         ) : (
                           <AvatarImage

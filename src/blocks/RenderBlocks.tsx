@@ -12,6 +12,7 @@ import { RenderTestimonial } from '@/blocks/Testimonial/RenderTestimonial'
 import { RenderGallery } from '@/blocks/Gallery/RenderGallery'
 import { RenderTeam } from '@/blocks/Team/RenderTeam'
 import { RenderFAQ } from '@/blocks/FAQ/RenderFAQ'
+import { RenderLogos } from '@/blocks/Logos/RenderLogos'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -25,6 +26,7 @@ const blockComponents = {
   contact: RenderContact,
   team: RenderTeam,
   faq: RenderFAQ,
+  logos: RenderLogos,
 }
 
 export const RenderBlocks: React.FC<{

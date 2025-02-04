@@ -28,10 +28,6 @@ export default function Testimonial14({ testimonials }: Testimonial14Fields) {
     }
   }, [api])
 
-  if (!testimonials?.length) {
-    return null
-  }
-
   return (
     <section className="py-32">
       <Carousel setApi={setApi}>
@@ -42,9 +38,13 @@ export default function Testimonial14({ testimonials }: Testimonial14Fields) {
                 <p className="mb-8 max-w-4xl font-medium md:px-8 lg:text-3xl">
                   &ldquo;{item.quote}&rdquo;
                 </p>
-                <Avatar className="mb-2 size-12 md:size-24">
+                <Avatar className="mb-2 size-12 md:size-24 overflow-hidden">
                   {item.authorImage ? (
-                    <Media resource={item.authorImage} className="size-full object-cover" />
+                    <Media
+                      resource={item.authorImage}
+                      imgClassName="aspect-square size-full object-cover object-center"
+                      className="!block size-full"
+                    />
                   ) : (
                     <AvatarFallback>{item.authorName?.[0]}</AvatarFallback>
                   )}

@@ -110,6 +110,7 @@ export interface Page {
     | ContactBlock
     | TeamBlock
     | FAQBlock
+    | LogosBlock
   )[];
   meta?: {
     title?: string | null;
@@ -3479,31 +3480,29 @@ export interface Testimonial4Fields {
   /**
    * Featured image displayed in the left column
    */
-  featuredImage?: (string | null) | Media;
+  featuredImage: string | Media;
   /**
    * Testimonial items (exactly 4 required - 1 featured + 3 grid)
    */
-  testimonials?:
-    | {
-        /**
-         * Testimonial quote text
-         */
-        quote: string;
-        /**
-         * Name of the testimonial author
-         */
-        authorName: string;
-        /**
-         * Role/position of the author
-         */
-        authorRole?: string | null;
-        /**
-         * Author profile image
-         */
-        authorImage?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
+  testimonials: {
+    /**
+     * Testimonial quote text
+     */
+    quote: string;
+    /**
+     * Name of the testimonial author
+     */
+    authorName: string;
+    /**
+     * Role/position of the author
+     */
+    authorRole?: string | null;
+    /**
+     * Author profile image
+     */
+    authorImage?: (string | null) | Media;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3553,13 +3552,35 @@ export interface Testimonial7Fields {
    */
   description?: string | null;
   /**
-   * Text for the call-to-action button
+   * Call-to-action button
    */
-  buttonText?: string | null;
-  /**
-   * Link for the call-to-action button
-   */
-  buttonLink?: string | null;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+     */
+    prefixIcon?: string | null;
+    /**
+     * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+     */
+    suffixIcon?: string | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+  };
   /**
    * Testimonial items (4-12)
    */
@@ -3596,17 +3617,21 @@ export interface Testimonial12Fields {
   testimonials?:
     | {
         /**
+         * Testimonial quote text
+         */
+        quote: string;
+        /**
          * Name of the testimonial author
          */
         authorName: string;
         /**
          * Role/position of the author
          */
-        authorRole: string;
+        authorRole?: string | null;
         /**
          * Author profile image
          */
-        authorImage: string | Media;
+        authorImage?: (string | null) | Media;
         /**
          * Name of the company
          */
@@ -3615,10 +3640,6 @@ export interface Testimonial12Fields {
          * Company logo
          */
         companyLogo: string | Media;
-        /**
-         * Testimonial quote text
-         */
-        quote: string;
         /**
          * Monthly active users metric (e.g. 2.2x)
          */
@@ -3655,31 +3676,29 @@ export interface Testimonial14Fields {
   /**
    * Testimonial items (1-10)
    */
-  testimonials?:
-    | {
-        /**
-         * Testimonial quote text
-         */
-        quote: string;
-        /**
-         * Name of the testimonial author
-         */
-        authorName: string;
-        /**
-         * Role/position of the author
-         */
-        authorRole?: string | null;
-        /**
-         * Author profile image
-         */
-        authorImage?: (string | null) | Media;
-        /**
-         * Rating out of 5 stars
-         */
-        rating?: number | null;
-        id?: string | null;
-      }[]
-    | null;
+  testimonials: {
+    /**
+     * Testimonial quote text
+     */
+    quote: string;
+    /**
+     * Name of the testimonial author
+     */
+    authorName: string;
+    /**
+     * Role/position of the author
+     */
+    authorRole?: string | null;
+    /**
+     * Author profile image
+     */
+    authorImage?: (string | null) | Media;
+    /**
+     * Rating out of 5 stars
+     */
+    rating?: number | null;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3695,29 +3714,56 @@ export interface Testimonial15Fields {
    */
   description?: string | null;
   /**
-   * Text for the call-to-action button
+   * Call-to-action button
    */
-  buttonText?: string | null;
+  cta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+     */
+    prefixIcon?: string | null;
+    /**
+     * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+     */
+    suffixIcon?: string | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+  };
   /**
-   * Link for the call-to-action button
+   * Company section configuration
    */
-  buttonLink?: string | null;
-  /**
-   * Company logos (1-5)
-   */
-  companyLogos?:
-    | {
-        /**
-         * Company logo image
-         */
-        image: string | Media;
-        /**
-         * Alternative text for the logo image
-         */
-        altText?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  companySection?: {
+    /**
+     * Text displayed above company logos
+     */
+    text?: string | null;
+    /**
+     * Company logos (1-5)
+     */
+    logos?:
+      | {
+          /**
+           * Company logo image
+           */
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
   /**
    * Testimonial items (exactly 4 required)
    */
@@ -3762,29 +3808,17 @@ export interface Testimonial16Fields {
          */
         authorName: string;
         /**
-         * Social media tag/handle (e.g., @username)
-         */
-        tag: string;
-        /**
          * Author profile image
          */
         authorImage?: (string | null) | Media;
         /**
+         * Social media tag/handle (e.g., @username)
+         */
+        tag: string;
+        /**
          * Full testimonial content
          */
         content: string;
-        /**
-         * Short excerpt of the testimonial (shown in collapsed view)
-         */
-        excerpt: string;
-        /**
-         * Optional link in the testimonial
-         */
-        link?: string | null;
-        /**
-         * Optional link text (e.g., @company)
-         */
-        linkText?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -3896,9 +3930,35 @@ export interface Testimonial19Fields {
    */
   statsText?: string | null;
   /**
-   * Link for "View all testimonials" button
+   * View all testimonials link
    */
-  viewAllLink?: string | null;
+  viewAll: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+     */
+    prefixIcon?: string | null;
+    /**
+     * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+     */
+    suffixIcon?: string | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+  };
   /**
    * Testimonial items (3-12)
    */
@@ -5557,6 +5617,166 @@ export interface FAQ6Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogosBlock".
+ */
+export interface LogosBlock {
+  style?: ('logos-1' | 'logos-2' | 'logos-3' | 'logos-8') | null;
+  'logos-1'?: Logos1Fields;
+  'logos-2'?: Logos2Fields;
+  'logos-3'?: Logos3Fields;
+  'logos-8'?: Logos8Fields;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'logos';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos1Fields".
+ */
+export interface Logos1Fields {
+  /**
+   * Logos fields
+   */
+  logos: {
+    /**
+     * Main title text
+     */
+    title: string;
+    /**
+     * Logo images (1-5)
+     */
+    logos?:
+      | {
+          /**
+           * Logo image
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos2Fields".
+ */
+export interface Logos2Fields {
+  /**
+   * Logos fields
+   */
+  logos: {
+    /**
+     * Main title text
+     */
+    title: string;
+    /**
+     * Description text
+     */
+    description?: string | null;
+    /**
+     * Button link
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+       */
+      prefixIcon?: string | null;
+      /**
+       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+       */
+      suffixIcon?: string | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    };
+    /**
+     * Logo images (6 required)
+     */
+    logos?:
+      | {
+          /**
+           * Logo image
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos3Fields".
+ */
+export interface Logos3Fields {
+  /**
+   * Logos fields
+   */
+  logos: {
+    /**
+     * Main title text
+     */
+    title: string;
+    /**
+     * Logo images (7-12)
+     */
+    logos?:
+      | {
+          /**
+           * Logo image
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos8Fields".
+ */
+export interface Logos8Fields {
+  /**
+   * Logos fields
+   */
+  logos: {
+    /**
+     * Main title text
+     */
+    title: string;
+    /**
+     * Description text
+     */
+    description?: string | null;
+    /**
+     * Logo images (1-12)
+     */
+    logos?:
+      | {
+          /**
+           * Logo image
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -5835,6 +6055,7 @@ export interface PagesSelect<T extends boolean = true> {
         contact?: T | ContactBlockSelect<T>;
         team?: T | TeamBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
+        logos?: T | LogosBlockSelect<T>;
       };
   meta?:
     | T
@@ -7346,8 +7567,18 @@ export interface Testimonial6FieldsSelect<T extends boolean = true> {
 export interface Testimonial7FieldsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  buttonText?: T;
-  buttonLink?: T;
+  cta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
+      };
   testimonials?:
     | T
     | {
@@ -7366,12 +7597,12 @@ export interface Testimonial12FieldsSelect<T extends boolean = true> {
   testimonials?:
     | T
     | {
+        quote?: T;
         authorName?: T;
         authorRole?: T;
         authorImage?: T;
         companyName?: T;
         companyLogo?: T;
-        quote?: T;
         monthlyActiveUsers?: T;
         monthlyActiveUsersLabel?: T;
         monthlyActiveUsersPeriod?: T;
@@ -7404,14 +7635,28 @@ export interface Testimonial14FieldsSelect<T extends boolean = true> {
 export interface Testimonial15FieldsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  buttonText?: T;
-  buttonLink?: T;
-  companyLogos?:
+  cta?:
     | T
     | {
-        image?: T;
-        altText?: T;
-        id?: T;
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
+      };
+  companySection?:
+    | T
+    | {
+        text?: T;
+        logos?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
       };
   testimonials?:
     | T
@@ -7433,12 +7678,9 @@ export interface Testimonial16FieldsSelect<T extends boolean = true> {
     | T
     | {
         authorName?: T;
-        tag?: T;
         authorImage?: T;
+        tag?: T;
         content?: T;
-        excerpt?: T;
-        link?: T;
-        linkText?: T;
         id?: T;
       };
 }
@@ -7487,7 +7729,18 @@ export interface Testimonial19FieldsSelect<T extends boolean = true> {
   heading?: T;
   subheading?: T;
   statsText?: T;
-  viewAllLink?: T;
+  viewAll?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
+      };
   testimonials?:
     | T
     | {
@@ -8323,6 +8576,101 @@ export interface FAQ6FieldsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogosBlock_select".
+ */
+export interface LogosBlockSelect<T extends boolean = true> {
+  style?: T;
+  'logos-1'?: T | Logos1FieldsSelect<T>;
+  'logos-2'?: T | Logos2FieldsSelect<T>;
+  'logos-3'?: T | Logos3FieldsSelect<T>;
+  'logos-8'?: T | Logos8FieldsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos1Fields_select".
+ */
+export interface Logos1FieldsSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        title?: T;
+        logos?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos2Fields_select".
+ */
+export interface Logos2FieldsSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+        logos?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos3Fields_select".
+ */
+export interface Logos3FieldsSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        title?: T;
+        logos?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Logos8Fields_select".
+ */
+export interface Logos8FieldsSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        logos?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -8760,9 +9108,196 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: string;
-  navItems?:
+  style?: ('header-1' | 'header-3' | 'header-5') | null;
+  'header-1'?: Header1Fields;
+  'header-3'?: Header3Fields;
+  'header-5'?: Header5Fields;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header1Fields".
+ */
+export interface Header1Fields {
+  /**
+   * Header fields
+   */
+  header: {
+    /**
+     * Header logo
+     */
+    logo: string | Media;
+    title: string;
+    /**
+     * Header navigation columns
+     */
+    menu?:
+      | {
+          /**
+           * Parent link
+           */
+          parentLink: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
+          /**
+           * Links in this column
+           */
+          subMenu?:
+            | {
+                /**
+                 * Navigation link
+                 */
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                  /**
+                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+                   */
+                  prefixIcon?: string | null;
+                  /**
+                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+                   */
+                  suffixIcon?: string | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                };
+                /**
+                 * Description for this sub menu
+                 */
+                description: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    rightSideLinks?:
+      | {
+          /**
+           * Right side link
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header3Fields".
+ */
+export interface Header3Fields {
+  /**
+   * Header fields
+   */
+  header: {
+    /**
+     * Header logo
+     */
+    logo: string | Media;
+    rightLinks?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  menu?:
     | {
-        link: {
+        /**
+         * Menu
+         */
+        parentMenu: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
           reference?:
@@ -8784,12 +9319,426 @@ export interface Header {
            * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
            */
           suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+        };
+        submenu?: {
+          style?: ('style-1' | 'style-2' | 'style-3' | 'style-4') | null;
+          style1Config?: {
+            leftSection?: {
+              link?: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null);
+                url?: string | null;
+                /**
+                 * Image URL for the link
+                 */
+                image?: (string | null) | Media;
+                /**
+                 * Title for the link
+                 */
+                title?: string | null;
+                /**
+                 * Description for the link
+                 */
+                description?: string | null;
+                /**
+                 * Choose how the link should be rendered.
+                 */
+                appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              };
+            };
+            rightSection: {
+              title: string;
+              links?:
+                | {
+                    link?: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      /**
+                       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+                       */
+                      prefixIcon?: string | null;
+                      /**
+                       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+                       */
+                      suffixIcon?: string | null;
+                      /**
+                       * Title for the link
+                       */
+                      title?: string | null;
+                      /**
+                       * Description for the link
+                       */
+                      description?: string | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+          };
+          style2Config?: {
+            leftSection: {
+              title: string;
+              links?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                      /**
+                       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+                       */
+                      prefixIcon?: string | null;
+                      /**
+                       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+                       */
+                      suffixIcon?: string | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            rightSection?: {
+              link?: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null);
+                url?: string | null;
+                /**
+                 * Image URL for the link
+                 */
+                image?: (string | null) | Media;
+                /**
+                 * Title for the link
+                 */
+                title?: string | null;
+                /**
+                 * Subtitle for the link
+                 */
+                subtitle?: string | null;
+                /**
+                 * Description for the link
+                 */
+                description?: string | null;
+              };
+            };
+          };
+          style3Config?: {
+            leftSection: {
+              title: string;
+              description: string;
+              links?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            rightSection?: {
+              links?:
+                | {
+                    link?: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      /**
+                       * Image URL for the link
+                       */
+                      image?: (string | null) | Media;
+                      /**
+                       * Title for the link
+                       */
+                      title?: string | null;
+                      /**
+                       * Description for the link
+                       */
+                      description?: string | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+          };
+          style4Config?: {
+            leftSection: {
+              title: string;
+              links?:
+                | {
+                    link?: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      /**
+                       * Title for the link
+                       */
+                      title?: string | null;
+                      /**
+                       * Description for the link
+                       */
+                      description?: string | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            rightSection: {
+              title: string;
+              links?:
+                | {
+                    link?: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      /**
+                       * Image URL for the link
+                       */
+                      image?: (string | null) | Media;
+                      /**
+                       * Title for the link
+                       */
+                      title?: string | null;
+                      /**
+                       * Description for the link
+                       */
+                      description?: string | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+          };
         };
         id?: string | null;
       }[]
     | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header5Fields".
+ */
+export interface Header5Fields {
+  /**
+   * Header fields
+   */
+  header: {
+    /**
+     * Header logo
+     */
+    logo: string | Media;
+    title: string;
+    /**
+     * Header navigation columns
+     */
+    menu?:
+      | {
+          /**
+           * Parent link
+           */
+          parentLink: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
+          /**
+           * Links in this column
+           */
+          subMenus?:
+            | {
+                /**
+                 * Navigation link
+                 */
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                  /**
+                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+                   */
+                  prefixIcon?: string | null;
+                  /**
+                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+                   */
+                  suffixIcon?: string | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                };
+                /**
+                 * Description for this sub menu
+                 */
+                description: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    rightSideLinks?:
+      | {
+          /**
+           * Right side link
+           */
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -10110,10 +11059,109 @@ export interface ApiKey {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
-  navItems?:
+  style?: T;
+  'header-1'?: T | Header1FieldsSelect<T>;
+  'header-3'?: T | Header3FieldsSelect<T>;
+  'header-5'?: T | Header5FieldsSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header1Fields_select".
+ */
+export interface Header1FieldsSelect<T extends boolean = true> {
+  header?:
     | T
     | {
-        link?:
+        logo?: T;
+        title?: T;
+        menu?:
+          | T
+          | {
+              parentLink?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              subMenu?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          prefixIcon?: T;
+                          suffixIcon?: T;
+                          appearance?: T;
+                        };
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        rightSideLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header3Fields_select".
+ */
+export interface Header3FieldsSelect<T extends boolean = true> {
+  header?:
+    | T
+    | {
+        logo?: T;
+        rightLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+      };
+  menu?:
+    | T
+    | {
+        parentMenu?:
           | T
           | {
               type?: T;
@@ -10123,12 +11171,255 @@ export interface HeaderSelect<T extends boolean = true> {
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
+              appearance?: T;
+            };
+        submenu?:
+          | T
+          | {
+              style?: T;
+              style1Config?:
+                | T
+                | {
+                    leftSection?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                image?: T;
+                                title?: T;
+                                description?: T;
+                                appearance?: T;
+                              };
+                        };
+                    rightSection?:
+                      | T
+                      | {
+                          title?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      prefixIcon?: T;
+                                      suffixIcon?: T;
+                                      title?: T;
+                                      description?: T;
+                                      appearance?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                  };
+              style2Config?:
+                | T
+                | {
+                    leftSection?:
+                      | T
+                      | {
+                          title?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                      prefixIcon?: T;
+                                      suffixIcon?: T;
+                                      appearance?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    rightSection?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                image?: T;
+                                title?: T;
+                                subtitle?: T;
+                                description?: T;
+                              };
+                        };
+                  };
+              style3Config?:
+                | T
+                | {
+                    leftSection?:
+                      | T
+                      | {
+                          title?: T;
+                          description?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                      appearance?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    rightSection?:
+                      | T
+                      | {
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      image?: T;
+                                      title?: T;
+                                      description?: T;
+                                      appearance?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                  };
+              style4Config?:
+                | T
+                | {
+                    leftSection?:
+                      | T
+                      | {
+                          title?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      title?: T;
+                                      description?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    rightSection?:
+                      | T
+                      | {
+                          title?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      image?: T;
+                                      title?: T;
+                                      description?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                  };
             };
         id?: T;
       };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header5Fields_select".
+ */
+export interface Header5FieldsSelect<T extends boolean = true> {
+  header?:
+    | T
+    | {
+        logo?: T;
+        title?: T;
+        menu?:
+          | T
+          | {
+              parentLink?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              subMenus?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          prefixIcon?: T;
+                          suffixIcon?: T;
+                          appearance?: T;
+                        };
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        rightSideLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

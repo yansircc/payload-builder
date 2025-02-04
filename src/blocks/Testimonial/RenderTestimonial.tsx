@@ -10,8 +10,8 @@ export const RenderTestimonial: React.FC<TestimonialBlock> = (props) => {
 
   if (!TestimonialToRender) return null
 
-  const contactProps = props[style]
-  if (!contactProps) return null
+  const testimonailProps = props[style]
+  if (!testimonailProps) return null
 
-  return <TestimonialToRender {...contactProps} />
+  return <TestimonialToRender {...testimonailProps} />
 }
