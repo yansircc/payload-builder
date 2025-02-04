@@ -1,5 +1,5 @@
-import { Field, GroupField } from 'payload'
-import { testimonialSchemas } from '../shared/base-field'
+import { GroupField } from 'payload'
+import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
 
 /**
  * Testimonial 4 field validation and type definitions
@@ -27,51 +27,29 @@ export const testimonial4Fields: GroupField = {
       name: 'featuredImage',
       type: 'upload',
       relationTo: 'media',
+      required: true,
       admin: {
         description: 'Featured image displayed in the left column',
       },
-    } as Field,
-    {
-      type: 'array',
-      name: 'testimonials',
-      fields: [
+    },
+    ...createTestimonialField({
+      arrays: [
         {
-          name: 'quote',
-          type: 'textarea',
+          name: 'testimonials',
+          fields: [
+            basicFields.quote,
+            basicFields.authorName,
+            basicFields.authorRole,
+            basicFields.authorImage,
+          ],
           required: true,
+          minRows: 4,
+          maxRows: 4,
           admin: {
-            description: 'Testimonial quote text',
+            description: 'Testimonial items (exactly 4 required - 1 featured + 3 grid)',
           },
-        } as Field,
-        {
-          name: 'authorName',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Name of the testimonial author',
-          },
-        } as Field,
-        {
-          name: 'authorRole',
-          type: 'text',
-          admin: {
-            description: 'Role/position of the author',
-          },
-        } as Field,
-        {
-          name: 'authorImage',
-          type: 'upload',
-          relationTo: 'media',
-          admin: {
-            description: 'Author profile image',
-          },
-        } as Field,
+        },
       ],
-      minRows: 4,
-      maxRows: 4,
-      admin: {
-        description: 'Testimonial items (exactly 4 required - 1 featured + 3 grid)',
-      },
-    } as Field,
+    }).fields,
   ],
 }

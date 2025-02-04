@@ -1,6 +1,6 @@
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
-import { basicFields, testimonialSchemas } from '../shared/base-field'
+import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
 
 /**
  * Testimonial 17 field validation and type definitions
@@ -18,6 +18,27 @@ export const schemas = {
     }),
   ),
 }
+
+// Additional fields specific to company logos
+const companyLogoFields: Field[] = [
+  {
+    name: 'logo',
+    type: 'upload',
+    relationTo: 'media',
+    required: true,
+    admin: {
+      description: 'Company logo image',
+    },
+  },
+  {
+    name: 'logoAlt',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Alternative text for company logo',
+    },
+  },
+]
 
 /**
  * Complete configuration for Testimonial 17
@@ -38,38 +59,25 @@ export const testimonial17Fields: GroupField = {
       admin: {
         description: 'Main heading text',
       },
-    } as Field,
-    {
-      type: 'array',
-      name: 'testimonials',
-      fields: [
+    },
+    ...createTestimonialField({
+      arrays: [
         {
-          name: 'logo',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
+          name: 'testimonials',
+          fields: [
+            ...companyLogoFields,
+            basicFields.quote,
+            basicFields.authorName,
+            basicFields.authorRole,
+            basicFields.authorImage,
+          ],
+          minRows: 3,
+          maxRows: 3,
           admin: {
-            description: 'Company logo image',
+            description: 'Testimonial items (exactly 3 required)',
           },
-        } as Field,
-        {
-          name: 'logoAlt',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Alternative text for company logo',
-          },
-        } as Field,
-        basicFields.quote,
-        basicFields.authorName,
-        basicFields.authorRole,
-        basicFields.authorImage,
+        },
       ],
-      minRows: 3,
-      maxRows: 3,
-      admin: {
-        description: 'Testimonial items (exactly 3 required)',
-      },
-    } as Field,
+    }).fields,
   ],
 }

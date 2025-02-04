@@ -1,13 +1,14 @@
-'use client'
-
 import { Star, Zap } from 'lucide-react'
 import { Avatar } from '@/components/ui/avatar'
 import { Media } from '@/components/Media'
-import type { TestimonialBlock } from '@/payload-types'
+import type { Testimonial18Fields } from '@/payload-types'
 
-type Props = NonNullable<TestimonialBlock['testimonial-18']>
-
-export default function Testimonial18({ heading, subheading, statsText, testimonial }: Props) {
+export default function Testimonial18({
+  heading,
+  subheading,
+  statsText,
+  testimonial,
+}: Testimonial18Fields) {
   const { quote, description, authorName, authorRole, authorImage, rating } = testimonial
 
   return (

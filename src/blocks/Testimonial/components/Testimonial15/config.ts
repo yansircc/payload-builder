@@ -1,5 +1,6 @@
+import { link } from '@/fields/link'
 import { Field, GroupField } from 'payload'
-import { testimonialSchemas } from '../shared/base-field'
+import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
 
 /**
  * Testimonial 15 field validation and type definitions
@@ -9,6 +10,26 @@ export const schemas = {
   authorImage: testimonialSchemas.authorImage,
   quote: testimonialSchemas.quote,
 }
+
+// Additional fields specific to Testimonial15
+const companyLogoFields: Field[] = [
+  {
+    name: 'image',
+    type: 'upload',
+    relationTo: 'media',
+    required: true,
+    admin: {
+      description: 'Company logo image',
+    },
+  },
+  {
+    name: 'altText',
+    type: 'text',
+    admin: {
+      description: 'Alternative text for the logo image',
+    },
+  },
+]
 
 /**
  * Complete configuration for Testimonial 15
@@ -29,7 +50,7 @@ export const testimonial15Fields: GroupField = {
       admin: {
         description: 'Main title for the testimonial section',
       },
-    } as Field,
+    },
     {
       name: 'description',
       type: 'textarea',
@@ -38,84 +59,57 @@ export const testimonial15Fields: GroupField = {
       admin: {
         description: 'Description text below the title',
       },
-    } as Field,
-    {
-      name: 'buttonText',
-      type: 'text',
-      defaultValue: 'Become a Member',
-      admin: {
-        description: 'Text for the call-to-action button',
+    },
+    link({
+      name: 'cta',
+      overrides: {
+        admin: {
+          description: 'Call-to-action button',
+        },
+        defaultValue: {
+          label: 'Become a Member',
+        },
       },
-    } as Field,
+    }),
     {
-      name: 'buttonLink',
-      type: 'text',
-      defaultValue: '#',
+      name: 'companySection',
+      type: 'group',
       admin: {
-        description: 'Link for the call-to-action button',
+        description: 'Company section configuration',
       },
-    } as Field,
-    {
-      type: 'array',
-      name: 'companyLogos',
       fields: [
         {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'Company logo image',
-          },
-        } as Field,
-        {
-          name: 'altText',
+          name: 'text',
           type: 'text',
+          defaultValue: 'Used by leading companies',
           admin: {
-            description: 'Alternative text for the logo image',
+            description: 'Text displayed above company logos',
           },
-        } as Field,
+        },
+        {
+          type: 'array',
+          name: 'logos',
+          fields: companyLogoFields,
+          minRows: 1,
+          maxRows: 5,
+          admin: {
+            description: 'Company logos (1-5)',
+          },
+        },
       ],
-      minRows: 1,
-      maxRows: 5,
-      admin: {
-        description: 'Company logos (1-5)',
-      },
-    } as Field,
-    {
-      type: 'array',
-      name: 'testimonials',
-      fields: [
+    },
+    ...createTestimonialField({
+      arrays: [
         {
-          name: 'quote',
-          type: 'textarea',
-          required: true,
+          name: 'testimonials',
+          fields: [basicFields.quote, basicFields.authorName, basicFields.authorImage],
+          minRows: 4,
+          maxRows: 4,
           admin: {
-            description: 'Testimonial quote text',
+            description: 'Testimonial items (exactly 4 required)',
           },
-        } as Field,
-        {
-          name: 'authorName',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Name of the testimonial author',
-          },
-        } as Field,
-        {
-          name: 'authorImage',
-          type: 'upload',
-          relationTo: 'media',
-          admin: {
-            description: 'Author profile image',
-          },
-        } as Field,
+        },
       ],
-      minRows: 4,
-      maxRows: 4,
-      admin: {
-        description: 'Testimonial items (exactly 4 required)',
-      },
-    } as Field,
+    }).fields,
   ],
 }

@@ -1,21 +1,12 @@
 'use client'
 
-import React, { useState } from 'react'
-import type { Media, Testimonial16Fields } from '@/payload-types'
+import { Fragment, useState } from 'react'
+import type { Testimonial16Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
-
-interface TestimonialItem {
-  authorName: string
-  tag: string
-  authorImage?: string | Media | null
-  content: string
-  excerpt: string
-  link?: string | null
-  linkText?: string | null
-}
+import { Media } from '@/components/Media'
 
 interface TweetContentProps {
   content: string
@@ -63,13 +54,6 @@ const TweetExcerpt = ({ excerpt, link, linkText }: TweetExcerptProps) => {
   )
 }
 
-const getImageUrl = (authorImage: Media | string | null | undefined): string => {
-  if (!authorImage) return 'https://shadcnblocks.com/images/block/avatar-1.webp'
-  if (typeof authorImage === 'string') return authorImage
-  if ('url' in authorImage && authorImage.url) return authorImage.url
-  return 'https://shadcnblocks.com/images/block/avatar-1.webp'
-}
-
 export default function Testimonial16({ heading, subheading, testimonials }: Testimonial16Fields) {
   const [expandedTweetId, setExpandedTweetId] = useState<number | null>(null)
 
@@ -83,8 +67,8 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
           <div>
             <p className="mb-4 text-2xl font-medium text-muted-foreground">{subheading}</p>
             <Separator />
-            {testimonials?.map((tweet: TestimonialItem, index: number) => (
-              <React.Fragment key={index}>
+            {testimonials?.map((tweet, index: number) => (
+              <Fragment key={index}>
                 <div className="select-none">
                   <div
                     onClick={() =>
@@ -102,11 +86,13 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                         <div className="py-4">
                           <div className="mb-3 flex gap-4 leading-5">
                             <Avatar className="size-9 flex-shrink-0 overflow-hidden rounded-full ring-1 ring-input">
-                              <AvatarImage
-                                src={getImageUrl(tweet.authorImage)}
-                                alt={tweet.authorName}
-                                className="aspect-square h-full w-full object-cover"
-                              />
+                              {tweet.authorImage && (
+                                <Media
+                                  resource={tweet.authorImage}
+                                  className="aspect-square h-full w-full object-cover"
+                                  alt={tweet.authorName}
+                                />
+                              )}
                               <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
                             </Avatar>
                             <div className="text-sm">
@@ -124,11 +110,13 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                         <div className="py-4 transition-colors hover:bg-muted">
                           <div className="flex gap-3 px-2">
                             <Avatar className="size-8 flex-shrink-0 overflow-hidden rounded-full">
-                              <AvatarImage
-                                src={getImageUrl(tweet.authorImage)}
-                                alt={tweet.authorName}
-                                className="aspect-square h-full w-full object-cover"
-                              />
+                              {tweet.authorImage && (
+                                <Media
+                                  resource={tweet.authorImage}
+                                  className="aspect-square h-full w-full object-cover"
+                                  alt={tweet.authorName}
+                                />
+                              )}
                               <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
                             </Avatar>
                             <div>
@@ -145,7 +133,7 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                   </div>
                 </div>
                 <Separator />
-              </React.Fragment>
+              </Fragment>
             ))}
           </div>
         </div>

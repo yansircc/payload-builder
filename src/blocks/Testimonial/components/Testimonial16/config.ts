@@ -1,6 +1,6 @@
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
-import { basicFields, testimonialSchemas } from '../shared/base-field'
+import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
 
 /**
  * Testimonial 16 field validation and type definitions
@@ -21,6 +21,48 @@ export const schemas = {
   ),
 }
 
+// Additional fields specific to tweet-style testimonials
+const tweetFields: Field[] = [
+  {
+    name: 'tag',
+    type: 'text',
+    required: true,
+    admin: {
+      description: 'Social media tag/handle (e.g., @username)',
+    },
+  },
+  {
+    name: 'content',
+    type: 'textarea',
+    required: true,
+    admin: {
+      description: 'Full testimonial content',
+    },
+  },
+  {
+    name: 'excerpt',
+    type: 'textarea',
+    required: true,
+    admin: {
+      description: 'Short excerpt of the testimonial (shown in collapsed view)',
+    },
+  },
+  {
+    name: 'link',
+    type: 'text',
+    admin: {
+      description: 'Optional link in the testimonial',
+    },
+  },
+  {
+    name: 'linkText',
+    type: 'text',
+    admin: {
+      description: 'Optional link text (e.g., @company)',
+    },
+  },
+]
+
 /**
  * Complete configuration for Testimonial 16
  */
@@ -40,7 +82,7 @@ export const testimonial16Fields: GroupField = {
       admin: {
         description: 'Main heading text',
       },
-    } as Field,
+    },
     {
       name: 'subheading',
       type: 'text',
@@ -48,57 +90,19 @@ export const testimonial16Fields: GroupField = {
       admin: {
         description: 'Subheading text',
       },
-    } as Field,
-    {
-      type: 'array',
-      name: 'testimonials',
-      fields: [
-        basicFields.authorName,
+    },
+    ...createTestimonialField({
+      arrays: [
         {
-          name: 'tag',
-          type: 'text',
-          required: true,
+          name: 'testimonials',
+          fields: [basicFields.authorName, basicFields.authorImage, ...tweetFields],
+          minRows: 3,
+          maxRows: 12,
           admin: {
-            description: 'Social media tag/handle (e.g., @username)',
+            description: 'Tweet-style testimonials (3-12)',
           },
-        } as Field,
-        basicFields.authorImage,
-        {
-          name: 'content',
-          type: 'textarea',
-          required: true,
-          admin: {
-            description: 'Full testimonial content',
-          },
-        } as Field,
-        {
-          name: 'excerpt',
-          type: 'textarea',
-          required: true,
-          admin: {
-            description: 'Short excerpt of the testimonial (shown in collapsed view)',
-          },
-        } as Field,
-        {
-          name: 'link',
-          type: 'text',
-          admin: {
-            description: 'Optional link in the testimonial',
-          },
-        } as Field,
-        {
-          name: 'linkText',
-          type: 'text',
-          admin: {
-            description: 'Optional link text (e.g., @company)',
-          },
-        } as Field,
+        },
       ],
-      minRows: 3,
-      maxRows: 12,
-      admin: {
-        description: 'Tweet-style testimonials (3-12)',
-      },
-    } as Field,
+    }).fields,
   ],
 }

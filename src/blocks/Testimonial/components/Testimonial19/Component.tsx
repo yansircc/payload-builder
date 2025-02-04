@@ -1,32 +1,23 @@
 'use client'
 
 import AutoScroll from 'embla-carousel-auto-scroll'
-import { ChevronRight, Star, Zap } from 'lucide-react'
+import { Star, Zap } from 'lucide-react'
 import { useRef } from 'react'
-import type { Media, TestimonialBlock } from '@/payload-types'
+import type { Testimonial19Fields } from '@/payload-types'
 
 import { Avatar } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media as MediaComponent } from '@/components/Media'
-
-type TestimonialItem = {
-  quote: string
-  authorName: string
-  authorRole?: string | null
-  authorImage?: Media | string | null
-  rating?: number | null
-}
-
-type Props = NonNullable<TestimonialBlock['testimonial-19']>
+import { Media } from '@/components/Media'
+import { CMSLink } from '@/components/Link'
 
 export default function Testimonial19({
   heading,
   subheading,
   statsText,
-  viewAllLink,
+  viewAll,
   testimonials,
-}: Props) {
+}: Testimonial19Fields) {
   const plugin = useRef(
     AutoScroll({
       startDelay: 500,
@@ -43,10 +34,7 @@ export default function Testimonial19({
         </div>
         <h2 className="text-center text-3xl font-semibold lg:text-4xl">{heading}</h2>
         <p className="text-center text-muted-foreground lg:text-lg">{subheading}</p>
-        <a href={viewAllLink ?? '#'} className="flex items-center gap-1 font-semibold">
-          View all testimonials
-          <ChevronRight className="mt-0.5 h-4 w-auto" />
-        </a>
+        {viewAll && <CMSLink {...viewAll} />}
       </div>
       <div className="lg:container">
         <div className="mt-16 space-y-4">
@@ -59,14 +47,14 @@ export default function Testimonial19({
             className="relative before:absolute before:bottom-0 before:left-0 before:top-0 before:z-10 before:w-36 before:bg-gradient-to-r before:from-background before:to-transparent after:absolute after:bottom-0 after:right-0 after:top-0 after:z-10 after:w-36 after:bg-gradient-to-l after:from-background after:to-transparent"
           >
             <CarouselContent>
-              {testimonials?.map((testimonial: TestimonialItem, index: number) => (
+              {testimonials?.map((testimonial, index: number) => (
                 <CarouselItem key={index} className="basis-auto">
                   <Card className="max-w-96 select-none p-6">
                     <div className="flex justify-between">
                       <div className="mb-4 flex gap-4">
                         <Avatar className="size-14 rounded-full ring-1 ring-input">
                           {testimonial.authorImage && (
-                            <MediaComponent
+                            <Media
                               resource={testimonial.authorImage}
                               className="size-14 rounded-full object-cover"
                             />
