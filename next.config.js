@@ -24,6 +24,11 @@ const nextConfig = {
           pathname: '**',
         }
       }),
+      {
+        hostname: '*.localhost.com',
+        protocol: 'http',
+        pathname: '**',
+      },
     ],
     minimumCacheTTL: 60,
     formats: ['image/avif', 'image/webp'],

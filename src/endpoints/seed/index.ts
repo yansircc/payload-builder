@@ -435,7 +435,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [contactPage] = await Promise.all([
+  const [_] = await Promise.all([
     payload.create({
       collection: 'pages',
       depth: 0,
@@ -453,36 +453,36 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding globals...`)
 
-  // await Promise.all([
-  //   payload.updateGlobal({
-  //     slug: 'header',
-  //     data: {
-  //       navItems: [
-  //         {
-  //           link: {
-  //             type: 'custom',
-  //             label: 'Posts',
-  //             url: '/posts',
-  //           },
-  //         },
-  //         {
-  //           link: {
-  //             type: 'reference',
-  //             label: 'Contact',
-  //             reference: {
-  //               relationTo: 'pages',
-  //               value: contactPage.id,
-  //             },
-  //           },
-  //         },
-  //       ],
-  //     },
-  //   }),
-  //   payload.updateGlobal({
-  //     slug: 'footer',
-  //     data: footer,
-  //   }),
-  // ])
+  await Promise.all([
+    // payload.updateGlobal({
+    //   slug: 'header',
+    //   data: {
+    //     navItems: [
+    //       {
+    //         link: {
+    //           type: 'custom',
+    //           label: 'Posts',
+    //           url: '/posts',
+    //         },
+    //       },
+    //       {
+    //         link: {
+    //           type: 'reference',
+    //           label: 'Contact',
+    //           reference: {
+    //             relationTo: 'pages',
+    //             value: contactPage.id,
+    //           },
+    //         },
+    //       },
+    //     ],
+    //   },
+    // }),
+    // payload.updateGlobal({
+    //   slug: 'footer',
+    //   data: footer,
+    // }),
+  ])
 
   payload.logger.info('Seeded database successfully!')
 }
