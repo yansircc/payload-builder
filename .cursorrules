@@ -7,7 +7,7 @@
 - Prefer iteration and modularization over code duplication.
 - Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`).
 - Structure files into: exported component, subcomponents, helpers, static content, and types.
-- **Task execution**: Use `bun` for package management and running tasks instead of `npm`.
+- **Task execution**: Use `bun` for package management and running tasks`.
 
 ### Naming Conventions
 
@@ -56,19 +56,4 @@
   - Use `use client` only for Web API access or small UI components needing client-side interaction.
   - Avoid `use client` for data fetching or global state management.
 
-### Bun Usage
-
-- For all package management and task execution, use `bun` instead of `npm` or `yarn`.
-
-- Example:
-
-  - **Install dependencies**: `bun install`
-  - **Run development server**: `bun dev`
-  - **Run tests**: `bun test`
-
 - **Follow Next.js documentation** for data fetching, rendering, and routing.
-
-### Summary of New Rules:
-
-- Replace `npm` with `bun` for package management and task execution.
-- Ensure all the comments and explainations in the code is English.

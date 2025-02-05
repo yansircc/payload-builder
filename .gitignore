@@ -19,3 +19,6 @@ public/sitemap*.xml
 *.tsbuildinfo
 tsconfig.tsbuildinfo
 .tsbuildinfo
+
+# windsurf rules
+.windsurfrules
