@@ -20,6 +20,11 @@ Core features:
 - [SEO](#seo)
 - [Website](#website)
 
+## Documentation
+
+- [Development Roadmap](./docs/ROADMAP.md)
+- [Tenant Development Guide](./docs/TENANT_DEVELOPMENT_GUIDE.md)
+
 ## Quick Start
 
 To spin up this example locally, follow these steps:
