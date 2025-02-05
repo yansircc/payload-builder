@@ -11,6 +11,12 @@ export const aboutSchemas = {
   description: z.string().describe('The about section description'),
   /** Label schema */
   label: z.string().describe('Section label (e.g., "OUR MISSION", "JOIN OUR TEAM")'),
+  /** Image schema */
+  image: z.object({}).describe('Image'),
+  /** Link schema */
+  link: z.string().describe('Link'),
+  /** Icon schema */
+  icon: z.string().describe('Lucide icon name'),
   /** Feature schema */
   feature: z.object({
     icon: z.string().describe('Lucide icon name for the feature'),

@@ -1357,9 +1357,10 @@ export interface Hero115Fields {
  * via the `definition` "AboutBlock".
  */
 export interface AboutBlock {
-  style?: ('about-1' | 'about-2') | null;
+  style?: ('about-1' | 'about-2' | 'about-3') | null;
   'about-1'?: About1Fields;
   'about-2'?: About2Fields;
+  'about-3'?: About3Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'about';
@@ -1552,6 +1553,76 @@ export interface About2Fields {
      * Third benefits image
      */
     third: string | Media;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About3Fields".
+ */
+export interface About3Fields {
+  mainSection: {
+    title: string;
+    description: string;
+  };
+  contentSection: {
+    mainImage: string | Media;
+    infoBox: {
+      icon: string | Media;
+      title: string;
+      description: string;
+      /**
+       * CTA button
+       */
+      buttonLink: {
+        type?: ('reference' | 'custom') | null;
+        newTab?: boolean | null;
+        reference?:
+          | ({
+              relationTo: 'pages';
+              value: string | Page;
+            } | null)
+          | ({
+              relationTo: 'posts';
+              value: string | Post;
+            } | null);
+        url?: string | null;
+        label: string;
+        /**
+         * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+         */
+        prefixIcon?: string | null;
+        /**
+         * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+         */
+        suffixIcon?: string | null;
+        /**
+         * Choose how the link should be rendered.
+         */
+        appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      };
+    };
+    sideImage: string | Media;
+  };
+  clientSection: {
+    title: string;
+    clients?:
+      | {
+          logo: string | Media;
+          name: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  statsSection: {
+    title: string;
+    description: string;
+    stats?:
+      | {
+          label: string;
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
   };
 }
 /**
@@ -6754,6 +6825,7 @@ export interface AboutBlockSelect<T extends boolean = true> {
   style?: T;
   'about-1'?: T | About1FieldsSelect<T>;
   'about-2'?: T | About2FieldsSelect<T>;
+  'about-3'?: T | About3FieldsSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -6856,6 +6928,68 @@ export interface About2FieldsSelect<T extends boolean = true> {
         first?: T;
         second?: T;
         third?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About3Fields_select".
+ */
+export interface About3FieldsSelect<T extends boolean = true> {
+  mainSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  contentSection?:
+    | T
+    | {
+        mainImage?: T;
+        infoBox?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              buttonLink?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+            };
+        sideImage?: T;
+      };
+  clientSection?:
+    | T
+    | {
+        title?: T;
+        clients?:
+          | T
+          | {
+              logo?: T;
+              name?: T;
+              id?: T;
+            };
+      };
+  statsSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        stats?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
       };
 }
 /**
