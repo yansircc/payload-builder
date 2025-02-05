@@ -1,5 +1,66 @@
 import { type GroupField } from 'payload'
+import { z } from 'zod'
+import { aboutSchemas } from '../shared/base-field'
 
+/**
+ * About2 field validation and type definitions
+ */
+export const schemas = {
+  title: aboutSchemas.title,
+  description: aboutSchemas.description,
+  images: z.object({
+    first: z.any().describe('First main image'),
+    second: z.any().describe('Second main image'),
+    third: z.any().describe('Third main image'),
+  }),
+  secondTitle: z.string().describe('Title above statistics grid'),
+  stats: z
+    .array(
+      z.object({
+        value: z.string().describe('Statistic value'),
+        label: z.string().describe('Statistic label'),
+      }),
+    )
+    .length(6),
+  trustedByTitle: z.string().describe('Trusted by section title'),
+  partners: z
+    .array(
+      z.object({
+        logo: z.any().describe('Partner company logo'),
+        name: z.string().describe('Partner company name'),
+      }),
+    )
+    .min(4)
+    .max(8),
+  benefitsTitle: z.string().describe('Benefits section title'),
+  benefitsStats: z
+    .array(
+      z.object({
+        value: z.string().describe('Benefit statistic value'),
+        label: z.string().describe('Benefit statistic label'),
+        description: z.string().describe('Benefit description'),
+      }),
+    )
+    .length(2),
+  testimonial: z.object({
+    logo: z.any().describe('Company logo'),
+    companyName: z.string().describe('Company name'),
+    quote: z.string().describe('Testimonial quote'),
+    author: z.object({
+      name: z.string().describe('Author name'),
+      role: z.string().describe('Author role'),
+    }),
+  }),
+  benefitsImages: z.object({
+    first: z.any().describe('First benefits image'),
+    second: z.any().describe('Second benefits image'),
+    third: z.any().describe('Third benefits image'),
+  }),
+}
+
+/**
+ * Complete configuration for About2
+ */
 export const about2Fields: GroupField = {
   name: 'about-2',
   interfaceName: 'About2Fields',
