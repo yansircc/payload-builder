@@ -31,7 +31,9 @@
     "build:turbo": "NEXT_TURBO=1 next build",
     "dev:turbo": "NEXT_TURBO=1 next dev",
     "cache:clear": "rm -rf .next/cache",
-    "preinstall": "bun clean"
+    "preinstall": "bun clean",
+    "docker:build": "sh scripts/docker-build.sh",
+    "docker:build:local": "sh scripts/docker-build-local.sh"
   },
   "dependencies": {
     "@ai-sdk/deepseek": "^0.1.3",

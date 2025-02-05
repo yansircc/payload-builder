@@ -19,6 +19,8 @@ public/sitemap*.xml
 tsconfig.tsbuildinfo
 .tsbuildinfo
 
+# Environment variables
 .env
-.env*.local
+.env.*
 !.env.example
+!.env.docker.example
