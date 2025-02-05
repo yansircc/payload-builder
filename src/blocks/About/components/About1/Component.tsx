@@ -1,20 +1,8 @@
 'use client'
 
-import { CircleArrowRight, Files, Settings } from 'lucide-react'
 import type { About1Fields } from '@/payload-types'
 import { Media } from '@/components/Media'
-
-interface Feature {
-  icon: 'Files' | 'CircleArrowRight' | 'Settings'
-  title: string
-  description: string
-}
-
-const ICON_MAP = {
-  Files,
-  CircleArrowRight,
-  Settings,
-} as const
+import { DynamicIcon } from '@/components/DynamicIcon'
 
 export default function About1({
   mainSection,
@@ -47,18 +35,15 @@ export default function About1({
             <p className="text-muted-foreground">{featuresSection.description}</p>
           </div>
           <div className="grid gap-10 md:grid-cols-3">
-            {featuresSection.features?.map((feature: Feature, index: number) => {
-              const Icon = ICON_MAP[feature.icon]
-              return (
-                <div key={index} className="flex flex-col">
-                  <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-accent">
-                    <Icon className="size-5" />
-                  </div>
-                  <h3 className="mb-3 mt-2 text-lg font-semibold">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
+            {featuresSection.features?.map((feature, index: number) => (
+              <div key={index} className="flex flex-col">
+                <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-accent">
+                  <DynamicIcon name={feature.icon} className="size-5" />
                 </div>
-              )
-            })}
+                <h3 className="mb-3 mt-2 text-lg font-semibold">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
+              </div>
+            ))}
           </div>
         </div>
 

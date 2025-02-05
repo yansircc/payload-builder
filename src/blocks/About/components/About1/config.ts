@@ -22,7 +22,7 @@ export const schemas = {
   teamSection: z.object({
     label: aboutSchemas.label,
     title: aboutSchemas.title,
-    image: aboutSchemas.media,
+    media: aboutSchemas.media,
     description: aboutSchemas.description,
   }),
 }
@@ -44,9 +44,8 @@ const featureArrayField: Field = {
   fields: [
     {
       ...featureFields.icon,
-      options: ['Files', 'CircleArrowRight', 'Settings'],
       admin: {
-        description: 'Select an icon for this feature',
+        description: 'Enter a Lucide icon name (e.g., "FileText", "ArrowRight", "Settings")',
       },
     },
     featureFields.title,

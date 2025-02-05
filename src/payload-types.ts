@@ -1385,9 +1385,9 @@ export interface About1Fields {
     features?:
       | {
           /**
-           * Select an icon for this feature
+           * Enter a Lucide icon name (e.g., "FileText", "ArrowRight", "Settings")
            */
-          icon: 'Files' | 'CircleArrowRight' | 'Settings';
+          icon: string;
           /**
            * Feature title
            */

@@ -20,7 +20,7 @@ export const aboutSchemas = {
   label: z.string().describe('Section label (e.g., "OUR MISSION", "JOIN OUR TEAM")'),
   /** Feature schema */
   feature: z.object({
-    icon: z.enum(['Files', 'CircleArrowRight', 'Settings']),
+    icon: z.string().describe('Lucide icon name for the feature'),
     title: z.string(),
     description: z.string(),
   }),
@@ -74,14 +74,13 @@ const mediaFields = {
 /**
  * Feature fields configuration
  */
-const featureFields = {
+export const featureFields = {
   icon: {
     name: 'icon',
-    type: 'select',
+    type: 'text',
     required: true,
-    options: ['Files', 'CircleArrowRight', 'Settings'],
     admin: {
-      description: 'Feature icon',
+      description: 'Lucide icon name (e.g., "FileText", "ArrowRight", "Settings")',
     },
   },
   title: {
@@ -113,7 +112,7 @@ const aboutFields: Record<string, Field> = {
 /**
  * Export all field groups for type safety
  */
-export { basicFields, featureFields, mediaFields }
+export { basicFields, mediaFields }
 
 interface AboutFieldGroup {
   name: string
