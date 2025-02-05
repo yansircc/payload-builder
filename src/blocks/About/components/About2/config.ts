@@ -26,34 +26,6 @@ export const about2Fields: GroupField = {
       },
     },
     {
-      name: 'stats',
-      type: 'array',
-      required: true,
-      minRows: 6,
-      maxRows: 6,
-      admin: {
-        description: 'Statistics to display (exactly 6 items)',
-      },
-      fields: [
-        {
-          name: 'value',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'The statistic value (e.g., "21M", "12+")',
-          },
-        },
-        {
-          name: 'label',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'The statistic label',
-          },
-        },
-      ],
-    },
-    {
       name: 'images',
       type: 'group',
       label: 'Main Images',
@@ -97,6 +69,34 @@ export const about2Fields: GroupField = {
       admin: {
         description: 'The title above the statistics grid',
       },
+    },
+    {
+      name: 'stats',
+      type: 'array',
+      required: true,
+      minRows: 6,
+      maxRows: 6,
+      admin: {
+        description: 'Statistics to display (exactly 6 items)',
+      },
+      fields: [
+        {
+          name: 'value',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'The statistic value (e.g., "21M", "12+")',
+          },
+        },
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'The statistic label',
+          },
+        },
+      ],
     },
     {
       name: 'trustedByTitle',

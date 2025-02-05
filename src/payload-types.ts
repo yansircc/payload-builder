@@ -1432,20 +1432,6 @@ export interface About2Fields {
    */
   description: string;
   /**
-   * Statistics to display (exactly 6 items)
-   */
-  stats: {
-    /**
-     * The statistic value (e.g., "21M", "12+")
-     */
-    value: string;
-    /**
-     * The statistic label
-     */
-    label: string;
-    id?: string | null;
-  }[];
-  /**
    * The three main images
    */
   images: {
@@ -1466,6 +1452,20 @@ export interface About2Fields {
    * The title above the statistics grid
    */
   secondTitle: string;
+  /**
+   * Statistics to display (exactly 6 items)
+   */
+  stats: {
+    /**
+     * The statistic value (e.g., "21M", "12+")
+     */
+    value: string;
+    /**
+     * The statistic label
+     */
+    label: string;
+    id?: string | null;
+  }[];
   /**
    * The title for the trusted by section
    */
@@ -6805,13 +6805,6 @@ export interface About1FieldsSelect<T extends boolean = true> {
 export interface About2FieldsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  stats?:
-    | T
-    | {
-        value?: T;
-        label?: T;
-        id?: T;
-      };
   images?:
     | T
     | {
@@ -6820,6 +6813,13 @@ export interface About2FieldsSelect<T extends boolean = true> {
         third?: T;
       };
   secondTitle?: T;
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
   trustedByTitle?: T;
   partners?:
     | T
