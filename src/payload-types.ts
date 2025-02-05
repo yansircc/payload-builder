@@ -1378,6 +1378,10 @@ export interface About1Fields {
      */
     label: string;
     description: string;
+    /**
+     * Mission section image
+     */
+    image: string | Media;
   };
   featuresSection: {
     title: string;
@@ -1406,7 +1410,10 @@ export interface About1Fields {
      */
     label: string;
     title: string;
-    media: string | Media;
+    /**
+     * Team section image
+     */
+    image: string | Media;
     description: string;
   };
 }
@@ -6628,6 +6635,7 @@ export interface About1FieldsSelect<T extends boolean = true> {
     | {
         label?: T;
         description?: T;
+        image?: T;
       };
   featuresSection?:
     | T
@@ -6648,7 +6656,7 @@ export interface About1FieldsSelect<T extends boolean = true> {
     | {
         label?: T;
         title?: T;
-        media?: T;
+        image?: T;
         description?: T;
       };
 }

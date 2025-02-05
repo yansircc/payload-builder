@@ -13,6 +13,7 @@ export const schemas = {
   missionSection: z.object({
     label: aboutSchemas.label,
     description: aboutSchemas.description,
+    image: aboutSchemas.missionSection.shape.image,
   }),
   featuresSection: z.object({
     title: aboutSchemas.title,
@@ -22,7 +23,7 @@ export const schemas = {
   teamSection: z.object({
     label: aboutSchemas.label,
     title: aboutSchemas.title,
-    media: aboutSchemas.media,
+    image: aboutSchemas.teamSection.shape.image,
     description: aboutSchemas.description,
   }),
 }
@@ -90,6 +91,15 @@ export const about1Fields: GroupField = {
           type: 'textarea',
           required: true,
         },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+          admin: {
+            description: 'Mission section image',
+          },
+        },
       ],
     },
     {
@@ -122,10 +132,13 @@ export const about1Fields: GroupField = {
           required: true,
         },
         {
-          name: 'media',
+          name: 'image',
           type: 'upload',
           relationTo: 'media',
           required: true,
+          admin: {
+            description: 'Team section image',
+          },
         },
         {
           name: 'description',

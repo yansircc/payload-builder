@@ -20,7 +20,7 @@ export default function About1({
 
         <div className="grid gap-6 md:grid-cols-2">
           <Media
-            resource={teamSection.media}
+            resource={missionSection.image}
             className="size-full max-h-96 rounded-2xl object-cover"
           />
           <div className="flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10">
@@ -54,7 +54,7 @@ export default function About1({
           </div>
           <div>
             <Media
-              resource={teamSection.media}
+              resource={teamSection.image}
               className="mb-6 max-h-36 w-full rounded-xl object-cover"
             />
             <p className="text-muted-foreground">{teamSection.description}</p>

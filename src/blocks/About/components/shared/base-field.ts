@@ -9,19 +9,39 @@ export const aboutSchemas = {
   title: z.string().describe('The about section title'),
   /** Description schema */
   description: z.string().describe('The about section description'),
-  /** Media schema */
-  media: z.object({
-    id: z.string(),
-    alt: z.string(),
-    width: z.number(),
-    height: z.number(),
-  }),
   /** Label schema */
   label: z.string().describe('Section label (e.g., "OUR MISSION", "JOIN OUR TEAM")'),
   /** Feature schema */
   feature: z.object({
     icon: z.string().describe('Lucide icon name for the feature'),
     title: z.string(),
+    description: z.string(),
+  }),
+  /** Mission section schema */
+  missionSection: z.object({
+    label: z.string(),
+    description: z.string(),
+    image: z
+      .object({
+        id: z.string(),
+        alt: z.string(),
+        width: z.number(),
+        height: z.number(),
+      })
+      .describe('Mission section image'),
+  }),
+  /** Team section schema */
+  teamSection: z.object({
+    label: z.string(),
+    title: z.string(),
+    image: z
+      .object({
+        id: z.string(),
+        alt: z.string(),
+        width: z.number(),
+        height: z.number(),
+      })
+      .describe('Team section image'),
     description: z.string(),
   }),
 }
@@ -55,21 +75,6 @@ const basicFields: Record<string, Field> = {
     },
   },
 }
-
-/**
- * Media fields configuration
- */
-const mediaFields = {
-  media: {
-    name: 'media',
-    type: 'upload',
-    relationTo: 'media',
-    required: true,
-    admin: {
-      description: 'Media',
-    },
-  },
-} as const
 
 /**
  * Feature fields configuration
@@ -106,13 +111,12 @@ export const featureFields = {
  */
 const aboutFields: Record<string, Field> = {
   ...basicFields,
-  ...mediaFields,
 }
 
 /**
  * Export all field groups for type safety
  */
-export { basicFields, mediaFields }
+export { basicFields }
 
 interface AboutFieldGroup {
   name: string
