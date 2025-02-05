@@ -1,5 +1,6 @@
 import type { Block } from 'payload'
 import { about1Fields } from './components/About1/config'
+import { about2Fields } from './components/About2/config'
 
 export const AboutBlock: Block = {
   slug: 'about',
@@ -18,12 +19,22 @@ export const AboutBlock: Block = {
           label: 'About 1',
           value: 'about-1',
         },
+        {
+          label: 'About 2',
+          value: 'about-2',
+        },
       ],
     },
     {
       ...about1Fields,
       admin: {
         condition: (_, siblingData) => siblingData?.style === 'about-1',
+      },
+    },
+    {
+      ...about2Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData?.style === 'about-2',
       },
     },
   ],

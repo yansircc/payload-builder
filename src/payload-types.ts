@@ -1357,8 +1357,9 @@ export interface Hero115Fields {
  * via the `definition` "AboutBlock".
  */
 export interface AboutBlock {
-  style?: 'about-1' | null;
+  style?: ('about-1' | 'about-2') | null;
   'about-1'?: About1Fields;
+  'about-2'?: About2Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'about';
@@ -1415,6 +1416,148 @@ export interface About1Fields {
      */
     image: string | Media;
     description: string;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About2Fields".
+ */
+export interface About2Fields {
+  /**
+   * The main title for the about section
+   */
+  title: string;
+  /**
+   * The main description text
+   */
+  description: string;
+  /**
+   * Statistics to display (exactly 6 items)
+   */
+  stats?:
+    | {
+        /**
+         * The statistic value (e.g., "21M", "12+")
+         */
+        value: string;
+        /**
+         * The statistic label
+         */
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The three main images
+   */
+  images: {
+    /**
+     * First image (largest)
+     */
+    first: string | Media;
+    /**
+     * Second image (medium)
+     */
+    second: string | Media;
+    /**
+     * Third image (smallest)
+     */
+    third: string | Media;
+  };
+  /**
+   * The title above the statistics grid
+   */
+  secondTitle: string;
+  /**
+   * The title for the trusted by section
+   */
+  trustedByTitle: string;
+  /**
+   * Partner logos and names (4-8 items)
+   */
+  partners?:
+    | {
+        /**
+         * Partner company logo
+         */
+        logo: string | Media;
+        /**
+         * Partner company name
+         */
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The title for the benefits section
+   */
+  benefitsTitle: string;
+  /**
+   * Benefits statistics (exactly 2 items)
+   */
+  benefitsStats?:
+    | {
+        /**
+         * The benefit statistic value
+         */
+        value: string;
+        /**
+         * The benefit statistic label
+         */
+        label: string;
+        /**
+         * The benefit description
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Customer testimonial
+   */
+  testimonial: {
+    /**
+     * Company logo
+     */
+    logo: string | Media;
+    /**
+     * Company name
+     */
+    companyName: string;
+    /**
+     * Testimonial quote
+     */
+    quote: string;
+    /**
+     * Testimonial author
+     */
+    author: {
+      /**
+       * Author name
+       */
+      name: string;
+      /**
+       * Author role
+       */
+      role: string;
+    };
+  };
+  /**
+   * Images for the benefits section
+   */
+  benefitsImages: {
+    /**
+     * First benefits image
+     */
+    first: string | Media;
+    /**
+     * Second benefits image
+     */
+    second: string | Media;
+    /**
+     * Third benefits image
+     */
+    third: string | Media;
   };
 }
 /**
@@ -6616,6 +6759,7 @@ export interface Hero115FieldsSelect<T extends boolean = true> {
 export interface AboutBlockSelect<T extends boolean = true> {
   style?: T;
   'about-1'?: T | About1FieldsSelect<T>;
+  'about-2'?: T | About2FieldsSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -6658,6 +6802,66 @@ export interface About1FieldsSelect<T extends boolean = true> {
         title?: T;
         image?: T;
         description?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About2Fields_select".
+ */
+export interface About2FieldsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  images?:
+    | T
+    | {
+        first?: T;
+        second?: T;
+        third?: T;
+      };
+  secondTitle?: T;
+  trustedByTitle?: T;
+  partners?:
+    | T
+    | {
+        logo?: T;
+        name?: T;
+        id?: T;
+      };
+  benefitsTitle?: T;
+  benefitsStats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        description?: T;
+        id?: T;
+      };
+  testimonial?:
+    | T
+    | {
+        logo?: T;
+        companyName?: T;
+        quote?: T;
+        author?:
+          | T
+          | {
+              name?: T;
+              role?: T;
+            };
+      };
+  benefitsImages?:
+    | T
+    | {
+        first?: T;
+        second?: T;
+        third?: T;
       };
 }
 /**
