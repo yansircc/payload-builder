@@ -58,6 +58,7 @@
     "@radix-ui/react-separator": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/react-toggle-group": "^1.1.1",
+    "@t3-oss/env-nextjs": "^0.12.0",
     "ai": "^4.1.5",
     "babel-plugin-react-compiler": "^19.0.0-beta-714736e-20250131",
     "class-variance-authority": "^0.7.1",

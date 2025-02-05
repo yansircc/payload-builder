@@ -2,7 +2,6 @@ build
 dist/media
 node_modules
 .DS_Store
-.env
 .next
 .vercel
 
@@ -19,3 +18,7 @@ public/sitemap*.xml
 *.tsbuildinfo
 tsconfig.tsbuildinfo
 .tsbuildinfo
+
+.env
+.env*.local
+!.env.example

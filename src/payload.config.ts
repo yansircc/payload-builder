@@ -1,4 +1,5 @@
 // storage-adapter-import-placeholder
+import { env } from '@/env'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 
 import path from 'path'
@@ -62,7 +63,7 @@ export default buildConfig({
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: mongooseAdapter({
-    url: process.env.DATABASE_URL || false,
+    url: env.DATABASE_URL || false,
   }),
   collections: [Pages, Posts, Media, Categories, Users, Tenants, Header, Footer],
   cors: [getServerSideURL()].filter(Boolean),
@@ -71,7 +72,7 @@ export default buildConfig({
     ...plugins,
     // storage-adapter-placeholder
   ],
-  secret: process.env.PAYLOAD_SECRET,
+  secret: env.PAYLOAD_SECRET,
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -86,7 +87,7 @@ export default buildConfig({
         // for the Vercel Cron secret to be present as an
         // Authorization header:
         const authHeader = req.headers.get('authorization')
-        return authHeader === `Bearer ${process.env.CRON_SECRET}`
+        return authHeader === `Bearer ${env.CRON_SECRET}`
       },
     },
     tasks: [],

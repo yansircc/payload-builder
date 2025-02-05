@@ -256,12 +256,13 @@ pnpm add @payloadcms/db-vercel-postgres
 ```ts
 // payload.config.ts
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
+import { env } from '@/env'
 
 export default buildConfig({
   // ...
   db: vercelPostgresAdapter({
     pool: {
-      connectionString: process.env.POSTGRES_URL || '',
+      connectionString: env.POSTGRES_URL || '',
     },
   }),
   // ...
@@ -276,6 +277,7 @@ pnpm add @payloadcms/storage-vercel-blob
 ```ts
 // payload.config.ts
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { env } from '@/env'
 
 export default buildConfig({
   // ...
@@ -284,10 +286,11 @@ export default buildConfig({
       collections: {
         [Media.slug]: true,
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      token: env.BLOB_READ_WRITE_TOKEN || '',
     }),
   ],
   // ...
+})
 ```
 
 There is also a simplified [one click deploy](https://github.com/payloadcms/payload/tree/templates/with-vercel-postgres) to Vercel should you need it.
