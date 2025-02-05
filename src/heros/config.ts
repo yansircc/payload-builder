@@ -9,6 +9,7 @@ import { hero3Fields } from './components/Hero3/config'
 import { hero32Fields } from './components/Hero32/config'
 import { hero34Fields } from './components/Hero34/config'
 import { hero45Fields } from './components/Hero45/config'
+import { hero47Fields } from './components/Hero47/config'
 import { hero5Fields } from './components/Hero5/config'
 import { hero6Fields } from './components/Hero6/config'
 import { hero7Fields } from './components/Hero7/config'
@@ -38,6 +39,7 @@ export const HeroField: Field = {
         'hero-6',
         'hero-3',
         'hero-45',
+        'hero-47',
         'hero-115',
       ],
     },
@@ -111,6 +113,12 @@ export const HeroField: Field = {
       ...hero45Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'hero-45',
+      },
+    },
+    {
+      ...hero47Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-47',
       },
     },
     {

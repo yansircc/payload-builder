@@ -143,6 +143,7 @@ export interface HeroField {
         | 'hero-6'
         | 'hero-3'
         | 'hero-45'
+        | 'hero-47'
         | 'hero-115'
       )
     | null;
@@ -158,6 +159,7 @@ export interface HeroField {
   'hero-6'?: Hero6Fields;
   'hero-3'?: Hero3Fields;
   'hero-45'?: Hero45Fields;
+  'hero-47'?: Hero47Fields;
   'hero-115'?: Hero115Fields;
 }
 /**
@@ -1281,6 +1283,101 @@ export interface Hero45Fields {
            * Feature description
            */
           description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero47Fields".
+ */
+export interface Hero47Fields {
+  /**
+   * Hero section fields
+   */
+  hero: {
+    /**
+     * Feature title
+     */
+    title: string;
+    /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
+     * Hero image
+     */
+    image: string | Media;
+    /**
+     * Feature description
+     */
+    description: string;
+    /**
+     * Hero buttons (primary and secondary)
+     */
+    links?:
+      | {
+          /**
+           * Primary hero button with ArrowUpRight prefix icon
+           */
+          'link-1': {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
+          /**
+           * Secondary hero button with link style
+           */
+          'link-2': {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+             */
+            prefixIcon?: string | null;
+            /**
+             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+             */
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
           id?: string | null;
         }[]
       | null;
@@ -6051,6 +6148,7 @@ export interface HeroFieldSelect<T extends boolean = true> {
   'hero-6'?: T | Hero6FieldsSelect<T>;
   'hero-3'?: T | Hero3FieldsSelect<T>;
   'hero-45'?: T | Hero45FieldsSelect<T>;
+  'hero-47'?: T | Hero47FieldsSelect<T>;
   'hero-115'?: T | Hero115FieldsSelect<T>;
 }
 /**
@@ -6507,6 +6605,49 @@ export interface Hero45FieldsSelect<T extends boolean = true> {
               icon?: T;
               title?: T;
               description?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero47Fields_select".
+ */
+export interface Hero47FieldsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        image?: T;
+        description?: T;
+        links?:
+          | T
+          | {
+              'link-1'?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+              'link-2'?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
               id?: T;
             };
       };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Hero components export file
  *
@@ -22,6 +23,7 @@ import Hero3Component from './components/Hero3/Component'
 import Hero32Component from './components/Hero32/Component'
 import Hero34Component from './components/Hero34/Component'
 import Hero45Component from './components/Hero45/Component'
+import Hero47Component from './components/Hero47/Component'
 import Hero5Component from './components/Hero5/Component'
 import Hero6Component from './components/Hero6/Component'
 import Hero7Component from './components/Hero7/Component'
@@ -37,6 +39,7 @@ export { hero3Fields } from './components/Hero3/config'
 export { hero32Fields } from './components/Hero32/config'
 export { hero34Fields } from './components/Hero34/config'
 export { hero45Fields } from './components/Hero45/config'
+export { hero47Fields } from './components/Hero47/config'
 export { hero5Fields } from './components/Hero5/config'
 export { hero6Fields } from './components/Hero6/config'
 export { hero7Fields } from './components/Hero7/config'
@@ -55,6 +58,7 @@ export const Hero34 = Hero34Component
 export const Hero6 = Hero6Component
 export const Hero3 = Hero3Component
 export const Hero45 = Hero45Component
+export const Hero47 = Hero47Component
 export const Hero115 = Hero115Component
 
 // Define Gallery component props type
@@ -77,6 +81,7 @@ export const heroComponents: Record<
   'hero-6': Hero6,
   'hero-3': Hero3,
   'hero-45': Hero45,
+  'hero-47': Hero47,
   'hero-115': Hero115,
 }
 
