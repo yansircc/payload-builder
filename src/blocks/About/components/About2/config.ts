@@ -28,6 +28,7 @@ export const about2Fields: GroupField = {
     {
       name: 'stats',
       type: 'array',
+      required: true,
       minRows: 6,
       maxRows: 6,
       admin: {
@@ -108,6 +109,7 @@ export const about2Fields: GroupField = {
     {
       name: 'partners',
       type: 'array',
+      required: true,
       minRows: 4,
       maxRows: 8,
       admin: {
@@ -144,6 +146,7 @@ export const about2Fields: GroupField = {
     {
       name: 'benefitsStats',
       type: 'array',
+      required: true,
       minRows: 2,
       maxRows: 2,
       admin: {

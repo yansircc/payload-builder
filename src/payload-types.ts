@@ -1434,19 +1434,17 @@ export interface About2Fields {
   /**
    * Statistics to display (exactly 6 items)
    */
-  stats?:
-    | {
-        /**
-         * The statistic value (e.g., "21M", "12+")
-         */
-        value: string;
-        /**
-         * The statistic label
-         */
-        label: string;
-        id?: string | null;
-      }[]
-    | null;
+  stats: {
+    /**
+     * The statistic value (e.g., "21M", "12+")
+     */
+    value: string;
+    /**
+     * The statistic label
+     */
+    label: string;
+    id?: string | null;
+  }[];
   /**
    * The three main images
    */
@@ -1475,19 +1473,17 @@ export interface About2Fields {
   /**
    * Partner logos and names (4-8 items)
    */
-  partners?:
-    | {
-        /**
-         * Partner company logo
-         */
-        logo: string | Media;
-        /**
-         * Partner company name
-         */
-        name: string;
-        id?: string | null;
-      }[]
-    | null;
+  partners: {
+    /**
+     * Partner company logo
+     */
+    logo: string | Media;
+    /**
+     * Partner company name
+     */
+    name: string;
+    id?: string | null;
+  }[];
   /**
    * The title for the benefits section
    */
@@ -1495,23 +1491,21 @@ export interface About2Fields {
   /**
    * Benefits statistics (exactly 2 items)
    */
-  benefitsStats?:
-    | {
-        /**
-         * The benefit statistic value
-         */
-        value: string;
-        /**
-         * The benefit statistic label
-         */
-        label: string;
-        /**
-         * The benefit description
-         */
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
+  benefitsStats: {
+    /**
+     * The benefit statistic value
+     */
+    value: string;
+    /**
+     * The benefit statistic label
+     */
+    label: string;
+    /**
+     * The benefit description
+     */
+    description: string;
+    id?: string | null;
+  }[];
   /**
    * Customer testimonial
    */

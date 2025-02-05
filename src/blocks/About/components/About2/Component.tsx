@@ -1,47 +1,7 @@
 'use client'
 
-import { type Media } from '@/payload-types'
 import { ImageMedia } from '@/components/Media/ImageMedia'
-
-export interface About2Fields {
-  title: string
-  description: string
-  stats: Array<{
-    value: string
-    label: string
-  }>
-  images: {
-    first: Media
-    second: Media
-    third: Media
-  }
-  secondTitle: string
-  trustedByTitle: string
-  partners: Array<{
-    logo: Media
-    name: string
-  }>
-  benefitsTitle: string
-  benefitsStats: Array<{
-    value: string
-    label: string
-    description: string
-  }>
-  testimonial: {
-    logo: Media
-    companyName: string
-    quote: string
-    author: {
-      name: string
-      role: string
-    }
-  }
-  benefitsImages: {
-    first: Media
-    second: Media
-    third: Media
-  }
-}
+import { About2Fields } from '@/payload-types'
 
 export default function About2({
   title,
