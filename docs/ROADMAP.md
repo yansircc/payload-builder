@@ -1,215 +1,162 @@
-# Site Builder Roadmap
+## Phase 1: Core Functions and Quick Launch
 
-## Phase 1: Content & AI Enhancements
+**Goal:**
+Establish the most basic website building capabilities, allowing users to quickly set up websites, achieve simple content management, and some marketing functions.
 
-### 1. Pre-fill Feature
+1. Pre-fill Feature
 
-* Implement a feature that allows users to quickly insert placeholder content, including:
+* Quickly insert placeholder text (Lorem Ipsum) and example images, SVG icons, etc
+* Provide users with the ability to customize simple switches and preset content
+* _Reason:_ Placeholder content allows users to quickly preview the layout, reducing the confusion caused by blank pages.
 
-  * Lorem Ipsum text for paragraphs and headings
+2. **Blog and Basic Content Module**
 
-  * Stock images
+* Blog Archive & Single Page Blocks
+* Can be expanded to the summary page and detail page of the product list/service list
+* _Reason:_ Blogs, product, or service pages are the basic requirements of most websites and should be prioritized.
 
-  * SVG assets for icons and illustrations
+3. **Popup window function**
 
-* Provide a simple UI to toggle pre-filled content on/off
+* Develop a universal popup component that supports multiple trigger methods (page load, exit intent, scroll depth, etc.)
+* Flexibly bind with trigger elements such as buttons/links
+* _Reason:_ Pop-ups are often used to collect information, promote activities, etc., and are an important marketing function.
 
-* Ensure customization options for predefined content
+4. **Country-Based Access Control**
 
-### 2. AI-Generated Content
+* Provide a simple blacklist or whitelist function for countries/regions
+* Can be further expanded into richer access control policies
+* _Reason:_ The development effort for this feature is not large, but it is very important for some users and can be completed in advance.
 
-* Develop an AI-driven feature to transform placeholder text into meaningful content
+5. **Data Export & Import**
 
-* Allow AI to generate:
+* One-click export of site data (e.g. JSON)
+* Implement import functionality to support site migration or backup
+* _Reason:_ This is a key feature to ensure the security and portability of user data, and the implementation difficulty is relatively controllable.
 
-  * Titles and headings based on page context
+6. **Cloudflare CDN & Image Optimization**
 
-  * Paragraphs and descriptions suited for different website categories (e.g., e-commerce, blogs, portfolios)
+* Website static resources and uploaded images are uniformly distributed through Cloudflare
+* Use Cloudflare Images or similar services for automatic compression and format conversion
+Improve website loading speed and enhance user experience
 
-  * Image suggestions from stock libraries or AI-generated visuals
+- - -
 
-* Provide an API integration for third-party AI services (e.g., OpenAI, Stability AI)
+## Phase 2: Theme and Landing Page Customization
 
-* Add a user interface where users can manually review and tweak AI-generated content
+**Goal:**
+Provide a richer visual style and fixed templates for the website to enhance the efficiency of users in quickly building finished sites.
 
-* Implement a rich-text editor with AI functionality, allowing users to select text and modify it with AI suggestions
+1. **Theme Functionality**
 
-## Phase 2: Localization & Multi-Language Support
+Support for "default theme" and integration of multiple Tailwind CSS templates
+* You can choose different themes or styles of blocks in the background
+Components from sources like [Shuffle.dev](https://shuffle.dev/components/tailwind) can be managed centrally.
 
-### 3. Language Switching for Admin Panel
+2. **Landing Page Templates**
 
-* Implement a system to extract text from the codebase for easy translation
+* Provide a series of fixed landing page templates, referencing Envato Market, Unbounce, etc
+* Covering common industries: e-commerce, corporate websites, SaaS, education, etc
+* The template can be combined with a block-based editor, supporting free dragging and modification
 
-* Use a structured approach (e.g., JSON or database storage) for managing language keys
+- - -
 
-* Support English and Chinese initially, with options for future expansion
+## Phase 3: AI Basic Content Generation and Beginner SEO
 
-* Provide a language toggle in the admin dashboard
+**Goal:**
+Integrate the ability to generate AI content into the existing website framework, while addressing some basic SEO needs, to give the website a preliminary level of search engine friendliness.
 
-* Implement AI-assisted translation to improve language accuracy and consistency
+1. **AI Generated Content**
 
-### 4. Multi-Language Content Support
+* Transform placeholder text into meaningful copy: titles, paragraphs, product descriptions, etc
+* Introduce third-party AI services (OpenAI, Stability AI) for text or image suggestions
+* Rich text editor integrates AI: supports users in calling AI for rewriting/polishing during the editing process
 
-* Enable page and article collections to be translated into multiple languages
+2. **Basic SEO Features**
 
-* Implement a structured way to manage translations:
+* Automatically generate basic SEO metadata and OG tags
+* Provide a simple SEO configuration interface (title, description, keywords, etc.)
+* _Reason:_ Even basic SEO can increase the chances of a website being indexed and displayed by search engines.
 
-  * Store translations as separate entries linked to the original content
+3. **Email & Notification System**
 
-  * Use a translation interface for easy editing and previewing
+* Integrate with email platforms like [UsePlunk](https://app.useplunk.com/)
+* Allow notifications/EDM to be sent based on user behavior or marketing needs
+* In the future, AI can be combined to provide automated writing and personalized suggestions for email content
 
-* Ensure SEO-friendly implementation (e.g., hreflang tags, localized URLs)
+- - -
 
-* Allow fallback languages when a translation is unavailable
+## Phase 4: Multilingualism and Localization
 
-## Phase 3: Theming & Customization
+**Goal:**
+Enable the website to support multilingual management, including translation and switching of backend and frontend content, to serve a broader user base.
 
-### 5. Theme Functionality
+1. **Language Switching for Admin Panel**
 
-* Introduce a theme system where blocks are categorized under the "default theme."
+Extract text from the code and manage multilingual copy uniformly (JSON/database)
+* Support initial Chinese and English switching, and prepare for future language expansion
+* Access AI translation assistance to improve translation consistency
 
-* Add additional Tailwind CSS templates as themes from sources like:
+2. **Multi-Language Content Support**
 
-  * [Shuffle.dev Tailwind Components](https://shuffle.dev/components/tailwind)
+* Management of multilingual versions of pages/articles, linking to the original text and structured storage
+* Provide a translation interface for editors to switch and view previews
+* Implement SEO-friendly features (hreflang, localized URLs, etc.) and have an automatic fallback mechanism for language content
 
-  * [Shuffle.dev Components](https://shuffle.dev/components)
+- - -
 
-* Allow users to select different styled blocks based on themes for site building
+## Phase 5: Advanced AI and Interactive Features
 
-### 6. Landing Page Templates
+**Goal:**
+Further expand on the existing AI generation capabilities to include automated generation of entire articles, customer service robots, forums, and other interactive functions.
 
-* Provide fixed landing page templates inspired by:
+1. **AI-Generated Long Articles and Workflows**
 
-  * Envato Market
+* Define automated content generation processes using platforms like [Trigger.dev](https://trigger.dev/)
+Integrate DeepSeek, OpenAI, Google LLMs, etc., to generate high-quality articles based on user settings
+* Integrate with DataForSEO or SEMrush to provide optimization suggestions for keywords, topics, etc
+Implement an SEO scoring feature similar to Yoast to evaluate article quality
 
-  * Unbounce and similar services
+2. **AI Customer Service & Chatbot (AI-Powered Customer Support)**
 
-* Offer a variety of styles suitable for different industries
+Chat component similar to [Tidio](https://www.tidio.com/)
+* RAG (Retrieval-Augmented Generation) access allows the robot to quickly and accurately answer based on the document library/knowledge base
+Users can interact with the Chatbot on the front end to improve website retention and conversion
 
-* Ensure templates are fully customizable with block-based editing
+3. **Fake Forum Plugin for Payload CMS**
 
-## Phase 4: AI Integration & Automation
+Create a "simulation" forum to disperse knowledge content and enhance search engine indexing
+* Support AI-driven forum interactions, and even simulate different AI roles to respond
+* _Reason:_ Virtual forums are helpful for SEO and provide more forms of website interaction
 
-### 7. AI-Generated Articles
+4. **AI-Enhanced FAQ & Quiz Sections**
 
-* Implement AI-driven article generation using [Trigger.dev](https://trigger.dev/)
+* Automatically generate FAQs based on user behavior or keyword needs
+* Provide a customizable Q&A logic quiz to increase website interactivity
 
-* Allow users to define workflows for AI to generate structured articles
+5. **User-manageable AI context**
 
-* Integrate LLMs such as:
+* Upload documents or materials in the background, AI creates an index and uses it for responses
+Ensure that the uploaded files are parsed and used within a safe and controllable range
 
-  * DeepSeek
+- - -
 
-  * OpenAI
+## Phase 6: Advanced SEO and Automation
 
-  * Google’s LLM solutions
+**Goal:**
+Further improve the SEO system and automated operation and maintenance functions, reduce site management costs, and enhance website performance and security.
 
-* Enable users to configure their preferred AI models
+1. **Automated 404 Handling & Fixes**
 
-* Integrate DataForSEO or SEMrush to automatically analyze keywords and assign optimization tasks
+* Regularly check for 404 errors in internal and external links on the website
+* Provide AI and crawler suggestions, or automatically fix outdated links
+Enhance user experience and search engine ranking
 
-* Implement a Yoast-like scoring mechanism to evaluate SEO quality of generated content
+2. **AI-Generated Code for Tailwind & React**
 
-### 8. AI-Powered Customer Support
+* Experimental feature: Generate responsive components or HTML templates based on user needs
+* The backend provides an interface that allows users to specify component structure or usage scenarios, and AI directly generates usable code
 
-* Implement an AI chatbot similar to [Tidio](https://www.tidio.com/)
+3. **Suggestions for Automatic Internal and External Links**
 
-* Use Retrieval-Augmented Generation (RAG) to link AI with documentation
-
-* Allow the chatbot to provide intelligent, context-aware responses
-
-* Develop a frontend component that lets users interact with an AI chatbot using RAG technology
-
-### 9. User-Managed AI Context
-
-* Enable users to upload documents to the backend for AI context building
-
-* Ensure document management allows:
-
-  * Secure file uploads
-
-  * AI indexing and retrieval
-
-  * Efficient search and response generation
-
-### 10. Fake Forum Plugin for SEO
-
-* Develop a "fake forum" plugin for Payload CMS
-
-* Create an interactive, realistic forum experience to distribute knowledge
-
-* Optimize forum content for SEO to drive organic traffic
-
-* Allow AI-driven forum interactions where users can create AI personas for discussions
-
-### 11. AI-Generated Code for Tailwind & React
-
-* Allow users to generate TailwindCSS React components or HTML templates using AI
-
-* Provide an interface for users to define requirements and have AI generate structured code
-
-* Consider placing this feature under an experimental or future development phase
-
-### 12. AI-Enhanced FAQ & Quiz Sections
-
-* Generate structured FAQ content based on AI-identified user interests
-
-* Implement an AI-powered quiz feature to engage users and enhance interaction
-
-## Phase 5: Blog Enhancements
-
-### 13. Blog Archive & Single Page Blocks
-
-* Expand the available blocks for blog archive and single post pages
-
-* Ensure a variety of layouts and customization options for better presentation
-
-* Prioritize this update earlier in the roadmap for immediate enhancement
-
-## Phase 6: SEO & Automation Enhancements
-
-### 14. Automated SEO Features
-
-* Implement structured data (Schema.org) for better search engine indexing
-
-* Automatically generate SEO metadata and OG descriptions for each page
-
-* Auto-detect and insert internal links between relevant content pieces
-
-* Suggest external links for authority-building and content enrichment
-
-### 15. Popup Feature
-
-* Develop a popup system that can be linked to any button on the website
-
-* Allow customizable triggers (on load, exit intent, scroll depth, etc.)
-
-### 16. Email & Notification System
-
-* Integrate with [UsePlunk](https://app.useplunk.com/) for email management
-
-* Enable AI to generate context-based EDM (Electronic Direct Mail) campaigns
-
-### 17. Automated 404 Handling & Fixes
-
-* Develop a cron job that detects 404 errors automatically
-
-* Use AI and web crawlers to generate suggestions or auto-fix broken links
-
-### 18. Country-Based Access Control
-
-* Allow users to define country-based restrictions for accessing their websites
-
-* Implement a system to efficiently block or allow traffic from specific countries
-
-### 19. Cloudflare CDN & Image Optimization
-
-* Ensure all site assets, including uploaded images, are served through Cloudflare CDN for speed optimization
-
-* Integrate Cloudflare Images for automatic compression and efficient delivery
-
-### 20. Data Export & Import Functionality
-
-* Provide users with the ability to export all site data as JSON
-
-* Enable users to import JSON data for seamless migration and backup
+* Analyze existing content and automatically or semi-automatically insert internal links
+* Recommend external authoritative website links to enhance page credibility and search engine evaluation
