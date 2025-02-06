@@ -1726,11 +1726,19 @@ export interface About4Fields {
      */
     description: string;
   };
-  gallerySection: {
-    images: {
-      image: string | Media;
-      id?: string | null;
-    }[];
+  gallerySection?: {
+    /**
+     * Gallery images (exactly 6 items)
+     */
+    images?:
+      | {
+          /**
+           * Gallery image
+           */
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
   };
   contentSection: {
     vision: {

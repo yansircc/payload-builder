@@ -1,7 +1,6 @@
 'use client'
 
 import type { About4Fields } from '@/payload-types'
-import { Button } from '@/components/ui/button'
 import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
 
@@ -20,13 +19,8 @@ export default function About4({
         </div>
 
         <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-          {gallerySection.images?.map((image, index) => (
-            <Media
-              key={index}
-              resource={image.image}
-              // className="max-h-80 w-full object-cover"
-              imgClassName="h-80 w-full object-cover"
-            />
+          {gallerySection?.images?.map((image, index) => (
+            <Media key={index} resource={image.image} imgClassName="h-80 w-full object-cover" />
           ))}
         </div>
 

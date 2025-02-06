@@ -1,19 +1,31 @@
 import { link } from '@/fields/link'
 import type { GroupField } from 'payload'
 import { z } from 'zod'
-import { aboutSchemas } from '../shared/base-field'
+import {
+  aboutSchemas,
+  baseFields,
+  commonSchemas,
+  createArrayField,
+  createFieldGroup,
+  createSectionField,
+} from '../shared/base-field'
 
 /**
  * About4 field validation and type definitions
  */
 export const schemas = {
+  /** Main section */
   mainSection: z.object({
     title: aboutSchemas.title,
     description: aboutSchemas.description,
   }),
+
+  /** Gallery section */
   gallerySection: z.object({
-    images: z.array(aboutSchemas.image),
+    images: z.array(commonSchemas.media.image.describe('Gallery image')).length(6),
   }),
+
+  /** Content section */
   contentSection: z.object({
     vision: z.object({
       title: aboutSchemas.title,
@@ -24,9 +36,11 @@ export const schemas = {
       description: aboutSchemas.description,
     }),
   }),
+
+  /** CTA section */
   ctaSection: z.object({
     title: aboutSchemas.title,
-    button: aboutSchemas.link,
+    button: commonSchemas.ui.link,
   }),
 }
 
@@ -38,130 +52,104 @@ export const about4Fields: GroupField = {
   interfaceName: 'About4Fields',
   label: false,
   type: 'group',
+  admin: {
+    description: 'Modern about section with team gallery and vision/creators content',
+  },
   fields: [
-    {
-      type: 'group',
+    // Main Section
+    createSectionField({
       name: 'mainSection',
       label: 'Main Section',
       fields: [
         {
-          name: 'title',
-          type: 'text',
-          required: true,
+          ...baseFields.content.title,
           admin: {
             description: 'Main title (e.g., "Welcome to Our Team")',
           },
         },
         {
-          name: 'description',
-          type: 'textarea',
-          required: true,
+          ...baseFields.content.description,
           admin: {
             description: 'Main description text',
           },
         },
       ],
-    },
-    {
-      type: 'group',
+    }),
+
+    // Gallery Section
+    createSectionField({
       name: 'gallerySection',
       label: 'Gallery Section',
       fields: [
-        {
+        createArrayField({
           name: 'images',
-          type: 'array',
-          required: true,
-          minRows: 6,
-          maxRows: 6,
           fields: [
             {
-              name: 'image',
-              type: 'upload',
-              relationTo: 'media',
-              required: true,
+              ...baseFields.media.image,
+              admin: { description: 'Gallery image' },
             },
           ],
-        },
+          minRows: 6,
+          maxRows: 6,
+          admin: { description: 'Gallery images (exactly 6 items)' },
+        }),
       ],
-    },
-    {
-      type: 'group',
+    }),
+
+    // Content Section
+    createSectionField({
       name: 'contentSection',
       label: 'Content Section',
       fields: [
-        {
-          type: 'group',
+        // Vision Section
+        createFieldGroup({
           name: 'vision',
           label: 'Vision Section',
           fields: [
             {
-              name: 'title',
-              type: 'text',
-              required: true,
-              admin: {
-                description: 'Vision section title',
-              },
+              ...baseFields.content.title,
+              admin: { description: 'Vision section title' },
             },
             {
-              name: 'description',
-              type: 'textarea',
-              required: true,
-              admin: {
-                description: 'Vision section description',
-              },
+              ...baseFields.content.description,
+              admin: { description: 'Vision section description' },
             },
           ],
-        },
-        {
-          type: 'group',
+        }),
+        // Creators Section
+        createFieldGroup({
           name: 'creators',
           label: 'Creators Section',
           fields: [
             {
-              name: 'title',
-              type: 'text',
-              required: true,
-              admin: {
-                description: 'Creators section title',
-              },
+              ...baseFields.content.title,
+              admin: { description: 'Creators section title' },
             },
             {
-              name: 'description',
-              type: 'textarea',
-              required: true,
-              admin: {
-                description: 'Creators section description',
-              },
+              ...baseFields.content.description,
+              admin: { description: 'Creators section description' },
             },
           ],
-        },
+        }),
       ],
-    },
-    {
-      type: 'group',
+    }),
+
+    // CTA Section
+    createSectionField({
       name: 'ctaSection',
       label: 'CTA Section',
       fields: [
         {
-          name: 'title',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'CTA section title',
-          },
+          ...baseFields.content.title,
+          admin: { description: 'CTA section title' },
         },
         link({
           name: 'button',
           overrides: {
-            admin: {
-              description: 'CTA button',
-            },
+            admin: { description: 'CTA button' },
           },
         }),
       ],
-    },
+    }),
   ],
-  admin: {
-    description: 'Modern about section with team gallery and vision/creators content',
-  },
 }
