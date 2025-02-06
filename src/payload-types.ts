@@ -283,6 +283,7 @@ export interface Hero1Fields {
  */
 export interface Media {
   id: string;
+  tenant?: (string | null) | Tenant;
   alt?: string | null;
   caption?: {
     root: {
@@ -10645,6 +10646,7 @@ export interface PostsSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  tenant?: T;
   alt?: T;
   caption?: T;
   updatedAt?: T;
