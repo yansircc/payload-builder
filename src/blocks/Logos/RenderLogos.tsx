@@ -1,4 +1,5 @@
 import type { LogosBlock } from '@/payload-types'
+
 import { logosComponents } from '.'
 
 export const RenderLogos: React.FC<LogosBlock> = (props) => {

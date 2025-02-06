@@ -1,6 +1,11 @@
 import { link } from '@/fields/link'
 import { Field, GroupField } from 'payload'
-import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
+
+import {
+  basicFields,
+  createTestimonialField,
+  testimonialSchemas,
+} from '../shared/base-field'
 
 /**
  * Testimonial 15 field validation and type definitions
@@ -95,7 +100,11 @@ export const testimonial15Fields: GroupField = {
       arrays: [
         {
           name: 'testimonials',
-          fields: [basicFields.quote, basicFields.authorName, basicFields.authorImage],
+          fields: [
+            basicFields.quote,
+            basicFields.authorName,
+            basicFields.authorImage,
+          ],
           minRows: 4,
           maxRows: 4,
           admin: {

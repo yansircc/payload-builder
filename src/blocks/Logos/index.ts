@@ -8,7 +8,6 @@
  *
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
-
 import type { LogosBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
 
@@ -31,7 +30,8 @@ export const Logos3 = Logos3Component
 export const Logos8 = Logos8Component
 
 // Define Logos component props type
-type LogosComponentProps<T extends NonNullable<LogosBlock['style']>> = NonNullable<LogosBlock[T]>
+type LogosComponentProps<T extends NonNullable<LogosBlock['style']>> =
+  NonNullable<LogosBlock[T]>
 
 // Logos component mapping
 export const logosComponents: Record<

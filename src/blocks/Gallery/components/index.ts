@@ -8,7 +8,6 @@
  *
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
-
 import type { GalleryBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
 
@@ -37,13 +36,17 @@ export const Gallery6 = Gallery6Component
 export const Gallery9 = Gallery9Component
 
 // Define Gallery component props type
-type GalleryComponentProps<T extends NonNullable<GalleryBlock['style']>> = NonNullable<
-  GalleryBlock[T]
->
+type GalleryComponentProps<T extends NonNullable<GalleryBlock['style']>> =
+  NonNullable<GalleryBlock[T]>
 
 // Define gallery components mapping
 export const galleryComponents: Record<
-  'gallery-1' | 'gallery-3' | 'gallery-4' | 'gallery-5' | 'gallery-6' | 'gallery-9',
+  | 'gallery-1'
+  | 'gallery-3'
+  | 'gallery-4'
+  | 'gallery-5'
+  | 'gallery-6'
+  | 'gallery-9',
   ComponentType<GalleryComponentProps<any>>
 > = {
   'gallery-1': Gallery1,

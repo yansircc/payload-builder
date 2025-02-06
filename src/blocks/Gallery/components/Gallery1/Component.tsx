@@ -1,11 +1,10 @@
 'use client'
 
-import { ArrowUpRight, Plus } from 'lucide-react'
-import { useState } from 'react'
-
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import type { Gallery1Fields, Media as MediaType } from '@/payload-types'
+import { ArrowUpRight, Plus } from 'lucide-react'
+import { useState } from 'react'
 
 interface GalleryItem {
   id?: string | null
@@ -19,7 +18,9 @@ interface GalleryItem {
 
 export default function Gallery1({ gallery }: Gallery1Fields) {
   const { items } = gallery
-  const [selection, setSelection] = useState<string | null | undefined>(items?.[0]?.id)
+  const [selection, setSelection] = useState<string | null | undefined>(
+    items?.[0]?.id
+  )
 
   if (!items?.length) return null
 
@@ -67,10 +68,15 @@ export default function Gallery1({ gallery }: Gallery1Fields) {
                   </div>
                   <div className='delay-250 flex flex-col gap-2 p-4 transition-all delay-200 duration-500 lg:group-data-[state="closed"]:translate-y-4 lg:group-data-[state="closed"]:opacity-0'>
                     <div className="lg:hidden">
-                      <Media resource={item.logo} className="h-5 invert lg:h-6" />
+                      <Media
+                        resource={item.logo}
+                        className="h-5 invert lg:h-6"
+                      />
                     </div>
                     <div className="flex items-center justify-between gap-2">
-                      <div className="text-base font-medium lg:text-lg">{item.title}</div>
+                      <div className="text-base font-medium lg:text-lg">
+                        {item.title}
+                      </div>
                       <div className="flex size-8 items-center justify-center rounded-full bg-background text-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 lg:size-10">
                         <ArrowUpRight className="size-4 lg:size-5" />
                       </div>

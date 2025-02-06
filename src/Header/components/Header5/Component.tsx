@@ -1,8 +1,7 @@
 'use client'
 
-import { MenuIcon } from 'lucide-react'
+import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-
 import {
   Accordion,
   AccordionContent,
@@ -19,9 +18,15 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 import { Header5Fields } from '@/payload-types'
-import { CMSLink } from '@/components/Link'
+import { MenuIcon } from 'lucide-react'
 
 export default function Header5({ header }: Header5Fields) {
   const { logo, menu, title, rightSideLinks } = header
@@ -30,7 +35,9 @@ export default function Header5({ header }: Header5Fields) {
       <div className="container">
         <nav className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {logo && <Media resource={logo} imgClassName="w-8" priority alt="logo" />}
+            {logo && (
+              <Media resource={logo} imgClassName="w-8" priority alt="logo" />
+            )}
             <span className="text-lg font-semibold">{title}</span>
           </div>
 
@@ -40,7 +47,9 @@ export default function Header5({ header }: Header5Fields) {
                 <NavigationMenuItem key={menuItem.id}>
                   {menuItem.subMenus ? (
                     <>
-                      <NavigationMenuTrigger>{menuItem.parentLink.label}</NavigationMenuTrigger>
+                      <NavigationMenuTrigger>
+                        {menuItem.parentLink.label}
+                      </NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <div className="grid w-[600px] grid-cols-2 p-3">
                           {menuItem.subMenus.map((subItem) => (
@@ -50,7 +59,9 @@ export default function Header5({ header }: Header5Fields) {
                               className="rounded-md p-3 transition-colors hover:bg-muted/70"
                             >
                               <div>
-                                <p className="mb-1 font-semibold">{subItem.link.label}</p>
+                                <p className="mb-1 font-semibold">
+                                  {subItem.link.label}
+                                </p>
                                 {subItem.description && (
                                   <p className="text-sm text-muted-foreground">
                                     {subItem.description}
@@ -79,7 +90,8 @@ export default function Header5({ header }: Header5Fields) {
               <div key={index} className="hidden items-center gap-4 lg:flex">
                 {Object.entries(linkGroup).map(
                   ([key, link]) =>
-                    link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                    link &&
+                    typeof link === 'object' && <CMSLink key={key} {...link} />
                 )}
               </div>
             ))}
@@ -94,7 +106,14 @@ export default function Header5({ header }: Header5Fields) {
               <SheetHeader>
                 <SheetTitle>
                   <div className="flex items-center gap-4">
-                    {logo && <Media resource={logo} imgClassName="w-8" priority alt="logo" />}
+                    {logo && (
+                      <Media
+                        resource={logo}
+                        imgClassName="w-8"
+                        priority
+                        alt="logo"
+                      />
+                    )}
                     <span className="text-lg font-semibold">{title}</span>
                   </div>
                 </SheetTitle>
@@ -122,7 +141,9 @@ export default function Header5({ header }: Header5Fields) {
                                   className="rounded-md p-3 transition-colors hover:bg-muted/70"
                                 >
                                   <div>
-                                    <p className="mb-1 font-semibold">{subItem.link.label}</p>
+                                    <p className="mb-1 font-semibold">
+                                      {subItem.link.label}
+                                    </p>
                                     {subItem.description && (
                                       <p className="text-sm text-muted-foreground">
                                         {subItem.description}
@@ -136,7 +157,10 @@ export default function Header5({ header }: Header5Fields) {
                         </>
                       ) : (
                         <div className="py-2">
-                          <a href={menuItem.parentLink.url || '#'} className="font-medium">
+                          <a
+                            href={menuItem.parentLink.url || '#'}
+                            className="font-medium"
+                          >
                             {menuItem.parentLink.label}
                           </a>
                         </div>
@@ -149,7 +173,10 @@ export default function Header5({ header }: Header5Fields) {
                     <div key={index} className="flex flex-col gap-2">
                       {Object.entries(linkGroup).map(
                         ([key, link]) =>
-                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                          link &&
+                          typeof link === 'object' && (
+                            <CMSLink key={key} {...link} />
+                          )
                       )}
                     </div>
                   ))}

@@ -8,7 +8,6 @@
  *
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
-
 import type { TeamBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
 
@@ -33,7 +32,8 @@ export const Team3 = Team3Component
 export const Team5 = Team5Component
 export const Team6 = Team6Component
 // Define Team component props type
-type TeamComponentProps<T extends NonNullable<TeamBlock['style']>> = NonNullable<TeamBlock[T]>
+type TeamComponentProps<T extends NonNullable<TeamBlock['style']>> =
+  NonNullable<TeamBlock[T]>
 
 // Team component mapping
 export const teamComponents: Record<

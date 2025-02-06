@@ -1,7 +1,12 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { createHeroField, featureFields, heroSchemas } from '../shared/base-field'
+
+import {
+  createHeroField,
+  featureFields,
+  heroSchemas,
+} from '../shared/base-field'
 
 /**
  * Hero 25 field validation and type definitions
@@ -52,7 +57,11 @@ export const hero25Fields: GroupField = {
         },
         {
           name: 'features',
-          fields: [featureFields.icon, featureFields.title, featureFields.description],
+          fields: [
+            featureFields.icon,
+            featureFields.title,
+            featureFields.description,
+          ],
           minRows: 1,
           maxRows: 4,
           admin: {

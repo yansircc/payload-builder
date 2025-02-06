@@ -1,10 +1,8 @@
-import { formatDateTime } from 'src/utilities/formatDateTime'
-import React from 'react'
-
-import type { Post } from '@/payload-types'
-
 import { Media } from '@/components/Media'
+import type { Post } from '@/payload-types'
 import { formatAuthors } from '@/utilities/formatAuthors'
+import React from 'react'
+import { formatDateTime } from 'src/utilities/formatDateTime'
 
 export const PostHero: React.FC<{
   post: Post
@@ -12,7 +10,9 @@ export const PostHero: React.FC<{
   const { categories, heroImage, populatedAuthors, publishedAt, title } = post
 
   const hasAuthors =
-    populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
+    populatedAuthors &&
+    populatedAuthors.length > 0 &&
+    formatAuthors(populatedAuthors) !== ''
 
   return (
     <div className="relative -mt-[10.4rem] flex items-end">
@@ -56,7 +56,9 @@ export const PostHero: React.FC<{
               <div className="flex flex-col gap-1">
                 <p className="text-sm">Date Published</p>
 
-                <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>
+                <time dateTime={publishedAt}>
+                  {formatDateTime(publishedAt)}
+                </time>
               </div>
             )}
           </div>
@@ -64,7 +66,12 @@ export const PostHero: React.FC<{
       </div>
       <div className="min-h-[80vh] select-none">
         {heroImage && typeof heroImage !== 'string' && (
-          <Media fill priority imgClassName="-z-10 object-cover" resource={heroImage} />
+          <Media
+            fill
+            priority
+            imgClassName="-z-10 object-cover"
+            resource={heroImage}
+          />
         )}
         <div className="absolute pointer-events-none left-0 bottom-0 w-full h-1/2 bg-linear-to-t from-black to-transparent" />
       </div>

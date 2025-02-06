@@ -1,5 +1,10 @@
 import { Field, GroupField } from 'payload'
-import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
+
+import {
+  basicFields,
+  createTestimonialField,
+  testimonialSchemas,
+} from '../shared/base-field'
 
 /**
  * Testimonial 12 field validation and type definitions
@@ -95,7 +100,8 @@ export const testimonial12Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'A carousel testimonial component with metrics and company information',
+    description:
+      'A carousel testimonial component with metrics and company information',
   },
   fields: [
     ...createTestimonialField({

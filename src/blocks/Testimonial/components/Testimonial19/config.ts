@@ -1,7 +1,12 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
+
+import {
+  basicFields,
+  createTestimonialField,
+  testimonialSchemas,
+} from '../shared/base-field'
 
 /**
  * Testimonial 19 field validation and type definitions
@@ -9,7 +14,9 @@ import { basicFields, createTestimonialField, testimonialSchemas } from '../shar
 export const schemas = {
   heading: z.string().describe('Main heading text'),
   subheading: z.string().describe('Subheading text'),
-  statsText: z.string().describe('Stats text (e.g. "Rated 5 stars by 1000+ clients")'),
+  statsText: z
+    .string()
+    .describe('Stats text (e.g. "Rated 5 stars by 1000+ clients")'),
   authorName: testimonialSchemas.authorName,
   authorRole: testimonialSchemas.authorRole,
   authorImage: testimonialSchemas.authorImage,
@@ -26,7 +33,8 @@ export const testimonial19Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Auto-scrolling carousel testimonial component with rating display',
+    description:
+      'Auto-scrolling carousel testimonial component with rating display',
   },
   fields: [
     {
@@ -40,7 +48,8 @@ export const testimonial19Fields: GroupField = {
     {
       name: 'subheading',
       type: 'text',
-      defaultValue: 'Join a global network of thought leaders, product developers,',
+      defaultValue:
+        'Join a global network of thought leaders, product developers,',
       admin: {
         description: 'Subheading text',
       },

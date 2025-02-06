@@ -1,6 +1,7 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
+
 import { createCTAField, ctaSchemas } from '../shared/base-field'
 
 /**
@@ -26,7 +27,8 @@ export const cta10Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Full-width banner with background image and dual action buttons',
+    description:
+      'Full-width banner with background image and dual action buttons',
   },
   fields: [
     createCTAField({

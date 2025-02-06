@@ -1,5 +1,6 @@
 import { CMSLink } from '@/components/Link'
 import type { CTA17Fields } from '@/payload-types'
+
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function CTA17({ cta }: CTA17Fields) {
@@ -10,7 +11,9 @@ export default function CTA17({ cta }: CTA17Fields) {
       <div className="container">
         <div className='flex items-center justify-center rounded-2xl border bg-[url("https://shadcnblocks.com/images/block/circles.svg")] bg-cover bg-center px-8 py-20 text-center md:p-20'>
           <div className="mx-auto max-w-screen-md">
-            <h1 className="mb-4 text-balance text-3xl font-semibold md:text-5xl">{title}</h1>
+            <h1 className="mb-4 text-balance text-3xl font-semibold md:text-5xl">
+              {title}
+            </h1>
             <p className="text-muted-foreground md:text-lg">{subtitle}</p>
             {/* Links */}
             {links && links.length > 0 && (
@@ -28,8 +31,12 @@ export default function CTA17({ cta }: CTA17Fields) {
                         ([key, link]) =>
                           link &&
                           typeof link === 'object' && (
-                            <CMSLink key={key} {...link} className="w-full sm:w-auto" />
-                          ),
+                            <CMSLink
+                              key={key}
+                              {...link}
+                              className="w-full sm:w-auto"
+                            />
+                          )
                       )}
                   </div>
                 ))}

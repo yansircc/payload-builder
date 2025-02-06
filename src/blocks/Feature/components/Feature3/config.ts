@@ -1,6 +1,11 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { cardsFields, createFeatureField, featureSchemas } from '../shared/base-field'
+
+import {
+  cardsFields,
+  createFeatureField,
+  featureSchemas,
+} from '../shared/base-field'
 
 /**
  * Feature 3 field validation and type definitions
@@ -29,7 +34,8 @@ export const feature3Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Feature section with 6 cards showing icon, title, description and optional image',
+    description:
+      'Feature section with 6 cards showing icon, title, description and optional image',
   },
   fields: [
     createFeatureField({
@@ -37,7 +43,12 @@ export const feature3Fields: GroupField = {
       arrays: [
         {
           name: 'features',
-          fields: [cardsFields.icon, cardsFields.title, cardsFields.description, cardsFields.image],
+          fields: [
+            cardsFields.icon,
+            cardsFields.title,
+            cardsFields.description,
+            cardsFields.image,
+          ],
           minRows: 1,
           maxRows: 6,
           admin: {

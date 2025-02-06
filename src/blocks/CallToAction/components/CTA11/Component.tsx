@@ -1,5 +1,6 @@
 import { CMSLink } from '@/components/Link'
 import type { CTA11Fields } from '@/payload-types'
+
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function CTA11({ cta }: CTA11Fields) {
@@ -13,7 +14,9 @@ export default function CTA11({ cta }: CTA11Fields) {
             {title}
           </h3>
           {subtitle && (
-            <p className="mb-8 max-w-3xl text-muted-foreground lg:text-lg">{subtitle}</p>
+            <p className="mb-8 max-w-3xl text-muted-foreground lg:text-lg">
+              {subtitle}
+            </p>
           )}
           {links && links.length > 0 && (
             <ClientMotionDiv
@@ -30,8 +33,12 @@ export default function CTA11({ cta }: CTA11Fields) {
                       ([key, link]) =>
                         link &&
                         typeof link === 'object' && (
-                          <CMSLink key={key} {...link} className="w-full sm:w-auto" />
-                        ),
+                          <CMSLink
+                            key={key}
+                            {...link}
+                            className="w-full sm:w-auto"
+                          />
+                        )
                     )}
                 </div>
               ))}

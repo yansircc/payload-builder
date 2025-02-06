@@ -1,4 +1,7 @@
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
+import {
+  FieldGroupOptions,
+  createFieldGroup,
+} from '@/utilities/createFieldGroup'
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
 
@@ -92,7 +95,7 @@ export { basicFields, mediaFields }
  * @returns - Header field configuration
  */
 export function createHeaderField(
-  options: Omit<FieldGroupOptions<typeof headerFields>, 'name' | 'fields'>,
+  options: Omit<FieldGroupOptions<typeof headerFields>, 'name' | 'fields'>
 ): GroupField {
   return createFieldGroup({
     name: 'header',

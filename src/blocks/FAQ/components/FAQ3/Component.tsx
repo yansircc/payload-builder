@@ -17,16 +17,26 @@ export default function FAQ3({ faq }: FAQ3Fields) {
           <h2 className="mb-3 max-w-3xl text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6">
             {title}
           </h2>
-          <p className="max-w-3xl text-muted-foreground lg:text-lg">{subtitle}</p>
+          <p className="max-w-3xl text-muted-foreground lg:text-lg">
+            {subtitle}
+          </p>
         </div>
-        <Accordion type="single" collapsible className="mx-auto w-full lg:max-w-3xl">
+        <Accordion
+          type="single"
+          collapsible
+          className="mx-auto w-full lg:max-w-3xl"
+        >
           {faqs?.map((item) => (
             <AccordionItem key={item.id} value={item.id || ''}>
               <AccordionTrigger>
-                <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">{item.question}</div>
+                <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
+                  {item.question}
+                </div>
               </AccordionTrigger>
               <AccordionContent className="sm:mb-1 lg:mb-2">
-                <div className="text-muted-foreground lg:text-lg">{item.answer}</div>
+                <div className="text-muted-foreground lg:text-lg">
+                  {item.answer}
+                </div>
               </AccordionContent>
             </AccordionItem>
           ))}
@@ -46,14 +56,19 @@ export default function FAQ3({ faq }: FAQ3Fields) {
               <AvatarFallback>SU</AvatarFallback>
             </Avatar>
           </div>
-          <h3 className="mb-2 max-w-3xl font-semibold lg:text-lg">{support.title}</h3>
-          <p className="mb-8 max-w-3xl text-muted-foreground lg:text-lg">{support.subtitle}</p>
+          <h3 className="mb-2 max-w-3xl font-semibold lg:text-lg">
+            {support.title}
+          </h3>
+          <p className="mb-8 max-w-3xl text-muted-foreground lg:text-lg">
+            {support.subtitle}
+          </p>
           <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
             {support?.supportLink?.map((linkGroup, index) => (
               <div key={index} className="flex flex-col gap-2 sm:flex-row">
                 {Object.entries(linkGroup).map(
                   ([key, link]) =>
-                    link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                    link &&
+                    typeof link === 'object' && <CMSLink key={key} {...link} />
                 )}
               </div>
             ))}

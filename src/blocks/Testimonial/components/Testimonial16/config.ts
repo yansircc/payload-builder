@@ -1,6 +1,11 @@
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
-import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
+
+import {
+  basicFields,
+  createTestimonialField,
+  testimonialSchemas,
+} from '../shared/base-field'
 
 /**
  * Testimonial 16 field validation and type definitions
@@ -14,7 +19,7 @@ export const schemas = {
       tag: z.string().describe('Social media tag/handle'),
       authorImage: testimonialSchemas.authorImage,
       content: z.string().describe('Full testimonial content'),
-    }),
+    })
   ),
 }
 
@@ -70,7 +75,11 @@ export const testimonial16Fields: GroupField = {
       arrays: [
         {
           name: 'testimonials',
-          fields: [basicFields.authorName, basicFields.authorImage, ...tweetFields],
+          fields: [
+            basicFields.authorName,
+            basicFields.authorImage,
+            ...tweetFields,
+          ],
           minRows: 3,
           maxRows: 12,
           admin: {

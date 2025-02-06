@@ -1,7 +1,7 @@
-import { Star, Zap } from 'lucide-react'
-import { Avatar } from '@/components/ui/avatar'
 import { Media } from '@/components/Media'
+import { Avatar } from '@/components/ui/avatar'
 import type { Testimonial18Fields } from '@/payload-types'
+import { Star, Zap } from 'lucide-react'
 
 export default function Testimonial18({
   heading,
@@ -9,7 +9,8 @@ export default function Testimonial18({
   statsText,
   testimonial,
 }: Testimonial18Fields) {
-  const { quote, description, authorName, authorRole, authorImage, rating } = testimonial
+  const { quote, description, authorName, authorRole, authorImage, rating } =
+    testimonial
 
   return (
     <section className="py-32">
@@ -19,8 +20,12 @@ export default function Testimonial18({
             <Zap className="h-6 w-auto fill-primary" />
             {statsText}
           </div>
-          <h2 className="text-center text-3xl font-semibold lg:text-4xl">{heading}</h2>
-          <p className="text-center text-muted-foreground lg:text-lg">{subheading}</p>
+          <h2 className="text-center text-3xl font-semibold lg:text-4xl">
+            {heading}
+          </h2>
+          <p className="text-center text-muted-foreground lg:text-lg">
+            {subheading}
+          </p>
         </div>
         <div className="mx-auto mt-20 max-w-screen-lg rounded-2xl bg-muted p-6 md:p-20">
           <div className="mb-6 flex gap-1">

@@ -1,4 +1,7 @@
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
+import {
+  FieldGroupOptions,
+  createFieldGroup,
+} from '@/utilities/createFieldGroup'
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
 
@@ -42,7 +45,7 @@ export const contactSchemas = {
         z.object({
           label: z.string(),
           value: z.string(),
-        }),
+        })
       )
       .optional()
       .describe('Options for select/radio fields'),
@@ -56,7 +59,7 @@ export const contactSchemas = {
     z.object({
       icon: z.string().optional(),
       text: z.string(),
-    }),
+    })
   ),
 }
 
@@ -142,7 +145,15 @@ const formFields: Record<string, Field> = {
       {
         name: 'type',
         type: 'select',
-        options: ['text', 'email', 'textarea', 'tel', 'number', 'select', 'radio'],
+        options: [
+          'text',
+          'email',
+          'textarea',
+          'tel',
+          'number',
+          'select',
+          'radio',
+        ],
         required: true,
         admin: {
           description: 'Input field type',
@@ -171,7 +182,8 @@ const formFields: Record<string, Field> = {
         ],
         admin: {
           description: 'Options for select/radio fields',
-          condition: (_, siblingData) => ['select', 'radio'].includes(siblingData?.type),
+          condition: (_, siblingData) =>
+            ['select', 'radio'].includes(siblingData?.type),
         },
       },
     ],
@@ -284,7 +296,14 @@ const contactFields: Record<string, Field> = {
 /**
  * Export all field groups for type safety
  */
-export { basicFields, buttonFields, cardsFields, formFields, listFields, mediaFields }
+export {
+  basicFields,
+  buttonFields,
+  cardsFields,
+  formFields,
+  listFields,
+  mediaFields,
+}
 
 /**
  * Create a custom contact field with selected fields and arrays
@@ -292,7 +311,7 @@ export { basicFields, buttonFields, cardsFields, formFields, listFields, mediaFi
  * @returns - Contact field configuration
  */
 export function createContactField(
-  options: Omit<FieldGroupOptions<typeof contactFields>, 'name' | 'fields'>,
+  options: Omit<FieldGroupOptions<typeof contactFields>, 'name' | 'fields'>
 ): GroupField {
   return createFieldGroup({
     name: 'contact',

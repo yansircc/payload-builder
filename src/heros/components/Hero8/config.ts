@@ -1,6 +1,7 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
+
 import { createHeroField, heroSchemas } from '../shared/base-field'
 
 /**
@@ -30,7 +31,11 @@ export const hero8Fields: GroupField = {
       arrays: [
         {
           name: 'links',
-          fields: [link({ overrides: { defaultValue: { suffixIcon: 'ChevronRight' } } })],
+          fields: [
+            link({
+              overrides: { defaultValue: { suffixIcon: 'ChevronRight' } },
+            }),
+          ],
           minRows: 2,
           maxRows: 2,
           admin: {

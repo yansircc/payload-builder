@@ -17,7 +17,14 @@ export const GalleryBlock: Block = {
     {
       name: 'style',
       type: 'select',
-      options: ['gallery-1', 'gallery-3', 'gallery-4', 'gallery-5', 'gallery-6', 'gallery-9'],
+      options: [
+        'gallery-1',
+        'gallery-3',
+        'gallery-4',
+        'gallery-5',
+        'gallery-6',
+        'gallery-9',
+      ],
     },
     {
       ...gallery1Fields,

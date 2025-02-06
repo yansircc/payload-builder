@@ -1,5 +1,5 @@
-import type { Contact2Fields } from '@/payload-types'
 import { Form } from '@/components/Form'
+import type { Contact2Fields } from '@/payload-types'
 
 export default function Contact2({ contact }: Contact2Fields) {
   const { title, description, list, form } = contact
@@ -10,7 +10,9 @@ export default function Contact2({ contact }: Contact2Fields) {
         <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-10 lg:flex-row lg:gap-20">
           <div className="mx-auto flex max-w-sm flex-col justify-between gap-10">
             <div className="text-center lg:text-left">
-              <h1 className="mb-2 text-5xl font-semibold lg:mb-1 lg:text-6xl">{title}</h1>
+              <h1 className="mb-2 text-5xl font-semibold lg:mb-1 lg:text-6xl">
+                {title}
+              </h1>
               <p className="text-muted-foreground">{description}</p>
             </div>
             <div className="mx-auto w-fit lg:mx-0">

@@ -1,6 +1,11 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { createTeamField, peopleFields, teamSchemas } from '../shared/base-field'
+
+import {
+  createTeamField,
+  peopleFields,
+  teamSchemas,
+} from '../shared/base-field'
 
 /**
  * Team 1 field validation and type definitions

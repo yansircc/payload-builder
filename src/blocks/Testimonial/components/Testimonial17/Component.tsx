@@ -1,17 +1,24 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import type { Testimonial17Fields } from '@/payload-types'
-
-import { Avatar } from '@/components/ui/avatar'
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { Media } from '@/components/Media'
+import { Avatar } from '@/components/ui/avatar'
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel'
+import type { Testimonial17Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
+import { useEffect, useState } from 'react'
 
 const LogoWrapper = ({
   logo,
   logoAlt,
-}: Pick<NonNullable<Testimonial17Fields['testimonials']>[number], 'logo' | 'logoAlt'>) => {
+}: Pick<
+  NonNullable<Testimonial17Fields['testimonials']>[number],
+  'logo' | 'logoAlt'
+>) => {
   return (
     <div className="mb-8 flex items-center justify-start">
       <div className="relative h-10 w-[120px]">
@@ -26,7 +33,10 @@ const LogoWrapper = ({
   )
 }
 
-export default function Testimonial17({ heading, testimonials }: Testimonial17Fields) {
+export default function Testimonial17({
+  heading,
+  testimonials,
+}: Testimonial17Fields) {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
@@ -48,14 +58,21 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
     <section className="py-32">
       <div className="container">
         <div className="flex flex-col gap-14 lg:grid lg:grid-cols-3 lg:gap-0">
-          <h2 className="text-center text-3xl font-bold lg:text-left lg:text-4xl">{heading}</h2>
+          <h2 className="text-center text-3xl font-bold lg:text-left lg:text-4xl">
+            {heading}
+          </h2>
           <Carousel setApi={setApi} className="w-full lg:hidden">
             <CarouselContent>
               {testimonials?.map((testimonial, index: number) => (
                 <CarouselItem key={index}>
                   <div className="select-none rounded-2xl border p-8">
-                    <LogoWrapper logo={testimonial.logo} logoAlt={testimonial.logoAlt} />
-                    <p className="mb-10 text-xl font-semibold">{testimonial.quote}</p>
+                    <LogoWrapper
+                      logo={testimonial.logo}
+                      logoAlt={testimonial.logoAlt}
+                    />
+                    <p className="mb-10 text-xl font-semibold">
+                      {testimonial.quote}
+                    </p>
                     <div className="mb-3 flex gap-4">
                       <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
                         {testimonial.authorImage && (
@@ -68,7 +85,9 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                       </Avatar>
                       <div>
                         <p className="font-medium">{testimonial.authorName}</p>
-                        <p className="text-muted-foreground">{testimonial.authorRole}</p>
+                        <p className="text-muted-foreground">
+                          {testimonial.authorRole}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -81,7 +100,7 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                   key={index}
                   className={cn(
                     'mx-2 inline-block size-3 cursor-pointer rounded-full border-2',
-                    index + 1 === current && 'border-primary bg-primary',
+                    index + 1 === current && 'border-primary bg-primary'
                   )}
                   onClick={() => api && api.scrollTo(index)}
                 />
@@ -92,8 +111,13 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
             <div className="rounded-2xl border p-8">
               {testimonials?.[0] && (
                 <>
-                  <LogoWrapper logo={testimonials[0].logo} logoAlt={testimonials[0].logoAlt} />
-                  <p className="mb-10 text-xl font-semibold">{testimonials[0].quote}</p>
+                  <LogoWrapper
+                    logo={testimonials[0].logo}
+                    logoAlt={testimonials[0].logoAlt}
+                  />
+                  <p className="mb-10 text-xl font-semibold">
+                    {testimonials[0].quote}
+                  </p>
                   <div className="mb-3 flex gap-4">
                     <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
                       {testimonials[0].authorImage && (
@@ -105,8 +129,12 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                       )}
                     </Avatar>
                     <div>
-                      <p className="font-medium">{testimonials[0].authorName}</p>
-                      <p className="text-muted-foreground">{testimonials[0].authorRole}</p>
+                      <p className="font-medium">
+                        {testimonials[0].authorName}
+                      </p>
+                      <p className="text-muted-foreground">
+                        {testimonials[0].authorRole}
+                      </p>
                     </div>
                   </div>
                 </>
@@ -115,8 +143,13 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
             <div className="flex flex-col gap-6">
               {testimonials?.slice(1).map((testimonial, index: number) => (
                 <div key={index} className="rounded-2xl border p-8">
-                  <LogoWrapper logo={testimonial.logo} logoAlt={testimonial.logoAlt} />
-                  <p className="mb-10 text-xl font-semibold">{testimonial.quote}</p>
+                  <LogoWrapper
+                    logo={testimonial.logo}
+                    logoAlt={testimonial.logoAlt}
+                  />
+                  <p className="mb-10 text-xl font-semibold">
+                    {testimonial.quote}
+                  </p>
                   <div className="mb-3 flex gap-4">
                     <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
                       {testimonial.authorImage && (
@@ -129,7 +162,9 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                     </Avatar>
                     <div>
                       <p className="font-medium">{testimonial.authorName}</p>
-                      <p className="text-muted-foreground">{testimonial.authorRole}</p>
+                      <p className="text-muted-foreground">
+                        {testimonial.authorRole}
+                      </p>
                     </div>
                   </div>
                 </div>

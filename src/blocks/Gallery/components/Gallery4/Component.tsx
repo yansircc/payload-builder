@@ -1,12 +1,16 @@
 'use client'
 
-import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { useEffect, useReducer } from 'react'
-
 import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel'
 import type { Gallery4Fields } from '@/payload-types'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { useEffect, useReducer } from 'react'
 
 interface Props {
   gallery: Gallery4Fields['gallery']
@@ -28,9 +32,15 @@ interface CarouselState {
 
 type CarouselAction =
   | { type: 'SET_API'; payload: CarouselApi }
-  | { type: 'UPDATE_NAVIGATION'; payload: { canScrollPrev: boolean; canScrollNext: boolean } }
+  | {
+      type: 'UPDATE_NAVIGATION'
+      payload: { canScrollPrev: boolean; canScrollNext: boolean }
+    }
 
-function carouselReducer(state: CarouselState, action: CarouselAction): CarouselState {
+function carouselReducer(
+  state: CarouselState,
+  action: CarouselAction
+): CarouselState {
   switch (action.type) {
     case 'SET_API':
       return {
@@ -83,7 +93,9 @@ export default function Gallery4({ gallery }: Props) {
     <section className="py-32">
       <div className="container">
         <div className="mb-8 flex items-end justify-between md:mb-14 lg:mb-16">
-          <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl">{gallery.title}</h2>
+          <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl">
+            {gallery.title}
+          </h2>
           <div className="hidden shrink-0 gap-2 md:flex">
             <Button
               size="icon"
@@ -123,7 +135,10 @@ export default function Gallery4({ gallery }: Props) {
         >
           <CarouselContent className="ml-[calc(theme(container.padding)-20px)] mr-[calc(theme(container.padding))] 2xl:ml-[calc(50vw-700px+theme(container.padding)-20px)] 2xl:mr-[calc(50vw-700px+theme(container.padding))]">
             {gallery.items?.map((item: GalleryItem) => (
-              <CarouselItem key={item.id} className="max-w-[320px] pl-[20px] lg:max-w-[360px]">
+              <CarouselItem
+                key={item.id}
+                className="max-w-[320px] pl-[20px] lg:max-w-[360px]"
+              >
                 <a href={item.href} className="group rounded-xl">
                   <div className="group relative h-full min-h-[27rem] max-w-full overflow-hidden rounded-xl bg-red-200 md:aspect-[5/4] lg:aspect-[16/9]">
                     <Media
@@ -135,7 +150,9 @@ export default function Gallery4({ gallery }: Props) {
                       <div className="mb-2 pt-4 text-xl font-semibold md:mb-3 md:pt-4 lg:pt-4">
                         {item.title}
                       </div>
-                      <div className="mb-8 line-clamp-2 md:mb-12 lg:mb-9">{item.description}</div>
+                      <div className="mb-8 line-clamp-2 md:mb-12 lg:mb-9">
+                        {item.description}
+                      </div>
                       <div className="flex items-center text-sm">
                         Read more{' '}
                         <ArrowRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />

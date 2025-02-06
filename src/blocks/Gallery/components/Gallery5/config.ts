@@ -1,6 +1,7 @@
 import { link } from '@/fields/link'
 import type { Field, GroupField } from 'payload'
 import { z } from 'zod'
+
 import { createGalleryField, gallerySchemas } from '../shared/base-field'
 
 /**
@@ -17,7 +18,7 @@ export const schemas = {
         description: z.string().describe('Item description'),
         image: z.any().describe('Item image'),
         href: z.string().describe('Item link'),
-      }),
+      })
     )
     .describe('Gallery items'),
 }

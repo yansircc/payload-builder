@@ -1,7 +1,8 @@
-import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '../shared/motion'
-import { Logos2Fields } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
+import { Logos2Fields } from '@/payload-types'
+
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Logos2({ logos }: Logos2Fields) {
   const { title, description, logos: logoItems, link } = logos
@@ -12,7 +13,11 @@ export default function Logos2({ logos }: Logos2Fields) {
         <div className="grid overflow-hidden rounded-xl border border-border md:grid-cols-2">
           <div className="my-auto px-6 py-10 sm:px-10 sm:py-12 lg:p-16">
             <div className="w-full md:max-w-md">
-              {title && <h2 className="mb-4 text-2xl font-semibold lg:text-3xl">{title}</h2>}
+              {title && (
+                <h2 className="mb-4 text-2xl font-semibold lg:text-3xl">
+                  {title}
+                </h2>
+              )}
               {description && <p className="mb-6 text-lg">{description}</p>}
               {link && <CMSLink {...link} />}
             </div>

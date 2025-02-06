@@ -1,14 +1,19 @@
-import { Header3Fields } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { NavigationMenuLink } from '@/components/ui/navigation-menu'
+import { Header3Fields } from '@/payload-types'
 import { ArrowUpRight } from 'lucide-react'
 
 type MobileSubmenuProps = {
-  submenuData: NonNullable<NonNullable<Header3Fields['menu']>[number]['submenu']>
+  submenuData: NonNullable<
+    NonNullable<Header3Fields['menu']>[number]['submenu']
+  >
   style: string
 }
 
-export default function RenderMobileSubmenu({ submenuData, style }: MobileSubmenuProps) {
+export default function RenderMobileSubmenu({
+  submenuData,
+  style,
+}: MobileSubmenuProps) {
   switch (style) {
     case 'style-1':
       return (
@@ -40,22 +45,24 @@ export default function RenderMobileSubmenu({ submenuData, style }: MobileSubmen
             {submenuData.style1Config?.rightSection.title}
           </div>
           <div className="border-t border-border pb-16">
-            {submenuData.style1Config?.rightSection.links?.map((item, index) => (
-              <NavigationMenuLink
-                key={index}
-                href={item.link?.url || '#'}
-                className="group flex w-full items-start gap-x-4 border-b border-border px-8 py-7 text-left hover:bg-accent"
-              >
-                <div>
-                  <div className="mb-1.5 text-base">{item.link?.title}</div>
-                  {item.link?.description && (
-                    <div className="text-sm font-normal text-muted-foreground">
-                      {item.link.description}
-                    </div>
-                  )}
-                </div>
-              </NavigationMenuLink>
-            ))}
+            {submenuData.style1Config?.rightSection.links?.map(
+              (item, index) => (
+                <NavigationMenuLink
+                  key={index}
+                  href={item.link?.url || '#'}
+                  className="group flex w-full items-start gap-x-4 border-b border-border px-8 py-7 text-left hover:bg-accent"
+                >
+                  <div>
+                    <div className="mb-1.5 text-base">{item.link?.title}</div>
+                    {item.link?.description && (
+                      <div className="text-sm font-normal text-muted-foreground">
+                        {item.link.description}
+                      </div>
+                    )}
+                  </div>
+                </NavigationMenuLink>
+              )
+            )}
           </div>
         </div>
       )
@@ -89,7 +96,9 @@ export default function RenderMobileSubmenu({ submenuData, style }: MobileSubmen
                   <div className="overflow-clip rounded-lg">
                     {submenuData.style2Config.rightSection.link.image && (
                       <Media
-                        resource={submenuData.style2Config.rightSection.link.image}
+                        resource={
+                          submenuData.style2Config.rightSection.link.image
+                        }
                         className="aspect-[2/1] h-full w-full object-cover object-center"
                       />
                     )}
@@ -167,7 +176,11 @@ export default function RenderMobileSubmenu({ submenuData, style }: MobileSubmen
                 {submenuData.style4Config.rightSection.title}
               </div>
               {submenuData.style4Config?.rightSection?.links?.map((item) => (
-                <a key={item.id} href={item.link?.url || '#'} className="block space-y-6">
+                <a
+                  key={item.id}
+                  href={item.link?.url || '#'}
+                  className="block space-y-6"
+                >
                   <div className="overflow-clip rounded-lg">
                     {item?.link?.image && (
                       <Media

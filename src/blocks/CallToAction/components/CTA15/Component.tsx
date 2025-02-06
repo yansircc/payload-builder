@@ -1,8 +1,9 @@
-import { Play } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import type { CTA15Fields } from '@/payload-types'
 import { Button } from '@/components/ui/button'
+import type { CTA15Fields } from '@/payload-types'
+import { Play } from 'lucide-react'
+
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function CTA15({ cta }: CTA15Fields) {
@@ -13,7 +14,9 @@ export default function CTA15({ cta }: CTA15Fields) {
       <div className="container">
         <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-20 rounded-2xl border bg-[radial-gradient(ellipse_30%_60%_at_100%_50%,hsla(var(--primary)_/_20%),#ffffff00)] pt-20 sm:pl-16 lg:flex-row lg:bg-[radial-gradient(ellipse_50%_50%_at_50%_120%,hsla(var(--primary)_/_20%),#ffffff00)] lg:pl-20">
           <div className="lg:texlf mx-auto max-w-md px-4 text-center md:px-0 lg:mx-0 lg:pb-20 lg:text-left">
-            <p className="mb-6 font-medium">{heading || 'Ready to get started?'}</p>
+            <p className="mb-6 font-medium">
+              {heading || 'Ready to get started?'}
+            </p>
             <h2 className="mb-6 text-4xl font-bold md:text-5xl">{title}</h2>
             <p className="text-lg text-muted-foreground">{subtitle}</p>
             {links && links.length > 0 && (
@@ -31,8 +34,12 @@ export default function CTA15({ cta }: CTA15Fields) {
                         ([key, link]) =>
                           link &&
                           typeof link === 'object' && (
-                            <CMSLink key={key} {...link} className="w-full sm:w-auto" />
-                          ),
+                            <CMSLink
+                              key={key}
+                              {...link}
+                              className="w-full sm:w-auto"
+                            />
+                          )
                       )}
                   </div>
                 ))}

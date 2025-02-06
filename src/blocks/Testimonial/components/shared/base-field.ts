@@ -106,7 +106,7 @@ export function createTestimonialField({
           maxRows: array.maxRows,
           required: array.required,
           admin: array.admin,
-        }),
+        })
       ),
       ...groups.map(
         (group): GroupField => ({
@@ -114,7 +114,7 @@ export function createTestimonialField({
           type: 'group',
           fields: group.fields.map((field) => basicFields[field] as Field),
           admin: group.admin,
-        }),
+        })
       ),
     ],
   }

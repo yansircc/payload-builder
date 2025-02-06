@@ -1,6 +1,7 @@
 import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '../shared/motion'
 import { Logos1Fields } from '@/payload-types'
+
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Logos1({ logos }: Logos1Fields) {
   const { title, logos: logoItems } = logos
@@ -13,7 +14,9 @@ export default function Logos1({ logos }: Logos1Fields) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-lg leading-[140%] tracking-[-0.32px] text-primary">{title}</p>
+          <p className="text-lg leading-[140%] tracking-[-0.32px] text-primary">
+            {title}
+          </p>
         </ClientMotionDiv>
       )}
 

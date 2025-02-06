@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+
 import { team1Fields } from './components/Team1/config'
 import { team2Fields } from './components/Team2/config'
 import { team3Fields } from './components/Team3/config'

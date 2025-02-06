@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   DefaultNodeTypes,
   SerializedHeadingNode,
@@ -6,6 +5,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 import { SerializedLexicalNode } from '@payloadcms/richtext-lexical/lexical'
 import { JSXConvertersFunction } from '@payloadcms/richtext-lexical/react'
+import React from 'react'
 
 export interface NodeStyle {
   type: 'heading' | 'paragraph' | 'list'
@@ -14,7 +14,7 @@ export interface NodeStyle {
 }
 
 export function createRichTextConverter(
-  styles: NodeStyle[],
+  styles: NodeStyle[]
 ): JSXConvertersFunction<DefaultNodeTypes> {
   return ({ defaultConverters }) => ({
     ...defaultConverters,
@@ -22,11 +22,17 @@ export function createRichTextConverter(
       nodesToJSX,
       node,
     }: {
-      nodesToJSX: (args: { nodes: SerializedLexicalNode[] }) => React.ReactNode[]
+      nodesToJSX: (args: {
+        nodes: SerializedLexicalNode[]
+      }) => React.ReactNode[]
       node: SerializedParagraphNode
     }) => {
       const style = styles.find((s) => s.type === 'paragraph')
-      return <p className={style?.className || ''}>{nodesToJSX({ nodes: node.children })}</p>
+      return (
+        <p className={style?.className || ''}>
+          {nodesToJSX({ nodes: node.children })}
+        </p>
+      )
     },
     heading: ({
       nodesToJSX,
@@ -35,18 +41,24 @@ export function createRichTextConverter(
       converters,
       parent,
     }: {
-      nodesToJSX: (args: { nodes: SerializedLexicalNode[] }) => React.ReactNode[]
+      nodesToJSX: (args: {
+        nodes: SerializedLexicalNode[]
+      }) => React.ReactNode[]
       node: SerializedHeadingNode
       childIndex: number
       converters: typeof defaultConverters
       parent: SerializedLexicalNode
     }) => {
-      const style = styles.find((s) => s.type === 'heading' && s.tag === node.tag)
+      const style = styles.find(
+        (s) => s.type === 'heading' && s.tag === node.tag
+      )
 
       if (style?.tag) {
         const Component = style.tag
         return (
-          <Component className={style.className}>{nodesToJSX({ nodes: node.children })}</Component>
+          <Component className={style.className}>
+            {nodesToJSX({ nodes: node.children })}
+          </Component>
         )
       }
 

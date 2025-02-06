@@ -1,15 +1,23 @@
 'use client'
 
+import { Media } from '@/components/Media'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel'
+import type { Gallery3Fields } from '@/payload-types'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media } from '@/components/Media'
-import type { Gallery3Fields } from '@/payload-types'
-
-export default function Gallery3({ gallery }: { gallery: Gallery3Fields['gallery'] }) {
+export default function Gallery3({
+  gallery,
+}: {
+  gallery: Gallery3Fields['gallery']
+}) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>()
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
@@ -76,7 +84,10 @@ export default function Gallery3({ gallery }: { gallery: Gallery3Fields['gallery
         >
           <CarouselContent className="-ml-4">
             {gallery.items.map((item) => (
-              <CarouselItem key={item.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+              <CarouselItem
+                key={item.id}
+                className="pl-4 md:basis-1/2 lg:basis-1/3"
+              >
                 <a
                   href={item.href}
                   className="group flex h-full flex-col justify-between rounded-xl bg-muted p-6"

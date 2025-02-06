@@ -11,7 +11,14 @@ export default function Footer2({ footer }: Footer2Fields) {
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
             <div className="col-span-2 mb-8 lg:mb-0">
               <div className="flex items-center gap-2 lg:justify-start">
-                {logo && <Media resource={logo} imgClassName="h-10 w-fit" priority alt="logo" />}
+                {logo && (
+                  <Media
+                    resource={logo}
+                    imgClassName="h-10 w-fit"
+                    priority
+                    alt="logo"
+                  />
+                )}
                 <p className="text-xl font-semibold">{title}</p>
               </div>
               <p className="mt-4 font-bold">{subtitle}</p>
@@ -23,7 +30,10 @@ export default function Footer2({ footer }: Footer2Fields) {
                   {section.links?.map((linkGroup, index) => (
                     <li key={index} className="font-medium hover:text-primary">
                       {linkGroup.link && (
-                        <CMSLink {...linkGroup.link} className="text-muted-foreground h-auto p-0" />
+                        <CMSLink
+                          {...linkGroup.link}
+                          className="text-muted-foreground h-auto p-0"
+                        />
                       )}
                     </li>
                   ))}
@@ -36,7 +46,9 @@ export default function Footer2({ footer }: Footer2Fields) {
             <ul className="flex gap-4">
               {rightLinks?.links?.map((linkGroup, index) => (
                 <li key={index} className="underline hover:text-primary">
-                  {linkGroup.link && <CMSLink {...linkGroup.link} className="p-0" />}
+                  {linkGroup.link && (
+                    <CMSLink {...linkGroup.link} className="p-0" />
+                  )}
                 </li>
               ))}
             </ul>

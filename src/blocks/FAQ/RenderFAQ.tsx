@@ -1,4 +1,5 @@
 import type { FAQBlock } from '@/payload-types'
+
 import { faqComponents } from '.'
 
 export const RenderFAQ: React.FC<FAQBlock> = (props) => {

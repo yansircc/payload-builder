@@ -1,6 +1,7 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero32Fields } from '@/payload-types'
+
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero32({ hero }: Hero32Fields) {
@@ -15,7 +16,12 @@ export default function Hero32({ hero }: Hero32Fields) {
           className="min-h-full min-w-full"
         >
           <defs>
-            <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+            <pattern
+              id="grid"
+              width="24"
+              height="24"
+              patternUnits="userSpaceOnUse"
+            >
               <path
                 d="M 24 0 L 0 0 0 24"
                 fill="none"
@@ -39,7 +45,9 @@ export default function Hero32({ hero }: Hero32Fields) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">{title}</h1>
+                  <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">
+                    {title}
+                  </h1>
                 </ClientMotionDiv>
 
                 <ClientMotionDiv
@@ -57,7 +65,10 @@ export default function Hero32({ hero }: Hero32Fields) {
               {integrations &&
                 [0, 1, 2].map((rowIndex) => {
                   const startIndex = rowIndex * 5
-                  const rowIntegrations = integrations.slice(startIndex, startIndex + 5)
+                  const rowIntegrations = integrations.slice(
+                    startIndex,
+                    startIndex + 5
+                  )
 
                   return (
                     <ClientMotionDiv
@@ -65,7 +76,10 @@ export default function Hero32({ hero }: Hero32Fields) {
                       className="flex gap-x-24 odd:-translate-x-24"
                       initial={{ opacity: 0, x: rowIndex % 2 === 0 ? 50 : -50 }}
                       animate={{ opacity: 1, x: rowIndex % 2 === 0 ? 0 : -96 }}
-                      transition={{ duration: 0.8, delay: 0.3 + rowIndex * 0.2 }}
+                      transition={{
+                        duration: 0.8,
+                        delay: 0.3 + rowIndex * 0.2,
+                      }}
                     >
                       {rowIntegrations.map((integration, i) => (
                         <div

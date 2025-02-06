@@ -1,10 +1,10 @@
-import type { FAQ2Fields } from '@/payload-types'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import type { FAQ2Fields } from '@/payload-types'
 
 export default function FAQ2({ faq }: FAQ2Fields) {
   const { title, faqs } = faq
@@ -21,10 +21,14 @@ export default function FAQ2({ faq }: FAQ2Fields) {
           {faqs?.map((item) => (
             <AccordionItem key={item.id} value={item.id || ''}>
               <AccordionTrigger>
-                <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">{item.question}</div>
+                <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
+                  {item.question}
+                </div>
               </AccordionTrigger>
               <AccordionContent className="sm:mb-1 lg:mb-2">
-                <div className="text-muted-foreground lg:text-lg">{item.answer}</div>
+                <div className="text-muted-foreground lg:text-lg">
+                  {item.answer}
+                </div>
               </AccordionContent>
             </AccordionItem>
           ))}

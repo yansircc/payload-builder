@@ -1,9 +1,10 @@
+import { DynamicIcon } from '@/components/DynamicIcon'
+import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Feature2Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
+
 import { ThemeEffect } from '../shared/ThemeEffect'
-import { CMSLink } from '@/components/Link'
-import { DynamicIcon } from '@/components/DynamicIcon'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Feature2({ feature }: Feature2Fields) {
   const { title, description, icon, image, links } = feature
@@ -51,7 +52,9 @@ export default function Feature2({ feature }: Feature2Fields) {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-4"
             >
-              <h1 className="my-6 text-pretty text-3xl font-bold lg:text-4xl">{title}</h1>
+              <h1 className="my-6 text-pretty text-3xl font-bold lg:text-4xl">
+                {title}
+              </h1>
               <p className="mb-8 max-w-xl text-muted-foreground lg:max-w-none lg:text-lg">
                 {description}
               </p>
@@ -70,7 +73,10 @@ export default function Feature2({ feature }: Feature2Fields) {
                       .filter(([key]) => key.startsWith('link-'))
                       .map(
                         ([key, link]) =>
-                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                          link &&
+                          typeof link === 'object' && (
+                            <CMSLink key={key} {...link} />
+                          )
                       )}
                   </div>
                 ))}

@@ -1,6 +1,7 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
+
 import { createFAQField, faqSchemas, faqsFields } from '../shared/base-field'
 
 /**

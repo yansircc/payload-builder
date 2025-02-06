@@ -8,24 +8,23 @@
  *
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
-
 import type { HeroField } from '@/payload-types'
 import type { ComponentType } from 'react'
 
 // Import all Gallery components
 import Hero1Component from './components/Hero1/Component'
-import Hero115Component from './components/Hero115/Component'
-import Hero12Component from './components/Hero12/Component'
-import Hero24Component from './components/Hero24/Component'
-import Hero25Component from './components/Hero25/Component'
 import Hero3Component from './components/Hero3/Component'
-import Hero32Component from './components/Hero32/Component'
-import Hero34Component from './components/Hero34/Component'
-import Hero45Component from './components/Hero45/Component'
 import Hero5Component from './components/Hero5/Component'
 import Hero6Component from './components/Hero6/Component'
 import Hero7Component from './components/Hero7/Component'
 import Hero8Component from './components/Hero8/Component'
+import Hero12Component from './components/Hero12/Component'
+import Hero24Component from './components/Hero24/Component'
+import Hero25Component from './components/Hero25/Component'
+import Hero32Component from './components/Hero32/Component'
+import Hero34Component from './components/Hero34/Component'
+import Hero45Component from './components/Hero45/Component'
+import Hero115Component from './components/Hero115/Component'
 
 // Export config
 export { hero1Fields } from './components/Hero1/config'
@@ -58,7 +57,8 @@ export const Hero45 = Hero45Component
 export const Hero115 = Hero115Component
 
 // Define Gallery component props type
-type HeroComponentProps<T extends NonNullable<HeroField['style']>> = NonNullable<HeroField[T]>
+type HeroComponentProps<T extends NonNullable<HeroField['style']>> =
+  NonNullable<HeroField[T]>
 
 // Hero component mapping
 export const heroComponents: Record<

@@ -1,8 +1,7 @@
-import { Play } from 'lucide-react'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero115Fields } from '@/payload-types'
+import { Play } from 'lucide-react'
 
 export default function Hero115({ hero }: { hero: Hero115Fields['hero'] }) {
   const { title, subtitle, links, image, trustText } = hero

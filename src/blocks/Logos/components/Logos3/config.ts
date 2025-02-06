@@ -1,5 +1,10 @@
 import { GroupField } from 'payload'
-import { basicFields, createLogosField, logosSchemas } from '../shared/base-field'
+
+import {
+  basicFields,
+  createLogosField,
+  logosSchemas,
+} from '../shared/base-field'
 
 /**
  * Logos3 field validation and type definitions

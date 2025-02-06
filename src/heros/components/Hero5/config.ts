@@ -1,6 +1,7 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
+
 import { createHeroField, heroSchemas } from '../shared/base-field'
 
 /**
@@ -22,7 +23,8 @@ export const hero5Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Left content right image layout hero, perfect for showcasing product features',
+    description:
+      'Left content right image layout hero, perfect for showcasing product features',
   },
   fields: [
     createHeroField({

@@ -1,20 +1,22 @@
-import type { Metadata } from 'next/types'
-
+import { CardPostData } from '@/components/Card'
 import { CollectionArchive } from '@/components/CollectionArchive'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import React from 'react'
 import { Post } from '@/payload-types'
 import { Search } from '@/search/Component'
+import configPromise from '@payload-config'
+import type { Metadata } from 'next/types'
+import { getPayload } from 'payload'
+import React from 'react'
+
 import PageClient from './page.client'
-import { CardPostData } from '@/components/Card'
 
 type Args = {
   searchParams: Promise<{
     q: string
   }>
 }
-export default async function Page({ searchParams: searchParamsPromise }: Args) {
+export default async function Page({
+  searchParams: searchParamsPromise,
+}: Args) {
   const { q: query } = await searchParamsPromise
   const payload = await getPayload({ config: configPromise })
 

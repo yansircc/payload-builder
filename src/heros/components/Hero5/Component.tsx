@@ -1,9 +1,9 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-
-import { ClientMotionDiv } from '../shared/motion'
-import { ThemeEffect } from '../shared/ThemeEffect'
 import type { Hero5Fields } from '@/payload-types'
+
+import { ThemeEffect } from '../shared/ThemeEffect'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero5({ hero }: Hero5Fields) {
   const { title, subtitle, links, image } = hero
@@ -21,7 +21,9 @@ export default function Hero5({ hero }: Hero5Fields) {
               transition={{ duration: 0.6 }}
               className="w-full"
             >
-              <h1 className="text-pretty text-4xl font-bold lg:max-w-md lg:text-7xl">{title}</h1>
+              <h1 className="text-pretty text-4xl font-bold lg:max-w-md lg:text-7xl">
+                {title}
+              </h1>
             </ClientMotionDiv>
 
             {subtitle && (
@@ -30,7 +32,9 @@ export default function Hero5({ hero }: Hero5Fields) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <p className="max-w-xl text-xl font-medium lg:text-2xl">{subtitle}</p>
+                <p className="max-w-xl text-xl font-medium lg:text-2xl">
+                  {subtitle}
+                </p>
               </ClientMotionDiv>
             )}
 

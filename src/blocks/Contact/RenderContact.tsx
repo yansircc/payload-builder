@@ -1,4 +1,5 @@
 import type { ContactBlock } from '@/payload-types'
+
 import { contactComponents } from '.'
 
 export const RenderContact: React.FC<ContactBlock> = (props) => {

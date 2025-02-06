@@ -1,4 +1,5 @@
 import { GroupField } from 'payload'
+
 import { createHeroField, heroSchemas } from '../shared/base-field'
 
 /**
@@ -19,7 +20,8 @@ export const hero32Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Hero section with title, button, and grid of integration images',
+    description:
+      'Hero section with title, button, and grid of integration images',
   },
   fields: [
     createHeroField({

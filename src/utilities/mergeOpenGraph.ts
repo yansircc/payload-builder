@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+
 import { getServerSideURL } from './getURL'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
@@ -13,7 +14,9 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   title: 'Payload Website Template',
 }
 
-export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {
+export const mergeOpenGraph = (
+  og?: Metadata['openGraph']
+): Metadata['openGraph'] => {
   return {
     ...defaultOpenGraph,
     ...og,

@@ -1,6 +1,11 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { createHeroField, featureFields, heroSchemas } from '../shared/base-field'
+
+import {
+  createHeroField,
+  featureFields,
+  heroSchemas,
+} from '../shared/base-field'
 
 /**
  * Hero45 field validation and type definitions
@@ -29,7 +34,11 @@ export const hero45Fields: GroupField = {
       arrays: [
         {
           name: 'features',
-          fields: [featureFields.icon, featureFields.title, featureFields.description],
+          fields: [
+            featureFields.icon,
+            featureFields.title,
+            featureFields.description,
+          ],
           minRows: 3,
           maxRows: 3,
           admin: {

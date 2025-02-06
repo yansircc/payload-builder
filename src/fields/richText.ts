@@ -4,7 +4,6 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-
 import { RichTextField } from 'payload'
 
 const baseRichText: RichTextField = {

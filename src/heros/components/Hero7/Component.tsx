@@ -1,11 +1,11 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Avatar } from '@/components/ui/avatar'
+import type { Hero7Fields } from '@/payload-types'
 import { Star } from 'lucide-react'
 
-import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
-import type { Hero7Fields } from '@/payload-types'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero7({ hero }: Hero7Fields) {
   const { title, subtitle, link, rating } = hero
@@ -23,7 +23,11 @@ export default function Hero7({ hero }: Hero7Fields) {
           transition={{ duration: 0.5 }}
         >
           <h1 className="text-3xl font-extrabold lg:text-6xl">{title}</h1>
-          {subtitle && <p className="text-balance text-muted-foreground lg:text-lg">{subtitle}</p>}
+          {subtitle && (
+            <p className="text-balance text-muted-foreground lg:text-lg">
+              {subtitle}
+            </p>
+          )}
         </ClientMotionDiv>
 
         {link && (
@@ -61,7 +65,10 @@ export default function Hero7({ hero }: Hero7Fields) {
             <div>
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, index) => (
-                  <Star key={index} className="size-5 fill-yellow-400 text-yellow-400" />
+                  <Star
+                    key={index}
+                    className="size-5 fill-yellow-400 text-yellow-400"
+                  />
                 ))}
                 <span className="font-semibold">{rate}</span>
               </div>

@@ -1,21 +1,24 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
+import { DynamicIcon } from '@/components/DynamicIcon'
+import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import {
-  type CarouselApi,
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { Media } from '@/components/Media'
 import type { Gallery9Fields } from '@/payload-types'
-import { DynamicIcon } from '@/components/DynamicIcon'
+import { useEffect, useState } from 'react'
 
-export default function Gallery9({ gallery }: { gallery: Gallery9Fields['gallery'] }) {
+export default function Gallery9({
+  gallery,
+}: {
+  gallery: Gallery9Fields['gallery']
+}) {
   const { title, description, sections } = gallery
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
@@ -44,7 +47,10 @@ export default function Gallery9({ gallery }: { gallery: Gallery9Fields['gallery
         <div className="mb-20 flex flex-col items-center justify-center gap-8">
           {title && <h1 className="text-4xl">{title}</h1>}
           {description && (
-            <Badge variant="secondary" className="px-5 py-2 text-base font-normal">
+            <Badge
+              variant="secondary"
+              className="px-5 py-2 text-base font-normal"
+            >
               {description}
             </Badge>
           )}
@@ -61,7 +67,9 @@ export default function Gallery9({ gallery }: { gallery: Gallery9Fields['gallery
                 <div className="mt-8 flex cursor-pointer flex-col gap-2 md:hidden">
                   <DynamicIcon name={item.icon} className="h-5 w-5" />
                   <div className="text-lg font-medium">{item.title}</div>
-                  <div className="text-lg text-muted-foreground">{item.text}</div>
+                  <div className="text-lg text-muted-foreground">
+                    {item.text}
+                  </div>
                 </div>
               </CarouselItem>
             ))}
@@ -77,7 +85,9 @@ export default function Gallery9({ gallery }: { gallery: Gallery9Fields['gallery
                 <div className="text-lg font-medium">{section.title}</div>
                 <div
                   className={`text-lg ${
-                    index + 1 === current ? 'text-muted-foreground' : 'text-muted-foreground/50'
+                    index + 1 === current
+                      ? 'text-muted-foreground'
+                      : 'text-muted-foreground/50'
                   } hover:text-muted-foreground`}
                 >
                   {section.text}
@@ -90,7 +100,10 @@ export default function Gallery9({ gallery }: { gallery: Gallery9Fields['gallery
               {current} / {count}
             </div>
             <div className="flex items-center justify-start gap-2">
-              <CarouselPrevious className="static translate-y-0" disabled={false} />
+              <CarouselPrevious
+                className="static translate-y-0"
+                disabled={false}
+              />
               <CarouselNext className="static translate-y-0" disabled={false} />
             </div>
           </div>

@@ -1,20 +1,31 @@
-import type { Testimonial4Fields } from '@/payload-types'
-
+import { Media } from '@/components/Media'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Media } from '@/components/Media'
+import type { Testimonial4Fields } from '@/payload-types'
 
 type TestimonialItem = Testimonial4Fields['testimonials'][number]
 
 function assertValidTestimonials(
-  testimonials: Testimonial4Fields['testimonials'],
-): asserts testimonials is [TestimonialItem, TestimonialItem, TestimonialItem, TestimonialItem] {
-  if (!testimonials || !Array.isArray(testimonials) || testimonials.length !== 4) {
+  testimonials: Testimonial4Fields['testimonials']
+): asserts testimonials is [
+  TestimonialItem,
+  TestimonialItem,
+  TestimonialItem,
+  TestimonialItem,
+] {
+  if (
+    !testimonials ||
+    !Array.isArray(testimonials) ||
+    testimonials.length !== 4
+  ) {
     throw new Error('Testimonial4 requires exactly 4 testimonials')
   }
 }
 
-export default function Testimonial4({ testimonials, featuredImage }: Testimonial4Fields) {
+export default function Testimonial4({
+  testimonials,
+  featuredImage,
+}: Testimonial4Fields) {
   assertValidTestimonials(testimonials)
   const [featuredTestimonial, ...gridTestimonials] = testimonials
 
@@ -29,11 +40,15 @@ export default function Testimonial4({ testimonials, featuredImage }: Testimonia
             />
             <Card className="col-span-2 flex items-center justify-center p-6">
               <div className="flex flex-col gap-4">
-                <q className="text-xl font-medium lg:text-3xl">{featuredTestimonial.quote}</q>
+                <q className="text-xl font-medium lg:text-3xl">
+                  {featuredTestimonial.quote}
+                </q>
                 <div className="flex flex-col items-start">
                   <p>{featuredTestimonial.authorName}</p>
                   {featuredTestimonial.authorRole && (
-                    <p className="text-muted-foreground">{featuredTestimonial.authorRole}</p>
+                    <p className="text-muted-foreground">
+                      {featuredTestimonial.authorRole}
+                    </p>
                   )}
                 </div>
               </div>
@@ -64,7 +79,9 @@ export default function Testimonial4({ testimonials, featuredImage }: Testimonia
                     <div className="text-sm">
                       <p className="font-medium">{testimonial.authorName}</p>
                       {testimonial.authorRole && (
-                        <p className="text-muted-foreground">{testimonial.authorRole}</p>
+                        <p className="text-muted-foreground">
+                          {testimonial.authorRole}
+                        </p>
                       )}
                     </div>
                   </div>

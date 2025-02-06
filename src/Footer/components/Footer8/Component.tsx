@@ -15,7 +15,14 @@ export default function Footer8({ footer }: Footer8Fields) {
             <div className="col-span-4 flex w-full flex-col justify-between gap-6 lg:col-span-2">
               <div>
                 <span className="flex items-center gap-4">
-                  {logo && <Media resource={logo} imgClassName="h-11 w-fit" priority alt="logo" />}
+                  {logo && (
+                    <Media
+                      resource={logo}
+                      imgClassName="h-11 w-fit"
+                      priority
+                      alt="logo"
+                    />
+                  )}
                   <p className="text-3xl font-semibold">{title}</p>
                 </span>
                 <p className="mt-6 text-muted-foreground">{subtitle}</p>
@@ -27,7 +34,10 @@ export default function Footer8({ footer }: Footer8Fields) {
                     className="font-medium duration-200 hover:scale-110 hover:text-muted-foreground"
                   >
                     {linkGroup.link && (
-                      <CMSLink {...linkGroup.link} className="flex items-center justify-center" />
+                      <CMSLink
+                        {...linkGroup.link}
+                        className="flex items-center justify-center"
+                      />
                     )}
                   </li>
                 ))}
@@ -40,7 +50,10 @@ export default function Footer8({ footer }: Footer8Fields) {
                   {section.links?.map((linkGroup, index) => (
                     <li key={index} className="font-medium hover:text-primary">
                       {linkGroup.link && (
-                        <CMSLink {...linkGroup.link} className="text-muted-foreground p-0 h-auto" />
+                        <CMSLink
+                          {...linkGroup.link}
+                          className="text-muted-foreground p-0 h-auto"
+                        />
                       )}
                     </li>
                   ))}

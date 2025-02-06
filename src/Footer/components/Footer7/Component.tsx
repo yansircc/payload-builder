@@ -3,7 +3,15 @@ import { Media } from '@/components/Media'
 import { Footer7Fields } from '@/payload-types'
 
 export default function Footer7({ footer }: Footer7Fields) {
-  const { sections, title, subtitle, logo, rightLinks, copyright, socialLinks } = footer
+  const {
+    sections,
+    title,
+    subtitle,
+    logo,
+    rightLinks,
+    copyright,
+    socialLinks,
+  } = footer
   return (
     <section className="py-32">
       <div className="container">
@@ -12,7 +20,14 @@ export default function Footer7({ footer }: Footer7Fields) {
             <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 lg:items-start">
               <div>
                 <span className="flex items-center justify-center gap-4 lg:justify-start">
-                  {logo && <Media resource={logo} imgClassName="h-11 w-fit" priority alt="logo" />}
+                  {logo && (
+                    <Media
+                      resource={logo}
+                      imgClassName="h-11 w-fit"
+                      priority
+                      alt="logo"
+                    />
+                  )}
                   <p className="text-3xl font-semibold">{title}</p>
                 </span>
                 <p className="mt-6 text-sm text-muted-foreground">{subtitle}</p>
@@ -36,7 +51,10 @@ export default function Footer7({ footer }: Footer7Fields) {
                   <h3 className="mb-6 font-bold">{section.title}</h3>
                   <ul className="space-y-4 text-sm text-muted-foreground">
                     {section.links?.map((linkGroup, index) => (
-                      <li key={index} className="font-medium hover:text-primary">
+                      <li
+                        key={index}
+                        className="font-medium hover:text-primary"
+                      >
                         {linkGroup.link && (
                           <CMSLink
                             {...linkGroup.link}

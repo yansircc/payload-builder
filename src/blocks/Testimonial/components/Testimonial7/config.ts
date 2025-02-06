@@ -1,6 +1,11 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
-import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
+
+import {
+  basicFields,
+  createTestimonialField,
+  testimonialSchemas,
+} from '../shared/base-field'
 
 /**
  * Testimonial 7 field validation and type definitions

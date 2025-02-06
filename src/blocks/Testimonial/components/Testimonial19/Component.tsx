@@ -1,15 +1,18 @@
 'use client'
 
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
+import { Avatar } from '@/components/ui/avatar'
+import { Card } from '@/components/ui/card'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel'
+import type { Testimonial19Fields } from '@/payload-types'
 import AutoScroll from 'embla-carousel-auto-scroll'
 import { Star, Zap } from 'lucide-react'
 import { useRef } from 'react'
-import type { Testimonial19Fields } from '@/payload-types'
-
-import { Avatar } from '@/components/ui/avatar'
-import { Card } from '@/components/ui/card'
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media } from '@/components/Media'
-import { CMSLink } from '@/components/Link'
 
 export default function Testimonial19({
   heading,
@@ -22,7 +25,7 @@ export default function Testimonial19({
     AutoScroll({
       startDelay: 500,
       speed: 0.7,
-    }),
+    })
   )
 
   return (
@@ -32,8 +35,12 @@ export default function Testimonial19({
           <Zap className="h-6 w-auto fill-primary" />
           {statsText}
         </div>
-        <h2 className="text-center text-3xl font-semibold lg:text-4xl">{heading}</h2>
-        <p className="text-center text-muted-foreground lg:text-lg">{subheading}</p>
+        <h2 className="text-center text-3xl font-semibold lg:text-4xl">
+          {heading}
+        </h2>
+        <p className="text-center text-muted-foreground lg:text-lg">
+          {subheading}
+        </p>
         {viewAll && <CMSLink {...viewAll} />}
       </div>
       <div className="lg:container">
@@ -62,17 +69,28 @@ export default function Testimonial19({
                           )}
                         </Avatar>
                         <div>
-                          <p className="font-medium">{testimonial.authorName}</p>
-                          <p className="text-sm text-muted-foreground">{testimonial.authorRole}</p>
+                          <p className="font-medium">
+                            {testimonial.authorName}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {testimonial.authorRole}
+                          </p>
                         </div>
                       </div>
                       <div className="flex gap-1">
-                        {Array.from({ length: testimonial.rating || 5 }).map((_, i) => (
-                          <Star key={i} className="size-5 fill-amber-500 text-amber-500" />
-                        ))}
+                        {Array.from({ length: testimonial.rating || 5 }).map(
+                          (_, i) => (
+                            <Star
+                              key={i}
+                              className="size-5 fill-amber-500 text-amber-500"
+                            />
+                          )
+                        )}
                       </div>
                     </div>
-                    <q className="leading-7 text-muted-foreground">{testimonial.quote}</q>
+                    <q className="leading-7 text-muted-foreground">
+                      {testimonial.quote}
+                    </q>
                   </Card>
                 </CarouselItem>
               ))}

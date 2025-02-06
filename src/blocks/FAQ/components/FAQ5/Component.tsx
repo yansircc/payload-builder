@@ -9,7 +9,9 @@ export default function FAQ5({ faq }: FAQ5Fields) {
         <div className="text-center">
           <Badge className="text-xs font-medium">{subtitle}</Badge>
           <h1 className="mt-4 text-4xl font-semibold">{title}</h1>
-          <p className="mt-6 font-medium text-muted-foreground">{description}</p>
+          <p className="mt-6 font-medium text-muted-foreground">
+            {description}
+          </p>
         </div>
         <div className="mx-auto mt-14 max-w-screen-sm">
           {faqs?.map((faq, index) => (

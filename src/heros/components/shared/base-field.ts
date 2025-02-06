@@ -1,5 +1,8 @@
 import { link } from '@/fields/link'
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
+import {
+  FieldGroupOptions,
+  createFieldGroup,
+} from '@/utilities/createFieldGroup'
 import { GroupField } from 'payload'
 import { z } from 'zod'
 
@@ -63,7 +66,8 @@ const basicFields = {
     type: 'text',
     required: true,
     admin: {
-      description: 'Text showing trust metrics (e.g., "Trusted by X businesses")',
+      description:
+        'Text showing trust metrics (e.g., "Trusted by X businesses")',
     },
   },
   link: link({
@@ -213,7 +217,7 @@ export { basicFields, featureFields, mediaFields, partnerFields, ratingFields }
  * @returns - Hero field configuration
  */
 export function createHeroField(
-  options: Omit<FieldGroupOptions<typeof heroFields>, 'name' | 'fields'>,
+  options: Omit<FieldGroupOptions<typeof heroFields>, 'name' | 'fields'>
 ): GroupField {
   return createFieldGroup({
     name: 'hero',

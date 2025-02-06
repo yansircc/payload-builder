@@ -551,7 +551,8 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
       'cta-1': {
         cta: {
           title: 'This is a call to action',
-          subtitle: 'This is a custom layout building block configured in the admin dashboard',
+          subtitle:
+            'This is a custom layout building block configured in the admin dashboard',
           image: '{{IMAGE_2}}',
           icon: '{{ICON_1}}',
         },

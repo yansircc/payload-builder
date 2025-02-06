@@ -1,3 +1,4 @@
+import { Media } from '@/components/Media'
 import {
   Carousel,
   CarouselContent,
@@ -6,7 +7,6 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { Separator } from '@/components/ui/separator'
-import { Media } from '@/components/Media'
 import type { Testimonial12Fields } from '@/payload-types'
 
 export default function Testimonial12({ testimonials }: Testimonial12Fields) {
@@ -30,8 +30,12 @@ export default function Testimonial12({ testimonials }: Testimonial12Fields) {
                       />
                     )}
                     <div className="mt-4 text-center">
-                      <h3 className="font-semibold">{testimonial.authorName}</h3>
-                      <p className="text-muted-foreground">{testimonial.authorRole}</p>
+                      <h3 className="font-semibold">
+                        {testimonial.authorName}
+                      </h3>
+                      <p className="text-muted-foreground">
+                        {testimonial.authorRole}
+                      </p>
                     </div>
                   </div>
                   <div className="col-span-2">
@@ -56,7 +60,9 @@ export default function Testimonial12({ testimonials }: Testimonial12Fields) {
                         <span className="mb-4 text-4xl font-semibold md:text-6xl">
                           {testimonial.monthlyActiveUsers}
                         </span>
-                        <span className="font-medium">{testimonial.monthlyActiveUsersLabel}</span>
+                        <span className="font-medium">
+                          {testimonial.monthlyActiveUsersLabel}
+                        </span>
                         <span className="text-muted-foreground">
                           {testimonial.monthlyActiveUsersPeriod}
                         </span>
@@ -65,7 +71,9 @@ export default function Testimonial12({ testimonials }: Testimonial12Fields) {
                         <span className="mb-4 text-4xl font-semibold md:text-6xl">
                           {testimonial.revenueIncrease}
                         </span>
-                        <span className="font-medium">{testimonial.revenueIncreaseLabel}</span>
+                        <span className="font-medium">
+                          {testimonial.revenueIncreaseLabel}
+                        </span>
                         <span className="text-muted-foreground">
                           {testimonial.revenueIncreasePeriod}
                         </span>

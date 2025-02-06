@@ -1,5 +1,10 @@
 import { GroupField } from 'payload'
-import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
+
+import {
+  basicFields,
+  createTestimonialField,
+  testimonialSchemas,
+} from '../shared/base-field'
 
 /**
  * Testimonial 4 field validation and type definitions
@@ -20,7 +25,8 @@ export const testimonial4Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'A testimonial component with featured testimonial and grid layout',
+    description:
+      'A testimonial component with featured testimonial and grid layout',
   },
   fields: [
     {
@@ -46,7 +52,8 @@ export const testimonial4Fields: GroupField = {
           minRows: 4,
           maxRows: 4,
           admin: {
-            description: 'Testimonial items (exactly 4 required - 1 featured + 3 grid)',
+            description:
+              'Testimonial items (exactly 4 required - 1 featured + 3 grid)',
           },
         },
       ],

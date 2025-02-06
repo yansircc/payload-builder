@@ -1,15 +1,15 @@
 import type { Block } from 'payload'
 
 import { cta1Fields } from './components/CTA1/config'
+import { cta3Fields } from './components/CTA3/config'
+import { cta4Fields } from './components/CTA4/config'
+import { cta5Fields } from './components/CTA5/config'
+import { cta7Fields } from './components/CTA7/config'
 import { cta10Fields } from './components/CTA10/config'
 import { cta11Fields } from './components/CTA11/config'
 import { cta15Fields } from './components/CTA15/config'
 import { cta16Fields } from './components/CTA16/config'
 import { cta17Fields } from './components/CTA17/config'
-import { cta3Fields } from './components/CTA3/config'
-import { cta4Fields } from './components/CTA4/config'
-import { cta5Fields } from './components/CTA5/config'
-import { cta7Fields } from './components/CTA7/config'
 
 /**
  * Call to Action Block configuration

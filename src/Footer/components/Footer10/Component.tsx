@@ -16,7 +16,9 @@ export default function Footer10({ footer }: Footer10Fields) {
         minute: '2-digit' as const,
         second: '2-digit' as const,
       }
-      const londonTime = new Intl.DateTimeFormat('en-GB', options).format(new Date())
+      const londonTime = new Intl.DateTimeFormat('en-GB', options).format(
+        new Date()
+      )
       setTime(londonTime)
     }
 

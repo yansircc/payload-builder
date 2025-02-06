@@ -1,9 +1,9 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-
-import { ClientMotionDiv } from '../shared/motion'
-import { ThemeEffect } from '../shared/ThemeEffect'
 import type { Hero8Fields } from '@/payload-types'
+
+import { ThemeEffect } from '../shared/ThemeEffect'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero8({ hero }: Hero8Fields) {
   const { title, subtitle, links, image } = hero
@@ -21,11 +21,15 @@ export default function Hero8({ hero }: Hero8Fields) {
             transition={{ duration: 0.5 }}
           >
             {/* Title */}
-            <h1 className="mb-8 text-pretty text-4xl font-medium lg:text-8xl">{title}</h1>
+            <h1 className="mb-8 text-pretty text-4xl font-medium lg:text-8xl">
+              {title}
+            </h1>
 
             {/* Description */}
             {subtitle && (
-              <p className="mx-auto max-w-screen-md text-muted-foreground lg:text-xl">{subtitle}</p>
+              <p className="mx-auto max-w-screen-md text-muted-foreground lg:text-xl">
+                {subtitle}
+              </p>
             )}
 
             {/* Button Group */}

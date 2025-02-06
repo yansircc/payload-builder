@@ -1,4 +1,7 @@
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
+import {
+  FieldGroupOptions,
+  createFieldGroup,
+} from '@/utilities/createFieldGroup'
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
 
@@ -47,9 +50,9 @@ export const footerSchemas = {
           label: z.string(),
           prefixIcon: z.string().optional(),
           suffixIcon: z.string().optional(),
-        }),
+        })
       ),
-    }),
+    })
   ),
 }
 
@@ -135,7 +138,7 @@ export { basicFields, mediaFields }
  * @returns - Footer field configuration
  */
 export function createFooterField(
-  options: Omit<FieldGroupOptions<typeof footerFields>, 'name' | 'fields'>,
+  options: Omit<FieldGroupOptions<typeof footerFields>, 'name' | 'fields'>
 ): GroupField {
   return createFieldGroup({
     name: 'footer',

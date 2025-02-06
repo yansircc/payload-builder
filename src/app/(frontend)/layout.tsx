@@ -1,26 +1,32 @@
-import type { Metadata } from 'next'
-
+import { RenderFooter } from '@/Footer/RenderFooter'
+import { RenderHeader } from '@/Header/RenderHeader'
+import { AdminBar } from '@/components/AdminBar'
+import { Providers } from '@/providers'
+import { InitTheme } from '@/providers/Theme/InitTheme'
+import { getServerSideURL } from '@/utilities/getURL'
+import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
+import type { Metadata } from 'next'
+import { draftMode } from 'next/headers'
 import React from 'react'
 
-import { AdminBar } from '@/components/AdminBar'
-import { RenderFooter } from '@/Footer/RenderFooter'
-import { Providers } from '@/providers'
-import { InitTheme } from '@/providers/Theme/InitTheme'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { draftMode } from 'next/headers'
-
 import './globals.css'
-import { getServerSideURL } from '@/utilities/getURL'
-import { RenderHeader } from '@/Header/RenderHeader'
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(GeistSans.variable, GeistMono.variable)}
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />

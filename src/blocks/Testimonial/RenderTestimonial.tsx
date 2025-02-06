@@ -1,4 +1,5 @@
 import type { TestimonialBlock } from '@/payload-types'
+
 import { testimonialComponents } from './components'
 
 export const RenderTestimonial: React.FC<TestimonialBlock> = (props) => {

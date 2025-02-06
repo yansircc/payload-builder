@@ -21,11 +21,17 @@ export default function Feature15({ feature }: Feature15Fields) {
               key={idx}
             >
               <span className="mb-6 flex size-11 items-center justify-center rounded-full bg-background">
-                {feature.icon && <DynamicIcon name={feature.icon} className="size-6" />}
+                {feature.icon && (
+                  <DynamicIcon name={feature.icon} className="size-6" />
+                )}
               </span>
               <div>
-                <h3 className="text-lg font-medium md:text-2xl">{feature.title}</h3>
-                <p className="mt-2 text-muted-foreground">{feature.description}</p>
+                <h3 className="text-lg font-medium md:text-2xl">
+                  {feature.title}
+                </h3>
+                <p className="mt-2 text-muted-foreground">
+                  {feature.description}
+                </p>
               </div>
             </div>
           ))}

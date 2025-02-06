@@ -1,12 +1,11 @@
 'use client'
 
-import { Fragment, useState } from 'react'
-import type { Testimonial16Fields } from '@/payload-types'
-import { cn } from '@/utilities/ui'
-
+import { Media } from '@/components/Media'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
-import { Media } from '@/components/Media'
+import type { Testimonial16Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
+import { Fragment, useState } from 'react'
 
 interface TweetContentProps {
   content: string
@@ -21,7 +20,9 @@ const TweetContent = ({ content, isCollapsed }: TweetContentProps) => {
     <p
       className={cn(
         'text-muted-foreground',
-        isCollapsed ? 'line-clamp-1 text-base font-medium md:text-xl' : 'text-sm',
+        isCollapsed
+          ? 'line-clamp-1 text-base font-medium md:text-xl'
+          : 'text-sm'
       )}
     >
       {parts.map((part, index) => {
@@ -45,7 +46,11 @@ const TweetContent = ({ content, isCollapsed }: TweetContentProps) => {
   )
 }
 
-export default function Testimonial16({ heading, subheading, testimonials }: Testimonial16Fields) {
+export default function Testimonial16({
+  heading,
+  subheading,
+  testimonials,
+}: Testimonial16Fields) {
   const [expandedTweetId, setExpandedTweetId] = useState<number | null>(null)
 
   return (
@@ -56,21 +61,25 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
             {heading}
           </h2>
           <div>
-            <p className="mb-4 text-2xl font-medium text-muted-foreground">{subheading}</p>
+            <p className="mb-4 text-2xl font-medium text-muted-foreground">
+              {subheading}
+            </p>
             <Separator />
             {testimonials?.map((tweet, index: number) => (
               <Fragment key={index}>
                 <div className="select-none">
                   <div
                     onClick={() =>
-                      setExpandedTweetId((prevId) => (prevId === index ? null : index))
+                      setExpandedTweetId((prevId) =>
+                        prevId === index ? null : index
+                      )
                     }
                     className="cursor-pointer"
                   >
                     <div
                       className={cn(
                         'overflow-hidden transition-all duration-500',
-                        expandedTweetId === index ? 'max-h-[500px]' : 'max-h-20',
+                        expandedTweetId === index ? 'max-h-[500px]' : 'max-h-20'
                       )}
                     >
                       {expandedTweetId === index ? (
@@ -84,14 +93,21 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                                   alt={tweet.authorName}
                                 />
                               )}
-                              <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
+                              <AvatarFallback>
+                                {tweet.authorName[0]}
+                              </AvatarFallback>
                             </Avatar>
                             <div className="text-sm">
                               <p className="font-medium">{tweet.authorName}</p>
-                              <p className="text-muted-foreground">{tweet.tag}</p>
+                              <p className="text-muted-foreground">
+                                {tweet.tag}
+                              </p>
                             </div>
                           </div>
-                          <TweetContent content={tweet.content} isCollapsed={false} />
+                          <TweetContent
+                            content={tweet.content}
+                            isCollapsed={false}
+                          />
                         </div>
                       ) : (
                         <div className="py-4 transition-colors hover:bg-muted">
@@ -104,10 +120,15 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                                   alt={tweet.authorName}
                                 />
                               )}
-                              <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
+                              <AvatarFallback>
+                                {tweet.authorName[0]}
+                              </AvatarFallback>
                             </Avatar>
                             <div>
-                              <TweetContent content={tweet.content} isCollapsed={true} />
+                              <TweetContent
+                                content={tweet.content}
+                                isCollapsed={true}
+                              />
                             </div>
                           </div>
                         </div>

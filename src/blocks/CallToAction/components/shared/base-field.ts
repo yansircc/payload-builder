@@ -1,5 +1,8 @@
 import { link } from '@/fields/link'
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
+import {
+  FieldGroupOptions,
+  createFieldGroup,
+} from '@/utilities/createFieldGroup'
 import { GroupField } from 'payload'
 import { z } from 'zod'
 
@@ -22,7 +25,7 @@ export const ctaSchemas = {
     z.object({
       icon: z.string().optional(),
       text: z.string(),
-    }),
+    })
   ),
   /** Heading schema */
   heading: z.string().describe('The heading text above the title'),
@@ -145,7 +148,7 @@ export { basicFields, iconFields, listFields, mediaFields }
  * @returns - CTA field configuration
  */
 export function createCTAField(
-  options: Omit<FieldGroupOptions<typeof ctaFields>, 'name' | 'fields'>,
+  options: Omit<FieldGroupOptions<typeof ctaFields>, 'name' | 'fields'>
 ): GroupField {
   return createFieldGroup({
     name: 'cta',

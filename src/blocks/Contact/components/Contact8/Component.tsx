@@ -1,5 +1,5 @@
-import { Contact8Fields } from '@/payload-types'
 import { Media } from '@/components/Media'
+import { Contact8Fields } from '@/payload-types'
 
 export default function Contact8({ contact }: Contact8Fields) {
   const { title, subtitle, image, supportList, officeList } = contact
@@ -13,7 +13,12 @@ export default function Contact8({ contact }: Contact8Fields) {
         </div>
 
         <div className="mx-auto mt-24 grid max-w-screen-xl gap-4 md:grid-cols-2">
-          {image && <Media resource={image} className="h-full rounded-lg object-cover" />}
+          {image && (
+            <Media
+              resource={image}
+              className="h-full rounded-lg object-cover"
+            />
+          )}
 
           <div className="flex flex-col gap-2 rounded-lg bg-accent p-2">
             <div className="flex h-full flex-col justify-between gap-6 rounded-lg bg-background p-6">
@@ -33,7 +38,9 @@ export default function Contact8({ contact }: Contact8Fields) {
                 <div className="grid gap-8 md:grid-cols-2 md:gap-4">
                   {officeList.offices?.map((office, idx) => (
                     <div key={idx}>
-                      <p className="mb-2 text-xl text-muted-foreground md:mb-4">{office.title}</p>
+                      <p className="mb-2 text-xl text-muted-foreground md:mb-4">
+                        {office.title}
+                      </p>
                       <p>{office.subtitle}</p>
                     </div>
                   ))}

@@ -1,16 +1,14 @@
 'use client'
 
-import type { PayloadAdminBarProps, PayloadMeUser } from 'payload-admin-bar'
-
+import { getClientSideURL } from '@/utilities/getURL'
 import { cn } from '@/utilities/ui'
 import { useSelectedLayoutSegments } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import type { PayloadAdminBarProps, PayloadMeUser } from 'payload-admin-bar'
 import { PayloadAdminBar } from 'payload-admin-bar'
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 import './index.scss'
-
-import { getClientSideURL } from '@/utilities/getURL'
 
 const baseClass = 'admin-bar'
 
@@ -38,7 +36,9 @@ export const AdminBar: React.FC<{
   const segments = useSelectedLayoutSegments()
   const [show, setShow] = useState(false)
   const collection = (
-    collectionLabels[segments?.[1] as keyof typeof collectionLabels] ? segments[1] : 'pages'
+    collectionLabels[segments?.[1] as keyof typeof collectionLabels]
+      ? segments[1]
+      : 'pages'
   ) as keyof typeof collectionLabels
   const router = useRouter()
 

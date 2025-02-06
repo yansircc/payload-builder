@@ -1,6 +1,7 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
+
 import { createCTAField, ctaSchemas } from '../shared/base-field'
 
 /**
@@ -28,7 +29,8 @@ export const cta15Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Modern split layout with radial gradient and optional heading',
+    description:
+      'Modern split layout with radial gradient and optional heading',
   },
   fields: [
     createCTAField({

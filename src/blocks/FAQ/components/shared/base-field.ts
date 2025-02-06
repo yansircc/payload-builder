@@ -1,4 +1,7 @@
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
+import {
+  FieldGroupOptions,
+  createFieldGroup,
+} from '@/utilities/createFieldGroup'
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
 
@@ -32,14 +35,14 @@ export const faqSchemas = {
     z.object({
       icon: z.string().optional(),
       text: z.string(),
-    }),
+    })
   ),
   faqs: z
     .array(
       z.object({
         question: z.string(),
         answer: z.string(),
-      }),
+      })
     )
     .optional()
     .describe('Options for select/radio fields'),
@@ -156,7 +159,7 @@ export { basicFields, faqsFields, listFields, mediaFields }
  * @returns - FAQ field configuration
  */
 export function createFAQField(
-  options: Omit<FieldGroupOptions<typeof faqFields>, 'name' | 'fields'>,
+  options: Omit<FieldGroupOptions<typeof faqFields>, 'name' | 'fields'>
 ): GroupField {
   return createFieldGroup({
     name: 'faq',

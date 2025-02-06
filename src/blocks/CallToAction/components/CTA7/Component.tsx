@@ -1,6 +1,7 @@
-import { CMSLink } from '@/components/Link'
 import { DynamicIcon } from '@/components/DynamicIcon'
+import { CMSLink } from '@/components/Link'
 import type { CTA7Fields } from '@/payload-types'
+
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function CTA7({ cta }: CTA7Fields) {
@@ -20,21 +21,38 @@ export default function CTA7({ cta }: CTA7Fields) {
               className="absolute left-full top-full -translate-x-2/3 -translate-y-1/2 rotate-[60deg]"
             >
               <defs>
-                <pattern x={0} y={0} id="dots" width={16} height={16} patternUnits="userSpaceOnUse">
-                  <circle cx={2} cy={2} r={2} fill="currentColor" className="text-border" />
+                <pattern
+                  x={0}
+                  y={0}
+                  id="dots"
+                  width={16}
+                  height={16}
+                  patternUnits="userSpaceOnUse"
+                >
+                  <circle
+                    cx={2}
+                    cy={2}
+                    r={2}
+                    fill="currentColor"
+                    className="text-border"
+                  />
                 </pattern>
               </defs>
               <rect fill="url(#dots)" width={400} height={400} />
             </svg>
           </div>
           <div className="relative mb-12 2xl:mb-0">
-            <h3 className="mb-6 text-2xl font-semibold md:mb-8 md:text-4xl lg:mb-12">{title}</h3>
+            <h3 className="mb-6 text-2xl font-semibold md:mb-8 md:text-4xl lg:mb-12">
+              {title}
+            </h3>
             {subtitle && (
               <p className="mb-6 text-xs uppercase tracking-widest text-muted-foreground">
                 {subtitle}
               </p>
             )}
-            <ul className={`grid gap-x-8 gap-y-4 text-muted-foreground md:grid-cols-2`}>
+            <ul
+              className={`grid gap-x-8 gap-y-4 text-muted-foreground md:grid-cols-2`}
+            >
               {lists?.map((list, index) => (
                 <li key={index} className="flex items-center gap-2">
                   <DynamicIcon name={list.icon} className="size-5" />
@@ -59,8 +77,12 @@ export default function CTA7({ cta }: CTA7Fields) {
                         ([key, link]) =>
                           link &&
                           typeof link === 'object' && (
-                            <CMSLink key={key} className="mt-8 px-0 underline" {...link} />
-                          ),
+                            <CMSLink
+                              key={key}
+                              className="mt-8 px-0 underline"
+                              {...link}
+                            />
+                          )
                       )}
                   </div>
                 ))}

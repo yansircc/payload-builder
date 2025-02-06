@@ -1,9 +1,10 @@
-import { Card } from '@/components/ui/card'
-import { CMSLink } from '@/components/Link'
 import { DynamicIcon } from '@/components/DynamicIcon'
+import { CMSLink } from '@/components/Link'
+import { Card } from '@/components/ui/card'
 import type { CTA3Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
 import Link from 'next/link'
+
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function CTA3({ cta }: CTA3Fields) {
   const { title, subtitle, buttonLinks, listLinks } = cta
@@ -32,8 +33,12 @@ export default function CTA3({ cta }: CTA3Fields) {
                         ([key, link]) =>
                           link &&
                           typeof link === 'object' && (
-                            <CMSLink key={key} className="w-full sm:w-auto" {...link} />
-                          ),
+                            <CMSLink
+                              key={key}
+                              className="w-full sm:w-auto"
+                              {...link}
+                            />
+                          )
                       )}
                   </div>
                 ))}
@@ -54,17 +59,27 @@ export default function CTA3({ cta }: CTA3Fields) {
                   <Card className="flex bg-white items-center justify-between gap-2 px-6 py-4 shadow-none hover:bg-accent">
                     <div className="flex items-start gap-2">
                       {item.link.prefixIcon && (
-                        <DynamicIcon name={item.link.prefixIcon} className="size-4" />
+                        <DynamicIcon
+                          name={item.link.prefixIcon}
+                          className="size-4"
+                        />
                       )}
                       <div>
-                        <h5 className="mb-2 font-medium leading-4">{item.link.label}</h5>
+                        <h5 className="mb-2 font-medium leading-4">
+                          {item.link.label}
+                        </h5>
                         {item.description && (
-                          <p className="text-sm text-muted-foreground">{item.description}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {item.description}
+                          </p>
                         )}
                       </div>
                     </div>
                     {item.link.suffixIcon && (
-                      <DynamicIcon name={item.link.suffixIcon} className="size-4" />
+                      <DynamicIcon
+                        name={item.link.suffixIcon}
+                        className="size-4"
+                      />
                     )}
                   </Card>
                 </Link>

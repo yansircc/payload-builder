@@ -1,15 +1,17 @@
 import type { Block } from 'payload'
+
 import { feature1Fields } from './components/Feature1/config'
-import { feature10Fields } from './components/Feature10/config'
-import { feature11Fields } from './components/Feature11/config'
-import { feature13Fields } from './components/Feature13/config'
-import { feature14Fields } from './components/Feature14/config'
-import { feature15Fields } from './components/Feature15/config'
 import { feature2Fields } from './components/Feature2/config'
 import { feature3Fields } from './components/Feature3/config'
 import { feature5Fields } from './components/Feature5/config'
 import { feature6Fields } from './components/Feature6/config'
 import { feature7Fields } from './components/Feature7/config'
+import { feature10Fields } from './components/Feature10/config'
+import { feature11Fields } from './components/Feature11/config'
+import { feature13Fields } from './components/Feature13/config'
+import { feature14Fields } from './components/Feature14/config'
+import { feature15Fields } from './components/Feature15/config'
+
 /**
  * Feature Block configuration
  */

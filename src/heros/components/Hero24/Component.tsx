@@ -1,9 +1,9 @@
-import * as LucideIcons from 'lucide-react'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '../shared/motion'
 import type { Hero24Fields } from '@/payload-types'
+import * as LucideIcons from 'lucide-react'
+
+import { ClientMotionDiv } from '../shared/motion'
 
 // 移除不必要的 FeatureItem 接口
 type Feature = {
@@ -12,7 +12,10 @@ type Feature = {
   description: string
 }
 
-type IconComponent = React.ComponentType<{ className?: string; size?: number | string }>
+type IconComponent = React.ComponentType<{
+  className?: string
+  size?: number | string
+}>
 
 export default function Hero24({ hero }: Hero24Fields) {
   const { badge, logo, features, title, links } = hero
@@ -45,14 +48,18 @@ export default function Hero24({ hero }: Hero24Fields) {
             )}
 
             {/* Title */}
-            <h1 className="mt-4 text-balance text-4xl font-semibold lg:text-6xl">{title}</h1>
+            <h1 className="mt-4 text-balance text-4xl font-semibold lg:text-6xl">
+              {title}
+            </h1>
 
             {/* Button */}
             {links && (
               <div className="mt-8">
                 {links.map((linkGroup) => (
                   <>
-                    {linkGroup['link'] && <CMSLink key="link" size="lg" {...linkGroup['link']} />}
+                    {linkGroup['link'] && (
+                      <CMSLink key="link" size="lg" {...linkGroup['link']} />
+                    )}
                   </>
                 ))}
               </div>
@@ -71,14 +78,23 @@ export default function Hero24({ hero }: Hero24Fields) {
             {features.map(({ icon, title, description }: Feature, i) => {
               // 使用双重类型转换来安全地获取图标组件
               const IconComponent =
-                (LucideIcons as unknown as Record<string, IconComponent>)[icon] ?? LucideIcons.Globe
+                (LucideIcons as unknown as Record<string, IconComponent>)[
+                  icon
+                ] ?? LucideIcons.Globe
 
               return (
-                <div key={i} className="flex flex-col gap-3 bg-background p-5 md:gap-6">
+                <div
+                  key={i}
+                  className="flex flex-col gap-3 bg-background p-5 md:gap-6"
+                >
                   <IconComponent className="size-6 shrink-0" />
                   <div>
-                    <h2 className="text-sm font-semibold md:text-base">{title}</h2>
-                    <p className="text-sm text-muted-foreground md:text-base">{description}</p>
+                    <h2 className="text-sm font-semibold md:text-base">
+                      {title}
+                    </h2>
+                    <p className="text-sm text-muted-foreground md:text-base">
+                      {description}
+                    </p>
                   </div>
                 </div>
               )

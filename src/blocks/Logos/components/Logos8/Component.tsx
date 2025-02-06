@@ -2,6 +2,7 @@
 
 import { Media } from '@/components/Media'
 import type { Logos8Fields } from '@/payload-types'
+
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Logos8({ logos }: Logos8Fields) {
@@ -29,7 +30,9 @@ export default function Logos8({ logos }: Logos8Fields) {
               >
                 <Media
                   resource={logo.logo}
-                  className={'max-h-12 max-w-[120px] object-contain object-center'}
+                  className={
+                    'max-h-12 max-w-[120px] object-contain object-center'
+                  }
                   size="thumbnail"
                 />
               </ClientMotionDiv>

@@ -49,7 +49,9 @@ export default function Style2({ data }: Style2Props) {
               {style2Config?.rightSection?.link?.subtitle}
             </div>
             <div className="mt-auto">
-              <div className="mb-4 text-xl">{style2Config?.rightSection?.link?.title}</div>
+              <div className="mb-4 text-xl">
+                {style2Config?.rightSection?.link?.title}
+              </div>
               <div className="text-sm font-normal text-muted-foreground">
                 {style2Config?.rightSection?.link?.description}
               </div>

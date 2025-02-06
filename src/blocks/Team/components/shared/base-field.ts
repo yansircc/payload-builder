@@ -1,4 +1,7 @@
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
+import {
+  FieldGroupOptions,
+  createFieldGroup,
+} from '@/utilities/createFieldGroup'
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
 
@@ -36,7 +39,7 @@ export const teamSchemas = {
       role: z.string(),
       description: z.string(),
       avatar: z.string(),
-    }),
+    })
   ),
 }
 
@@ -144,7 +147,7 @@ export { basicFields, mediaFields, peopleFields }
  * @returns - Team field configuration
  */
 export function createTeamField(
-  options: Omit<FieldGroupOptions<typeof teamFields>, 'name' | 'fields'>,
+  options: Omit<FieldGroupOptions<typeof teamFields>, 'name' | 'fields'>
 ): GroupField {
   return createFieldGroup({
     name: 'team',

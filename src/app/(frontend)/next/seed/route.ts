@@ -1,7 +1,7 @@
-import { createLocalReq, getPayload } from 'payload'
 import { seed } from '@/endpoints/seed'
 import config from '@payload-config'
 import { headers } from 'next/headers'
+import { createLocalReq, getPayload } from 'payload'
 
 export const maxDuration = 60 // This function can run for a maximum of 60 seconds
 
@@ -12,7 +12,7 @@ export async function POST(
         value: string
       }
     }
-  },
+  }
 ): Promise<Response> {
   const payload = await getPayload({ config })
   const requestHeaders = await headers()

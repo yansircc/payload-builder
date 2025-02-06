@@ -1,9 +1,9 @@
-import * as LucideIcons from 'lucide-react'
-
+import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import { Media } from '@/components/Media'
 import type { Hero45Fields } from '@/payload-types'
+import * as LucideIcons from 'lucide-react'
+
 import { ClientMotionDiv } from '../shared/motion'
 
 interface Feature {
@@ -55,9 +55,13 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
           className="mx-auto mt-10 flex max-w-screen-lg flex-col md:flex-row"
         >
           {features?.map((feature: Feature, index: number) => {
-            const Icon = (LucideIcons as any)[feature.icon] || LucideIcons.HelpCircle
+            const Icon =
+              (LucideIcons as any)[feature.icon] || LucideIcons.HelpCircle
             return (
-              <div key={index} className="flex grow basis-0 flex-col rounded-md bg-background p-4">
+              <div
+                key={index}
+                className="flex grow basis-0 flex-col rounded-md bg-background p-4"
+              >
                 {index > 0 && (
                   <Separator
                     orientation="vertical"
@@ -68,7 +72,9 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
                   <Icon className="h-auto w-5" />
                 </div>
                 <h3 className="mb-2 font-semibold">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
+                <p className="text-sm text-muted-foreground">
+                  {feature.description}
+                </p>
               </div>
             )
           })}

@@ -10,7 +10,14 @@ export default function Footer1({ footer }: Footer1Fields) {
       <div className="container">
         <footer>
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-            {logo && <Media resource={logo} imgClassName="h-7 w-fit" priority alt="logo" />}
+            {logo && (
+              <Media
+                resource={logo}
+                imgClassName="h-7 w-fit"
+                priority
+                alt="logo"
+              />
+            )}
             <div className="flex flex-col gap-4 md:flex-row md:items-center">
               <p className="text-lg font-medium">{rightLinks.title}</p>
               {rightLinks?.links?.map((linkGroup, index) => (
@@ -19,8 +26,12 @@ export default function Footer1({ footer }: Footer1Fields) {
                     ([key, link]) =>
                       link &&
                       typeof link === 'object' && (
-                        <CMSLink key={key} {...link} className="size-7 text-background" />
-                      ),
+                        <CMSLink
+                          key={key}
+                          {...link}
+                          className="size-7 text-background"
+                        />
+                      )
                   )}
                 </div>
               ))}
@@ -43,7 +54,7 @@ export default function Footer1({ footer }: Footer1Fields) {
                               {...link}
                               className="text-muted-foreground h-auto p-0"
                             />
-                          ),
+                          )
                       )}
                     </li>
                   ))}

@@ -1,6 +1,7 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
+
 import { createCTAField, ctaSchemas } from '../shared/base-field'
 
 /**
@@ -27,7 +28,8 @@ export const cta3Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Feature list layout with primary action and multiple feature links',
+    description:
+      'Feature list layout with primary action and multiple feature links',
   },
   fields: [
     createCTAField({

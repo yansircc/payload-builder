@@ -1,5 +1,6 @@
 import type { Field, GroupField } from 'payload'
 import { z } from 'zod'
+
 import { createGalleryField, gallerySchemas } from '../shared/base-field'
 
 export const schemas = {
@@ -11,7 +12,7 @@ export const schemas = {
       title: z.string().describe('Section title'),
       text: z.string().describe('Section text'),
       icon: z.string().describe('Section icon name'),
-    }),
+    })
   ),
 }
 

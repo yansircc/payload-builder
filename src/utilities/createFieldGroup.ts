@@ -1,4 +1,10 @@
-import { ArrayField, Field, GroupField, LabelFunction, StaticLabel } from 'payload'
+import {
+  ArrayField,
+  Field,
+  GroupField,
+  LabelFunction,
+  StaticLabel,
+} from 'payload'
 
 export interface ArrayConfig {
   name: string
@@ -49,9 +55,15 @@ function createArrayField(config: ArrayConfig): ArrayField {
  */
 function createGroupField<T extends Record<string, Field>>(
   fields: T,
-  config: GroupConfig,
+  config: GroupConfig
 ): GroupField {
-  const { name, fields: groupFields, arrays = [], admin, label = false } = config
+  const {
+    name,
+    fields: groupFields,
+    arrays = [],
+    admin,
+    label = false,
+  } = config
 
   return {
     name,
@@ -100,9 +112,17 @@ function createGroupField<T extends Record<string, Field>>(
  * ```
  */
 export function createFieldGroup<T extends Record<string, Field>>(
-  options: FieldGroupOptions<T>,
+  options: FieldGroupOptions<T>
 ): GroupField {
-  const { name, fields, includeFields, arrays = [], groups = [], label = false, admin } = options
+  const {
+    name,
+    fields,
+    includeFields,
+    arrays = [],
+    groups = [],
+    label = false,
+    admin,
+  } = options
 
   // Get base fields
   const fieldEntries = Object.entries(fields)

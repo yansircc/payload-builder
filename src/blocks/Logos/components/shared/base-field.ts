@@ -1,5 +1,8 @@
 import { link } from '@/fields/link'
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
+import {
+  FieldGroupOptions,
+  createFieldGroup,
+} from '@/utilities/createFieldGroup'
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
 
@@ -65,7 +68,7 @@ const logosFields: Record<string, Field> = {
  * Helper function to create logos field configuration
  */
 export function createLogosField(
-  options: Omit<FieldGroupOptions<typeof logosFields>, 'name' | 'fields'>,
+  options: Omit<FieldGroupOptions<typeof logosFields>, 'name' | 'fields'>
 ): GroupField {
   return createFieldGroup({
     name: 'logos',

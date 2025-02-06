@@ -1,10 +1,11 @@
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
-import { CarouselItem } from '@/components/ui/carousel'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
+import { CarouselItem } from '@/components/ui/carousel'
 import type { Gallery6Fields } from '@/payload-types'
-import { CarouselWrapper, CarouselControls } from './CarouselWrapper'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
+
 import { ClientMotionDiv } from '../shared/motion'
+import { CarouselControls, CarouselWrapper } from './CarouselWrapper'
 
 export default function Gallery6({ gallery }: Gallery6Fields) {
   const { title, link, cards } = gallery
@@ -18,7 +19,9 @@ export default function Gallery6({ gallery }: Gallery6Fields) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="mb-3 text-3xl font-semibold md:mb-4 md:text-4xl lg:mb-6">{title}</h2>
+          <h2 className="mb-3 text-3xl font-semibold md:mb-4 md:text-4xl lg:mb-6">
+            {title}
+          </h2>
           {link && (
             <CMSLink
               className="group flex items-center gap-1 text-sm font-medium md:text-base lg:text-lg"

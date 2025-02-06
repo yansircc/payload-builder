@@ -1,7 +1,12 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { createFeatureField, featureSchemas, listFields } from '../shared/base-field'
+
+import {
+  createFeatureField,
+  featureSchemas,
+  listFields,
+} from '../shared/base-field'
 
 /**
  * Feature 11 field validation and type definitions

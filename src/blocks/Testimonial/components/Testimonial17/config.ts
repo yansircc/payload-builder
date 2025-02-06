@@ -1,6 +1,11 @@
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
-import { basicFields, createTestimonialField, testimonialSchemas } from '../shared/base-field'
+
+import {
+  basicFields,
+  createTestimonialField,
+  testimonialSchemas,
+} from '../shared/base-field'
 
 /**
  * Testimonial 17 field validation and type definitions
@@ -15,7 +20,7 @@ export const schemas = {
       authorName: testimonialSchemas.authorName,
       authorRole: testimonialSchemas.authorRole,
       authorImage: testimonialSchemas.authorImage,
-    }),
+    })
   ),
 }
 
@@ -49,7 +54,8 @@ export const testimonial17Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Responsive testimonial grid with company logos and carousel for mobile',
+    description:
+      'Responsive testimonial grid with company logos and carousel for mobile',
   },
   fields: [
     {

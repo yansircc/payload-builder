@@ -8,7 +8,6 @@
  *
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
-
 import type { ContactBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
 
@@ -21,6 +20,7 @@ import Contact5Component from './components/Contact5/Component'
 import Contact6Component from './components/Contact6/Component'
 import Contact7Component from './components/Contact7/Component'
 import Contact8Component from './components/Contact8/Component'
+
 // Export config
 export { contact1Fields } from './components/Contact1/config'
 export { contact2Fields } from './components/Contact2/config'
@@ -40,9 +40,8 @@ export const Contact6 = Contact6Component
 export const Contact7 = Contact7Component
 export const Contact8 = Contact8Component
 // Define Contact component props type
-type ContactComponentProps<T extends NonNullable<ContactBlock['style']>> = NonNullable<
-  ContactBlock[T]
->
+type ContactComponentProps<T extends NonNullable<ContactBlock['style']>> =
+  NonNullable<ContactBlock[T]>
 
 // Contact component mapping
 export const contactComponents: Record<

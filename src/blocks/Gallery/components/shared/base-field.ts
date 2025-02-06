@@ -1,5 +1,8 @@
 import { link } from '@/fields/link'
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
+import {
+  FieldGroupOptions,
+  createFieldGroup,
+} from '@/utilities/createFieldGroup'
 import { GroupField } from 'payload'
 import { z } from 'zod'
 
@@ -124,7 +127,7 @@ export { basicFields, cardFields, mediaFields }
  * @returns - Gallery field configuration
  */
 export function createGalleryField(
-  options: Omit<FieldGroupOptions<typeof galleryFields>, 'name' | 'fields'>,
+  options: Omit<FieldGroupOptions<typeof galleryFields>, 'name' | 'fields'>
 ): GroupField {
   return createFieldGroup({
     name: 'gallery',

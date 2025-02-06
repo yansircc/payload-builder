@@ -1,5 +1,8 @@
 import { link } from '@/fields/link'
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
+import {
+  FieldGroupOptions,
+  createFieldGroup,
+} from '@/utilities/createFieldGroup'
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
 
@@ -43,7 +46,7 @@ export const featureSchemas = {
     z.object({
       icon: z.string().optional(),
       text: z.string(),
-    }),
+    })
   ),
   /** Card schema */
   card: z.array(
@@ -52,7 +55,7 @@ export const featureSchemas = {
       title: z.string(),
       description: z.string(),
       image: z.string().optional(),
-    }),
+    })
   ),
 }
 
@@ -246,7 +249,14 @@ const featureFields: Record<string, Field> = {
 /**
  * Export all field groups for type safety
  */
-export { basicFields, cardsFields, iconFields, listFields, mediaFields, testimonialFields }
+export {
+  basicFields,
+  cardsFields,
+  iconFields,
+  listFields,
+  mediaFields,
+  testimonialFields,
+}
 
 /**
  * Create a custom feature field with selected fields, array fields and groups
@@ -254,7 +264,7 @@ export { basicFields, cardsFields, iconFields, listFields, mediaFields, testimon
  * @returns - Feature field configuration
  */
 export function createFeatureField(
-  options: Omit<FieldGroupOptions<typeof featureFields>, 'name' | 'fields'>,
+  options: Omit<FieldGroupOptions<typeof featureFields>, 'name' | 'fields'>
 ): GroupField {
   return createFieldGroup({
     name: 'feature',

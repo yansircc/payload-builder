@@ -11,7 +11,14 @@ export default function Footer3({ footer }: Footer3Fields) {
     <section className="py-32">
       <div className="container">
         <footer>
-          {logo && <Media resource={logo} imgClassName="h-7 w-fit" priority alt="logo" />}
+          {logo && (
+            <Media
+              resource={logo}
+              imgClassName="h-7 w-fit"
+              priority
+              alt="logo"
+            />
+          )}
           <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-4">
             {sections?.map((section, sectionIdx) => (
               <div key={sectionIdx}>
@@ -20,7 +27,10 @@ export default function Footer3({ footer }: Footer3Fields) {
                   {section.links?.map((linkGroup, index) => (
                     <li key={index} className="font-medium hover:text-primary">
                       {linkGroup.link && (
-                        <CMSLink {...linkGroup.link} className="text-muted-foreground h-auto p-0" />
+                        <CMSLink
+                          {...linkGroup.link}
+                          className="text-muted-foreground h-auto p-0"
+                        />
                       )}
                     </li>
                   ))}
@@ -56,7 +66,10 @@ export default function Footer3({ footer }: Footer3Fields) {
             <p>{copyright}</p>
             <ul className="flex gap-4">
               {rightLinks?.links?.map((linkGroup, index) => (
-                <li key={index} className="whitespace-nowrap underline hover:text-primary">
+                <li
+                  key={index}
+                  className="whitespace-nowrap underline hover:text-primary"
+                >
                   {linkGroup.link && <CMSLink {...linkGroup.link} />}
                 </li>
               ))}

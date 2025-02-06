@@ -7,7 +7,11 @@ export interface FormProps {
   className?: string
 }
 
-export function Form({ fields = [], submitLabel = 'Submit', className }: FormProps) {
+export function Form({
+  fields = [],
+  submitLabel = 'Submit',
+  className,
+}: FormProps) {
   return (
     <form className={className}>
       {fields.map((field, idx) => (

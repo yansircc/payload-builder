@@ -26,7 +26,9 @@ export default function Style1({ data }: Style1Props) {
             </div>
           )}
           <div className="p-5 xl:p-8">
-            <div className="mb-2 text-base">{style1Config?.leftSection?.link?.title}</div>
+            <div className="mb-2 text-base">
+              {style1Config?.leftSection?.link?.title}
+            </div>
             {style1Config?.leftSection?.link?.description && (
               <div className="text-sm font-normal text-muted-foreground">
                 {style1Config.leftSection.link.description}
@@ -41,10 +43,17 @@ export default function Style1({ data }: Style1Props) {
         </div>
         <div className="grid grid-cols-2 gap-8">
           {style1Config?.rightSection.links?.map((item, index) => (
-            <NavigationMenuLink key={index} href={item.link?.url || '#'} className="group block">
+            <NavigationMenuLink
+              key={index}
+              href={item.link?.url || '#'}
+              className="group block"
+            >
               <div className="mb-5 group-hover:opacity-60">
                 {item.link?.prefixIcon && (
-                  <DynamicIcon name={item.link?.prefixIcon} className="size-6" />
+                  <DynamicIcon
+                    name={item.link?.prefixIcon}
+                    className="size-6"
+                  />
                 )}
               </div>
               <div className="mb-1 text-base">{item.link?.title}</div>

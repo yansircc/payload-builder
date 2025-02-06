@@ -1,5 +1,10 @@
 import { GroupField } from 'payload'
-import { basicFields, createLogosField, logosSchemas } from '../shared/base-field'
+
+import {
+  basicFields,
+  createLogosField,
+  logosSchemas,
+} from '../shared/base-field'
 
 /**
  * Logos 2 field validation and type definitions
@@ -20,7 +25,8 @@ export const logos2Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'Logos component with a grid layout and a call-to-action button',
+    description:
+      'Logos component with a grid layout and a call-to-action button',
   },
   fields: [
     createLogosField({

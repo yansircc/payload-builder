@@ -19,8 +19,12 @@ export default function Feature5({ feature }: Feature5Fields) {
                 className={`${isLarge ? 'lg:col-span-2' : ''} flex flex-col justify-between p-6`}
               >
                 <div className="text-left">
-                  {item.icon && <DynamicIcon name={item.icon} className="mb-1 w-7" />}
-                  <h2 className="mb-1 mt-4 text-lg font-semibold">{item.title}</h2>
+                  {item.icon && (
+                    <DynamicIcon name={item.icon} className="mb-1 w-7" />
+                  )}
+                  <h2 className="mb-1 mt-4 text-lg font-semibold">
+                    {item.title}
+                  </h2>
                   <p className="text-muted-foreground">{item.description}</p>
                 </div>
                 {item.image && (
@@ -28,7 +32,9 @@ export default function Feature5({ feature }: Feature5Fields) {
                     <Media
                       resource={item.image}
                       className={`aspect-square rounded-t-md object-cover ${
-                        !isLarge ? 'lg:aspect-auto lg:h-full' : 'max-h-[500px] w-full'
+                        !isLarge
+                          ? 'lg:aspect-auto lg:h-full'
+                          : 'max-h-[500px] w-full'
                       }`}
                       alt={item.title}
                     />
@@ -41,12 +47,17 @@ export default function Feature5({ feature }: Feature5Fields) {
 
         {testimonial && (
           <div className="mt-6 flex flex-col items-center gap-3">
-            <q className="max-w-2xl text-center text-2xl">{testimonial.quote}</q>
+            <q className="max-w-2xl text-center text-2xl">
+              {testimonial.quote}
+            </q>
             <div className="flex flex-col items-center gap-2 leading-5 sm:flex-row">
               {testimonial.image && (
                 <Avatar className="size-9 rounded-full ring-1 ring-input">
                   <AvatarImage>
-                    <Media resource={testimonial.image} alt={testimonial.name} />
+                    <Media
+                      resource={testimonial.image}
+                      alt={testimonial.name}
+                    />
                   </AvatarImage>
                 </Avatar>
               )}

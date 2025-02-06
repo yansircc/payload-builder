@@ -1,4 +1,5 @@
 import type { TeamBlock } from '@/payload-types'
+
 import { teamComponents } from '.'
 
 export const RenderTeam: React.FC<TeamBlock> = (props) => {

@@ -1,6 +1,12 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { contactSchemas, createContactField, formFields, listFields } from '../shared/base-field'
+
+import {
+  contactSchemas,
+  createContactField,
+  formFields,
+  listFields,
+} from '../shared/base-field'
 
 /**
  * Contact 2 field validation and type definitions

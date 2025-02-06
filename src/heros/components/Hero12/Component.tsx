@@ -1,12 +1,13 @@
-import { ExternalLink } from 'lucide-react'
-import { cn } from '@/utilities/ui'
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
-import { Media } from '@/components/Media'
-import { CMSLink } from '@/components/Link'
-import { ClientMotionDiv } from '../shared/motion'
-import { ThemeEffect } from '../shared/ThemeEffect'
 import type { Hero12Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
+import { ExternalLink } from 'lucide-react'
+
+import { ThemeEffect } from '../shared/ThemeEffect'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero12({ hero }: Hero12Fields) {
   const { logo, badge, partners, title, subtitle, links } = hero
@@ -39,8 +40,12 @@ export default function Hero12({ hero }: Hero12Fields) {
 
             {/* Title & Description */}
             <div>
-              <h1 className="mb-6 text-pretty text-2xl font-bold lg:text-5xl">{title}</h1>
-              {subtitle && <p className="text-muted-foreground lg:text-xl">{subtitle}</p>}
+              <h1 className="mb-6 text-pretty text-2xl font-bold lg:text-5xl">
+                {title}
+              </h1>
+              {subtitle && (
+                <p className="text-muted-foreground lg:text-xl">{subtitle}</p>
+              )}
             </div>
 
             {/* Buttons */}
@@ -53,8 +58,12 @@ export default function Hero12({ hero }: Hero12Fields) {
               >
                 {links.map((linkGroup) => (
                   <>
-                    {linkGroup['link-1'] && <CMSLink key="link-1" {...linkGroup['link-1']} />}
-                    {linkGroup['link-2'] && <CMSLink key="link-2" {...linkGroup['link-2']} />}
+                    {linkGroup['link-1'] && (
+                      <CMSLink key="link-1" {...linkGroup['link-1']} />
+                    )}
+                    {linkGroup['link-2'] && (
+                      <CMSLink key="link-2" {...linkGroup['link-2']} />
+                    )}
                   </>
                 ))}
               </ClientMotionDiv>
@@ -76,7 +85,10 @@ export default function Hero12({ hero }: Hero12Fields) {
                     <a
                       key={i}
                       href="#"
-                      className={cn(buttonVariants({ variant: 'outline' }), 'group px-3')}
+                      className={cn(
+                        buttonVariants({ variant: 'outline' }),
+                        'group px-3'
+                      )}
                     >
                       {logo && typeof logo === 'object' && (
                         <div className="inline-flex h-6">

@@ -1,4 +1,5 @@
 import type { FeatureBlock } from '@/payload-types'
+
 import { featureComponents } from '.'
 
 export const RenderFeature: React.FC<FeatureBlock> = (props) => {

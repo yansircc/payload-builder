@@ -1,7 +1,7 @@
-import { Contact6Fields } from '@/payload-types'
 import { DynamicIcon } from '@/components/DynamicIcon'
-import { CMSLink } from '@/components/Link'
 import { Form } from '@/components/Form'
+import { CMSLink } from '@/components/Link'
+import { Contact6Fields } from '@/payload-types'
 
 export default function Contact6({ contact }: Contact6Fields) {
   const { title, subtitle, description, supportList, form } = contact
@@ -11,7 +11,9 @@ export default function Contact6({ contact }: Contact6Fields) {
       <div className="container">
         <div className="mb-14">
           <span className="text-sm font-semibold">{subtitle}</span>
-          <h1 className="mb-3 mt-1 text-balance text-3xl font-semibold md:text-4xl">{title}</h1>
+          <h1 className="mb-3 mt-1 text-balance text-3xl font-semibold md:text-4xl">
+            {title}
+          </h1>
           <p className="text-lg text-muted-foreground">{description}</p>
         </div>
 
@@ -20,12 +22,18 @@ export default function Contact6({ contact }: Contact6Fields) {
             {supportList?.supports?.map((support, idx) => (
               <div key={idx}>
                 {support.icon && (
-                  <DynamicIcon name={support.icon} className="mb-3 h-6 w-auto text-foreground" />
+                  <DynamicIcon
+                    name={support.icon}
+                    className="mb-3 h-6 w-auto text-foreground"
+                  />
                 )}
                 <p className="mb-2 text-lg font-semibold">{support.title}</p>
                 <p className="mb-3 text-muted-foreground">{support.subtitle}</p>
                 {support.link && (
-                  <CMSLink {...support.link} className="font-semibold hover:underline w-fit" />
+                  <CMSLink
+                    {...support.link}
+                    className="font-semibold hover:underline w-fit"
+                  />
                 )}
               </div>
             ))}

@@ -1,8 +1,9 @@
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '../shared/motion'
-import { ThemeEffect } from '../shared/ThemeEffect'
 import type { Feature6Fields } from '@/payload-types'
+
+import { ThemeEffect } from '../shared/ThemeEffect'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Feature6({ feature }: Feature6Fields) {
   const { title, description, icon, image, features } = feature
@@ -31,8 +32,12 @@ export default function Feature6({ feature }: Feature6Fields) {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-4"
             >
-              <h1 className="my-6 text-pretty text-3xl font-bold lg:text-4xl">{title}</h1>
-              <p className="mb-8 max-w-xl text-muted-foreground lg:text-lg">{description}</p>
+              <h1 className="my-6 text-pretty text-3xl font-bold lg:text-4xl">
+                {title}
+              </h1>
+              <p className="mb-8 max-w-xl text-muted-foreground lg:text-lg">
+                {description}
+              </p>
             </ClientMotionDiv>
 
             {features && features.length > 0 && (
@@ -44,8 +49,13 @@ export default function Feature6({ feature }: Feature6Fields) {
                 <ul className="ml-4 space-y-4 text-left">
                   {features.map((item, index) => (
                     <li key={index} className="flex items-center gap-3">
-                      <DynamicIcon name={item.icon || 'CheckCircle'} className="size-6" />
-                      <p className="text-muted-foreground lg:text-lg">{item.text}</p>
+                      <DynamicIcon
+                        name={item.icon || 'CheckCircle'}
+                        className="size-6"
+                      />
+                      <p className="text-muted-foreground lg:text-lg">
+                        {item.text}
+                      </p>
                     </li>
                   ))}
                 </ul>

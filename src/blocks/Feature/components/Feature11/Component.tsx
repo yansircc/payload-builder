@@ -1,8 +1,9 @@
 import { DynamicIcon } from '@/components/DynamicIcon'
-import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
-import { ClientMotionDiv } from '../shared/motion'
+import { Media } from '@/components/Media'
 import { Feature11Fields } from '@/payload-types'
+
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Feature11({ feature }: Feature11Fields) {
   const { title, description, image, links, features } = feature
@@ -18,7 +19,9 @@ export default function Feature11({ feature }: Feature11Fields) {
             />
           )}
           <div className="lg:p-10">
-            <h2 className="text-balance text-3xl font-medium md:text-5xl">{title}</h2>
+            <h2 className="text-balance text-3xl font-medium md:text-5xl">
+              {title}
+            </h2>
             <p className="mt-1 text-muted-foreground md:mt-6">{description}</p>
             {links && links.length > 0 && (
               <ClientMotionDiv
@@ -33,7 +36,10 @@ export default function Feature11({ feature }: Feature11Fields) {
                       .filter(([key]) => key.startsWith('link-'))
                       .map(
                         ([key, link]) =>
-                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                          link &&
+                          typeof link === 'object' && (
+                            <CMSLink key={key} {...link} />
+                          )
                       )}
                   </div>
                 ))}
@@ -42,7 +48,9 @@ export default function Feature11({ feature }: Feature11Fields) {
             <ul className="mt-10 flex-wrap items-center gap-6 space-y-6 md:flex md:space-y-0">
               {features?.map((feature, index) => (
                 <li key={index} className="flex items-center gap-3">
-                  {feature.icon && <DynamicIcon name={feature.icon} className="size-4" />}
+                  {feature.icon && (
+                    <DynamicIcon name={feature.icon} className="size-4" />
+                  )}
                   {feature.text}
                 </li>
               ))}

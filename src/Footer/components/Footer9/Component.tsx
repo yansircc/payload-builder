@@ -3,7 +3,15 @@ import { Footer9Fields } from '@/payload-types'
 import { CircleCheck } from 'lucide-react'
 
 export default function Footer9({ footer }: Footer9Fields) {
-  const { sections, title, subtitle, copyright, socialLinks, leftLinks, links } = footer
+  const {
+    sections,
+    title,
+    subtitle,
+    copyright,
+    socialLinks,
+    leftLinks,
+    links,
+  } = footer
   return (
     <section className="bg-gray-100 py-32">
       <div className="container">
@@ -14,7 +22,9 @@ export default function Footer9({ footer }: Footer9Fields) {
               <p className="mb-8 text-xl text-muted-foreground">{subtitle}</p>
               <div className="flex items-center gap-3">
                 {links?.map((linkGroup, index) => (
-                  <div key={index}>{linkGroup.link && <CMSLink {...linkGroup.link} />}</div>
+                  <div key={index}>
+                    {linkGroup.link && <CMSLink {...linkGroup.link} />}
+                  </div>
                 ))}
               </div>
             </div>
@@ -54,7 +64,10 @@ export default function Footer9({ footer }: Footer9Fields) {
                   {section.links?.map((linkGroup, index) => (
                     <li key={index} className="font-medium hover:text-primary">
                       {linkGroup.link && (
-                        <CMSLink {...linkGroup.link} className="text-muted-foreground p-0" />
+                        <CMSLink
+                          {...linkGroup.link}
+                          className="text-muted-foreground p-0"
+                        />
                       )}
                     </li>
                   ))}
@@ -66,7 +79,9 @@ export default function Footer9({ footer }: Footer9Fields) {
             <ul className="flex justify-center items-center gap-4 lg:justify-start">
               {leftLinks?.links?.map((linkGroup, index) => (
                 <li key={index} className="hover:text-primary">
-                  {linkGroup.link && <CMSLink {...linkGroup.link} className="p-0 h-auto" />}
+                  {linkGroup.link && (
+                    <CMSLink {...linkGroup.link} className="p-0 h-auto" />
+                  )}
                 </li>
               ))}
               <li>

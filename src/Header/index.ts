@@ -8,7 +8,6 @@
  *
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
-
 import type { Header } from '@/payload-types'
 import type { ComponentType } from 'react'
 
@@ -28,7 +27,9 @@ export const Header3 = Header3Component
 export const Header5 = Header5Component
 
 // Define Header component props type
-type HeaderComponentProps<T extends NonNullable<Header['style']>> = NonNullable<Header[T]>
+type HeaderComponentProps<T extends NonNullable<Header['style']>> = NonNullable<
+  Header[T]
+>
 
 // Header component mapping
 export const headerComponents: Record<

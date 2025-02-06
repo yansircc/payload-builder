@@ -1,6 +1,11 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { cardFields, createGalleryField, gallerySchemas } from '../shared/base-field'
+
+import {
+  cardFields,
+  createGalleryField,
+  gallerySchemas,
+} from '../shared/base-field'
 
 /**
  * Gallery 6 field validation and type definitions

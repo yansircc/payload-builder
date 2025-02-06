@@ -1,7 +1,12 @@
 import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { cardsFields, contactSchemas, createContactField } from '../shared/base-field'
+
+import {
+  cardsFields,
+  contactSchemas,
+  createContactField,
+} from '../shared/base-field'
 
 /**
  * Contact 3 field validation and type definitions
@@ -19,7 +24,7 @@ export const schemas = {
         label: z.string(),
         href: z.string().optional(),
       }),
-    }),
+    })
   ),
   supportList: z.object({
     title: contactSchemas.title,
@@ -32,7 +37,7 @@ export const schemas = {
           label: z.string(),
           href: z.string().optional(),
         }),
-      }),
+      })
     ),
   }),
   officeList: z.object({
@@ -41,7 +46,7 @@ export const schemas = {
       z.object({
         title: contactSchemas.title,
         subtitle: contactSchemas.subtitle,
-      }),
+      })
     ),
   }),
 }

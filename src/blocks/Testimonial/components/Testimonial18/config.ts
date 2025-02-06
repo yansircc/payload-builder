@@ -1,5 +1,6 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
+
 import { basicFields, testimonialSchemas } from '../shared/base-field'
 
 /**
@@ -8,7 +9,9 @@ import { basicFields, testimonialSchemas } from '../shared/base-field'
 export const schemas = {
   heading: z.string().describe('Main heading text'),
   subheading: z.string().describe('Subheading text'),
-  statsText: z.string().describe('Stats text (e.g. "Rated 5 stars by 1000+ clients")'),
+  statsText: z
+    .string()
+    .describe('Stats text (e.g. "Rated 5 stars by 1000+ clients")'),
   quote: testimonialSchemas.quote,
   description: z.string().describe('Detailed testimonial description'),
   authorName: testimonialSchemas.authorName,
@@ -40,7 +43,8 @@ export const testimonial18Fields: GroupField = {
     {
       name: 'subheading',
       type: 'text',
-      defaultValue: 'Join a global network of thought leaders, product developers,',
+      defaultValue:
+        'Join a global network of thought leaders, product developers,',
       admin: {
         description: 'Subheading text',
       },

@@ -1,8 +1,8 @@
-import { Check } from 'lucide-react'
+import { Form } from '@/components/Form'
 import { Media } from '@/components/Media'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import type { Contact1Fields } from '@/payload-types'
-import { Form } from '@/components/Form'
+import { Check } from 'lucide-react'
 
 export default function Contact1({ contact }: Contact1Fields) {
   const { title, description, list, avatars, logos, form } = contact
@@ -27,7 +27,10 @@ export default function Contact1({ contact }: Contact1Fields) {
               <div className="space-y-6">
                 <div className="mt-16 flex overflow-hidden">
                   {avatars?.map((avatar, idx) => (
-                    <Avatar key={idx} className={idx > 0 ? '-ml-4 size-11' : 'size-11'}>
+                    <Avatar
+                      key={idx}
+                      className={idx > 0 ? '-ml-4 size-11' : 'size-11'}
+                    >
                       <AvatarImage>
                         <Media resource={avatar.image} />
                       </AvatarImage>
@@ -46,7 +49,11 @@ export default function Contact1({ contact }: Contact1Fields) {
               </div>
               <div className="flex items-center space-x-12">
                 {logos?.map((logo, idx) => (
-                  <Media key={idx} resource={logo.image} imgClassName="h-6 w-auto object-contain" />
+                  <Media
+                    key={idx}
+                    resource={logo.image}
+                    imgClassName="h-6 w-auto object-contain"
+                  />
                 ))}
               </div>
             </div>

@@ -1,4 +1,5 @@
 import { GlobalConfig } from 'payload'
+
 import { header1Fields } from './components/Header1/config'
 import { header3Fields } from './components/Header3/config'
 // import { header4Fields } from './components/Header4/config'

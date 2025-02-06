@@ -1,11 +1,11 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
+import type { Hero1Fields } from '@/payload-types'
 import { ArrowDownRight } from 'lucide-react'
 
-import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
-import type { Hero1Fields } from '@/payload-types'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero1({ hero }: Hero1Fields) {
   const { title, subtitle, links, image, badge } = hero
@@ -32,7 +32,9 @@ export default function Hero1({ hero }: Hero1Fields) {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-4"
             >
-              <h1 className="text-5xl font-bold tracking-tight lg:text-7xl">{title}</h1>
+              <h1 className="text-5xl font-bold tracking-tight lg:text-7xl">
+                {title}
+              </h1>
               {subtitle && (
                 <p className="text-muted-foreground text-xl leading-relaxed max-w-[45ch]">
                   {subtitle}
@@ -53,7 +55,10 @@ export default function Hero1({ hero }: Hero1Fields) {
                       .filter(([key]) => key.startsWith('link-'))
                       .map(
                         ([key, link]) =>
-                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                          link &&
+                          typeof link === 'object' && (
+                            <CMSLink key={key} {...link} />
+                          )
                       )}
                   </div>
                 ))}
@@ -68,7 +73,12 @@ export default function Hero1({ hero }: Hero1Fields) {
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <div className="relative h-full w-full">
-              <Media fill imgClassName="-z-10 object-cover" priority resource={image} />
+              <Media
+                fill
+                imgClassName="-z-10 object-cover"
+                priority
+                resource={image}
+              />
             </div>
           </ClientMotionDiv>
         </div>

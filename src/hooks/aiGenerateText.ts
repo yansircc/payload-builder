@@ -1,4 +1,8 @@
-import { createAIFieldProcessor, FieldProcessor, processFields } from '@/utilities/fieldProcessors'
+import {
+  FieldProcessor,
+  createAIFieldProcessor,
+  processFields,
+} from '@/utilities/fieldProcessors'
 import type { FieldHook } from 'payload'
 import { APIError } from 'payload'
 import { z } from 'zod'
@@ -38,7 +42,7 @@ interface ApiKeys {
  * @returns beforeChange hook 函数
  */
 export function createAIFieldsHook<T extends BaseFieldValue>(
-  schemas: Record<keyof T, z.ZodType<any>>,
+  schemas: Record<keyof T, z.ZodType<any>>
 ): FieldHook {
   return async ({ value, req }) => {
     // 如果值为空，返回 undefined 让 PayloadCMS 处理
@@ -74,7 +78,7 @@ export function createAIFieldsHook<T extends BaseFieldValue>(
             fieldKey,
           }),
         }),
-        {} as Record<keyof T, FieldProcessor<any, z.ZodType<any>>>,
+        {} as Record<keyof T, FieldProcessor<any, z.ZodType<any>>>
       )
 
       const result = await processFields(value as T, processors)
@@ -88,7 +92,7 @@ export function createAIFieldsHook<T extends BaseFieldValue>(
       console.error('Field processing error:', err)
       throw new APIError(
         'An error occurred while processing the field, please try again later',
-        400,
+        400
       )
     }
   }

@@ -1,18 +1,18 @@
 import type { Field } from 'payload'
 
 import { hero1Fields } from './components/Hero1/config'
-import { hero115Fields } from './components/Hero115/config'
-import { hero12Fields } from './components/Hero12/config'
-import { hero24Fields } from './components/Hero24/config'
-import { hero25Fields } from './components/Hero25/config'
 import { hero3Fields } from './components/Hero3/config'
-import { hero32Fields } from './components/Hero32/config'
-import { hero34Fields } from './components/Hero34/config'
-import { hero45Fields } from './components/Hero45/config'
 import { hero5Fields } from './components/Hero5/config'
 import { hero6Fields } from './components/Hero6/config'
 import { hero7Fields } from './components/Hero7/config'
 import { hero8Fields } from './components/Hero8/config'
+import { hero12Fields } from './components/Hero12/config'
+import { hero24Fields } from './components/Hero24/config'
+import { hero25Fields } from './components/Hero25/config'
+import { hero32Fields } from './components/Hero32/config'
+import { hero34Fields } from './components/Hero34/config'
+import { hero45Fields } from './components/Hero45/config'
+import { hero115Fields } from './components/Hero115/config'
 
 /**
  * Hero Field configuration

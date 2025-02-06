@@ -8,10 +8,12 @@
  *
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
-
 import type { TestimonialBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
 
+import Testimonial4Component from './Testimonial4/Component'
+import Testimonial6Component from './Testimonial6/Component'
+import Testimonial7Component from './Testimonial7/Component'
 // Import all Testimonial components
 import Testimonial12Component from './Testimonial12/Component'
 import Testimonial14Component from './Testimonial14/Component'
@@ -20,9 +22,6 @@ import Testimonial16Component from './Testimonial16/Component'
 import Testimonial17Component from './Testimonial17/Component'
 import Testimonial18Component from './Testimonial18/Component'
 import Testimonial19Component from './Testimonial19/Component'
-import Testimonial4Component from './Testimonial4/Component'
-import Testimonial6Component from './Testimonial6/Component'
-import Testimonial7Component from './Testimonial7/Component'
 
 // Export config
 export { testimonial12Fields } from './Testimonial12/config'
@@ -49,9 +48,9 @@ export const Testimonial18 = Testimonial18Component
 export const Testimonial19 = Testimonial19Component
 
 // Define Testimonial component props type
-type TestimonialComponentProps<T extends NonNullable<TestimonialBlock['style']>> = NonNullable<
-  TestimonialBlock[T]
->
+type TestimonialComponentProps<
+  T extends NonNullable<TestimonialBlock['style']>,
+> = NonNullable<TestimonialBlock[T]>
 
 // Define testimonial components mapping
 export const testimonialComponents: Record<

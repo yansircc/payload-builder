@@ -8,7 +8,6 @@
  *
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
-
 import type { FAQBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
 
@@ -19,6 +18,7 @@ import FAQ3Component from './components/FAQ3/Component'
 import FAQ4Component from './components/FAQ4/Component'
 import FAQ5Component from './components/FAQ5/Component'
 import FAQ6Component from './components/FAQ6/Component'
+
 // Export config
 export { faq1Fields } from './components/FAQ1/config'
 export { faq2Fields } from './components/FAQ2/config'
@@ -34,7 +34,9 @@ export const FAQ4 = FAQ4Component
 export const FAQ5 = FAQ5Component
 export const FAQ6 = FAQ6Component
 // Define FAQ component props type
-type FAQComponentProps<T extends NonNullable<FAQBlock['style']>> = NonNullable<FAQBlock[T]>
+type FAQComponentProps<T extends NonNullable<FAQBlock['style']>> = NonNullable<
+  FAQBlock[T]
+>
 
 // FAQ component mapping
 export const faqComponents: Record<

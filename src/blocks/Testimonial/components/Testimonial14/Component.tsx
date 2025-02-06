@@ -1,13 +1,17 @@
 'use client'
 
-import { Star } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import type { Testimonial14Fields } from '@/payload-types'
-
+import { Media } from '@/components/Media'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media } from '@/components/Media'
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel'
+import type { Testimonial14Fields } from '@/payload-types'
+import { Star } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export default function Testimonial14({ testimonials }: Testimonial14Fields) {
   const [api, setApi] = useState<CarouselApi>()
@@ -49,14 +53,21 @@ export default function Testimonial14({ testimonials }: Testimonial14Fields) {
                     <AvatarFallback>{item.authorName?.[0]}</AvatarFallback>
                   )}
                 </Avatar>
-                <p className="mb-1 text-sm font-medium md:text-lg">{item.authorName}</p>
+                <p className="mb-1 text-sm font-medium md:text-lg">
+                  {item.authorName}
+                </p>
                 {item.authorRole && (
-                  <p className="mb-2 text-sm text-muted-foreground md:text-lg">{item.authorRole}</p>
+                  <p className="mb-2 text-sm text-muted-foreground md:text-lg">
+                    {item.authorRole}
+                  </p>
                 )}
                 {item.rating && (
                   <div className="mt-2 flex items-center gap-0.5">
                     {Array.from({ length: item.rating }).map((_, i) => (
-                      <Star key={i} className="size-5 fill-primary stroke-none" />
+                      <Star
+                        key={i}
+                        className="size-5 fill-primary stroke-none"
+                      />
                     ))}
                   </div>
                 )}

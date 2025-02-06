@@ -1,4 +1,5 @@
 import { Block } from 'payload'
+
 import { logos1Fields } from './components/Logos1/config'
 import { logos2Fields } from './components/Logos2/config'
 import { logos3Fields } from './components/Logos3/config'

@@ -8,13 +8,11 @@
  *
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
-
 import type { Footer } from '@/payload-types'
 import type { ComponentType } from 'react'
 
 // Import all Footer components
 import Footer1Component from './components/Footer1/Component'
-import Footer10Component from './components/Footer10/Component'
 import Footer2Component from './components/Footer2/Component'
 import Footer3Component from './components/Footer3/Component'
 import Footer4Component from './components/Footer4/Component'
@@ -23,6 +21,7 @@ import Footer6Component from './components/Footer6/Component'
 import Footer7Component from './components/Footer7/Component'
 import Footer8Component from './components/Footer8/Component'
 import Footer9Component from './components/Footer9/Component'
+import Footer10Component from './components/Footer10/Component'
 
 // Export config
 export { footer1Fields } from './components/Footer1/config'
@@ -49,7 +48,9 @@ export const Footer9 = Footer9Component
 export const Footer10 = Footer10Component
 
 // Define Footer component props type
-type FooterComponentProps<T extends NonNullable<Footer['style']>> = NonNullable<Footer[T]>
+type FooterComponentProps<T extends NonNullable<Footer['style']>> = NonNullable<
+  Footer[T]
+>
 
 // Footer component mapping
 export const footerComponents: Record<

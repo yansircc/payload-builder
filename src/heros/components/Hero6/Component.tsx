@@ -18,13 +18,21 @@ export default function Hero6({ hero }: Hero6Fields) {
             transition={{ duration: 0.5 }}
           >
             <div className="max-w-screen-md">
-              <h1 className="mb-4 text-pretty text-4xl font-semibold lg:text-6xl">{title}</h1>
-              {subtitle && <p className="text-muted-foreground lg:text-xl">{subtitle}</p>}
+              <h1 className="mb-4 text-pretty text-4xl font-semibold lg:text-6xl">
+                {title}
+              </h1>
+              {subtitle && (
+                <p className="text-muted-foreground lg:text-xl">{subtitle}</p>
+              )}
             </div>
             {links && links.length > 0 && (
               <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
                 {links.slice(0, 2).map(({ link }, i) => (
-                  <CMSLink key={i} {...link} appearance={i === 1 ? 'ghost' : 'default'} />
+                  <CMSLink
+                    key={i}
+                    {...link}
+                    appearance={i === 1 ? 'ghost' : 'default'}
+                  />
                 ))}
               </div>
             )}
@@ -38,7 +46,11 @@ export default function Hero6({ hero }: Hero6Fields) {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="col-span-3">
-            <Media resource={image} className="h-full max-h-[500px] w-full object-cover" priority />
+            <Media
+              resource={image}
+              className="h-full max-h-[500px] w-full object-cover"
+              priority
+            />
           </div>
           <div className="relative col-span-2">
             <Media
@@ -72,7 +84,7 @@ export default function Hero6({ hero }: Hero6Fields) {
                       imgClassName="h-full w-auto object-contain"
                     />
                   </div>
-                ),
+                )
             )}
           </ClientMotionDiv>
         )}

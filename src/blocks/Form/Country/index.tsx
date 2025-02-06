@@ -1,6 +1,3 @@
-import type { CountryField } from '@payloadcms/plugin-form-builder/types'
-import type { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
-
 import { Label } from '@/components/ui/label'
 import {
   Select,
@@ -9,7 +6,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import type { CountryField } from '@payloadcms/plugin-form-builder/types'
 import React from 'react'
+import type { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 
 import { Error } from '../Error'
@@ -45,7 +44,10 @@ export const Country: React.FC<
           const controlledValue = countryOptions.find((t) => t.value === value)
 
           return (
-            <Select onValueChange={(val) => onChange(val)} value={controlledValue?.value}>
+            <Select
+              onValueChange={(val) => onChange(val)}
+              value={controlledValue?.value}
+            >
               <SelectTrigger className="w-full" id={name}>
                 <SelectValue placeholder={label} />
               </SelectTrigger>

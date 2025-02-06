@@ -1,7 +1,8 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '../shared/motion'
 import type { Hero34Fields } from '@/payload-types'
+
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero34({ hero }: Hero34Fields) {
   const { badge, title, subtitle, links, image } = hero
@@ -27,18 +28,25 @@ export default function Hero34({ hero }: Hero34Fields) {
                 )}
 
                 {/* Title */}
-                <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">{title}</h1>
+                <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">
+                  {title}
+                </h1>
 
                 {/* Description */}
                 {subtitle && (
-                  <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl">{subtitle}</p>
+                  <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl">
+                    {subtitle}
+                  </p>
                 )}
 
                 {/* Buttons */}
                 {links && links.length > 0 && (
                   <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
                     {links?.map((linkGroup, index) => (
-                      <div key={index} className="flex w-full flex-col gap-2 sm:flex-row">
+                      <div
+                        key={index}
+                        className="flex w-full flex-col gap-2 sm:flex-row"
+                      >
                         {Object.entries(linkGroup)
                           .filter(([key]) => key.startsWith('link-'))
                           .map(
@@ -50,7 +58,7 @@ export default function Hero34({ hero }: Hero34Fields) {
                                   className="inline-flex w-full items-center sm:w-auto"
                                   {...link}
                                 />
-                              ),
+                              )
                           )}
                       </div>
                     ))}

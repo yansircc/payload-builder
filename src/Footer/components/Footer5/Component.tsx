@@ -15,7 +15,10 @@ export default function Footer5({ footer }: Footer5Fields) {
                   {section.links?.map((linkGroup, index) => (
                     <li key={index} className="font-medium hover:text-primary">
                       {linkGroup.link && (
-                        <CMSLink {...linkGroup.link} className="text-muted-foreground h-auto p-0" />
+                        <CMSLink
+                          {...linkGroup.link}
+                          className="text-muted-foreground h-auto p-0"
+                        />
                       )}
                     </li>
                   ))}
@@ -58,7 +61,9 @@ export default function Footer5({ footer }: Footer5Fields) {
             </div>
           </div>
           <div className="mt-24 border-t pt-8">
-            <p className="text-center text-sm font-medium text-muted-foreground">{copyright}</p>
+            <p className="text-center text-sm font-medium text-muted-foreground">
+              {copyright}
+            </p>
           </div>
         </footer>
       </div>

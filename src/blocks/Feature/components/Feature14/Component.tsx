@@ -22,7 +22,10 @@ export default function Feature14({ feature }: Feature14Fields) {
                   {feature.list?.map((item, itemIndex) => (
                     <li key={itemIndex} className="flex gap-x-3">
                       {item.icon && (
-                        <DynamicIcon name={item.icon} className="mt-0.5 size-4 shrink-0 sm:mt-1" />
+                        <DynamicIcon
+                          name={item.icon}
+                          className="mt-0.5 size-4 shrink-0 sm:mt-1"
+                        />
                       )}
                       <p className="text-sm md:text-base">{item.text}</p>
                     </li>
@@ -31,7 +34,10 @@ export default function Feature14({ feature }: Feature14Fields) {
               </div>
               <div className="relative order-first max-h-80 md:order-last md:max-h-[500px]">
                 {feature.image && (
-                  <Media resource={feature.image} imgClassName="h-full w-full object-cover" />
+                  <Media
+                    resource={feature.image}
+                    imgClassName="h-full w-full object-cover"
+                  />
                 )}
                 <span className="absolute left-5 top-5 flex size-6 items-center justify-center rounded-sm bg-primary font-mono text-xs text-primary-foreground md:left-10 md:top-10">
                   {String(index + 1).padStart(2, '0')}

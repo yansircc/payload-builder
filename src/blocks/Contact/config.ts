@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+
 import { contact1Fields } from './components/Contact1/config'
 import { contact2Fields } from './components/Contact2/config'
 import { contact3Fields } from './components/Contact3/config'

@@ -1,6 +1,7 @@
-import { CMSLink } from '@/components/Link'
 import { DynamicIcon } from '@/components/DynamicIcon'
+import { CMSLink } from '@/components/Link'
 import type { CTA16Fields } from '@/payload-types'
+
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function CTA16({ cta }: CTA16Fields) {
@@ -38,8 +39,12 @@ export default function CTA16({ cta }: CTA16Fields) {
                         ([key, link]) =>
                           link &&
                           typeof link === 'object' && (
-                            <CMSLink key={key} {...link} className="w-full sm:w-auto" />
-                          ),
+                            <CMSLink
+                              key={key}
+                              {...link}
+                              className="w-full sm:w-auto"
+                            />
+                          )
                       )}
                   </div>
                 ))}

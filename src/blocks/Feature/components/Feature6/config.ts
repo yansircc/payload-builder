@@ -1,5 +1,10 @@
 import { GroupField } from 'payload'
-import { createFeatureField, featureSchemas, listFields } from '../shared/base-field'
+
+import {
+  createFeatureField,
+  featureSchemas,
+  listFields,
+} from '../shared/base-field'
 
 /**
  * Feature 6 field validation and type definitions

@@ -1,5 +1,6 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
+
 import { createGalleryField, gallerySchemas } from '../shared/base-field'
 
 /**
@@ -15,7 +16,7 @@ export const schemas = {
       label: z.string(),
       href: z.string().url(),
       image: gallerySchemas.image,
-    }),
+    })
   ),
 }
 

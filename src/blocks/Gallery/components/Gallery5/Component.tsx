@@ -1,14 +1,18 @@
 'use client'
 
-import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { useEffect, useState } from 'react'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import type { Gallery5Fields, Media as MediaType } from '@/payload-types'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 type Gallery5Props = {
   gallery: Gallery5Fields['gallery']
@@ -63,9 +67,15 @@ export default function Gallery5({ gallery }: Gallery5Props) {
       <div className="container mb-14 flex flex-col gap-16 lg:mb-16 lg:px-16">
         <div className="lg:max-w-lg">
           {title && (
-            <h2 className="mb-3 text-xl font-semibold md:mb-4 md:text-4xl lg:mb-6">{title}</h2>
+            <h2 className="mb-3 text-xl font-semibold md:mb-4 md:text-4xl lg:mb-6">
+              {title}
+            </h2>
           )}
-          {description && <p className="mb-8 text-muted-foreground lg:text-lg">{description}</p>}
+          {description && (
+            <p className="mb-8 text-muted-foreground lg:text-lg">
+              {description}
+            </p>
+          )}
           {link?.label && (
             <CMSLink
               {...link}
@@ -107,7 +117,9 @@ export default function Gallery5({ gallery }: Gallery5Props) {
             value={currentItem?.id || ''}
             onValueChange={(newValue: string) => {
               if (newValue) {
-                setSelection(items.findIndex((item: GalleryItem) => item.id === newValue))
+                setSelection(
+                  items.findIndex((item: GalleryItem) => item.id === newValue)
+                )
               }
             }}
           >
@@ -145,7 +157,9 @@ export default function Gallery5({ gallery }: Gallery5Props) {
                       <h3 className="mb-3 text-lg font-semibold md:mb-4 md:text-2xl lg:mb-6">
                         {item.title}
                       </h3>
-                      <p className="text-muted-foreground lg:text-lg">{item.description}</p>
+                      <p className="text-muted-foreground lg:text-lg">
+                        {item.description}
+                      </p>
                     </div>
                   </div>
                 </a>

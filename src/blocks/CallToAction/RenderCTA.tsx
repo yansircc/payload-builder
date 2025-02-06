@@ -1,4 +1,5 @@
 import type { CTABlock } from '@/payload-types'
+
 import { ctaComponents } from './index'
 
 export const RenderCTA: React.FC<CTABlock> = (props) => {

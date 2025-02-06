@@ -9,8 +9,12 @@ export default function Team1({ team }: Team1Fields) {
     <section className="py-32">
       <div className="container flex flex-col items-center text-center">
         <p className="semibold">{subtitle}</p>
-        <h2 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">{title}</h2>
-        <p className="mb-8 max-w-3xl text-muted-foreground lg:text-xl">{description}</p>
+        <h2 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">
+          {title}
+        </h2>
+        <p className="mb-8 max-w-3xl text-muted-foreground lg:text-xl">
+          {description}
+        </p>
       </div>
       <div className="container mt-16 grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-4">
         {people?.map((person) => (

@@ -1,5 +1,6 @@
-import { Menu } from 'lucide-react'
-
+import { DynamicIcon } from '@/components/DynamicIcon'
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import {
   Accordion,
   AccordionContent,
@@ -7,7 +8,6 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Button, buttonVariants } from '@/components/ui/button'
-import { CMSLink } from '@/components/Link'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -17,11 +17,16 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 import { Header1Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
-import { Media } from '@/components/Media'
-import { DynamicIcon } from '@/components/DynamicIcon'
+import { Menu } from 'lucide-react'
 
 export default function Header1({ header }: Header1Fields) {
   const { logo, menu, title, rightSideLinks } = header
@@ -31,7 +36,9 @@ export default function Header1({ header }: Header1Fields) {
         <nav className="hidden justify-between lg:flex">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
-              {logo && <Media resource={logo} imgClassName="w-8" priority alt="logo" />}
+              {logo && (
+                <Media resource={logo} imgClassName="w-8" priority alt="logo" />
+              )}
               <span className="text-lg font-semibold">{title}</span>
             </div>
             <div className="flex items-center">
@@ -42,7 +49,9 @@ export default function Header1({ header }: Header1Fields) {
                       <NavigationMenuList>
                         <NavigationMenuItem className="text-muted-foreground">
                           <NavigationMenuTrigger>
-                            <span className="no-underline">{menuItem.parentLink.label}</span>
+                            <span className="no-underline">
+                              {menuItem.parentLink.label}
+                            </span>
                           </NavigationMenuTrigger>
                           <NavigationMenuContent>
                             <ul className="w-80 p-3">
@@ -50,12 +59,14 @@ export default function Header1({ header }: Header1Fields) {
                                 <li key={idx}>
                                   <NavigationMenuLink
                                     className={cn(
-                                      'flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+                                      'flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
                                     )}
                                     href={subItem.link.url || ''}
                                   >
                                     {subItem?.link?.prefixIcon && (
-                                      <DynamicIcon name={subItem.link.prefixIcon} />
+                                      <DynamicIcon
+                                        name={subItem.link.prefixIcon}
+                                      />
                                     )}
                                     <div>
                                       <div className="text-sm font-semibold">
@@ -87,7 +98,7 @@ export default function Header1({ header }: Header1Fields) {
                       navigationMenuTriggerStyle,
                       buttonVariants({
                         variant: 'ghost',
-                      }),
+                      })
                     )}
                   />
                 )
@@ -99,7 +110,8 @@ export default function Header1({ header }: Header1Fields) {
               <div key={index}>
                 {Object.entries(linkGroup).map(
                   ([key, link]) =>
-                    link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                    link &&
+                    typeof link === 'object' && <CMSLink key={key} {...link} />
                 )}
               </div>
             ))}
@@ -108,7 +120,9 @@ export default function Header1({ header }: Header1Fields) {
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              {logo && <Media resource={logo} imgClassName="w-8" priority alt="logo" />}
+              {logo && (
+                <Media resource={logo} imgClassName="w-8" priority alt="logo" />
+              )}
               <span className="text-lg font-semibold">{title}</span>
             </div>
             <Sheet>
@@ -121,7 +135,14 @@ export default function Header1({ header }: Header1Fields) {
                 <SheetHeader>
                   <SheetTitle>
                     <div className="flex items-center gap-2">
-                      {logo && <Media resource={logo} imgClassName="w-8" priority alt="logo" />}
+                      {logo && (
+                        <Media
+                          resource={logo}
+                          imgClassName="w-8"
+                          priority
+                          alt="logo"
+                        />
+                      )}
                       <span className="text-lg font-semibold">{title}</span>
                     </div>
                   </SheetTitle>
@@ -130,8 +151,16 @@ export default function Header1({ header }: Header1Fields) {
                   {menu?.map((menuItem) => {
                     if (menuItem.subMenu && menuItem.subMenu.length > 0) {
                       return (
-                        <Accordion type="single" collapsible className="w-full" key={menuItem.id}>
-                          <AccordionItem value={menuItem.id || ''} className="border-b-0">
+                        <Accordion
+                          type="single"
+                          collapsible
+                          className="w-full"
+                          key={menuItem.id}
+                        >
+                          <AccordionItem
+                            value={menuItem.id || ''}
+                            className="border-b-0"
+                          >
                             <AccordionTrigger className="mb-4 py-0 font-semibold hover:no-underline">
                               {menuItem.parentLink.label}
                             </AccordionTrigger>
@@ -141,12 +170,14 @@ export default function Header1({ header }: Header1Fields) {
                                   <a
                                     key={subItem.id}
                                     className={cn(
-                                      'flex select-none gap-4 rounded-md p-3 leading-none outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+                                      'flex select-none gap-4 rounded-md p-3 leading-none outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
                                     )}
                                     href={subItem.link.url || '#'}
                                   >
                                     {subItem?.link?.prefixIcon && (
-                                      <DynamicIcon name={subItem.link.prefixIcon} />
+                                      <DynamicIcon
+                                        name={subItem.link.prefixIcon}
+                                      />
                                     )}
                                     <div>
                                       <div className="text-sm font-semibold">
@@ -181,7 +212,10 @@ export default function Header1({ header }: Header1Fields) {
                     <div key={index} className="flex flex-col gap-2">
                       {Object.entries(linkGroup).map(
                         ([key, link]) =>
-                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                          link &&
+                          typeof link === 'object' && (
+                            <CMSLink key={key} {...link} />
+                          )
                       )}
                     </div>
                   ))}

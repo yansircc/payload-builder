@@ -1,7 +1,7 @@
 'use client'
-import { ChevronLeft, ChevronRight, Menu, X } from 'lucide-react'
-import { useState } from 'react'
 
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'
 import {
   NavigationMenu,
@@ -11,16 +11,17 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
+import { Header3Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
+import { ChevronLeft, ChevronRight, Menu, X } from 'lucide-react'
+import Link from 'next/link'
+import { useState } from 'react'
+
 import Style1 from './components/submenu/style1/Component'
 import Style2 from './components/submenu/style2/Component'
 import Style3 from './components/submenu/style3/Component'
 import Style4 from './components/submenu/style4/Component'
-import { Header3Fields } from '@/payload-types'
-import { Media } from '@/components/Media'
-import Link from 'next/link'
-import { CMSLink } from '@/components/Link'
 import renderMobileSubmenu from './utils/renderMobileSubmenu'
-import { cn } from '@/utilities/ui'
 
 export default function Header3({ header, menu }: Header3Fields) {
   const { logo, rightLinks } = header
@@ -49,26 +50,36 @@ export default function Header3({ header, menu }: Header3Fields) {
               {menu?.map((item) =>
                 item.submenu?.style ? (
                   <NavigationMenuItem key={item.id}>
-                    <NavigationMenuTrigger>{item.parentMenu.label}</NavigationMenuTrigger>
+                    <NavigationMenuTrigger>
+                      {item.parentMenu.label}
+                    </NavigationMenuTrigger>
                     <NavigationMenuContent className="min-w-[calc(100vw-4rem)] p-12 2xl:min-w-[calc(1400px-4rem)]">
-                      {item.submenu?.style === 'style-1' && <Style1 data={item.submenu} />}
-                      {item.submenu?.style === 'style-2' && <Style2 data={item.submenu} />}
-                      {item.submenu?.style === 'style-3' && <Style3 data={item.submenu} />}
-                      {item.submenu?.style === 'style-4' && <Style4 data={item.submenu} />}
+                      {item.submenu?.style === 'style-1' && (
+                        <Style1 data={item.submenu} />
+                      )}
+                      {item.submenu?.style === 'style-2' && (
+                        <Style2 data={item.submenu} />
+                      )}
+                      {item.submenu?.style === 'style-3' && (
+                        <Style3 data={item.submenu} />
+                      )}
+                      {item.submenu?.style === 'style-4' && (
+                        <Style4 data={item.submenu} />
+                      )}
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                 ) : (
                   <NavigationMenuItem key={item.id}>
                     <NavigationMenuLink
                       className={cn(
-                        'flex text-sm font-medium select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+                        'flex text-sm font-medium select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
                       )}
                       href={item.parentMenu.url || ''}
                     >
                       {item.parentMenu.label}
                     </NavigationMenuLink>
                   </NavigationMenuItem>
-                ),
+                )
               )}
             </NavigationMenuList>
             <div className="hidden items-center gap-4 lg:flex">
@@ -76,7 +87,10 @@ export default function Header3({ header, menu }: Header3Fields) {
                 <div key={index}>
                   {Object.entries(linkGroup).map(
                     ([key, link]) =>
-                      link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                      link &&
+                      typeof link === 'object' && (
+                        <CMSLink key={key} {...link} />
+                      )
                   )}
                 </div>
               ))}
@@ -110,7 +124,9 @@ export default function Header3({ header, menu }: Header3Fields) {
                     key={item.id}
                     type="button"
                     className="flex w-full items-center border-b border-border px-8 py-7 text-left"
-                    onClick={() => item.submenu?.style && setSubmenu(item.submenu?.style)}
+                    onClick={() =>
+                      item.submenu?.style && setSubmenu(item.submenu?.style)
+                    }
                   >
                     <span className="flex-1">{item.parentMenu.label}</span>
                     <span className="shrink-0">
@@ -124,7 +140,10 @@ export default function Header3({ header, menu }: Header3Fields) {
                   <div key={index}>
                     {Object.entries(linkGroup).map(
                       ([key, link]) =>
-                        link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                        link &&
+                        typeof link === 'object' && (
+                          <CMSLink key={key} {...link} />
+                        )
                     )}
                   </div>
                 ))}

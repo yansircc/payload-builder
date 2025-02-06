@@ -1,9 +1,14 @@
 'use client'
 
-import AutoScroll from 'embla-carousel-auto-scroll'
 import { Media } from '@/components/Media'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel'
 import type { Logos3Fields } from '@/payload-types'
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
+import AutoScroll from 'embla-carousel-auto-scroll'
+
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Logos3({ logos }: Logos3Fields) {
@@ -18,14 +23,19 @@ export default function Logos3({ logos }: Logos3Fields) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">{title}</h2>
+            <h2 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">
+              {title}
+            </h2>
           </ClientMotionDiv>
         )}
       </div>
 
       <div className="pt-10 md:pt-16 lg:pt-20">
         <div className="relative mx-auto flex items-center justify-center lg:max-w-5xl">
-          <Carousel opts={{ loop: true }} plugins={[AutoScroll({ playOnInit: true })]}>
+          <Carousel
+            opts={{ loop: true }}
+            plugins={[AutoScroll({ playOnInit: true })]}
+          >
             <CarouselContent className="ml-0">
               {logoItems?.map((item, index) => (
                 <CarouselItem
