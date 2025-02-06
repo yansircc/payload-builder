@@ -1,0 +1,32 @@
+name: 📚 Documentation Request
+description: Request documentation updates
+title: '[Docs]: '
+labels: ['documentation']
+body:
+  - type: textarea
+    id: doc-request
+    attributes:
+      label: Documentation Request
+      description: Please describe the documentation needs
+      value: |
+        ## 📚 Documentation Request
+
+        ### What Needs Documentation
+        [Describe what needs to be documented or updated]
+
+        ### Proposed Location
+        [Where should this documentation be added/updated?]
+
+        ### Importance
+        [Why is this documentation update necessary?]
+
+        ### Suggested Content
+        [Provide any specific content suggestions or examples]
+
+        ### Related Issues/PRs
+        [Link to any related issues or pull requests]
+
+        ### Additional Context
+        [Any other relevant information]
+    validations:
+      required: true

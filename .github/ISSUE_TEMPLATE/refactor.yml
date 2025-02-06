@@ -1,0 +1,40 @@
+name: 🔧 Code Refactor
+description: Suggest code improvements
+title: '[Refactor]: '
+labels: ['refactor']
+body:
+  - type: textarea
+    id: refactor-request
+    attributes:
+      label: Refactor Request
+      description: Please describe the refactoring needs
+      value: |
+        ## 🔧 Code Refactor
+
+        ### Target Area
+        [Which part of the code needs refactoring?]
+
+        ### Current Issues
+        [What problems exist in the current implementation?]
+
+        ### Proposed Changes
+        [How do you suggest improving the code?]
+
+        ### Benefits
+        [What benefits will this refactor bring?]
+        - [ ] Improved performance
+        - [ ] Better maintainability
+        - [ ] Enhanced readability
+        - [ ] Reduced complexity
+        - [ ] Other: [specify]
+
+        ### Potential Risks
+        [What risks or challenges should we consider?]
+
+        ### Implementation Approach
+        [How should we approach this refactor?]
+
+        ### Additional Context
+        [Any other relevant information, code examples, or references]
+    validations:
+      required: true

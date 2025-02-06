@@ -1,0 +1,33 @@
+name: ✨ Enhancement
+description: Suggest an improvement to existing functionality
+title: '[Enhancement]: '
+labels: ['enhancement']
+body:
+  - type: textarea
+    id: enhancement
+    attributes:
+      label: Enhancement Proposal
+      description: Please describe your enhancement suggestion in detail
+      value: |
+        ## ✨ Enhancement
+
+        ### Current Behavior
+        [Describe how the feature currently works]
+
+        ### Proposed Enhancement
+        [Describe your suggested improvements]
+
+        ### Benefits
+        [What are the benefits of this enhancement?]
+
+        ### Implementation Approach
+        [How do you think this could be implemented?]
+
+        ### Impact Level
+        - Scope: [Low/Medium/High]
+        - Effort: [Small/Medium/Large]
+
+        ### Additional Context
+        [Any other context or screenshots]
+    validations:
+      required: true

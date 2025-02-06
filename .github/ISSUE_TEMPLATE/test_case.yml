@@ -1,0 +1,37 @@
+name: 🧪 Test Case
+description: Create a new test case
+title: '[Test]: '
+labels: ['test']
+body:
+  - type: textarea
+    id: test-case
+    attributes:
+      label: Test Case
+      description: Please describe the test case in detail
+      value: |
+        ## 🧪 Test Case
+
+        ### Feature to Test
+        [What feature or functionality needs testing?]
+
+        ### Test Scenarios
+        1. Scenario 1:
+           - Given [precondition]
+           - When [action]
+           - Then [expected result]
+
+        2. Scenario 2:
+           - Given [precondition]
+           - When [action]
+           - Then [expected result]
+
+        ### Test Data Requirements
+        [List any test data needed]
+
+        ### Test Environment
+        [Specify required environment setup]
+
+        ### Additional Notes
+        [Any other testing considerations]
+    validations:
+      required: true

@@ -1,0 +1,44 @@
+name: 📋 Implementation Plan
+description: Create a detailed plan for implementing a feature
+title: '[Plan]: '
+labels: ['implementation']
+body:
+  - type: textarea
+    id: implementation-plan
+    attributes:
+      label: Implementation Plan
+      description: Please provide a detailed implementation plan
+      value: |
+        ## 📋 Implementation Plan
+
+        ### Related Feature Request
+        [Link to the original feature request issue #]
+
+        ### Implementation Overview
+        [Brief description of how this feature will be implemented]
+
+        ### Tasks Breakdown
+        #### Frontend
+        - [ ] Task 1
+        - [ ] Task 2
+
+        #### Backend
+        - [ ] Task 1
+        - [ ] Task 2
+
+        #### Testing
+        - [ ] Unit tests
+        - [ ] Integration tests
+        - [ ] E2E tests
+
+        ### Dependencies
+        [List any dependencies or prerequisites]
+
+        ### Technical Notes
+        [Any technical considerations or architectural decisions]
+
+        ### Timeline
+        - Estimated Start: [Date]
+        - Estimated Completion: [Date]
+    validations:
+      required: true
