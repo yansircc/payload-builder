@@ -42,7 +42,7 @@ export default async function middleware(req: NextRequest) {
 
   // rewrite root application to `/home` folder
   if (hostname === 'localhost:3000' || hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN) {
-    return NextResponse.rewrite(new URL(`/home${path === '/' ? '' : path}`, req.url))
+    return NextResponse.rewrite(new URL(req.url))
   }
 
   // rewrite everything else to `/tenant-domains/[domain]/[path] dynamic route
