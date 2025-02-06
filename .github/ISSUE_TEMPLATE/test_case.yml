@@ -1,0 +1,29 @@
+name: 🧪 Test Case
+description: Create a new test case
+title: '[Test]: '
+labels: ['test']
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe what needs to be tested
+    validations:
+      required: true
+  - type: textarea
+    id: scenarios
+    attributes:
+      label: Test Scenarios
+      description: List the scenarios that need to be tested
+      value: |
+        1. Scenario 1:
+           - Step 1
+           - Step 2
+        2. Scenario 2:
+           - Step 1
+           - Step 2
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Results
+      description: Describe the expected outcome for each scenario

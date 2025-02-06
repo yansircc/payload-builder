@@ -1,0 +1,22 @@
+name: 🔍 Investigation
+description: Research a topic or problem
+title: '[Investigation]: '
+labels: ['investigation']
+body:
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Purpose
+      description: Why is this research needed?
+    validations:
+      required: true
+  - type: textarea
+    id: areas
+    attributes:
+      label: Areas to Investigate
+      description: List the topics or areas that need investigation
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected Outcome
+      description: What should we learn or decide after this research?
