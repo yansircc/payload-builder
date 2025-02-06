@@ -4,26 +4,34 @@ title: '[Test]: '
 labels: ['test']
 body:
   - type: textarea
-    id: description
+    id: test-case
     attributes:
-      label: Description
-      description: Describe what needs to be tested
+      label: Test Case
+      description: Please describe the test case in detail
+      value: |
+        ## 🧪 Test Case
+
+        ### Feature to Test
+        [What feature or functionality needs testing?]
+
+        ### Test Scenarios
+        1. Scenario 1:
+           - Given [precondition]
+           - When [action]
+           - Then [expected result]
+
+        2. Scenario 2:
+           - Given [precondition]
+           - When [action]
+           - Then [expected result]
+
+        ### Test Data Requirements
+        [List any test data needed]
+
+        ### Test Environment
+        [Specify required environment setup]
+
+        ### Additional Notes
+        [Any other testing considerations]
     validations:
       required: true
-  - type: textarea
-    id: scenarios
-    attributes:
-      label: Test Scenarios
-      description: List the scenarios that need to be tested
-      value: |
-        1. Scenario 1:
-           - Step 1
-           - Step 2
-        2. Scenario 2:
-           - Step 1
-           - Step 2
-  - type: textarea
-    id: expected
-    attributes:
-      label: Expected Results
-      description: Describe the expected outcome for each scenario

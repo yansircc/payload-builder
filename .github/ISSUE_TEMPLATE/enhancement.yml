@@ -3,74 +3,31 @@ description: Suggest an improvement to existing functionality
 title: '[Enhancement]: '
 labels: ['enhancement']
 body:
-  - type: markdown
+  - type: textarea
+    id: enhancement
     attributes:
+      label: Enhancement Proposal
+      description: Please describe your enhancement suggestion in detail
       value: |
-        Thanks for suggesting an enhancement! Please fill out this form as completely as possible.
+        ## ✨ Enhancement
 
-  - type: input
-    id: component
-    attributes:
-      label: Component/Area
-      description: Which component or area would you like to enhance?
-      placeholder: 'e.g., UI, Performance, API'
+        ### Current Behavior
+        [Describe how the feature currently works]
+
+        ### Proposed Enhancement
+        [Describe your suggested improvements]
+
+        ### Benefits
+        [What are the benefits of this enhancement?]
+
+        ### Implementation Approach
+        [How do you think this could be implemented?]
+
+        ### Impact Level
+        - Scope: [Low/Medium/High]
+        - Effort: [Small/Medium/Large]
+
+        ### Additional Context
+        [Any other context or screenshots]
     validations:
       required: true
-
-  - type: textarea
-    id: current
-    attributes:
-      label: Current Behavior
-      description: Describe how the feature currently works
-      placeholder: 'Currently, the feature...'
-    validations:
-      required: true
-
-  - type: textarea
-    id: desired
-    attributes:
-      label: Desired Behavior
-      description: Describe your proposed changes and how they improve the existing functionality
-      placeholder: 'The feature would be better if...'
-    validations:
-      required: true
-
-  - type: textarea
-    id: benefits
-    attributes:
-      label: Benefits
-      description: What are the benefits of this enhancement?
-      placeholder: |
-        - Improved user experience
-        - Better performance
-        - Easier maintenance
-
-  - type: dropdown
-    id: impact
-    attributes:
-      label: Impact Level
-      description: How impactful is this enhancement?
-      options:
-        - 'Low (Nice to have)'
-        - 'Medium (Significant improvement)'
-        - 'High (Major improvement)'
-    validations:
-      required: true
-
-  - type: dropdown
-    id: effort
-    attributes:
-      label: Implementation Effort
-      description: How much effort do you think this would require?
-      options:
-        - 'Small (Few hours)'
-        - 'Medium (1-2 days)'
-        - 'Large (3+ days)'
-    validations:
-      required: true
-
-  - type: textarea
-    id: additional
-    attributes:
-      label: Additional Context
-      description: Any other context, screenshots, or examples?

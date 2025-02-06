@@ -7,29 +7,40 @@ body:
     attributes:
       value: |
         Thanks for taking the time to suggest a new feature!
+
   - type: textarea
-    id: description
+    id: feature-proposal
     attributes:
-      label: Description
-      description: A clear and concise description of what the feature is
-      placeholder: Tell us about the feature...
+      label: Feature Proposal
+      description: Please describe your feature request in detail
+      value: |
+        ## 🚀 Feature Request
+
+        ### Description
+        [Describe the feature you'd like to see added. Be specific about what it does and how it should work]
+
+        ### Motivation
+        [Why is this feature needed? What problems does it solve?]
+
+        ### Use Case
+        [Provide specific examples of how this feature would be used]
+
+        ### Proposed Solution
+        [How do you think this could be implemented?]
+
+        ### Alternatives Considered
+        [What alternatives have you considered?]
+
+        ### Tasks
+        - [ ] Task 1
+        - [ ] Task 2
+        - [ ] Task 3
+
+        ### Additional Context
+        [Any other context, screenshots, or examples?]
     validations:
       required: true
-  - type: textarea
-    id: motivation
-    attributes:
-      label: Motivation
-      description: Why is this feature needed? What problems does it solve?
-  - type: textarea
-    id: use-case
-    attributes:
-      label: Use Case
-      description: Provide specific examples of how this feature would be used
-  - type: textarea
-    id: alternatives
-    attributes:
-      label: Alternatives Considered
-      description: Have you considered any alternatives?
+
   - type: dropdown
     id: contribute
     attributes:

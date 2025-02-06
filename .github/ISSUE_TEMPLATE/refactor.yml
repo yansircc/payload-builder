@@ -4,19 +4,37 @@ title: '[Refactor]: '
 labels: ['refactor']
 body:
   - type: textarea
-    id: what-refactor
+    id: refactor-request
     attributes:
-      label: What needs to be refactored?
-      description: Describe the specific area of the codebase that requires improvement
+      label: Refactor Request
+      description: Please describe the refactoring needs
+      value: |
+        ## 🔧 Code Refactor
+
+        ### Target Area
+        [Which part of the code needs refactoring?]
+
+        ### Current Issues
+        [What problems exist in the current implementation?]
+
+        ### Proposed Changes
+        [How do you suggest improving the code?]
+
+        ### Benefits
+        [What benefits will this refactor bring?]
+        - [ ] Improved performance
+        - [ ] Better maintainability
+        - [ ] Enhanced readability
+        - [ ] Reduced complexity
+        - [ ] Other: [specify]
+
+        ### Potential Risks
+        [What risks or challenges should we consider?]
+
+        ### Implementation Approach
+        [How should we approach this refactor?]
+
+        ### Additional Context
+        [Any other relevant information, code examples, or references]
     validations:
       required: true
-  - type: textarea
-    id: why-needed
-    attributes:
-      label: Why is this needed?
-      description: Explain the reason for the refactor
-  - type: textarea
-    id: proposed-changes
-    attributes:
-      label: Proposed Changes
-      description: Describe the approach or method for the refactor

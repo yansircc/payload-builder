@@ -1,22 +1,39 @@
 name: 🔍 Investigation
 description: Research a topic or problem
 title: '[Investigation]: '
-labels: ['research']
+labels: ['investigation']
 body:
   - type: textarea
-    id: purpose
+    id: investigation
     attributes:
-      label: Purpose
-      description: Why is this research needed?
+      label: Investigation Plan
+      description: Please outline the investigation details
+      value: |
+        ## 🔍 Investigation
+
+        ### Purpose
+        [Why is this investigation needed?]
+
+        ### Areas to Investigate
+        - [ ] Area 1
+        - [ ] Area 2
+        - [ ] Area 3
+
+        ### Research Questions
+        1. [Question 1]
+        2. [Question 2]
+        3. [Question 3]
+
+        ### Expected Outcomes
+        [What should we learn or decide after this investigation?]
+
+        ### Timeline
+        - Expected Duration: [X days/weeks]
+        - Key Milestones:
+          1. [Milestone 1]
+          2. [Milestone 2]
+
+        ### Resources Needed
+        [List any resources or access needed]
     validations:
       required: true
-  - type: textarea
-    id: areas
-    attributes:
-      label: Areas to Investigate
-      description: List the topics or areas that need investigation
-  - type: textarea
-    id: outcome
-    attributes:
-      label: Expected Outcome
-      description: What should we learn or decide after this research?
