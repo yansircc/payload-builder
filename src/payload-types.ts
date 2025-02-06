@@ -1357,10 +1357,11 @@ export interface Hero115Fields {
  * via the `definition` "AboutBlock".
  */
 export interface AboutBlock {
-  style?: ('about-1' | 'about-2' | 'about-3') | null;
+  style?: ('about-1' | 'about-2' | 'about-3' | 'about-4') | null;
   'about-1'?: About1Fields;
   'about-2'?: About2Fields;
   'about-3'?: About3Fields;
+  'about-4'?: About4Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'about';
@@ -1623,6 +1624,86 @@ export interface About3Fields {
           id?: string | null;
         }[]
       | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About4Fields".
+ */
+export interface About4Fields {
+  mainSection: {
+    /**
+     * Main title (e.g., "Welcome to Our Team")
+     */
+    title: string;
+    /**
+     * Main description text
+     */
+    description: string;
+  };
+  gallerySection: {
+    images: {
+      image: string | Media;
+      id?: string | null;
+    }[];
+  };
+  contentSection: {
+    vision: {
+      /**
+       * Vision section title
+       */
+      title: string;
+      /**
+       * Vision section description
+       */
+      description: string;
+    };
+    creators: {
+      /**
+       * Creators section title
+       */
+      title: string;
+      /**
+       * Creators section description
+       */
+      description: string;
+    };
+  };
+  ctaSection: {
+    /**
+     * CTA section title
+     */
+    title: string;
+    /**
+     * CTA button
+     */
+    button: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+       */
+      prefixIcon?: string | null;
+      /**
+       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+       */
+      suffixIcon?: string | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    };
   };
 }
 /**
@@ -6826,6 +6907,7 @@ export interface AboutBlockSelect<T extends boolean = true> {
   'about-1'?: T | About1FieldsSelect<T>;
   'about-2'?: T | About2FieldsSelect<T>;
   'about-3'?: T | About3FieldsSelect<T>;
+  'about-4'?: T | About4FieldsSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -6989,6 +7071,61 @@ export interface About3FieldsSelect<T extends boolean = true> {
               label?: T;
               value?: T;
               id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About4Fields_select".
+ */
+export interface About4FieldsSelect<T extends boolean = true> {
+  mainSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  gallerySection?:
+    | T
+    | {
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+      };
+  contentSection?:
+    | T
+    | {
+        vision?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        creators?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+      };
+  ctaSection?:
+    | T
+    | {
+        title?: T;
+        button?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
       };
 }
