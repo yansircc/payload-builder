@@ -1,44 +1,64 @@
 import { link } from '@/fields/link'
 import type { GroupField } from 'payload'
 import { z } from 'zod'
-import { aboutSchemas } from '../shared/base-field'
+import {
+  aboutSchemas,
+  baseFields,
+  commonSchemas,
+  createArrayField,
+  createFieldGroup,
+  createSectionField,
+} from '../shared/base-field'
 
 /**
  * About3 field validation and type definitions
  */
 export const schemas = {
+  /** Main section */
   mainSection: z.object({
     title: aboutSchemas.title,
     description: aboutSchemas.description,
   }),
+
+  /** Content section */
   contentSection: z.object({
-    mainImage: aboutSchemas.image,
+    mainImage: commonSchemas.media.image.describe('Main content image'),
     infoBox: z.object({
-      icon: aboutSchemas.image,
+      icon: commonSchemas.media.image.describe('Info box icon'),
       title: aboutSchemas.title,
       description: aboutSchemas.description,
-      buttonLink: aboutSchemas.link,
+      buttonLink: commonSchemas.ui.link,
     }),
-    sideImage: aboutSchemas.image,
+    sideImage: commonSchemas.media.image.describe('Side content image'),
   }),
+
+  /** Client section */
   clientSection: z.object({
     title: aboutSchemas.title,
-    clients: z.array(
-      z.object({
-        logo: aboutSchemas.image,
-        name: z.string(),
-      }),
-    ),
+    clients: z
+      .array(
+        z.object({
+          logo: commonSchemas.media.image.describe('Client logo'),
+          name: z.string().describe('Client name'),
+        }),
+      )
+      .min(1)
+      .max(6),
   }),
+
+  /** Stats section */
   statsSection: z.object({
     title: aboutSchemas.title,
     description: aboutSchemas.description,
-    stats: z.array(
-      z.object({
-        label: z.string(),
-        value: z.string(),
-      }),
-    ),
+    stats: z
+      .array(
+        z.object({
+          label: z.string().describe('Statistic label'),
+          value: z.string().describe('Statistic value'),
+        }),
+      )
+      .min(1)
+      .max(4),
   }),
 }
 
@@ -50,142 +70,110 @@ export const about3Fields: GroupField = {
   interfaceName: 'About3Fields',
   label: false,
   type: 'group',
+  admin: {
+    description: 'Modern about section with main content, clients, and statistics',
+  },
   fields: [
-    {
-      type: 'group',
+    // Main Section
+    createSectionField({
       name: 'mainSection',
       label: 'Main Section',
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          required: true,
-        },
-      ],
-    },
-    {
-      type: 'group',
+      fields: [baseFields.content.title, baseFields.content.description],
+    }),
+
+    // Content Section
+    createSectionField({
       name: 'contentSection',
       label: 'Content Section',
       fields: [
         {
+          ...baseFields.media.image,
           name: 'mainImage',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
+          admin: { description: 'Main content image' },
         },
-        {
-          type: 'group',
+        createFieldGroup({
           name: 'infoBox',
           label: 'Info Box',
           fields: [
             {
+              ...baseFields.media.image,
               name: 'icon',
-              type: 'upload',
-              relationTo: 'media',
-              required: true,
+              admin: { description: 'Info box icon' },
             },
-            {
-              name: 'title',
-              type: 'text',
-              required: true,
-            },
-            {
-              name: 'description',
-              type: 'textarea',
-              required: true,
-            },
+            baseFields.content.title,
+            baseFields.content.description,
             link({
               name: 'buttonLink',
               overrides: {
-                admin: {
-                  description: 'CTA button ',
-                },
+                admin: { description: 'CTA button' },
               },
             }),
           ],
-        },
+        }),
         {
+          ...baseFields.media.image,
           name: 'sideImage',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
+          admin: { description: 'Side content image' },
         },
       ],
-    },
-    {
-      type: 'group',
+    }),
+
+    // Client Section
+    createSectionField({
       name: 'clientSection',
       label: 'Client Section',
       fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-        },
-        {
+        baseFields.content.title,
+        createArrayField({
           name: 'clients',
-          type: 'array',
-          minRows: 1,
-          maxRows: 6,
           fields: [
             {
+              ...baseFields.media.image,
               name: 'logo',
-              type: 'upload',
-              relationTo: 'media',
-              required: true,
+              admin: { description: 'Client logo' },
             },
             {
               name: 'name',
               type: 'text',
               required: true,
+              admin: { description: 'Client name' },
             },
           ],
-        },
+          minRows: 1,
+          maxRows: 6,
+          admin: { description: 'Client logos and names (1-6 items)' },
+        }),
       ],
-    },
-    {
-      type: 'group',
+    }),
+
+    // Stats Section
+    createSectionField({
       name: 'statsSection',
       label: 'Stats Section',
       fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          required: true,
-        },
-        {
+        baseFields.content.title,
+        baseFields.content.description,
+        createArrayField({
           name: 'stats',
-          type: 'array',
-          minRows: 1,
-          maxRows: 4,
           fields: [
             {
               name: 'label',
               type: 'text',
               required: true,
+              admin: { description: 'Statistic label' },
             },
             {
               name: 'value',
               type: 'text',
               required: true,
+              admin: { description: 'Statistic value' },
             },
           ],
-        },
+          minRows: 1,
+          maxRows: 4,
+          admin: { description: 'Statistics to display (1-4 items)' },
+        }),
       ],
-    },
+    }),
   ],
-  admin: {
-    description: 'Modern about section with main content, clients, and statistics',
-  },
 }

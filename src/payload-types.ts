@@ -1599,14 +1599,32 @@ export interface About2Fields {
  */
 export interface About3Fields {
   mainSection: {
+    /**
+     * Section title
+     */
     title: string;
+    /**
+     * Section description
+     */
     description: string;
   };
   contentSection: {
+    /**
+     * Main content image
+     */
     mainImage: string | Media;
     infoBox: {
+      /**
+       * Info box icon
+       */
       icon: string | Media;
+      /**
+       * Section title
+       */
       title: string;
+      /**
+       * Section description
+       */
       description: string;
       /**
        * CTA button
@@ -1639,24 +1657,54 @@ export interface About3Fields {
         appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
       };
     };
+    /**
+     * Side content image
+     */
     sideImage: string | Media;
   };
   clientSection: {
+    /**
+     * Section title
+     */
     title: string;
+    /**
+     * Client logos and names (1-6 items)
+     */
     clients?:
       | {
+          /**
+           * Client logo
+           */
           logo: string | Media;
+          /**
+           * Client name
+           */
           name: string;
           id?: string | null;
         }[]
       | null;
   };
   statsSection: {
+    /**
+     * Section title
+     */
     title: string;
+    /**
+     * Section description
+     */
     description: string;
+    /**
+     * Statistics to display (1-4 items)
+     */
     stats?:
       | {
+          /**
+           * Statistic label
+           */
           label: string;
+          /**
+           * Statistic value
+           */
           value: string;
           id?: string | null;
         }[]
