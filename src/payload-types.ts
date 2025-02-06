@@ -1357,11 +1357,12 @@ export interface Hero115Fields {
  * via the `definition` "AboutBlock".
  */
 export interface AboutBlock {
-  style?: ('about-1' | 'about-2' | 'about-3' | 'about-4') | null;
+  style?: ('about-1' | 'about-2' | 'about-3' | 'about-4' | 'about-5') | null;
   'about-1'?: About1Fields;
   'about-2'?: About2Fields;
   'about-3'?: About3Fields;
   'about-4'?: About4Fields;
+  'about-5'?: About5Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'about';
@@ -1704,6 +1705,74 @@ export interface About4Fields {
        */
       appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
     };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About5Fields".
+ */
+export interface About5Fields {
+  mainSection: {
+    /**
+     * Section label (e.g., "ABOUT US")
+     */
+    label: string;
+    /**
+     * Main title
+     */
+    title: string;
+    /**
+     * Main description
+     */
+    description: string;
+  };
+  imageSection: {
+    /**
+     * Main image
+     */
+    image: string | Media;
+    /**
+     * Image caption
+     */
+    caption: string;
+  };
+  partnersSection: {
+    /**
+     * Partners section title
+     */
+    title: string;
+    partners: {
+      /**
+       * Partner logo
+       */
+      logo: string | Media;
+      id?: string | null;
+    }[];
+  };
+  missionSection: {
+    /**
+     * Mission section title
+     */
+    title: string;
+    /**
+     * Mission description
+     */
+    description: string;
+    stats: {
+      /**
+       * Statistic value
+       */
+      value: string;
+      /**
+       * Statistic label
+       */
+      label: string;
+      id?: string | null;
+    }[];
+    /**
+     * Mission section image
+     */
+    image: string | Media;
   };
 }
 /**
@@ -6908,6 +6977,7 @@ export interface AboutBlockSelect<T extends boolean = true> {
   'about-2'?: T | About2FieldsSelect<T>;
   'about-3'?: T | About3FieldsSelect<T>;
   'about-4'?: T | About4FieldsSelect<T>;
+  'about-5'?: T | About5FieldsSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -7127,6 +7197,50 @@ export interface About4FieldsSelect<T extends boolean = true> {
               suffixIcon?: T;
               appearance?: T;
             };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About5Fields_select".
+ */
+export interface About5FieldsSelect<T extends boolean = true> {
+  mainSection?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        description?: T;
+      };
+  imageSection?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+      };
+  partnersSection?:
+    | T
+    | {
+        title?: T;
+        partners?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+      };
+  missionSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        stats?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        image?: T;
       };
 }
 /**
