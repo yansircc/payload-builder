@@ -1,7 +1,7 @@
 name: 🔍 Investigation
 description: Research a topic or problem
 title: '[Investigation]: '
-labels: ['investigation']
+labels: ['research']
 body:
   - type: textarea
     id: purpose
