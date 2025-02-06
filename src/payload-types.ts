@@ -1374,7 +1374,13 @@ export interface AboutBlock {
  */
 export interface About1Fields {
   mainSection: {
+    /**
+     * Section title
+     */
     title: string;
+    /**
+     * Section description
+     */
     description: string;
   };
   missionSection: {
@@ -1382,15 +1388,27 @@ export interface About1Fields {
      * Mission section label (e.g., "OUR MISSION")
      */
     label: string;
+    /**
+     * Section description
+     */
     description: string;
     /**
-     * Mission section image
+     * Image upload
      */
     image: string | Media;
   };
   featuresSection: {
+    /**
+     * Section title
+     */
     title: string;
+    /**
+     * Section description
+     */
     description: string;
+    /**
+     * Feature items (1-3)
+     */
     features?:
       | {
           /**
@@ -1398,11 +1416,11 @@ export interface About1Fields {
            */
           icon: string;
           /**
-           * Feature title
+           * Section title
            */
           title: string;
           /**
-           * Feature description
+           * Section description
            */
           description: string;
           id?: string | null;
@@ -1414,11 +1432,17 @@ export interface About1Fields {
      * Team section label (e.g., "JOIN OUR TEAM")
      */
     label: string;
+    /**
+     * Section title
+     */
     title: string;
     /**
-     * Team section image
+     * Image upload
      */
     image: string | Media;
+    /**
+     * Section description
+     */
     description: string;
   };
 }

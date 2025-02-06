@@ -2,156 +2,227 @@ import type { Field, GroupField } from 'payload'
 import { z } from 'zod'
 
 /**
- * Atomic about field schemas
+ * Common field schemas that can be reused across components
+ */
+export const commonSchemas = {
+  /** Basic content schemas */
+  content: {
+    title: z.string().describe('Title text'),
+    description: z.string().describe('Description text'),
+    label: z.string().describe('Section label'),
+  },
+  /** Media schemas */
+  media: {
+    image: z
+      .object({
+        id: z.string(),
+        alt: z.string(),
+        width: z.number(),
+        height: z.number(),
+      })
+      .describe('Image with metadata'),
+  },
+  /** UI element schemas */
+  ui: {
+    icon: z.string().describe('Lucide icon name'),
+    link: z
+      .object({
+        href: z.string(),
+        label: z.string(),
+      })
+      .describe('Link with label'),
+  },
+}
+
+/**
+ * About-specific schemas built from common schemas
  */
 export const aboutSchemas = {
-  /** Title schema */
-  title: z.string().describe('The about section title'),
-  /** Description schema */
-  description: z.string().describe('The about section description'),
-  /** Label schema */
-  label: z.string().describe('Section label (e.g., "OUR MISSION", "JOIN OUR TEAM")'),
-  /** Image schema */
-  image: z.object({}).describe('Image'),
-  /** Link schema */
-  link: z.string().describe('Link'),
-  /** Icon schema */
-  icon: z.string().describe('Lucide icon name'),
+  /** Basic section schemas */
+  title: commonSchemas.content.title,
+  description: commonSchemas.content.description,
+  label: commonSchemas.content.label,
+
+  /** Media schemas */
+  image: commonSchemas.media.image,
+
   /** Feature schema */
   feature: z.object({
-    icon: z.string().describe('Lucide icon name for the feature'),
-    title: z.string(),
-    description: z.string(),
+    icon: commonSchemas.ui.icon,
+    title: commonSchemas.content.title,
+    description: commonSchemas.content.description,
   }),
-  /** Mission section schema */
-  missionSection: z.object({
-    label: z.string(),
-    description: z.string(),
-    image: z
-      .object({
-        id: z.string(),
-        alt: z.string(),
-        width: z.number(),
-        height: z.number(),
-      })
-      .describe('Mission section image'),
-  }),
-  /** Team section schema */
-  teamSection: z.object({
-    label: z.string(),
-    title: z.string(),
-    image: z
-      .object({
-        id: z.string(),
-        alt: z.string(),
-        width: z.number(),
-        height: z.number(),
-      })
-      .describe('Team section image'),
-    description: z.string(),
-  }),
-}
 
-/**
- * Basic fields configuration
- */
-const basicFields: Record<string, Field> = {
-  title: {
-    name: 'title',
-    type: 'text',
-    required: true,
-    admin: {
-      description: 'Section title',
-    },
-  },
-  description: {
-    name: 'description',
-    type: 'textarea',
-    required: true,
-    admin: {
-      description: 'Section description',
-    },
-  },
-  label: {
-    name: 'label',
-    type: 'text',
-    required: true,
-    admin: {
-      description: 'Section label (e.g., "OUR MISSION", "JOIN OUR TEAM")',
-    },
+  /** Section schemas */
+  section: {
+    mission: z.object({
+      label: commonSchemas.content.label,
+      description: commonSchemas.content.description,
+      image: commonSchemas.media.image,
+    }),
+    team: z.object({
+      label: commonSchemas.content.label,
+      title: commonSchemas.content.title,
+      image: commonSchemas.media.image,
+      description: commonSchemas.content.description,
+    }),
   },
 }
 
 /**
- * Feature fields configuration
+ * Reusable field configurations
  */
-export const featureFields = {
-  icon: {
-    name: 'icon',
-    type: 'text',
-    required: true,
-    admin: {
-      description: 'Lucide icon name (e.g., "FileText", "ArrowRight", "Settings")',
+export const baseFields = {
+  /** Content fields */
+  content: {
+    title: {
+      name: 'title',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Section title',
+      },
+    },
+    description: {
+      name: 'description',
+      type: 'textarea',
+      required: true,
+      admin: {
+        description: 'Section description',
+      },
+    },
+    label: {
+      name: 'label',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Section label',
+      },
     },
   },
-  title: {
-    name: 'title',
-    type: 'text',
-    required: true,
-    admin: {
-      description: 'Feature title',
+  /** Media fields */
+  media: {
+    image: {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+      admin: {
+        description: 'Image upload',
+      },
     },
   },
-  description: {
-    name: 'description',
-    type: 'textarea',
-    required: true,
-    admin: {
-      description: 'Feature description',
+  /** UI fields */
+  ui: {
+    icon: {
+      name: 'icon',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Lucide icon name (e.g., "FileText", "ArrowRight")',
+      },
+    },
+    link: {
+      name: 'link',
+      type: 'group',
+      fields: [
+        {
+          name: 'href',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+        },
+      ],
     },
   },
 } as const
 
 /**
- * Combine all about fields for the field group
+ * Feature fields configuration
  */
-const aboutFields: Record<string, Field> = {
-  ...basicFields,
-}
+export const featureFields = {
+  icon: baseFields.ui.icon,
+  title: baseFields.content.title,
+  description: baseFields.content.description,
+} as const
 
 /**
- * Export all field groups for type safety
+ * Helper function to create field groups
  */
-export { basicFields }
-
-interface AboutFieldGroup {
+interface FieldGroupOptions {
   name: string
-  label: string
+  label?: string
   fields: Field[]
-}
-
-interface AboutFieldOptions {
-  groups: AboutFieldGroup[]
   admin?: {
     description?: string
   }
 }
 
-/**
- * Create a custom about field with selected fields and arrays
- * @param options - Field group configuration options
- * @returns - About field configuration
- */
-export function createAboutField(options: AboutFieldOptions): GroupField {
-  const fields = Object.values(aboutFields)
-
+export function createFieldGroup({ name, label, fields, admin }: FieldGroupOptions): GroupField {
   return {
     type: 'group',
-    name: 'about',
+    name,
+    label,
     fields,
     admin: {
-      description: 'About section fields',
-      ...options.admin,
+      description: admin?.description,
     },
   }
+}
+
+/**
+ * Helper function to create array fields
+ */
+interface ArrayFieldOptions {
+  name: string
+  fields: Field[]
+  minRows?: number
+  maxRows?: number
+  admin?: {
+    description?: string
+  }
+}
+
+export function createArrayField({
+  name,
+  fields,
+  minRows = 1,
+  maxRows,
+  admin,
+}: ArrayFieldOptions): Field {
+  return {
+    name,
+    type: 'array',
+    minRows,
+    maxRows,
+    fields,
+    admin: {
+      description: admin?.description,
+    },
+  }
+}
+
+/**
+ * Helper function to create section fields
+ */
+interface SectionFieldOptions {
+  name: string
+  label: string
+  fields: Field[]
+  admin?: {
+    description?: string
+  }
+}
+
+export function createSectionField(options: SectionFieldOptions): GroupField {
+  return createFieldGroup({
+    name: options.name,
+    label: options.label,
+    fields: options.fields,
+    admin: options.admin,
+  })
 }
