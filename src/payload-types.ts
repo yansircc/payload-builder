@@ -1884,11 +1884,11 @@ export interface About5Fields {
 export interface About6Fields {
   storySection: {
     /**
-     * Story section title
+     * Section title
      */
     title: string;
     /**
-     * Story section description
+     * Section description
      */
     description: string;
     /**
@@ -1914,11 +1914,11 @@ export interface About6Fields {
   };
   workplaceSection: {
     /**
-     * Workplace section title
+     * Section title
      */
     title: string;
     /**
-     * Workplace section description
+     * Section description
      */
     description: string;
     /**
