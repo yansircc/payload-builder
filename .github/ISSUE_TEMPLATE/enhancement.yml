@@ -1,0 +1,76 @@
+name: ✨ Enhancement
+description: Suggest an improvement to existing functionality
+title: '[Enhancement]: '
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an enhancement! Please fill out this form as completely as possible.
+
+  - type: input
+    id: component
+    attributes:
+      label: Component/Area
+      description: Which component or area would you like to enhance?
+      placeholder: 'e.g., UI, Performance, API'
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Behavior
+      description: Describe how the feature currently works
+      placeholder: 'Currently, the feature...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: desired
+    attributes:
+      label: Desired Behavior
+      description: Describe your proposed changes and how they improve the existing functionality
+      placeholder: 'The feature would be better if...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: benefits
+    attributes:
+      label: Benefits
+      description: What are the benefits of this enhancement?
+      placeholder: |
+        - Improved user experience
+        - Better performance
+        - Easier maintenance
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact Level
+      description: How impactful is this enhancement?
+      options:
+        - 'Low (Nice to have)'
+        - 'Medium (Significant improvement)'
+        - 'High (Major improvement)'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: effort
+    attributes:
+      label: Implementation Effort
+      description: How much effort do you think this would require?
+      options:
+        - 'Small (Few hours)'
+        - 'Medium (1-2 days)'
+        - 'Large (3+ days)'
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other context, screenshots, or examples?

@@ -1,0 +1,77 @@
+name: 📋 Implementation Plan
+description: Create a detailed plan for implementing a feature
+title: '[Plan]: '
+labels: ['plan']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Create a detailed implementation plan for an approved feature request.
+        Please link to the original feature request issue.
+
+  - type: input
+    id: feature-link
+    attributes:
+      label: Feature Request Link
+      description: Link to the original feature request issue
+      placeholder: '#123'
+    validations:
+      required: true
+
+  - type: textarea
+    id: overview
+    attributes:
+      label: Implementation Overview
+      description: Brief description of how this feature will be implemented
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Implementation Tasks
+      description: Break down the implementation into specific tasks
+      value: |
+        ### Frontend Tasks
+        - [ ] Task 1
+          - [ ] Subtask 1.1
+          - [ ] Subtask 1.2
+        - [ ] Task 2
+
+        ### Backend Tasks
+        - [ ] Task 1
+        - [ ] Task 2
+
+        ### Testing Tasks
+        - [ ] Unit tests
+        - [ ] Integration tests
+        - [ ] E2E tests
+
+        ### Documentation Tasks
+        - [ ] Update API docs
+        - [ ] Update user guide
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: List any dependencies or prerequisites needed
+
+  - type: dropdown
+    id: estimated-time
+    attributes:
+      label: Estimated Time
+      description: How long do you think this will take?
+      options:
+        - 'Small (1-3 days)'
+        - 'Medium (4-7 days)'
+        - 'Large (1-2 weeks)'
+        - 'XLarge (2+ weeks)'
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical-notes
+    attributes:
+      label: Technical Notes
+      description: Any technical considerations or architectural decisions
