@@ -1,60 +1,86 @@
 import { type GroupField } from 'payload'
 import { z } from 'zod'
-import { aboutSchemas } from '../shared/base-field'
+import {
+  aboutSchemas,
+  baseFields,
+  commonSchemas,
+  createArrayField,
+  createFieldGroup,
+  createSectionField,
+} from '../shared/base-field'
 
 /**
  * About2 field validation and type definitions
  */
 export const schemas = {
-  title: aboutSchemas.title,
-  description: aboutSchemas.description,
-  images: z.object({
-    first: z.any().describe('First main image'),
-    second: z.any().describe('Second main image'),
-    third: z.any().describe('Third main image'),
+  /** Main content */
+  mainContent: z.object({
+    title: aboutSchemas.title,
+    description: aboutSchemas.description,
   }),
-  secondTitle: z.string().describe('Title above statistics grid'),
-  stats: z
-    .array(
-      z.object({
-        value: z.string().describe('Statistic value'),
-        label: z.string().describe('Statistic label'),
-      }),
-    )
-    .length(6),
-  trustedByTitle: z.string().describe('Trusted by section title'),
-  partners: z
-    .array(
-      z.object({
-        logo: z.any().describe('Partner company logo'),
-        name: z.string().describe('Partner company name'),
-      }),
-    )
-    .min(4)
-    .max(8),
-  benefitsTitle: z.string().describe('Benefits section title'),
-  benefitsStats: z
-    .array(
-      z.object({
-        value: z.string().describe('Benefit statistic value'),
-        label: z.string().describe('Benefit statistic label'),
-        description: z.string().describe('Benefit description'),
-      }),
-    )
-    .length(2),
+
+  /** Image gallery */
+  imageGallery: z.object({
+    first: commonSchemas.media.image.describe('First main image'),
+    second: commonSchemas.media.image.describe('Second main image'),
+    third: commonSchemas.media.image.describe('Third main image'),
+  }),
+
+  /** Stats section */
+  stats: {
+    title: commonSchemas.content.title,
+    items: z
+      .array(
+        z.object({
+          value: z.string().describe('Statistic value'),
+          label: z.string().describe('Statistic label'),
+        }),
+      )
+      .length(6),
+  },
+
+  /** Partners section */
+  partners: {
+    title: commonSchemas.content.title,
+    items: z
+      .array(
+        z.object({
+          logo: commonSchemas.media.image.describe('Partner company logo'),
+          name: z.string().describe('Partner company name'),
+        }),
+      )
+      .min(4)
+      .max(8),
+  },
+
+  /** Benefits section */
+  benefits: {
+    title: commonSchemas.content.title,
+    stats: z
+      .array(
+        z.object({
+          value: z.string().describe('Benefit statistic value'),
+          label: z.string().describe('Benefit statistic label'),
+          description: z.string().describe('Benefit description'),
+        }),
+      )
+      .length(2),
+    images: z.object({
+      first: commonSchemas.media.image.describe('First benefits image'),
+      second: commonSchemas.media.image.describe('Second benefits image'),
+      third: commonSchemas.media.image.describe('Third benefits image'),
+    }),
+  },
+
+  /** Testimonial section */
   testimonial: z.object({
-    logo: z.any().describe('Company logo'),
+    logo: commonSchemas.media.image.describe('Company logo'),
     companyName: z.string().describe('Company name'),
     quote: z.string().describe('Testimonial quote'),
     author: z.object({
       name: z.string().describe('Author name'),
       role: z.string().describe('Author role'),
     }),
-  }),
-  benefitsImages: z.object({
-    first: z.any().describe('First benefits image'),
-    second: z.any().describe('Second benefits image'),
-    third: z.any().describe('Third benefits image'),
   }),
 }
 
@@ -67,276 +93,208 @@ export const about2Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'About section 2 fields',
+    description: 'Modern about section with statistics, partners, benefits, and testimonials',
   },
   fields: [
-    {
-      name: 'title',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'The main title for the about section',
-      },
-    },
-    {
-      name: 'description',
-      type: 'textarea',
-      required: true,
-      admin: {
-        description: 'The main description text',
-      },
-    },
-    {
+    // Main Content Section
+    createSectionField({
+      name: 'mainContent',
+      label: 'Main Content',
+      fields: [baseFields.content.title, baseFields.content.description],
+    }),
+
+    // Image Gallery
+    createFieldGroup({
       name: 'images',
-      type: 'group',
       label: 'Main Images',
-      admin: {
-        description: 'The three main images',
-      },
       fields: [
         {
+          ...baseFields.media.image,
           name: 'first',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'First image (largest)',
-          },
+          admin: { description: 'First image (largest)' },
         },
         {
+          ...baseFields.media.image,
           name: 'second',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'Second image (medium)',
-          },
+          admin: { description: 'Second image (medium)' },
         },
         {
+          ...baseFields.media.image,
           name: 'third',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'Third image (smallest)',
-          },
+          admin: { description: 'Third image (smallest)' },
         },
       ],
-    },
-    {
-      name: 'secondTitle',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'The title above the statistics grid',
-      },
-    },
-    {
+      admin: { description: 'The three main images' },
+    }),
+
+    // Stats Section
+    createSectionField({
       name: 'stats',
-      type: 'array',
-      required: true,
-      minRows: 6,
-      maxRows: 6,
-      admin: {
-        description: 'Statistics to display (exactly 6 items)',
-      },
+      label: 'Statistics',
       fields: [
         {
-          name: 'value',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'The statistic value (e.g., "21M", "12+")',
-          },
+          ...baseFields.content.title,
+          name: 'secondTitle',
+          admin: { description: 'The title above the statistics grid' },
         },
-        {
-          name: 'label',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'The statistic label',
-          },
-        },
+        createArrayField({
+          name: 'stats',
+          fields: [
+            {
+              name: 'value',
+              type: 'text',
+              required: true,
+              admin: { description: 'The statistic value (e.g., "21M", "12+")' },
+            },
+            {
+              name: 'label',
+              type: 'text',
+              required: true,
+              admin: { description: 'The statistic label' },
+            },
+          ],
+          minRows: 6,
+          maxRows: 6,
+          admin: { description: 'Statistics to display (exactly 6 items)' },
+        }),
       ],
-    },
-    {
-      name: 'trustedByTitle',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'The title for the trusted by section',
-      },
-    },
-    {
+    }),
+
+    // Partners Section
+    createSectionField({
       name: 'partners',
-      type: 'array',
-      required: true,
-      minRows: 4,
-      maxRows: 8,
-      admin: {
-        description: 'Partner logos and names (4-8 items)',
-      },
+      label: 'Trusted By',
       fields: [
         {
-          name: 'logo',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'Partner company logo',
-          },
+          ...baseFields.content.title,
+          name: 'trustedByTitle',
+          admin: { description: 'The title for the trusted by section' },
         },
-        {
-          name: 'name',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Partner company name',
-          },
-        },
+        createArrayField({
+          name: 'partners',
+          fields: [
+            {
+              ...baseFields.media.image,
+              name: 'logo',
+              admin: { description: 'Partner company logo' },
+            },
+            {
+              name: 'name',
+              type: 'text',
+              required: true,
+              admin: { description: 'Partner company name' },
+            },
+          ],
+          minRows: 4,
+          maxRows: 8,
+          admin: { description: 'Partner logos and names (4-8 items)' },
+        }),
       ],
-    },
-    {
-      name: 'benefitsTitle',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'The title for the benefits section',
-      },
-    },
-    {
-      name: 'benefitsStats',
-      type: 'array',
-      required: true,
-      minRows: 2,
-      maxRows: 2,
-      admin: {
-        description: 'Benefits statistics (exactly 2 items)',
-      },
+    }),
+
+    // Benefits Section
+    createSectionField({
+      name: 'benefits',
+      label: 'Benefits',
       fields: [
         {
-          name: 'value',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'The benefit statistic value',
-          },
+          ...baseFields.content.title,
+          name: 'benefitsTitle',
+          admin: { description: 'The title for the benefits section' },
         },
-        {
-          name: 'label',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'The benefit statistic label',
-          },
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          required: true,
-          admin: {
-            description: 'The benefit description',
-          },
-        },
+        createArrayField({
+          name: 'benefitsStats',
+          fields: [
+            {
+              name: 'value',
+              type: 'text',
+              required: true,
+              admin: { description: 'The benefit statistic value' },
+            },
+            {
+              name: 'label',
+              type: 'text',
+              required: true,
+              admin: { description: 'The benefit statistic label' },
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              required: true,
+              admin: { description: 'The benefit description' },
+            },
+          ],
+          minRows: 2,
+          maxRows: 2,
+          admin: { description: 'Benefits statistics (exactly 2 items)' },
+        }),
+        createFieldGroup({
+          name: 'benefitsImages',
+          label: 'Benefits Images',
+          fields: [
+            {
+              ...baseFields.media.image,
+              name: 'first',
+              admin: { description: 'First benefits image' },
+            },
+            {
+              ...baseFields.media.image,
+              name: 'second',
+              admin: { description: 'Second benefits image' },
+            },
+            {
+              ...baseFields.media.image,
+              name: 'third',
+              admin: { description: 'Third benefits image' },
+            },
+          ],
+          admin: { description: 'Images for the benefits section' },
+        }),
       ],
-    },
-    {
+    }),
+
+    // Testimonial Section
+    createSectionField({
       name: 'testimonial',
-      type: 'group',
       label: 'Customer Testimonial',
-      admin: {
-        description: 'Customer testimonial',
-      },
       fields: [
         {
+          ...baseFields.media.image,
           name: 'logo',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'Company logo',
-          },
+          admin: { description: 'Company logo' },
         },
         {
           name: 'companyName',
           type: 'text',
           required: true,
-          admin: {
-            description: 'Company name',
-          },
+          admin: { description: 'Company name' },
         },
         {
           name: 'quote',
           type: 'textarea',
           required: true,
-          admin: {
-            description: 'Testimonial quote',
-          },
+          admin: { description: 'Testimonial quote' },
         },
-        {
+        createFieldGroup({
           name: 'author',
-          type: 'group',
           label: 'Author Details',
-          admin: {
-            description: 'Testimonial author',
-          },
           fields: [
             {
               name: 'name',
               type: 'text',
               required: true,
-              admin: {
-                description: 'Author name',
-              },
+              admin: { description: 'Author name' },
             },
             {
               name: 'role',
               type: 'text',
               required: true,
-              admin: {
-                description: 'Author role',
-              },
+              admin: { description: 'Author role' },
             },
           ],
-        },
+          admin: { description: 'Testimonial author' },
+        }),
       ],
-    },
-    {
-      name: 'benefitsImages',
-      type: 'group',
-      label: 'Benefits Images',
-      admin: {
-        description: 'Images for the benefits section',
-      },
-      fields: [
-        {
-          name: 'first',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'First benefits image',
-          },
-        },
-        {
-          name: 'second',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'Second benefits image',
-          },
-        },
-        {
-          name: 'third',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'Third benefits image',
-          },
-        },
-      ],
-    },
+    }),
   ],
 }

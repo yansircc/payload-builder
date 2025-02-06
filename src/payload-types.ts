@@ -1451,14 +1451,16 @@ export interface About1Fields {
  * via the `definition` "About2Fields".
  */
 export interface About2Fields {
-  /**
-   * The main title for the about section
-   */
-  title: string;
-  /**
-   * The main description text
-   */
-  description: string;
+  mainContent: {
+    /**
+     * Section title
+     */
+    title: string;
+    /**
+     * Section description
+     */
+    description: string;
+  };
   /**
    * The three main images
    */
@@ -1476,67 +1478,93 @@ export interface About2Fields {
      */
     third: string | Media;
   };
-  /**
-   * The title above the statistics grid
-   */
-  secondTitle: string;
-  /**
-   * Statistics to display (exactly 6 items)
-   */
   stats: {
     /**
-     * The statistic value (e.g., "21M", "12+")
+     * The title above the statistics grid
      */
-    value: string;
+    secondTitle: string;
     /**
-     * The statistic label
+     * Statistics to display (exactly 6 items)
      */
-    label: string;
-    id?: string | null;
-  }[];
-  /**
-   * The title for the trusted by section
-   */
-  trustedByTitle: string;
-  /**
-   * Partner logos and names (4-8 items)
-   */
+    stats?:
+      | {
+          /**
+           * The statistic value (e.g., "21M", "12+")
+           */
+          value: string;
+          /**
+           * The statistic label
+           */
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   partners: {
     /**
-     * Partner company logo
+     * The title for the trusted by section
      */
-    logo: string | Media;
+    trustedByTitle: string;
     /**
-     * Partner company name
+     * Partner logos and names (4-8 items)
      */
-    name: string;
-    id?: string | null;
-  }[];
-  /**
-   * The title for the benefits section
-   */
-  benefitsTitle: string;
-  /**
-   * Benefits statistics (exactly 2 items)
-   */
-  benefitsStats: {
+    partners?:
+      | {
+          /**
+           * Partner company logo
+           */
+          logo: string | Media;
+          /**
+           * Partner company name
+           */
+          name: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  benefits: {
     /**
-     * The benefit statistic value
+     * The title for the benefits section
      */
-    value: string;
+    benefitsTitle: string;
     /**
-     * The benefit statistic label
+     * Benefits statistics (exactly 2 items)
      */
-    label: string;
+    benefitsStats?:
+      | {
+          /**
+           * The benefit statistic value
+           */
+          value: string;
+          /**
+           * The benefit statistic label
+           */
+          label: string;
+          /**
+           * The benefit description
+           */
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
     /**
-     * The benefit description
+     * Images for the benefits section
      */
-    description: string;
-    id?: string | null;
-  }[];
-  /**
-   * Customer testimonial
-   */
+    benefitsImages: {
+      /**
+       * First benefits image
+       */
+      first: string | Media;
+      /**
+       * Second benefits image
+       */
+      second: string | Media;
+      /**
+       * Third benefits image
+       */
+      third: string | Media;
+    };
+  };
   testimonial: {
     /**
      * Company logo
@@ -1563,23 +1591,6 @@ export interface About2Fields {
        */
       role: string;
     };
-  };
-  /**
-   * Images for the benefits section
-   */
-  benefitsImages: {
-    /**
-     * First benefits image
-     */
-    first: string | Media;
-    /**
-     * Second benefits image
-     */
-    second: string | Media;
-    /**
-     * Third benefits image
-     */
-    third: string | Media;
   };
 }
 /**
@@ -7119,8 +7130,12 @@ export interface About1FieldsSelect<T extends boolean = true> {
  * via the `definition` "About2Fields_select".
  */
 export interface About2FieldsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
+  mainContent?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   images?:
     | T
     | {
@@ -7128,30 +7143,49 @@ export interface About2FieldsSelect<T extends boolean = true> {
         second?: T;
         third?: T;
       };
-  secondTitle?: T;
   stats?:
     | T
     | {
-        value?: T;
-        label?: T;
-        id?: T;
+        secondTitle?: T;
+        stats?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
       };
-  trustedByTitle?: T;
   partners?:
     | T
     | {
-        logo?: T;
-        name?: T;
-        id?: T;
+        trustedByTitle?: T;
+        partners?:
+          | T
+          | {
+              logo?: T;
+              name?: T;
+              id?: T;
+            };
       };
-  benefitsTitle?: T;
-  benefitsStats?:
+  benefits?:
     | T
     | {
-        value?: T;
-        label?: T;
-        description?: T;
-        id?: T;
+        benefitsTitle?: T;
+        benefitsStats?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              description?: T;
+              id?: T;
+            };
+        benefitsImages?:
+          | T
+          | {
+              first?: T;
+              second?: T;
+              third?: T;
+            };
       };
   testimonial?:
     | T
@@ -7165,13 +7199,6 @@ export interface About2FieldsSelect<T extends boolean = true> {
               name?: T;
               role?: T;
             };
-      };
-  benefitsImages?:
-    | T
-    | {
-        first?: T;
-        second?: T;
-        third?: T;
       };
 }
 /**
