@@ -1,0 +1,22 @@
+name: 🔧 Code Refactor
+description: Suggest code improvements
+title: '[Refactor]: '
+labels: ['refactor']
+body:
+  - type: textarea
+    id: what-refactor
+    attributes:
+      label: What needs to be refactored?
+      description: Describe the specific area of the codebase that requires improvement
+    validations:
+      required: true
+  - type: textarea
+    id: why-needed
+    attributes:
+      label: Why is this needed?
+      description: Explain the reason for the refactor
+  - type: textarea
+    id: proposed-changes
+    attributes:
+      label: Proposed Changes
+      description: Describe the approach or method for the refactor

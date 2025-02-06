@@ -1,0 +1,22 @@
+name: 📚 Documentation Request
+description: Request documentation updates
+title: '[Docs]: '
+labels: ['documentation']
+body:
+  - type: textarea
+    id: what-needs-docs
+    attributes:
+      label: What needs to be documented?
+      description: Brief explanation of the missing or outdated documentation
+    validations:
+      required: true
+  - type: textarea
+    id: location
+    attributes:
+      label: Where should this be added?
+      description: Specify the relevant section or file in the documentation
+  - type: textarea
+    id: importance
+    attributes:
+      label: Why is this important?
+      description: Explain why this documentation update is necessary

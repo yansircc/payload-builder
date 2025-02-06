@@ -1,0 +1,35 @@
+name: 🐞 Bug Report
+description: File a bug report
+title: '[Bug]: '
+labels: ['bug', 'triage']
+assignees:
+  - yansircc
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Please describe the problem you're experiencing, including any error messages or steps to reproduce
+      placeholder: Describe the problem...
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browser are you using?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Please copy and paste the relevant logs
+      render: shell

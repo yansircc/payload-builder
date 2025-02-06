@@ -1,29 +1,8 @@
 blank_issues_enabled: false
-
-templates:
-  - name: "🐞 Bug Report"
-    filename: bug_report.md
-    about: "Report a bug to help us improve"
-  - name: "🚀 Feature Request"
-    filename: feature_request.md
-    about: "Suggest an idea for this project"
-  - name: "🔧 Code Refactor"
-    filename: refactor.md
-    about: "Suggest code improvements"
-  - name: "📚 Documentation Request"
-    filename: doc_request.md
-    about: "Request documentation updates"
-  - name: "🧪 Test Case"
-    filename: test_case.md
-    about: "Create a new test case"
-  - name: "🔍 Investigation"
-    filename: investigation.md
-    about: "Research a topic or problem"
-
 contact_links:
-  - name: "📚 Documentation"
+  - name: 📚 Documentation
     url: https://github.com/yansircc/payload-builder/wiki
-    about: "Check our documentation first"
-  - name: "💬 Discussions"
+    about: Check our documentation first
+  - name: 💬 Discussions
     url: https://github.com/yansircc/payload-builder/discussions
-    about: "Please ask and answer questions here"
+    about: Please ask and answer questions here
