@@ -16,6 +16,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    popups: Popup;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -32,6 +33,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    popups: PopupsSelect<false> | PopupsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -204,18 +206,16 @@ export interface Hero1Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -225,10 +225,6 @@ export interface Hero1Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Hero button with ArrowDownRight suffix icon
@@ -247,18 +243,16 @@ export interface Hero1Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -268,10 +262,6 @@ export interface Hero1Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -457,6 +447,50 @@ export interface User {
   password?: string | null;
 }
 /**
+ * Create popups that can be linked to from anywhere in the site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "popups".
+ */
+export interface Popup {
+  id: string;
+  /**
+   * The title that will be displayed in the popup
+   */
+  title: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  /**
+   * Toggle to enable/disable this popup
+   */
+  enabled?: boolean | null;
+  /**
+   * The content that will be displayed in the popup
+   */
+  description: string;
+  /**
+   * Text for the call-to-action button
+   */
+  ctaLabel: string;
+  /**
+   * Style of the CTA button
+   */
+  ctaStyle: 'default' | 'outline' | 'ghost';
+  type?: ('reference' | 'custom') | null;
+  reference?:
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: string | Post;
+      } | null);
+  url?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero5Fields".
  */
@@ -499,18 +533,16 @@ export interface Hero5Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -520,10 +552,6 @@ export interface Hero5Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -564,18 +592,16 @@ export interface Hero7Fields {
           } | null);
       url?: string | null;
       /**
-       * Configure the content that will appear in the popup dialog
+       * Choose a popup to display when this link is clicked
        */
-      popupContent?: {
-        /**
-         * The title that appears at the top of the popup
-         */
-        title?: string | null;
-        /**
-         * A brief description that appears below the title
-         */
-        description?: string | null;
-      };
+      popup?: (string | null) | Popup;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      /**
+       * Text to display for the link
+       */
       label: string;
       /**
        * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -585,10 +611,6 @@ export interface Hero7Fields {
        * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
        */
       suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
     };
     /**
      * Rating information
@@ -657,18 +679,16 @@ export interface Hero8Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -678,10 +698,6 @@ export interface Hero8Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -732,18 +748,16 @@ export interface Hero12Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -753,10 +767,6 @@ export interface Hero12Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Hero button with ExternalLink suffix icon
@@ -775,18 +785,16 @@ export interface Hero12Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -796,10 +804,6 @@ export interface Hero12Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -865,18 +869,16 @@ export interface Hero24Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -886,10 +888,6 @@ export interface Hero24Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -963,18 +961,16 @@ export interface Hero25Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -984,10 +980,6 @@ export interface Hero25Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1044,18 +1036,16 @@ export interface Hero32Fields {
           } | null);
       url?: string | null;
       /**
-       * Configure the content that will appear in the popup dialog
+       * Choose a popup to display when this link is clicked
        */
-      popupContent?: {
-        /**
-         * The title that appears at the top of the popup
-         */
-        title?: string | null;
-        /**
-         * A brief description that appears below the title
-         */
-        description?: string | null;
-      };
+      popup?: (string | null) | Popup;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      /**
+       * Text to display for the link
+       */
       label: string;
       /**
        * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1065,10 +1055,6 @@ export interface Hero32Fields {
        * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
        */
       suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
     };
     /**
      * Integration images (exactly 15)
@@ -1131,18 +1117,16 @@ export interface Hero34Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1152,10 +1136,6 @@ export interface Hero34Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           'link-2': {
             type?: ('reference' | 'custom' | 'popup') | null;
@@ -1171,18 +1151,16 @@ export interface Hero34Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1192,10 +1170,6 @@ export interface Hero34Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1242,18 +1216,16 @@ export interface Hero6Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1263,10 +1235,6 @@ export interface Hero6Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1342,18 +1310,16 @@ export interface Hero3Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1363,10 +1329,6 @@ export interface Hero3Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Hero button with ArrowDownRight suffix icon
@@ -1385,18 +1347,16 @@ export interface Hero3Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1406,10 +1366,6 @@ export interface Hero3Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1528,18 +1484,16 @@ export interface Hero115Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1549,10 +1503,6 @@ export interface Hero115Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1628,18 +1578,16 @@ export interface CTA1Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1649,10 +1597,6 @@ export interface CTA1Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1698,18 +1642,16 @@ export interface CTA3Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1719,10 +1661,6 @@ export interface CTA3Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1749,18 +1687,16 @@ export interface CTA3Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1770,10 +1706,6 @@ export interface CTA3Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Description text for the link
@@ -1823,18 +1755,16 @@ export interface CTA4Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1844,10 +1774,6 @@ export interface CTA4Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1913,18 +1839,16 @@ export interface CTA5Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -1934,10 +1858,6 @@ export interface CTA5Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1983,18 +1903,16 @@ export interface CTA7Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -2004,10 +1922,6 @@ export interface CTA7Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2069,18 +1983,16 @@ export interface CTA10Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -2090,10 +2002,6 @@ export interface CTA10Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2139,18 +2047,16 @@ export interface CTA11Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -2160,10 +2066,6 @@ export interface CTA11Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2217,18 +2119,16 @@ export interface CTA15Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -2238,10 +2138,6 @@ export interface CTA15Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2295,18 +2191,16 @@ export interface CTA16Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -2316,10 +2210,6 @@ export interface CTA16Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2365,18 +2255,16 @@ export interface CTA17Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -2386,10 +2274,6 @@ export interface CTA17Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2434,18 +2318,16 @@ export interface ContentBlock {
               } | null);
           url?: string | null;
           /**
-           * Configure the content that will appear in the popup dialog
+           * Choose a popup to display when this link is clicked
            */
-          popupContent?: {
-            /**
-             * The title that appears at the top of the popup
-             */
-            title?: string | null;
-            /**
-             * A brief description that appears below the title
-             */
-            description?: string | null;
-          };
+          popup?: (string | null) | Popup;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          /**
+           * Text to display for the link
+           */
           label: string;
           /**
            * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -2455,10 +2337,6 @@ export interface ContentBlock {
            * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
            */
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
         };
         id?: string | null;
       }[]
@@ -2760,18 +2638,16 @@ export interface Gallery1Fields {
           } | null);
       url?: string | null;
       /**
-       * Configure the content that will appear in the popup dialog
+       * Choose a popup to display when this link is clicked
        */
-      popupContent?: {
-        /**
-         * The title that appears at the top of the popup
-         */
-        title?: string | null;
-        /**
-         * A brief description that appears below the title
-         */
-        description?: string | null;
-      };
+      popup?: (string | null) | Popup;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      /**
+       * Text to display for the link
+       */
       label: string;
       /**
        * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -2781,10 +2657,6 @@ export interface Gallery1Fields {
        * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
        */
       suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
     };
     /**
      * Gallery image
@@ -2947,18 +2819,16 @@ export interface Gallery5Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -2968,10 +2838,6 @@ export interface Gallery5Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -3032,18 +2898,16 @@ export interface Gallery6Fields {
           } | null);
       url?: string | null;
       /**
-       * Configure the content that will appear in the popup dialog
+       * Choose a popup to display when this link is clicked
        */
-      popupContent?: {
-        /**
-         * The title that appears at the top of the popup
-         */
-        title?: string | null;
-        /**
-         * A brief description that appears below the title
-         */
-        description?: string | null;
-      };
+      popup?: (string | null) | Popup;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      /**
+       * Text to display for the link
+       */
       label: string;
       /**
        * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -3053,10 +2917,6 @@ export interface Gallery6Fields {
        * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
        */
       suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
     };
     /**
      * Gallery cards (3-6)
@@ -3088,18 +2948,16 @@ export interface Gallery6Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -3109,10 +2967,6 @@ export interface Gallery6Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Card image
@@ -3248,18 +3102,16 @@ export interface Feature1Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -3269,10 +3121,6 @@ export interface Feature1Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Secondary link
@@ -3291,18 +3139,16 @@ export interface Feature1Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -3312,10 +3158,6 @@ export interface Feature1Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -3369,18 +3211,16 @@ export interface Feature2Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -3390,10 +3230,6 @@ export interface Feature2Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Secondary link
@@ -3412,18 +3248,16 @@ export interface Feature2Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -3433,10 +3267,6 @@ export interface Feature2Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -3707,18 +3537,16 @@ export interface Feature11Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -3728,10 +3556,6 @@ export interface Feature11Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -4016,18 +3840,16 @@ export interface Testimonial7Fields {
         } | null);
     url?: string | null;
     /**
-     * Configure the content that will appear in the popup dialog
+     * Choose a popup to display when this link is clicked
      */
-    popupContent?: {
-      /**
-       * The title that appears at the top of the popup
-       */
-      title?: string | null;
-      /**
-       * A brief description that appears below the title
-       */
-      description?: string | null;
-    };
+    popup?: (string | null) | Popup;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    /**
+     * Text to display for the link
+     */
     label: string;
     /**
      * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -4037,10 +3859,6 @@ export interface Testimonial7Fields {
      * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
      */
     suffixIcon?: string | null;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
   };
   /**
    * Testimonial items (4-12)
@@ -4191,18 +4009,16 @@ export interface Testimonial15Fields {
         } | null);
     url?: string | null;
     /**
-     * Configure the content that will appear in the popup dialog
+     * Choose a popup to display when this link is clicked
      */
-    popupContent?: {
-      /**
-       * The title that appears at the top of the popup
-       */
-      title?: string | null;
-      /**
-       * A brief description that appears below the title
-       */
-      description?: string | null;
-    };
+    popup?: (string | null) | Popup;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    /**
+     * Text to display for the link
+     */
     label: string;
     /**
      * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -4212,10 +4028,6 @@ export interface Testimonial15Fields {
      * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
      */
     suffixIcon?: string | null;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
   };
   /**
    * Company section configuration
@@ -4420,18 +4232,16 @@ export interface Testimonial19Fields {
         } | null);
     url?: string | null;
     /**
-     * Configure the content that will appear in the popup dialog
+     * Choose a popup to display when this link is clicked
      */
-    popupContent?: {
-      /**
-       * The title that appears at the top of the popup
-       */
-      title?: string | null;
-      /**
-       * A brief description that appears below the title
-       */
-      description?: string | null;
-    };
+    popup?: (string | null) | Popup;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    /**
+     * Text to display for the link
+     */
     label: string;
     /**
      * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -4441,10 +4251,6 @@ export interface Testimonial19Fields {
      * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
      */
     suffixIcon?: string | null;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
   };
   /**
    * Testimonial items (3-12)
@@ -4730,18 +4536,16 @@ export interface Contact3Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -4751,10 +4555,6 @@ export interface Contact3Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -4797,18 +4597,16 @@ export interface Contact3Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -4818,10 +4616,6 @@ export interface Contact3Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -4905,18 +4699,16 @@ export interface Contact4Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -4926,10 +4718,6 @@ export interface Contact4Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -4973,18 +4761,16 @@ export interface Contact4Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -4994,10 +4780,6 @@ export interface Contact4Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -5140,18 +4922,16 @@ export interface Contact6Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -5161,10 +4941,6 @@ export interface Contact6Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -5284,18 +5060,16 @@ export interface Contact7Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -5305,10 +5079,6 @@ export interface Contact7Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -5367,18 +5137,16 @@ export interface Contact8Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -5388,10 +5156,6 @@ export interface Contact8Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -5550,18 +5314,13 @@ export interface Team2Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
                    */
@@ -5570,10 +5329,6 @@ export interface Team2Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -5626,18 +5381,16 @@ export interface Team3Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -5647,10 +5400,6 @@ export interface Team3Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -5698,18 +5447,13 @@ export interface Team3Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
                    */
@@ -5718,10 +5462,6 @@ export interface Team3Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -5774,18 +5514,16 @@ export interface Team5Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -5795,10 +5533,6 @@ export interface Team5Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -5893,18 +5627,13 @@ export interface Team6Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
                    */
@@ -5913,10 +5642,6 @@ export interface Team6Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -6071,18 +5796,16 @@ export interface FAQ3Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -6092,10 +5815,6 @@ export interface FAQ3Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -6174,18 +5893,16 @@ export interface FAQ4Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -6195,10 +5912,6 @@ export interface FAQ4Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -6359,18 +6072,16 @@ export interface Logos2Fields {
           } | null);
       url?: string | null;
       /**
-       * Configure the content that will appear in the popup dialog
+       * Choose a popup to display when this link is clicked
        */
-      popupContent?: {
-        /**
-         * The title that appears at the top of the popup
-         */
-        title?: string | null;
-        /**
-         * A brief description that appears below the title
-         */
-        description?: string | null;
-      };
+      popup?: (string | null) | Popup;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      /**
+       * Text to display for the link
+       */
       label: string;
       /**
        * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -6380,10 +6091,6 @@ export interface Logos2Fields {
        * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
        */
       suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
     };
     /**
      * Logo images (6 required)
@@ -6650,6 +6357,10 @@ export interface PayloadLockedDocument {
         value: string | User;
       } | null)
     | ({
+        relationTo: 'popups';
+        value: string | Popup;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -6790,16 +6501,11 @@ export interface Hero1FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               'link-2'?:
                 | T
@@ -6808,16 +6514,11 @@ export interface Hero1FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -6844,16 +6545,11 @@ export interface Hero5FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -6876,16 +6572,11 @@ export interface Hero7FieldsSelect<T extends boolean = true> {
               newTab?: T;
               reference?: T;
               url?: T;
-              popupContent?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                  };
+              popup?: T;
+              appearance?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
             };
         rating?:
           | T
@@ -6922,16 +6613,11 @@ export interface Hero8FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -6959,16 +6645,11 @@ export interface Hero12FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               'link-2'?:
                 | T
@@ -6977,16 +6658,11 @@ export interface Hero12FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7020,16 +6696,11 @@ export interface Hero24FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7065,16 +6736,11 @@ export interface Hero25FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7104,16 +6770,11 @@ export interface Hero32FieldsSelect<T extends boolean = true> {
               newTab?: T;
               reference?: T;
               url?: T;
-              popupContent?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                  };
+              popup?: T;
+              appearance?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
             };
         integrations?:
           | T
@@ -7145,16 +6806,11 @@ export interface Hero34FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               'link-2'?:
                 | T
@@ -7163,16 +6819,11 @@ export interface Hero34FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7199,16 +6850,11 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7251,16 +6897,11 @@ export interface Hero3FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               'link-2'?:
                 | T
@@ -7269,16 +6910,11 @@ export interface Hero3FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7338,16 +6974,11 @@ export interface Hero115FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7394,16 +7025,11 @@ export interface CTA1FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7429,16 +7055,11 @@ export interface CTA3FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7452,16 +7073,11 @@ export interface CTA3FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               description?: T;
               id?: T;
@@ -7488,16 +7104,11 @@ export interface CTA4FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7531,16 +7142,11 @@ export interface CTA5FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7566,16 +7172,11 @@ export interface CTA7FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7608,16 +7209,11 @@ export interface CTA10FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7643,16 +7239,11 @@ export interface CTA11FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7680,16 +7271,11 @@ export interface CTA15FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7717,16 +7303,11 @@ export interface CTA16FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7752,16 +7333,11 @@ export interface CTA17FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7785,16 +7361,11 @@ export interface ContentBlockSelect<T extends boolean = true> {
               newTab?: T;
               reference?: T;
               url?: T;
-              popupContent?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                  };
+              popup?: T;
+              appearance?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
             };
         id?: T;
       };
@@ -7867,16 +7438,11 @@ export interface Gallery1FieldsSelect<T extends boolean = true> {
               newTab?: T;
               reference?: T;
               url?: T;
-              popupContent?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                  };
+              popup?: T;
+              appearance?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
             };
         image?: T;
         items?:
@@ -7958,16 +7524,11 @@ export interface Gallery5FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -7998,16 +7559,11 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
               newTab?: T;
               reference?: T;
               url?: T;
-              popupContent?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                  };
+              popup?: T;
+              appearance?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
             };
         cards?:
           | T
@@ -8021,16 +7577,11 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               image?: T;
               id?: T;
@@ -8100,16 +7651,11 @@ export interface Feature1FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               'link-2'?:
                 | T
@@ -8118,16 +7664,11 @@ export interface Feature1FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -8155,16 +7696,11 @@ export interface Feature2FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               'link-2'?:
                 | T
@@ -8173,16 +7709,11 @@ export interface Feature2FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -8319,16 +7850,11 @@ export interface Feature11FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -8473,16 +7999,11 @@ export interface Testimonial7FieldsSelect<T extends boolean = true> {
         newTab?: T;
         reference?: T;
         url?: T;
-        popupContent?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-            };
+        popup?: T;
+        appearance?: T;
         label?: T;
         prefixIcon?: T;
         suffixIcon?: T;
-        appearance?: T;
       };
   testimonials?:
     | T
@@ -8547,16 +8068,11 @@ export interface Testimonial15FieldsSelect<T extends boolean = true> {
         newTab?: T;
         reference?: T;
         url?: T;
-        popupContent?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-            };
+        popup?: T;
+        appearance?: T;
         label?: T;
         prefixIcon?: T;
         suffixIcon?: T;
-        appearance?: T;
       };
   companySection?:
     | T
@@ -8647,16 +8163,11 @@ export interface Testimonial19FieldsSelect<T extends boolean = true> {
         newTab?: T;
         reference?: T;
         url?: T;
-        popupContent?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-            };
+        popup?: T;
+        appearance?: T;
         label?: T;
         prefixIcon?: T;
         suffixIcon?: T;
-        appearance?: T;
       };
   testimonials?:
     | T
@@ -8813,16 +8324,11 @@ export interface Contact3FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -8842,16 +8348,11 @@ export interface Contact3FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -8895,16 +8396,11 @@ export interface Contact4FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -8925,16 +8421,11 @@ export interface Contact4FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -9010,16 +8501,11 @@ export interface Contact6FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -9082,16 +8568,11 @@ export interface Contact7FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -9123,16 +8604,11 @@ export interface Contact8FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -9215,15 +8691,10 @@ export interface Team2FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -9252,16 +8723,11 @@ export interface Team3FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -9282,15 +8748,10 @@ export interface Team3FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -9319,16 +8780,11 @@ export interface Team5FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -9371,15 +8827,10 @@ export interface Team6FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -9470,16 +8921,11 @@ export interface FAQ3FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -9519,16 +8965,11 @@ export interface FAQ4FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -9622,16 +9063,11 @@ export interface Logos2FieldsSelect<T extends boolean = true> {
               newTab?: T;
               reference?: T;
               url?: T;
-              popupContent?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                  };
+              popup?: T;
+              appearance?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
             };
         logos?:
           | T
@@ -9835,6 +9271,24 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "popups_select".
+ */
+export interface PopupsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slugLock?: T;
+  enabled?: T;
+  description?: T;
+  ctaLabel?: T;
+  ctaStyle?: T;
+  type?: T;
+  reference?: T;
+  url?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -10138,18 +9592,16 @@ export interface Header1Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -10159,10 +9611,6 @@ export interface Header1Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Links in this column
@@ -10186,18 +9634,16 @@ export interface Header1Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  /**
+                   * Text to display for the link
+                   */
                   label: string;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -10207,10 +9653,6 @@ export interface Header1Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 /**
                  * Description for this sub menu
@@ -10241,18 +9683,16 @@ export interface Header1Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -10262,10 +9702,6 @@ export interface Header1Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -10301,18 +9737,16 @@ export interface Header3Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -10322,10 +9756,6 @@ export interface Header3Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -10350,18 +9780,16 @@ export interface Header3Fields {
               } | null);
           url?: string | null;
           /**
-           * Configure the content that will appear in the popup dialog
+           * Choose a popup to display when this link is clicked
            */
-          popupContent?: {
-            /**
-             * The title that appears at the top of the popup
-             */
-            title?: string | null;
-            /**
-             * A brief description that appears below the title
-             */
-            description?: string | null;
-          };
+          popup?: (string | null) | Popup;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          /**
+           * Text to display for the link
+           */
           label: string;
           /**
            * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -10371,10 +9799,6 @@ export interface Header3Fields {
            * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
            */
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
         };
         submenu?: {
           style?: ('style-1' | 'style-2' | 'style-3' | 'style-4') | null;
@@ -10394,18 +9818,13 @@ export interface Header3Fields {
                     } | null);
                 url?: string | null;
                 /**
-                 * Configure the content that will appear in the popup dialog
+                 * Choose a popup to display when this link is clicked
                  */
-                popupContent?: {
-                  /**
-                   * The title that appears at the top of the popup
-                   */
-                  title?: string | null;
-                  /**
-                   * A brief description that appears below the title
-                   */
-                  description?: string | null;
-                };
+                popup?: (string | null) | Popup;
+                /**
+                 * Choose how the link should be rendered.
+                 */
+                appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 /**
                  * Image URL for the link
                  */
@@ -10418,10 +9837,6 @@ export interface Header3Fields {
                  * Description for the link
                  */
                 description?: string | null;
-                /**
-                 * Choose how the link should be rendered.
-                 */
-                appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
               };
             };
             rightSection: {
@@ -10442,18 +9857,13 @@ export interface Header3Fields {
                           } | null);
                       url?: string | null;
                       /**
-                       * Configure the content that will appear in the popup dialog
+                       * Choose a popup to display when this link is clicked
                        */
-                      popupContent?: {
-                        /**
-                         * The title that appears at the top of the popup
-                         */
-                        title?: string | null;
-                        /**
-                         * A brief description that appears below the title
-                         */
-                        description?: string | null;
-                      };
+                      popup?: (string | null) | Popup;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                       /**
                        * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
                        */
@@ -10470,10 +9880,6 @@ export interface Header3Fields {
                        * Description for the link
                        */
                       description?: string | null;
-                      /**
-                       * Choose how the link should be rendered.
-                       */
-                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                     };
                     id?: string | null;
                   }[]
@@ -10499,18 +9905,16 @@ export interface Header3Fields {
                           } | null);
                       url?: string | null;
                       /**
-                       * Configure the content that will appear in the popup dialog
+                       * Choose a popup to display when this link is clicked
                        */
-                      popupContent?: {
-                        /**
-                         * The title that appears at the top of the popup
-                         */
-                        title?: string | null;
-                        /**
-                         * A brief description that appears below the title
-                         */
-                        description?: string | null;
-                      };
+                      popup?: (string | null) | Popup;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                      /**
+                       * Text to display for the link
+                       */
                       label: string;
                       /**
                        * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -10520,10 +9924,6 @@ export interface Header3Fields {
                        * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                        */
                       suffixIcon?: string | null;
-                      /**
-                       * Choose how the link should be rendered.
-                       */
-                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                     };
                     id?: string | null;
                   }[]
@@ -10544,18 +9944,9 @@ export interface Header3Fields {
                     } | null);
                 url?: string | null;
                 /**
-                 * Configure the content that will appear in the popup dialog
+                 * Choose a popup to display when this link is clicked
                  */
-                popupContent?: {
-                  /**
-                   * The title that appears at the top of the popup
-                   */
-                  title?: string | null;
-                  /**
-                   * A brief description that appears below the title
-                   */
-                  description?: string | null;
-                };
+                popup?: (string | null) | Popup;
                 /**
                  * Image URL for the link
                  */
@@ -10595,23 +9986,17 @@ export interface Header3Fields {
                           } | null);
                       url?: string | null;
                       /**
-                       * Configure the content that will appear in the popup dialog
+                       * Choose a popup to display when this link is clicked
                        */
-                      popupContent?: {
-                        /**
-                         * The title that appears at the top of the popup
-                         */
-                        title?: string | null;
-                        /**
-                         * A brief description that appears below the title
-                         */
-                        description?: string | null;
-                      };
-                      label: string;
+                      popup?: (string | null) | Popup;
                       /**
                        * Choose how the link should be rendered.
                        */
                       appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                      /**
+                       * Text to display for the link
+                       */
+                      label: string;
                     };
                     id?: string | null;
                   }[]
@@ -10634,18 +10019,13 @@ export interface Header3Fields {
                           } | null);
                       url?: string | null;
                       /**
-                       * Configure the content that will appear in the popup dialog
+                       * Choose a popup to display when this link is clicked
                        */
-                      popupContent?: {
-                        /**
-                         * The title that appears at the top of the popup
-                         */
-                        title?: string | null;
-                        /**
-                         * A brief description that appears below the title
-                         */
-                        description?: string | null;
-                      };
+                      popup?: (string | null) | Popup;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                       /**
                        * Image URL for the link
                        */
@@ -10658,10 +10038,6 @@ export interface Header3Fields {
                        * Description for the link
                        */
                       description?: string | null;
-                      /**
-                       * Choose how the link should be rendered.
-                       */
-                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                     };
                     id?: string | null;
                   }[]
@@ -10687,18 +10063,9 @@ export interface Header3Fields {
                           } | null);
                       url?: string | null;
                       /**
-                       * Configure the content that will appear in the popup dialog
+                       * Choose a popup to display when this link is clicked
                        */
-                      popupContent?: {
-                        /**
-                         * The title that appears at the top of the popup
-                         */
-                        title?: string | null;
-                        /**
-                         * A brief description that appears below the title
-                         */
-                        description?: string | null;
-                      };
+                      popup?: (string | null) | Popup;
                       /**
                        * Title for the link
                        */
@@ -10730,18 +10097,9 @@ export interface Header3Fields {
                           } | null);
                       url?: string | null;
                       /**
-                       * Configure the content that will appear in the popup dialog
+                       * Choose a popup to display when this link is clicked
                        */
-                      popupContent?: {
-                        /**
-                         * The title that appears at the top of the popup
-                         */
-                        title?: string | null;
-                        /**
-                         * A brief description that appears below the title
-                         */
-                        description?: string | null;
-                      };
+                      popup?: (string | null) | Popup;
                       /**
                        * Image URL for the link
                        */
@@ -10801,18 +10159,16 @@ export interface Header5Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -10822,10 +10178,6 @@ export interface Header5Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Links in this column
@@ -10849,18 +10201,16 @@ export interface Header5Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  /**
+                   * Text to display for the link
+                   */
                   label: string;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -10870,10 +10220,6 @@ export interface Header5Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 /**
                  * Description for this sub menu
@@ -10904,18 +10250,16 @@ export interface Header5Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -10925,10 +10269,6 @@ export interface Header5Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -11016,18 +10356,16 @@ export interface Footer1Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  /**
+                   * Text to display for the link
+                   */
                   label: string;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -11037,10 +10375,6 @@ export interface Footer1Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -11078,18 +10412,13 @@ export interface Footer1Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
                */
@@ -11098,10 +10427,6 @@ export interface Footer1Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -11165,18 +10490,16 @@ export interface Footer2Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  /**
+                   * Text to display for the link
+                   */
                   label: string;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -11186,10 +10509,6 @@ export interface Footer2Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -11217,18 +10536,16 @@ export interface Footer2Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -11238,10 +10555,6 @@ export interface Footer2Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -11297,18 +10610,16 @@ export interface Footer3Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  /**
+                   * Text to display for the link
+                   */
                   label: string;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -11318,10 +10629,6 @@ export interface Footer3Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -11349,18 +10656,16 @@ export interface Footer3Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -11370,10 +10675,6 @@ export interface Footer3Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -11399,18 +10700,13 @@ export interface Footer3Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
                */
@@ -11419,10 +10715,6 @@ export interface Footer3Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -11478,18 +10770,16 @@ export interface Footer4Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  /**
+                   * Text to display for the link
+                   */
                   label: string;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -11499,10 +10789,6 @@ export interface Footer4Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -11530,18 +10816,16 @@ export interface Footer4Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -11551,10 +10835,6 @@ export interface Footer4Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -11580,18 +10860,13 @@ export interface Footer4Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
                */
@@ -11600,10 +10875,6 @@ export interface Footer4Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -11665,18 +10936,16 @@ export interface Footer5Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  /**
+                   * Text to display for the link
+                   */
                   label: string;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -11686,10 +10955,6 @@ export interface Footer5Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -11721,18 +10986,13 @@ export interface Footer5Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
                */
@@ -11741,10 +11001,6 @@ export interface Footer5Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -11774,18 +11030,13 @@ export interface Footer5Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
                */
@@ -11794,10 +11045,6 @@ export interface Footer5Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -11861,18 +11108,16 @@ export interface Footer6Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  /**
+                   * Text to display for the link
+                   */
                   label: string;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -11882,10 +11127,6 @@ export interface Footer6Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -11913,18 +11154,16 @@ export interface Footer6Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -11934,10 +11173,6 @@ export interface Footer6Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -12001,18 +11236,16 @@ export interface Footer7Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  /**
+                   * Text to display for the link
+                   */
                   label: string;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -12022,10 +11255,6 @@ export interface Footer7Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -12053,18 +11282,13 @@ export interface Footer7Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
                */
@@ -12073,10 +11297,6 @@ export interface Footer7Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -12102,18 +11322,16 @@ export interface Footer7Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -12123,10 +11341,6 @@ export interface Footer7Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -12186,18 +11400,16 @@ export interface Footer8Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  /**
+                   * Text to display for the link
+                   */
                   label: string;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -12207,10 +11419,6 @@ export interface Footer8Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -12238,18 +11446,13 @@ export interface Footer8Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
                */
@@ -12258,10 +11461,6 @@ export interface Footer8Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -12316,18 +11515,16 @@ export interface Footer9Fields {
                 } | null);
             url?: string | null;
             /**
-             * Configure the content that will appear in the popup dialog
+             * Choose a popup to display when this link is clicked
              */
-            popupContent?: {
-              /**
-               * The title that appears at the top of the popup
-               */
-              title?: string | null;
-              /**
-               * A brief description that appears below the title
-               */
-              description?: string | null;
-            };
+            popup?: (string | null) | Popup;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            /**
+             * Text to display for the link
+             */
             label: string;
             /**
              * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -12337,10 +11534,6 @@ export interface Footer9Fields {
              * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
              */
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -12376,18 +11569,16 @@ export interface Footer9Fields {
                       } | null);
                   url?: string | null;
                   /**
-                   * Configure the content that will appear in the popup dialog
+                   * Choose a popup to display when this link is clicked
                    */
-                  popupContent?: {
-                    /**
-                     * The title that appears at the top of the popup
-                     */
-                    title?: string | null;
-                    /**
-                     * A brief description that appears below the title
-                     */
-                    description?: string | null;
-                  };
+                  popup?: (string | null) | Popup;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  /**
+                   * Text to display for the link
+                   */
                   label: string;
                   /**
                    * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -12397,10 +11588,6 @@ export interface Footer9Fields {
                    * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                    */
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -12432,18 +11619,16 @@ export interface Footer9Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -12453,10 +11638,6 @@ export interface Footer9Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -12482,18 +11663,16 @@ export interface Footer9Fields {
                   } | null);
               url?: string | null;
               /**
-               * Configure the content that will appear in the popup dialog
+               * Choose a popup to display when this link is clicked
                */
-              popupContent?: {
-                /**
-                 * The title that appears at the top of the popup
-                 */
-                title?: string | null;
-                /**
-                 * A brief description that appears below the title
-                 */
-                description?: string | null;
-              };
+              popup?: (string | null) | Popup;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              /**
+               * Text to display for the link
+               */
               label: string;
               /**
                * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
@@ -12503,10 +11682,6 @@ export interface Footer9Fields {
                * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
                */
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -12594,16 +11769,11 @@ export interface Header1FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               subMenu?:
                 | T
@@ -12615,16 +11785,11 @@ export interface Header1FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     description?: T;
                     id?: T;
@@ -12641,16 +11806,11 @@ export interface Header1FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -12675,16 +11835,11 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -12699,16 +11854,11 @@ export interface Header3FieldsSelect<T extends boolean = true> {
               newTab?: T;
               reference?: T;
               url?: T;
-              popupContent?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                  };
+              popup?: T;
+              appearance?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
             };
         submenu?:
           | T
@@ -12727,16 +11877,11 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                 newTab?: T;
                                 reference?: T;
                                 url?: T;
-                                popupContent?:
-                                  | T
-                                  | {
-                                      title?: T;
-                                      description?: T;
-                                    };
+                                popup?: T;
+                                appearance?: T;
                                 image?: T;
                                 title?: T;
                                 description?: T;
-                                appearance?: T;
                               };
                         };
                     rightSection?:
@@ -12753,17 +11898,12 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
-                                      popupContent?:
-                                        | T
-                                        | {
-                                            title?: T;
-                                            description?: T;
-                                          };
+                                      popup?: T;
+                                      appearance?: T;
                                       prefixIcon?: T;
                                       suffixIcon?: T;
                                       title?: T;
                                       description?: T;
-                                      appearance?: T;
                                     };
                                 id?: T;
                               };
@@ -12786,16 +11926,11 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
-                                      popupContent?:
-                                        | T
-                                        | {
-                                            title?: T;
-                                            description?: T;
-                                          };
+                                      popup?: T;
+                                      appearance?: T;
                                       label?: T;
                                       prefixIcon?: T;
                                       suffixIcon?: T;
-                                      appearance?: T;
                                     };
                                 id?: T;
                               };
@@ -12810,12 +11945,7 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                 newTab?: T;
                                 reference?: T;
                                 url?: T;
-                                popupContent?:
-                                  | T
-                                  | {
-                                      title?: T;
-                                      description?: T;
-                                    };
+                                popup?: T;
                                 image?: T;
                                 title?: T;
                                 subtitle?: T;
@@ -12841,14 +11971,9 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
-                                      popupContent?:
-                                        | T
-                                        | {
-                                            title?: T;
-                                            description?: T;
-                                          };
-                                      label?: T;
+                                      popup?: T;
                                       appearance?: T;
+                                      label?: T;
                                     };
                                 id?: T;
                               };
@@ -12866,16 +11991,11 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
-                                      popupContent?:
-                                        | T
-                                        | {
-                                            title?: T;
-                                            description?: T;
-                                          };
+                                      popup?: T;
+                                      appearance?: T;
                                       image?: T;
                                       title?: T;
                                       description?: T;
-                                      appearance?: T;
                                     };
                                 id?: T;
                               };
@@ -12898,12 +12018,7 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
-                                      popupContent?:
-                                        | T
-                                        | {
-                                            title?: T;
-                                            description?: T;
-                                          };
+                                      popup?: T;
                                       title?: T;
                                       description?: T;
                                     };
@@ -12924,12 +12039,7 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
-                                      popupContent?:
-                                        | T
-                                        | {
-                                            title?: T;
-                                            description?: T;
-                                          };
+                                      popup?: T;
                                       image?: T;
                                       title?: T;
                                       description?: T;
@@ -12962,16 +12072,11 @@ export interface Header5FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               subMenus?:
                 | T
@@ -12983,16 +12088,11 @@ export interface Header5FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     description?: T;
                     id?: T;
@@ -13009,16 +12109,11 @@ export interface Header5FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -13068,16 +12163,11 @@ export interface Footer1FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13097,15 +12187,10 @@ export interface Footer1FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13138,16 +12223,11 @@ export interface Footer2FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13166,16 +12246,11 @@ export interface Footer2FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13206,16 +12281,11 @@ export interface Footer3FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13234,16 +12304,11 @@ export interface Footer3FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13261,15 +12326,10 @@ export interface Footer3FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13300,16 +12360,11 @@ export interface Footer4FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13328,16 +12383,11 @@ export interface Footer4FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13355,15 +12405,10 @@ export interface Footer4FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13399,16 +12444,11 @@ export interface Footer5FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13428,15 +12468,10 @@ export interface Footer5FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13455,15 +12490,10 @@ export interface Footer5FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13496,16 +12526,11 @@ export interface Footer6FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13524,16 +12549,11 @@ export interface Footer6FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13566,16 +12586,11 @@ export interface Footer7FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13594,15 +12609,10 @@ export interface Footer7FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13620,16 +12630,11 @@ export interface Footer7FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13661,16 +12666,11 @@ export interface Footer8FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13689,15 +12689,10 @@ export interface Footer8FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13731,16 +12726,11 @@ export interface Footer9FieldsSelect<T extends boolean = true> {
                     newTab?: T;
                     reference?: T;
                     url?: T;
-                    popupContent?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                        };
+                    popup?: T;
+                    appearance?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -13758,16 +12748,11 @@ export interface Footer9FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13787,16 +12772,11 @@ export interface Footer9FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -13814,16 +12794,11 @@ export interface Footer9FieldsSelect<T extends boolean = true> {
                           newTab?: T;
                           reference?: T;
                           url?: T;
-                          popupContent?:
-                            | T
-                            | {
-                                title?: T;
-                                description?: T;
-                              };
+                          popup?: T;
+                          appearance?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };

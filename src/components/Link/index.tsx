@@ -1,24 +1,13 @@
+'use client'
+
+import { Popup } from '@/components/Popup'
 import { Button, type ButtonProps } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 import type { Page, Post } from '@/payload-types'
 import { cn } from '@/utilities/ui'
-import Link from 'next/link'
-import React from 'react'
+import NextLink from 'next/link'
+import React, { useState } from 'react'
 
 import { DynamicIcon } from '../DynamicIcon'
-
-type PopupContent = {
-  title?: string | null
-  description?: string | null
-  content?: any // We'll type this properly once we know the rich text structure
-}
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -35,7 +24,13 @@ type CMSLinkType = {
   url?: string | null
   prefixIcon?: string | null
   suffixIcon?: string | null
-  popupContent?: PopupContent | null
+  popup?:
+    | string
+    | {
+        id?: string
+        relationTo?: string
+      }
+    | null
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -51,52 +46,48 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     url,
     prefixIcon,
     suffixIcon,
-    popupContent,
+    popup,
   } = props
 
-  const content = (
-    <>
-      {prefixIcon && <DynamicIcon name={prefixIcon} className="mr-2 size-4" />}
-      {label}
-      {children}
-      {suffixIcon && <DynamicIcon name={suffixIcon} className="ml-2 size-4" />}
-    </>
-  )
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   // Handle popup type
-  if (type === 'popup' && popupContent) {
-    const size = appearance === 'inline' ? undefined : sizeFromProps
+  if (type === 'popup' && popup) {
+    const popupId = typeof popup === 'string' ? popup : popup.id
+    if (!popupId) return null
+
+    const content = (
+      <>
+        {prefixIcon && (
+          <DynamicIcon name={prefixIcon} className="mr-2 size-4" />
+        )}
+        {label}
+        {children}
+        {suffixIcon && (
+          <DynamicIcon name={suffixIcon} className="ml-2 size-4" />
+        )}
+      </>
+    )
+
     return (
-      <Dialog>
-        <DialogTrigger asChild>
-          {appearance === 'inline' ? (
-            <button className={cn(className)}>{content}</button>
-          ) : (
-            <Button className={className} size={size} variant={appearance}>
-              {content}
-            </Button>
-          )}
-        </DialogTrigger>
-        <DialogContent>
-          {(popupContent.title || popupContent.description) && (
-            <DialogHeader>
-              {popupContent.title && (
-                <DialogTitle>{popupContent.title}</DialogTitle>
-              )}
-              {popupContent.description && (
-                <DialogDescription>
-                  {popupContent.description}
-                </DialogDescription>
-              )}
-            </DialogHeader>
-          )}
-          {/* {popupContent.content} */}
-        </DialogContent>
-      </Dialog>
+      <>
+        <Button
+          variant={appearance === 'inline' ? 'default' : appearance}
+          size={sizeFromProps}
+          className={className}
+          onClick={() => setIsPopupOpen(true)}
+        >
+          {content}
+        </Button>
+        <Popup
+          id={popupId}
+          isOpen={isPopupOpen}
+          onOpenChange={setIsPopupOpen}
+        />
+      </>
     )
   }
 
-  // Handle regular link types
   const href =
     type === 'reference' &&
     typeof reference?.value === 'object' &&
@@ -111,19 +102,29 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     ? { rel: 'noopener noreferrer', target: '_blank' }
     : {}
 
+  const content = (
+    <>
+      {prefixIcon && <DynamicIcon name={prefixIcon} className="mr-2 size-4" />}
+      {label}
+      {children}
+      {suffixIcon && <DynamicIcon name={suffixIcon} className="ml-2 size-4" />}
+    </>
+  )
+
+  /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
     return (
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+      <NextLink className={cn(className)} href={href || ''} {...newTabProps}>
         {content}
-      </Link>
+      </NextLink>
     )
   }
 
   return (
     <Button asChild className={className} size={size} variant={appearance}>
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+      <NextLink href={href || ''} {...newTabProps}>
         {content}
-      </Link>
+      </NextLink>
     </Button>
   )
 }

@@ -12,6 +12,7 @@ import { Header } from './Header/config'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
+import { Popups } from './collections/Popups'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { ApiKey } from './globals/api-keys'
@@ -70,7 +71,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || false,
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Categories, Users, Popups],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, ApiKey],
   plugins: [

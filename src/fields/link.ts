@@ -24,14 +24,17 @@ export const appearanceOptions: Record<
     value: 'link',
   },
 }
-type LinkUIEnhancements = {
+
+export type LinkUIEnhancements = {
   image?: boolean
   title?: boolean
   subtitle?: boolean
   description?: boolean
   icons?: boolean
+  popup?: boolean
 }
-type LinkType = (options?: {
+
+export type LinkType = (options?: {
   name?: string
   label?: string
   appearances?: LinkAppearances[] | false
@@ -42,7 +45,7 @@ type LinkType = (options?: {
 
 export const link: LinkType = ({
   name = 'link',
-  label,
+  label = 'Link',
   appearances,
   disableLabel = false,
   ui = {
@@ -51,147 +54,79 @@ export const link: LinkType = ({
     subtitle: false,
     description: false,
     icons: true,
+    popup: false,
   },
   overrides = {},
 } = {}) => {
   const linkResult: GroupField = {
-    name: name,
-    label: label,
+    name,
+    label,
     type: 'group',
     admin: {
       hideGutter: true,
     },
     fields: [
       {
-        type: 'row',
-        fields: [
+        name: 'type',
+        type: 'select',
+        defaultValue: 'reference',
+        options: [
           {
-            name: 'type',
-            type: 'radio',
-            admin: {
-              layout: 'horizontal',
-              width: '50%',
-            },
-            defaultValue: 'reference',
-            options: [
-              {
-                label: 'Internal link',
-                value: 'reference',
-              },
-              {
-                label: 'Custom URL',
-                value: 'custom',
-              },
-              {
-                label: 'Popup',
-                value: 'popup',
-              },
-            ],
+            label: 'Internal link',
+            value: 'reference',
           },
           {
-            name: 'newTab',
-            type: 'checkbox',
-            admin: {
-              style: {
-                alignSelf: 'flex-end',
-              },
-              width: '50%',
-            },
-            label: 'Open in new tab',
+            label: 'Custom URL',
+            value: 'custom',
+          },
+          {
+            label: 'Popup',
+            value: 'popup',
           },
         ],
+      },
+      {
+        name: 'newTab',
+        type: 'checkbox',
+        admin: {
+          style: {
+            alignSelf: 'flex-end',
+          },
+          width: '50%',
+        },
+        label: 'Open in new tab',
+      },
+      {
+        name: 'reference',
+        type: 'relationship',
+        relationTo: ['pages', 'posts'],
+        required: true,
+        admin: {
+          condition: (_, siblingData) => siblingData?.type === 'reference',
+        },
+      },
+      {
+        name: 'url',
+        type: 'text',
+        required: true,
+        admin: {
+          condition: (_, siblingData) => siblingData?.type === 'custom',
+        },
+      },
+      {
+        name: 'popup',
+        type: 'relationship',
+        relationTo: 'popups',
+        required: true,
+        admin: {
+          description: 'Choose a popup to display when this link is clicked',
+          condition: (_, siblingData) => siblingData?.type === 'popup',
+        },
       },
     ],
   }
 
-  const linkTypes: Field[] = [
-    {
-      name: 'reference',
-      type: 'relationship',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'reference',
-      },
-      label: 'Document to link to',
-      relationTo: ['pages', 'posts'],
-      required: true,
-    },
-    {
-      name: 'url',
-      type: 'text',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'custom',
-      },
-      label: 'Custom URL',
-      required: true,
-    },
-    {
-      name: 'popupContent',
-      type: 'group',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'popup',
-        description:
-          'Configure the content that will appear in the popup dialog',
-      },
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          label: 'Popup Title',
-          admin: {
-            description: 'The title that appears at the top of the popup',
-          },
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          label: 'Popup Description',
-          admin: {
-            description: 'A brief description that appears below the title',
-          },
-        },
-        // {
-        //   name: 'content',
-        //   type: 'richText',
-        //   label: 'Popup Content',
-        //   admin: {
-        //     description: 'The main content of your popup. You can use rich text formatting here.',
-        //   }
-        // }
-      ],
-    },
-  ]
-
-  if (!disableLabel) {
-    linkTypes.map((linkType) => ({
-      ...linkType,
-      admin: {
-        ...linkType.admin,
-        width: '50%',
-      },
-    }))
-
-    linkResult.fields.push({
-      type: 'row',
-      fields: [
-        ...linkTypes,
-        {
-          name: 'label',
-          type: 'text',
-          admin: {
-            width: '50%',
-          },
-          label: 'Label',
-          required: true,
-        },
-      ],
-    })
-  } else {
-    linkResult.fields = [...linkResult.fields, ...linkTypes]
-  }
-
-  // Add appearance and icons in the same row
-  const rowFields: Field[] = []
-
+  // Add appearance options if enabled
   if (appearances !== false) {
     let appearanceOptionsToUse = [
       appearanceOptions.default,
@@ -206,20 +141,37 @@ export const link: LinkType = ({
       )
     }
 
-    rowFields.push({
-      name: 'appearance',
-      type: 'select',
-      admin: {
-        description: 'Choose how the link should be rendered.',
-        width: '50%',
-      },
-      defaultValue: 'default',
-      options: appearanceOptionsToUse,
+    linkResult.fields.push({
+      type: 'row',
+      fields: [
+        {
+          name: 'appearance',
+          type: 'select',
+          admin: {
+            description: 'Choose how the link should be rendered.',
+            width: '50%',
+          },
+          defaultValue: 'default',
+          options: appearanceOptionsToUse,
+        },
+      ],
     })
   }
 
+  // Add label field if not disabled
+  if (!disableLabel) {
+    linkResult.fields.push({
+      name: 'label',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Text to display for the link',
+      },
+    })
+  }
+
+  // Add icons in the same row
   if (ui.icons) {
-    // Add icon fields
     linkResult.fields.push({
       type: 'row',
       fields: [
@@ -246,7 +198,6 @@ export const link: LinkType = ({
   }
 
   if (ui.image) {
-    // Add image link
     linkResult.fields.push({
       type: 'row',
       fields: [
@@ -263,7 +214,6 @@ export const link: LinkType = ({
   }
 
   if (ui.title) {
-    // Add image link
     linkResult.fields.push({
       type: 'row',
       fields: [
@@ -279,7 +229,6 @@ export const link: LinkType = ({
   }
 
   if (ui.subtitle) {
-    // Add image link
     linkResult.fields.push({
       type: 'row',
       fields: [
@@ -295,7 +244,6 @@ export const link: LinkType = ({
   }
 
   if (ui.description) {
-    // Add image link
     linkResult.fields.push({
       type: 'row',
       fields: [
@@ -310,12 +258,33 @@ export const link: LinkType = ({
     })
   }
 
-  if (rowFields.length > 0) {
+  // Add popup fields if enabled
+  if (ui.popup) {
     linkResult.fields.push({
-      type: 'row',
-      fields: rowFields,
+      name: 'popup',
+      type: 'relationship',
+      relationTo: 'popups',
+      admin: {
+        description:
+          'Optional: Select a popup to show when this link is clicked',
+      },
     })
   }
 
   return deepMerge(linkResult, overrides)
+}
+
+export function isEmptyLink(link: any): boolean {
+  if (!link) return true
+  if (link.type === 'custom' && !link.url) return true
+  if (link.type === 'reference' && !link.reference?.value?.slug) return true
+  return false
+}
+
+export function getLinkHref(link: any): string {
+  if (link.type === 'custom') return link.url || ''
+  if (link.type === 'reference' && link.reference?.value?.slug) {
+    return `/${link.reference.value.slug}`
+  }
+  return ''
 }
