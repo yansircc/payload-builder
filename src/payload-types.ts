@@ -1357,12 +1357,13 @@ export interface Hero115Fields {
  * via the `definition` "AboutBlock".
  */
 export interface AboutBlock {
-  style?: ('about-1' | 'about-2' | 'about-3' | 'about-4' | 'about-5') | null;
+  style?: ('about-1' | 'about-2' | 'about-3' | 'about-4' | 'about-5' | 'about-6') | null;
   'about-1'?: About1Fields;
   'about-2'?: About2Fields;
   'about-3'?: About3Fields;
   'about-4'?: About4Fields;
   'about-5'?: About5Fields;
+  'about-6'?: About6Fields;
   id?: string | null;
   blockName?: string | null;
   blockType: 'about';
@@ -1773,6 +1774,72 @@ export interface About5Fields {
      * Mission section image
      */
     image: string | Media;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About6Fields".
+ */
+export interface About6Fields {
+  storySection: {
+    /**
+     * Story section title
+     */
+    title: string;
+    /**
+     * Story section description
+     */
+    description: string;
+    /**
+     * Story section content
+     */
+    content: string;
+  };
+  leftGallery: {
+    /**
+     * Main image (aspect ratio 0.7)
+     */
+    mainImage: string | Media;
+    sideImages: {
+      /**
+       * First side image (aspect ratio 1.1)
+       */
+      first: string | Media;
+      /**
+       * Second side image (aspect ratio 0.7)
+       */
+      second: string | Media;
+    };
+  };
+  workplaceSection: {
+    /**
+     * Workplace section title
+     */
+    title: string;
+    /**
+     * Workplace section description
+     */
+    description: string;
+    /**
+     * Workplace section content
+     */
+    content: string;
+  };
+  rightGallery: {
+    /**
+     * Main image (aspect ratio 0.9)
+     */
+    mainImage: string | Media;
+    sideImages: {
+      /**
+       * First side image (aspect ratio 0.8)
+       */
+      first: string | Media;
+      /**
+       * Second side image (aspect ratio 0.9)
+       */
+      second: string | Media;
+    };
   };
 }
 /**
@@ -6978,6 +7045,7 @@ export interface AboutBlockSelect<T extends boolean = true> {
   'about-3'?: T | About3FieldsSelect<T>;
   'about-4'?: T | About4FieldsSelect<T>;
   'about-5'?: T | About5FieldsSelect<T>;
+  'about-6'?: T | About6FieldsSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -7241,6 +7309,48 @@ export interface About5FieldsSelect<T extends boolean = true> {
               id?: T;
             };
         image?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About6Fields_select".
+ */
+export interface About6FieldsSelect<T extends boolean = true> {
+  storySection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        content?: T;
+      };
+  leftGallery?:
+    | T
+    | {
+        mainImage?: T;
+        sideImages?:
+          | T
+          | {
+              first?: T;
+              second?: T;
+            };
+      };
+  workplaceSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        content?: T;
+      };
+  rightGallery?:
+    | T
+    | {
+        mainImage?: T;
+        sideImages?:
+          | T
+          | {
+              first?: T;
+              second?: T;
+            };
       };
 }
 /**

@@ -4,6 +4,7 @@ import { about2Fields } from './components/About2/config'
 import { about3Fields } from './components/About3/config'
 import { about4Fields } from './components/About4/config'
 import { about5Fields } from './components/About5/config'
+import { about6Fields } from './components/About6/config'
 
 export const AboutBlock: Block = {
   slug: 'about',
@@ -38,6 +39,10 @@ export const AboutBlock: Block = {
           label: 'About 5',
           value: 'about-5',
         },
+        {
+          label: 'About 6',
+          value: 'about-6',
+        },
       ],
     },
     {
@@ -68,6 +73,12 @@ export const AboutBlock: Block = {
       ...about5Fields,
       admin: {
         condition: (_, siblingData) => siblingData?.style === 'about-5',
+      },
+    },
+    {
+      ...about6Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData?.style === 'about-6',
       },
     },
   ],
