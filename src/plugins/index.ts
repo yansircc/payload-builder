@@ -10,6 +10,7 @@ import { searchPlugin } from '@payloadcms/plugin-search'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Plugin } from 'payload'
 
 import { isSuperAdmin } from '@/access/isSuperAdmin'
@@ -99,6 +100,9 @@ export const plugins: Plugin[] = [
       pages: {},
       header: { isGlobal: true },
       footer: { isGlobal: true },
+      media: {
+        useTenantAccess: false,
+      },
     },
     tenantField: {
       access: {
@@ -115,5 +119,14 @@ export const plugins: Plugin[] = [
       includeDefaultField: false,
     },
     userHasAccessToAllTenants: (user) => isSuperAdmin(user),
+  }),
+  vercelBlobStorage({
+    enabled: true, // Optional, defaults to true
+    // Specify which collections should use Vercel Blob
+    collections: {
+      media: true,
+    },
+    // Token provided by Vercel once Blob storage is added to your Vercel project
+    token: process.env.BLOB_READ_WRITE_TOKEN,
   }),
 ]
