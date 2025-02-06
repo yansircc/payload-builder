@@ -1,20 +1,20 @@
 // storage-adapter-import-placeholder
+import { defaultLexical } from '@/fields/defaultLexical'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-
 import path from 'path'
-import { buildConfig, PayloadRequest } from 'payload'
-import sharp from 'sharp' // sharp-import
+import { PayloadRequest, buildConfig } from 'payload'
+import sharp from 'sharp'
+// sharp-import
 import { fileURLToPath } from 'url'
 
-import { defaultLexical } from '@/fields/defaultLexical'
+import { Footer } from './Footer/config'
+import { Header } from './Header/config'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
-import { Footer } from './Footer/config'
 import { ApiKey } from './globals/api-keys'
-import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { getServerSideURL } from './utilities/getURL'
 
@@ -23,6 +23,13 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
+    autoLogin:
+      process.env.NEXT_PUBLIC_ENABLE_AUTOLOGIN === 'true'
+        ? {
+            email: 'test@example.com',
+            password: 'test@example.com',
+          }
+        : false,
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
@@ -61,7 +68,7 @@ export default buildConfig({
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: mongooseAdapter({
-    url: process.env.DATABASE_URL || false,
+    url: process.env.DATABASE_URI || false,
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),

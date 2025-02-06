@@ -12,3 +12,5 @@
 **/docs/**
 tsconfig.json
 
+.lintstagedrc.js
+.prettierrc.js

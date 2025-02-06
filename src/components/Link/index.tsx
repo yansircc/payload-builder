@@ -1,10 +1,24 @@
 import { Button, type ButtonProps } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import type { Page, Post } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
 
-import type { Page, Post } from '@/payload-types'
 import { DynamicIcon } from '../DynamicIcon'
+
+type PopupContent = {
+  title?: string | null
+  description?: string | null
+  content?: any // We'll type this properly once we know the rich text structure
+}
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -17,10 +31,11 @@ type CMSLinkType = {
     value: Page | Post | string | number
   } | null
   size?: ButtonProps['size'] | null
-  type?: 'custom' | 'reference' | null
+  type?: 'custom' | 'reference' | 'popup' | null
   url?: string | null
   prefixIcon?: string | null
   suffixIcon?: string | null
+  popupContent?: PopupContent | null
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -36,17 +51,8 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     url,
     prefixIcon,
     suffixIcon,
+    popupContent,
   } = props
-
-  const href =
-    type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${reference.value.slug}`
-      : url
-
-  if (!href) return null
-
-  const size = appearance === 'inline' ? undefined : sizeFromProps
-  const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
   const content = (
     <>
@@ -57,7 +63,54 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     </>
   )
 
-  /* Ensure we don't break any styles set by richText */
+  // Handle popup type
+  if (type === 'popup' && popupContent) {
+    const size = appearance === 'inline' ? undefined : sizeFromProps
+    return (
+      <Dialog>
+        <DialogTrigger asChild>
+          {appearance === 'inline' ? (
+            <button className={cn(className)}>{content}</button>
+          ) : (
+            <Button className={className} size={size} variant={appearance}>
+              {content}
+            </Button>
+          )}
+        </DialogTrigger>
+        <DialogContent>
+          {(popupContent.title || popupContent.description) && (
+            <DialogHeader>
+              {popupContent.title && (
+                <DialogTitle>{popupContent.title}</DialogTitle>
+              )}
+              {popupContent.description && (
+                <DialogDescription>
+                  {popupContent.description}
+                </DialogDescription>
+              )}
+            </DialogHeader>
+          )}
+          {/* {popupContent.content} */}
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
+  // Handle regular link types
+  const href =
+    type === 'reference' &&
+    typeof reference?.value === 'object' &&
+    reference.value.slug
+      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${reference.value.slug}`
+      : url
+
+  if (!href) return null
+
+  const size = appearance === 'inline' ? undefined : sizeFromProps
+  const newTabProps = newTab
+    ? { rel: 'noopener noreferrer', target: '_blank' }
+    : {}
+
   if (appearance === 'inline') {
     return (
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>

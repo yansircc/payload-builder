@@ -1,10 +1,12 @@
-import type { Field, GroupField } from 'payload'
-
 import deepMerge from '@/utilities/deepMerge'
+import type { Field, GroupField } from 'payload'
 
 export type LinkAppearances = 'default' | 'outline' | 'ghost' | 'link'
 
-export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
+export const appearanceOptions: Record<
+  LinkAppearances,
+  { label: string; value: string }
+> = {
   default: {
     label: 'Default',
     value: 'default',
@@ -80,6 +82,10 @@ export const link: LinkType = ({
                 label: 'Custom URL',
                 value: 'custom',
               },
+              {
+                label: 'Popup',
+                value: 'popup',
+              },
             ],
           },
           {
@@ -117,6 +123,41 @@ export const link: LinkType = ({
       },
       label: 'Custom URL',
       required: true,
+    },
+    {
+      name: 'popupContent',
+      type: 'group',
+      admin: {
+        condition: (_, siblingData) => siblingData?.type === 'popup',
+        description:
+          'Configure the content that will appear in the popup dialog',
+      },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          label: 'Popup Title',
+          admin: {
+            description: 'The title that appears at the top of the popup',
+          },
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          label: 'Popup Description',
+          admin: {
+            description: 'A brief description that appears below the title',
+          },
+        },
+        // {
+        //   name: 'content',
+        //   type: 'richText',
+        //   label: 'Popup Content',
+        //   admin: {
+        //     description: 'The main content of your popup. You can use rich text formatting here.',
+        //   }
+        // }
+      ],
     },
   ]
 
@@ -160,7 +201,9 @@ export const link: LinkType = ({
     ]
 
     if (appearances) {
-      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
+      appearanceOptionsToUse = appearances.map(
+        (appearance) => appearanceOptions[appearance]
+      )
     }
 
     rowFields.push({
@@ -184,7 +227,8 @@ export const link: LinkType = ({
           name: 'prefixIcon',
           type: 'text',
           admin: {
-            description: 'Optional: Lucide icon name for prefix (e.g., "ArrowLeft")',
+            description:
+              'Optional: Lucide icon name for prefix (e.g., "ArrowLeft")',
             width: '50%',
           },
         },
@@ -192,7 +236,8 @@ export const link: LinkType = ({
           name: 'suffixIcon',
           type: 'text',
           admin: {
-            description: 'Optional: Lucide icon name for suffix (e.g., "ArrowRight")',
+            description:
+              'Optional: Lucide icon name for suffix (e.g., "ArrowRight")',
             width: '50%',
           },
         },
