@@ -1,0 +1,29 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Documentation
+    url: https://github.com/yansircc/payload-builder/wiki
+    about: Check our documentation first
+  - name: 💬 Discussions
+    url: https://github.com/yansircc/payload-builder/discussions
+    about: Please ask and answer questions here
+
+# Configure template order and display
+templates:
+  - name: 🐞 Bug Report
+    about: Create a report to help us improve
+    template: bug_report.md
+  - name: 🚀 Feature Request
+    about: Suggest an idea for this project
+    template: feature_request.md
+  - name: 🔧 Code Refactor
+    about: Suggest code improvements
+    template: refactor.md
+  - name: 📚 Documentation Request
+    about: Request documentation updates
+    template: doc_request.md
+  - name: 🧪 Test Case
+    about: Create a new test case
+    template: test_case.md
+  - name: 🔍 Investigation
+    about: Research a topic or problem
+    template: investigation.md
