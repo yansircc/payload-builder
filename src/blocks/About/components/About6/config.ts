@@ -1,46 +1,33 @@
 import type { GroupField } from 'payload'
 import { z } from 'zod'
-import {
-  aboutSchemas,
-  baseFields,
-  commonSchemas,
-  createFieldGroup,
-  createSectionField,
-} from '../shared/base-field'
+import { aboutSchemas } from '../shared/base-field'
 
 /**
  * About6 field validation and type definitions
  */
 export const schemas = {
-  /** Story section */
   storySection: z.object({
     title: aboutSchemas.title,
     description: aboutSchemas.description,
-    content: z.string().describe('Story section detailed content'),
+    content: z.string(),
   }),
-
-  /** Left gallery */
   leftGallery: z.object({
-    mainImage: commonSchemas.media.image.describe('Main gallery image (aspect ratio 0.7)'),
+    mainImage: aboutSchemas.image,
     sideImages: z.object({
-      first: commonSchemas.media.image.describe('First side image (aspect ratio 1.1)'),
-      second: commonSchemas.media.image.describe('Second side image (aspect ratio 0.7)'),
+      first: aboutSchemas.image,
+      second: aboutSchemas.image,
     }),
   }),
-
-  /** Workplace section */
   workplaceSection: z.object({
     title: aboutSchemas.title,
     description: aboutSchemas.description,
-    content: z.string().describe('Workplace section detailed content'),
+    content: z.string(),
   }),
-
-  /** Right gallery */
   rightGallery: z.object({
-    mainImage: commonSchemas.media.image.describe('Main gallery image (aspect ratio 0.9)'),
+    mainImage: aboutSchemas.image,
     sideImages: z.object({
-      first: commonSchemas.media.image.describe('First side image (aspect ratio 0.8)'),
-      second: commonSchemas.media.image.describe('Second side image (aspect ratio 0.9)'),
+      first: aboutSchemas.image,
+      second: aboutSchemas.image,
     }),
   }),
 }
@@ -53,17 +40,28 @@ export const about6Fields: GroupField = {
   interfaceName: 'About6Fields',
   label: false,
   type: 'group',
-  admin: {
-    description: 'Modern about section with story and workplace galleries',
-  },
   fields: [
-    // Story Section
-    createSectionField({
+    {
+      type: 'group',
       name: 'storySection',
       label: 'Story Section',
       fields: [
-        baseFields.content.title,
-        baseFields.content.description,
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'Story section title',
+          },
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          required: true,
+          admin: {
+            description: 'Story section description',
+          },
+        },
         {
           name: 'content',
           type: 'textarea',
@@ -73,50 +71,69 @@ export const about6Fields: GroupField = {
           },
         },
       ],
-    }),
-
-    // Left Gallery
-    createSectionField({
+    },
+    {
+      type: 'group',
       name: 'leftGallery',
       label: 'Left Gallery',
       fields: [
         {
-          ...baseFields.media.image,
           name: 'mainImage',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
           admin: {
             description: 'Main image (aspect ratio 0.7)',
           },
         },
-        createFieldGroup({
+        {
+          type: 'group',
           name: 'sideImages',
           label: 'Side Images',
           fields: [
             {
-              ...baseFields.media.image,
               name: 'first',
+              type: 'upload',
+              relationTo: 'media',
+              required: true,
               admin: {
                 description: 'First side image (aspect ratio 1.1)',
               },
             },
             {
-              ...baseFields.media.image,
               name: 'second',
+              type: 'upload',
+              relationTo: 'media',
+              required: true,
               admin: {
                 description: 'Second side image (aspect ratio 0.7)',
               },
             },
           ],
-        }),
+        },
       ],
-    }),
-
-    // Workplace Section
-    createSectionField({
+    },
+    {
+      type: 'group',
       name: 'workplaceSection',
       label: 'Workplace Section',
       fields: [
-        baseFields.content.title,
-        baseFields.content.description,
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'Workplace section title',
+          },
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          required: true,
+          admin: {
+            description: 'Workplace section description',
+          },
+        },
         {
           name: 'content',
           type: 'textarea',
@@ -126,41 +143,50 @@ export const about6Fields: GroupField = {
           },
         },
       ],
-    }),
-
-    // Right Gallery
-    createSectionField({
+    },
+    {
+      type: 'group',
       name: 'rightGallery',
       label: 'Right Gallery',
       fields: [
         {
-          ...baseFields.media.image,
           name: 'mainImage',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
           admin: {
             description: 'Main image (aspect ratio 0.9)',
           },
         },
-        createFieldGroup({
+        {
+          type: 'group',
           name: 'sideImages',
           label: 'Side Images',
           fields: [
             {
-              ...baseFields.media.image,
               name: 'first',
+              type: 'upload',
+              relationTo: 'media',
+              required: true,
               admin: {
                 description: 'First side image (aspect ratio 0.8)',
               },
             },
             {
-              ...baseFields.media.image,
               name: 'second',
+              type: 'upload',
+              relationTo: 'media',
+              required: true,
               admin: {
                 description: 'Second side image (aspect ratio 0.9)',
               },
             },
           ],
-        }),
+        },
       ],
-    }),
+    },
   ],
+  admin: {
+    description: 'Modern about section with story and workplace galleries',
+  },
 }
