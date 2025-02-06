@@ -1810,11 +1810,11 @@ export interface About5Fields {
      */
     label: string;
     /**
-     * Main title
+     * Section title
      */
     title: string;
     /**
-     * Main description
+     * Section description
      */
     description: string;
   };
@@ -1833,13 +1833,18 @@ export interface About5Fields {
      * Partners section title
      */
     title: string;
-    partners: {
-      /**
-       * Partner logo
-       */
-      logo: string | Media;
-      id?: string | null;
-    }[];
+    /**
+     * Partner logos (exactly 4 items)
+     */
+    partners?:
+      | {
+          /**
+           * Partner logo
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
   };
   missionSection: {
     /**
@@ -1850,17 +1855,22 @@ export interface About5Fields {
      * Mission description
      */
     description: string;
-    stats: {
-      /**
-       * Statistic value
-       */
-      value: string;
-      /**
-       * Statistic label
-       */
-      label: string;
-      id?: string | null;
-    }[];
+    /**
+     * Mission statistics (exactly 2 items)
+     */
+    stats?:
+      | {
+          /**
+           * Statistic value
+           */
+          value: string;
+          /**
+           * Statistic label
+           */
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
     /**
      * Mission section image
      */

@@ -1,38 +1,55 @@
 import type { GroupField } from 'payload'
 import { z } from 'zod'
-import { aboutSchemas } from '../shared/base-field'
+import {
+  aboutSchemas,
+  baseFields,
+  commonSchemas,
+  createArrayField,
+  createSectionField,
+} from '../shared/base-field'
 
 /**
  * About5 field validation and type definitions
  */
 export const schemas = {
+  /** Main section */
   mainSection: z.object({
     label: aboutSchemas.label,
     title: aboutSchemas.title,
     description: aboutSchemas.description,
   }),
+
+  /** Image section */
   imageSection: z.object({
-    image: aboutSchemas.image,
-    caption: z.string(),
+    image: commonSchemas.media.image.describe('Main section image'),
+    caption: z.string().describe('Image caption text'),
   }),
+
+  /** Partners section */
   partnersSection: z.object({
     title: aboutSchemas.title,
-    partners: z.array(
-      z.object({
-        logo: aboutSchemas.image,
-      }),
-    ),
+    partners: z
+      .array(
+        z.object({
+          logo: commonSchemas.media.image.describe('Partner company logo'),
+        }),
+      )
+      .length(4),
   }),
+
+  /** Mission section */
   missionSection: z.object({
     title: aboutSchemas.title,
     description: aboutSchemas.description,
-    stats: z.array(
-      z.object({
-        value: z.string(),
-        label: z.string(),
-      }),
-    ),
-    image: aboutSchemas.image,
+    stats: z
+      .array(
+        z.object({
+          value: z.string().describe('Statistic value'),
+          label: z.string().describe('Statistic label'),
+        }),
+      )
+      .length(2),
+    image: commonSchemas.media.image.describe('Mission section image'),
   }),
 }
 
@@ -44,154 +61,107 @@ export const about5Fields: GroupField = {
   interfaceName: 'About5Fields',
   label: false,
   type: 'group',
+  admin: {
+    description: 'Modern about section with mission and partners showcase',
+  },
   fields: [
-    {
-      type: 'group',
+    // Main Section
+    createSectionField({
       name: 'mainSection',
       label: 'Main Section',
       fields: [
         {
-          name: 'label',
-          type: 'text',
-          required: true,
+          ...baseFields.content.label,
           admin: {
             description: 'Section label (e.g., "ABOUT US")',
           },
         },
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Main title',
-          },
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          required: true,
-          admin: {
-            description: 'Main description',
-          },
-        },
+        baseFields.content.title,
+        baseFields.content.description,
       ],
-    },
-    {
-      type: 'group',
+    }),
+
+    // Image Section
+    createSectionField({
       name: 'imageSection',
       label: 'Image Section',
       fields: [
         {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'Main image',
-          },
+          ...baseFields.media.image,
+          admin: { description: 'Main image' },
         },
         {
           name: 'caption',
           type: 'text',
           required: true,
-          admin: {
-            description: 'Image caption',
-          },
+          admin: { description: 'Image caption' },
         },
       ],
-    },
-    {
-      type: 'group',
+    }),
+
+    // Partners Section
+    createSectionField({
       name: 'partnersSection',
       label: 'Partners Section',
       fields: [
         {
-          name: 'title',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Partners section title',
-          },
+          ...baseFields.content.title,
+          admin: { description: 'Partners section title' },
         },
-        {
+        createArrayField({
           name: 'partners',
-          type: 'array',
-          required: true,
-          minRows: 4,
-          maxRows: 4,
           fields: [
             {
+              ...baseFields.media.image,
               name: 'logo',
-              type: 'upload',
-              relationTo: 'media',
-              required: true,
-              admin: {
-                description: 'Partner logo',
-              },
+              admin: { description: 'Partner logo' },
             },
           ],
-        },
+          minRows: 4,
+          maxRows: 4,
+          admin: { description: 'Partner logos (exactly 4 items)' },
+        }),
       ],
-    },
-    {
-      type: 'group',
+    }),
+
+    // Mission Section
+    createSectionField({
       name: 'missionSection',
       label: 'Mission Section',
       fields: [
         {
-          name: 'title',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Mission section title',
-          },
+          ...baseFields.content.title,
+          admin: { description: 'Mission section title' },
         },
         {
-          name: 'description',
-          type: 'textarea',
-          required: true,
-          admin: {
-            description: 'Mission description',
-          },
+          ...baseFields.content.description,
+          admin: { description: 'Mission description' },
         },
-        {
+        createArrayField({
           name: 'stats',
-          type: 'array',
-          required: true,
-          minRows: 2,
-          maxRows: 2,
           fields: [
             {
               name: 'value',
               type: 'text',
               required: true,
-              admin: {
-                description: 'Statistic value',
-              },
+              admin: { description: 'Statistic value' },
             },
             {
               name: 'label',
               type: 'text',
               required: true,
-              admin: {
-                description: 'Statistic label',
-              },
+              admin: { description: 'Statistic label' },
             },
           ],
-        },
+          minRows: 2,
+          maxRows: 2,
+          admin: { description: 'Mission statistics (exactly 2 items)' },
+        }),
         {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'Mission section image',
-          },
+          ...baseFields.media.image,
+          admin: { description: 'Mission section image' },
         },
       ],
-    },
+    }),
   ],
-  admin: {
-    description: 'Modern about section with mission and partners showcase',
-  },
 }
