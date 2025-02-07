@@ -1,5 +1,3 @@
-'use client'
-
 import { ImageMedia } from '@/components/Media/ImageMedia'
 import type { About2Fields } from '@/payload-types'
 

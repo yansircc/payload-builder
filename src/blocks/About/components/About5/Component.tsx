@@ -1,5 +1,3 @@
-'use client'
-
 import { Media } from '@/components/Media'
 import type { About5Fields } from '@/payload-types'
 

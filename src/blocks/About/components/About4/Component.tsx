@@ -1,5 +1,3 @@
-'use client'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { About4Fields } from '@/payload-types'

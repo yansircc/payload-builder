@@ -1,5 +1,3 @@
-'use client'
-
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { Media } from '@/components/Media'
 import type { About1Fields } from '@/payload-types'
