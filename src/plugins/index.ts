@@ -122,11 +122,11 @@ export const plugins: Plugin[] = [
     userHasAccessToAllTenants: (user) => isSuperAdmin(user),
   }),
   vercelBlobStorage({
-    enabled: process.env.NODE_ENV !== 'local',
+    enabled: process.env.NODE_ENV !== 'development',
     // Specify which collections should use Vercel Blob
     collections: {
       media: {
-        disableLocalStorage: process.env.NODE_ENV !== 'local',
+        disableLocalStorage: process.env.NODE_ENV !== 'development',
       },
     },
     // Token provided by Vercel once Blob storage is added to your Vercel project
