@@ -24,3 +24,6 @@ tsconfig.tsbuildinfo
 .env.*
 !.env.example
 !.env.docker.example
+
+# git config
+.gitconfig

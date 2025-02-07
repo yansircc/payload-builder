@@ -129,8 +129,9 @@ jobs:
         if: always()
         run: |
           echo "📋 Build Summary:" > build-report.txt
-          echo "⏱️ Duration: ${{ steps.build.outputs.duration }}" >> build-report.txt
-          echo "💾 Cache hit: ${{ steps.cache.outputs.cache-hit }}" >> build-report.txt
+          echo "⏱️ Build completed at: $(date)" >> build-report.txt
+          echo "🔄 Branch: ${{ github.ref }}" >> build-report.txt
+          echo "📍 Commit: ${{ github.sha }}" >> build-report.txt
 
       - name: 📤 Upload build report
         if: always()
