@@ -101,6 +101,10 @@ export const plugins: Plugin[] = [
       pages: {},
       posts: {},
       categories: {},
+      forms: {},
+      redirects: {},
+      'form-submissions': {},
+      search: {},
       header: { isGlobal: true },
       footer: { isGlobal: true },
       media: {
