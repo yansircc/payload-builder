@@ -50,7 +50,7 @@ export const Posts: CollectionConfig<'posts'> = {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
-          tenant: typeof data?.tenant.id === 'string' ? data.tenant.id : '',
+          tenant: typeof data?.tenant === 'string' ? data.tenant : '',
           collection: 'posts',
           req,
         })
