@@ -20,6 +20,7 @@ export async function GET(
   const path = searchParams.get('path')
   const collection = searchParams.get('collection') as CollectionSlug
   const slug = searchParams.get('slug')
+  const tenant = searchParams.get('tenant')
 
   const previewSecret = searchParams.get('previewSecret')
 
@@ -79,6 +80,9 @@ export async function GET(
         depth: 0,
         select: {},
         where: {
+          tenant: {
+            equals: tenant,
+          },
           slug: {
             equals: slug,
           },
