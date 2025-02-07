@@ -377,6 +377,7 @@ export interface Media {
  */
 export interface Post {
   id: string;
+  tenant?: (string | null) | Tenant;
   title: string;
   heroImage?: (string | null) | Media;
   content: {
@@ -424,6 +425,7 @@ export interface Post {
  */
 export interface Category {
   id: string;
+  tenant?: (string | null) | Tenant;
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
@@ -2805,6 +2807,7 @@ export interface FormBlock {
  */
 export interface Form {
   id: string;
+  tenant?: (string | null) | Tenant;
   title: string;
   fields?:
     | (
@@ -8306,6 +8309,7 @@ export interface Footer10Fields {
  */
 export interface Redirect {
   id: string;
+  tenant?: (string | null) | Tenant;
   /**
    * You will need to rebuild the website when changing this field.
    */
@@ -8332,6 +8336,7 @@ export interface Redirect {
  */
 export interface FormSubmission {
   id: string;
+  tenant?: (string | null) | Tenant;
   form: string | Form;
   submissionData?:
     | {
@@ -8351,6 +8356,7 @@ export interface FormSubmission {
  */
 export interface Search {
   id: string;
+  tenant?: (string | null) | Tenant;
   title?: string | null;
   priority?: number | null;
   doc: {
@@ -11543,6 +11549,7 @@ export interface Logos8FieldsSelect<T extends boolean = true> {
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
+  tenant?: T;
   title?: T;
   heroImage?: T;
   content?: T;
@@ -11668,6 +11675,7 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
+  tenant?: T;
   title?: T;
   slug?: T;
   slugLock?: T;
@@ -12770,6 +12778,7 @@ export interface Footer10FieldsSelect<T extends boolean = true> {
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
+  tenant?: T;
   from?: T;
   to?:
     | T
@@ -12786,6 +12795,7 @@ export interface RedirectsSelect<T extends boolean = true> {
  * via the `definition` "forms_select".
  */
 export interface FormsSelect<T extends boolean = true> {
+  tenant?: T;
   title?: T;
   fields?:
     | T
@@ -12918,6 +12928,7 @@ export interface FormsSelect<T extends boolean = true> {
  * via the `definition` "form-submissions_select".
  */
 export interface FormSubmissionsSelect<T extends boolean = true> {
+  tenant?: T;
   form?: T;
   submissionData?:
     | T
@@ -12934,6 +12945,7 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
  * via the `definition` "search_select".
  */
 export interface SearchSelect<T extends boolean = true> {
+  tenant?: T;
   title?: T;
   priority?: T;
   doc?: T;
