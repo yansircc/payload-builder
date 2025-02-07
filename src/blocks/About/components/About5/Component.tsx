@@ -1,7 +1,7 @@
 'use client'
 
-import type { About5Fields } from '@/payload-types'
 import { Media } from '@/components/Media'
+import type { About5Fields } from '@/payload-types'
 
 export default function About5({
   mainSection,

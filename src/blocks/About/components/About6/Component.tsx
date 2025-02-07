@@ -1,7 +1,7 @@
 'use client'
 
-import type { About6Fields } from '@/payload-types'
 import { Media } from '@/components/Media'
+import type { About6Fields } from '@/payload-types'
 
 export default function About6({
   storySection,

@@ -1,8 +1,8 @@
 'use client'
 
-import type { About1Fields } from '@/payload-types'
-import { Media } from '@/components/Media'
 import { DynamicIcon } from '@/components/DynamicIcon'
+import { Media } from '@/components/Media'
+import type { About1Fields } from '@/payload-types'
 
 export default function About1({
   mainSection,

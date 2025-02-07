@@ -1,6 +1,6 @@
-import { link } from '@/fields/link'
 import type { GroupField } from 'payload'
 import { z } from 'zod'
+import { link } from '@/fields/link'
 import {
   aboutSchemas,
   baseFields,

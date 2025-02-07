@@ -1,8 +1,8 @@
 'use client'
 
-import type { About4Fields } from '@/payload-types'
-import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
+import type { About4Fields } from '@/payload-types'
 
 export default function About4({
   mainSection,

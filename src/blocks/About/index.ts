@@ -9,9 +9,8 @@
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
 
-import type { AboutBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
-
+import type { AboutBlock } from '@/payload-types'
 // Import all About components
 import About1Component from './components/About1/Component'
 import About2Component from './components/About2/Component'
