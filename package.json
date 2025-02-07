@@ -32,7 +32,8 @@
     "cache:clear": "rm -rf .next/cache",
     "preinstall": "bun clean",
     "docker:build": "sh scripts/docker-build.sh",
-    "docker:build:local": "sh scripts/docker-build-local.sh"
+    "docker:build:local": "sh scripts/docker-build-local.sh",
+    "generate:translations": "bun generate:types && bun run scripts/generate-translations/index.ts"
   },
   "dependencies": {
     "@ai-sdk/deepseek": "^0.1.3",

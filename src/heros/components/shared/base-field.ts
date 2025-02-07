@@ -1,6 +1,7 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
 import { link } from '@/fields/link'
+import { createFieldLabel } from '@/i18n'
 import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
 
 /**
@@ -45,6 +46,7 @@ export const heroSchemas = {
 const basicFields = {
   title: {
     name: 'title',
+    label: createFieldLabel('title'),
     type: 'text',
     required: true,
     admin: {
@@ -53,9 +55,13 @@ const basicFields = {
   },
   subtitle: {
     name: 'subtitle',
+    label: createFieldLabel('subtitle'),
     type: 'textarea',
     admin: {
-      description: 'Subtitle text',
+      description: {
+        en: 'Subtitle text',
+        zh: '副标题',
+      },
     },
   },
   trustText: {
@@ -81,6 +87,7 @@ const basicFields = {
 const mediaFields = {
   image: {
     name: 'image',
+    label: createFieldLabel('image'),
     type: 'upload',
     relationTo: 'media',
     required: true,
@@ -112,6 +119,7 @@ const featureFields = {
   },
   title: {
     name: 'title',
+    label: createFieldLabel('title'),
     type: 'text',
     required: true,
     admin: {
@@ -183,6 +191,7 @@ const partnerFields = {
 const miscFields = {
   badge: {
     name: 'badge',
+    label: createFieldLabel('badge'),
     type: 'text',
     admin: {
       description: 'Badge text displayed above title',
