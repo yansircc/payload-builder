@@ -124,7 +124,7 @@ export default function Gallery4({ gallery }: Props) {
           <CarouselContent className="ml-[calc(theme(container.padding)-20px)] mr-[calc(theme(container.padding))] 2xl:ml-[calc(50vw-700px+theme(container.padding)-20px)] 2xl:mr-[calc(50vw-700px+theme(container.padding))]">
             {gallery.items?.map((item: GalleryItem) => (
               <CarouselItem key={item.id} className="max-w-[320px] pl-[20px] lg:max-w-[360px]">
-                <a href={item.href} className="group rounded-xl">
+                <a href={item.href || '#'} className="group rounded-xl">
                   <div className="group relative h-full min-h-[27rem] max-w-full overflow-hidden rounded-xl bg-red-200 md:aspect-[5/4] lg:aspect-[16/9]">
                     <Media
                       resource={item.image}

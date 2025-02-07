@@ -11,7 +11,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
-    // 全局忽略模式需要放在配置的最前面
+    // Ignore patterns need to be placed at the beginning of the configuration
     ignores: [
       // Build outputs
       '.next/**',
@@ -22,8 +22,7 @@ const eslintConfig = [
       // Dependencies
       'node_modules/**',
 
-      // Config files
-      '*.config.js',
+      // Config files (Remove *.config.js)
       '*.config.ts',
       'next-env.d.ts',
 

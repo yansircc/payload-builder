@@ -1,6 +1,6 @@
 import { withPayload } from '@payloadcms/next/withPayload'
 import { fileURLToPath } from 'url'
-import { dirname } from 'path'
+import { env } from './src/env.js'
 
 import redirects from './redirects.js'
 
@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url)
 
 const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : undefined || process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  : undefined || env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -24,12 +24,31 @@ const nextConfig = {
           pathname: '**',
         }
       }),
+      {
+        hostname: '*.localhost.com',
+        protocol: 'http',
+        pathname: '**',
+      },
     ],
     minimumCacheTTL: 60,
     formats: ['image/avif', 'image/webp'],
   },
   reactStrictMode: true,
   redirects,
+  async rewrites() {
+    return [
+      {
+        source: '/((?!admin|api))tenant-domains/:path*',
+        destination: '/tenant-domains/:tenant/:path*',
+        has: [
+          {
+            type: 'host',
+            value: '(?<tenant>.*)',
+          },
+        ],
+      },
+    ]
+  },
 
   experimental: {
     reactCompiler: true,
@@ -64,7 +83,7 @@ const nextConfig = {
 
   compiler: {
     removeConsole:
-      process.env.NODE_ENV === 'production'
+      env.NODE_ENV === 'production'
         ? {
             exclude: ['error', 'warn'],
           }

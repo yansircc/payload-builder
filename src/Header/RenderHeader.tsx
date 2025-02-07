@@ -3,7 +3,9 @@ import { headerComponents } from '.'
 import { getHeader } from '@/utilities/getGlobals'
 
 export const RenderHeader = async () => {
-  const headerData: Header = await getHeader()
+  const headerData: Header | null = await getHeader()
+  if (!headerData) return null
+
   const { style } = headerData || {}
 
   if (!style) return null
