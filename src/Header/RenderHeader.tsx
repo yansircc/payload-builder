@@ -1,6 +1,6 @@
 import type { Header } from '@/payload-types'
-import { headerComponents } from '.'
 import { getHeader } from '@/utilities/getGlobals'
+import { headerComponents } from '.'
 
 export const RenderHeader = async () => {
   const headerData: Header | null = await getHeader()

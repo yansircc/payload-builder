@@ -9,9 +9,8 @@
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
 
-import type { TeamBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
-
+import type { TeamBlock } from '@/payload-types'
 // Import all Team components
 import Team1Component from './components/Team1/Component'
 import Team2Component from './components/Team2/Component'

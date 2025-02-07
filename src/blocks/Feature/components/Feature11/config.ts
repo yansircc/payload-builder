@@ -1,6 +1,6 @@
-import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
+import { link } from '@/fields/link'
 import { createFeatureField, featureSchemas, listFields } from '../shared/base-field'
 
 /**

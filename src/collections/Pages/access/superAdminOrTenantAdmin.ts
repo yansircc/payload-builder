@@ -1,5 +1,5 @@
-import { getUserTenantIDs } from '@/utilities/getUserTenantIDs'
 import { Access } from 'payload'
+import { getUserTenantIDs } from '@/utilities/getUserTenantIDs'
 import { isSuperAdmin } from '../../../access/isSuperAdmin'
 
 /**

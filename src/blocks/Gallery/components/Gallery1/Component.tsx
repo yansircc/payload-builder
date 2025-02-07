@@ -2,7 +2,6 @@
 
 import { ArrowUpRight, Plus } from 'lucide-react'
 import { useState } from 'react'
-
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import type { Gallery1Fields, Media as MediaType } from '@/payload-types'

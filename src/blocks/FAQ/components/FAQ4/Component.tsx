@@ -1,5 +1,5 @@
 import { ChevronRight } from 'lucide-react'
-
+import { CMSLink } from '@/components/Link'
 import {
   Accordion,
   AccordionContent,
@@ -9,7 +9,6 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { FAQ4Fields } from '@/payload-types'
-import { CMSLink } from '@/components/Link'
 
 export default function FAQ4({ faq }: FAQ4Fields) {
   const { title, subtitle, description, faqs, support } = faq

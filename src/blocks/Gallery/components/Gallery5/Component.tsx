@@ -2,7 +2,6 @@
 
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'

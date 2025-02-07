@@ -1,7 +1,7 @@
-import { Contact3Fields } from '@/payload-types'
 import { ClientMotionDiv } from '@/blocks/Feature/components/shared/motion'
-import { CMSLink } from '@/components/Link'
 import { DynamicIcon } from '@/components/DynamicIcon'
+import { CMSLink } from '@/components/Link'
+import { Contact3Fields } from '@/payload-types'
 
 export default function Contact3({ contact }: Contact3Fields) {
   const { title, subtitle, links, supportList, officeList } = contact

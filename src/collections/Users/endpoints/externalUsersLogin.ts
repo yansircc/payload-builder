@@ -1,6 +1,5 @@
-import type { Collection, Endpoint } from 'payload'
-
 import { headersWithCors } from '@payloadcms/next/utilities'
+import type { Collection, Endpoint } from 'payload'
 import { APIError, generatePayloadCookie } from 'payload'
 
 // A custom endpoint that can be reached by POST request

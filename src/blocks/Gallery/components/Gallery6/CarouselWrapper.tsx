@@ -1,10 +1,9 @@
 'use client'
 
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Carousel, CarouselApi, CarouselContent } from '@/components/ui/carousel'
-import React from 'react'
 
 interface CarouselWrapperProps {
   children: React.ReactNode

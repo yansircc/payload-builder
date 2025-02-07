@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload'
-
 import { isSuperAdminAccess } from '@/access/isSuperAdmin'
 import { updateAndDeleteAccess } from './access/updateAndDelete'
 

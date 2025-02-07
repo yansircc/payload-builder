@@ -1,6 +1,6 @@
+import { CircleCheck } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { Footer9Fields } from '@/payload-types'
-import { CircleCheck } from 'lucide-react'
 
 export default function Footer9({ footer }: Footer9Fields) {
   const { sections, title, subtitle, copyright, socialLinks, leftLinks, links } = footer

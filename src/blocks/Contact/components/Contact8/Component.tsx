@@ -1,5 +1,5 @@
-import { Contact8Fields } from '@/payload-types'
 import { Media } from '@/components/Media'
+import { Contact8Fields } from '@/payload-types'
 
 export default function Contact8({ contact }: Contact8Fields) {
   const { title, subtitle, image, supportList, officeList } = contact

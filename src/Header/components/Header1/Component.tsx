@@ -1,5 +1,7 @@
 import { Menu } from 'lucide-react'
-
+import { DynamicIcon } from '@/components/DynamicIcon'
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import {
   Accordion,
   AccordionContent,
@@ -7,7 +9,6 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Button, buttonVariants } from '@/components/ui/button'
-import { CMSLink } from '@/components/Link'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -20,8 +21,6 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Header1Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
-import { Media } from '@/components/Media'
-import { DynamicIcon } from '@/components/DynamicIcon'
 
 export default function Header1({ header }: Header1Fields) {
   const { logo, menu, title, rightSideLinks } = header

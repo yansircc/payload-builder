@@ -1,7 +1,7 @@
-import { link } from '@/fields/link'
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
+import { link } from '@/fields/link'
+import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
 
 /**
  * Atomic feature field schemas

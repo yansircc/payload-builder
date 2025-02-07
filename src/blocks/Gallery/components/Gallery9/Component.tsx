@@ -1,19 +1,18 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-
+import { DynamicIcon } from '@/components/DynamicIcon'
+import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import {
-  type CarouselApi,
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from '@/components/ui/carousel'
-import { Media } from '@/components/Media'
 import type { Gallery9Fields } from '@/payload-types'
-import { DynamicIcon } from '@/components/DynamicIcon'
 
 export default function Gallery9({ gallery }: { gallery: Gallery9Fields['gallery'] }) {
   const { title, description, sections } = gallery

@@ -1,7 +1,7 @@
-import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '../shared/motion'
-import { Logos2Fields } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
+import { Logos2Fields } from '@/payload-types'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Logos2({ logos }: Logos2Fields) {
   const { title, description, logos: logoItems, link } = logos

@@ -1,7 +1,10 @@
 'use client'
+
 import { ChevronLeft, ChevronRight, Menu, X } from 'lucide-react'
 import { useState } from 'react'
-
+import Link from 'next/link'
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'
 import {
   NavigationMenu,
@@ -11,16 +14,13 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
+import { Header3Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 import Style1 from './components/submenu/style1/Component'
 import Style2 from './components/submenu/style2/Component'
 import Style3 from './components/submenu/style3/Component'
 import Style4 from './components/submenu/style4/Component'
-import { Header3Fields } from '@/payload-types'
-import { Media } from '@/components/Media'
-import Link from 'next/link'
-import { CMSLink } from '@/components/Link'
 import renderMobileSubmenu from './utils/renderMobileSubmenu'
-import { cn } from '@/utilities/ui'
 
 export default function Header3({ header, menu }: Header3Fields) {
   const { logo, rightLinks } = header

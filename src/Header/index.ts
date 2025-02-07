@@ -9,9 +9,8 @@
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
 
-import type { Header } from '@/payload-types'
 import type { ComponentType } from 'react'
-
+import type { Header } from '@/payload-types'
 // Import all Header components
 import Header1Component from './components/Header1/Component'
 import Header3Component from './components/Header3/Component'

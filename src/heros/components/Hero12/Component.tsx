@@ -1,12 +1,12 @@
 import { ExternalLink } from 'lucide-react'
-import { cn } from '@/utilities/ui'
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
-import { Media } from '@/components/Media'
-import { CMSLink } from '@/components/Link'
+import type { Hero12Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
-import type { Hero12Fields } from '@/payload-types'
 
 export default function Hero12({ hero }: Hero12Fields) {
   const { logo, badge, partners, title, subtitle, links } = hero

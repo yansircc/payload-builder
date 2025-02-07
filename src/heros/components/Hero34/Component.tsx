@@ -1,7 +1,7 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '../shared/motion'
 import type { Hero34Fields } from '@/payload-types'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero34({ hero }: Hero34Fields) {
   const { badge, title, subtitle, links, image } = hero

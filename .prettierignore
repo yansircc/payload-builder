@@ -1,14 +1,36 @@
+# Build Output
+.next
+dist
+build
+out
+
+# Dependencies
+node_modules
+
+# Cache
+.cache
+.vercel
+
+# Other
+.git
+*.log
+coverage
+public
+
+# Package Manager Lock Files
+package-lock.json
+yarn.lock
+bun.lockb
+
+# Environment Variables
+.env*
+
+# Payload Types
 **/payload-types.ts
+
+# Temporary Files
 .tmp
-**/.git
-**/.hg
-**/.pnp.*
-**/.svn
-**/.yarn/**
-**/build
-**/dist/**
-**/node_modules
-**/temp
-**/docs/**
+
+# Package Manager
 tsconfig.json
 

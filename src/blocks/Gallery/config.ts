@@ -1,5 +1,4 @@
 import type { Block, Field } from 'payload'
-
 import { gallery1Fields } from './components/Gallery1/config'
 import { gallery3Fields } from './components/Gallery3/config'
 import { gallery4Fields } from './components/Gallery4/config'

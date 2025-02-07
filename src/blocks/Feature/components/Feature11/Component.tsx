@@ -1,8 +1,8 @@
 import { DynamicIcon } from '@/components/DynamicIcon'
-import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
-import { ClientMotionDiv } from '../shared/motion'
+import { Media } from '@/components/Media'
 import { Feature11Fields } from '@/payload-types'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Feature11({ feature }: Feature11Fields) {
   const { title, description, image, links, features } = feature

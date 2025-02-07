@@ -1,8 +1,8 @@
-import { env } from '@/env'
 import config from '@payload-config'
 import { getServerSideSitemap } from 'next-sitemap'
-import { unstable_cache } from 'next/cache'
 import { getPayload } from 'payload'
+import { unstable_cache } from 'next/cache'
+import { env } from '@/env'
 
 const getPagesSitemap = unstable_cache(
   async () => {

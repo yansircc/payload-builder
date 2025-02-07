@@ -1,6 +1,6 @@
 import type { Footer } from '@/payload-types'
-import { footerComponents } from '.'
 import { getFooter } from '@/utilities/getGlobals'
+import { footerComponents } from '.'
 
 export const RenderFooter = async () => {
   const footerData: Footer | null = await getFooter()

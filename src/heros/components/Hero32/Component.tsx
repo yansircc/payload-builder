@@ -65,7 +65,10 @@ export default function Hero32({ hero }: Hero32Fields) {
                       className="flex gap-x-24 odd:-translate-x-24"
                       initial={{ opacity: 0, x: rowIndex % 2 === 0 ? 50 : -50 }}
                       animate={{ opacity: 1, x: rowIndex % 2 === 0 ? 0 : -96 }}
-                      transition={{ duration: 0.8, delay: 0.3 + rowIndex * 0.2 }}
+                      transition={{
+                        duration: 0.8,
+                        delay: 0.3 + rowIndex * 0.2,
+                      }}
                     >
                       {rowIntegrations.map((integration, i) => (
                         <div

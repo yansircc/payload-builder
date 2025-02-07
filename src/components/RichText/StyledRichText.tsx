@@ -1,6 +1,6 @@
-import React from 'react'
-import { RichText as BaseRichText } from '@payloadcms/richtext-lexical/react'
 import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import { RichText as BaseRichText } from '@payloadcms/richtext-lexical/react'
+import React from 'react'
 import { createRichTextConverter, type NodeStyle } from '@/utilities/rich-text'
 import { cn } from '@/utilities/ui'
 

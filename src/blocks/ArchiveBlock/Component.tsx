@@ -1,11 +1,9 @@
-import type { Post, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
-
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
-import RichText from '@/components/RichText'
-
 import { CollectionArchive } from '@/components/CollectionArchive'
+import RichText from '@/components/RichText'
+import type { ArchiveBlock as ArchiveBlockProps, Post } from '@/payload-types'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {

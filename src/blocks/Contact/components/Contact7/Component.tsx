@@ -1,6 +1,6 @@
-import { Contact7Fields } from '@/payload-types'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
+import { Contact7Fields } from '@/payload-types'
 
 export default function Contact7({ contact }: Contact7Fields) {
   const { title, subtitle, description, supportList } = contact

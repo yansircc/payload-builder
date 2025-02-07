@@ -1,7 +1,6 @@
 import React from 'react'
-
-import { Login } from '@/app/components/Login/client.page'
 import { headers } from 'next/headers'
+import { Login } from '@/app/components/Login/client.page'
 
 export default async function Page() {
   const headersList = headers()

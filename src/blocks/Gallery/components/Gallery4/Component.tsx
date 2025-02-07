@@ -2,7 +2,6 @@
 
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useEffect, useReducer } from 'react'
-
 import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
@@ -28,7 +27,10 @@ interface CarouselState {
 
 type CarouselAction =
   | { type: 'SET_API'; payload: CarouselApi }
-  | { type: 'UPDATE_NAVIGATION'; payload: { canScrollPrev: boolean; canScrollNext: boolean } }
+  | {
+      type: 'UPDATE_NAVIGATION'
+      payload: { canScrollPrev: boolean; canScrollNext: boolean }
+    }
 
 function carouselReducer(state: CarouselState, action: CarouselAction): CarouselState {
   switch (action.type) {

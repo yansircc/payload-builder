@@ -1,10 +1,10 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
-import { CarouselItem } from '@/components/ui/carousel'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
+import { CarouselItem } from '@/components/ui/carousel'
 import type { Gallery6Fields } from '@/payload-types'
-import { CarouselWrapper, CarouselControls } from './CarouselWrapper'
 import { ClientMotionDiv } from '../shared/motion'
+import { CarouselControls, CarouselWrapper } from './CarouselWrapper'
 
 export default function Gallery6({ gallery }: Gallery6Fields) {
   const { title, link, cards } = gallery

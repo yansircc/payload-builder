@@ -1,7 +1,7 @@
+import { ArrowUpRight } from 'lucide-react'
 import { Media } from '@/components/Media'
 import { NavigationMenuLink } from '@/components/ui/navigation-menu'
 import { Header3Fields } from '@/payload-types'
-import { ArrowUpRight } from 'lucide-react'
 
 type Style3Props = {
   data: NonNullable<NonNullable<Header3Fields['menu']>[number]['submenu']>
