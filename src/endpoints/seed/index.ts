@@ -104,16 +104,18 @@ export const seed = async ({
     financeCategory,
     designCategory,
     softwareCategory,
-    engineeringCategory,
+    // engineeringCategory,
   ] = await Promise.all([
     payload.create({
       collection: 'users',
       data: {
-        name: 'Demo Author',
+        username: 'demo',
         email: 'demo-author@example.com',
         password: 'password',
+        roles: ['super-admin'],
       },
     }),
+
     payload.create({
       collection: 'media',
       data: image1,
@@ -297,6 +299,126 @@ export const seed = async ({
     },
   })
 
+  payload.logger.info(`— Seeding tenants and users...`)
+  // Create super admin
+  await payload.create({
+    collection: 'users',
+    data: {
+      email: 'demo@payloadcms.com',
+      password: 'demo',
+      roles: ['super-admin'],
+    },
+  })
+
+  // Create tenants
+  const [tenant1, tenant2, tenant3] = await Promise.all([
+    payload.create({
+      collection: 'tenants',
+      data: {
+        name: 'Tenant 1',
+        slug: 'gold',
+        domain: 'gold.localhost.com',
+      },
+    }),
+    payload.create({
+      collection: 'tenants',
+      data: {
+        name: 'Tenant 2',
+        slug: 'silver',
+        domain: 'silver.localhost.com',
+      },
+    }),
+    payload.create({
+      collection: 'tenants',
+      data: {
+        name: 'Tenant 3',
+        slug: 'bronze',
+        domain: 'bronze.localhost.com',
+      },
+    }),
+  ])
+
+  // Create tenant users
+  await Promise.all([
+    payload.create({
+      collection: 'users',
+      data: {
+        email: 'tenant1@payloadcms.com',
+        password: 'test',
+        tenants: [{ roles: ['tenant-admin'], tenant: tenant1.id }],
+        username: 'tenant1',
+      },
+    }),
+    payload.create({
+      collection: 'users',
+      data: {
+        email: 'tenant2@payloadcms.com',
+        password: 'test',
+        tenants: [{ roles: ['tenant-admin'], tenant: tenant2.id }],
+        username: 'tenant2',
+      },
+    }),
+    payload.create({
+      collection: 'users',
+      data: {
+        email: 'tenant3@payloadcms.com',
+        password: 'test',
+        tenants: [{ roles: ['tenant-admin'], tenant: tenant3.id }],
+        username: 'tenant3',
+      },
+    }),
+    payload.create({
+      collection: 'users',
+      data: {
+        email: 'multi-admin@payloadcms.com',
+        password: 'test',
+        tenants: [
+          { roles: ['tenant-admin'], tenant: tenant1.id },
+          { roles: ['tenant-admin'], tenant: tenant2.id },
+          { roles: ['tenant-admin'], tenant: tenant3.id },
+        ],
+        username: 'multi-admin',
+      },
+    }),
+  ])
+
+  // Create tenant pages
+  await Promise.all([
+    payload.create({
+      collection: 'pages',
+      data: {
+        ...JSON.parse(
+          JSON.stringify(home)
+            .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
+            .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
+        ),
+        tenant: tenant1.id,
+      },
+    }),
+    payload.create({
+      collection: 'pages',
+      data: {
+        ...JSON.parse(
+          JSON.stringify(home)
+            .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
+            .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
+        ),
+        tenant: tenant2.id,
+      },
+    }),
+    payload.create({
+      collection: 'pages',
+      data: {
+        ...JSON.parse(
+          JSON.stringify(home)
+            .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
+            .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
+        ),
+        tenant: tenant3.id,
+      },
+    }),
+  ])
+
   payload.logger.info(`— Seeding contact form...`)
 
   const contactForm = await payload.create({
@@ -313,60 +435,54 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [_, contactPage] = await Promise.all([
+  const [_] = await Promise.all([
     payload.create({
       collection: 'pages',
       depth: 0,
-      data: JSON.parse(
-        JSON.stringify(home)
-          .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
-          .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
-      ),
-    }),
-    payload.create({
-      collection: 'pages',
-      depth: 0,
-      data: JSON.parse(
-        JSON.stringify(contactPageData).replace(
-          /"\{\{CONTACT_FORM_ID\}\}"/g,
-          String(contactFormID),
+      data: {
+        ...JSON.parse(
+          JSON.stringify(contactPageData).replace(
+            /"\{\{CONTACT_FORM_ID\}\}"/g,
+            String(contactFormID),
+          ),
         ),
-      ),
+        tenant: tenant1.id,
+      },
     }),
   ])
 
   payload.logger.info(`— Seeding globals...`)
 
-  // await Promise.all([
-  //   payload.updateGlobal({
-  //     slug: 'header',
-  //     data: {
-  //       navItems: [
-  //         {
-  //           link: {
-  //             type: 'custom',
-  //             label: 'Posts',
-  //             url: '/posts',
-  //           },
-  //         },
-  //         {
-  //           link: {
-  //             type: 'reference',
-  //             label: 'Contact',
-  //             reference: {
-  //               relationTo: 'pages',
-  //               value: contactPage.id,
-  //             },
-  //           },
-  //         },
-  //       ],
-  //     },
-  //   }),
-  //   payload.updateGlobal({
-  //     slug: 'footer',
-  //     data: footer,
-  //   }),
-  // ])
+  await Promise.all([
+    // payload.updateGlobal({
+    //   slug: 'header',
+    //   data: {
+    //     navItems: [
+    //       {
+    //         link: {
+    //           type: 'custom',
+    //           label: 'Posts',
+    //           url: '/posts',
+    //         },
+    //       },
+    //       {
+    //         link: {
+    //           type: 'reference',
+    //           label: 'Contact',
+    //           reference: {
+    //             relationTo: 'pages',
+    //             value: contactPage.id,
+    //           },
+    //         },
+    //       },
+    //     ],
+    //   },
+    // }),
+    // payload.updateGlobal({
+    //   slug: 'footer',
+    //   data: footer,
+    // }),
+  ])
 
   payload.logger.info('Seeded database successfully!')
 }

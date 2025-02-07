@@ -133,7 +133,7 @@ export default function Gallery5({ gallery }: Gallery5Props) {
           <CarouselContent className="ml-[calc(theme(container.padding)-40px)] mr-[calc(theme(container.padding))] lg:ml-[calc(200px-40px)] lg:mr-[200px] 2xl:ml-[calc(50vw-700px+200px-40px)] 2xl:mr-[calc(50vw-700px+200px)]">
             {items.map((item: GalleryItem) => (
               <CarouselItem key={item.id} className="pl-[40px]">
-                <a href={item.href} className="group rounded-xl">
+                <a href={item.href || '#'} className="group rounded-xl">
                   <div className="flex flex-col overflow-clip rounded-xl border border-border md:col-span-2 md:grid md:grid-cols-2 md:gap-6 lg:gap-8">
                     <div className="md:min-h-[24rem] lg:min-h-[28rem] xl:min-h-[32rem]">
                       <Media

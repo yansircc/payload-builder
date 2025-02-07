@@ -31,7 +31,9 @@
     "build:turbo": "NEXT_TURBO=1 next build",
     "dev:turbo": "NEXT_TURBO=1 next dev",
     "cache:clear": "rm -rf .next/cache",
-    "preinstall": "bun clean"
+    "preinstall": "bun clean",
+    "docker:build": "sh scripts/docker-build.sh",
+    "docker:build:local": "sh scripts/docker-build-local.sh"
   },
   "dependencies": {
     "@ai-sdk/deepseek": "^0.1.3",
@@ -41,11 +43,13 @@
     "@payloadcms/next": "3.20.0",
     "@payloadcms/payload-cloud": "3.20.0",
     "@payloadcms/plugin-form-builder": "3.20.0",
+    "@payloadcms/plugin-multi-tenant": "^3.20.0",
     "@payloadcms/plugin-nested-docs": "3.20.0",
     "@payloadcms/plugin-redirects": "3.20.0",
     "@payloadcms/plugin-search": "3.20.0",
     "@payloadcms/plugin-seo": "3.20.0",
     "@payloadcms/richtext-lexical": "3.20.0",
+    "@payloadcms/storage-vercel-blob": "^3.20.0",
     "@payloadcms/ui": "3.20.0",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-avatar": "^1.1.2",
@@ -57,6 +61,7 @@
     "@radix-ui/react-separator": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/react-toggle-group": "^1.1.1",
+    "@t3-oss/env-nextjs": "^0.12.0",
     "ai": "^4.1.5",
     "babel-plugin-react-compiler": "^19.0.0-beta-714736e-20250131",
     "class-variance-authority": "^0.7.1",
