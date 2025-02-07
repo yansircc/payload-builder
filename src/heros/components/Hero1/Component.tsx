@@ -1,11 +1,10 @@
+import { ArrowDownRight } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
-import { ArrowDownRight } from 'lucide-react'
-
+import type { Hero1Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
-import type { Hero1Fields } from '@/payload-types'
 
 export default function Hero1({ hero }: Hero1Fields) {
   const { title, subtitle, links, image, badge } = hero

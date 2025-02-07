@@ -48,6 +48,11 @@ const eslintConfig = [
 
       // Tailwind
       'tailwind.config.mjs',
+
+      // Config files
+      'tsconfig.json',
+      '*.config.js',
+      '*.config.ts',
     ],
   },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),

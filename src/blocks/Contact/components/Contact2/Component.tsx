@@ -1,5 +1,5 @@
-import type { Contact2Fields } from '@/payload-types'
 import { Form } from '@/components/Form'
+import type { Contact2Fields } from '@/payload-types'
 
 export default function Contact2({ contact }: Contact2Fields) {
   const { title, description, list, form } = contact

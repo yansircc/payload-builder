@@ -1,9 +1,8 @@
-import { Button, type ButtonProps } from '@/components/ui/button'
-import { cn } from '@/utilities/ui'
-import Link from 'next/link'
 import React from 'react'
-
+import Link from 'next/link'
+import { Button, type ButtonProps } from '@/components/ui/button'
 import type { Page, Post } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 import { DynamicIcon } from '../DynamicIcon'
 
 type CMSLinkType = {

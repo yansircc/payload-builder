@@ -1,7 +1,6 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero6Fields } from '@/payload-types'
-
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero6({ hero }: Hero6Fields) {

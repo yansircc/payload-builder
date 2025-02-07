@@ -1,5 +1,4 @@
 import type { Access } from 'payload'
-
 import { isSuperAdmin } from '../../../access/isSuperAdmin'
 
 export const filterByTenantRead: Access = (args) => {

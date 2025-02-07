@@ -1,9 +1,9 @@
-import { Avatar } from '@/components/ui/avatar'
-import { ClientMotionDiv } from '../shared/motion'
 import { Fragment } from 'react'
-import { Media } from '@/components/Media'
-import { Team3Fields } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
+import { Avatar } from '@/components/ui/avatar'
+import { Team3Fields } from '@/payload-types'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Team3({ team }: Team3Fields) {
   const { title, subtitle, description, people, links } = team

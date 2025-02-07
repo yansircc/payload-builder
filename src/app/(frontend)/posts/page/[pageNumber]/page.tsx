@@ -1,13 +1,12 @@
-import type { Metadata } from 'next/types'
-
-import { CollectionArchive } from '@/components/CollectionArchive'
-import { PageRange } from '@/components/PageRange'
-import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
-import PageClient from './page.client'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next/types'
+import { CollectionArchive } from '@/components/CollectionArchive'
+import { PageRange } from '@/components/PageRange'
+import { Pagination } from '@/components/Pagination'
+import PageClient from './page.client'
 
 export const revalidate = 600
 

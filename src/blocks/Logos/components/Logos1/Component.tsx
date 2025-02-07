@@ -1,6 +1,6 @@
 import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '../shared/motion'
 import { Logos1Fields } from '@/payload-types'
+import { ClientMotionDiv } from '../shared/motion'
 
 export default function Logos1({ logos }: Logos1Fields) {
   const { title, logos: logoItems } = logos

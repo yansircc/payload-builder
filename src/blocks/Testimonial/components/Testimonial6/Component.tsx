@@ -1,5 +1,4 @@
-import type { Testimonial6Fields } from '@/payload-types'
-
+import { Media } from '@/components/Media'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import {
   Carousel,
@@ -8,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { Media } from '@/components/Media'
+import type { Testimonial6Fields } from '@/payload-types'
 
 export default function Testimonial6({ testimonials, title }: Testimonial6Fields) {
   return (

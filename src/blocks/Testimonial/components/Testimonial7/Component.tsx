@@ -2,13 +2,12 @@
 
 import AutoScroll from 'embla-carousel-auto-scroll'
 import { useRef } from 'react'
-import type { Testimonial7Fields } from '@/payload-types'
-
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media } from '@/components/Media'
-import { CMSLink } from '@/components/Link'
+import type { Testimonial7Fields } from '@/payload-types'
 
 export default function Testimonial7({
   testimonials,

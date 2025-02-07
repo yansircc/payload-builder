@@ -1,8 +1,8 @@
 import { Play } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import type { CTA15Fields } from '@/payload-types'
 import { Button } from '@/components/ui/button'
+import type { CTA15Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function CTA15({ cta }: CTA15Fields) {

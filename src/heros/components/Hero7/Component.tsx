@@ -1,11 +1,10 @@
+import { Star } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Avatar } from '@/components/ui/avatar'
-import { Star } from 'lucide-react'
-
+import type { Hero7Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
-import type { Hero7Fields } from '@/payload-types'
 
 export default function Hero7({ hero }: Hero7Fields) {
   const { title, subtitle, link, rating } = hero

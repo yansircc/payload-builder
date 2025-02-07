@@ -1,9 +1,9 @@
-import { Card } from '@/components/ui/card'
-import { CMSLink } from '@/components/Link'
+import Link from 'next/link'
 import { DynamicIcon } from '@/components/DynamicIcon'
+import { CMSLink } from '@/components/Link'
+import { Card } from '@/components/ui/card'
 import type { CTA3Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
-import Link from 'next/link'
 
 export default function CTA3({ cta }: CTA3Fields) {
   const { title, subtitle, buttonLinks, listLinks } = cta

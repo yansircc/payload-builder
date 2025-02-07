@@ -1,6 +1,5 @@
 import { CollectionConfig } from 'payload'
 import { footer1Fields } from './components/Footer1/config'
-import { footer10Fields } from './components/Footer10/config'
 import { footer2Fields } from './components/Footer2/config'
 import { footer3Fields } from './components/Footer3/config'
 import { footer4Fields } from './components/Footer4/config'
@@ -9,6 +8,7 @@ import { footer6Fields } from './components/Footer6/config'
 import { footer7Fields } from './components/Footer7/config'
 import { footer8Fields } from './components/Footer8/config'
 import { footer9Fields } from './components/Footer9/config'
+import { footer10Fields } from './components/Footer10/config'
 
 /**
  * Footer Block configuration

@@ -2,12 +2,11 @@
 
 import { Star } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import type { Testimonial14Fields } from '@/payload-types'
-
+import { Media } from '@/components/Media'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media } from '@/components/Media'
+import type { Testimonial14Fields } from '@/payload-types'
 
 export default function Testimonial14({ testimonials }: Testimonial14Fields) {
   const [api, setApi] = useState<CarouselApi>()

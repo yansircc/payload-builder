@@ -1,8 +1,8 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { Media } from '@/components/Media'
 import { Footer10Fields } from '@/payload-types'
-import { useEffect, useState } from 'react'
 
 export default function Footer10({ footer }: Footer10Fields) {
   const { logo, bottomText } = footer

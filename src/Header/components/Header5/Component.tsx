@@ -1,8 +1,8 @@
 'use client'
 
 import { MenuIcon } from 'lucide-react'
+import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-
 import {
   Accordion,
   AccordionContent,
@@ -21,7 +21,6 @@ import {
 } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Header5Fields } from '@/payload-types'
-import { CMSLink } from '@/components/Link'
 
 export default function Header5({ header }: Header5Fields) {
   const { logo, menu, title, rightSideLinks } = header

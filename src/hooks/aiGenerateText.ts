@@ -1,7 +1,7 @@
-import { createAIFieldProcessor, FieldProcessor, processFields } from '@/utilities/fieldProcessors'
 import type { FieldHook } from 'payload'
 import { APIError } from 'payload'
 import { z } from 'zod'
+import { createAIFieldProcessor, FieldProcessor, processFields } from '@/utilities/fieldProcessors'
 
 /**
  * PayloadCMS 字段值类型

@@ -1,9 +1,8 @@
 'use client'
 
-import { Contact4Fields } from '@/payload-types'
+import Fade from 'embla-carousel-fade'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import Fade from 'embla-carousel-fade'
 import {
   Carousel,
   CarouselContent,
@@ -11,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+import { Contact4Fields } from '@/payload-types'
 
 export default function Contact4({ contact }: Contact4Fields) {
   const { title, subtitle, supportList, locationList } = contact

@@ -1,9 +1,9 @@
 import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Footer4Fields } from '@/payload-types'
-import { Media } from '@/components/Media'
 
 export default function Footer4({ footer }: Footer4Fields) {
   const { sections, logo, leftLinks, copyright, socialLinks, newsletter } = footer

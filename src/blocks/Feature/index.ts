@@ -9,21 +9,21 @@
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
 
-import type { FeatureBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
-
+import type { FeatureBlock } from '@/payload-types'
 // Import all Feature components
 import Feature1Component from './components/Feature1/Component'
-import Feature10Component from './components/Feature10/Component'
-import Feature11Component from './components/Feature11/Component'
-import Feature13Component from './components/Feature13/Component'
-import Feature14Component from './components/Feature14/Component'
-import Feature15Component from './components/Feature15/Component'
 import Feature2Component from './components/Feature2/Component'
 import Feature3Component from './components/Feature3/Component'
 import Feature5Component from './components/Feature5/Component'
 import Feature6Component from './components/Feature6/Component'
 import Feature7Component from './components/Feature7/Component'
+import Feature10Component from './components/Feature10/Component'
+import Feature11Component from './components/Feature11/Component'
+import Feature13Component from './components/Feature13/Component'
+import Feature14Component from './components/Feature14/Component'
+import Feature15Component from './components/Feature15/Component'
+
 // Export config
 export { feature1Fields } from './components/Feature1/config'
 export { feature10Fields } from './components/Feature10/config'

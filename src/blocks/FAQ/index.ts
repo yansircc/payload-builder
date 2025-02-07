@@ -9,9 +9,8 @@
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
 
-import type { FAQBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
-
+import type { FAQBlock } from '@/payload-types'
 // Import all FAQ components
 import FAQ1Component from './components/FAQ1/Component'
 import FAQ2Component from './components/FAQ2/Component'
@@ -19,6 +18,7 @@ import FAQ3Component from './components/FAQ3/Component'
 import FAQ4Component from './components/FAQ4/Component'
 import FAQ5Component from './components/FAQ5/Component'
 import FAQ6Component from './components/FAQ6/Component'
+
 // Export config
 export { faq1Fields } from './components/FAQ1/config'
 export { faq2Fields } from './components/FAQ2/config'

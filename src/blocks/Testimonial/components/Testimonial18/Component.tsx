@@ -1,6 +1,6 @@
 import { Star, Zap } from 'lucide-react'
-import { Avatar } from '@/components/ui/avatar'
 import { Media } from '@/components/Media'
+import { Avatar } from '@/components/ui/avatar'
 import type { Testimonial18Fields } from '@/payload-types'
 
 export default function Testimonial18({

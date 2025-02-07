@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 export const env = createEnv({
   server: {
-    NODE_ENV: z.enum(['development', 'production', 'test']),
+    NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
     DATABASE_URL: z.string().url(),
     PAYLOAD_SECRET: z.string().min(1),
     NEXT_PUBLIC_SERVER_URL: z.string().url(),
@@ -22,5 +22,6 @@ export const env = createEnv({
     CRON_SECRET: process.env.CRON_SECRET,
   },
 
-  skipValidation: !!process.env.CI || !!process.env.SKIP_ENV_VALIDATION,
+  skipValidation:
+    !!process.env.CI || !!process.env.SKIP_ENV_VALIDATION || process.env.NODE_ENV === 'development',
 })

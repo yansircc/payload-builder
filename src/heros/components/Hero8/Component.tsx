@@ -1,9 +1,8 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-
+import type { Hero8Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
-import type { Hero8Fields } from '@/payload-types'
 
 export default function Hero8({ hero }: Hero8Fields) {
   const { title, subtitle, links, image } = hero

@@ -1,5 +1,4 @@
 import type { CheckboxField, TextField } from 'payload'
-
 import { ensureUniqueSlug } from '@/collections/Pages/hooks/ensureUniqueSlug'
 import { formatSlugHook } from './formatSlug'
 

@@ -1,8 +1,8 @@
+import { Fragment } from 'react'
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import { Avatar } from '@/components/ui/avatar'
 import { Team2Fields } from '@/payload-types'
-import { Media } from '@/components/Media'
-import { CMSLink } from '@/components/Link'
-import { Fragment } from 'react'
 
 export default function Team2({ team }: Team2Fields) {
   const { title, subtitle, description, people } = team

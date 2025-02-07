@@ -9,9 +9,8 @@
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
 
-import type { GalleryBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
-
+import type { GalleryBlock } from '@/payload-types'
 // Import all Gallery components
 import Gallery1Component from './Gallery1/Component'
 import Gallery3Component from './Gallery3/Component'

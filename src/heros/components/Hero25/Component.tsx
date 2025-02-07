@@ -1,12 +1,14 @@
 import { MoveRight } from 'lucide-react'
 import * as LucideIcons from 'lucide-react'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '../shared/motion'
 import type { Hero25Fields } from '@/payload-types'
+import { ClientMotionDiv } from '../shared/motion'
 
-type IconComponent = React.ComponentType<{ className?: string; size?: number | string }>
+type IconComponent = React.ComponentType<{
+  className?: string
+  size?: number | string
+}>
 
 export default function Hero25({ hero }: Hero25Fields) {
   const { logo, badge, features, title, links } = hero

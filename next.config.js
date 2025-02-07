@@ -1,8 +1,7 @@
-import { withPayload } from '@payloadcms/next/withPayload'
 import { fileURLToPath } from 'url'
-import { env } from './src/env.js'
-
+import { withPayload } from '@payloadcms/next/withPayload'
 import redirects from './redirects.js'
+import { env } from './src/env.js'
 
 // Get __filename in ES modules
 const __filename = fileURLToPath(import.meta.url)

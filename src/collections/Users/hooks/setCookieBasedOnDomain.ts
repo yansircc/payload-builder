@@ -1,6 +1,5 @@
-import type { CollectionAfterLoginHook } from 'payload'
-
 import { mergeHeaders } from '@payloadcms/next/utilities'
+import type { CollectionAfterLoginHook } from 'payload'
 import { generateCookie, getCookieExpiration } from 'payload'
 
 export const setCookieBasedOnDomain: CollectionAfterLoginHook = async ({ req, user }) => {

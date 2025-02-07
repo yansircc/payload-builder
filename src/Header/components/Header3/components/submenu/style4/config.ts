@@ -1,5 +1,5 @@
-import { link } from '@/fields/link'
 import { Field } from 'payload'
+import { link } from '@/fields/link'
 
 export const style4Submenu = [
   {
