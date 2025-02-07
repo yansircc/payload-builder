@@ -1,4 +1,5 @@
 import { CollectionSlug, PayloadRequest } from 'payload'
+import { headers } from 'next/headers'
 import { env } from '@/env'
 
 const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
@@ -9,16 +10,22 @@ const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
 type Props = {
   collection: keyof typeof collectionPrefixMap
   slug: string
+  tenant: string
   req: PayloadRequest
 }
 
-export const generatePreviewPath = ({ collection, slug, req }: Props) => {
+export const generatePreviewPath = async ({ collection, slug, tenant, req }: Props) => {
+  const headersList = headers()
+  const host = (await headersList).get('host') || ''
+  const [tenantDomain, port] = host.split(':')
+
   const path = `${collectionPrefixMap[collection]}/${slug}`
 
   const params = {
     slug,
     collection,
     path,
+    tenant,
   }
 
   const encodedParams = new URLSearchParams()
@@ -30,8 +37,9 @@ export const generatePreviewPath = ({ collection, slug, req }: Props) => {
   const isProduction =
     env.NODE_ENV === 'production' || Boolean(process.env.VERCEL_PROJECT_PRODUCTION_URL)
   const protocol = isProduction ? 'https:' : req.protocol
+  const portString = !isProduction && port ? `:${port}` : ''
 
-  const url = `${protocol}//${req.host}/next/preview?${encodedParams.toString()}`
+  const url = `${protocol}//${tenantDomain}${portString}/next/preview?${encodedParams.toString()}`
 
   return url
 }

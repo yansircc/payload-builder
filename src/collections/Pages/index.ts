@@ -45,15 +45,17 @@ export const Pages: CollectionConfig<'pages'> = {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
+          tenant: typeof data?.tenant === 'string' ? data.tenant : '',
           collection: 'pages',
           req,
         })
         return path
       },
     },
-    preview: (data, { req }) =>
+    preview: (data: any, { req }) =>
       generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
+        tenant: typeof data?.tenant.id === 'string' ? data.tenant.id : '',
         collection: 'pages',
         req,
       }),
