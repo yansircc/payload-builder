@@ -99,6 +99,7 @@ export interface Page {
   title: string;
   hero?: HeroField;
   layout: (
+    | AboutBlock
     | CTABlock
     | ContentBlock
     | MediaBlock
@@ -1383,6 +1384,597 @@ export interface Hero115Fields {
           id?: string | null;
         }[]
       | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock".
+ */
+export interface AboutBlock {
+  style?: ('about-1' | 'about-2' | 'about-3' | 'about-4' | 'about-5' | 'about-6') | null;
+  'about-1'?: About1Fields;
+  'about-2'?: About2Fields;
+  'about-3'?: About3Fields;
+  'about-4'?: About4Fields;
+  'about-5'?: About5Fields;
+  'about-6'?: About6Fields;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About1Fields".
+ */
+export interface About1Fields {
+  mainSection: {
+    /**
+     * Section title
+     */
+    title: string;
+    /**
+     * Section description
+     */
+    description: string;
+  };
+  missionSection: {
+    /**
+     * Mission section label (e.g., "OUR MISSION")
+     */
+    label: string;
+    /**
+     * Section description
+     */
+    description: string;
+    /**
+     * Image upload
+     */
+    image: string | Media;
+  };
+  featuresSection: {
+    /**
+     * Section title
+     */
+    title: string;
+    /**
+     * Section description
+     */
+    description: string;
+    /**
+     * Feature items (1-3)
+     */
+    features?:
+      | {
+          /**
+           * Enter a Lucide icon name (e.g., "FileText", "ArrowRight", "Settings")
+           */
+          icon: string;
+          /**
+           * Section title
+           */
+          title: string;
+          /**
+           * Section description
+           */
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  teamSection: {
+    /**
+     * Team section label (e.g., "JOIN OUR TEAM")
+     */
+    label: string;
+    /**
+     * Section title
+     */
+    title: string;
+    /**
+     * Image upload
+     */
+    image: string | Media;
+    /**
+     * Section description
+     */
+    description: string;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About2Fields".
+ */
+export interface About2Fields {
+  mainContent: {
+    /**
+     * Section title
+     */
+    title: string;
+    /**
+     * Section description
+     */
+    description: string;
+  };
+  /**
+   * The three main images
+   */
+  images: {
+    /**
+     * First image (largest)
+     */
+    first: string | Media;
+    /**
+     * Second image (medium)
+     */
+    second: string | Media;
+    /**
+     * Third image (smallest)
+     */
+    third: string | Media;
+  };
+  stats: {
+    /**
+     * The title above the statistics grid
+     */
+    secondTitle: string;
+    /**
+     * Statistics to display (exactly 6 items)
+     */
+    stats?:
+      | {
+          /**
+           * The statistic value (e.g., "21M", "12+")
+           */
+          value: string;
+          /**
+           * The statistic label
+           */
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  partners: {
+    /**
+     * The title for the trusted by section
+     */
+    trustedByTitle: string;
+    /**
+     * Partner logos and names (4-8 items)
+     */
+    partners?:
+      | {
+          /**
+           * Partner company logo
+           */
+          logo: string | Media;
+          /**
+           * Partner company name
+           */
+          name: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  benefits: {
+    /**
+     * The title for the benefits section
+     */
+    benefitsTitle: string;
+    /**
+     * Benefits statistics (exactly 2 items)
+     */
+    benefitsStats?:
+      | {
+          /**
+           * The benefit statistic value
+           */
+          value: string;
+          /**
+           * The benefit statistic label
+           */
+          label: string;
+          /**
+           * The benefit description
+           */
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Images for the benefits section
+     */
+    benefitsImages: {
+      /**
+       * First benefits image
+       */
+      first: string | Media;
+      /**
+       * Second benefits image
+       */
+      second: string | Media;
+      /**
+       * Third benefits image
+       */
+      third: string | Media;
+    };
+  };
+  testimonial: {
+    /**
+     * Company logo
+     */
+    logo: string | Media;
+    /**
+     * Company name
+     */
+    companyName: string;
+    /**
+     * Testimonial quote
+     */
+    quote: string;
+    /**
+     * Testimonial author
+     */
+    author: {
+      /**
+       * Author name
+       */
+      name: string;
+      /**
+       * Author role
+       */
+      role: string;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About3Fields".
+ */
+export interface About3Fields {
+  mainSection: {
+    /**
+     * Section title
+     */
+    title: string;
+    /**
+     * Section description
+     */
+    description: string;
+  };
+  contentSection: {
+    /**
+     * Main content image
+     */
+    mainImage: string | Media;
+    infoBox: {
+      /**
+       * Info box icon
+       */
+      icon: string | Media;
+      /**
+       * Section title
+       */
+      title: string;
+      /**
+       * Section description
+       */
+      description: string;
+      /**
+       * CTA button
+       */
+      buttonLink: {
+        type?: ('reference' | 'custom') | null;
+        newTab?: boolean | null;
+        reference?:
+          | ({
+              relationTo: 'pages';
+              value: string | Page;
+            } | null)
+          | ({
+              relationTo: 'posts';
+              value: string | Post;
+            } | null);
+        url?: string | null;
+        label: string;
+        /**
+         * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+         */
+        prefixIcon?: string | null;
+        /**
+         * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+         */
+        suffixIcon?: string | null;
+        /**
+         * Choose how the link should be rendered.
+         */
+        appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      };
+    };
+    /**
+     * Side content image
+     */
+    sideImage: string | Media;
+  };
+  clientSection: {
+    /**
+     * Section title
+     */
+    title: string;
+    /**
+     * Client logos and names (1-6 items)
+     */
+    clients?:
+      | {
+          /**
+           * Client logo
+           */
+          logo: string | Media;
+          /**
+           * Client name
+           */
+          name: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  statsSection: {
+    /**
+     * Section title
+     */
+    title: string;
+    /**
+     * Section description
+     */
+    description: string;
+    /**
+     * Statistics to display (1-4 items)
+     */
+    stats?:
+      | {
+          /**
+           * Statistic label
+           */
+          label: string;
+          /**
+           * Statistic value
+           */
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About4Fields".
+ */
+export interface About4Fields {
+  mainSection: {
+    /**
+     * Main title (e.g., "Welcome to Our Team")
+     */
+    title: string;
+    /**
+     * Main description text
+     */
+    description: string;
+  };
+  gallerySection?: {
+    /**
+     * Gallery images (exactly 6 items)
+     */
+    images?:
+      | {
+          /**
+           * Gallery image
+           */
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  contentSection: {
+    vision: {
+      /**
+       * Vision section title
+       */
+      title: string;
+      /**
+       * Vision section description
+       */
+      description: string;
+    };
+    creators: {
+      /**
+       * Creators section title
+       */
+      title: string;
+      /**
+       * Creators section description
+       */
+      description: string;
+    };
+  };
+  ctaSection: {
+    /**
+     * CTA section title
+     */
+    title: string;
+    /**
+     * CTA button
+     */
+    button: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+       */
+      prefixIcon?: string | null;
+      /**
+       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+       */
+      suffixIcon?: string | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About5Fields".
+ */
+export interface About5Fields {
+  mainSection: {
+    /**
+     * Section label (e.g., "ABOUT US")
+     */
+    label: string;
+    /**
+     * Section title
+     */
+    title: string;
+    /**
+     * Section description
+     */
+    description: string;
+  };
+  imageSection: {
+    /**
+     * Main image
+     */
+    image: string | Media;
+    /**
+     * Image caption
+     */
+    caption: string;
+  };
+  partnersSection: {
+    /**
+     * Partners section title
+     */
+    title: string;
+    /**
+     * Partner logos (exactly 4 items)
+     */
+    partners?:
+      | {
+          /**
+           * Partner logo
+           */
+          logo: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  missionSection: {
+    /**
+     * Mission section title
+     */
+    title: string;
+    /**
+     * Mission description
+     */
+    description: string;
+    /**
+     * Mission statistics (exactly 2 items)
+     */
+    stats?:
+      | {
+          /**
+           * Statistic value
+           */
+          value: string;
+          /**
+           * Statistic label
+           */
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Mission section image
+     */
+    image: string | Media;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About6Fields".
+ */
+export interface About6Fields {
+  storySection: {
+    /**
+     * Story section title
+     */
+    title: string;
+    /**
+     * Story section description
+     */
+    description: string;
+    /**
+     * Story section content
+     */
+    content: string;
+  };
+  leftGallery: {
+    /**
+     * Main image (aspect ratio 0.7)
+     */
+    mainImage: string | Media;
+    sideImages: {
+      /**
+       * First side image (aspect ratio 1.1)
+       */
+      first: string | Media;
+      /**
+       * Second side image (aspect ratio 0.7)
+       */
+      second: string | Media;
+    };
+  };
+  workplaceSection: {
+    /**
+     * Workplace section title
+     */
+    title: string;
+    /**
+     * Workplace section description
+     */
+    description: string;
+    /**
+     * Workplace section content
+     */
+    content: string;
+  };
+  rightGallery: {
+    /**
+     * Main image (aspect ratio 0.9)
+     */
+    mainImage: string | Media;
+    sideImages: {
+      /**
+       * First side image (aspect ratio 0.8)
+       */
+      first: string | Media;
+      /**
+       * Second side image (aspect ratio 0.9)
+       */
+      second: string | Media;
+    };
   };
 }
 /**
@@ -7985,6 +8577,7 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
+        about?: T | AboutBlockSelect<T>;
         cta?: T | CTABlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -8518,6 +9111,341 @@ export interface Hero115FieldsSelect<T extends boolean = true> {
                     appearance?: T;
                   };
               id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock_select".
+ */
+export interface AboutBlockSelect<T extends boolean = true> {
+  style?: T;
+  'about-1'?: T | About1FieldsSelect<T>;
+  'about-2'?: T | About2FieldsSelect<T>;
+  'about-3'?: T | About3FieldsSelect<T>;
+  'about-4'?: T | About4FieldsSelect<T>;
+  'about-5'?: T | About5FieldsSelect<T>;
+  'about-6'?: T | About6FieldsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About1Fields_select".
+ */
+export interface About1FieldsSelect<T extends boolean = true> {
+  mainSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  missionSection?:
+    | T
+    | {
+        label?: T;
+        description?: T;
+        image?: T;
+      };
+  featuresSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  teamSection?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About2Fields_select".
+ */
+export interface About2FieldsSelect<T extends boolean = true> {
+  mainContent?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  images?:
+    | T
+    | {
+        first?: T;
+        second?: T;
+        third?: T;
+      };
+  stats?:
+    | T
+    | {
+        secondTitle?: T;
+        stats?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+      };
+  partners?:
+    | T
+    | {
+        trustedByTitle?: T;
+        partners?:
+          | T
+          | {
+              logo?: T;
+              name?: T;
+              id?: T;
+            };
+      };
+  benefits?:
+    | T
+    | {
+        benefitsTitle?: T;
+        benefitsStats?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              description?: T;
+              id?: T;
+            };
+        benefitsImages?:
+          | T
+          | {
+              first?: T;
+              second?: T;
+              third?: T;
+            };
+      };
+  testimonial?:
+    | T
+    | {
+        logo?: T;
+        companyName?: T;
+        quote?: T;
+        author?:
+          | T
+          | {
+              name?: T;
+              role?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About3Fields_select".
+ */
+export interface About3FieldsSelect<T extends boolean = true> {
+  mainSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  contentSection?:
+    | T
+    | {
+        mainImage?: T;
+        infoBox?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              buttonLink?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
+                  };
+            };
+        sideImage?: T;
+      };
+  clientSection?:
+    | T
+    | {
+        title?: T;
+        clients?:
+          | T
+          | {
+              logo?: T;
+              name?: T;
+              id?: T;
+            };
+      };
+  statsSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        stats?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About4Fields_select".
+ */
+export interface About4FieldsSelect<T extends boolean = true> {
+  mainSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  gallerySection?:
+    | T
+    | {
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+      };
+  contentSection?:
+    | T
+    | {
+        vision?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+        creators?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+            };
+      };
+  ctaSection?:
+    | T
+    | {
+        title?: T;
+        button?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About5Fields_select".
+ */
+export interface About5FieldsSelect<T extends boolean = true> {
+  mainSection?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        description?: T;
+      };
+  imageSection?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+      };
+  partnersSection?:
+    | T
+    | {
+        title?: T;
+        partners?:
+          | T
+          | {
+              logo?: T;
+              id?: T;
+            };
+      };
+  missionSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        stats?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        image?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About6Fields_select".
+ */
+export interface About6FieldsSelect<T extends boolean = true> {
+  storySection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        content?: T;
+      };
+  leftGallery?:
+    | T
+    | {
+        mainImage?: T;
+        sideImages?:
+          | T
+          | {
+              first?: T;
+              second?: T;
+            };
+      };
+  workplaceSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        content?: T;
+      };
+  rightGallery?:
+    | T
+    | {
+        mainImage?: T;
+        sideImages?:
+          | T
+          | {
+              first?: T;
+              second?: T;
             };
       };
 }
