@@ -68,9 +68,50 @@
    bun dev
    ```
 
-9. **Access the Application**
-   - Frontend: http://localhost:3000
-   - Admin Panel: http://localhost:3000/admin
+9. **Configure Local Hosts**
+
+   Add the following entries to your hosts file:
+
+   ```bash
+   # On macOS/Linux: Edit /etc/hosts
+   # On Windows: Edit C:\Windows\System32\drivers\etc\hosts
+
+   127.0.0.1       gold.localhost.com
+   127.0.0.1       silver.localhost.com
+   127.0.0.1       bronze.localhost.com
+   ```
+
+   > 💡 Note : You might need sudo/administrator privileges to edit the hosts file
+
+10. **Access the Application**
+
+Super User Access:
+
+- Frontend: http://localhost:3000
+- Admin Panel: http://localhost:3000/admin
+
+Tenant Access:
+
+```
+- Gold Tenant:
+  - username: tenant1@payloadcms.com
+  - password: test
+  - http://gold.localhost.com:3000/
+  - http://gold.localhost.com:3000/admin
+- Silver Tenant:
+  - username: tenant1@payloadcms.com
+  - password: test
+  - http://silver.localhost.com:3000/
+  - http://silver.localhost.com:3000/admin
+- Bronze Tenant:
+
+  - username: tenant1@payloadcms.com
+  - password: test
+  - http://bronze.localhost.com:3000
+  - http://bronze.localhost.com:3000/admin
+```
+
+> 💡 Note : Make sure to include the port :3000 when accessing tenant domains in development
 
 ## Git Workflow Guidelines
 
