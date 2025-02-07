@@ -99,13 +99,13 @@ Tenant Access:
   - http://gold.localhost.com:3000/
   - http://gold.localhost.com:3000/admin
 - Silver Tenant:
-  - username: tenant1@payloadcms.com
+  - username: tenant2@payloadcms.com
   - password: test
   - http://silver.localhost.com:3000/
   - http://silver.localhost.com:3000/admin
 - Bronze Tenant:
 
-  - username: tenant1@payloadcms.com
+  - username: tenant3@payloadcms.com
   - password: test
   - http://bronze.localhost.com:3000
   - http://bronze.localhost.com:3000/admin
