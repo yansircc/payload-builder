@@ -1,8 +1,7 @@
 import * as LucideIcons from 'lucide-react'
-
+import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import { Media } from '@/components/Media'
 import type { Hero45Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 

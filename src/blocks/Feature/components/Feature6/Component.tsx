@@ -1,8 +1,8 @@
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { Media } from '@/components/Media'
+import type { Feature6Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
-import type { Feature6Fields } from '@/payload-types'
 
 export default function Feature6({ feature }: Feature6Fields) {
   const { title, description, icon, image, features } = feature

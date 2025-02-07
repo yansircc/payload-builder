@@ -1,8 +1,3 @@
-import type { CollectionConfig } from 'payload'
-
-import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
-import { slugField } from '@/fields/slug'
-import { HeroField } from '@/heros/config'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -10,6 +5,10 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import type { CollectionConfig } from 'payload'
+import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
+import { slugField } from '@/fields/slug'
+import { HeroField } from '@/heros/config'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { AboutBlock } from '../../blocks/About/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'

@@ -1,5 +1,5 @@
-import { env } from '@/env'
 import { CollectionSlug, PayloadRequest } from 'payload'
+import { env } from '@/env'
 
 const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
   posts: '/posts',

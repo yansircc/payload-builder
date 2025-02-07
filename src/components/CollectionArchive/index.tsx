@@ -1,9 +1,7 @@
-import { cn } from '@/utilities/ui'
 import React from 'react'
-
-import type { Post } from '@/payload-types'
-
 import { Card, CardPostData } from '@/components/Card'
+import type { Post } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 
 export type Props = {
   posts: CardPostData[]

@@ -1,9 +1,8 @@
 import * as LucideIcons from 'lucide-react'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { ClientMotionDiv } from '../shared/motion'
 import type { Hero24Fields } from '@/payload-types'
+import { ClientMotionDiv } from '../shared/motion'
 
 // 移除不必要的 FeatureItem 接口
 type Feature = {
@@ -12,7 +11,10 @@ type Feature = {
   description: string
 }
 
-type IconComponent = React.ComponentType<{ className?: string; size?: number | string }>
+type IconComponent = React.ComponentType<{
+  className?: string
+  size?: number | string
+}>
 
 export default function Hero24({ hero }: Hero24Fields) {
   const { badge, logo, features, title, links } = hero

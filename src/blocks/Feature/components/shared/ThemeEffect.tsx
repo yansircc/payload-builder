@@ -1,7 +1,7 @@
 'use client'
 
-import { useHeaderTheme } from '@/providers/HeaderTheme'
 import { useEffect } from 'react'
+import { useHeaderTheme } from '@/providers/HeaderTheme'
 
 interface ThemeEffectProps {
   theme?: 'dark' | 'light'

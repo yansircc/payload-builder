@@ -1,8 +1,7 @@
+import configPromise from '@payload-config'
+import { CollectionSlug, getPayload, type PayloadRequest } from 'payload'
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { getPayload, type PayloadRequest } from 'payload'
-import configPromise from '@payload-config'
-import { CollectionSlug } from 'payload'
 
 const payloadToken = 'payload-token'
 
@@ -25,7 +24,9 @@ export async function GET(
   const previewSecret = searchParams.get('previewSecret')
 
   if (previewSecret) {
-    return new Response('You are not allowed to preview this page', { status: 403 })
+    return new Response('You are not allowed to preview this page', {
+      status: 403,
+    })
   } else {
     if (!path) {
       return new Response('No path provided', { status: 404 })
@@ -52,7 +53,9 @@ export async function GET(
       })
     } catch (error) {
       payload.logger.error({ err: error }, 'Error verifying token for live preview')
-      return new Response('You are not allowed to preview this page', { status: 403 })
+      return new Response('You are not allowed to preview this page', {
+        status: 403,
+      })
     }
 
     const draft = await draftMode()
@@ -60,7 +63,9 @@ export async function GET(
     // You can add additional checks here to see if the user is allowed to preview this page
     if (!user) {
       draft.disable()
-      return new Response('You are not allowed to preview this page', { status: 403 })
+      return new Response('You are not allowed to preview this page', {
+        status: 403,
+      })
     }
 
     // Verify the given slug exists

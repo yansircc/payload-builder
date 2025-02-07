@@ -1,5 +1,5 @@
-import type { HeroField } from '@/payload-types'
 import { heroComponents } from '@/heros'
+import type { HeroField } from '@/payload-types'
 
 export const RenderHero: React.FC<HeroField> = (props) => {
   const { style } = props || {}

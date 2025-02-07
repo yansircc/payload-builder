@@ -1,10 +1,10 @@
-import type { FAQ1Fields } from '@/payload-types'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import type { FAQ1Fields } from '@/payload-types'
 
 export default function FAQ1({ faq }: FAQ1Fields) {
   const { title, faqs } = faq

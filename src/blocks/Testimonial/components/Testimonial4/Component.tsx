@@ -1,8 +1,7 @@
-import type { Testimonial4Fields } from '@/payload-types'
-
+import { Media } from '@/components/Media'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Media } from '@/components/Media'
+import type { Testimonial4Fields } from '@/payload-types'
 
 type TestimonialItem = Testimonial4Fields['testimonials'][number]
 

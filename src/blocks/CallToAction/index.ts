@@ -9,20 +9,20 @@
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
 
-import type { CTABlock } from '@/payload-types'
 import type { ComponentType } from 'react'
-
+import type { CTABlock } from '@/payload-types'
 // Import CTA components
 import CTA1Component from './components/CTA1/Component'
+import CTA3Component from './components/CTA3/Component'
+import CTA4Component from './components/CTA4/Component'
+import CTA5Component from './components/CTA5/Component'
+import CTA7Component from './components/CTA7/Component'
 import CTA10Component from './components/CTA10/Component'
 import CTA11Component from './components/CTA11/Component'
 import CTA15Component from './components/CTA15/Component'
 import CTA16Component from './components/CTA16/Component'
 import CTA17Component from './components/CTA17/Component'
-import CTA3Component from './components/CTA3/Component'
-import CTA4Component from './components/CTA4/Component'
-import CTA5Component from './components/CTA5/Component'
-import CTA7Component from './components/CTA7/Component'
+
 // Export config
 export { cta1Fields } from './components/CTA1/config'
 export { cta10Fields } from './components/CTA10/config'

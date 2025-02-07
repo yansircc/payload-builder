@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   DefaultNodeTypes,
   SerializedHeadingNode,
@@ -6,6 +5,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 import { SerializedLexicalNode } from '@payloadcms/richtext-lexical/lexical'
 import { JSXConvertersFunction } from '@payloadcms/richtext-lexical/react'
+import React from 'react'
 
 export interface NodeStyle {
   type: 'heading' | 'paragraph' | 'list'

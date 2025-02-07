@@ -3,13 +3,12 @@
 import AutoScroll from 'embla-carousel-auto-scroll'
 import { Star, Zap } from 'lucide-react'
 import { useRef } from 'react'
-import type { Testimonial19Fields } from '@/payload-types'
-
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import { Avatar } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media } from '@/components/Media'
-import { CMSLink } from '@/components/Link'
+import type { Testimonial19Fields } from '@/payload-types'
 
 export default function Testimonial19({
   heading,

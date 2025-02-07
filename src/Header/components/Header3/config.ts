@@ -1,6 +1,6 @@
-import { link } from '@/fields/link'
 import { GroupField } from 'payload'
 import { z } from 'zod'
+import { link } from '@/fields/link'
 import { createHeaderField, headerSchemas } from '../shared/base-field'
 import { style1Submenu } from './components/submenu/style1/config'
 import { style2Submenu } from './components/submenu/style2/config'

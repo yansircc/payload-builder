@@ -1,11 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { Testimonial17Fields } from '@/payload-types'
-
+import { Media } from '@/components/Media'
 import { Avatar } from '@/components/ui/avatar'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media } from '@/components/Media'
+import type { Testimonial17Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
 const LogoWrapper = ({

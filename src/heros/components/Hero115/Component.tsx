@@ -1,5 +1,4 @@
 import { Play } from 'lucide-react'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero115Fields } from '@/payload-types'

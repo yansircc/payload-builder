@@ -1,7 +1,7 @@
-import { Header3Fields } from '@/payload-types'
+import { ArrowUpRight } from 'lucide-react'
 import { Media } from '@/components/Media'
 import { NavigationMenuLink } from '@/components/ui/navigation-menu'
-import { ArrowUpRight } from 'lucide-react'
+import { Header3Fields } from '@/payload-types'
 
 type MobileSubmenuProps = {
   submenuData: NonNullable<NonNullable<Header3Fields['menu']>[number]['submenu']>

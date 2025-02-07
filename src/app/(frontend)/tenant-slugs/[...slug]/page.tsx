@@ -1,11 +1,9 @@
-import type { Where } from 'payload'
-
 import configPromise from '@payload-config'
-import { headers as getHeaders } from 'next/headers'
-import { notFound, redirect } from 'next/navigation'
+import type { Where } from 'payload'
 import { getPayload } from 'payload'
 import React from 'react'
-
+import { headers as getHeaders } from 'next/headers'
+import { notFound, redirect } from 'next/navigation'
 import { RenderPage } from '@/app/components/RenderPage'
 
 export default async function Page({

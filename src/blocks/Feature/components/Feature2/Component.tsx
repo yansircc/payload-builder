@@ -1,9 +1,9 @@
+import { DynamicIcon } from '@/components/DynamicIcon'
+import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Feature2Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
-import { CMSLink } from '@/components/Link'
-import { DynamicIcon } from '@/components/DynamicIcon'
 
 export default function Feature2({ feature }: Feature2Fields) {
   const { title, description, icon, image, links } = feature

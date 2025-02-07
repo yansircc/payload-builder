@@ -1,6 +1,3 @@
-import { revalidateRedirects } from '@/hooks/revalidateRedirects'
-import { beforeSyncWithSearch } from '@/search/beforeSync'
-import { searchFields } from '@/search/fieldOverrides'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
@@ -12,9 +9,11 @@ import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Plugin } from 'payload'
-
 import { isSuperAdmin } from '@/access/isSuperAdmin'
+import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { Config, Page, Post } from '@/payload-types'
+import { beforeSyncWithSearch } from '@/search/beforeSync'
+import { searchFields } from '@/search/fieldOverrides'
 import { getServerSideURL } from '@/utilities/getURL'
 import { getUserTenantIDs } from '@/utilities/getUserTenantIDs'
 
@@ -74,7 +73,9 @@ export const plugins: Plugin[] = [
                   return [
                     ...rootFeatures,
                     FixedToolbarFeature(),
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                    HeadingFeature({
+                      enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'],
+                    }),
                   ]
                 },
               }),

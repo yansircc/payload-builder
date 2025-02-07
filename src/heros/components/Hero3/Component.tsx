@@ -1,8 +1,7 @@
 import { ArrowDownRight, Star } from 'lucide-react'
-
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import type { Hero3Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 

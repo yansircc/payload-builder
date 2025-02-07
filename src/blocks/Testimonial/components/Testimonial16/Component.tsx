@@ -1,12 +1,11 @@
 'use client'
 
 import { Fragment, useState } from 'react'
-import type { Testimonial16Fields } from '@/payload-types'
-import { cn } from '@/utilities/ui'
-
+import { Media } from '@/components/Media'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
-import { Media } from '@/components/Media'
+import type { Testimonial16Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 
 interface TweetContentProps {
   content: string

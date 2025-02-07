@@ -1,6 +1,6 @@
-import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
 import { Field, GroupField } from 'payload'
 import { z } from 'zod'
+import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
 
 /**
  * Atomic team field schemas

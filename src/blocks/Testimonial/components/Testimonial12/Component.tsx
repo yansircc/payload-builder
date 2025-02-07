@@ -1,3 +1,4 @@
+import { Media } from '@/components/Media'
 import {
   Carousel,
   CarouselContent,
@@ -6,7 +7,6 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { Separator } from '@/components/ui/separator'
-import { Media } from '@/components/Media'
 import type { Testimonial12Fields } from '@/payload-types'
 
 export default function Testimonial12({ testimonials }: Testimonial12Fields) {

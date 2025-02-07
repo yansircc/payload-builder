@@ -1,8 +1,6 @@
-import type { User } from '@/payload-types'
 import type { Access, Where } from 'payload'
-
 import { parseCookies } from 'payload'
-
+import type { User } from '@/payload-types'
 import { isSuperAdmin } from '../../../access/isSuperAdmin'
 import { getUserTenantIDs } from '../../../utilities/getUserTenantIDs'
 import { isAccessingSelf } from './isAccessingSelf'

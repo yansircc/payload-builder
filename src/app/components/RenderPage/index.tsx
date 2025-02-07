@@ -1,5 +1,5 @@
-import { Page } from '@/payload-types'
 import React from 'react'
+import { Page } from '@/payload-types'
 
 export const RenderPage = ({ data }: { data: Page }) => {
   return (

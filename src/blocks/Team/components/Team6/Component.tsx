@@ -1,7 +1,7 @@
+import { Fragment } from 'react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Team6Fields } from '@/payload-types'
-import { Fragment } from 'react'
 
 export default function Team6({ team }: Team6Fields) {
   const { title, subtitle, description, people } = team

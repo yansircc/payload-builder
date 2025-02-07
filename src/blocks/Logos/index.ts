@@ -9,9 +9,8 @@
  * By using a centralized export management, we avoid redundant configurations in renderBlocks
  */
 
-import type { LogosBlock } from '@/payload-types'
 import type { ComponentType } from 'react'
-
+import type { LogosBlock } from '@/payload-types'
 // Import all Logos components
 import Logos1Component from './components/Logos1/Component'
 import Logos2Component from './components/Logos2/Component'

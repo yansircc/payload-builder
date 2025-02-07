@@ -1,12 +1,10 @@
 // storage-adapter-import-placeholder
-import { env } from '@/env'
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
-
 import path from 'path'
+import { fileURLToPath } from 'url'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig, PayloadRequest } from 'payload'
 import sharp from 'sharp' // sharp-import
-import { fileURLToPath } from 'url'
-
+import { env } from '@/env'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'

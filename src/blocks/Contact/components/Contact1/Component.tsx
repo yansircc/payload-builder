@@ -1,8 +1,8 @@
 import { Check } from 'lucide-react'
+import { Form } from '@/components/Form'
 import { Media } from '@/components/Media'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import type { Contact1Fields } from '@/payload-types'
-import { Form } from '@/components/Form'
 
 export default function Contact1({ contact }: Contact1Fields) {
   const { title, description, list, avatars, logos, form } = contact

@@ -2,11 +2,10 @@
 
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
-
+import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Media } from '@/components/Media'
 import type { Gallery3Fields } from '@/payload-types'
 
 export default function Gallery3({ gallery }: { gallery: Gallery3Fields['gallery'] }) {

@@ -1,19 +1,18 @@
 import React, { Fragment } from 'react'
-import type { Page } from '@/payload-types'
-
+import { RenderAbout } from '@/blocks/About/RenderAbout'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { RenderCTA } from '@/blocks/CallToAction/RenderCTA'
-import { ContentBlock } from '@/blocks/Content/Component'
-import { FormBlock } from '@/blocks/Form/Component'
-import { MediaBlock } from '@/blocks/MediaBlock/Component'
-import { RenderFeature } from '@/blocks/Feature/RenderFeature'
 import { RenderContact } from '@/blocks/Contact/RenderContact'
-import { RenderTestimonial } from '@/blocks/Testimonial/RenderTestimonial'
-import { RenderGallery } from '@/blocks/Gallery/RenderGallery'
-import { RenderTeam } from '@/blocks/Team/RenderTeam'
+import { ContentBlock } from '@/blocks/Content/Component'
 import { RenderFAQ } from '@/blocks/FAQ/RenderFAQ'
+import { RenderFeature } from '@/blocks/Feature/RenderFeature'
+import { FormBlock } from '@/blocks/Form/Component'
+import { RenderGallery } from '@/blocks/Gallery/RenderGallery'
 import { RenderLogos } from '@/blocks/Logos/RenderLogos'
-import { RenderAbout } from './About/RenderAbout'
+import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { RenderTeam } from '@/blocks/Team/RenderTeam'
+import { RenderTestimonial } from '@/blocks/Testimonial/RenderTestimonial'
+import type { Page } from '@/payload-types'
 
 const blockComponents = {
   about: RenderAbout,

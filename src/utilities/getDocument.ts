@@ -1,7 +1,6 @@
-import type { Config } from 'src/payload-types'
-
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import type { Config } from 'src/payload-types'
 import { unstable_cache } from 'next/cache'
 
 type Collection = keyof Config['collections']

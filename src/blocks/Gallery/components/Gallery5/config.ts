@@ -1,6 +1,6 @@
-import { link } from '@/fields/link'
 import type { Field, GroupField } from 'payload'
 import { z } from 'zod'
+import { link } from '@/fields/link'
 import { createGalleryField, gallerySchemas } from '../shared/base-field'
 
 /**
