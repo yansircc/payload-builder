@@ -1,5 +1,3 @@
-'use client'
-
 import { AboutBlock } from '@/payload-types'
 import { aboutComponents } from '.'
 
