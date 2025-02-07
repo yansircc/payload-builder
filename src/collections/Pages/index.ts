@@ -10,6 +10,7 @@ import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superA
 import { slugField } from '@/fields/slug'
 import { HeroField } from '@/heros/config'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { AboutBlock } from '../../blocks/About/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Contact } from '../../blocks/Contact/config'
@@ -79,6 +80,7 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
+                AboutBlock,
                 CallToAction,
                 Content,
                 MediaBlock,

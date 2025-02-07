@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { RenderAbout } from '@/blocks/About/RenderAbout'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { RenderCTA } from '@/blocks/CallToAction/RenderCTA'
 import { RenderContact } from '@/blocks/Contact/RenderContact'
@@ -14,6 +15,7 @@ import { RenderTestimonial } from '@/blocks/Testimonial/RenderTestimonial'
 import type { Page } from '@/payload-types'
 
 const blockComponents = {
+  about: RenderAbout,
   archive: ArchiveBlock,
   content: ContentBlock,
   cta: RenderCTA,
