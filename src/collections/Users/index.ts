@@ -11,6 +11,8 @@ import { setCookieBasedOnDomain } from './hooks/setCookieBasedOnDomain'
 const defaultTenantArrayField = tenantsArrayField({
   arrayFieldAccess: {},
   tenantFieldAccess: {},
+  tenantsArrayFieldName: 'tenants',
+  tenantsArrayTenantFieldName: 'tenant',
   tenantsCollectionSlug: 'tenants',
   rowFields: [
     {
