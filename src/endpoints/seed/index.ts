@@ -229,6 +229,7 @@ export const seed = async ({
             url: '/technology',
           },
         ],
+        tenant: tenant1.id,
       },
     }),
 
@@ -242,6 +243,7 @@ export const seed = async ({
             url: '/news',
           },
         ],
+        tenant: tenant1.id,
       },
     }),
 
@@ -255,6 +257,7 @@ export const seed = async ({
             url: '/finance',
           },
         ],
+        tenant: tenant1.id,
       },
     }),
     payload.create({
@@ -267,6 +270,7 @@ export const seed = async ({
             url: '/design',
           },
         ],
+        tenant: tenant1.id,
       },
     }),
 
@@ -280,6 +284,7 @@ export const seed = async ({
             url: '/software',
           },
         ],
+        tenant: tenant1.id,
       },
     }),
 
@@ -293,6 +298,7 @@ export const seed = async ({
             url: '/engineering',
           },
         ],
+        tenant: tenant1.id,
       },
     }),
   ])
@@ -423,7 +429,7 @@ export const seed = async ({
   const contactForm = await payload.create({
     collection: 'forms',
     depth: 0,
-    data: JSON.parse(JSON.stringify(contactFormData)),
+    data: { ...JSON.parse(JSON.stringify(contactFormData)), tenant: tenant1.id },
   })
 
   let contactFormID: number | string = contactForm.id
