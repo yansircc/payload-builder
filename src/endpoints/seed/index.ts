@@ -75,6 +75,89 @@ export const seed = async ({
     },
   })
 
+  payload.logger.info(`— Seeding tenants and users...`)
+  // Create super admin
+  await payload.create({
+    collection: 'users',
+    data: {
+      email: 'demo@payloadcms.com',
+      password: 'demo',
+      roles: ['super-admin'],
+    },
+  })
+
+  // Create tenants
+  const [tenant1, tenant2, tenant3] = await Promise.all([
+    payload.create({
+      collection: 'tenants',
+      data: {
+        name: 'Tenant 1',
+        slug: 'gold',
+        domain: 'gold.localhost.com',
+      },
+    }),
+    payload.create({
+      collection: 'tenants',
+      data: {
+        name: 'Tenant 2',
+        slug: 'silver',
+        domain: 'silver.localhost.com',
+      },
+    }),
+    payload.create({
+      collection: 'tenants',
+      data: {
+        name: 'Tenant 3',
+        slug: 'bronze',
+        domain: 'bronze.localhost.com',
+      },
+    }),
+  ])
+
+  // Create tenant users
+  await Promise.all([
+    payload.create({
+      collection: 'users',
+      data: {
+        email: 'tenant1@payloadcms.com',
+        password: 'test',
+        tenants: [{ roles: ['tenant-admin'], tenant: tenant1.id }],
+        username: 'tenant1',
+      },
+    }),
+    payload.create({
+      collection: 'users',
+      data: {
+        email: 'tenant2@payloadcms.com',
+        password: 'test',
+        tenants: [{ roles: ['tenant-admin'], tenant: tenant2.id }],
+        username: 'tenant2',
+      },
+    }),
+    payload.create({
+      collection: 'users',
+      data: {
+        email: 'tenant3@payloadcms.com',
+        password: 'test',
+        tenants: [{ roles: ['tenant-admin'], tenant: tenant3.id }],
+        username: 'tenant3',
+      },
+    }),
+    payload.create({
+      collection: 'users',
+      data: {
+        email: 'multi-admin@payloadcms.com',
+        password: 'test',
+        tenants: [
+          { roles: ['tenant-admin'], tenant: tenant1.id },
+          { roles: ['tenant-admin'], tenant: tenant2.id },
+          { roles: ['tenant-admin'], tenant: tenant3.id },
+        ],
+        username: 'multi-admin',
+      },
+    }),
+  ])
+
   payload.logger.info(`— Seeding media...`)
 
   const [image1Buffer, image2Buffer, image3Buffer, hero1Buffer] = await Promise.all([
@@ -117,22 +200,22 @@ export const seed = async ({
 
     payload.create({
       collection: 'media',
-      data: image1,
+      data: { ...image1, tenant: tenant1.id },
       file: image1Buffer,
     }),
     payload.create({
       collection: 'media',
-      data: image2,
+      data: { ...image2, tenant: tenant1.id },
       file: image2Buffer,
     }),
     payload.create({
       collection: 'media',
-      data: image2,
+      data: { ...image2, tenant: tenant1.id },
       file: image3Buffer,
     }),
     payload.create({
       collection: 'media',
-      data: imageHero1,
+      data: { ...imageHero1, tenant: tenant1.id },
       file: hero1Buffer,
     }),
 
@@ -240,7 +323,7 @@ export const seed = async ({
       disableRevalidate: true,
     },
     data: JSON.parse(
-      JSON.stringify({ ...post1, categories: [technologyCategory.id] })
+      JSON.stringify({ ...post1, categories: [technologyCategory.id], tenant: tenant1.id })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image1ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID))
         .replace(/"\{\{AUTHOR\}\}"/g, String(demoAuthorID)),
@@ -254,7 +337,7 @@ export const seed = async ({
       disableRevalidate: true,
     },
     data: JSON.parse(
-      JSON.stringify({ ...post2, categories: [newsCategory.id] })
+      JSON.stringify({ ...post2, categories: [newsCategory.id], tenant: tenant1.id })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image2ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image3ID))
         .replace(/"\{\{AUTHOR\}\}"/g, String(demoAuthorID)),
@@ -268,7 +351,7 @@ export const seed = async ({
       disableRevalidate: true,
     },
     data: JSON.parse(
-      JSON.stringify({ ...post3, categories: [financeCategory.id] })
+      JSON.stringify({ ...post3, categories: [financeCategory.id], tenant: tenant1.id })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image3ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image1ID))
         .replace(/"\{\{AUTHOR\}\}"/g, String(demoAuthorID)),
@@ -297,89 +380,6 @@ export const seed = async ({
       relatedPosts: [post1Doc.id, post2Doc.id],
     },
   })
-
-  payload.logger.info(`— Seeding tenants and users...`)
-  // Create super admin
-  await payload.create({
-    collection: 'users',
-    data: {
-      email: 'demo@payloadcms.com',
-      password: 'demo',
-      roles: ['super-admin'],
-    },
-  })
-
-  // Create tenants
-  const [tenant1, tenant2, tenant3] = await Promise.all([
-    payload.create({
-      collection: 'tenants',
-      data: {
-        name: 'Tenant 1',
-        slug: 'gold',
-        domain: 'gold.localhost.com',
-      },
-    }),
-    payload.create({
-      collection: 'tenants',
-      data: {
-        name: 'Tenant 2',
-        slug: 'silver',
-        domain: 'silver.localhost.com',
-      },
-    }),
-    payload.create({
-      collection: 'tenants',
-      data: {
-        name: 'Tenant 3',
-        slug: 'bronze',
-        domain: 'bronze.localhost.com',
-      },
-    }),
-  ])
-
-  // Create tenant users
-  await Promise.all([
-    payload.create({
-      collection: 'users',
-      data: {
-        email: 'tenant1@payloadcms.com',
-        password: 'test',
-        tenants: [{ roles: ['tenant-admin'], tenant: tenant1.id }],
-        username: 'tenant1',
-      },
-    }),
-    payload.create({
-      collection: 'users',
-      data: {
-        email: 'tenant2@payloadcms.com',
-        password: 'test',
-        tenants: [{ roles: ['tenant-admin'], tenant: tenant2.id }],
-        username: 'tenant2',
-      },
-    }),
-    payload.create({
-      collection: 'users',
-      data: {
-        email: 'tenant3@payloadcms.com',
-        password: 'test',
-        tenants: [{ roles: ['tenant-admin'], tenant: tenant3.id }],
-        username: 'tenant3',
-      },
-    }),
-    payload.create({
-      collection: 'users',
-      data: {
-        email: 'multi-admin@payloadcms.com',
-        password: 'test',
-        tenants: [
-          { roles: ['tenant-admin'], tenant: tenant1.id },
-          { roles: ['tenant-admin'], tenant: tenant2.id },
-          { roles: ['tenant-admin'], tenant: tenant3.id },
-        ],
-        username: 'multi-admin',
-      },
-    }),
-  ])
 
   // Create tenant pages
   await Promise.all([
