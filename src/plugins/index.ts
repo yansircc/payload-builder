@@ -99,6 +99,8 @@ export const plugins: Plugin[] = [
   multiTenantPlugin<Config>({
     collections: {
       pages: {},
+      posts: {},
+      categories: {},
       header: { isGlobal: true },
       footer: { isGlobal: true },
       media: {
