@@ -2,93 +2,38 @@ import * as esprima from 'esprima'
 import type { CollectionBeforeChangeHook } from 'payload'
 import { APIError } from 'payload'
 import type { CustomCode } from '@/payload-types'
+import { SCRIPT_TYPES } from '../index'
 
-interface ScriptAnalysis {
-  type: 'inline' | 'external' | 'pure-js'
-  content: string
-  src?: string
-}
+function validateTrackingId(type: string, trackingId: string | null | undefined): boolean {
+  if (!trackingId) return false
 
-function analyzeScript(code: string): ScriptAnalysis {
-  const trimmedCode = code.trim()
-
-  // Check if the code contains script tags
-  const hasScriptTags = /<script[\s>]/i.test(trimmedCode)
-
-  if (!hasScriptTags) {
-    // Pure JavaScript code without script tags
-    return {
-      type: 'pure-js',
-      content: trimmedCode,
-    }
-  }
-
-  // Check if it's an external script tag
-  const externalScriptMatch = trimmedCode.match(/<script[^>]*src=["']([^"']+)["'][^>]*>/i)
-  if (externalScriptMatch) {
-    return {
-      type: 'external',
-      content: trimmedCode,
-      src: externalScriptMatch[1],
-    }
-  }
-
-  // If it has script tags but no src, it's inline
-  return {
-    type: 'inline',
-    content: trimmedCode,
+  switch (type) {
+    case SCRIPT_TYPES.GOOGLE_ANALYTICS:
+      return /^G-[A-Z0-9]+$/i.test(trackingId)
+    case SCRIPT_TYPES.GOOGLE_TAG_MANAGER:
+      return /^GTM-[A-Z0-9]+$/i.test(trackingId)
+    default:
+      return true
   }
 }
 
-function validateScriptTags(code: string): { isValid: boolean; error?: string } {
-  const hasScriptTags = /<script[\s>]/i.test(code)
-
-  // If no script tags, it's valid (pure JS)
-  if (!hasScriptTags) return { isValid: true }
-
-  // Count opening and closing script tags
-  const openTags = (code.match(/<script[^>]*>/g) || []).length
-  const closeTags = (code.match(/<\/script>/g) || []).length
-
-  if (openTags !== closeTags) {
-    return {
-      isValid: false,
-      error: 'Mismatched script tags. Make sure all script tags are properly closed.',
-    }
-  }
-
-  return { isValid: true }
-}
-
-function extractJavaScript(code: string): string {
-  const analysis = analyzeScript(code)
-
-  if (analysis.type === 'pure-js') {
-    return analysis.content
-  }
-
-  // For inline scripts, extract content between script tags
-  if (analysis.type === 'inline') {
-    const content = code
-      .replace(/<script[^>]*>/g, '')
-      .replace(/<\/script>/g, '')
-      .trim()
-    return content
-  }
-
-  // For external scripts, we don't need to validate the content
-  return ''
-}
-
-function isValidJavaScript(code: string): { isValid: boolean; error?: string } {
+function validateCustomScript(code: string): { isValid: boolean; error?: string } {
   try {
-    const jsContent = extractJavaScript(code)
+    if (!code) return { isValid: false, error: 'Script content is required' }
 
-    // Skip validation for empty content (e.g., external scripts)
-    if (!jsContent) return { isValid: true }
+    // 提取脚本内容
+    const content = code
+      .replace(/<script[^>]*>/gi, '')
+      .replace(/<\/script>/gi, '')
+      .trim()
 
-    // 使用 esprima 进行语法验证
-    esprima.parseScript(jsContent, { tolerant: true })
+    // 跳过空内容或外部脚本
+    if (!content || code.includes('src=')) {
+      return { isValid: true }
+    }
+
+    // 验证 JS 语法
+    esprima.parseScript(content, { tolerant: true })
     return { isValid: true }
   } catch (error) {
     return {
@@ -102,30 +47,85 @@ export const validateJavaScriptHook: CollectionBeforeChangeHook<CustomCode> = as
   data,
   operation,
 }) => {
-  // Only validate when creating or updating
   if (operation === 'create' || operation === 'update') {
     if (data.scripts && Array.isArray(data.scripts)) {
       data.scripts = data.scripts.map((script, index) => {
-        if (script.code) {
-          // First validate script tag structure (if any)
-          const tagValidation = validateScriptTags(script.code)
-          if (!tagValidation.isValid) {
-            throw new APIError(
-              `Script ${index + 1}: ${tagValidation.error || 'Invalid script tags'}`,
-              400,
-            )
-          }
+        // 验证脚本类型和相应的字段
+        switch (script.type) {
+          case SCRIPT_TYPES.GOOGLE_ANALYTICS:
+            if (!validateTrackingId(script.type, script.trackingId)) {
+              throw new APIError(
+                `Script ${index + 1}: Invalid tracking ID format for ${script.type}. Expected format: G-XXXXXXX`,
+                400,
+              )
+            }
+            // GA4 最佳实践：放在 head 中，使用 async 加载，在所有页面运行
+            script.position = 'head'
+            script.loadingStrategy = 'async'
+            script.urlPattern = '' // 确保在所有页面运行
+            break
 
-          // Then validate the JavaScript content
-          const { isValid, error } = isValidJavaScript(script.code)
-          if (!isValid) {
-            throw new APIError(`Script ${index + 1}: Invalid JavaScript: ${error}`, 400)
-          }
+          case SCRIPT_TYPES.GOOGLE_TAG_MANAGER:
+            if (!validateTrackingId(script.type, script.trackingId)) {
+              throw new APIError(
+                `Script ${index + 1}: Invalid tracking ID format for ${script.type}. Expected format: GTM-XXXXXX`,
+                400,
+              )
+            }
+            // GTM 最佳实践：放在 head 中，使用 async 加载，在所有页面运行
+            script.position = 'head'
+            script.loadingStrategy = 'async'
+            script.urlPattern = '' // 确保在所有页面运行
+            break
+
+          case SCRIPT_TYPES.CUSTOM:
+            if (script.code) {
+              const { isValid, error } = validateCustomScript(script.code)
+              if (!isValid) {
+                throw new APIError(`Script ${index + 1}: Invalid JavaScript: ${error}`, 400)
+              }
+            } else {
+              throw new APIError(`Script ${index + 1}: Code is required for custom scripts`, 400)
+            }
+
+            // 对于自定义脚本，验证加载策略和位置
+            if (
+              script.loadingStrategy &&
+              !['sync', 'async', 'defer'].includes(script.loadingStrategy)
+            ) {
+              throw new APIError(
+                `Script ${index + 1}: Invalid loading strategy. Must be one of: sync, async, defer`,
+                400,
+              )
+            }
+
+            if (script.position && !['head', 'body-start', 'body-end'].includes(script.position)) {
+              throw new APIError(
+                `Script ${index + 1}: Invalid position. Must be one of: head, body-start, body-end`,
+                400,
+              )
+            }
+
+            // 验证 URL 模式（如果提供）
+            if (script.urlPattern) {
+              try {
+                new RegExp(script.urlPattern.replace(/\*/g, '.*').replace(/\//g, '\\/'))
+              } catch (error) {
+                throw new APIError(
+                  `Script ${index + 1}: Invalid URL pattern. Please use valid patterns like "/blog/*" or "/about", ${error}`,
+                  400,
+                )
+              }
+            }
+            break
+
+          default:
+            throw new APIError(`Script ${index + 1}: Invalid script type`, 400)
         }
+
         return script
       })
     }
   }
-
   return data
 }

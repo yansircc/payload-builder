@@ -1,0 +1,38 @@
+@import '~@payloadcms/ui/scss';
+
+.script-row-label {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.75);
+
+  &__name {
+    color: var(--theme-text);
+    font-weight: 500;
+  }
+
+  &__pill {
+    display: inline-flex;
+    align-items: center;
+    padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
+    border-radius: calc(var(--base) * 0.375);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1;
+    transition: all var(--timing-base) linear;
+
+    &--enabled {
+      background: var(--theme-success-100);
+      color: var(--theme-success-800);
+    }
+
+    &--disabled {
+      background: var(--theme-error-100);
+      color: var(--theme-error-800);
+    }
+
+    &--type {
+      background: var(--theme-elevation-100);
+      color: var(--theme-elevation-700);
+    }
+  }
+}

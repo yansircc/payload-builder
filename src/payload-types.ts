@@ -8323,13 +8323,21 @@ export interface CustomCode {
      */
     name?: string | null;
     /**
+     * Select script type for optimized loading
+     */
+    type?: ('google-analytics' | 'google-tag-manager' | 'custom') | null;
+    /**
+     * Enter tracking ID (e.g., G-XXXXXXX for GA4, GTM-XXXXXX for GTM)
+     */
+    trackingId?: string | null;
+    /**
+     * Enter script code
+     */
+    code?: string | null;
+    /**
      * Enable or disable this script
      */
     isEnabled?: boolean | null;
-    /**
-     * Enter script code (can include script tags)
-     */
-    code: string;
     /**
      * Where to place the script in the document
      */
@@ -12831,8 +12839,10 @@ export interface CustomCodesSelect<T extends boolean = true> {
     | T
     | {
         name?: T;
-        isEnabled?: T;
+        type?: T;
+        trackingId?: T;
         code?: T;
+        isEnabled?: T;
         position?: T;
         loadingStrategy?: T;
         urlPattern?: T;
