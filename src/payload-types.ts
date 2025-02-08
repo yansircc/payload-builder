@@ -8306,6 +8306,8 @@ export interface Footer10Fields {
   };
 }
 /**
+ * Manage custom JavaScript code snippets for your site
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "custom-codes".
  */
@@ -8313,17 +8315,35 @@ export interface CustomCode {
   id: string;
   tenant?: (string | null) | Tenant;
   /**
-   * Header scripts are added right before closing </head> tag
+   * Add one or more scripts
    */
-  headerScripts?: string | null;
-  /**
-   * Body scripts are added right after opening <body> tag
-   */
-  bodyStartScripts?: string | null;
-  /**
-   * Body scripts are added right before closing </body> tag
-   */
-  bodyEndScripts?: string | null;
+  scripts: {
+    /**
+     * A descriptive name for this script
+     */
+    name?: string | null;
+    /**
+     * Enable or disable this script
+     */
+    isEnabled?: boolean | null;
+    /**
+     * Enter script code (can include script tags)
+     */
+    code: string;
+    /**
+     * Where to place the script in the document
+     */
+    position?: ('head' | 'body-start' | 'body-end') | null;
+    /**
+     * How the script should be loaded
+     */
+    loadingStrategy?: ('sync' | 'async' | 'defer') | null;
+    /**
+     * Optional: URL pattern where this script should load (e.g., "/blog/*" or "/about"). Leave empty for all pages.
+     */
+    urlPattern?: string | null;
+    id?: string | null;
+  }[];
   updatedAt: string;
   createdAt: string;
 }
@@ -12807,9 +12827,17 @@ export interface Footer10FieldsSelect<T extends boolean = true> {
  */
 export interface CustomCodesSelect<T extends boolean = true> {
   tenant?: T;
-  headerScripts?: T;
-  bodyStartScripts?: T;
-  bodyEndScripts?: T;
+  scripts?:
+    | T
+    | {
+        name?: T;
+        isEnabled?: T;
+        code?: T;
+        position?: T;
+        loadingStrategy?: T;
+        urlPattern?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
