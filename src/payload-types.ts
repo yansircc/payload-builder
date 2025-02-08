@@ -19,6 +19,7 @@ export interface Config {
     tenants: Tenant;
     header: Header;
     footer: Footer;
+    'custom-codes': CustomCode;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -38,6 +39,7 @@ export interface Config {
     tenants: TenantsSelect<false> | TenantsSelect<true>;
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'custom-codes': CustomCodesSelect<false> | CustomCodesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -8305,6 +8307,28 @@ export interface Footer10Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "custom-codes".
+ */
+export interface CustomCode {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  /**
+   * Header scripts are added right before closing </head> tag
+   */
+  headerScripts?: string | null;
+  /**
+   * Body scripts are added right after opening <body> tag
+   */
+  bodyStartScripts?: string | null;
+  /**
+   * Body scripts are added right before closing </body> tag
+   */
+  bodyEndScripts?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -8509,6 +8533,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'footer';
         value: string | Footer;
+      } | null)
+    | ({
+        relationTo: 'custom-codes';
+        value: string | CustomCode;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -12772,6 +12800,18 @@ export interface Footer10FieldsSelect<T extends boolean = true> {
               copyright?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "custom-codes_select".
+ */
+export interface CustomCodesSelect<T extends boolean = true> {
+  tenant?: T;
+  headerScripts?: T;
+  bodyStartScripts?: T;
+  bodyEndScripts?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
