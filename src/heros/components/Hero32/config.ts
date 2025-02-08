@@ -1,4 +1,5 @@
 import { GroupField } from 'payload'
+import { createFieldLabel } from '@/i18n'
 import { createHeroField, heroSchemas } from '../shared/base-field'
 
 /**
@@ -41,7 +42,7 @@ export const hero32Fields: GroupField = {
           minRows: 15,
           maxRows: 15,
           admin: {
-            description: 'Integration images (exactly 15)',
+            description: createFieldLabel('hero32.hero.integrations', 'pages'),
           },
         },
       ],
