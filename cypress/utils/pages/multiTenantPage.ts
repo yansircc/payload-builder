@@ -1,3 +1,4 @@
+import tenant from '../../fixtures/tenant.json'
 import { multiTenantLocator } from '../locators/payloadLocator'
 
 export class multiTenantPage {
@@ -7,9 +8,9 @@ export class multiTenantPage {
   }
   static createTenant(): void {
     cy.get(multiTenantLocator.createTenantBtn).should('be.visible').click()
-    cy.get(multiTenantLocator.tenantName).type('John')
-    cy.get(multiTenantLocator.tenantDomain).type('Doe')
-    cy.get(multiTenantLocator.tenantSlug).type('Testing')
+    cy.get(multiTenantLocator.tenantName).type(tenant.name)
+    cy.get(multiTenantLocator.tenantDomain).type(tenant.domain)
+    cy.get(multiTenantLocator.tenantSlug).type(tenant.slug)
     cy.get(multiTenantLocator.tenantSaveBtn).should('be.visible').click()
     cy.toastMsg('Tenant successfully created.')
   }
@@ -20,9 +21,9 @@ export class multiTenantPage {
     cy.get(multiTenantLocator.searchedData)
       .should('be.visible')
       .then(($el): void => {
-        cy.wrap($el).find(multiTenantLocator.searchedName).should('contain', 'John')
-        cy.wrap($el).find(multiTenantLocator.searchedDomain).should('contain', 'Doe')
-        cy.wrap($el).find(multiTenantLocator.searchedSlug).should('contain', 'Testing')
+        cy.wrap($el).find(multiTenantLocator.searchedName).should('contain', tenant.name)
+        cy.wrap($el).find(multiTenantLocator.searchedDomain).should('contain', tenant.domain)
+        cy.wrap($el).find(multiTenantLocator.searchedSlug).should('contain', tenant.slug)
       })
   }
   static deleteTenant(): void {
