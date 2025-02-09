@@ -2,6 +2,7 @@ import { GroupField } from 'payload'
 import { z } from 'zod'
 import { link } from '@/fields/link'
 import { createFeatureField, featureSchemas } from '../shared/base-field'
+import { feature1Mock } from './mock'
 
 /**
  * Feature 1 field validation and type definitions
@@ -34,6 +35,17 @@ export const feature1Fields: GroupField = {
   fields: [
     createFeatureField({
       includeFields: ['title', 'description', 'icon', 'image'],
+      fieldOverrides: {
+        title: {
+          defaultValue: feature1Mock.title,
+        },
+        description: {
+          defaultValue: feature1Mock.description,
+        },
+        icon: {
+          defaultValue: feature1Mock.icon,
+        },
+      },
       arrays: [
         {
           name: 'links',
@@ -45,7 +57,9 @@ export const feature1Fields: GroupField = {
                   description: 'Primary link with icon',
                 },
                 defaultValue: {
+                  label: 'Watch Demo',
                   prefixIcon: 'Play',
+                  appearance: 'outline',
                 },
               },
             }),
@@ -54,6 +68,10 @@ export const feature1Fields: GroupField = {
               overrides: {
                 admin: {
                   description: 'Secondary link',
+                },
+                defaultValue: {
+                  label: 'Get Started',
+                  appearance: 'default',
                 },
               },
             }),

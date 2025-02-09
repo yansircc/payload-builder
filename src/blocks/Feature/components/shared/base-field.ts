@@ -248,18 +248,39 @@ const featureFields: Record<string, Field> = {
  */
 export { basicFields, cardsFields, iconFields, listFields, mediaFields, testimonialFields }
 
+interface FeatureFieldOptions
+  extends Omit<FieldGroupOptions<typeof featureFields>, 'name' | 'fields'> {
+  fieldOverrides?: {
+    [K in keyof typeof featureFields]?: Partial<(typeof featureFields)[K]>
+  }
+}
+
 /**
  * Create a custom feature field with selected fields, array fields and groups
  * @param options - Field group configuration options
  * @returns - Feature field configuration
  */
-export function createFeatureField(
-  options: Omit<FieldGroupOptions<typeof featureFields>, 'name' | 'fields'>,
-): GroupField {
+export function createFeatureField(options: FeatureFieldOptions): GroupField {
+  const { fieldOverrides = {}, ...restOptions } = options
+
+  // Create a new fields object with overrides applied
+  const fieldsWithOverrides = { ...featureFields }
+
+  // Type-safe field override application
+  Object.entries(fieldOverrides).forEach(([fieldName, overrides]) => {
+    const key = fieldName as keyof typeof featureFields
+    if (fieldsWithOverrides[key]) {
+      fieldsWithOverrides[key] = {
+        ...fieldsWithOverrides[key],
+        ...overrides,
+      } as (typeof featureFields)[typeof key]
+    }
+  })
+
   return createFieldGroup({
     name: 'feature',
-    fields: featureFields,
-    ...options,
+    fields: fieldsWithOverrides,
+    ...restOptions,
     admin: {
       description: 'Feature section fields',
       ...options.admin,
