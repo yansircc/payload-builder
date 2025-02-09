@@ -1,3 +1,4 @@
+import { createBreadcrumbsField, createParentField } from '@payloadcms/plugin-nested-docs'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -9,6 +10,7 @@ import type { CollectionConfig } from 'payload'
 import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
 import { slugField } from '@/fields/slug'
 import { HeroField } from '@/heros/config'
+import { syncPathname } from '@/utilities/syncPathname'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { AboutBlock } from '../../blocks/About/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
@@ -67,6 +69,33 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'text',
       required: true,
     },
+    createParentField(
+      // First argument is equal to the slug of the collection
+      // that the field references
+      'pages',
+
+      // Second argument is equal to field overrides that you specify,
+      // which will be merged into the base parent field config
+      {
+        admin: {
+          position: 'sidebar',
+        },
+        // Note: if you override the `filterOptions` of the `parent` field,
+        // be sure to continue to prevent the document from referencing itself as the parent like this:
+        // filterOptions: ({ id }) => ({ id: {not_equals: id }})
+      },
+    ),
+    createBreadcrumbsField(
+      // First argument is equal to the slug of the collection
+      // that the field references
+      'pages',
+
+      // Argument equal to field overrides that you specify,
+      // which will be merged into the base `breadcrumbs` field config
+      {
+        label: 'Page Breadcrumbs',
+      },
+    ),
     {
       type: 'tabs',
       tabs: [
@@ -135,6 +164,20 @@ export const Pages: CollectionConfig<'pages'> = {
       },
     },
     ...slugField(),
+    {
+      name: 'pathname',
+      type: 'text',
+      unique: true,
+      index: true,
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+      },
+      hooks: {
+        beforeChange: [syncPathname],
+        beforeValidate: [syncPathname],
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidatePage],

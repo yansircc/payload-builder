@@ -97,6 +97,15 @@ export interface Page {
   id: string;
   tenant?: (string | null) | Tenant;
   title: string;
+  parent?: (string | null) | Page;
+  breadcrumbs?:
+    | {
+        doc?: (string | null) | Page;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   hero?: HeroField;
   layout: (
     | AboutBlock
@@ -124,6 +133,7 @@ export interface Page {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
+  pathname?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -8579,6 +8589,15 @@ export interface PayloadMigration {
 export interface PagesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
   hero?: T | HeroFieldSelect<T>;
   layout?:
     | T
@@ -8607,6 +8626,7 @@ export interface PagesSelect<T extends boolean = true> {
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
+  pathname?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
