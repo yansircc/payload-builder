@@ -1,4 +1,6 @@
-import type { CollectionSlug, File, GlobalSlug, Payload, PayloadRequest } from 'payload'
+import fs from 'fs'
+import path from 'path'
+import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest } from 'payload'
 import { contactForm as contactFormData } from './contact-form'
 import { contact as contactPageData } from './contact-page'
 import { home } from './home'
@@ -160,20 +162,39 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding media...`)
 
-  const [image1Buffer, image2Buffer, image3Buffer, hero1Buffer] = await Promise.all([
-    fetchFileByURL(
-      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-post1.webp',
-    ),
-    fetchFileByURL(
-      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-post2.webp',
-    ),
-    fetchFileByURL(
-      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-post3.webp',
-    ),
-    fetchFileByURL(
-      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-hero1.webp',
-    ),
-  ])
+  const [image1Buffer, image2Buffer, image3Buffer, hero1Buffer, placeholderSvgBuffer] =
+    await Promise.all([
+      fs.promises.readFile(path.join(__dirname, 'image-post1.webp')).then((buffer) => ({
+        data: buffer,
+        mimetype: 'image/webp',
+        name: 'image-post1.webp',
+        size: buffer.length,
+      })),
+      fs.promises.readFile(path.join(__dirname, 'image-post2.webp')).then((buffer) => ({
+        data: buffer,
+        mimetype: 'image/webp',
+        name: 'image-post2.webp',
+        size: buffer.length,
+      })),
+      fs.promises.readFile(path.join(__dirname, 'image-post3.webp')).then((buffer) => ({
+        data: buffer,
+        mimetype: 'image/webp',
+        name: 'image-post3.webp',
+        size: buffer.length,
+      })),
+      fs.promises.readFile(path.join(__dirname, 'image-hero1.webp')).then((buffer) => ({
+        data: buffer,
+        mimetype: 'image/webp',
+        name: 'image-hero1.webp',
+        size: buffer.length,
+      })),
+      fs.promises.readFile(path.join(__dirname, 'placeholder-1.svg')).then((buffer) => ({
+        data: buffer,
+        mimetype: 'image/svg+xml',
+        name: 'placeholder-1.svg',
+        size: buffer.length,
+      })),
+    ])
 
   const [
     demoAuthor,
@@ -181,6 +202,7 @@ export const seed = async ({
     image2Doc,
     image3Doc,
     imageHomeDoc,
+    placeholderDoc,
     technologyCategory,
     newsCategory,
     financeCategory,
@@ -217,6 +239,13 @@ export const seed = async ({
       collection: 'media',
       data: { ...imageHero1, tenant: tenant1.id },
       file: hero1Buffer,
+    }),
+    payload.create({
+      collection: 'media',
+      data: {
+        alt: 'Placeholder SVG',
+      },
+      file: placeholderSvgBuffer,
     }),
 
     payload.create({
@@ -490,24 +519,4 @@ export const seed = async ({
   ])
 
   payload.logger.info('Seeded database successfully!')
-}
-
-async function fetchFileByURL(url: string): Promise<File> {
-  const res = await fetch(url, {
-    credentials: 'include',
-    method: 'GET',
-  })
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch file from ${url}, status: ${res.status}`)
-  }
-
-  const data = await res.arrayBuffer()
-
-  return {
-    name: url.split('/').pop() || `file-${Date.now()}`,
-    data: Buffer.from(data),
-    mimetype: `image/${url.split('.').pop()}`,
-    size: data.byteLength,
-  }
 }

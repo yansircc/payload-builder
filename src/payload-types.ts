@@ -5901,7 +5901,7 @@ export interface FAQBlock {
  */
 export interface FAQ1Fields {
   /**
-   * FAQ fields
+   * FAQ section fields
    */
   faq: {
     /**
@@ -5932,7 +5932,7 @@ export interface FAQ1Fields {
  */
 export interface FAQ2Fields {
   /**
-   * FAQ fields
+   * FAQ section fields
    */
   faq: {
     /**
@@ -5963,7 +5963,7 @@ export interface FAQ2Fields {
  */
 export interface FAQ3Fields {
   /**
-   * FAQ fields
+   * FAQ section fields
    */
   faq: {
     /**
@@ -6049,7 +6049,7 @@ export interface FAQ3Fields {
  */
 export interface FAQ4Fields {
   /**
-   * FAQ fields
+   * FAQ section fields
    */
   faq: {
     /**
@@ -6139,7 +6139,7 @@ export interface FAQ4Fields {
  */
 export interface FAQ5Fields {
   /**
-   * FAQ fields
+   * FAQ section fields
    */
   faq: {
     /**
@@ -6178,7 +6178,7 @@ export interface FAQ5Fields {
  */
 export interface FAQ6Fields {
   /**
-   * FAQ fields
+   * FAQ section fields
    */
   faq: {
     /**

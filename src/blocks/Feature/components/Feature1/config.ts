@@ -57,9 +57,9 @@ export const feature1Fields: GroupField = {
                   description: 'Primary link with icon',
                 },
                 defaultValue: {
-                  label: 'Watch Demo',
-                  prefixIcon: 'Play',
-                  appearance: 'outline',
+                  label: feature1Mock['link-1'].label,
+                  prefixIcon: feature1Mock['link-1'].prefixIcon,
+                  appearance: feature1Mock['link-1'].appearance,
                 },
               },
             }),
@@ -70,8 +70,8 @@ export const feature1Fields: GroupField = {
                   description: 'Secondary link',
                 },
                 defaultValue: {
-                  label: 'Get Started',
-                  appearance: 'default',
+                  label: feature1Mock['link-2'].label,
+                  appearance: feature1Mock['link-2'].appearance,
                 },
               },
             }),

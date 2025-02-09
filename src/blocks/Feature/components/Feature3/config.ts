@@ -1,6 +1,7 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
 import { cardsFields, createFeatureField, featureSchemas } from '../shared/base-field'
+import { feature3Mock } from './mock'
 
 /**
  * Feature 3 field validation and type definitions
@@ -34,14 +35,36 @@ export const feature3Fields: GroupField = {
   fields: [
     createFeatureField({
       includeFields: ['title'],
+      fieldOverrides: {
+        title: {
+          defaultValue: feature3Mock.title,
+        },
+      },
       arrays: [
         {
           name: 'features',
-          fields: [cardsFields.icon, cardsFields.title, cardsFields.description, cardsFields.image],
-          minRows: 1,
+          fields: [
+            {
+              ...cardsFields.icon,
+              defaultValue: feature3Mock.features[0].icon,
+            },
+            {
+              ...cardsFields.title,
+              defaultValue: feature3Mock.features[0].title,
+            },
+            {
+              ...cardsFields.description,
+              defaultValue: feature3Mock.features[0].description,
+            },
+            {
+              ...cardsFields.image,
+            },
+          ],
+          minRows: 3,
           maxRows: 6,
           admin: {
             description: 'Feature cards',
+            initCollapsed: false,
           },
         },
       ],

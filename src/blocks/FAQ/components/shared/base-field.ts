@@ -117,7 +117,7 @@ const listFields = {
  * FAQ fields
  */
 const faqsFields = {
-  icon: {
+  question: {
     name: 'question',
     type: 'text',
     required: true,
@@ -125,7 +125,7 @@ const faqsFields = {
       description: 'Question',
     },
   },
-  text: {
+  answer: {
     name: 'answer',
     type: 'text',
     required: true,
@@ -150,20 +150,41 @@ const faqFields: Record<string, Field> = {
  */
 export { basicFields, faqsFields, listFields, mediaFields }
 
+interface FAQFieldOptions extends Omit<FieldGroupOptions<typeof faqFields>, 'name' | 'fields'> {
+  fieldOverrides?: {
+    [K in keyof typeof faqFields]?: Partial<(typeof faqFields)[K]>
+  }
+}
+
 /**
  * Create a custom faq field with selected fields and arrays
  * @param options - Field group configuration options
  * @returns - FAQ field configuration
  */
-export function createFAQField(
-  options: Omit<FieldGroupOptions<typeof faqFields>, 'name' | 'fields'>,
-): GroupField {
+
+export function createFAQField(options: FAQFieldOptions): GroupField {
+  const { fieldOverrides = {}, ...restOptions } = options
+
+  // Create a new fields object with overrides applied
+  const fieldsWithOverrides = { ...faqFields }
+
+  // Type-safe field override application
+  Object.entries(fieldOverrides).forEach(([fieldName, overrides]) => {
+    const key = fieldName as keyof typeof faqFields
+    if (fieldsWithOverrides[key]) {
+      fieldsWithOverrides[key] = {
+        ...fieldsWithOverrides[key],
+        ...overrides,
+      } as (typeof faqFields)[typeof key]
+    }
+  })
+
   return createFieldGroup({
     name: 'faq',
-    fields: faqFields,
-    ...options,
+    fields: fieldsWithOverrides,
+    ...restOptions,
     admin: {
-      description: 'FAQ fields',
+      description: 'FAQ section fields',
       ...options.admin,
     },
   })

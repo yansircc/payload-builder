@@ -1,11 +1,11 @@
 /**
- * Default values for Feature1 fields
+ * Default values for Feature2 fields
  */
-export const feature1Mock = {
+export const feature2Mock = {
   title: 'Welcome to Our Website',
   description:
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.',
-  icon: 'MessagesSquare',
+  icon: 'Zap',
   'link-1': {
     label: 'Watch Demo',
     prefixIcon: 'Play',

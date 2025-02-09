@@ -138,20 +138,40 @@ const teamFields: Record<string, Field> = {
  */
 export { basicFields, mediaFields, peopleFields }
 
+interface TeamFieldOptions extends Omit<FieldGroupOptions<typeof teamFields>, 'name' | 'fields'> {
+  fieldOverrides?: {
+    [K in keyof typeof teamFields]?: Partial<(typeof teamFields)[K]>
+  }
+}
+
 /**
  * Create a custom team field with selected fields and arrays
  * @param options - Field group configuration options
  * @returns - Team field configuration
  */
-export function createTeamField(
-  options: Omit<FieldGroupOptions<typeof teamFields>, 'name' | 'fields'>,
-): GroupField {
+export function createTeamField(options: TeamFieldOptions): GroupField {
+  const { fieldOverrides = {}, ...restOptions } = options
+
+  // Create a new fields object with overrides applied
+  const fieldsWithOverrides = { ...teamFields }
+
+  // Type-safe field override application
+  Object.entries(fieldOverrides).forEach(([fieldName, overrides]) => {
+    const key = fieldName as keyof typeof teamFields
+    if (fieldsWithOverrides[key]) {
+      fieldsWithOverrides[key] = {
+        ...fieldsWithOverrides[key],
+        ...overrides,
+      } as (typeof teamFields)[typeof key]
+    }
+  })
+
   return createFieldGroup({
     name: 'team',
-    fields: teamFields,
-    ...options,
+    fields: fieldsWithOverrides,
+    ...restOptions,
     admin: {
-      description: 'Team fields',
+      description: 'Team section fields',
       ...options.admin,
     },
   })

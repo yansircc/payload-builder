@@ -1,6 +1,7 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
 import { createTeamField, peopleFields, teamSchemas } from '../shared/base-field'
+import { team1Mock } from './mock'
 
 /**
  * Team 1 field validation and type definitions
@@ -27,11 +28,31 @@ export const team1Fields: GroupField = {
   fields: [
     createTeamField({
       includeFields: ['title', 'subtitle', 'description'],
+      fieldOverrides: {
+        title: {
+          defaultValue: team1Mock.title,
+        },
+        subtitle: {
+          defaultValue: team1Mock.subtitle,
+        },
+        description: {
+          defaultValue: team1Mock.description,
+        },
+      },
       arrays: [
         {
           name: 'people',
           label: 'Team Members List',
-          fields: Object.values(peopleFields),
+          fields: [
+            {
+              ...peopleFields.name,
+              defaultValue: team1Mock.people[0].name,
+            },
+            {
+              ...peopleFields.role,
+              defaultValue: team1Mock.people[0].role,
+            },
+          ],
           minRows: 1,
           admin: {
             description: 'Members',

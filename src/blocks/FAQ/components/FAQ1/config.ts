@@ -1,5 +1,6 @@
 import { GroupField } from 'payload'
 import { createFAQField, faqSchemas, faqsFields } from '../shared/base-field'
+import { faq1Mock } from './mock'
 
 /**
  * FAQ 1 field validation and type definitions
@@ -23,13 +24,28 @@ export const faq1Fields: GroupField = {
   fields: [
     createFAQField({
       includeFields: ['title'],
+      fieldOverrides: {
+        title: {
+          defaultValue: faq1Mock.title,
+        },
+      },
       arrays: [
         {
           label: 'List FAQ:',
           name: 'faqs',
-          fields: Object.values(faqsFields),
+          fields: [
+            {
+              ...faqsFields.question,
+              defaultValue: faq1Mock.faqs[0].question,
+            },
+            {
+              ...faqsFields.answer,
+              defaultValue: faq1Mock.faqs[0].answer,
+            },
+          ],
           admin: {
             description: 'List FAQ',
+            initCollapsed: false,
           },
           minRows: 1,
           maxRows: 6,
