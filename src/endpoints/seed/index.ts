@@ -94,6 +94,7 @@ export const seed = async ({
         name: 'Tenant 1',
         slug: 'gold',
         domain: 'gold.localhost.com',
+        theme: 'modern',
       },
     }),
     payload.create({
@@ -102,6 +103,7 @@ export const seed = async ({
         name: 'Tenant 2',
         slug: 'silver',
         domain: 'silver.localhost.com',
+        theme: 'modern',
       },
     }),
     payload.create({
@@ -110,6 +112,7 @@ export const seed = async ({
         name: 'Tenant 3',
         slug: 'bronze',
         domain: 'bronze.localhost.com',
+        theme: 'modern',
       },
     }),
   ])

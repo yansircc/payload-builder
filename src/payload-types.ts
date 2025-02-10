@@ -129,6 +129,8 @@ export interface Page {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Manage tenant configurations and settings
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tenants".
  */
@@ -136,15 +138,19 @@ export interface Tenant {
   id: string;
   name: string;
   /**
-   * Used for domain-based tenant handling
+   * The domain name for this tenant (e.g., example.com)
    */
   domain?: string | null;
   /**
-   * Used for url paths, example: /tenant-slug/page-slug
+   * A unique identifier for this tenant
    */
   slug: string;
   /**
-   * If checked, logging in is not required to read. Useful for building public pages.
+   * Select the design theme for this tenant
+   */
+  theme: 'modern' | 'minimal' | 'bold';
+  /**
+   * Allow public access to content
    */
   allowPublicRead?: boolean | null;
   updatedAt: string;
@@ -11723,6 +11729,7 @@ export interface TenantsSelect<T extends boolean = true> {
   name?: T;
   domain?: T;
   slug?: T;
+  theme?: T;
   allowPublicRead?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { isSuperAdminAccess } from '@/access/isSuperAdmin'
+import { presetThemes } from '@/themes'
 import { updateAndDeleteAccess } from './access/updateAndDelete'
 
 export const Tenants: CollectionConfig = {
@@ -7,11 +8,13 @@ export const Tenants: CollectionConfig = {
   access: {
     create: isSuperAdminAccess,
     delete: updateAndDeleteAccess,
-    read: ({ req }) => Boolean(req.user),
+    read: () => true,
     update: updateAndDeleteAccess,
   },
   admin: {
     useAsTitle: 'name',
+    group: 'Settings',
+    description: 'Manage tenant configurations and settings',
   },
   fields: [
     {
@@ -22,29 +25,42 @@ export const Tenants: CollectionConfig = {
     {
       name: 'domain',
       type: 'text',
+      unique: true,
       admin: {
-        description: 'Used for domain-based tenant handling',
+        description: 'The domain name for this tenant (e.g., example.com)',
       },
     },
     {
       name: 'slug',
       type: 'text',
-      admin: {
-        description: 'Used for url paths, example: /tenant-slug/page-slug',
-      },
-      index: true,
       required: true,
+      unique: true,
+      admin: {
+        description: 'A unique identifier for this tenant',
+      },
+    },
+    {
+      name: 'theme',
+      type: 'select',
+      required: true,
+      defaultValue: 'modern',
+      options: Object.entries(presetThemes).map(([value, theme]) => ({
+        label: theme.label,
+        value,
+      })),
+      admin: {
+        description: 'Select the design theme for this tenant',
+        position: 'sidebar',
+      },
     },
     {
       name: 'allowPublicRead',
       type: 'checkbox',
+      defaultValue: false,
       admin: {
-        description:
-          'If checked, logging in is not required to read. Useful for building public pages.',
+        description: 'Allow public access to content',
         position: 'sidebar',
       },
-      defaultValue: false,
-      index: true,
     },
   ],
 }
