@@ -186,7 +186,6 @@ export const seed = async ({
     financeCategory,
     designCategory,
     softwareCategory,
-    // engineeringCategory,
   ] = await Promise.all([
     payload.create({
       collection: 'users',
@@ -287,24 +286,9 @@ export const seed = async ({
         tenant: tenant1.id,
       },
     }),
-
-    payload.create({
-      collection: 'categories',
-      data: {
-        title: 'Engineering',
-        breadcrumbs: [
-          {
-            label: 'Engineering',
-            url: '/engineering',
-          },
-        ],
-        tenant: tenant1.id,
-      },
-    }),
   ])
 
   let demoAuthorID: number | string = demoAuthor.id
-
   let image1ID: number | string = image1Doc.id
   let image2ID: number | string = image2Doc.id
   let image3ID: number | string = image3Doc.id
@@ -388,7 +372,7 @@ export const seed = async ({
   })
 
   // Create tenant pages
-  await Promise.all([
+  const [homePage1, homePage2, homePage3] = await Promise.all([
     payload.create({
       collection: 'pages',
       data: {
@@ -398,6 +382,7 @@ export const seed = async ({
             .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
         ),
         tenant: tenant1.id,
+        _status: 'published',
       },
     }),
     payload.create({
@@ -409,6 +394,7 @@ export const seed = async ({
             .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
         ),
         tenant: tenant2.id,
+        _status: 'published',
       },
     }),
     payload.create({
@@ -420,6 +406,44 @@ export const seed = async ({
             .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
         ),
         tenant: tenant3.id,
+        _status: 'published',
+      },
+    }),
+  ])
+
+  // Create child pages under home for each tenant
+  await Promise.all([
+    payload.create({
+      collection: 'pages',
+      data: {
+        title: 'About Us',
+        slug: 'about-us',
+        parent: homePage1.id,
+        tenant: tenant1.id,
+        _status: 'published',
+        layout: [],
+      },
+    }),
+    payload.create({
+      collection: 'pages',
+      data: {
+        title: 'About Us',
+        slug: 'about-us',
+        parent: homePage2.id,
+        tenant: tenant2.id,
+        _status: 'published',
+        layout: [],
+      },
+    }),
+    payload.create({
+      collection: 'pages',
+      data: {
+        title: 'About Us',
+        slug: 'about-us',
+        parent: homePage3.id,
+        tenant: tenant3.id,
+        _status: 'published',
+        layout: [],
       },
     }),
   ])
@@ -458,36 +482,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding globals...`)
 
-  await Promise.all([
-    // payload.updateGlobal({
-    //   slug: 'header',
-    //   data: {
-    //     navItems: [
-    //       {
-    //         link: {
-    //           type: 'custom',
-    //           label: 'Posts',
-    //           url: '/posts',
-    //         },
-    //       },
-    //       {
-    //         link: {
-    //           type: 'reference',
-    //           label: 'Contact',
-    //           reference: {
-    //             relationTo: 'pages',
-    //             value: contactPage.id,
-    //           },
-    //         },
-    //       },
-    //     ],
-    //   },
-    // }),
-    // payload.updateGlobal({
-    //   slug: 'footer',
-    //   data: footer,
-    // }),
-  ])
+  await Promise.all([])
 
   payload.logger.info('Seeded database successfully!')
 }

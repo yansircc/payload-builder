@@ -10,7 +10,6 @@ import type { CollectionConfig } from 'payload'
 import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
 import { slugField } from '@/fields/slug'
 import { HeroField } from '@/heros/config'
-import { syncPathname } from '@/utilities/syncPathname'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { AboutBlock } from '../../blocks/About/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
@@ -28,6 +27,7 @@ import { TestimonialBlock } from '../../blocks/Testimonial/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
+import { updateChildPaths } from './hooks/updateChildPaths'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -40,13 +40,14 @@ export const Pages: CollectionConfig<'pages'> = {
   defaultPopulate: {
     title: true,
     slug: true,
+    fullPath: true,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'fullPath', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : '',
+          slug: typeof data?.fullPath === 'string' ? data.fullPath : '',
           tenant: typeof data?.tenant === 'string' ? data.tenant : '',
           collection: 'pages',
           req,
@@ -56,7 +57,7 @@ export const Pages: CollectionConfig<'pages'> = {
     },
     preview: (data: any, { req }) =>
       generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
+        slug: typeof data?.fullPath === 'string' ? data.fullPath : '',
         tenant: typeof data?.tenant.id === 'string' ? data.tenant.id : '',
         collection: 'pages',
         req,
@@ -69,33 +70,14 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'text',
       required: true,
     },
-    createParentField(
-      // First argument is equal to the slug of the collection
-      // that the field references
-      'pages',
-
-      // Second argument is equal to field overrides that you specify,
-      // which will be merged into the base parent field config
-      {
-        admin: {
-          position: 'sidebar',
-        },
-        // Note: if you override the `filterOptions` of the `parent` field,
-        // be sure to continue to prevent the document from referencing itself as the parent like this:
-        // filterOptions: ({ id }) => ({ id: {not_equals: id }})
+    createParentField('pages', {
+      admin: {
+        position: 'sidebar',
       },
-    ),
-    createBreadcrumbsField(
-      // First argument is equal to the slug of the collection
-      // that the field references
-      'pages',
-
-      // Argument equal to field overrides that you specify,
-      // which will be merged into the base `breadcrumbs` field config
-      {
-        label: 'Page Breadcrumbs',
-      },
-    ),
+    }),
+    createBreadcrumbsField('pages', {
+      label: 'Page Breadcrumbs',
+    }),
     {
       type: 'tabs',
       tabs: [
@@ -164,23 +146,9 @@ export const Pages: CollectionConfig<'pages'> = {
       },
     },
     ...slugField(),
-    {
-      name: 'pathname',
-      type: 'text',
-      unique: true,
-      index: true,
-      admin: {
-        readOnly: true,
-        position: 'sidebar',
-      },
-      hooks: {
-        beforeChange: [syncPathname],
-        beforeValidate: [syncPathname],
-      },
-    },
   ],
   hooks: {
-    afterChange: [revalidatePage],
+    afterChange: [revalidatePage, updateChildPaths],
     beforeChange: [populatePublishedAt],
     afterDelete: [revalidateDelete],
   },

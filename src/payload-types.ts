@@ -133,7 +133,7 @@ export interface Page {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  pathname?: string | null;
+  fullPath?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -425,6 +425,7 @@ export interface Post {
     | null;
   slug?: string | null;
   slugLock?: boolean | null;
+  fullPath?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -439,6 +440,7 @@ export interface Category {
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
+  fullPath?: string | null;
   parent?: (string | null) | Category;
   breadcrumbs?:
     | {
@@ -8626,7 +8628,7 @@ export interface PagesSelect<T extends boolean = true> {
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
-  pathname?: T;
+  fullPath?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -11592,6 +11594,7 @@ export interface PostsSelect<T extends boolean = true> {
       };
   slug?: T;
   slugLock?: T;
+  fullPath?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -11699,6 +11702,7 @@ export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   slugLock?: T;
+  fullPath?: T;
   parent?: T;
   breadcrumbs?:
     | T
