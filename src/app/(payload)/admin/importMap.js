@@ -10,6 +10,11 @@ import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { LinkFeatureClient as LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { default as default_2177cd6a7d77d86c13a188b13f9d557e } from 'src/blocks/FAQ/components/FAQ1/fields/FAQField'
+import { default as default_f3e1f1e34789617a8d43dde0dc7016ce } from 'src/blocks/FAQ/components/FAQ2/fields/FAQField'
+import { default as default_4c74dc6c7fc1025b0c87582bf78f8e86 } from 'src/blocks/FAQ/components/FAQ3/fields/FAQField'
+import { default as default_b4ad7ce06c8c2621ab41e87b2a8e1307 } from 'src/blocks/FAQ/components/FAQ4/fields/FAQField'
+import { default as default_6beab26d9683a5f39cd25919f3b9fe60 } from 'src/blocks/FAQ/components/FAQ5/fields/FAQField'
+import { default as default_3ba87650915056b34d56ab369b6d7ba6 } from 'src/blocks/FAQ/components/FAQ6/fields/FAQField'
 import { OverviewComponent as OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
@@ -39,6 +44,11 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#LinkFeatureClient": LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "/blocks/FAQ/components/FAQ1/fields/FAQField#default": default_2177cd6a7d77d86c13a188b13f9d557e,
+  "/blocks/FAQ/components/FAQ2/fields/FAQField#default": default_f3e1f1e34789617a8d43dde0dc7016ce,
+  "/blocks/FAQ/components/FAQ3/fields/FAQField#default": default_4c74dc6c7fc1025b0c87582bf78f8e86,
+  "/blocks/FAQ/components/FAQ4/fields/FAQField#default": default_b4ad7ce06c8c2621ab41e87b2a8e1307,
+  "/blocks/FAQ/components/FAQ5/fields/FAQField#default": default_6beab26d9683a5f39cd25919f3b9fe60,
+  "/blocks/FAQ/components/FAQ6/fields/FAQField#default": default_3ba87650915056b34d56ab369b6d7ba6,
   "@payloadcms/plugin-seo/client#OverviewComponent": OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,

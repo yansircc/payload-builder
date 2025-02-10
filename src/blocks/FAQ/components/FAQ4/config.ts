@@ -1,6 +1,7 @@
 import { GroupField } from 'payload'
 import { link } from '@/fields/link'
 import { createFAQField, faqsFields } from '../shared/base-field'
+import { mockData } from './data/mock'
 
 /**
  * FAQ 4 configuration
@@ -16,11 +17,41 @@ export const faq4Fields: GroupField = {
   fields: [
     createFAQField({
       includeFields: ['subtitle', 'title', 'description'],
+      fieldOverrides: {
+        title: {
+          defaultValue: mockData.title,
+        },
+        subtitle: {
+          defaultValue: mockData.subtitle,
+        },
+        description: {
+          defaultValue: mockData.description,
+        },
+      },
       arrays: [
         {
           label: 'List FAQ:',
           name: 'faqs',
-          fields: Object.values(faqsFields),
+          fields: [
+            {
+              ...faqsFields.question,
+              type: 'text',
+              admin: {
+                components: {
+                  Field: '/blocks/FAQ/components/FAQ4/fields/FAQField',
+                },
+              },
+            },
+            {
+              ...faqsFields.answer,
+              type: 'text',
+              admin: {
+                components: {
+                  Field: '/blocks/FAQ/components/FAQ4/fields/FAQField',
+                },
+              },
+            },
+          ],
           admin: {
             description: 'List FAQ',
           },

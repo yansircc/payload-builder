@@ -1,6 +1,6 @@
 import { GroupField } from 'payload'
 import { createFAQField, faqsFields } from '../shared/base-field'
-import { faq2Mock } from './mock'
+import { mockData } from './data/mock'
 
 /**
  * FAQ 2 configuration
@@ -18,7 +18,7 @@ export const faq2Fields: GroupField = {
       includeFields: ['title'],
       fieldOverrides: {
         title: {
-          defaultValue: faq2Mock.title,
+          defaultValue: mockData.title,
         },
       },
       arrays: [
@@ -28,15 +28,26 @@ export const faq2Fields: GroupField = {
           fields: [
             {
               ...faqsFields.question,
-              defaultValue: faq2Mock.faqs[0].question,
+              type: 'text',
+              admin: {
+                components: {
+                  Field: '/blocks/FAQ/components/FAQ2/fields/FAQField',
+                },
+              },
             },
             {
               ...faqsFields.answer,
-              defaultValue: faq2Mock.faqs[0].answer,
+              type: 'text',
+              admin: {
+                components: {
+                  Field: '/blocks/FAQ/components/FAQ2/fields/FAQField',
+                },
+              },
             },
           ],
           admin: {
             description: 'List FAQ',
+            initCollapsed: false,
           },
           minRows: 1,
           maxRows: 6,
