@@ -74,6 +74,7 @@ export const Pages: CollectionConfig<'pages'> = {
       admin: {
         position: 'sidebar',
       },
+      filterOptions: ({ id }) => ({ id: { not_equals: id } }),
     }),
     createBreadcrumbsField('pages', {
       label: 'Page Breadcrumbs',
