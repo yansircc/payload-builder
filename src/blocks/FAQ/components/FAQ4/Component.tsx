@@ -1,4 +1,3 @@
-import { ChevronRight } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import {
   Accordion,

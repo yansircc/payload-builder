@@ -5930,13 +5930,7 @@ export interface FAQ2Fields {
      */
     faqs?:
       | {
-          /**
-           * Question
-           */
           question: string;
-          /**
-           * Answer
-           */
           answer: string;
           id?: string | null;
         }[]
@@ -5965,13 +5959,7 @@ export interface FAQ3Fields {
      */
     faqs?:
       | {
-          /**
-           * Question
-           */
           question: string;
-          /**
-           * Answer
-           */
           answer: string;
           id?: string | null;
         }[]
@@ -6055,13 +6043,7 @@ export interface FAQ4Fields {
      */
     faqs?:
       | {
-          /**
-           * Question
-           */
           question: string;
-          /**
-           * Answer
-           */
           answer: string;
           id?: string | null;
         }[]
@@ -6145,13 +6127,7 @@ export interface FAQ5Fields {
      */
     faqs?:
       | {
-          /**
-           * Question
-           */
           question: string;
-          /**
-           * Answer
-           */
           answer: string;
           id?: string | null;
         }[]
@@ -6184,13 +6160,7 @@ export interface FAQ6Fields {
      */
     faqs?:
       | {
-          /**
-           * Question
-           */
           question: string;
-          /**
-           * Answer
-           */
           answer: string;
           id?: string | null;
         }[]
