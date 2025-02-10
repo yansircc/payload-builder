@@ -1,13 +1,5 @@
 import { GroupField } from 'payload'
-import { createFAQField, faqSchemas, faqsFields } from '../shared/base-field'
-
-/**
- * FAQ 6 field validation and type definitions
- */
-export const schemas = {
-  title: faqSchemas.title,
-  faqs: faqSchemas.faqs,
-}
+import { createFAQField, faqsFields } from '../shared/base-field'
 
 /**
  * FAQ 6 configuration

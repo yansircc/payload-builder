@@ -1,30 +1,6 @@
 import { GroupField } from 'payload'
-import { createFAQField, faqSchemas, faqsFields } from '../shared/base-field'
-import { mockData } from './mock'
-
-type FAQBlockType = {
-  id?: string
-  blockType: 'faq'
-  style: 'faq-1'
-  'faq-1': {
-    faq: {
-      title: string
-      faqs: Array<{
-        id?: string
-        question?: string
-        answer?: string
-      }>
-    }
-  }
-}
-
-/**
- * FAQ 1 field validation and type definitions
- */
-export const schemas = {
-  title: faqSchemas.title,
-  faqs: faqSchemas.faqs,
-}
+import { createFAQField, faqsFields } from '../shared/base-field'
+import { mockData } from './data/mock'
 
 /**
  * FAQ 1 configuration

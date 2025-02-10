@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'fs/promises'
+import { dirname, join } from 'path'
 import { openai } from '@ai-sdk/openai'
 import { generateObject } from 'ai'
 import { glob } from 'glob'
@@ -6,72 +7,98 @@ import ts from 'typescript'
 import { z } from 'zod'
 
 interface SchemaInfo {
-  filePath: string
+  schemaPath: string
+  dataPath: string
   schema: z.ZodObject<any>
   hasMockData: boolean
 }
 
-function findMockFiles(): string[] {
-  return glob.sync('src/**/mock.ts', {
+function findSchemaFiles(): string[] {
+  return glob.sync('src/**/data/schema.ts', {
     ignore: ['**/node_modules/**'],
   })
 }
 
-async function extractSchema(filePath: string): Promise<SchemaInfo | null> {
-  try {
-    const content = await readFile(filePath, 'utf-8')
+function getDataFilePath(schemaPath: string): string {
+  return join(dirname(schemaPath), 'mock.ts')
+}
 
-    // Check if mockData already exists
-    const hasMockData = content.includes('export const mockData =')
+async function checkDataFileExists(dataPath: string): Promise<boolean> {
+  try {
+    await readFile(dataPath, 'utf-8')
+    return true
+  } catch {
+    return false
+  }
+}
+
+async function extractSchema(schemaPath: string): Promise<SchemaInfo | null> {
+  try {
+    const content = await readFile(schemaPath, 'utf-8')
+    const dataPath = getDataFilePath(schemaPath)
+
+    // Check if data.ts already exists
+    const hasMockData = await checkDataFileExists(dataPath)
     if (hasMockData) {
-      console.log(`⏭️  Skipping ${filePath} - mockData already exists`)
+      console.log(`⏭️  Skipping ${schemaPath} - mock.ts already exists`)
       return null
     }
 
     // Create source file
-    const sourceFile = ts.createSourceFile(filePath, content, ts.ScriptTarget.Latest, true)
+    const sourceFile = ts.createSourceFile(schemaPath, content, ts.ScriptTarget.Latest, true)
 
     let schema: z.ZodObject<any> | null = null
+    const schemaDefinitions = new Map<string, string>()
 
-    // Find schema export
-    function visit(node: ts.Node) {
-      if (
-        ts.isVariableStatement(node) &&
-        node.modifiers?.some((mod) => mod.kind === ts.SyntaxKind.ExportKeyword)
-      ) {
+    // First pass: collect all schema definitions
+    function collectSchemas(node: ts.Node) {
+      if (ts.isVariableStatement(node)) {
         const declaration = node.declarationList.declarations[0]
-        if (ts.isIdentifier(declaration.name) && declaration.name.text === 'schema') {
-          // Get the schema initialization code
-          const schemaText = content.slice(declaration.pos, declaration.end)
-          try {
-            // Create a function that will execute in the context with z
-            const createSchema = new Function('z', `return ${schemaText}`)
-            const evalResult = createSchema(z)
-            if (evalResult instanceof z.ZodObject) {
-              schema = evalResult
-            }
-          } catch (error) {
-            console.error(`❌ Error evaluating schema in ${filePath}:`, error)
-          }
+        if (ts.isIdentifier(declaration.name) && declaration.initializer) {
+          const name = declaration.name.text
+          const schemaText = content.slice(declaration.initializer.pos, declaration.initializer.end)
+          schemaDefinitions.set(name, schemaText)
         }
       }
-      ts.forEachChild(node, visit)
+      ts.forEachChild(node, collectSchemas)
     }
 
-    ts.forEachChild(sourceFile, visit)
+    ts.forEachChild(sourceFile, collectSchemas)
+
+    // Create evaluation context with all schema definitions
+    const contextCode = Array.from(schemaDefinitions.entries())
+      .map(([name, code]) => `const ${name} = ${code}`)
+      .join('\n')
+
+    // Add final return statement for the main schema
+    const fullCode = `
+      ${contextCode}
+      return schema
+    `
+
+    try {
+      const createSchema = new Function('z', fullCode)
+      const evalResult = createSchema(z)
+      if (evalResult instanceof z.ZodObject) {
+        schema = evalResult
+      }
+    } catch (error) {
+      console.error(`❌ Error evaluating schema in ${schemaPath}:`, error)
+    }
 
     if (!schema) {
-      console.log(`⏭️  Skipping ${filePath} - no valid schema found`)
+      console.log(`⏭️  Skipping ${schemaPath} - no valid schema found`)
       return null
     }
 
     return {
-      filePath,
+      schemaPath,
+      dataPath,
       schema,
       hasMockData,
     }
   } catch (error) {
-    console.error(`❌ Error processing ${filePath}:`, error)
+    console.error(`❌ Error processing ${schemaPath}:`, error)
     return null
   }
 }
@@ -101,46 +128,44 @@ Please ensure the generated content meets the requirements for each field.`
 
 async function generateMockData(schemaInfo: SchemaInfo): Promise<void> {
   try {
-    console.log(`🔄 Generating mock data for ${schemaInfo.filePath}...`)
+    console.log(`🔄 Generating mock data for ${schemaInfo.schemaPath}...`)
 
     const prompt = generatePrompt(schemaInfo.schema)
     const { object } = await generateObject({
-      model: openai('gpt-4o'),
+      model: openai('gpt-4o-mini'),
       prompt,
       schema: schemaInfo.schema,
     })
 
-    // Read the original file content
-    const originalContent = await readFile(schemaInfo.filePath, 'utf-8')
-
-    // Generate new content with mockData
+    // Generate mock.ts content
+    const schemaRelativePath = './schema'
     const mockDataString = JSON.stringify(object, null, 2)
-    const newContent = `${originalContent}
+    const newContent = `import type { FAQData } from '${schemaRelativePath}'
 
-export const mockData = ${mockDataString} as const
+export const mockData = ${mockDataString} satisfies FAQData
 `
 
-    // Write the updated content back to the file
-    await writeFile(schemaInfo.filePath, newContent)
-    console.log(`✅ Updated ${schemaInfo.filePath}`)
+    // Write the mock.ts file
+    await writeFile(schemaInfo.dataPath, newContent)
+    console.log(`✅ Created ${schemaInfo.dataPath}`)
   } catch (error) {
-    console.error(`❌ Error generating mock data for ${schemaInfo.filePath}:`, error)
+    console.error(`❌ Error generating mock data for ${schemaInfo.schemaPath}:`, error)
   }
 }
 
 async function main() {
   try {
-    // Find all mock.ts files
-    const mockFiles = findMockFiles()
-    console.log(`🔍 Found ${mockFiles.length} mock files`)
+    // Find all schema.ts files
+    const schemaFiles = findSchemaFiles()
+    console.log(`🔍 Found ${schemaFiles.length} schema files`)
 
     // Extract schemas from each file
-    const schemaPromises = mockFiles.map(extractSchema)
+    const schemaPromises = schemaFiles.map(extractSchema)
     const schemaResults = await Promise.all(schemaPromises)
     const validSchemas = schemaResults.filter((result): result is SchemaInfo => result !== null)
 
     if (validSchemas.length === 0) {
-      console.log('⚠️  No valid mock files found that need updating')
+      console.log('⚠️  No valid schema files found that need updating')
       return
     }
 
