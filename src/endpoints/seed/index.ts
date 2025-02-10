@@ -17,7 +17,10 @@ const collections: CollectionSlug[] = [
   'forms',
   'form-submissions',
   'search',
-]
+] as const
+
+type CustomCollectionSlug = (typeof collections)[number]
+
 const globals: GlobalSlug[] = []
 
 // Next.js revalidation errors are normal when seeding the database without a server running
@@ -114,7 +117,7 @@ export const seed = async ({
     }),
   ])
 
-  // Create tenant users
+  // Create tenant users first
   await Promise.all([
     payload.create({
       collection: 'users',
@@ -186,7 +189,6 @@ export const seed = async ({
     financeCategory,
     designCategory,
     softwareCategory,
-    // engineeringCategory,
   ] = await Promise.all([
     payload.create({
       collection: 'users',
@@ -282,20 +284,6 @@ export const seed = async ({
           {
             label: 'Software',
             url: '/software',
-          },
-        ],
-        tenant: tenant1.id,
-      },
-    }),
-
-    payload.create({
-      collection: 'categories',
-      data: {
-        title: 'Engineering',
-        breadcrumbs: [
-          {
-            label: 'Engineering',
-            url: '/engineering',
           },
         ],
         tenant: tenant1.id,
@@ -456,37 +444,47 @@ export const seed = async ({
     }),
   ])
 
-  payload.logger.info(`— Seeding globals...`)
-
+  payload.logger.info(`— Seeding site settings...`)
   await Promise.all([
-    // payload.updateGlobal({
-    //   slug: 'header',
-    //   data: {
-    //     navItems: [
-    //       {
-    //         link: {
-    //           type: 'custom',
-    //           label: 'Posts',
-    //           url: '/posts',
-    //         },
-    //       },
-    //       {
-    //         link: {
-    //           type: 'reference',
-    //           label: 'Contact',
-    //           reference: {
-    //             relationTo: 'pages',
-    //             value: contactPage.id,
-    //           },
-    //         },
-    //       },
-    //     ],
-    //   },
-    // }),
-    // payload.updateGlobal({
-    //   slug: 'footer',
-    //   data: footer,
-    // }),
+    payload.create({
+      collection: 'site-settings',
+      data: {
+        title: 'Gold Tenant - Welcome to Our Site',
+        description:
+          'Premium features and services available with our Gold tenant subscription. Discover what sets us apart.',
+        tenant: tenant1.id,
+        defaultLanguage: 'en',
+        searchEngineVisibility: {
+          allowIndexing: true,
+        },
+      },
+    }),
+    payload.create({
+      collection: 'site-settings',
+      data: {
+        title: 'Silver Tenant - Your Business Solution',
+        description:
+          'Powerful features and reliable services with our Silver tenant subscription. Perfect for growing businesses.',
+        tenant: tenant2.id,
+        defaultLanguage: 'en',
+        searchEngineVisibility: {
+          allowIndexing: true,
+        },
+      },
+    }),
+    payload.create({
+      collection: 'site-settings',
+      data: {
+        title: 'Bronze Tenant - Get Started Today',
+        description:
+          'Essential features and great value with our Bronze tenant subscription. The perfect starting point for your journey.',
+        tenant: tenant3.id,
+        defaultLanguage: 'en',
+        searchEngineVisibility: {
+          allowIndexing: true,
+        },
+      },
+    }),
   ])
 
   payload.logger.info('Seeded database successfully!')

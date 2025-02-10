@@ -13,6 +13,7 @@ import { CustomCodes } from './collections/CustomCodes'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { SiteSettings } from './collections/SiteSetting'
 import { Tenants } from './collections/Tenants'
 import Users from './collections/Users'
 import { ApiKey } from './globals/api-keys'
@@ -70,7 +71,18 @@ export default buildConfig({
   db: mongooseAdapter({
     url: env.DATABASE_URL || false,
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Tenants, Header, Footer, CustomCodes],
+  collections: [
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    Users,
+    Tenants,
+    Header,
+    Footer,
+    CustomCodes,
+    SiteSettings,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [ApiKey],
   plugins: [
