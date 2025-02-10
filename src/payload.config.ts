@@ -9,6 +9,7 @@ import sharp from 'sharp' // sharp-import
 import { env } from '@/env'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { Categories } from './collections/Categories'
+import { CustomCodes } from './collections/CustomCodes'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -69,7 +70,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: env.DATABASE_URL || false,
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Tenants, Header, Footer],
+  collections: [Pages, Posts, Media, Categories, Users, Tenants, Header, Footer, CustomCodes],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [ApiKey],
   plugins: [

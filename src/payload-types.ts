@@ -19,6 +19,7 @@ export interface Config {
     tenants: Tenant;
     header: Header;
     footer: Footer;
+    'custom-codes': CustomCode;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -38,6 +39,7 @@ export interface Config {
     tenants: TenantsSelect<false> | TenantsSelect<true>;
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'custom-codes': CustomCodesSelect<false> | CustomCodesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -8304,6 +8306,56 @@ export interface Footer10Fields {
   };
 }
 /**
+ * Manage custom JavaScript code snippets for your site
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "custom-codes".
+ */
+export interface CustomCode {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  /**
+   * Add one or more scripts
+   */
+  scripts: {
+    /**
+     * A descriptive name for this script
+     */
+    name?: string | null;
+    /**
+     * Select script type for optimized loading
+     */
+    type?: ('google-analytics' | 'google-tag-manager' | 'custom') | null;
+    /**
+     * Enter tracking ID (e.g., G-XXXXXXX for GA4, GTM-XXXXXX for GTM)
+     */
+    trackingId?: string | null;
+    /**
+     * Enter script code
+     */
+    code?: string | null;
+    /**
+     * Enable or disable this script
+     */
+    isEnabled?: boolean | null;
+    /**
+     * Where to place the script in the document
+     */
+    position?: ('head' | 'body-start' | 'body-end') | null;
+    /**
+     * How the script should be loaded
+     */
+    loadingStrategy?: ('sync' | 'async' | 'defer') | null;
+    /**
+     * Optional: URL pattern where this script should load (e.g., "/blog/*" or "/about"). Leave empty for all pages.
+     */
+    urlPattern?: string | null;
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
@@ -8509,6 +8561,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'footer';
         value: string | Footer;
+      } | null)
+    | ({
+        relationTo: 'custom-codes';
+        value: string | CustomCode;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -12772,6 +12828,28 @@ export interface Footer10FieldsSelect<T extends boolean = true> {
               copyright?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "custom-codes_select".
+ */
+export interface CustomCodesSelect<T extends boolean = true> {
+  tenant?: T;
+  scripts?:
+    | T
+    | {
+        name?: T;
+        type?: T;
+        trackingId?: T;
+        code?: T;
+        isEnabled?: T;
+        position?: T;
+        loadingStrategy?: T;
+        urlPattern?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
