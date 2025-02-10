@@ -1,20 +1,6 @@
 import { GroupField } from 'payload'
-import { z } from 'zod'
 import { link } from '@/fields/link'
-import { createFAQField, faqSchemas, faqsFields } from '../shared/base-field'
-
-/**
- * FAQ 3 field validation and type definitions
- */
-export const schemas = {
-  title: faqSchemas.title,
-  faqs: faqSchemas.faqs,
-  support: z.object({
-    title: faqSchemas.title,
-    subtitle: faqSchemas.subtitle,
-    link: faqSchemas.link,
-  }),
-}
+import { createFAQField, faqsFields } from '../shared/base-field'
 
 /**
  * FAQ 3 configuration

@@ -15,9 +15,9 @@ export default function Team1({ team }: Team1Fields) {
       <div className="container mt-16 grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-4">
         {people?.map((person) => (
           <div key={person.id} className="flex flex-col items-center">
-            <Avatar className="mb-4 size-20 border md:mb-5 lg:size-24">
+            {/* <Avatar className="mb-4 size-20 border md:mb-5 lg:size-24">
               <Media resource={person.avatar} />
-            </Avatar>
+            </Avatar> */}
             <p className="text-center font-medium">{person.name}</p>
             <p className="text-center text-muted-foreground">{person.role}</p>
           </div>

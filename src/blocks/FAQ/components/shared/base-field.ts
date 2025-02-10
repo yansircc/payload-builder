@@ -1,49 +1,5 @@
 import { Field, GroupField } from 'payload'
-import { z } from 'zod'
 import { createFieldGroup, FieldGroupOptions } from '@/utilities/createFieldGroup'
-
-/**
- * Atomic faq field schemas
- */
-export const faqSchemas = {
-  /** Title schema */
-  title: z.string().describe('The faq title'),
-  /** Subtitle schema */
-  subtitle: z.string().describe('The faq subtitle'),
-  /** Description schema */
-  description: z.string().describe('The faq description'),
-  /** Link schema */
-  link: z.object({
-    type: z.enum(['reference', 'custom']).optional(),
-    newTab: z.boolean().optional(),
-    reference: z
-      .object({
-        relationTo: z.enum(['pages', 'posts']),
-        value: z.string(),
-      })
-      .optional(),
-    url: z.string().optional(),
-    label: z.string(),
-    prefixIcon: z.string().optional(),
-    suffixIcon: z.string().optional(),
-  }),
-  /** List schema */
-  list: z.array(
-    z.object({
-      icon: z.string().optional(),
-      text: z.string(),
-    }),
-  ),
-  faqs: z
-    .array(
-      z.object({
-        question: z.string(),
-        answer: z.string(),
-      }),
-    )
-    .optional()
-    .describe('Options for select/radio fields'),
-}
 
 /**
  * Basic fields configuration
@@ -116,7 +72,7 @@ const listFields = {
 /**
  * FAQ fields
  */
-const faqsFields = {
+export const faqsFields = {
   question: {
     name: 'question',
     type: 'text',
@@ -148,7 +104,7 @@ const faqFields: Record<string, Field> = {
 /**
  * Export all field groups for type safety
  */
-export { basicFields, faqsFields, listFields, mediaFields }
+export { basicFields, listFields, mediaFields }
 
 interface FAQFieldOptions extends Omit<FieldGroupOptions<typeof faqFields>, 'name' | 'fields'> {
   fieldOverrides?: {
@@ -161,7 +117,6 @@ interface FAQFieldOptions extends Omit<FieldGroupOptions<typeof faqFields>, 'nam
  * @param options - Field group configuration options
  * @returns - FAQ field configuration
  */
-
 export function createFAQField(options: FAQFieldOptions): GroupField {
   const { fieldOverrides = {}, ...restOptions } = options
 

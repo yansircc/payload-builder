@@ -33,10 +33,12 @@
     "preinstall": "bun clean",
     "docker:build": "sh scripts/docker-build.sh",
     "docker:build:local": "sh scripts/docker-build-local.sh",
-    "generate:translations": "bun generate:types && bun run scripts/generate-translations/index.ts"
+    "generate:translations": "bun generate:types && bun run scripts/generate-translations/index.ts",
+    "generate:mocks": "bun run scripts/generate-mock-data.ts"
   },
   "dependencies": {
     "@ai-sdk/deepseek": "^0.1.3",
+    "@ai-sdk/openai": "^1.1.9",
     "@payloadcms/db-mongodb": "^3.22.0",
     "@payloadcms/db-postgres": "^3.22.0",
     "@payloadcms/live-preview-react": "3.22.0",
@@ -95,6 +97,7 @@
     "@tailwindcss/postcss": "^4.0.0-beta.10",
     "@tailwindcss/typography": "^0.5.13",
     "@types/escape-html": "^1.0.2",
+    "@types/glob": "^8.1.0",
     "@types/node": "^22.5.4",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
