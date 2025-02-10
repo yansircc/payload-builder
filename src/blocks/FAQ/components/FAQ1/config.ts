@@ -1,6 +1,22 @@
 import { GroupField } from 'payload'
 import { createFAQField, faqSchemas, faqsFields } from '../shared/base-field'
-import { faq1Mock } from './mock'
+import { mockData } from './mock'
+
+type FAQBlockType = {
+  id?: string
+  blockType: 'faq'
+  style: 'faq-1'
+  'faq-1': {
+    faq: {
+      title: string
+      faqs: Array<{
+        id?: string
+        question?: string
+        answer?: string
+      }>
+    }
+  }
+}
 
 /**
  * FAQ 1 field validation and type definitions
@@ -26,7 +42,7 @@ export const faq1Fields: GroupField = {
       includeFields: ['title'],
       fieldOverrides: {
         title: {
-          defaultValue: faq1Mock.title,
+          defaultValue: mockData.title,
         },
       },
       arrays: [
@@ -36,11 +52,21 @@ export const faq1Fields: GroupField = {
           fields: [
             {
               ...faqsFields.question,
-              defaultValue: faq1Mock.faqs[0].question,
+              type: 'text',
+              admin: {
+                components: {
+                  Field: '/blocks/FAQ/components/FAQ1/fields/FAQField',
+                },
+              },
             },
             {
               ...faqsFields.answer,
-              defaultValue: faq1Mock.faqs[0].answer,
+              type: 'text',
+              admin: {
+                components: {
+                  Field: '/blocks/FAQ/components/FAQ1/fields/FAQField',
+                },
+              },
             },
           ],
           admin: {

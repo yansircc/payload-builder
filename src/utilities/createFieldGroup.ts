@@ -1,4 +1,4 @@
-import { ArrayField, Field, GroupField, LabelFunction, StaticLabel } from 'payload'
+import { ArrayField, Field, FieldHook, GroupField, LabelFunction, StaticLabel } from 'payload'
 
 export interface ArrayConfig {
   name: string
@@ -7,6 +7,12 @@ export interface ArrayConfig {
   maxRows?: number
   admin?: ArrayField['admin']
   label?: false | StaticLabel | LabelFunction
+  hooks?: {
+    beforeValidate?: FieldHook[]
+    beforeChange?: FieldHook[]
+    afterChange?: FieldHook[]
+    afterRead?: FieldHook[]
+  }
 }
 
 export interface GroupConfig {
@@ -31,7 +37,7 @@ export interface FieldGroupOptions<T extends Record<string, Field>> {
  * Create array field configuration with proper typing
  */
 function createArrayField(config: ArrayConfig): ArrayField {
-  const { name, fields, minRows, maxRows, admin, label = false } = config
+  const { name, fields, minRows, maxRows, admin, label = false, hooks } = config
 
   return {
     name,
@@ -41,6 +47,7 @@ function createArrayField(config: ArrayConfig): ArrayField {
     maxRows,
     admin,
     fields,
+    hooks,
   }
 }
 
@@ -78,12 +85,15 @@ function createGroupField<T extends Record<string, Field>>(
  *   name: 'hero',
  *   fields: heroFields,
  *   includeFields: ['title', 'subtitle'],
- *   // Arrays at root level
+ *   // Arrays at root level with hooks
  *   arrays: [
  *     {
  *       name: 'links',
  *       fields: [basicFields.link],
  *       minRows: 2,
+ *       hooks: {
+ *         beforeValidate: [({ data }) => data],
+ *       }
  *     }
  *   ],
  *   // Grouped fields with their own arrays

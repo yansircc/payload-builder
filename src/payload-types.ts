@@ -5463,7 +5463,7 @@ export interface TeamBlock {
  */
 export interface Team1Fields {
   /**
-   * Team fields
+   * Team section fields
    */
   team: {
     /**
@@ -5491,14 +5491,6 @@ export interface Team1Fields {
            * Team member role/position
            */
           role: string;
-          /**
-           * Team member bio
-           */
-          description: string;
-          /**
-           * Team member avatar image
-           */
-          avatar: string | Media;
           id?: string | null;
         }[]
       | null;
@@ -5510,7 +5502,7 @@ export interface Team1Fields {
  */
 export interface Team2Fields {
   /**
-   * Team fields
+   * Team section fields
    */
   team: {
     /**
@@ -5594,7 +5586,7 @@ export interface Team2Fields {
  */
 export interface Team3Fields {
   /**
-   * Team fields
+   * Team section fields
    */
   team: {
     /**
@@ -5716,7 +5708,7 @@ export interface Team3Fields {
  */
 export interface Team5Fields {
   /**
-   * Team fields
+   * Team section fields
    */
   team: {
     /**
@@ -5801,7 +5793,7 @@ export interface Team5Fields {
  */
 export interface Team6Fields {
   /**
-   * Team fields
+   * Team section fields
    */
   team: {
     /**
@@ -5913,13 +5905,7 @@ export interface FAQ1Fields {
      */
     faqs?:
       | {
-          /**
-           * Question
-           */
           question: string;
-          /**
-           * Answer
-           */
           answer: string;
           id?: string | null;
         }[]
@@ -11097,8 +11083,6 @@ export interface Team1FieldsSelect<T extends boolean = true> {
           | {
               name?: T;
               role?: T;
-              description?: T;
-              avatar?: T;
               id?: T;
             };
       };
