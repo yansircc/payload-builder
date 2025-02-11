@@ -10,6 +10,7 @@ import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Plugin } from 'payload'
 import { isSuperAdmin } from '@/access/isSuperAdmin'
+import normalizeRedirectUrls from '@/hooks/normalizeRedirectUrls'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { Config, Page, Post } from '@/payload-types'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
@@ -46,7 +47,7 @@ export const plugins: Plugin[] = [
         })
       },
       hooks: {
-        afterChange: [revalidateRedirects],
+        afterChange: [normalizeRedirectUrls, revalidateRedirects],
       },
     },
     redirectTypes: ['301', '302'],
