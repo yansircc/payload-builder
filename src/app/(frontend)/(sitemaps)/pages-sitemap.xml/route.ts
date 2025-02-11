@@ -2,15 +2,14 @@ import config from '@payload-config'
 import { getServerSideSitemap } from 'next-sitemap'
 import { getPayload } from 'payload'
 import { unstable_cache } from 'next/cache'
-import { env } from '@/env'
+import { headers } from 'next/headers'
+import { Tenant } from '@/payload-types'
 
 const getPagesSitemap = unstable_cache(
-  async () => {
+  async (tenant: Tenant, protocol: string) => {
     const payload = await getPayload({ config })
-    const SITE_URL =
-      env.NEXT_PUBLIC_SERVER_URL ||
-      process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-      'https://example.com'
+
+    const SITE_URL = `${protocol}://${tenant.domain}`
 
     const results = await payload.find({
       collection: 'pages',
@@ -63,7 +62,30 @@ const getPagesSitemap = unstable_cache(
 )
 
 export async function GET() {
-  const sitemap = await getPagesSitemap()
+  const payload = await getPayload({ config })
 
-  return getServerSideSitemap(sitemap)
+  // Get tenant from domain
+  const headersList = headers()
+  const host = (await headersList).get('host') || ''
+  const domain = host.split(':')[0]
+  const protocol = (await headersList).get('x-forwarded-proto') || 'http' // Default to 'http' if not set
+
+  // First, find the tenant by domain
+  const tenantQuery = await payload.find({
+    collection: 'tenants',
+    where: {
+      domain: {
+        equals: domain,
+      },
+    },
+  })
+
+  const tenant = tenantQuery.docs[0]
+
+  if (tenant) {
+    const sitemap = await getPagesSitemap(tenant, protocol)
+    return getServerSideSitemap(sitemap)
+  }
+
+  return null
 }
