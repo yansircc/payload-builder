@@ -40,12 +40,19 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     popup,
   } = props
 
+  // Handle popup type
+  if (type === 'popup' && popup && typeof popup === 'object') {
+    return (
+      <PopupLink popup={popup} label={label || ''} appearance={appearance} className={className} />
+    )
+  }
+
   const href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
       ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${reference.value.slug}`
       : url
 
-  // if (!href) return null
+  if (!href) return null
 
   const size = appearance === 'inline' ? undefined : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
@@ -58,13 +65,6 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
       {suffixIcon && <DynamicIcon name={suffixIcon} className="ml-2 size-4" />}
     </>
   )
-
-  // Handle popup type
-  if (type === 'popup' && popup && typeof popup === 'object') {
-    return (
-      <PopupLink popup={popup} label={label || ''} appearance={appearance} className={className} />
-    )
-  }
 
   // Handle regular links
   if (appearance === 'inline') {
