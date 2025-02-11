@@ -49,6 +49,10 @@ export const plugins: Plugin[] = [
         afterChange: [revalidateRedirects],
       },
     },
+    redirectTypes: ['301', '302'],
+    redirectTypeFieldOverride: {
+      label: 'Redirect Type (Overridden)',
+    },
   }),
   nestedDocsPlugin({
     collections: ['categories'],
