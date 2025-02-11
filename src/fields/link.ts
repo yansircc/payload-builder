@@ -79,6 +79,10 @@ export const link: LinkType = ({
                 label: 'Custom URL',
                 value: 'custom',
               },
+              {
+                label: 'Popup',
+                value: 'popup',
+              },
             ],
           },
           {
@@ -115,6 +119,16 @@ export const link: LinkType = ({
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
       label: 'Custom URL',
+      required: true,
+    },
+    {
+      name: 'popup',
+      type: 'relationship',
+      relationTo: 'popups',
+      admin: {
+        condition: (_, siblingData) => siblingData?.type === 'popup',
+      },
+      label: 'Select Popup',
       required: true,
     },
   ]

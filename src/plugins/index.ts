@@ -108,6 +108,7 @@ export const plugins: Plugin[] = [
       header: { isGlobal: true },
       footer: { isGlobal: true },
       'custom-codes': { isGlobal: true },
+      popups: {},
       media: {
         useTenantAccess: false,
       },
