@@ -55,9 +55,19 @@ export default {
         md: 'var(--radius-medium)',
         lg: 'var(--radius-large)',
       },
+      backgroundColor: {
+        DEFAULT: 'var(--color-background)',
+      },
       colors: {
-        background: 'var(--color-background)',
-        foreground: 'var(--color-foreground)',
+        border: {
+          DEFAULT: 'var(--color-border)',
+        },
+        background: {
+          DEFAULT: 'var(--color-background)',
+        },
+        foreground: {
+          DEFAULT: 'var(--color-foreground)',
+        },
         primary: {
           DEFAULT: 'var(--color-primary)',
           foreground: 'hsl(var(--primary-foreground))',
@@ -86,7 +96,6 @@ export default {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
-        border: 'hsla(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         success: 'hsl(var(--success))',
