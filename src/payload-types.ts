@@ -8400,7 +8400,7 @@ export interface Redirect {
   id: string;
   tenant?: (string | null) | Tenant;
   /**
-   * You will need to rebuild the website when changing this field.
+   * Please enter the path only, such as `/abc`, instead of the full domain name like `example.com/abc`.
    */
   from: string;
   to?: {

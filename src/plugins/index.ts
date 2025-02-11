@@ -39,7 +39,8 @@ export const plugins: Plugin[] = [
             return {
               ...field,
               admin: {
-                description: 'You will need to rebuild the website when changing this field.',
+                description:
+                  'Please enter the path only, such as `/abc`, instead of the full domain name like `example.com/abc`.',
               },
             }
           }
@@ -47,7 +48,7 @@ export const plugins: Plugin[] = [
         })
       },
       hooks: {
-        afterChange: [normalizeRedirectUrls, revalidateRedirects],
+        afterChange: [revalidateRedirects, normalizeRedirectUrls],
       },
     },
     redirectTypes: ['301', '302'],
