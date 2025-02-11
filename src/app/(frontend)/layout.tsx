@@ -11,7 +11,6 @@ import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { cn } from '@/utilities/ui'
 import './globals.css'
 import { RenderHeader } from '@/Header/RenderHeader'
-import { DesignSystemProvider } from '@/providers/DesignSystemProvider'
 import { getServerSideURL } from '@/utilities/getURL'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
