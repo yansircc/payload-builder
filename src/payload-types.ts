@@ -20,6 +20,7 @@ export interface Config {
     header: Header;
     footer: Footer;
     'custom-codes': CustomCode;
+    'site-settings': SiteSetting;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -40,6 +41,7 @@ export interface Config {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'custom-codes': CustomCodesSelect<false> | CustomCodesSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -8357,6 +8359,41 @@ export interface CustomCode {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  /**
+   * SEO title for homepage (recommended: 50-60 characters)
+   */
+  title: string;
+  /**
+   * SEO description for homepage (recommended: 150-160 characters)
+   */
+  description: string;
+  /**
+   * Upload your site favicon (recommended size: 32x32 or 16x16)
+   */
+  favicon?: (string | null) | Media;
+  /**
+   * Upload your site logo
+   */
+  logo?: (string | null) | Media;
+  defaultLanguage: 'en' | 'zh';
+  searchEngineVisibility?: {
+    allowIndexing?: boolean | null;
+    /**
+     * Custom robots.txt content (optional)
+     */
+    robotsTxtContent?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -8566,6 +8603,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'custom-codes';
         value: string | CustomCode;
+      } | null)
+    | ({
+        relationTo: 'site-settings';
+        value: string | SiteSetting;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -12851,6 +12892,27 @@ export interface CustomCodesSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  tenant?: T;
+  title?: T;
+  description?: T;
+  favicon?: T;
+  logo?: T;
+  defaultLanguage?: T;
+  searchEngineVisibility?:
+    | T
+    | {
+        allowIndexing?: T;
+        robotsTxtContent?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
