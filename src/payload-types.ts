@@ -99,6 +99,15 @@ export interface Page {
   id: string;
   tenant?: (string | null) | Tenant;
   title: string;
+  parent?: (string | null) | Page;
+  breadcrumbs?:
+    | {
+        doc?: (string | null) | Page;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   hero?: HeroField;
   layout: (
     | AboutBlock
@@ -126,6 +135,7 @@ export interface Page {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
+  fullPath?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -417,6 +427,7 @@ export interface Post {
     | null;
   slug?: string | null;
   slugLock?: boolean | null;
+  fullPath?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -431,6 +442,7 @@ export interface Category {
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
+  fullPath?: string | null;
   parent?: (string | null) | Category;
   breadcrumbs?:
     | {
@@ -8635,6 +8647,15 @@ export interface PayloadMigration {
 export interface PagesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
   hero?: T | HeroFieldSelect<T>;
   layout?:
     | T
@@ -8663,6 +8684,7 @@ export interface PagesSelect<T extends boolean = true> {
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
+  fullPath?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -11628,6 +11650,7 @@ export interface PostsSelect<T extends boolean = true> {
       };
   slug?: T;
   slugLock?: T;
+  fullPath?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -11735,6 +11758,7 @@ export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   slugLock?: T;
+  fullPath?: T;
   parent?: T;
   breadcrumbs?:
     | T

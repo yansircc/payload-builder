@@ -21,16 +21,19 @@ export async function generateStaticParams() {
     overrideAccess: false,
     pagination: false,
     select: {
-      slug: true,
+      fullPath: true,
     },
   })
 
   const params = pages.docs
     ?.filter((doc) => {
-      return doc.slug !== 'home'
+      return doc.fullPath !== 'home'
     })
-    .map(({ slug }) => {
-      return { slug }
+    .map(({ fullPath }) => {
+      // Convert fullPath to segments array
+      // e.g., "home/about-us" becomes ["home", "about-us"]
+      const segments = fullPath?.split('/') || []
+      return { segments }
     })
 
   return params
@@ -38,14 +41,18 @@ export async function generateStaticParams() {
 
 type Args = {
   params: Promise<{
-    slug?: string
+    segments?: string[]
   }>
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
-  const { slug = 'home' } = await paramsPromise
-  const url = '/' + slug
+  const { segments = ['home'] } = await paramsPromise
+
+  // Convert segments array back to fullPath
+  // If no segments, default to 'home'
+  const fullPath = segments.join('/')
+  const url = '/' + fullPath
 
   // Get tenant from domain
   const headersList = headers()
@@ -68,15 +75,15 @@ export default async function Page({ params: paramsPromise }: Args) {
   const tenant = tenantQuery.docs[0]
 
   if (tenant) {
-    // Then query the page with both slug and tenant
-    page = await queryPageBySlugAndTenant({
-      slug,
+    // Then query the page with both fullPath and tenant
+    page = await queryPageByFullPathAndTenant({
+      fullPath,
       tenantId: tenant.id,
     })
   }
 
   // Remove this code once your website is seeded
-  if (!page && slug === 'home') {
+  if (!page && fullPath === 'home') {
     page = homeStatic
   }
 
@@ -101,7 +108,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = 'home' } = await paramsPromise
+  const { segments = ['home'] } = await paramsPromise
+  const fullPath = segments.join('/')
   const headersList = headers()
   const host = (await headersList).get('host') || ''
   const domain = host.split(':')[0]
@@ -118,8 +126,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 
   const tenant = tenantQuery.docs[0]
   const page = tenant
-    ? await queryPageBySlugAndTenant({
-        slug,
+    ? await queryPageByFullPathAndTenant({
+        fullPath,
         tenantId: tenant.id,
       })
     : null
@@ -127,8 +135,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   return generateMeta({ doc: page })
 }
 
-const queryPageBySlugAndTenant = cache(
-  async ({ slug, tenantId }: { slug: string; tenantId: string }) => {
+const queryPageByFullPathAndTenant = cache(
+  async ({ fullPath, tenantId }: { fullPath: string; tenantId: string }) => {
     const { isEnabled: draft } = await draftMode()
     const payload = await getPayload({ config: configPromise })
 
@@ -141,8 +149,8 @@ const queryPageBySlugAndTenant = cache(
       where: {
         and: [
           {
-            slug: {
-              equals: slug,
+            fullPath: {
+              equals: fullPath,
             },
           },
           {
