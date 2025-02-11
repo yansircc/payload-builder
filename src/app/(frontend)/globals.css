@@ -1,56 +1,38 @@
-@import 'tailwindcss';
-
-@config '../../../tailwind.config.mjs';
-
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: auto;
-    font-weight: auto;
-  }
-
   :root {
+    /* Design System Variables - These will be set by DesignSystemProvider */
+    --color-primary: #0070f3;
+    --color-secondary: #7928ca;
+    --color-background: #ffffff;
+    --color-foreground: #000000;
+    --color-muted: #f5f5f5;
+    --color-accent: #fafafa;
+
+    --font-family: 'Inter', sans-serif;
+    --heading-family: 'Inter', sans-serif;
+
+    --radius-small: 0.25rem;
+    --radius-medium: 0.5rem;
+    --radius-large: 1rem;
+
+    /* Shadcn UI Variables - Light Mode */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
-    --card: 240 5% 96%;
+    --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -60,14 +42,19 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.2rem;
-
     --success: 196 52% 74%;
     --warning: 34 89% 85%;
     --error: 10 100% 86%;
   }
 
   [data-theme='dark'] {
+    /* Design System Variables - Dark Mode */
+    --color-background: #000000;
+    --color-foreground: #ffffff;
+    --color-muted: #1a1a1a;
+    --color-accent: #1a1a1a;
+
+    /* Shadcn UI Variables - Dark Mode */
     --background: 0 0% 0%;
     --foreground: 210 40% 98%;
 
@@ -77,16 +64,10 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;

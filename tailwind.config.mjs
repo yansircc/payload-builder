@@ -3,13 +3,13 @@
 /* eslint-disable import/no-anonymous-default-export */
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
+  darkMode: ['selector', '[data-theme="dark"]'],
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
   prefix: '',
   safelist: [
@@ -29,9 +29,20 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: {
+        DEFAULT: '1rem',
+        sm: '1rem',
+        md: '2rem',
+        lg: '2rem',
+        xl: '2rem',
+        '2xl': '2rem',
+      },
       screens: {
-        '2xl': '1400px',
+        sm: '40rem',
+        md: '48rem',
+        lg: '64rem',
+        xl: '80rem',
+        '2xl': '86rem',
       },
     },
     extend: {
@@ -45,26 +56,38 @@ export default {
         lg: 'var(--radius-large)',
       },
       colors: {
-        primary: 'var(--color-primary)',
-        secondary: 'var(--color-secondary)',
         background: 'var(--color-background)',
         foreground: 'var(--color-foreground)',
-        muted: 'var(--color-muted)',
-        accent: 'var(--color-accent)',
-        border: 'hsla(var(--border))',
+        primary: {
+          DEFAULT: 'var(--color-primary)',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'var(--color-secondary)',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        muted: {
+          DEFAULT: 'var(--color-muted)',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'var(--color-accent)',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
+        border: 'hsla(var(--border))',
         input: 'hsl(var(--input))',
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
-        },
         ring: 'hsl(var(--ring))',
         success: 'hsl(var(--success))',
         error: 'hsl(var(--error))',
@@ -95,8 +118,8 @@ export default {
         DEFAULT: {
           css: [
             {
-              '--tw-prose-body': 'var(--text)',
-              '--tw-prose-headings': 'var(--text)',
+              '--tw-prose-body': 'var(--color-foreground)',
+              '--tw-prose-headings': 'var(--color-foreground)',
               h1: {
                 fontWeight: 'normal',
                 marginBottom: '0.25em',
