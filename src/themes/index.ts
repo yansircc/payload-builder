@@ -7,6 +7,7 @@ export interface DesignTheme {
     foreground: string
     muted: string
     accent: string
+    border: string
   }
   typography: {
     fontFamily: string
@@ -33,6 +34,7 @@ export const presetThemes: Record<string, DesignTheme> = {
       foreground: '#000000',
       muted: '#f5f5f5',
       accent: '#fafafa',
+      border: '#e5e7eb',
     },
     typography: {
       fontFamily: 'Inter',
@@ -57,6 +59,7 @@ export const presetThemes: Record<string, DesignTheme> = {
       foreground: '#171717',
       muted: '#fafafa',
       accent: '#f5f5f5',
+      border: '#e5e7eb',
     },
     typography: {
       fontFamily: 'Plus Jakarta Sans',
@@ -81,6 +84,7 @@ export const presetThemes: Record<string, DesignTheme> = {
       foreground: '#18181b',
       muted: '#f4f4f5',
       accent: '#fafafa',
+      border: '#e5e7eb',
     },
     typography: {
       fontFamily: 'Outfit',
