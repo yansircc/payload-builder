@@ -107,6 +107,7 @@ export const plugins: Plugin[] = [
       search: {},
       header: { isGlobal: true },
       footer: { isGlobal: true },
+      'custom-codes': { isGlobal: true },
       media: {
         useTenantAccess: false,
       },
