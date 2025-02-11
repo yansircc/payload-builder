@@ -1,4 +1,5 @@
-import payload from 'payload'
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
 import React from 'react'
 import { headers } from 'next/headers'
 import Link from 'next/link'
@@ -6,23 +7,37 @@ import { Button } from '@/components/ui/button'
 import { getTenantFromDomain } from '@/utilities/getTenant'
 
 export default async function NotFound() {
-  const headersList = headers()
   const tenant = await getTenantFromDomain()
+  const payload = await getPayload({ config: configPromise })
+  const headersList = await headers()
 
   // Log the 404 error
   try {
-    const url =
-      (await headersList).get('x-invoke-path') || (await headersList).get('x-url') || 'unknown'
-    const userAgent = (await headersList).get('user-agent') || 'unknown'
-    const referrer = (await headersList).get('referer') || undefined
+    // Get the current URL that caused the 404
+    const host = headersList.get('host')
+    const referer = headersList.get('referer')
+    const path = headersList.get('x-invoke-path')
+    const fallbackUrl = headersList.get('x-url')
+    const userAgent = headersList.get('user-agent')
+
+    // Extract the path from referer if possible, otherwise use other sources
+    let currentUrl = 'unknown'
+    if (referer && host) {
+      const refererUrl = new URL(referer)
+      currentUrl = refererUrl.pathname
+    } else if (path) {
+      currentUrl = path
+    } else if (fallbackUrl) {
+      currentUrl = fallbackUrl
+    }
 
     await payload.create({
       collection: 'error-logs',
       data: {
-        url,
+        url: currentUrl,
         errorType: '404',
-        userAgent,
-        referrer,
+        userAgent: userAgent || 'unknown',
+        referrer: referer || undefined,
         tenant: tenant?.id || null,
       } as const,
     })
