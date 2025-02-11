@@ -4,7 +4,7 @@ import { useState } from 'react'
 import NextLink from 'next/link'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { Button, ButtonProps } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Popup } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
@@ -20,6 +20,7 @@ export function PopupLink({ popup, label, appearance = 'default', className }: P
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTitle className="sr-only">{label}</DialogTitle>
       <DialogTrigger asChild>
         {appearance !== 'inline' ? (
           <Button variant={appearance} className={className}>
@@ -32,7 +33,7 @@ export function PopupLink({ popup, label, appearance = 'default', className }: P
         )}
       </DialogTrigger>
       <DialogContent size={popup.size || 'default'}>
-        <RenderBlocks blocks={popup.layout} />
+        {/* <RenderBlocks blocks={popup.layout} /> */}
       </DialogContent>
     </Dialog>
   )

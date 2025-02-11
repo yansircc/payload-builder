@@ -45,7 +45,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
       ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${reference.value.slug}`
       : url
 
-  if (!href) return null
+  // if (!href) return null
 
   const size = appearance === 'inline' ? undefined : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}

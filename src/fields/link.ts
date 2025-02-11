@@ -64,9 +64,8 @@ export const link: LinkType = ({
         fields: [
           {
             name: 'type',
-            type: 'radio',
+            type: 'select',
             admin: {
-              layout: 'horizontal',
               width: '50%',
             },
             defaultValue: 'reference',
