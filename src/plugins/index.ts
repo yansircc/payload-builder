@@ -42,13 +42,16 @@ export const plugins: Plugin[] = [
                 description:
                   'Please enter the path only, such as `/abc`, instead of the full domain name like `example.com/abc`.',
               },
+              hooks: {
+                beforeValidate: [normalizeRedirectUrls],
+              },
             }
           }
           return field
         })
       },
       hooks: {
-        afterChange: [revalidateRedirects, normalizeRedirectUrls],
+        afterChange: [revalidateRedirects],
       },
     },
     redirectTypes: ['301', '302'],
