@@ -13249,7 +13249,7 @@ export interface LinkBlock {
 
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LinkBlock".
+ * via the `definition` "ColumnsBlock".
  */
 export interface ColumnsBlock {
   layout: '50-50' | '33-67' | '67-33' | '25-75' | '75-25'; 
