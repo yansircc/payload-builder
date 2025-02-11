@@ -13168,6 +13168,7 @@ export interface TaskSchedulePublish {
   };
   output?: unknown;
 }
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BannerBlock".
@@ -13193,6 +13194,116 @@ export interface BannerBlock {
   blockName?: string | null;
   blockType: 'banner';
 }
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock".
+ */
+export interface TableBlock {
+  tableSource: 'wysiwyg' | 'html'; // Source type (manual vs AI-generated)
+  content?: string; // AI-generated HTML content
+  wysiwyg?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  caption?: string | null; // Table caption (optional)
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'table';
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkBlock".
+ */
+export interface LinkBlock {
+  text?: string | null; 
+  image?: {
+    url: string | undefined;
+    relationTo: 'media';
+    value: string | {
+      url: string;
+      alt?: string | null;
+    };
+  } | null; 
+  url: string; 
+  newTab?: boolean; 
+  nofollow?: boolean; 
+  buttonStyle?: 'solid' | 'outline' | 'ghost' | null; 
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'link';
+}
+
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkBlock".
+ */
+export interface ColumnsBlock {
+  layout: '50-50' | '33-67' | '67-33' | '25-75' | '75-25'; 
+  column1: ColumnContent[]; 
+  column2: ColumnContent[]; 
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'columns';
+}
+
+
+export type ColumnContent = TextContent | ImageContent | VideoContent;
+
+
+export interface TextContent {
+  type: 'text';
+  content: RichTextContent;
+}
+
+export interface ImageContent {
+  type: 'image';
+  image: {
+    relationTo: 'media';
+    value: string | {
+      url: string;
+      alt?: string | null;
+    };
+  };
+}
+
+
+export interface VideoContent {
+  type: 'video';
+  url: string;
+}
+
+
+export interface RichTextContent {
+  root: {
+    type: string;
+    children: {
+      type: string;
+      version: number;
+      text?: string;
+      [key: string]: unknown;
+    }[];
+    direction: 'ltr' | 'rtl' | null;
+    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+    indent: number;
+    version: number;
+  };
+  [key: string]: unknown;
+}
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CodeBlock".

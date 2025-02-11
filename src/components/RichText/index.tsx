@@ -11,7 +11,9 @@ import {
 } from '@payloadcms/richtext-lexical/react'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
+import { LinkBlock } from '@/blocks/Link/RenderLink'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { TableBlock } from '@/blocks/Table/RenderTable'
 import type {
   BannerBlock as BannerBlockProps,
   CTABlock as CTABlockProps,
@@ -19,10 +21,18 @@ import type {
 } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { RenderCTA } from '../../blocks/CallToAction/RenderCTA'
+import { LinkBlock as LinkBlockProps, TableBlock as TableBlockProps } from '../../payload-types'
 
 type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+  | SerializedBlockNode<
+      | CTABlockProps
+      | MediaBlockProps
+      | BannerBlockProps
+      | CodeBlockProps
+      | TableBlockProps
+      | LinkBlockProps
+    >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -50,6 +60,8 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     ),
     code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
     cta: ({ node }) => <RenderCTA {...node.fields} />,
+    table: ({ node }) => <TableBlock className="col-start-2" {...node.fields} />,
+    link: ({ node }) => <LinkBlock className="col-start-2" {...node.fields} />,
   },
 })
 
