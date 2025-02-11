@@ -118,6 +118,7 @@ export const plugins: Plugin[] = [
       footer: { isGlobal: true },
       'custom-codes': { isGlobal: true },
       'site-settings': { isGlobal: true },
+      'error-logs': {},
       media: {
         useTenantAccess: false,
       },

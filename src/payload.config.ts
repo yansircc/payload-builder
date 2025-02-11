@@ -10,6 +10,7 @@ import { env } from '@/env'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { Categories } from './collections/Categories'
 import { CustomCodes } from './collections/CustomCodes'
+import { ErrorLogs } from './collections/ErrorLogs'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -82,6 +83,7 @@ export default buildConfig({
     Footer,
     CustomCodes,
     SiteSettings,
+    ErrorLogs,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [ApiKey],

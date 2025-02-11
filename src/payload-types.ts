@@ -21,6 +21,7 @@ export interface Config {
     footer: Footer;
     'custom-codes': CustomCode;
     'site-settings': SiteSetting;
+    'error-logs': ErrorLog;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -42,6 +43,7 @@ export interface Config {
     footer: FooterSelect<false> | FooterSelect<true>;
     'custom-codes': CustomCodesSelect<false> | CustomCodesSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'error-logs': ErrorLogsSelect<false> | ErrorLogsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -8394,6 +8396,29 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "error-logs".
+ */
+export interface ErrorLog {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  /**
+   * The URL that caused the error
+   */
+  url: string;
+  errorType: '404' | '500';
+  /**
+   * Browser/client information
+   */
+  userAgent?: string | null;
+  /**
+   * The page that linked to this URL
+   */
+  referrer?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -8607,6 +8632,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'site-settings';
         value: string | SiteSetting;
+      } | null)
+    | ({
+        relationTo: 'error-logs';
+        value: string | ErrorLog;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -12913,6 +12942,19 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "error-logs_select".
+ */
+export interface ErrorLogsSelect<T extends boolean = true> {
+  tenant?: T;
+  url?: T;
+  errorType?: T;
+  userAgent?: T;
+  referrer?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
