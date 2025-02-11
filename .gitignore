@@ -35,3 +35,5 @@ migrations/
 cypress/screenshots/
 cypress/videos/
 cypress/reports/
+
+*storybook.log
