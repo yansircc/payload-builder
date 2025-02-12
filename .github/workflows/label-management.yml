@@ -1,0 +1,108 @@
+name: PR Label Management
+
+on:
+  pull_request:
+    types: [opened, labeled, unlabeled]
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  manage-labels:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Label Management
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+
+            // Helper function to get current labels
+            async function getCurrentLabels() {
+              const { data: labels } = await github.rest.issues.listLabelsOnIssue({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number
+              });
+              return labels.map(label => label.name);
+            }
+
+            // Helper function to add a label
+            async function addLabel(labelName) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: [labelName]
+              });
+            }
+
+            // Helper function to remove a label
+            async function removeLabel(labelName) {
+              try {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  name: labelName
+                });
+              } catch (error) {
+                // Ignore error if label doesn't exist
+                if (error.status !== 404) throw error;
+              }
+            }
+
+            const currentLabels = await getCurrentLabels();
+
+            // Rule 1: When 'bug' is added, remove 'need check'
+            if (context.payload.action === 'labeled' && context.payload.label.name === 'bug') {
+              await removeLabel('need check');
+            }
+
+            // Rule 2: When 'resolved' is added, change it to 'need check'
+            if (context.payload.action === 'labeled' && context.payload.label.name === 'resolved') {
+              await removeLabel('resolved');
+              await addLabel('need check');
+            }
+
+            // Rule 3: Ensure at least one status label exists
+            const statusLabels = [
+              'in progress',
+              'need check',
+              'resolved',
+              'verified',
+              'bug',
+              'e2e in progress',
+              'e2e ready',
+              'rejected',
+              'approved'
+            ];
+
+            const hasStatusLabel = currentLabels.some(label => statusLabels.includes(label));
+            if (!hasStatusLabel && context.payload.action === 'opened') {
+              await addLabel('in progress');
+            }
+
+            // Handle notifications via comments
+            async function addNotificationComment(label) {
+              const notifications = {
+                bug: `@${pr.user.login} A bug has been found in your PR. Please review and fix.`,
+                'need check': 'This PR is ready for QA review.'
+              };
+
+              if (notifications[label]) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  body: notifications[label]
+                });
+              }
+            }
+
+            if (context.payload.action === 'labeled') {
+              await addNotificationComment(context.payload.label.name);
+            }
