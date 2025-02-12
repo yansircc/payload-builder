@@ -28,8 +28,8 @@
 | --------------- | ----------------------------------- | ------ |
 | bug             | Software defect                     | yellow |
 | security        | Security related issues             | yellow |
-| enhancement     | Improvement to existing feature     | yellow |
 | technical debt  | Code improvement/refactoring needed | yellow |
+| enhancement     | Improvement to existing feature     | purple |
 | feature request | New feature proposal                | purple |
 | research        | Research/investigation needed       | purple |
 | doc             | Documentation related               | purple |
