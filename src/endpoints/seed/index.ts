@@ -419,34 +419,46 @@ export const seed = async ({
     payload.create({
       collection: 'pages',
       data: {
+        ...JSON.parse(
+          JSON.stringify(home)
+            .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
+            .replace(/"\{\{IMAGE_2\}\}"/g, String(image1ID)),
+        ),
         title: 'About Us',
         slug: 'about-us',
         parent: homePage1.id,
         tenant: tenant1.id,
         _status: 'published',
-        layout: [],
       },
     }),
     payload.create({
       collection: 'pages',
       data: {
+        ...JSON.parse(
+          JSON.stringify(home)
+            .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
+            .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
+        ),
         title: 'About Us',
         slug: 'about-us',
         parent: homePage2.id,
         tenant: tenant2.id,
         _status: 'published',
-        layout: [],
       },
     }),
     payload.create({
       collection: 'pages',
       data: {
+        ...JSON.parse(
+          JSON.stringify(home)
+            .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
+            .replace(/"\{\{IMAGE_2\}\}"/g, String(image3ID)),
+        ),
         title: 'About Us',
         slug: 'about-us',
         parent: homePage3.id,
         tenant: tenant3.id,
         _status: 'published',
-        layout: [],
       },
     }),
   ])
