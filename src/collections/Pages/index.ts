@@ -6,6 +6,13 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import type { CollectionConfig } from 'payload'
+import { ColumnsBlock } from '@/blocks/ColumnBlock/config'
+import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/config'
+import { LinkBlock } from '@/blocks/Link/config'
+import { ListBlock } from '@/blocks/List/config'
+import { PopupTriggerBlock } from '@/blocks/PopTriggerBlock/config'
+import { Table } from '@/blocks/Table/config'
+import { VideoBlock } from '@/blocks/VideoBlock/config'
 import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
 import { slugField } from '@/fields/slug'
 import { HeroField } from '@/heros/config'
@@ -88,11 +95,18 @@ export const Pages: CollectionConfig<'pages'> = {
                 FormBlock,
                 GalleryBlock,
                 Feature,
+                LinkBlock,
+                Table,
+                ColumnsBlock,
                 TestimonialBlock,
                 Contact,
                 Team,
                 FAQ,
                 LogosBlock,
+                PopupTriggerBlock,
+                ListBlock,
+                VideoBlock,
+                CtaSimpleBlock,
               ],
               required: true,
               admin: {

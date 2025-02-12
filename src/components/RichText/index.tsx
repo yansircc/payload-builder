@@ -11,13 +11,25 @@ import {
 } from '@payloadcms/richtext-lexical/react'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
+import { ColumnsBlock } from '@/blocks/ColumnBlock/RenderColumn'
+import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/RenderCtaSimple'
 import { LinkBlock } from '@/blocks/Link/RenderLink'
+import { ListBlock } from '@/blocks/List/RenderList'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { PopupTriggerBlock } from '@/blocks/PopTriggerBlock/RenderTrigger'
 import { TableBlock } from '@/blocks/Table/RenderTable'
+import { VideoBlock } from '@/blocks/VideoBlock/RenderVideo'
 import type {
   BannerBlock as BannerBlockProps,
   CTABlock as CTABlockProps,
   MediaBlock as MediaBlockProps,
+  VideoBlock as VideoBlockProps,
+} from '@/payload-types'
+import {
+  ColumnsBlock as ColumnsBlockProps,
+  CtaSimpleBlock as CtaSimpleBlockProps,
+  ListBlock as ListBlockProps,
+  PopupTriggerBlock as PopupTriggerBlockProps,
 } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { RenderCTA } from '../../blocks/CallToAction/RenderCTA'
@@ -32,6 +44,11 @@ type NodeTypes =
       | CodeBlockProps
       | TableBlockProps
       | LinkBlockProps
+      | ColumnsBlockProps
+      | PopupTriggerBlockProps
+      | VideoBlockProps
+      | ListBlockProps
+      | CtaSimpleBlockProps
     >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -62,6 +79,35 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     cta: ({ node }) => <RenderCTA {...node.fields} />,
     table: ({ node }) => <TableBlock className="col-start-2" {...node.fields} />,
     link: ({ node }) => <LinkBlock className="col-start-2" {...node.fields} />,
+    list: ({ node }) => <ListBlock className="col-start-2" {...node.fields} />,
+    video: ({ node }) => <VideoBlock className="col-start-2" {...node.fields} />,
+    columns: ({ node }) => <ColumnsBlock className="col-start-2" {...node.fields} />,
+    ctaSimple: ({ node }) => <CtaSimpleBlock className="col-start-2" {...node.fields} />,
+    popupTrigger: ({ node }) => {
+      let parsedAttributes: Record<string, any> = {}
+
+      if (typeof node.fields.customAttributes === 'string') {
+        try {
+          parsedAttributes = JSON.parse(node.fields.customAttributes)
+        } catch (error) {
+          console.error('Invalid JSON in customAttributes:', node.fields.customAttributes)
+          parsedAttributes = {}
+        }
+      } else if (
+        typeof node.fields.customAttributes === 'object' &&
+        node.fields.customAttributes !== null
+      ) {
+        parsedAttributes = node.fields.customAttributes
+      }
+
+      return (
+        <PopupTriggerBlock
+          className="col-start-2"
+          {...node.fields}
+          customAttributes={parsedAttributes}
+        />
+      )
+    }, //still failed
   },
 })
 

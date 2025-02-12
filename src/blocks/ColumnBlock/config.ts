@@ -2,6 +2,7 @@ import type { Block } from 'payload'
 
 export const ColumnsBlock: Block = {
   slug: 'columns',
+  interfaceName: 'ColumnsBlock',
   labels: {
     singular: 'Columns',
     plural: 'Columns',
@@ -24,42 +25,19 @@ export const ColumnsBlock: Block = {
       },
     },
     {
-      name: 'column1',
+      name: 'columns',
       type: 'array',
-      label: 'Column 1',
+      required: true,
+      minRows: 2,
+      maxRows: 2,
+      labels: {
+        singular: 'Column',
+        plural: 'Columns',
+      },
       fields: [
         {
           name: 'content',
-          type: 'blocks',
-          required: true,
-          blocks: [
-            {
-              slug: 'text',
-              labels: { singular: 'Text', plural: 'Texts' },
-              fields: [{ name: 'content', type: 'richText' }],
-            },
-            {
-              slug: 'image',
-              labels: { singular: 'Image', plural: 'Images' },
-              fields: [{ name: 'image', type: 'upload', relationTo: 'media' }],
-            },
-            {
-              slug: 'video',
-              labels: { singular: 'Video', plural: 'Videos' },
-              fields: [{ name: 'url', type: 'text' }],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'column2',
-      type: 'array',
-      label: 'Column 2',
-      fields: [
-        {
-          name: 'content',
-          type: 'blocks',
+          type: 'blocks', // ✅ Menggunakan blocks agar lebih fleksibel
           required: true,
           blocks: [
             {

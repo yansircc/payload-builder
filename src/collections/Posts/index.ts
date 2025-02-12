@@ -15,7 +15,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
 import { ColumnsBlock } from '@/blocks/ColumnBlock/config'
-import { CTABlock } from '@/blocks/CTABlock/config'
+import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/config'
 import { LinkBlock } from '@/blocks/Link/config'
 import { ListBlock } from '@/blocks/List/config'
 import { PopupTriggerBlock } from '@/blocks/PopTriggerBlock/config'
@@ -110,8 +110,8 @@ export const Posts: CollectionConfig<'posts'> = {
                         ListBlock,
                         LinkBlock,
                         ColumnsBlock,
-                        CTABlock,
                         PopupTriggerBlock,
+                        CtaSimpleBlock,
                       ],
                     }),
                     FixedToolbarFeature(),

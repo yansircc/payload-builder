@@ -109,11 +109,18 @@ export interface Page {
     | FormBlock
     | GalleryBlock
     | FeatureBlock
+    | LinkBlock
+    | TableBlock
+    | ColumnsBlock
     | TestimonialBlock
     | ContactBlock
     | TeamBlock
     | FAQBlock
     | LogosBlock
+    | PopupTriggerBlock
+    | ListBlock
+    | VideoBlock
+    | CtaSimpleBlock
   )[];
   meta?: {
     title?: string | null;
@@ -4039,6 +4046,112 @@ export interface Feature15Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkBlock".
+ */
+export interface LinkBlock {
+  text?: string | null;
+  /**
+   * Optional: Upload an image to use as a link.
+   */
+  image?: (string | null) | Media;
+  url: string;
+  newTab?: boolean | null;
+  nofollow?: boolean | null;
+  /**
+   * Select a button style if this is a button link.
+   */
+  buttonStyle?: ('solid' | 'outline' | 'ghost') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'link';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock".
+ */
+export interface TableBlock {
+  /**
+   * Paste the AI-generated table HTML here. Ensure it is valid table markup.
+   */
+  content: string;
+  /**
+   * Use this editor to create a table visually.
+   */
+  wysiwyg?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Optional: Add a caption for the table.
+   */
+  caption?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'table';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ColumnsBlock".
+ */
+export interface ColumnsBlock {
+  /**
+   * Select the column layout. Columns will stack vertically on mobile screens.
+   */
+  layout: '50-50' | '33-67' | '67-33' | '25-75' | '75-25';
+  columns: {
+    content: (
+      | {
+          content?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          id?: string | null;
+          blockName?: string | null;
+          blockType: 'text';
+        }
+      | {
+          image?: (string | null) | Media;
+          id?: string | null;
+          blockName?: string | null;
+          blockType: 'image';
+        }
+      | {
+          url?: string | null;
+          id?: string | null;
+          blockName?: string | null;
+          blockType: 'video';
+        }
+    )[];
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'columns';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialBlock".
  */
 export interface TestimonialBlock {
@@ -6375,6 +6488,94 @@ export interface Logos8Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PopupTriggerBlock".
+ */
+export interface PopupTriggerBlock {
+  triggerText: string;
+  triggerType?: ('button' | 'link' | 'image') | null;
+  /**
+   * Class CSS untuk target popup
+   */
+  popupClass?: string | null;
+  triggerAction?: ('click' | 'hover' | 'focus') | null;
+  /**
+   * Contoh: { "href": "#", "data-custom": "value" }
+   */
+  customAttributes?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'popupTrigger';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListBlock".
+ */
+export interface ListBlock {
+  /**
+   * Select the list type.
+   */
+  type: 'ordered' | 'unordered';
+  items: {
+    text: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'list';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  /**
+   * Select the video source.
+   */
+  videoType: 'youtube' | 'vimeo' | 'self-hosted';
+  /**
+   * Ensure the URL is valid for the selected video type.
+   */
+  url: string;
+  /**
+   * Optional: Add a description or caption for the video.
+   */
+  caption?: string | null;
+  /**
+   * Optional: Upload a custom thumbnail for the video.
+   */
+  thumbnail?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'video';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaSimpleBlock".
+ */
+export interface CtaSimpleBlock {
+  /**
+   * Select the background color for the CTA.
+   */
+  backgroundColor: 'primary' | 'secondary' | 'accent' | 'light' | 'dark';
+  heading: string;
+  description?: string | null;
+  buttonLabel: string;
+  buttonUrl: string;
+  buttonStyle: 'solid' | 'outline' | 'ghost';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaSimple';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header".
  */
 export interface Header {
@@ -8647,11 +8848,18 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         gallery?: T | GalleryBlockSelect<T>;
         feature?: T | FeatureBlockSelect<T>;
+        link?: T | LinkBlockSelect<T>;
+        table?: T | TableBlockSelect<T>;
+        columns?: T | ColumnsBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
         contact?: T | ContactBlockSelect<T>;
         team?: T | TeamBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
         logos?: T | LogosBlockSelect<T>;
+        popupTrigger?: T | PopupTriggerBlockSelect<T>;
+        list?: T | ListBlockSelect<T>;
+        video?: T | VideoBlockSelect<T>;
+        ctaSimple?: T | CtaSimpleBlockSelect<T>;
       };
   meta?:
     | T
@@ -10442,6 +10650,70 @@ export interface Feature15FieldsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkBlock_select".
+ */
+export interface LinkBlockSelect<T extends boolean = true> {
+  text?: T;
+  image?: T;
+  url?: T;
+  newTab?: T;
+  nofollow?: T;
+  buttonStyle?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock_select".
+ */
+export interface TableBlockSelect<T extends boolean = true> {
+  content?: T;
+  wysiwyg?: T;
+  caption?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ColumnsBlock_select".
+ */
+export interface ColumnsBlockSelect<T extends boolean = true> {
+  layout?: T;
+  columns?:
+    | T
+    | {
+        content?:
+          | T
+          | {
+              text?:
+                | T
+                | {
+                    content?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+              image?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+              video?:
+                | T
+                | {
+                    url?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialBlock_select".
  */
 export interface TestimonialBlockSelect<T extends boolean = true> {
@@ -11599,6 +11871,60 @@ export interface Logos8FieldsSelect<T extends boolean = true> {
               id?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PopupTriggerBlock_select".
+ */
+export interface PopupTriggerBlockSelect<T extends boolean = true> {
+  triggerText?: T;
+  triggerType?: T;
+  popupClass?: T;
+  triggerAction?: T;
+  customAttributes?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListBlock_select".
+ */
+export interface ListBlockSelect<T extends boolean = true> {
+  type?: T;
+  items?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock_select".
+ */
+export interface VideoBlockSelect<T extends boolean = true> {
+  videoType?: T;
+  url?: T;
+  caption?: T;
+  thumbnail?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaSimpleBlock_select".
+ */
+export interface CtaSimpleBlockSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  heading?: T;
+  description?: T;
+  buttonLabel?: T;
+  buttonUrl?: T;
+  buttonStyle?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -13168,7 +13494,6 @@ export interface TaskSchedulePublish {
   };
   output?: unknown;
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BannerBlock".
@@ -13194,116 +13519,6 @@ export interface BannerBlock {
   blockName?: string | null;
   blockType: 'banner';
 }
-
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TableBlock".
- */
-export interface TableBlock {
-  tableSource: 'wysiwyg' | 'html'; // Source type (manual vs AI-generated)
-  content?: string; // AI-generated HTML content
-  wysiwyg?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  caption?: string | null; // Table caption (optional)
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'table';
-}
-
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LinkBlock".
- */
-export interface LinkBlock {
-  text?: string | null; 
-  image?: {
-    url: string | undefined;
-    relationTo: 'media';
-    value: string | {
-      url: string;
-      alt?: string | null;
-    };
-  } | null; 
-  url: string; 
-  newTab?: boolean; 
-  nofollow?: boolean; 
-  buttonStyle?: 'solid' | 'outline' | 'ghost' | null; 
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'link';
-}
-
-
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnsBlock".
- */
-export interface ColumnsBlock {
-  layout: '50-50' | '33-67' | '67-33' | '25-75' | '75-25'; 
-  column1: ColumnContent[]; 
-  column2: ColumnContent[]; 
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'columns';
-}
-
-
-export type ColumnContent = TextContent | ImageContent | VideoContent;
-
-
-export interface TextContent {
-  type: 'text';
-  content: RichTextContent;
-}
-
-export interface ImageContent {
-  type: 'image';
-  image: {
-    relationTo: 'media';
-    value: string | {
-      url: string;
-      alt?: string | null;
-    };
-  };
-}
-
-
-export interface VideoContent {
-  type: 'video';
-  url: string;
-}
-
-
-export interface RichTextContent {
-  root: {
-    type: string;
-    children: {
-      type: string;
-      version: number;
-      text?: string;
-      [key: string]: unknown;
-    }[];
-    direction: 'ltr' | 'rtl' | null;
-    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-    indent: number;
-    version: number;
-  };
-  [key: string]: unknown;
-}
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CodeBlock".

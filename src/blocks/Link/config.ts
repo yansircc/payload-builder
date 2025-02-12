@@ -1,7 +1,8 @@
-import { Block } from 'payload'
+import type { Block } from 'payload'
 
 export const LinkBlock: Block = {
   slug: 'link',
+  interfaceName: 'LinkBlock',
   labels: {
     singular: 'Link',
     plural: 'Links',

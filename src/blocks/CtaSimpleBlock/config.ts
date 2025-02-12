@@ -1,10 +1,11 @@
 import type { Block } from 'payload'
 
-export const CTABlock: Block = {
-  slug: 'cta',
+export const CtaSimpleBlock: Block = {
+  slug: 'ctaSimple',
+  interfaceName: 'CtaSimpleBlock',
   labels: {
-    singular: 'CTA Section',
-    plural: 'CTA Sections',
+    singular: 'Cta Section',
+    plural: 'Cta Sections',
   },
   fields: [
     {

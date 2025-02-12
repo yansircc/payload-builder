@@ -1,8 +1,9 @@
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { Block } from 'payload'
+import type { Block } from 'payload'
 
 export const Table: Block = {
   slug: 'table',
+  interfaceName: 'TableBlock',
   labels: {
     singular: 'Table',
     plural: 'Tables',

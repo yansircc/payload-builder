@@ -1,71 +1,74 @@
-import type { ColumnContent, ColumnsBlock } from 'src/payload-types'
-import React from 'react'
+import type { ColumnsBlock as ColumnsBlockProps } from 'src/payload-types'
+import React, { useMemo } from 'react'
 import { cn } from '@/utilities/ui'
 
 type Props = {
   className?: string
-} & ColumnsBlock
+} & ColumnsBlockProps
 
-export const RenderColumns: React.FC<Props> = ({ className, layout, column1, column2 }) => {
-  // ✅ Pastikan layout memiliki tipe yang sesuai
-  const gridLayoutMap: Record<'50-50' | '33-67' | '67-33' | '25-75' | '75-25', string> = {
-    '50-50': 'grid-cols-2',
-    '33-67': 'grid-cols-[1fr_2fr]',
-    '67-33': 'grid-cols-[2fr_1fr]',
-    '25-75': 'grid-cols-[1fr_3fr]',
-    '75-25': 'grid-cols-[3fr_1fr]',
-  }
+type TextNode = {
+  type: string
+  version: number
+  text?: string
+}
 
-  // ✅ Pastikan layout memiliki nilai default untuk menghindari undefined
-  const gridLayout = gridLayoutMap[layout as keyof typeof gridLayoutMap] || 'grid-cols-2'
+export const ColumnsBlock: React.FC<Props> = ({ className, layout = '50-50', columns = [] }) => {
+  const gridLayout = useMemo(() => {
+    const gridLayoutMap: Record<'50-50' | '33-67' | '67-33' | '25-75' | '75-25', string> = {
+      '50-50': 'grid-cols-2',
+      '33-67': 'grid-cols-[1fr_2fr]',
+      '67-33': 'grid-cols-[2fr_1fr]',
+      '25-75': 'grid-cols-[1fr_3fr]',
+      '75-25': 'grid-cols-[3fr_1fr]',
+    }
+    return gridLayoutMap[layout as keyof typeof gridLayoutMap] || 'grid-cols-2'
+  }, [layout])
 
   return (
     <div className={cn('grid gap-6 md:gap-8', gridLayout, className)}>
-      {/* Column 1 */}
-      <div className="space-y-4">
-        {column1.map((content: ColumnContent, index: number) =>
-          renderColumnContent(content, index),
-        )}
-      </div>
-
-      {/* Column 2 */}
-      <div className="space-y-4">
-        {column2.map((content: ColumnContent, index: number) =>
-          renderColumnContent(content, index),
-        )}
-      </div>
+      {columns.map((column, colIndex) => (
+        <div key={colIndex} className="space-y-4">
+          {column.content.map((content, index) => (
+            <ColumnContent key={index} content={content} />
+          ))}
+        </div>
+      ))}
     </div>
   )
 }
 
-// ✅ Fungsi untuk merender berbagai jenis konten dalam kolom
-const renderColumnContent = (content: ColumnContent, index: number) => {
-  switch (content.type) {
+const ColumnContent: React.FC<{ content: ColumnsBlockProps['columns'][0]['content'][0] }> = ({
+  content,
+}) => {
+  switch (content.blockType) {
     case 'text':
-      return (
-        <div key={index} className="prose md:prose-md dark:prose-invert">
-          {content.content?.root.children.map((child, idx) => <p key={idx}>{child.text}</p>)}
+      return content.content ? (
+        <div className="prose md:prose-md dark:prose-invert">
+          {content.content.root.children.map((child: TextNode, idx: number) => (
+            <p key={idx}>{child.text}</p>
+          ))}
         </div>
-      )
+      ) : null
 
     case 'image':
-      return content.image && typeof content.image.value === 'object' ? (
+      return content.image && typeof content.image === 'object' && content.image?.url ? (
         <img
-          key={index}
-          src={content.image.value.url}
-          alt={content.image.value.alt || 'Image'}
+          src={content.image.url}
+          alt="Image"
           className="rounded-md w-full h-auto"
+          loading="lazy"
         />
       ) : null
 
     case 'video':
       return content.url ? (
-        <div key={index} className="relative w-full aspect-video">
+        <div className="relative w-full aspect-video">
           <iframe
             className="w-full h-full rounded-md"
             src={content.url}
             title="Embedded Video"
             allowFullScreen
+            loading="lazy"
           />
         </div>
       ) : null
