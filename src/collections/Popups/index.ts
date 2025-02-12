@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
+import { color } from '@/fields/color'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 
@@ -17,6 +18,12 @@ export const Popups: CollectionConfig = {
     group: 'Content',
   },
   fields: [
+    {
+      name: 'title',
+      type: 'text',
+      label: 'Name of popup',
+      required: true,
+    },
     {
       type: 'tabs', // required
       tabs: [
@@ -107,6 +114,22 @@ export const Popups: CollectionConfig = {
           name: 'appearanceSettings',
           label: 'Appearance Settings',
           fields: [
+            color({
+              label: 'Background Color',
+              name: 'backgroundColor',
+              defaultValue: '#FFFFFF',
+              admin: {
+                description: 'Choose the background color',
+              },
+            }),
+            color({
+              label: 'Text Color',
+              name: 'textColor',
+              defaultValue: '#000000',
+              admin: {
+                description: 'Choose the text color ',
+              },
+            }),
             {
               name: 'size',
               type: 'select',

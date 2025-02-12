@@ -9,7 +9,16 @@ import { Popup } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
 interface PopupLinkProps {
-  popup: Popup
+  popup: Popup & {
+    appearanceSettings?: {
+      size?: 'sm' | 'default' | 'lg' | 'full' | null
+      animation?: 'fade' | 'slideUp' | 'slideDown' | 'scale' | null
+      position?: 'center' | 'top' | 'bottom' | null
+      backdrop?: 'default' | 'blur' | 'none' | null
+      backgroundColor?: string | null
+      textColor?: string | null
+    } | null
+  }
   label: string
   appearance?: 'inline' | ButtonProps['variant']
   className?: string
@@ -152,10 +161,23 @@ export function PopupLink({ popup, label, appearance = 'default', className }: P
       </DialogTrigger>
       <DialogContent
         size={popup.appearanceSettings?.size || 'default'}
-        className={dialogContentClass}
+        className={cn(dialogContentClass, 'transition-colors duration-300', {
+          'bg-background': !popup.appearanceSettings?.backgroundColor,
+        })}
+        style={{
+          backgroundColor: popup.appearanceSettings?.backgroundColor || undefined,
+          color: popup.appearanceSettings?.textColor || undefined,
+        }}
         overlayClassName={overlayClass}
       >
-        <div className="prose dark:prose-invert max-w-none whitespace-pre-wrap">
+        <div
+          className={cn('prose max-w-none whitespace-pre-wrap', {
+            'dark:prose-invert': !popup.appearanceSettings?.textColor,
+          })}
+          style={{
+            color: popup.appearanceSettings?.textColor || undefined,
+          }}
+        >
           {popup.basicSettings.content}
         </div>
       </DialogContent>
