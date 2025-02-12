@@ -37,7 +37,7 @@ export const ColumnsBlock: Block = {
       fields: [
         {
           name: 'content',
-          type: 'blocks', // ✅ Menggunakan blocks agar lebih fleksibel
+          type: 'blocks',
           required: true,
           blocks: [
             {
