@@ -2,8 +2,8 @@
 
 import { Button, FieldLabel, TextInput, useField, useForm, useFormFields } from '@payloadcms/ui'
 import { TextFieldClientProps } from 'payload'
+import format from 'standard-slugify'
 import React, { useCallback, useEffect } from 'react'
-import { formatSlug } from './formatSlug'
 import './index.scss'
 
 type SlugComponentProps = {
@@ -42,7 +42,7 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
   useEffect(() => {
     if (checkboxValue) {
       if (targetFieldValue) {
-        const formattedSlug = formatSlug(targetFieldValue)
+        const formattedSlug = format(targetFieldValue)
 
         if (value !== formattedSlug) setValue(formattedSlug)
       } else {

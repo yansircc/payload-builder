@@ -10,11 +10,13 @@ import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { cn } from '@/utilities/ui'
 import './globals.css'
+import { CustomCode } from '@/CustomCode/Component'
 import { RenderHeader } from '@/Header/RenderHeader'
 import { getServerSideURL } from '@/utilities/getURL'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
+  const customScripts = await CustomCode()
 
   return (
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
@@ -22,6 +24,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        {customScripts?.headScripts}
       </head>
       <body>
         <Providers>
@@ -31,9 +34,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }}
           />
 
+          {customScripts?.bodyStartScripts}
           <RenderHeader />
           {children}
           <RenderFooter />
+          {customScripts?.bodyEndScripts}
         </Providers>
       </body>
     </html>

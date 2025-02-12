@@ -1,3 +1,4 @@
+import { createBreadcrumbsField, createParentField } from '@payloadcms/plugin-nested-docs'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -26,6 +27,7 @@ import { TestimonialBlock } from '../../blocks/Testimonial/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
+import { updateChildPaths } from './hooks/updateChildPaths'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -38,13 +40,14 @@ export const Pages: CollectionConfig<'pages'> = {
   defaultPopulate: {
     title: true,
     slug: true,
+    fullPath: true,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'fullPath', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : '',
+          slug: typeof data?.fullPath === 'string' ? data.fullPath : '',
           tenant: typeof data?.tenant === 'string' ? data.tenant : '',
           collection: 'pages',
           req,
@@ -54,7 +57,7 @@ export const Pages: CollectionConfig<'pages'> = {
     },
     preview: (data: any, { req }) =>
       generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
+        slug: typeof data?.fullPath === 'string' ? data.fullPath : '',
         tenant: typeof data?.tenant.id === 'string' ? data.tenant.id : '',
         collection: 'pages',
         req,
@@ -67,6 +70,15 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'text',
       required: true,
     },
+    createParentField('pages', {
+      admin: {
+        position: 'sidebar',
+      },
+      filterOptions: ({ id }) => ({ id: { not_equals: id } }),
+    }),
+    createBreadcrumbsField('pages', {
+      label: 'Page Breadcrumbs',
+    }),
     {
       type: 'tabs',
       tabs: [
@@ -137,7 +149,7 @@ export const Pages: CollectionConfig<'pages'> = {
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidatePage],
+    afterChange: [revalidatePage, updateChildPaths],
     beforeChange: [populatePublishedAt],
     afterDelete: [revalidateDelete],
   },

@@ -19,6 +19,7 @@ export interface Config {
     tenants: Tenant;
     header: Header;
     footer: Footer;
+    'custom-codes': CustomCode;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -38,6 +39,7 @@ export interface Config {
     tenants: TenantsSelect<false> | TenantsSelect<true>;
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'custom-codes': CustomCodesSelect<false> | CustomCodesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -97,6 +99,15 @@ export interface Page {
   id: string;
   tenant?: (string | null) | Tenant;
   title: string;
+  parent?: (string | null) | Page;
+  breadcrumbs?:
+    | {
+        doc?: (string | null) | Page;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   hero?: HeroField;
   layout: (
     | AboutBlock
@@ -124,6 +135,7 @@ export interface Page {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
+  fullPath?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -421,6 +433,7 @@ export interface Post {
     | null;
   slug?: string | null;
   slugLock?: boolean | null;
+  fullPath?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -435,6 +448,7 @@ export interface Category {
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
+  fullPath?: string | null;
   parent?: (string | null) | Category;
   breadcrumbs?:
     | {
@@ -8310,6 +8324,56 @@ export interface Footer10Fields {
   };
 }
 /**
+ * Manage custom JavaScript code snippets for your site
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "custom-codes".
+ */
+export interface CustomCode {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  /**
+   * Add one or more scripts
+   */
+  scripts: {
+    /**
+     * A descriptive name for this script
+     */
+    name?: string | null;
+    /**
+     * Select script type for optimized loading
+     */
+    type?: ('google-analytics' | 'google-tag-manager' | 'custom') | null;
+    /**
+     * Enter tracking ID (e.g., G-XXXXXXX for GA4, GTM-XXXXXX for GTM)
+     */
+    trackingId?: string | null;
+    /**
+     * Enter script code
+     */
+    code?: string | null;
+    /**
+     * Enable or disable this script
+     */
+    isEnabled?: boolean | null;
+    /**
+     * Where to place the script in the document
+     */
+    position?: ('head' | 'body-start' | 'body-end') | null;
+    /**
+     * How the script should be loaded
+     */
+    loadingStrategy?: ('sync' | 'async' | 'defer') | null;
+    /**
+     * Optional: URL pattern where this script should load (e.g., "/blog/*" or "/about"). Leave empty for all pages.
+     */
+    urlPattern?: string | null;
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
@@ -8517,6 +8581,10 @@ export interface PayloadLockedDocument {
         value: string | Footer;
       } | null)
     | ({
+        relationTo: 'custom-codes';
+        value: string | CustomCode;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -8585,6 +8653,15 @@ export interface PayloadMigration {
 export interface PagesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
   hero?: T | HeroFieldSelect<T>;
   layout?:
     | T
@@ -8613,6 +8690,7 @@ export interface PagesSelect<T extends boolean = true> {
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
+  fullPath?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -11578,6 +11656,7 @@ export interface PostsSelect<T extends boolean = true> {
       };
   slug?: T;
   slugLock?: T;
+  fullPath?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -11685,6 +11764,7 @@ export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   slugLock?: T;
+  fullPath?: T;
   parent?: T;
   breadcrumbs?:
     | T
@@ -12779,6 +12859,28 @@ export interface Footer10FieldsSelect<T extends boolean = true> {
               copyright?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "custom-codes_select".
+ */
+export interface CustomCodesSelect<T extends boolean = true> {
+  tenant?: T;
+  scripts?:
+    | T
+    | {
+        name?: T;
+        type?: T;
+        trackingId?: T;
+        code?: T;
+        isEnabled?: T;
+        position?: T;
+        loadingStrategy?: T;
+        urlPattern?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
