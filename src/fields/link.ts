@@ -88,6 +88,7 @@ export const link: LinkType = ({
             name: 'newTab',
             type: 'checkbox',
             admin: {
+              condition: (_, siblingData) => siblingData?.type !== 'popup',
               style: {
                 alignSelf: 'flex-end',
               },

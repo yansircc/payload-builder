@@ -70,15 +70,11 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
     },
     hooks: {
       beforeChange: [
-        async ({ data, req, operation }) => {
-          console.log('fullPath beforeChange hook - Operation:', operation)
-          console.log('fullPath beforeChange hook - Input data:', data)
-
+        async ({ data, req }) => {
           const pageData = data as PageData
 
           // Special handling for home page
           if (pageData.slug === 'home') {
-            console.log('Home page detected, setting fullPath to "home"')
             return 'home'
           }
 
@@ -90,7 +86,6 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
             try {
               const parentId =
                 typeof pageData.parent === 'object' ? pageData.parent.id : pageData.parent
-              console.log('Fetching parent page with ID:', parentId)
 
               const parentPage = await req.payload.findByID({
                 collection: 'pages',
@@ -98,20 +93,11 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
                 depth: 1, // Include one level of depth to get the parent's fullPath
               })
 
-              console.log('Parent page details:', {
-                id: parentPage.id,
-                slug: parentPage.slug,
-                fullPath: parentPage.fullPath,
-              })
-
               if (parentPage.slug === 'home') {
                 path = `home/${pageData.slug}`
-                console.log('Parent is home, using path:', path)
               } else if (parentPage.fullPath) {
                 path = `${parentPage.fullPath}/${pageData.slug}`
-                console.log('Generated nested path:', path)
               } else {
-                console.log('Parent page has no fullPath:', parentPage)
               }
             } catch (error) {
               console.error('Error fetching parent page:', error)
@@ -120,7 +106,6 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
             console.log('No parent page found, using path:', path)
           }
 
-          console.log('Final fullPath value:', path)
           return path
         },
       ],
