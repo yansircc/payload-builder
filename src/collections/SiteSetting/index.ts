@@ -54,23 +54,6 @@ export const SiteSettings: CollectionConfig = {
       },
     },
     {
-      name: 'defaultLanguage',
-      type: 'select',
-      required: true,
-      defaultValue: 'en',
-      options: [
-        {
-          label: 'English',
-          value: 'en',
-        },
-        {
-          label: 'Chinese',
-          value: 'zh',
-        },
-        // Add more languages as needed
-      ],
-    },
-    {
       name: 'searchEngineVisibility',
       type: 'group',
       fields: [

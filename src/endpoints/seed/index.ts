@@ -453,7 +453,6 @@ export const seed = async ({
         description:
           'Premium features and services available with our Gold tenant subscription. Discover what sets us apart.',
         tenant: tenant1.id,
-        defaultLanguage: 'en',
         searchEngineVisibility: {
           allowIndexing: true,
         },
@@ -466,7 +465,6 @@ export const seed = async ({
         description:
           'Powerful features and reliable services with our Silver tenant subscription. Perfect for growing businesses.',
         tenant: tenant2.id,
-        defaultLanguage: 'en',
         searchEngineVisibility: {
           allowIndexing: true,
         },
@@ -479,7 +477,6 @@ export const seed = async ({
         description:
           'Essential features and great value with our Bronze tenant subscription. The perfect starting point for your journey.',
         tenant: tenant3.id,
-        defaultLanguage: 'en',
         searchEngineVisibility: {
           allowIndexing: true,
         },
