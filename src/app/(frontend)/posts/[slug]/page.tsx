@@ -2,7 +2,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React, { cache } from 'react'
 import type { Metadata } from 'next'
-import { draftMode } from 'next/headers'
+import { draftMode, headers } from 'next/headers'
 import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
@@ -42,7 +42,31 @@ export default async function Post({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
   const url = '/posts/' + slug
-  const post = await queryPostBySlug({ slug })
+
+  // Get tenant from domain
+  const headersList = headers()
+  const host = (await headersList).get('host') || ''
+  const domain = host.split(':')[0]
+
+  let post: Post | null = null
+  const payload = await getPayload({ config: configPromise })
+
+  // First, find the tenant by domain
+  const tenantQuery = await payload.find({
+    collection: 'tenants',
+    where: {
+      domain: {
+        equals: domain,
+      },
+    },
+  })
+
+  const tenant = tenantQuery.docs[0]
+
+  if (tenant) {
+    // Then query the post with both slug and tenant
+    post = await queryPostBySlugAndTenant({ slug, tenantId: tenant.id })
+  }
 
   if (!post) return <PayloadRedirects url={url} />
 
@@ -63,7 +87,7 @@ export default async function Post({ params: paramsPromise }: Args) {
           {post.relatedPosts && post.relatedPosts.length > 0 && (
             <RelatedPosts
               className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-              docs={post.relatedPosts.filter((post) => typeof post === 'object')}
+              docs={post.relatedPosts.filter((post): post is Post => typeof post === 'object')}
             />
           )}
         </div>
@@ -73,29 +97,60 @@ export default async function Post({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = '' } = await paramsPromise
-  const post = await queryPostBySlug({ slug })
-
-  return generateMeta({ doc: post })
-}
-
-const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode()
+  const { slug = 'home' } = await paramsPromise
+  const headersList = headers()
+  const host = (await headersList).get('host') || ''
+  const domain = host.split(':')[0]
 
   const payload = await getPayload({ config: configPromise })
-
-  const result = await payload.find({
-    collection: 'posts',
-    draft,
-    limit: 1,
-    overrideAccess: draft,
-    pagination: false,
+  const tenantQuery = await payload.find({
+    collection: 'tenants',
     where: {
-      slug: {
-        equals: slug,
+      domain: {
+        equals: domain,
       },
     },
   })
 
-  return result.docs?.[0] || null
-})
+  const tenant = tenantQuery.docs[0]
+  const post = tenant
+    ? await queryPostBySlugAndTenant({
+        slug,
+        tenantId: tenant.id,
+      })
+    : null
+
+  return generateMeta({ doc: post })
+}
+
+const queryPostBySlugAndTenant = cache(
+  async ({ slug, tenantId }: { slug: string; tenantId: string }) => {
+    const { isEnabled: draft } = await draftMode()
+
+    const payload = await getPayload({ config: configPromise })
+
+    const result = await payload.find({
+      collection: 'posts',
+      draft,
+      limit: 1,
+      overrideAccess: draft,
+      pagination: false,
+      where: {
+        and: [
+          {
+            slug: {
+              equals: slug,
+            },
+          },
+          {
+            tenant: {
+              equals: tenantId,
+            },
+          },
+        ],
+      },
+    })
+
+    return result.docs?.[0] || null
+  },
+)
