@@ -1,0 +1,6 @@
+BRANCH=`git rev-parse --abbrev-ref HEAD`
+if [ "$BRANCH" = "main" ]; then
+  echo "❌ Can't push to main branch directly"
+  echo "Please create a new branch and submit a Pull Request"
+  exit 1
+fi

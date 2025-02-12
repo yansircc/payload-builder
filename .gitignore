@@ -27,3 +27,13 @@ tsconfig.tsbuildinfo
 
 # git config
 .gitconfig
+
+# migrations
+migrations/
+
+# Cypress specific
+cypress/screenshots/
+cypress/videos/
+cypress/reports/
+
+*storybook.log
