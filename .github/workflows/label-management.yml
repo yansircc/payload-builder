@@ -1,0 +1,255 @@
+name: PR Label Management
+
+on:
+  pull_request:
+    types: [opened, labeled, unlabeled, synchronize]
+  pull_request_target:
+    types: [opened, labeled, unlabeled, synchronize]
+  issues:
+    types: [opened, labeled, unlabeled]
+
+jobs:
+  manage-labels:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Label Management
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Constants for label groups
+            const PRIORITY_LABELS = ['p1:critical', 'p2:major', 'p3:minor', 'p4:trivial'];
+            const DEVELOPER_LABELS = ['dev:in-progress', 'dev:need-check', 'dev:resolved', 'dev:blocked'];
+            const QA_LABELS = ['qa:blocked', 'qa:unsolved', 'qa:verified'];
+            const ADMIN_LABELS = ['admin:blocked', 'admin:rejected', 'admin:approved'];
+
+            // Helper functions
+            async function getCurrentLabels(issueOrPr) {
+              const { data: labels } = await github.rest.issues.listLabelsOnIssue({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueOrPr.number
+              });
+              return labels.map(label => label.name);
+            }
+
+            async function addLabel(issueNumber, labelName) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                labels: [labelName]
+              });
+            }
+
+            async function removeLabel(issueNumber, labelName) {
+              try {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  name: labelName
+                });
+              } catch (error) {
+                if (error.status !== 404) throw error;
+              }
+            }
+
+            async function getLinkedPRs(issueNumber) {
+              const { data: timeline } = await github.rest.issues.listEventsForTimeline({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber
+              });
+              
+              return timeline
+                .filter(event => event.event === 'cross-referenced' && event.source?.issue.pull_request)
+                .map(event => event.source.issue.number);
+            }
+
+            async function sendNotification(issueNumber, message) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: message
+              });
+            }
+
+            // Main logic
+            async function handlePriorityLabels(currentLabels, issueNumber) {
+              const currentPriorities = currentLabels.filter(label => PRIORITY_LABELS.includes(label));
+              if (currentPriorities.length > 1) {
+                // Keep only the most recently added priority label
+                const labelsToRemove = currentPriorities.slice(0, -1);
+                for (const label of labelsToRemove) {
+                  await removeLabel(issueNumber, label);
+                }
+              }
+            }
+
+            async function handleGroupLabels(currentLabels, issueNumber) {
+              const allStatusLabels = [...DEVELOPER_LABELS, ...QA_LABELS, ...ADMIN_LABELS];
+              
+              // If a new status label is added, remove all other status labels
+              if (context.payload.action === 'labeled' && 
+                  allStatusLabels.includes(context.payload.label.name)) {
+                const labelsToRemove = currentLabels.filter(label => 
+                  allStatusLabels.includes(label) && 
+                  label !== context.payload.label.name
+                );
+                
+                for (const label of labelsToRemove) {
+                  await removeLabel(issueNumber, label);
+                }
+              }
+            }
+
+            // Main execution
+            if (context.payload.issue) {
+              // Handle issue events
+              const currentLabels = await getCurrentLabels(context.payload.issue);
+              
+              // Handle priority labels
+              await handlePriorityLabels(currentLabels, context.payload.issue.number);
+
+              // If new priority label is added, sync with linked PRs
+              if (context.payload.action === 'labeled' && PRIORITY_LABELS.includes(context.payload.label.name)) {
+                const linkedPRs = await getLinkedPRs(context.payload.issue.number);
+                for (const prNumber of linkedPRs) {
+                  await addLabel(prNumber, context.payload.label.name);
+                  await addLabel(prNumber, 'linked');
+                }
+              }
+            }
+
+            if (context.payload.pull_request) {
+              // Handle PR events
+              const currentLabels = await getCurrentLabels(context.payload.pull_request);
+              
+              await handlePriorityLabels(currentLabels, context.payload.pull_request.number);
+              await handleGroupLabels(currentLabels, context.payload.pull_request.number);
+
+              // Update notification map
+              const notificationMap = {
+                'dev:need-check': {
+                  message: 'QA team: This PR needs review',
+                  requiresAction: true,
+                  actionOwner: 'QA'
+                },
+                'dev:bug': {
+                  message: `@${context.payload.pull_request.user.login}: A bug has been reported. Please investigate and fix.`,
+                  requiresAction: true,
+                  actionOwner: 'Developer'
+                },
+                'dev:blocked': {
+                  message: 'Admin team: This PR is blocked by development issues. Please review the comments for details.',
+                  requiresAction: true,
+                  actionOwner: 'Admin'
+                },
+                'qa:blocked': {
+                  message: 'Admin team: This PR is blocked by QA issues. Please review the comments for details.',
+                  requiresAction: true,
+                  actionOwner: 'Admin'
+                },
+                'admin:rejected': {
+                  message: `@${context.payload.pull_request.user.login}: Your PR has been rejected. Please address the feedback.`,
+                  requiresAction: true,
+                  actionOwner: 'Developer'
+                },
+                'qa:unsolved': {
+                  message: `@${context.payload.pull_request.user.login}: QA found issues that need to be resolved.`,
+                  requiresAction: true,
+                  actionOwner: 'Developer'
+                },
+                'admin:approved': {
+                  message: 'This PR has been approved and is ready for merge',
+                  requiresAction: false
+                },
+                'admin:blocked': {
+                  message: 'This PR is blocked by system or policy issues. Waiting for admin resolution.',
+                  requiresAction: true,
+                  actionOwner: 'Admin'
+                }
+              };
+
+              async function notifyLinkedItems(issueNumber, label, message) {
+                // Get linked PRs
+                const linkedPRs = await getLinkedPRs(issueNumber);
+                
+                // Notify on linked PRs
+                for (const prNumber of linkedPRs) {
+                  await sendNotification(prNumber, 
+                    `[Linked from #${issueNumber}] ${message}`
+                  );
+                }
+
+                // Get linked issues (if current item is a PR)
+                const query = `repo:${context.repo.owner}/${context.repo.repo} ${issueNumber} in:title,body`;
+                const { data: { items: linkedIssues } } = await github.rest.search.issuesAndPullRequests({ q: query });
+                
+                // Notify on linked issues
+                for (const issue of linkedIssues) {
+                  if (!issue.pull_request) {  // Only for issues, not PRs
+                    await sendNotification(issue.number, 
+                      `[Linked from PR #${issueNumber}] ${message}`
+                    );
+                  }
+                }
+              }
+
+              // Enhanced notification handling
+              if (context.payload.pull_request && context.payload.action === 'labeled') {
+                const label = context.payload.label.name;
+                const notification = notificationMap[label];
+                
+                if (notification) {
+                  // Send notification on current PR
+                  await sendNotification(
+                    context.payload.pull_request.number,
+                    notification.message
+                  );
+
+                  // If this label requires action, notify on linked items
+                  if (notification.requiresAction) {
+                    const actionMessage = `Action required (${notification.actionOwner}): ${notification.message}`;
+                    await notifyLinkedItems(
+                      context.payload.pull_request.number,
+                      label,
+                      actionMessage
+                    );
+                  }
+                }
+              }
+
+              // Special handling for blocked labels
+              if (context.payload.action === 'labeled' && 
+                  (context.payload.label.name === 'dev:blocked' || 
+                   context.payload.label.name === 'qa:blocked' ||
+                   context.payload.label.name === 'admin:blocked')) {
+                const commenter = context.payload.sender.login;
+                const prAuthor = context.payload.pull_request.user.login;
+                const blockType = {
+                  'dev:blocked': 'development',
+                  'qa:blocked': 'QA',
+                  'admin:blocked': 'system/policy'
+                }[context.payload.label.name];
+                
+                const blockageContext = `Blocked by ${commenter} (${blockType} blocker). `;
+                const notification = notificationMap[context.payload.label.name];
+                
+                await sendNotification(
+                  context.payload.pull_request.number,
+                  blockageContext + notification.message
+                );
+
+                await notifyLinkedItems(
+                  context.payload.pull_request.number,
+                  context.payload.label.name,
+                  blockageContext + notification.message
+                );
+              }
+            }

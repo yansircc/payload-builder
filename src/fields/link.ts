@@ -64,9 +64,8 @@ export const link: LinkType = ({
         fields: [
           {
             name: 'type',
-            type: 'radio',
+            type: 'select',
             admin: {
-              layout: 'horizontal',
               width: '50%',
             },
             defaultValue: 'reference',
@@ -79,12 +78,17 @@ export const link: LinkType = ({
                 label: 'Custom URL',
                 value: 'custom',
               },
+              {
+                label: 'Popup',
+                value: 'popup',
+              },
             ],
           },
           {
             name: 'newTab',
             type: 'checkbox',
             admin: {
+              condition: (_, siblingData) => siblingData?.type !== 'popup',
               style: {
                 alignSelf: 'flex-end',
               },
@@ -115,6 +119,16 @@ export const link: LinkType = ({
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
       label: 'Custom URL',
+      required: true,
+    },
+    {
+      name: 'popup',
+      type: 'relationship',
+      relationTo: 'popups',
+      admin: {
+        condition: (_, siblingData) => siblingData?.type === 'popup',
+      },
+      label: 'Select Popup',
       required: true,
     },
   ]

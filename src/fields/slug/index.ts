@@ -7,7 +7,17 @@ type Overrides = {
   checkboxOverrides?: Partial<CheckboxField>
 }
 
-type Slug = (fieldToUse?: string, overrides?: Overrides) => [TextField, CheckboxField]
+interface PageData {
+  slug?: string
+  parent?:
+    | {
+        id: string
+        slug?: string
+      }
+    | string
+}
+
+type Slug = (fieldToUse?: string, overrides?: Overrides) => [TextField, CheckboxField, TextField]
 
 export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
   const { slugOverrides, checkboxOverrides } = overrides
@@ -32,7 +42,7 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
     label: 'Slug',
     ...(slugOverrides || {}),
     hooks: {
-      // Kept this in for hook or API based updates
+      // Only format the individual slug portion
       beforeValidate: [formatSlugHook(fieldToUse), ensureUniqueSlug],
     },
     admin: {
@@ -50,5 +60,57 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
     },
   }
 
-  return [slugField, checkBoxField]
+  // Add a new field for the full path that includes parent paths
+  const fullPathField: TextField = {
+    name: 'fullPath',
+    type: 'text',
+    index: true,
+    admin: {
+      hidden: true, // Hide from admin UI since it's auto-generated
+    },
+    hooks: {
+      beforeChange: [
+        async ({ data, req }) => {
+          const pageData = data as PageData
+
+          // Special handling for home page
+          if (pageData.slug === 'home') {
+            return 'home'
+          }
+
+          // Start with the current slug
+          let path = pageData.slug || ''
+
+          // If there's a parent, recursively build the full path
+          if (pageData.parent) {
+            try {
+              const parentId =
+                typeof pageData.parent === 'object' ? pageData.parent.id : pageData.parent
+
+              const parentPage = await req.payload.findByID({
+                collection: 'pages',
+                id: parentId,
+                depth: 1, // Include one level of depth to get the parent's fullPath
+              })
+
+              if (parentPage.slug === 'home') {
+                path = `home/${pageData.slug}`
+              } else if (parentPage.fullPath) {
+                path = `${parentPage.fullPath}/${pageData.slug}`
+              } else {
+              }
+            } catch (error) {
+              console.error('Error fetching parent page:', error)
+            }
+          } else {
+            console.log('No parent page found, using path:', path)
+          }
+
+          return path
+        },
+      ],
+    },
+  }
+
+  return [slugField, checkBoxField, fullPathField]
 }
