@@ -59,30 +59,25 @@ export function DesignSystemProvider({
     async function fetchTenantTheme() {
       try {
         const hostname = window.location.hostname
+        const response = await fetch(
+          `${getClientSideURL()}/api/tenants?where=${encodeURIComponent(
+            JSON.stringify({ domain: { equals: hostname } }),
+          )}`,
+          {
+            headers: { 'Content-Type': 'application/json' },
+            next: { revalidate: 3600, tags: ['tenant-theme'] },
+          },
+        )
 
-        if (hostname.includes('.localhost.com')) {
-          const domain = hostname
+        if (!response.ok) {
+          throw new Error('Failed to fetch tenant theme')
+        }
 
-          const response = await fetch(
-            `${getClientSideURL()}/api/tenants?where=${encodeURIComponent(
-              JSON.stringify({ domain: { equals: domain } }),
-            )}`,
-            {
-              headers: { 'Content-Type': 'application/json' },
-              next: { revalidate: 3600, tags: ['tenant-theme'] },
-            },
-          )
+        const data = (await response.json()) as TenantResponse
 
-          if (!response.ok) {
-            throw new Error('Failed to fetch tenant theme')
-          }
-
-          const data = (await response.json()) as TenantResponse
-
-          const tenant = data.docs?.[0]
-          if (tenant?.theme && themes[tenant.theme]) {
-            setPreset(tenant.theme)
-          }
+        const tenant = data.docs?.[0]
+        if (tenant?.theme && themes[tenant.theme]) {
+          setPreset(tenant.theme)
         }
       } catch (err) {
         console.error('Error fetching tenant theme:', err)
