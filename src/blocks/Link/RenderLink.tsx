@@ -17,8 +17,6 @@ export const LinkBlock: React.FC<Props> = React.memo(
     image,
     buttonStyle,
   }) => {
-    const relAttr = nofollow ? 'nofollow' : undefined
-
     return (
       <div className={cn('my-4 inline-block', className)}>
         {' '}

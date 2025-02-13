@@ -83,31 +83,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     video: ({ node }) => <VideoBlock className="col-start-2" {...node.fields} />,
     columns: ({ node }) => <ColumnsBlock className="col-start-2" {...node.fields} />,
     ctaSimple: ({ node }) => <CtaSimpleBlock className="col-start-2" {...node.fields} />,
-    popupTrigger: ({ node }) => {
-      let parsedAttributes: Record<string, any> = {}
-
-      if (typeof node.fields.customAttributes === 'string') {
-        try {
-          parsedAttributes = JSON.parse(node.fields.customAttributes)
-        } catch (error) {
-          console.error('Invalid JSON in customAttributes:', node.fields.customAttributes)
-          parsedAttributes = {}
-        }
-      } else if (
-        typeof node.fields.customAttributes === 'object' &&
-        node.fields.customAttributes !== null
-      ) {
-        parsedAttributes = node.fields.customAttributes
-      }
-
-      return (
-        <PopupTriggerBlock
-          className="col-start-2"
-          {...node.fields}
-          customAttributes={parsedAttributes}
-        />
-      )
-    }, //still failed
+    popupTrigger: ({ node }) => <PopupTriggerBlock className="col-start-2" {...node.fields} />,
   },
 })
 

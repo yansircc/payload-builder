@@ -1,4 +1,5 @@
-import type { Block } from 'payload'
+import { Block } from 'payload'
+import { link } from '@/fields/link'
 
 export const PopupTriggerBlock: Block = {
   slug: 'popupTrigger',
@@ -9,40 +10,27 @@ export const PopupTriggerBlock: Block = {
   },
   fields: [
     {
-      name: 'triggerText',
-      type: 'text',
-      label: 'Label Trigger',
+      name: 'linkToPage',
+      type: 'relationship',
+      relationTo: 'pages',
       required: true,
-    },
-    {
-      name: 'triggerType',
-      type: 'select',
-      options: ['button', 'link', 'image'],
-      defaultValue: 'button',
-    },
-    {
-      name: 'popupClass',
-      type: 'text',
-      defaultValue: 'inquiry-pop-trigger',
       admin: {
-        description: 'Class CSS untuk target popup',
+        description: 'Select the page that will be linked to',
       },
     },
     {
-      name: 'triggerAction',
-      type: 'select',
-      options: [
-        { label: 'Klik', value: 'click' },
-        { label: 'Hover', value: 'hover' },
-        { label: 'Focus', value: 'focus' },
+      name: 'ctaButton',
+      type: 'group',
+      fields: [
+        link({
+          name: 'link',
+          overrides: {
+            admin: { description: 'CTA button to trigger link and popup' },
+          },
+        }),
       ],
-      defaultValue: 'click',
-    },
-    {
-      name: 'customAttributes',
-      type: 'json',
       admin: {
-        description: 'Contoh: { "href": "#", "data-custom": "value" }',
+        description: 'CTA button to trigger popup and link',
       },
     },
   ],

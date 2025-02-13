@@ -6683,25 +6683,46 @@ export interface Logos8Fields {
  * via the `definition` "PopupTriggerBlock".
  */
 export interface PopupTriggerBlock {
-  triggerText: string;
-  triggerType?: ('button' | 'link' | 'image') | null;
   /**
-   * Class CSS untuk target popup
+   * Pilih halaman yang akan dituju oleh link
    */
-  popupClass?: string | null;
-  triggerAction?: ('click' | 'hover' | 'focus') | null;
+  linkToPage: string | Page;
   /**
-   * Contoh: { "href": "#", "data-custom": "value" }
+   * CTA button to trigger popup and link
    */
-  customAttributes?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  ctaButton: {
+    /**
+     * CTA button to trigger link and popup
+     */
+    link: {
+      type?: ('reference' | 'custom' | 'popup') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      popup?: (string | null) | Popup;
+      label: string;
+      /**
+       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
+       */
+      prefixIcon?: string | null;
+      /**
+       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+       */
+      suffixIcon?: string | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    };
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'popupTrigger';
@@ -12246,11 +12267,24 @@ export interface Logos8FieldsSelect<T extends boolean = true> {
  * via the `definition` "PopupTriggerBlock_select".
  */
 export interface PopupTriggerBlockSelect<T extends boolean = true> {
-  triggerText?: T;
-  triggerType?: T;
-  popupClass?: T;
-  triggerAction?: T;
-  customAttributes?: T;
+  linkToPage?: T;
+  ctaButton?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+      };
   id?: T;
   blockName?: T;
 }
