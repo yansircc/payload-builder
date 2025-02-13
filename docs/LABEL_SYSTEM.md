@@ -62,6 +62,7 @@ Our repository implements an automated label management system that helps mainta
 | qa:unsolved     | Known issues pending resolution        | QA          | Developer needs to fix              | red   |
 | qa:blocked      | Blocked by QA issues                   | QA          | Admin needs to review blocker       | red   |
 | qa:verified     | Testing passed                         | QA          | Testing passed                      | green |
+| admin:blocked   | Blocked by system/policy issues        | Admin       | Waiting for admin resolution        | red   |
 | admin:rejected  | PR doesn't meet requirements           | Admin       | Developer needs to revise           | red   |
 | admin:approved  | Admin approved, ready to merge         | Admin       | Can be merged                       | green |
 
