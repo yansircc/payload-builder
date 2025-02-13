@@ -21,10 +21,10 @@ jobs:
         with:
           script: |
             // Constants for label groups
-            const PRIORITY_LABELS = ['1 critical', '2 major', '3 minor', '4 trivial'];
-            const DEVELOPER_LABELS = ['in progress', 'need check', 'resolved'];
-            const QA_LABELS = ['unsolved', 'verified'];
-            const ADMIN_LABELS = ['rejected', 'approved'];
+            const PRIORITY_LABELS = ['p1:critical', 'p2:major', 'p3:minor', 'p4:trivial'];
+            const DEVELOPER_LABELS = ['dev:in-progress', 'dev:need-check', 'dev:resolved', 'dev:blocked'];
+            const QA_LABELS = ['qa:blocked', 'qa:unsolved', 'qa:verified'];
+            const ADMIN_LABELS = ['admin:rejected', 'admin:approved'];
 
             // Helper functions
             async function getCurrentLabels(issueOrPr) {
@@ -160,29 +160,39 @@ jobs:
               await handlePriorityLabels(currentLabels, context.payload.pull_request.number);
               await handleGroupLabels(currentLabels, context.payload.pull_request.number);
 
-              // Enhance notification map with required actions
+              // Update notification map
               const notificationMap = {
-                'need check': {
+                'dev:need-check': {
                   message: 'QA team: This PR needs review',
                   requiresAction: true,
                   actionOwner: 'QA'
                 },
-                'bug': {
+                'dev:bug': {
                   message: `@${context.payload.pull_request.user.login}: A bug has been reported. Please investigate and fix.`,
                   requiresAction: true,
                   actionOwner: 'Developer'
                 },
-                'rejected': {
+                'dev:blocked': {
+                  message: 'Admin team: This PR is blocked by development issues. Please review the comments for details.',
+                  requiresAction: true,
+                  actionOwner: 'Admin'
+                },
+                'qa:blocked': {
+                  message: 'Admin team: This PR is blocked by QA issues. Please review the comments for details.',
+                  requiresAction: true,
+                  actionOwner: 'Admin'
+                },
+                'admin:rejected': {
                   message: `@${context.payload.pull_request.user.login}: Your PR has been rejected. Please address the feedback.`,
                   requiresAction: true,
                   actionOwner: 'Developer'
                 },
-                'unsolved': {
+                'qa:unsolved': {
                   message: `@${context.payload.pull_request.user.login}: QA found issues that need to be resolved.`,
                   requiresAction: true,
                   actionOwner: 'Developer'
                 },
-                'approved': {
+                'admin:approved': {
                   message: 'This PR has been approved and is ready for merge',
                   requiresAction: false
                 }
@@ -235,5 +245,29 @@ jobs:
                     );
                   }
                 }
+              }
+
+              // Special handling for blocked labels
+              if (context.payload.action === 'labeled' && 
+                  (context.payload.label.name === 'dev:blocked' || context.payload.label.name === 'qa:blocked')) {
+                const commenter = context.payload.sender.login;
+                const prAuthor = context.payload.pull_request.user.login;
+                const blockType = context.payload.label.name.startsWith('dev:') ? 'development' : 'QA';
+                
+                // Add additional context about who added the blocked label
+                const blockageContext = `Blocked by ${commenter} (${blockType} blocker). `;
+                const notification = notificationMap[context.payload.label.name];
+                
+                await sendNotification(
+                  context.payload.pull_request.number,
+                  blockageContext + notification.message
+                );
+
+                // Notify on linked items
+                await notifyLinkedItems(
+                  context.payload.pull_request.number,
+                  context.payload.label.name,
+                  blockageContext + notification.message
+                );
               }
             }
