@@ -22,6 +22,8 @@ export interface Config {
     'custom-codes': CustomCode;
     'site-settings': SiteSetting;
     'error-logs': ErrorLog;
+    services: Service;
+    products: Product;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -44,6 +46,8 @@ export interface Config {
     'custom-codes': CustomCodesSelect<false> | CustomCodesSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'error-logs': ErrorLogsSelect<false> | ErrorLogsSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -8430,6 +8434,104 @@ export interface ErrorLog {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: string;
+  title: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  featuredImage: string | Media;
+  additionalImages?:
+    | {
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  specifications?:
+    | {
+        name: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: string;
+  title: string;
+  featuredImage: string | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  additionalImages?:
+    | {
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  specifications?:
+    | {
+        name: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  categories?: (string | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (string | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  fullPath?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -8647,6 +8749,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'error-logs';
         value: string | ErrorLog;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: string | Service;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: string | Product;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -12975,6 +13085,73 @@ export interface ErrorLogsSelect<T extends boolean = true> {
   errorType?: T;
   userAgent?: T;
   referrer?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  featuredImage?: T;
+  additionalImages?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  specifications?:
+    | T
+    | {
+        name?: T;
+        description?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  title?: T;
+  featuredImage?: T;
+  content?: T;
+  additionalImages?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  specifications?:
+    | T
+    | {
+        name?: T;
+        description?: T;
+        id?: T;
+      };
+  categories?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  authors?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+      };
+  slug?: T;
+  slugLock?: T;
+  fullPath?: T;
   updatedAt?: T;
   createdAt?: T;
 }
