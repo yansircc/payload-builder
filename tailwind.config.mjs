@@ -63,8 +63,8 @@ export default {
         lg: 'var(--radius-large)',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', ...fontFamily.sans],
-        heading: ['var(--font-outfit)', ...fontFamily.sans],
+        sans: ['var(--font-sans)', ...fontFamily.sans],
+        heading: ['var(--font-heading)', ...fontFamily.sans],
         mono: ['var(--font-geist-mono)', ...fontFamily.mono],
       },
       fontSize: {

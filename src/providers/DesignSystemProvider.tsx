@@ -118,7 +118,14 @@ export function DesignSystemProvider({
           root.style.setProperty(`--typography-${key}-${subKey}`, subValue)
         })
       } else {
-        root.style.setProperty(`--typography-${key}`, value as string)
+        root.style.setProperty(`--typography-${key}`, value)
+        // Set font family CSS variables directly
+        if (key === 'fontFamily') {
+          root.style.setProperty('--font-sans', value)
+        }
+        if (key === 'headingFamily') {
+          root.style.setProperty('--font-heading', value)
+        }
       }
     })
 
