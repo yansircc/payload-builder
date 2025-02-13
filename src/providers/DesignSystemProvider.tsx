@@ -12,6 +12,8 @@ interface DesignSystemContextType {
   isLoading: boolean
   error: Error | null
   setPreset: (preset: ThemePreset) => void
+  isDark: boolean
+  setIsDark: (isDark: boolean) => void
 }
 
 interface TenantResponse {
@@ -40,7 +42,18 @@ export function DesignSystemProvider({
   const [preset, setPreset] = useState<ThemePreset>(initialPreset)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
+  const [isDark, setIsDark] = useState(false)
   const pathname = usePathname()
+
+  // Handle system dark mode preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    setIsDark(mediaQuery.matches)
+
+    const handler = (e: MediaQueryListEvent) => setIsDark(e.matches)
+    mediaQuery.addEventListener('change', handler)
+    return () => mediaQuery.removeEventListener('change', handler)
+  }, [])
 
   useEffect(() => {
     async function fetchTenantTheme() {
@@ -91,9 +104,10 @@ export function DesignSystemProvider({
     }
 
     const root = document.documentElement
+    const colors = isDark ? theme.dark : theme.colors
 
     // Apply theme variables
-    Object.entries(theme.colors).forEach(([key, value]) => {
+    Object.entries(colors).forEach(([key, value]) => {
       root.style.setProperty(`--${key}`, value)
     })
 
@@ -102,12 +116,17 @@ export function DesignSystemProvider({
       root.style.setProperty(`--radius-${key}`, value)
     })
 
+    // Update data-theme attribute
+    root.setAttribute('data-theme', isDark ? 'dark' : 'light')
+
     // Force a re-render of styles
     root.style.setProperty('--theme-updated', Date.now().toString())
-  }, [theme, preset])
+  }, [theme, preset, isDark])
 
   return (
-    <DesignSystemContext.Provider value={{ theme, preset, isLoading, error, setPreset }}>
+    <DesignSystemContext.Provider
+      value={{ theme, preset, isLoading, error, setPreset, isDark, setIsDark }}
+    >
       {children}
     </DesignSystemContext.Provider>
   )
