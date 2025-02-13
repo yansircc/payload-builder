@@ -21,6 +21,7 @@ export interface Config {
     footer: Footer;
     'custom-codes': CustomCode;
     'site-settings': SiteSetting;
+    'error-logs': ErrorLog;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -42,6 +43,7 @@ export interface Config {
     footer: FooterSelect<false> | FooterSelect<true>;
     'custom-codes': CustomCodesSelect<false> | CustomCodesSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'error-logs': ErrorLogsSelect<false> | ErrorLogsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -8405,13 +8407,36 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "error-logs".
+ */
+export interface ErrorLog {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  /**
+   * The URL that caused the error
+   */
+  url: string;
+  errorType: '404' | '500';
+  /**
+   * Browser/client information
+   */
+  userAgent?: string | null;
+  /**
+   * The page that linked to this URL
+   */
+  referrer?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
   id: string;
   tenant?: (string | null) | Tenant;
   /**
-   * You will need to rebuild the website when changing this field.
+   * Please enter the path only, such as `/abc`, instead of the full domain name like `example.com/abc`.
    */
   from: string;
   to?: {
@@ -8427,6 +8452,7 @@ export interface Redirect {
         } | null);
     url?: string | null;
   };
+  type: '301' | '302';
   updatedAt: string;
   createdAt: string;
 }
@@ -8617,6 +8643,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'site-settings';
         value: string | SiteSetting;
+      } | null)
+    | ({
+        relationTo: 'error-logs';
+        value: string | ErrorLog;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -12937,6 +12967,19 @@ export interface SiteSettingsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "error-logs_select".
+ */
+export interface ErrorLogsSelect<T extends boolean = true> {
+  tenant?: T;
+  url?: T;
+  errorType?: T;
+  userAgent?: T;
+  referrer?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
@@ -12949,6 +12992,7 @@ export interface RedirectsSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
       };
+  type?: T;
   updatedAt?: T;
   createdAt?: T;
 }

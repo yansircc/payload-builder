@@ -33,11 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
+          <AdminBar adminBarProps={{ preview: isEnabled }} />
 
           {customScripts?.bodyStartScripts}
           <RenderHeader />
@@ -61,16 +57,10 @@ export const generateMetadata = async (): Promise<Metadata> => {
       title: siteSettings?.title,
       description: siteSettings?.description,
     }),
-    twitter: {
-      card: 'summary_large_image',
-      creator: '@payloadcms',
-    },
+    twitter: { card: 'summary_large_image', creator: '@payloadcms' },
     robots:
       siteSettings?.searchEngineVisibility?.allowIndexing === false
-        ? {
-            index: false,
-            follow: false,
-          }
+        ? { index: false, follow: false }
         : undefined,
   }
 }

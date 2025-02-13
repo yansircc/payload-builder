@@ -12,11 +12,7 @@ async function getFaviconSettings() {
 
   const siteSettings = await payload.find({
     collection: 'site-settings',
-    where: {
-      tenant: {
-        equals: tenant.id,
-      },
-    },
+    where: { tenant: { equals: tenant.id } },
     limit: 1,
     depth: 1,
   })
