@@ -2,16 +2,20 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import type { DesignTheme, ThemePreset } from '@/themes'
-import { presetThemes } from '@/themes'
+import type { ThemeDefinition, ThemePreset } from '@/themes'
+import { themes } from '@/themes'
 import { getClientSideURL } from '@/utilities/getURL'
 
 interface DesignSystemContextType {
-  theme: DesignTheme
+  theme: ThemeDefinition
   preset: ThemePreset
   isLoading: boolean
   error: Error | null
   setPreset: (preset: ThemePreset) => void
+}
+
+interface TenantResponse {
+  docs: Array<{ theme?: ThemePreset; domain: string }>
 }
 
 const DesignSystemContext = createContext<DesignSystemContextType | null>(null)
@@ -31,7 +35,7 @@ interface DesignSystemProviderProps {
 
 export function DesignSystemProvider({
   children,
-  preset: initialPreset = 'modern' as ThemePreset,
+  preset: initialPreset = 'modern',
 }: DesignSystemProviderProps) {
   const [preset, setPreset] = useState<ThemePreset>(initialPreset)
   const [isLoading, setIsLoading] = useState(true)
@@ -41,24 +45,18 @@ export function DesignSystemProvider({
   useEffect(() => {
     async function fetchTenantTheme() {
       try {
-        // Get the current hostname without port
         const hostname = window.location.hostname
 
-        // Only fetch if we're on a tenant subdomain
         if (hostname.includes('.localhost.com')) {
-          const domain = `${hostname}` // Use hostname without port for local development
+          const domain = hostname
 
-          // Use the PayloadCMS REST API with proper query
           const response = await fetch(
             `${getClientSideURL()}/api/tenants?where=${encodeURIComponent(
               JSON.stringify({ domain: { equals: domain } }),
             )}`,
             {
               headers: { 'Content-Type': 'application/json' },
-              next: {
-                revalidate: 3600, // Cache for 1 hour
-                tags: ['tenant-theme'],
-              },
+              next: { revalidate: 3600, tags: ['tenant-theme'] },
             },
           )
 
@@ -66,13 +64,11 @@ export function DesignSystemProvider({
             throw new Error('Failed to fetch tenant theme')
           }
 
-          const data = await response.json()
+          const data = (await response.json()) as TenantResponse
 
-          if (data.docs && data.docs.length > 0) {
-            const tenant = data.docs[0]
-            if (tenant.theme && presetThemes[tenant.theme]) {
-              setPreset(tenant.theme)
-            }
+          const tenant = data.docs?.[0]
+          if (tenant?.theme && themes[tenant.theme]) {
+            setPreset(tenant.theme)
           }
         }
       } catch (err) {
@@ -84,9 +80,9 @@ export function DesignSystemProvider({
     }
 
     fetchTenantTheme()
-  }, [pathname]) // Re-fetch when pathname changes
+  }, [pathname])
 
-  const theme = presetThemes[preset] as DesignTheme
+  const theme = themes[preset]
 
   useEffect(() => {
     if (!theme) {
@@ -94,26 +90,16 @@ export function DesignSystemProvider({
       return
     }
 
-    // Apply theme variables to root
     const root = document.documentElement
 
-    // Colors
+    // Apply theme variables
     Object.entries(theme.colors).forEach(([key, value]) => {
-      root.style.setProperty(`--color-${key}`, value)
+      root.style.setProperty(`--${key}`, value)
     })
 
-    // Typography
-    root.style.setProperty('--font-family', theme.typography.fontFamily)
-    root.style.setProperty('--heading-family', theme.typography.headingFamily)
-
-    // Radius
+    // Apply radius variables
     Object.entries(theme.radius).forEach(([key, value]) => {
       root.style.setProperty(`--radius-${key}`, value)
-    })
-
-    // Spacing
-    Object.entries(theme.spacing).forEach(([key, value]) => {
-      root.style.setProperty(`--spacing-${key}`, value)
     })
 
     // Force a re-render of styles

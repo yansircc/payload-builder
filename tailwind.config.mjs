@@ -29,21 +29,8 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: {
-        DEFAULT: '1rem',
-        sm: '1rem',
-        md: '2rem',
-        lg: '2rem',
-        xl: '2rem',
-        '2xl': '2rem',
-      },
-      screens: {
-        sm: '40rem',
-        md: '48rem',
-        lg: '64rem',
-        xl: '80rem',
-        '2xl': '86rem',
-      },
+      padding: { DEFAULT: '1rem', sm: '1rem', md: '2rem', lg: '2rem', xl: '2rem', '2xl': '2rem' },
+      screens: { sm: '40rem', md: '48rem', lg: '64rem', xl: '80rem', '2xl': '86rem' },
     },
     extend: {
       animation: {
@@ -52,55 +39,26 @@ export default {
       },
       borderRadius: {
         sm: 'var(--radius-small)',
+        DEFAULT: 'var(--radius-default)',
         md: 'var(--radius-medium)',
         lg: 'var(--radius-large)',
       },
-      backgroundColor: {
-        DEFAULT: 'var(--color-background)',
-      },
       colors: {
-        border: {
-          DEFAULT: 'var(--color-border)',
-        },
-        background: {
-          DEFAULT: 'var(--color-background)',
-        },
-        foreground: {
-          DEFAULT: 'var(--color-foreground)',
-        },
-        primary: {
-          DEFAULT: 'var(--color-primary)',
-          foreground: 'hsl(var(--primary-foreground))',
-        },
-        secondary: {
-          DEFAULT: 'var(--color-secondary)',
-          foreground: 'hsl(var(--secondary-foreground))',
-        },
-        muted: {
-          DEFAULT: 'var(--color-muted)',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'var(--color-accent)',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
-        },
-        destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
-        },
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        success: 'hsl(var(--success))',
-        error: 'hsl(var(--error))',
-        warning: 'hsl(var(--warning))',
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        primary: { DEFAULT: 'var(--primary)', foreground: 'var(--primary-foreground)' },
+        secondary: { DEFAULT: 'var(--secondary)', foreground: 'var(--secondary-foreground)' },
+        muted: { DEFAULT: 'var(--muted)', foreground: 'var(--muted-foreground)' },
+        accent: { DEFAULT: 'var(--accent)', foreground: 'var(--accent-foreground)' },
+        card: { DEFAULT: 'var(--card)', foreground: 'var(--card-foreground)' },
+        popover: { DEFAULT: 'var(--popover)', foreground: 'var(--popover-foreground)' },
+        destructive: { DEFAULT: 'var(--destructive)', foreground: 'var(--destructive-foreground)' },
+        success: { DEFAULT: 'var(--success)', foreground: 'var(--success-foreground)' },
+        warning: { DEFAULT: 'var(--warning)', foreground: 'var(--warning-foreground)' },
+        error: { DEFAULT: 'var(--error)', foreground: 'var(--error-foreground)' },
       },
       fontFamily: {
         sans: ['var(--font-family)', 'sans-serif'],
@@ -117,50 +75,22 @@ export default {
           to: { height: '0' },
         },
       },
-      spacing: {
-        section: 'var(--spacing-section)',
-      },
-      maxWidth: {
-        container: 'var(--spacing-container)',
-      },
+      spacing: { section: 'var(--spacing-section)' },
+      maxWidth: { container: 'var(--spacing-container)' },
       typography: ({ theme }) => ({
         DEFAULT: {
           css: [
             {
-              '--tw-prose-body': 'var(--color-foreground)',
-              '--tw-prose-headings': 'var(--color-foreground)',
-              h1: {
-                fontWeight: 'normal',
-                marginBottom: '0.25em',
-              },
+              '--tw-prose-body': 'var(--foreground)',
+              '--tw-prose-headings': 'var(--foreground)',
+              h1: { fontWeight: 'normal', marginBottom: '0.25em' },
             },
           ],
         },
         base: {
-          css: [
-            {
-              h1: {
-                fontSize: '2.5rem',
-              },
-              h2: {
-                fontSize: '1.25rem',
-                fontWeight: 600,
-              },
-            },
-          ],
+          css: [{ h1: { fontSize: '2.5rem' }, h2: { fontSize: '1.25rem', fontWeight: 600 } }],
         },
-        md: {
-          css: [
-            {
-              h1: {
-                fontSize: '3.5rem',
-              },
-              h2: {
-                fontSize: '1.5rem',
-              },
-            },
-          ],
-        },
+        md: { css: [{ h1: { fontSize: '3.5rem' }, h2: { fontSize: '1.5rem' } }] },
       }),
     },
   },

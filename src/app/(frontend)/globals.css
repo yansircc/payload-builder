@@ -16,7 +16,7 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--border);
   }
 }
 
@@ -32,91 +32,93 @@
   }
   
   :root {
-    /* Design System Variables - These will be set by DesignSystemProvider */
-    --color-primary: #0070f3;
-    --color-secondary: #7928ca;
-    --color-background: #ffffff;
-    --color-foreground: #000000;
-    --color-muted: #f5f5f5;
-    --color-accent: #fafafa;
-    --color-border: #e5e7eb;
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(224 71.4% 4.1%);
 
-    --font-family: 'Inter', sans-serif;
-    --heading-family: 'Inter', sans-serif;
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(224 71.4% 4.1%);
+
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(224 71.4% 4.1%);
+
+    --primary: hsl(220.9 39.3% 11%);
+    --primary-foreground: hsl(210 20% 98%);
+
+    --secondary: hsl(220 14.3% 95.9%);
+    --secondary-foreground: hsl(220.9 39.3% 11%);
+
+    --muted: hsl(220 14.3% 95.9%);
+    --muted-foreground: hsl(220 8.9% 46.1%);
+
+    --accent: hsl(220 14.3% 95.9%);
+    --accent-foreground: hsl(220.9 39.3% 11%);
+
+    --destructive: hsl(0 84.2% 60.2%);
+    --destructive-foreground: hsl(210 20% 98%);
+
+    --border: hsl(220 13% 91%);
+    --input: hsl(220 13% 91%);
+    --ring: hsl(224 71.4% 4.1%);
 
     --radius-small: 0.25rem;
-    --radius-medium: 0.5rem;
+    --radius-default: 0.5rem;
+    --radius-medium: 0.75rem;
     --radius-large: 1rem;
 
-    /* Shadcn UI Variables - Light Mode */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary-foreground: 210 40% 98%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --success: 196 52% 74%;
-    --warning: 34 89% 85%;
-    --error: 10 100% 86%;
+    /* Status Colors */
+    --success: hsl(143 72% 29%);
+    --success-foreground: hsl(143 72% 96%);
+    --warning: hsl(38 92% 50%);
+    --warning-foreground: hsl(48 96% 98%);
+    --error: hsl(0 84% 60%);
+    --error-foreground: hsl(0 0% 98%);
   }
 
   [data-theme='dark'] {
-    /* Design System Variables - Dark Mode */
-    --color-background: #000000;
-    --color-foreground: #ffffff;
-    --color-muted: #1a1a1a;
-    --color-accent: #1a1a1a;
-    --color-border: #2e2e2e;
+    --background: hsl(0 0% 0%);
+    --foreground: hsl(210 40% 98%);
 
-    /* Shadcn UI Variables - Dark Mode */
-    --background: 0 0% 0%;
-    --foreground: 210 40% 98%;
+    --card: hsl(0 0% 4%);
+    --card-foreground: hsl(210 40% 98%);
 
-    --card: 0 0% 4%;
-    --card-foreground: 210 40% 98%;
+    --popover: hsl(0 0% 4%);
+    --popover-foreground: hsl(210 40% 98%);
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --primary: hsl(210 40% 98%);
+    --primary-foreground: hsl(222.2 47.4% 11.2%);
 
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: hsl(217.2 32.6% 17.5%);
+    --secondary-foreground: hsl(210 40% 98%);
 
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent-foreground: 210 40% 98%;
+    --muted: hsl(217.2 32.6% 17.5%);
+    --muted-foreground: hsl(215 20.2% 65.1%);
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: hsl(217.2 32.6% 17.5%);
+    --accent-foreground: hsl(210 40% 98%);
 
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --destructive: hsl(0 62.8% 30.6%);
+    --destructive-foreground: hsl(210 40% 98%);
 
-    --success: 196 100% 14%;
-    --warning: 34 51% 25%;
-    --error: 10 39% 43%;
+    --border: hsl(217.2 32.6% 17.5%);
+    --input: hsl(217.2 32.6% 17.5%);
+    --ring: hsl(212.7 26.8% 83.9%);
+
+    /* Status Colors - Dark Mode */
+    --success: hsl(143 70% 20%);
+    --success-foreground: hsl(143 72% 90%);
+    --warning: hsl(38 92% 40%);
+    --warning-foreground: hsl(48 96% 90%);
+    --error: hsl(0 84% 40%);
+    --error-foreground: hsl(0 0% 90%);
   }
 }
 
 @layer base {
   * {
-    @apply border-[var(--color-border)];
+    @apply border-border;
   }
   body {
-    @apply bg-[var(--color-background)] text-[var(--color-foreground)] min-h-[100vh] flex flex-col;
+    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
   }
 }
 
@@ -124,6 +126,7 @@
   opacity: 0;
 } */
 
+/* Prevent flash of unstyled content */
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
