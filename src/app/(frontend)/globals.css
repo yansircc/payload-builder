@@ -122,12 +122,38 @@
   }
 }
 
-/* html {
-  opacity: 0;
-} */
+@layer components {
+  .container {
+    width: 100% !important;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--layout-containerPadding, 2rem);
+    padding-right: var(--layout-containerPadding, 2rem);
+    max-width: var(--layout-containerWidth, 80rem)!important;
+    transition: max-width 0.2s ease-out;
+  }
+}
 
 /* Prevent flash of unstyled content */
+:root:not([data-theme]) {
+  visibility: hidden;
+}
+
+:root[data-theme] {
+  visibility: visible;
+}
+
+html {
+  opacity: 0;
+}
+
 html[data-theme='dark'],
 html[data-theme='light'] {
-  opacity: initial;
+  opacity: 1;
+  transition: opacity 0ms;
+}
+
+/* Force immediate opacity when JS is disabled */
+html:not([data-theme]) {
+  opacity: 1;
 }

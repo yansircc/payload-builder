@@ -1,5 +1,6 @@
 import React from 'react'
 import Script from 'next/script'
+import { themes } from '@/themes'
 import { defaultTheme, themeLocalStorageKey } from '../ThemeSelector/types'
 
 export const InitTheme: React.FC = () => {
@@ -38,7 +39,13 @@ export const InitTheme: React.FC = () => {
       }
     }
 
+    // Set theme attribute
     document.documentElement.setAttribute('data-theme', themeToSet)
+
+    // Set initial layout variables from modern theme
+    var theme = ${JSON.stringify(themes.modern)}
+    document.documentElement.style.setProperty('--layout-containerWidth', theme.layout.containerWidth)
+    document.documentElement.style.setProperty('--layout-containerPadding', theme.layout.containerPadding)
   })();
   `,
       }}
