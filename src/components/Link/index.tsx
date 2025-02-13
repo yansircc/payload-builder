@@ -1,9 +1,10 @@
 import React from 'react'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { Button, type ButtonProps } from '@/components/ui/button'
-import type { Page, Post } from '@/payload-types'
+import type { Page, Popup, Post } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { DynamicIcon } from '../DynamicIcon'
+import { PopupLink } from './PopupLink'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -16,10 +17,11 @@ type CMSLinkType = {
     value: Page | Post | string | number
   } | null
   size?: ButtonProps['size'] | null
-  type?: 'custom' | 'reference' | null
+  type?: 'custom' | 'reference' | 'popup' | null
   url?: string | null
   prefixIcon?: string | null
   suffixIcon?: string | null
+  popup?: Popup | string | null
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -35,7 +37,15 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     url,
     prefixIcon,
     suffixIcon,
+    popup,
   } = props
+
+  // Handle popup type
+  if (type === 'popup' && popup && typeof popup === 'object') {
+    return (
+      <PopupLink popup={popup} label={label || ''} appearance={appearance} className={className} />
+    )
+  }
 
   const href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
@@ -56,20 +66,20 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     </>
   )
 
-  /* Ensure we don't break any styles set by richText */
+  // Handle regular links
   if (appearance === 'inline') {
     return (
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+      <NextLink className={cn(className)} href={href || url || ''} {...newTabProps}>
         {content}
-      </Link>
+      </NextLink>
     )
   }
 
   return (
     <Button asChild className={className} size={size} variant={appearance}>
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+      <NextLink className={cn(className)} href={href || url || ''} {...newTabProps}>
         {content}
-      </Link>
+      </NextLink>
     </Button>
   )
 }
