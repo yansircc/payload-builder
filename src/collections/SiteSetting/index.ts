@@ -4,7 +4,7 @@ import { superAdminOrTenantAdminAccess } from './access/superAdminOrTenantAdmin'
 const archiveStyleOptions = [
   { label: 'Grid', value: 'grid' },
   { label: 'List', value: 'list' },
-  { label: 'Masonry', value: 'masonry' },
+  { label: 'Card', value: 'card' },
 ]
 
 export const SiteSettings: CollectionConfig = {

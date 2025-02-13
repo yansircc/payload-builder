@@ -8463,15 +8463,15 @@ export interface SiteSetting {
     /**
      * Select the layout style for the posts archive page
      */
-    posts?: ('grid' | 'list' | 'masonry') | null;
+    posts?: ('grid' | 'list' | 'card') | null;
     /**
      * Select the layout style for the services archive page
      */
-    services?: ('grid' | 'list' | 'masonry') | null;
+    services?: ('grid' | 'list' | 'card') | null;
     /**
      * Select the layout style for the products archive page
      */
-    products?: ('grid' | 'list' | 'masonry') | null;
+    products?: ('grid' | 'list' | 'card') | null;
   };
   updatedAt: string;
   createdAt: string;

@@ -1,32 +1,28 @@
 import React from 'react'
-import { Card, CardPostData } from '@/components/Card'
-import type { Post } from '@/payload-types'
-import { cn } from '@/utilities/ui'
+import type { Post, Product } from '@/payload-types'
+import { getSiteSettings } from '@/utilities/getSiteSettings'
+import Style1 from './Style1/Component'
+import { getArchiveStyle } from './utils/getArchiveStyle'
+
+type CollectionType = 'post' | 'product' | 'service'
+
+const STYLE_COMPONENTS = {
+  grid: Style1,
+  list: Style1, // Replace with Style2 when available
+  card: Style1, // Replace with Style3 when available
+} as const
 
 export type Props = {
-  posts: CardPostData[]
+  items: Post[] | Product[]
+  type: CollectionType
 }
 
-export const CollectionArchive: React.FC<Props> = (props) => {
-  const { posts } = props
+export const CollectionArchive: React.FC<Props> = async (props) => {
+  const { items, type } = props
+  const siteSettings = await getSiteSettings()
 
-  return (
-    <div className={cn('container')}>
-      <div>
-        <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-8 lg:gap-x-8 xl:gap-x-8">
-          {posts?.map((result, index) => {
-            if (typeof result === 'object' && result !== null) {
-              return (
-                <div className="col-span-4" key={index}>
-                  <Card className="h-full" doc={result} relationTo="posts" showCategories />
-                </div>
-              )
-            }
+  const styleKey = getArchiveStyle(siteSettings?.archiveStyles, type)
+  const ArchiveComponent = STYLE_COMPONENTS[styleKey]
 
-            return null
-          })}
-        </div>
-      </div>
-    </div>
-  )
+  return <ArchiveComponent items={items} />
 }
