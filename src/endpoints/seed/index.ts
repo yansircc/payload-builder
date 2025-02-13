@@ -17,7 +17,10 @@ const collections: CollectionSlug[] = [
   'forms',
   'form-submissions',
   'search',
-]
+] as const
+
+type CustomCollectionSlug = (typeof collections)[number]
+
 const globals: GlobalSlug[] = []
 
 // Next.js revalidation errors are normal when seeding the database without a server running
@@ -46,9 +49,7 @@ export const seed = async ({
         slug: global,
         data: {},
         depth: 0,
-        context: {
-          disableRevalidate: true,
-        },
+        context: { disableRevalidate: true },
       }),
     ),
   )
@@ -68,53 +69,33 @@ export const seed = async ({
   await payload.delete({
     collection: 'users',
     depth: 0,
-    where: {
-      email: {
-        equals: 'demo-author@example.com',
-      },
-    },
+    where: { email: { equals: 'demo-author@example.com' } },
   })
 
   payload.logger.info(`— Seeding tenants and users...`)
   // Create super admin
   await payload.create({
     collection: 'users',
-    data: {
-      email: 'demo@payloadcms.com',
-      password: 'demo',
-      roles: ['super-admin'],
-    },
+    data: { email: 'demo@payloadcms.com', password: 'demo', roles: ['super-admin'] },
   })
 
   // Create tenants
   const [tenant1, tenant2, tenant3] = await Promise.all([
     payload.create({
       collection: 'tenants',
-      data: {
-        name: 'Tenant 1',
-        slug: 'gold',
-        domain: 'gold.localhost.com',
-      },
+      data: { name: 'Tenant 1', slug: 'gold', domain: 'gold.localhost.com' },
     }),
     payload.create({
       collection: 'tenants',
-      data: {
-        name: 'Tenant 2',
-        slug: 'silver',
-        domain: 'silver.localhost.com',
-      },
+      data: { name: 'Tenant 2', slug: 'silver', domain: 'silver.localhost.com' },
     }),
     payload.create({
       collection: 'tenants',
-      data: {
-        name: 'Tenant 3',
-        slug: 'bronze',
-        domain: 'bronze.localhost.com',
-      },
+      data: { name: 'Tenant 3', slug: 'bronze', domain: 'bronze.localhost.com' },
     }),
   ])
 
-  // Create tenant users
+  // Create tenant users first
   await Promise.all([
     payload.create({
       collection: 'users',
@@ -222,40 +203,21 @@ export const seed = async ({
       collection: 'categories',
       data: {
         title: 'Technology',
-        breadcrumbs: [
-          {
-            label: 'Technology',
-            url: '/technology',
-          },
-        ],
+        breadcrumbs: [{ label: 'Technology', url: '/technology' }],
         tenant: tenant1.id,
       },
     }),
 
     payload.create({
       collection: 'categories',
-      data: {
-        title: 'News',
-        breadcrumbs: [
-          {
-            label: 'News',
-            url: '/news',
-          },
-        ],
-        tenant: tenant1.id,
-      },
+      data: { title: 'News', breadcrumbs: [{ label: 'News', url: '/news' }], tenant: tenant1.id },
     }),
 
     payload.create({
       collection: 'categories',
       data: {
         title: 'Finance',
-        breadcrumbs: [
-          {
-            label: 'Finance',
-            url: '/finance',
-          },
-        ],
+        breadcrumbs: [{ label: 'Finance', url: '/finance' }],
         tenant: tenant1.id,
       },
     }),
@@ -263,12 +225,7 @@ export const seed = async ({
       collection: 'categories',
       data: {
         title: 'Design',
-        breadcrumbs: [
-          {
-            label: 'Design',
-            url: '/design',
-          },
-        ],
+        breadcrumbs: [{ label: 'Design', url: '/design' }],
         tenant: tenant1.id,
       },
     }),
@@ -277,12 +234,7 @@ export const seed = async ({
       collection: 'categories',
       data: {
         title: 'Software',
-        breadcrumbs: [
-          {
-            label: 'Software',
-            url: '/software',
-          },
-        ],
+        breadcrumbs: [{ label: 'Software', url: '/software' }],
         tenant: tenant1.id,
       },
     }),
@@ -309,9 +261,7 @@ export const seed = async ({
   const post1Doc = await payload.create({
     collection: 'posts',
     depth: 0,
-    context: {
-      disableRevalidate: true,
-    },
+    context: { disableRevalidate: true },
     data: JSON.parse(
       JSON.stringify({ ...post1, categories: [technologyCategory.id], tenant: tenant1.id })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image1ID))
@@ -323,9 +273,7 @@ export const seed = async ({
   const post2Doc = await payload.create({
     collection: 'posts',
     depth: 0,
-    context: {
-      disableRevalidate: true,
-    },
+    context: { disableRevalidate: true },
     data: JSON.parse(
       JSON.stringify({ ...post2, categories: [newsCategory.id], tenant: tenant1.id })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image2ID))
@@ -337,9 +285,7 @@ export const seed = async ({
   const post3Doc = await payload.create({
     collection: 'posts',
     depth: 0,
-    context: {
-      disableRevalidate: true,
-    },
+    context: { disableRevalidate: true },
     data: JSON.parse(
       JSON.stringify({ ...post3, categories: [financeCategory.id], tenant: tenant1.id })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image3ID))
@@ -352,23 +298,17 @@ export const seed = async ({
   await payload.update({
     id: post1Doc.id,
     collection: 'posts',
-    data: {
-      relatedPosts: [post2Doc.id, post3Doc.id],
-    },
+    data: { relatedPosts: [post2Doc.id, post3Doc.id] },
   })
   await payload.update({
     id: post2Doc.id,
     collection: 'posts',
-    data: {
-      relatedPosts: [post1Doc.id, post3Doc.id],
-    },
+    data: { relatedPosts: [post1Doc.id, post3Doc.id] },
   })
   await payload.update({
     id: post3Doc.id,
     collection: 'posts',
-    data: {
-      relatedPosts: [post1Doc.id, post2Doc.id],
-    },
+    data: { relatedPosts: [post1Doc.id, post2Doc.id] },
   })
 
   // Create tenant pages
@@ -492,18 +432,45 @@ export const seed = async ({
     }),
   ])
 
-  payload.logger.info(`— Seeding globals...`)
-
-  await Promise.all([])
+  payload.logger.info(`— Seeding site settings...`)
+  await Promise.all([
+    payload.create({
+      collection: 'site-settings',
+      data: {
+        title: 'Gold Tenant - Welcome to Our Site',
+        description:
+          'Premium features and services available with our Gold tenant subscription. Discover what sets us apart.',
+        tenant: tenant1.id,
+        searchEngineVisibility: { allowIndexing: true },
+      },
+    }),
+    payload.create({
+      collection: 'site-settings',
+      data: {
+        title: 'Silver Tenant - Your Business Solution',
+        description:
+          'Powerful features and reliable services with our Silver tenant subscription. Perfect for growing businesses.',
+        tenant: tenant2.id,
+        searchEngineVisibility: { allowIndexing: true },
+      },
+    }),
+    payload.create({
+      collection: 'site-settings',
+      data: {
+        title: 'Bronze Tenant - Get Started Today',
+        description:
+          'Essential features and great value with our Bronze tenant subscription. The perfect starting point for your journey.',
+        tenant: tenant3.id,
+        searchEngineVisibility: { allowIndexing: true },
+      },
+    }),
+  ])
 
   payload.logger.info('Seeded database successfully!')
 }
 
 async function fetchFileByURL(url: string): Promise<File> {
-  const res = await fetch(url, {
-    credentials: 'include',
-    method: 'GET',
-  })
+  const res = await fetch(url, { credentials: 'include', method: 'GET' })
 
   if (!res.ok) {
     throw new Error(`Failed to fetch file from ${url}, status: ${res.status}`)

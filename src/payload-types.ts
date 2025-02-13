@@ -75,6 +75,8 @@ export interface Config {
     footer: Footer;
     'custom-codes': CustomCode;
     popups: Popup;
+    'site-settings': SiteSetting;
+    'error-logs': ErrorLog;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -96,6 +98,8 @@ export interface Config {
     footer: FooterSelect<false> | FooterSelect<true>;
     'custom-codes': CustomCodesSelect<false> | CustomCodesSelect<true>;
     popups: PopupsSelect<false> | PopupsSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'error-logs': ErrorLogsSelect<false> | ErrorLogsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -8585,13 +8589,70 @@ export interface CustomCode {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  /**
+   * SEO title for homepage (recommended: 50-60 characters)
+   */
+  title: string;
+  /**
+   * SEO description for homepage (recommended: 150-160 characters)
+   */
+  description: string;
+  /**
+   * Upload your site favicon (recommended size: 32x32 or 16x16)
+   */
+  favicon?: (string | null) | Media;
+  /**
+   * Upload your site logo
+   */
+  logo?: (string | null) | Media;
+  searchEngineVisibility?: {
+    allowIndexing?: boolean | null;
+    /**
+     * Custom robots.txt content (optional)
+     */
+    robotsTxtContent?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "error-logs".
+ */
+export interface ErrorLog {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  /**
+   * The URL that caused the error
+   */
+  url: string;
+  errorType: '404' | '500';
+  /**
+   * Browser/client information
+   */
+  userAgent?: string | null;
+  /**
+   * The page that linked to this URL
+   */
+  referrer?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
   id: string;
   tenant?: (string | null) | Tenant;
   /**
-   * You will need to rebuild the website when changing this field.
+   * Please enter the path only, such as `/abc`, instead of the full domain name like `example.com/abc`.
    */
   from: string;
   to?: {
@@ -8607,6 +8668,7 @@ export interface Redirect {
         } | null);
     url?: string | null;
   };
+  type: '301' | '302';
   updatedAt: string;
   createdAt: string;
 }
@@ -8797,6 +8859,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'popups';
         value: string | Popup;
+      } | null)
+    | ({
+        relationTo: 'site-settings';
+        value: string | SiteSetting;
+      } | null)
+    | ({
+        relationTo: 'error-logs';
+        value: string | ErrorLog;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -13230,6 +13300,39 @@ export interface PopupsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  tenant?: T;
+  title?: T;
+  description?: T;
+  favicon?: T;
+  logo?: T;
+  searchEngineVisibility?:
+    | T
+    | {
+        allowIndexing?: T;
+        robotsTxtContent?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "error-logs_select".
+ */
+export interface ErrorLogsSelect<T extends boolean = true> {
+  tenant?: T;
+  url?: T;
+  errorType?: T;
+  userAgent?: T;
+  referrer?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
@@ -13242,6 +13345,7 @@ export interface RedirectsSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
       };
+  type?: T;
   updatedAt?: T;
   createdAt?: T;
 }

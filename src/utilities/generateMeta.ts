@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { getSiteSettings } from '@/utilities/getGlobals'
 import type { Config, Media, Page, Post } from '../payload-types'
 import { getServerSideURL } from './getURL'
 import { mergeOpenGraph } from './mergeOpenGraph'
@@ -23,15 +24,16 @@ export const generateMeta = async (args: {
   const { doc } = args
 
   const ogImage = getImageURL(doc?.meta?.image)
+  const siteSetting = await getSiteSettings()
 
   const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+    ? doc?.meta?.title + ` | ${siteSetting?.title}` || 'Payload'
+    : siteSetting?.title || 'Payload'
 
   return {
     description: doc?.meta?.description,
     openGraph: mergeOpenGraph({
-      description: doc?.meta?.description || '',
+      description: doc?.meta?.description || siteSetting?.description || '',
       images: ogImage
         ? [
             {

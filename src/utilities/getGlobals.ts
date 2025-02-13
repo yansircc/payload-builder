@@ -1,6 +1,6 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import type { Config, Footer, Header } from 'src/payload-types'
+import type { Config, Footer, Header, SiteSetting } from 'src/payload-types'
 import { unstable_cache } from 'next/cache'
 import { headers } from 'next/headers'
 
@@ -96,4 +96,40 @@ export async function getFooter(depth = 2): Promise<Footer | null> {
   })
 
   return headerQuery.docs[0] || null
+}
+
+/**
+ * Retrieves the site settings global configuration with populated relationships
+ * @returns The site settings configuration with populated relationships
+ */ export async function getSiteSettings(depth = 2): Promise<SiteSetting | null> {
+  const payload = await getPayload({ config: configPromise })
+  const headersList = headers()
+  const host = (await headersList).get('host') || ''
+  const domain = host.split(':')[0]
+
+  // Find tenant by domain
+  const tenantQuery = await payload.find({
+    collection: 'tenants',
+    where: {
+      domain: {
+        equals: domain,
+      },
+    },
+  })
+
+  const tenant = tenantQuery.docs[0]
+
+  // Get header for this tenant
+  const siteSettingsQuery = await payload.find({
+    collection: 'site-settings',
+    where: {
+      tenant: {
+        equals: tenant?.id,
+      },
+    },
+    depth,
+    limit: 1,
+  })
+
+  return siteSettingsQuery.docs[0] || null
 }

@@ -10,6 +10,7 @@ import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Plugin } from 'payload'
 import { isSuperAdmin } from '@/access/isSuperAdmin'
+import normalizeRedirectUrls from '@/hooks/normalizeRedirectUrls'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { Config, Page, Post } from '@/payload-types'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
@@ -38,30 +39,27 @@ export const plugins: Plugin[] = [
             return {
               ...field,
               admin: {
-                description: 'You will need to rebuild the website when changing this field.',
+                description:
+                  'Please enter the path only, such as `/abc`, instead of the full domain name like `example.com/abc`.',
               },
+              hooks: { beforeValidate: [normalizeRedirectUrls] },
             }
           }
           return field
         })
       },
-      hooks: {
-        afterChange: [revalidateRedirects],
-      },
+      hooks: { afterChange: [revalidateRedirects] },
     },
+    redirectTypes: ['301', '302'],
+    redirectTypeFieldOverride: { label: 'Redirect Type (Overridden)' },
   }),
   nestedDocsPlugin({
     collections: ['categories'],
     generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
   }),
-  seoPlugin({
-    generateTitle,
-    generateURL,
-  }),
+  seoPlugin({ generateTitle, generateURL }),
   formBuilderPlugin({
-    fields: {
-      payment: false,
-    },
+    fields: { payment: false },
     formOverrides: {
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -73,9 +71,7 @@ export const plugins: Plugin[] = [
                   return [
                     ...rootFeatures,
                     FixedToolbarFeature(),
-                    HeadingFeature({
-                      enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'],
-                    }),
+                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
                   ]
                 },
               }),
@@ -109,9 +105,9 @@ export const plugins: Plugin[] = [
       footer: { isGlobal: true },
       'custom-codes': { isGlobal: true },
       popups: {},
-      media: {
-        useTenantAccess: false,
-      },
+      'site-settings': { isGlobal: true },
+      'error-logs': {},
+      media: { useTenantAccess: false },
     },
     tenantField: {
       access: {
@@ -124,19 +120,13 @@ export const plugins: Plugin[] = [
         },
       },
     },
-    tenantsArrayField: {
-      includeDefaultField: false,
-    },
+    tenantsArrayField: { includeDefaultField: false },
     userHasAccessToAllTenants: (user) => isSuperAdmin(user),
   }),
   vercelBlobStorage({
     enabled: process.env.NODE_ENV !== 'development',
     // Specify which collections should use Vercel Blob
-    collections: {
-      media: {
-        disableLocalStorage: process.env.NODE_ENV !== 'development',
-      },
-    },
+    collections: { media: { disableLocalStorage: process.env.NODE_ENV !== 'development' } },
     // Token provided by Vercel once Blob storage is added to your Vercel project
     token: process.env.BLOB_READ_WRITE_TOKEN,
   }),
