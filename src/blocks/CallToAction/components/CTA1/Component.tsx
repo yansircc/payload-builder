@@ -4,9 +4,7 @@ import { Media } from '@/components/Media'
 import type { CTA1Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function CTA1({ cta }: CTA1Fields) {
-  const { title, subtitle, links, image, icon } = cta
-
+export default function CTA1({ title, subtitle, btn, image, icon }: CTA1Fields) {
   return (
     <section className="py-32">
       <div className="container max-w-5xl">
@@ -21,31 +19,21 @@ export default function CTA1({ cta }: CTA1Fields) {
               <h4 className="text-2xl font-bold">{title}</h4>
             </div>
             {subtitle && <p className="text-muted-foreground">{subtitle}</p>}
-            {links && links.length > 0 && (
+            {btn && (
               <ClientMotionDiv
                 className="mt-11 flex flex-col justify-center gap-2 sm:flex-row"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                {links.map((linkGroup, index) => (
-                  <div key={index} className="w-full sm:w-auto">
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link &&
-                          typeof link === 'object' && (
-                            <CMSLink key={key} {...link} className="w-full sm:w-auto" />
-                          ),
-                      )}
-                  </div>
-                ))}
+                <div className="w-full sm:w-auto">
+                  <CMSLink {...btn} className="w-full sm:w-auto" />
+                </div>
               </ClientMotionDiv>
             )}
           </div>
           <div className="aspect-video md:max-w-96">
-            <Media resource={image} className="h-full w-full object-cover" />
+            {image && <Media resource={image} className="h-full w-full object-cover" />}
           </div>
         </div>
       </div>

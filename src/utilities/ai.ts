@@ -1,5 +1,8 @@
-import { deepseek } from '@ai-sdk/deepseek'
+'use server'
+
+import { openai } from '@ai-sdk/openai'
 import { generateObject } from 'ai'
+import type { ClientField } from 'payload'
 import { z } from 'zod'
 
 /**
@@ -36,21 +39,67 @@ ${fields}
 Please ensure the generated content meets the requirements for each field.`
 }
 
+function createSchemaFromField(field: ClientField): z.ZodTypeAny {
+  switch (field.type) {
+    case 'text':
+      const textSchema = z
+        .string()
+        .describe(typeof field.admin?.description === 'string' ? field.admin.description : '')
+      return field.required ? textSchema.min(1) : textSchema.optional()
+
+    case 'upload':
+      return z
+        .string()
+        .describe(typeof field.admin?.description === 'string' ? field.admin.description : '')
+        .optional()
+
+    case 'group':
+      const shape: Record<string, z.ZodTypeAny> = {}
+      field.fields.forEach((subField: ClientField) => {
+        if (subField.type === 'row' && 'fields' in subField) {
+          subField.fields.forEach((rowField: ClientField) => {
+            if ('name' in rowField && rowField.name && 'type' in rowField) {
+              shape[rowField.name] = createSchemaFromField(rowField)
+            }
+          })
+        } else if ('name' in subField && subField.name) {
+          shape[subField.name] = createSchemaFromField(subField)
+        }
+      })
+      return z
+        .object(shape)
+        .describe(typeof field.admin?.description === 'string' ? field.admin.description : '')
+
+    default:
+      return z.any().optional()
+  }
+}
+
 /**
  * 使用 AI 生成对象数据
  */
-export async function getObject<T extends z.ZodRawShape>(
-  schema: z.ZodObject<T>,
-): Promise<z.infer<z.ZodObject<T>>> {
-  console.log('AI is generating object data')
-  const prompt = generatePrompt(schema)
+export async function getObject(fields: ClientField[]) {
+  try {
+    // Create schema from field configuration
+    const fieldsSchema: Record<string, z.ZodTypeAny> = {}
+    fields.forEach((field: ClientField) => {
+      if ('name' in field && field.name) {
+        fieldsSchema[field.name] = createSchemaFromField(field)
+      }
+    })
 
-  const { object } = await generateObject({
-    model: deepseek('deepseek-chat'),
-    prompt,
-    schema,
-  })
+    const schema = z.object(fieldsSchema)
+    const prompt = generatePrompt(schema)
 
-  console.log('AI generated data:', JSON.stringify(object, null, 2))
-  return object
+    const { object } = await generateObject({
+      model: openai('gpt-4o-mini'),
+      prompt,
+      schema,
+    })
+
+    return object
+  } catch (error) {
+    console.error('Error generating content:', error)
+    throw error
+  }
 }
