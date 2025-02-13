@@ -127,23 +127,36 @@ export function PopupLink({ popup, label, appearance = 'default', className }: P
   const dialogContentClass = cn(
     'transition-all duration-300',
     {
-      'animate-in fade-in-0': popup.appearanceSettings?.animation === 'fade',
-      'animate-in slide-in-from-bottom-full': popup.appearanceSettings?.animation === 'slideUp',
-      'animate-in slide-in-from-top-full': popup.appearanceSettings?.animation === 'slideDown',
-      'animate-in zoom-in-50': popup.appearanceSettings?.animation === 'scale',
+      'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95':
+        true,
+      'data-[state=closed]:slide-out-to-bottom-[48%] data-[state=open]:slide-in-from-bottom-[48%]':
+        popup.appearanceSettings?.animation === 'slideUp',
+      'data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-top-[48%]':
+        popup.appearanceSettings?.animation === 'slideDown',
+      'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95':
+        popup.appearanceSettings?.animation === 'scale',
     },
     {
-      'from-center': popup.appearanceSettings?.position === 'center',
-      'from-top': popup.appearanceSettings?.position === 'top',
-      'from-bottom': popup.appearanceSettings?.position === 'bottom',
+      'sm:max-w-lg': popup.appearanceSettings?.size === 'default',
+      'sm:max-w-sm': popup.appearanceSettings?.size === 'sm',
+      'sm:max-w-xl': popup.appearanceSettings?.size === 'lg',
+      'sm:max-w-full sm:h-screen': popup.appearanceSettings?.size === 'full',
+    },
+    {
+      'top-[50%]': popup.appearanceSettings?.position === 'center',
+      'top-[15%]': popup.appearanceSettings?.position === 'top',
+      'top-[85%]': popup.appearanceSettings?.position === 'bottom',
     },
   )
 
-  const overlayClass = cn({
-    'backdrop-blur-sm': popup.appearanceSettings?.backdrop === 'blur',
-    'bg-background/80': popup.appearanceSettings?.backdrop !== 'none',
-    'bg-transparent': popup.appearanceSettings?.backdrop === 'none',
-  })
+  const overlayClass = cn(
+    'fixed inset-0 z-50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+    {
+      'backdrop-blur-sm': popup.appearanceSettings?.backdrop === 'blur',
+      'bg-background/80': popup.appearanceSettings?.backdrop !== 'none',
+      'bg-transparent': popup.appearanceSettings?.backdrop === 'none',
+    },
+  )
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
@@ -174,9 +187,7 @@ export function PopupLink({ popup, label, appearance = 'default', className }: P
           className={cn('prose max-w-none whitespace-pre-wrap', {
             'dark:prose-invert': !popup.appearanceSettings?.textColor,
           })}
-          style={{
-            color: popup.appearanceSettings?.textColor || undefined,
-          }}
+          style={{ color: popup.appearanceSettings?.textColor || undefined }}
         >
           {popup.basicSettings.content}
         </div>
