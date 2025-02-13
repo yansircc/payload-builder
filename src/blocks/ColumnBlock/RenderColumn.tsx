@@ -1,5 +1,6 @@
-import type { ColumnsBlock as ColumnsBlockProps } from 'src/payload-types'
+import type { ColumnsBlock as ColumnsBlockProps, Media } from 'src/payload-types'
 import React, { useMemo } from 'react'
+import { Media as MediaComponent } from '@/components/Media'
 import { cn } from '@/utilities/ui'
 
 type Props = {
@@ -37,41 +38,83 @@ export const ColumnsBlock: React.FC<Props> = ({ className, layout = '50-50', col
   )
 }
 
-const ColumnContent: React.FC<{ content: ColumnsBlockProps['columns'][0]['content'][0] }> = ({
-  content,
-}) => {
+// Fungsi untuk mendapatkan URL embed dari YouTube
+const getYouTubeEmbedUrl = (url: string): string | null => {
+  const match = url.match(
+    /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/,
+  )
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null
+}
+
+const ColumnContent: React.FC<{
+  content: ColumnsBlockProps['columns'][number]['content'][number]
+}> = ({ content }) => {
+  console.log('Debugging content:', content) // 👉 Debugging log
+
   switch (content.blockType) {
     case 'text':
-      return content.content ? (
+      console.log('Debugging text content:', content.content)
+
+      if (
+        !content.content ||
+        !content.content.root ||
+        !Array.isArray(content.content.root.children)
+      ) {
+        console.warn('Text content is missing:', content)
+        return <p className="text-gray-500">No text available</p>
+      }
+
+      return (
         <div className="prose md:prose-md dark:prose-invert">
-          {content.content.root.children.map((child: TextNode, idx: number) => (
-            <p key={idx}>{child.text}</p>
-          ))}
+          {content.content.root.children.map((child: any, idx: number) => {
+            if (child.type === 'paragraph' && Array.isArray(child.children)) {
+              return (
+                <p key={idx}>
+                  {child.children.map((nestedChild: any, subIdx: number) =>
+                    typeof nestedChild.text === 'string' ? nestedChild.text : 'No text',
+                  )}
+                </p>
+              )
+            }
+            return null
+          })}
         </div>
-      ) : null
+      )
 
     case 'image':
-      return content.image && typeof content.image === 'object' && content.image?.url ? (
-        <img
-          src={content.image.url}
-          alt="Image"
-          className="rounded-md w-full h-auto"
-          loading="lazy"
-        />
-      ) : null
+      return content.image && typeof content.image === 'object' ? (
+        <MediaComponent resource={content.image as Media} className="rounded-md w-full h-auto" />
+      ) : (
+        <p className="text-gray-500">No image available</p>
+      )
 
     case 'video':
-      return content.url ? (
-        <div className="relative w-full aspect-video">
+      console.log('Debugging video URL:', content.url)
+      const embedUrl = content.url ? getYouTubeEmbedUrl(content.url) || content.url : null
+
+      return embedUrl ? (
+        embedUrl.includes('youtube') ? (
           <iframe
-            className="w-full h-full rounded-md"
-            src={content.url}
-            title="Embedded Video"
+            src={embedUrl}
+            className="w-full aspect-video rounded-md"
             allowFullScreen
-            loading="lazy"
+            title="Embedded Video"
           />
-        </div>
-      ) : null
+        ) : (
+          <MediaComponent
+            resource={{
+              id: `video-${content.url}`,
+              url: content.url,
+              mimeType: 'video/mp4',
+              updatedAt: new Date().toISOString(),
+              createdAt: new Date().toISOString(),
+            }}
+            className="rounded-md w-full aspect-video"
+          />
+        )
+      ) : (
+        <p className="text-gray-500">Video content is missing</p>
+      )
 
     default:
       return null

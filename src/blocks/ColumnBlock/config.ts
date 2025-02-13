@@ -1,3 +1,4 @@
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { Block } from 'payload'
 
 export const ColumnsBlock: Block = {
@@ -43,7 +44,16 @@ export const ColumnsBlock: Block = {
             {
               slug: 'text',
               labels: { singular: 'Text', plural: 'Texts' },
-              fields: [{ name: 'content', type: 'richText' }],
+              fields: [
+                {
+                  name: 'content',
+                  type: 'richText',
+                  required: true,
+                  editor: lexicalEditor({
+                    features: ({ rootFeatures }) => [...rootFeatures],
+                  }),
+                },
+              ],
             },
             {
               slug: 'image',

@@ -4112,7 +4112,7 @@ export interface ColumnsBlock {
   columns: {
     content: (
       | {
-          content?: {
+          content: {
             root: {
               type: string;
               children: {
@@ -4126,7 +4126,7 @@ export interface ColumnsBlock {
               version: number;
             };
             [k: string]: unknown;
-          } | null;
+          };
           id?: string | null;
           blockName?: string | null;
           blockType: 'text';
