@@ -10,14 +10,16 @@ import { env } from '@/env'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { Categories } from './collections/Categories'
 import { CustomCodes } from './collections/CustomCodes'
+import { ErrorLogs } from './collections/ErrorLogs'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { SiteSettings } from './collections/SiteSetting'
 import { Tenants } from './collections/Tenants'
 import Users from './collections/Users'
-import { Footer } from './Footer/config'
 import { ApiKey } from './globals/api-keys'
-import { Header } from './Header/config'
+import { Footer } from './globals/Footer/config'
+import { Header } from './globals/Header/config'
 import { plugins } from './plugins'
 import { getServerSideURL } from './utilities/getURL'
 
@@ -70,7 +72,19 @@ export default buildConfig({
   db: mongooseAdapter({
     url: env.DATABASE_URL || false,
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Tenants, Header, Footer, CustomCodes],
+  collections: [
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    Users,
+    Tenants,
+    Header,
+    Footer,
+    CustomCodes,
+    SiteSettings,
+    ErrorLogs,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [ApiKey],
   plugins: [

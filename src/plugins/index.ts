@@ -10,6 +10,7 @@ import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Plugin } from 'payload'
 import { isSuperAdmin } from '@/access/isSuperAdmin'
+import normalizeRedirectUrls from '@/hooks/normalizeRedirectUrls'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { Config, Page, Post } from '@/payload-types'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
@@ -38,7 +39,11 @@ export const plugins: Plugin[] = [
             return {
               ...field,
               admin: {
-                description: 'You will need to rebuild the website when changing this field.',
+                description:
+                  'Please enter the path only, such as `/abc`, instead of the full domain name like `example.com/abc`.',
+              },
+              hooks: {
+                beforeValidate: [normalizeRedirectUrls],
               },
             }
           }
@@ -48,6 +53,10 @@ export const plugins: Plugin[] = [
       hooks: {
         afterChange: [revalidateRedirects],
       },
+    },
+    redirectTypes: ['301', '302'],
+    redirectTypeFieldOverride: {
+      label: 'Redirect Type (Overridden)',
     },
   }),
   nestedDocsPlugin({
@@ -108,6 +117,8 @@ export const plugins: Plugin[] = [
       header: { isGlobal: true },
       footer: { isGlobal: true },
       'custom-codes': { isGlobal: true },
+      'site-settings': { isGlobal: true },
+      'error-logs': {},
       media: {
         useTenantAccess: false,
       },

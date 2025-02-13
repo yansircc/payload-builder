@@ -4,27 +4,37 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { AdminBar } from '@/components/AdminBar'
-import { RenderFooter } from '@/Footer/RenderFooter'
+import { RenderFooter } from '@/globals/Footer/RenderFooter'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { cn } from '@/utilities/ui'
 import './globals.css'
-import { CustomCode } from '@/CustomCode/Component'
-import { RenderHeader } from '@/Header/RenderHeader'
+import { CustomCode } from '@/globals/CustomCode/Component'
+import { Favicon } from '@/globals/Favicon/Component'
+import { RenderHeader } from '@/globals/Header/RenderHeader'
+import { getSiteSettings } from '@/utilities/getSiteSettings'
 import { getServerSideURL } from '@/utilities/getURL'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
   const customScripts = await CustomCode()
+  const siteSettings = await getSiteSettings()
+  const defaultLocale = siteSettings?.defaultLanguage || 'en'
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(GeistSans.variable, GeistMono.variable)}
+      lang={defaultLocale}
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <Favicon />
         {customScripts?.headScripts}
+        {siteSettings?.searchEngineVisibility?.allowIndexing === false && (
+          <meta content="noindex,nofollow" name="robots" />
+        )}
       </head>
       <body>
         <Providers>
@@ -45,11 +55,27 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   )
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL(getServerSideURL()),
-  openGraph: mergeOpenGraph(),
-  twitter: {
-    card: 'summary_large_image',
-    creator: '@payloadcms',
-  },
+export const generateMetadata = async (): Promise<Metadata> => {
+  const siteSettings = await getSiteSettings()
+
+  return {
+    metadataBase: new URL(getServerSideURL()),
+    title: siteSettings?.title,
+    description: siteSettings?.description,
+    openGraph: mergeOpenGraph({
+      title: siteSettings?.title,
+      description: siteSettings?.description,
+    }),
+    twitter: {
+      card: 'summary_large_image',
+      creator: '@payloadcms',
+    },
+    robots:
+      siteSettings?.searchEngineVisibility?.allowIndexing === false
+        ? {
+            index: false,
+            follow: false,
+          }
+        : undefined,
+  }
 }
