@@ -1,36 +1,104 @@
-// Theme Presets
+/** Available theme presets in the design system */
 export type ThemePreset = 'modern' | 'minimal' | 'bold'
 
-// Base Theme Interface
+/** Base theme interface defining all customizable aspects of the design system */
 export interface BaseTheme {
+  /** Color palette for both light and dark modes */
   colors: {
+    /** Main background color */
     background: string
+    /** Primary text color */
     foreground: string
+    /** Card background color */
     card: string
+    /** Card text color */
     cardForeground: string
+    /** Popover/dropdown background */
     popover: string
+    /** Popover/dropdown text color */
     popoverForeground: string
+    /** Primary brand color */
     primary: string
+    /** Text color on primary background */
     primaryForeground: string
+    /** Secondary brand color */
     secondary: string
+    /** Text color on secondary background */
     secondaryForeground: string
+    /** Background for muted elements */
     muted: string
+    /** Text color for muted elements */
     mutedForeground: string
+    /** Accent color for highlights */
     accent: string
+    /** Text color on accent background */
     accentForeground: string
+    /** Color for destructive actions */
     destructive: string
+    /** Text color on destructive background */
     destructiveForeground: string
+    /** Border color */
     border: string
+    /** Input border color */
     input: string
+    /** Focus ring color */
     ring: string
   }
-  radius: { small: string; default: string; medium: string; large: string }
+  /** Typography settings */
+  typography: {
+    /** Base font family */
+    fontFamily: string
+    /** Font family for headings */
+    headingFamily: string
+    /** Root font size */
+    baseFontSize: string
+    /** Base line height */
+    lineHeight: string
+    /** Font weight variations */
+    fontWeights: { normal: string; medium: string; semibold: string; bold: string }
+    /** Letter spacing variations */
+    letterSpacing: { tight: string; normal: string; wide: string }
+  }
+  /** Border radius settings */
+  radius: {
+    /** Small border radius (buttons, small elements) */
+    small: string
+    /** Default border radius */
+    default: string
+    /** Medium border radius (cards, larger elements) */
+    medium: string
+    /** Large border radius (modals, full sections) */
+    large: string
+  }
+  /** Layout and spacing settings */
+  layout: {
+    /** Maximum container width */
+    containerWidth: string
+    /** Container padding */
+    containerPadding: string
+    /** Vertical spacing between sections */
+    sectionSpacing: string
+    /** Gap between grid items */
+    gridGap: string
+  }
+  /** Component-specific styles */
+  components: {
+    /** Button styling */
+    button: { padding: string; transition: string; hover: { scale: string; opacity: string } }
+    /** Card styling */
+    card: { padding: string; shadow: string; hover: { transform: string } }
+    /** Input field styling */
+    input: { height: string; padding: string }
+  }
 }
 
-// Theme Definition with metadata
+/** Complete theme definition including metadata */
 export interface ThemeDefinition extends BaseTheme {
+  /** Theme identifier */
   name: ThemePreset
+  /** Human-readable theme name */
   label: string
+  /** Dark mode color overrides */
   dark: BaseTheme['colors']
 }
 
@@ -82,6 +150,33 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       ring: 'hsl(216 12.2% 83.9%)',
     },
     radius: { small: '0.25rem', default: '0.5rem', medium: '0.75rem', large: '1rem' },
+    typography: {
+      fontFamily: 'var(--font-inter)',
+      headingFamily: 'var(--font-cal-sans)',
+      baseFontSize: '16px',
+      lineHeight: '1.6',
+      fontWeights: { normal: '400', medium: '500', semibold: '600', bold: '700' },
+      letterSpacing: { tight: '-0.02em', normal: '0', wide: '0.02em' },
+    },
+    layout: {
+      containerWidth: '1280px',
+      containerPadding: '2rem',
+      sectionSpacing: '6rem',
+      gridGap: '2rem',
+    },
+    components: {
+      button: {
+        padding: '0.75rem 1.5rem',
+        transition: 'all 0.2s ease-in-out',
+        hover: { scale: '1.02', opacity: '0.9' },
+      },
+      card: {
+        padding: '2rem',
+        shadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        hover: { transform: 'translateY(-2px)' },
+      },
+      input: { height: '2.5rem', padding: '0.5rem 1rem' },
+    },
   },
   minimal: {
     name: 'minimal',
@@ -129,6 +224,33 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       ring: 'hsl(0 0% 83.9%)',
     },
     radius: { small: '0.125rem', default: '0.25rem', medium: '0.375rem', large: '0.5rem' },
+    typography: {
+      fontFamily: 'var(--font-inter)',
+      headingFamily: 'var(--font-inter)',
+      baseFontSize: '16px',
+      lineHeight: '1.5',
+      fontWeights: { normal: '400', medium: '500', semibold: '600', bold: '700' },
+      letterSpacing: { tight: '-0.01em', normal: '0', wide: '0.01em' },
+    },
+    layout: {
+      containerWidth: '1200px',
+      containerPadding: '1.5rem',
+      sectionSpacing: '5rem',
+      gridGap: '1.5rem',
+    },
+    components: {
+      button: {
+        padding: '0.625rem 1.25rem',
+        transition: 'all 0.15s ease-in-out',
+        hover: { scale: '1', opacity: '0.8' },
+      },
+      card: {
+        padding: '1.5rem',
+        shadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+        hover: { transform: 'none' },
+      },
+      input: { height: '2.25rem', padding: '0.5rem 0.75rem' },
+    },
   },
   bold: {
     name: 'bold',
@@ -176,6 +298,33 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       ring: 'hsl(212.7 26.8% 83.9%)',
     },
     radius: { small: '0.5rem', default: '1rem', medium: '1.25rem', large: '1.5rem' },
+    typography: {
+      fontFamily: 'var(--font-inter)',
+      headingFamily: 'var(--font-cal-sans)',
+      baseFontSize: '16px',
+      lineHeight: '1.7',
+      fontWeights: { normal: '400', medium: '500', semibold: '600', bold: '800' },
+      letterSpacing: { tight: '-0.03em', normal: '0', wide: '0.03em' },
+    },
+    layout: {
+      containerWidth: '1440px',
+      containerPadding: '2.5rem',
+      sectionSpacing: '8rem',
+      gridGap: '2.5rem',
+    },
+    components: {
+      button: {
+        padding: '1rem 2rem',
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        hover: { scale: '1.05', opacity: '0.95' },
+      },
+      card: {
+        padding: '2.5rem',
+        shadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        hover: { transform: 'translateY(-4px)' },
+      },
+      input: { height: '3rem', padding: '0.75rem 1.25rem' },
+    },
   },
 } as const
 

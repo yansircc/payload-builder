@@ -106,14 +106,48 @@ export function DesignSystemProvider({
     const root = document.documentElement
     const colors = isDark ? theme.dark : theme.colors
 
-    // Apply theme variables
+    // Apply color variables
     Object.entries(colors).forEach(([key, value]) => {
-      root.style.setProperty(`--${key}`, value)
+      root.style.setProperty(`--${key}`, value as string)
+    })
+
+    // Apply typography variables
+    Object.entries(theme.typography).forEach(([key, value]) => {
+      if (typeof value === 'object') {
+        Object.entries(value as Record<string, string>).forEach(([subKey, subValue]) => {
+          root.style.setProperty(`--typography-${key}-${subKey}`, subValue)
+        })
+      } else {
+        root.style.setProperty(`--typography-${key}`, value as string)
+      }
     })
 
     // Apply radius variables
     Object.entries(theme.radius).forEach(([key, value]) => {
       root.style.setProperty(`--radius-${key}`, value)
+    })
+
+    // Apply layout variables
+    Object.entries(theme.layout).forEach(([key, value]) => {
+      root.style.setProperty(`--layout-${key}`, value)
+    })
+
+    // Apply component variables
+    Object.entries(theme.components).forEach(([component, styles]) => {
+      Object.entries(styles as Record<string, string | Record<string, string>>).forEach(
+        ([property, value]) => {
+          if (typeof value === 'object') {
+            Object.entries(value).forEach(([subProperty, subValue]) => {
+              root.style.setProperty(
+                `--component-${component}-${property}-${subProperty}`,
+                subValue,
+              )
+            })
+          } else {
+            root.style.setProperty(`--component-${component}-${property}`, value)
+          }
+        },
+      )
     })
 
     // Update data-theme attribute
