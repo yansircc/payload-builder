@@ -8394,7 +8394,6 @@ export interface SiteSetting {
    * Upload your site logo
    */
   logo?: (string | null) | Media;
-  defaultLanguage: 'en' | 'zh';
   searchEngineVisibility?: {
     allowIndexing?: boolean | null;
     /**
@@ -12956,7 +12955,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   description?: T;
   favicon?: T;
   logo?: T;
-  defaultLanguage?: T;
   searchEngineVisibility?:
     | T
     | {
