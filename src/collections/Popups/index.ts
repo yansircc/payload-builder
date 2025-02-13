@@ -16,48 +16,36 @@ export const Popups: CollectionConfig = {
     defaultColumns: ['title', 'updatedAt'],
     description: 'Create and manage popups that can be triggered from any link field.',
     group: 'Content',
+    useAsTitle: 'title',
   },
   fields: [
-    {
-      name: 'title',
-      type: 'text',
-      label: 'Name of popup',
-      required: true,
-    },
+    { name: 'title', type: 'text', label: 'Name of popup', required: true },
     {
       type: 'tabs', // required
       tabs: [
         {
           name: 'basicSettings',
           label: 'Basic Settings',
-          admin: {
-            description: 'Configure title and content of the popup',
-          },
+          admin: { description: 'Configure title and content of the popup' },
           fields: [
             {
               name: 'title',
               type: 'text',
               required: true,
-              admin: {
-                description: 'Name your popup for easy reference',
-              },
+              admin: { description: 'Name your popup for easy reference' },
             },
             {
               name: 'content',
               type: 'textarea',
               required: true,
-              admin: {
-                description: 'Add content to your popup',
-              },
+              admin: { description: 'Add content to your popup' },
             },
           ],
         },
         {
           name: 'triggerSettings',
           label: 'Trigger Settings',
-          admin: {
-            description: 'Configure when and how the popup appears',
-          },
+          admin: { description: 'Configure when and how the popup appears' },
           fields: [
             {
               name: 'triggerType',
@@ -118,17 +106,13 @@ export const Popups: CollectionConfig = {
               label: 'Background Color',
               name: 'backgroundColor',
               defaultValue: '#FFFFFF',
-              admin: {
-                description: 'Choose the background color',
-              },
+              admin: { description: 'Choose the background color' },
             }),
             color({
               label: 'Text Color',
               name: 'textColor',
               defaultValue: '#000000',
-              admin: {
-                description: 'Choose the text color ',
-              },
+              admin: { description: 'Choose the text color ' },
             }),
             {
               name: 'size',
@@ -140,9 +124,7 @@ export const Popups: CollectionConfig = {
                 { label: 'Large', value: 'lg' },
                 { label: 'Full Screen', value: 'full' },
               ],
-              admin: {
-                description: 'Choose the size of the popup',
-              },
+              admin: { description: 'Choose the size of the popup' },
             },
             {
               name: 'animation',
@@ -180,20 +162,8 @@ export const Popups: CollectionConfig = {
       ],
     },
 
-    {
-      name: 'publishedAt',
-      type: 'date',
-      admin: {
-        position: 'sidebar',
-      },
-    },
+    { name: 'publishedAt', type: 'date', admin: { position: 'sidebar' } },
   ],
-  hooks: {
-    beforeChange: [populatePublishedAt],
-  },
-  versions: {
-    drafts: {
-      autosave: true,
-    },
-  },
+  hooks: { beforeChange: [populatePublishedAt] },
+  versions: { drafts: { autosave: true } },
 }
