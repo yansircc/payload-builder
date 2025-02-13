@@ -152,7 +152,7 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
     radius: { small: '0.25rem', default: '0.5rem', medium: '0.75rem', large: '1rem' },
     typography: {
       fontFamily: 'var(--font-inter)',
-      headingFamily: 'var(--font-cal-sans)',
+      headingFamily: 'var(--font-outfit)',
       baseFontSize: '16px',
       lineHeight: '1.6',
       fontWeights: { normal: '400', medium: '500', semibold: '600', bold: '700' },
@@ -300,7 +300,7 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
     radius: { small: '0.5rem', default: '1rem', medium: '1.25rem', large: '1.5rem' },
     typography: {
       fontFamily: 'var(--font-inter)',
-      headingFamily: 'var(--font-cal-sans)',
+      headingFamily: 'var(--font-outfit)',
       baseFontSize: '16px',
       lineHeight: '1.7',
       fontWeights: { normal: '400', medium: '500', semibold: '600', bold: '800' },

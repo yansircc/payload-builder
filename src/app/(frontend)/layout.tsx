@@ -10,6 +10,7 @@ import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { cn } from '@/utilities/ui'
 import './globals.css'
+import { inter, outfit } from '@/config/fonts'
 import { CustomCode } from '@/CustomCode/Component'
 import { RenderHeader } from '@/Header/RenderHeader'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -19,7 +20,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const customScripts = await CustomCode()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(GeistSans.variable, GeistMono.variable, inter.variable, outfit.variable)}
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
@@ -28,11 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
+          <AdminBar adminBarProps={{ preview: isEnabled }} />
 
           {customScripts?.bodyStartScripts}
           <RenderHeader />
@@ -48,8 +49,5 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
   openGraph: mergeOpenGraph(),
-  twitter: {
-    card: 'summary_large_image',
-    creator: '@payloadcms',
-  },
+  twitter: { card: 'summary_large_image', creator: '@payloadcms' },
 }

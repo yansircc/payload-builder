@@ -63,8 +63,9 @@ export default {
         lg: 'var(--radius-large)',
       },
       fontFamily: {
-        sans: ['var(--typography-fontFamily)', ...fontFamily.sans],
-        heading: ['var(--typography-headingFamily)', ...fontFamily.sans],
+        sans: ['var(--font-inter)', ...fontFamily.sans],
+        heading: ['var(--font-outfit)', ...fontFamily.sans],
+        mono: ['var(--font-geist-mono)', ...fontFamily.mono],
       },
       fontSize: {
         base: ['var(--typography-baseFontSize)', { lineHeight: 'var(--typography-lineHeight)' }],
@@ -105,7 +106,14 @@ export default {
             '--tw-prose-pre-bg': theme('colors.muted'),
             '--tw-prose-th-borders': theme('colors.border'),
             '--tw-prose-td-borders': theme('colors.border'),
-            h1: { fontWeight: 'normal', marginBottom: '0.25em' },
+            h1: {
+              fontWeight: 'normal',
+              marginBottom: '0.25em',
+              fontFamily: theme('fontFamily.heading'),
+            },
+            h2: { fontFamily: theme('fontFamily.heading') },
+            h3: { fontFamily: theme('fontFamily.heading') },
+            h4: { fontFamily: theme('fontFamily.heading') },
           },
         },
         base: {
