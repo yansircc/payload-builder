@@ -90,7 +90,7 @@ const Style2: React.FC<Props> = ({ items, type }) => {
                       <span>{format(new Date(item.createdAt), 'MMMM d, yyyy')}</span>
                     </div>
                     <h3 className="text-xl font-bold leading-tight lg:text-2xl">
-                      <a href={`/posts/${item.slug}`} className="hover:underline">
+                      <a href={`/${endpoint}/${item.slug}`} className="hover:underline">
                         {title}
                       </a>
                     </h3>

@@ -311,6 +311,307 @@ export const seed = async ({
     data: { relatedPosts: [post1Doc.id, post2Doc.id] },
   })
 
+  payload.logger.info(`— Seeding products...`)
+
+  // Create sample products
+  const [product1, product2, product3] = await Promise.all([
+    payload.create({
+      collection: 'products',
+      data: {
+        title: 'Premium Ergonomic Chair',
+        _status: 'published',
+        authors: [demoAuthor.id],
+        publishedAt: new Date().toISOString(),
+        content: {
+          root: {
+            type: 'root',
+            format: '',
+            indent: 0,
+            version: 1,
+            children: [
+              {
+                type: 'paragraph',
+                format: '',
+                indent: 0,
+                version: 1,
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Experience ultimate comfort with our premium ergonomic office chair, designed for professionals who spend long hours at their desk.',
+                    version: 1,
+                  },
+                ],
+              },
+            ],
+            direction: null,
+          },
+        },
+        meta: {
+          title: 'Premium Ergonomic Chair - Ultimate Comfort for Professionals',
+          description:
+            'Experience the perfect blend of comfort and support with our premium ergonomic office chair.',
+          image: image1Doc.id,
+        },
+        categories: [designCategory.id],
+        tenant: tenant1.id,
+        specifications: [
+          { name: 'Dimensions', description: '28"W x 25"D x 42-47"H' },
+          { name: 'Weight Capacity', description: '300 lbs' },
+          { name: 'Material', description: 'Premium mesh back, memory foam seat' },
+          { name: 'Warranty', description: '5 years limited warranty' },
+          { name: 'Adjustability', description: 'Height, tilt, armrest, lumbar support' },
+        ],
+      },
+    }),
+    payload.create({
+      collection: 'products',
+      data: {
+        title: 'Smart Standing Desk',
+        _status: 'published',
+        authors: [demoAuthor.id],
+        publishedAt: new Date().toISOString(),
+        content: {
+          root: {
+            type: 'root',
+            format: '',
+            indent: 0,
+            version: 1,
+            children: [
+              {
+                type: 'paragraph',
+                format: '',
+                indent: 0,
+                version: 1,
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Transform your workspace with our intelligent standing desk, featuring automated height adjustment and built-in health reminders.',
+                    version: 1,
+                  },
+                ],
+              },
+            ],
+            direction: null,
+          },
+        },
+        meta: {
+          title: 'Smart Standing Desk - The Future of Workspaces',
+          description: 'Elevate your work experience with our innovative smart standing desk.',
+          image: image2Doc.id,
+        },
+        categories: [technologyCategory.id],
+        tenant: tenant1.id,
+        specifications: [
+          { name: 'Height Range', description: '24" to 50" adjustable' },
+          { name: 'Desktop Size', description: '60"W x 30"D' },
+          { name: 'Material', description: 'Bamboo top, aluminum frame' },
+          { name: 'Motor Type', description: 'Dual motor system' },
+          {
+            name: 'Smart Features',
+            description: 'App connectivity, position memory, health alerts',
+          },
+        ],
+      },
+    }),
+    payload.create({
+      collection: 'products',
+      data: {
+        title: 'Productivity Monitor',
+        _status: 'published',
+        authors: [demoAuthor.id],
+        publishedAt: new Date().toISOString(),
+        content: {
+          root: {
+            type: 'root',
+            format: '',
+            indent: 0,
+            version: 1,
+            children: [
+              {
+                type: 'paragraph',
+                format: '',
+                indent: 0,
+                version: 1,
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Boost your productivity with our ultra-wide curved monitor, designed for multitasking professionals.',
+                    version: 1,
+                  },
+                ],
+              },
+            ],
+            direction: null,
+          },
+        },
+        meta: {
+          title: 'Productivity Monitor - Enhanced Visual Experience',
+          description:
+            'Experience superior clarity and productivity with our professional-grade monitor.',
+          image: image3Doc.id,
+        },
+        categories: [technologyCategory.id],
+        tenant: tenant1.id,
+        specifications: [
+          { name: 'Screen Size', description: '34" ultrawide curved' },
+          { name: 'Resolution', description: '3440 x 1440 WQHD' },
+          { name: 'Refresh Rate', description: '144Hz' },
+          { name: 'Response Time', description: '1ms GtG' },
+          { name: 'Connectivity', description: 'HDMI 2.1, DisplayPort 1.4, USB-C' },
+        ],
+      },
+    }),
+  ])
+
+  payload.logger.info(`— Seeding services...`)
+
+  // Create sample services
+  const [service1, service2, service3] = await Promise.all([
+    payload.create({
+      collection: 'services',
+      data: {
+        title: 'Premium IT Support',
+        _status: 'published',
+        authors: [demoAuthor.id],
+        publishedAt: new Date().toISOString(),
+        content: {
+          root: {
+            type: 'root',
+            format: '',
+            indent: 0,
+            version: 1,
+            children: [
+              {
+                type: 'paragraph',
+                format: '',
+                indent: 0,
+                version: 1,
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Comprehensive IT support service for businesses, including 24/7 monitoring, rapid response, and proactive maintenance.',
+                    version: 1,
+                  },
+                ],
+              },
+            ],
+            direction: null,
+          },
+        },
+        meta: {
+          title: 'Premium IT Support - 24/7 Business Technology Solutions',
+          description:
+            'Enterprise-grade IT support with guaranteed response times and comprehensive coverage.',
+          image: image1Doc.id,
+        },
+        categories: [technologyCategory.id],
+        tenant: tenant1.id,
+        specifications: [
+          { name: 'Response Time', description: '15 minutes or less' },
+          { name: 'Service Hours', description: '24/7/365' },
+          { name: 'Coverage', description: 'Full infrastructure support' },
+          { name: 'SLA Level', description: '99.9% uptime guaranteed' },
+          { name: 'Team Size', description: 'Dedicated team of 5 specialists' },
+        ],
+      },
+    }),
+    payload.create({
+      collection: 'services',
+      data: {
+        title: 'Cloud Migration Service',
+        _status: 'published',
+        authors: [demoAuthor.id],
+        publishedAt: new Date().toISOString(),
+        content: {
+          root: {
+            type: 'root',
+            format: '',
+            indent: 0,
+            version: 1,
+            children: [
+              {
+                type: 'paragraph',
+                format: '',
+                indent: 0,
+                version: 1,
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Expert cloud migration service to seamlessly transition your infrastructure to leading cloud platforms.',
+                    version: 1,
+                  },
+                ],
+              },
+            ],
+            direction: null,
+          },
+        },
+        meta: {
+          title: 'Cloud Migration Service - Seamless Digital Transformation',
+          description:
+            'Professional cloud migration services with minimal downtime and maximum security.',
+          image: image2Doc.id,
+        },
+        categories: [softwareCategory.id],
+        tenant: tenant1.id,
+        specifications: [
+          { name: 'Migration Duration', description: '2-8 weeks based on complexity' },
+          { name: 'Downtime Window', description: 'Less than 4 hours' },
+          { name: 'Data Security', description: 'End-to-end encryption' },
+          { name: 'Platforms', description: 'AWS, Azure, Google Cloud' },
+          { name: 'Post-Migration', description: '3 months support included' },
+        ],
+      },
+    }),
+    payload.create({
+      collection: 'services',
+      data: {
+        title: 'Digital Strategy Consulting',
+        _status: 'published',
+        authors: [demoAuthor.id],
+        publishedAt: new Date().toISOString(),
+        content: {
+          root: {
+            type: 'root',
+            format: '',
+            indent: 0,
+            version: 1,
+            children: [
+              {
+                type: 'paragraph',
+                format: '',
+                indent: 0,
+                version: 1,
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Strategic digital transformation consulting to help businesses innovate and stay competitive.',
+                    version: 1,
+                  },
+                ],
+              },
+            ],
+            direction: null,
+          },
+        },
+        meta: {
+          title: 'Digital Strategy Consulting - Transform Your Business',
+          description: 'Expert guidance for digital transformation and innovation strategies.',
+          image: image3Doc.id,
+        },
+        categories: [financeCategory.id],
+        tenant: tenant1.id,
+        specifications: [
+          { name: 'Engagement Length', description: '3-6 months' },
+          { name: 'Deliverables', description: 'Strategy roadmap, implementation plan' },
+          { name: 'Consultation Hours', description: '20 hours per month' },
+          { name: 'Team Access', description: 'Senior strategist + 2 specialists' },
+          { name: 'Review Cycles', description: 'Bi-weekly progress reviews' },
+        ],
+      },
+    }),
+  ])
+
   // Create tenant pages
   const [homePage1, homePage2, homePage3] = await Promise.all([
     payload.create({
@@ -322,7 +623,6 @@ export const seed = async ({
             .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
         ),
         tenant: tenant1.id,
-        _status: 'published',
       },
     }),
     payload.create({
@@ -334,7 +634,6 @@ export const seed = async ({
             .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
         ),
         tenant: tenant2.id,
-        _status: 'published',
       },
     }),
     payload.create({
@@ -346,7 +645,6 @@ export const seed = async ({
             .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
         ),
         tenant: tenant3.id,
-        _status: 'published',
       },
     }),
   ])
@@ -365,7 +663,6 @@ export const seed = async ({
         slug: 'about-us',
         parent: homePage1.id,
         tenant: tenant1.id,
-        _status: 'published',
       },
     }),
     payload.create({
@@ -380,7 +677,6 @@ export const seed = async ({
         slug: 'about-us',
         parent: homePage2.id,
         tenant: tenant2.id,
-        _status: 'published',
       },
     }),
     payload.create({
@@ -395,7 +691,6 @@ export const seed = async ({
         slug: 'about-us',
         parent: homePage3.id,
         tenant: tenant3.id,
-        _status: 'published',
       },
     }),
   ])
@@ -442,6 +737,11 @@ export const seed = async ({
           'Premium features and services available with our Gold tenant subscription. Discover what sets us apart.',
         tenant: tenant1.id,
         searchEngineVisibility: { allowIndexing: true },
+        archiveStyles: {
+          posts: 'grid',
+          products: 'grid',
+          services: 'grid',
+        },
       },
     }),
     payload.create({
@@ -452,6 +752,11 @@ export const seed = async ({
           'Powerful features and reliable services with our Silver tenant subscription. Perfect for growing businesses.',
         tenant: tenant2.id,
         searchEngineVisibility: { allowIndexing: true },
+        archiveStyles: {
+          posts: 'grid',
+          products: 'grid',
+          services: 'grid',
+        },
       },
     }),
     payload.create({
@@ -462,6 +767,11 @@ export const seed = async ({
           'Essential features and great value with our Bronze tenant subscription. The perfect starting point for your journey.',
         tenant: tenant3.id,
         searchEngineVisibility: { allowIndexing: true },
+        archiveStyles: {
+          posts: 'grid',
+          products: 'grid',
+          services: 'grid',
+        },
       },
     }),
   ])

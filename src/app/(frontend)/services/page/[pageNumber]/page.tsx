@@ -24,8 +24,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
-  const products = await payload.find({
-    collection: 'products',
+  const services = await payload.find({
+    collection: 'services',
     depth: 1,
     limit: 12,
     page: sanitizedPageNumber,
@@ -37,24 +37,24 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
-          <h1>Products</h1>
+          <h1>Services</h1>
         </div>
       </div>
 
       <div className="container mb-8">
         <PageRange
-          collection="products"
-          currentPage={products.page}
+          collection="services"
+          currentPage={services.page}
           limit={12}
-          totalDocs={products.totalDocs}
+          totalDocs={services.totalDocs}
         />
       </div>
 
-      <CollectionArchive items={products} type="product" />
+      <CollectionArchive items={services} type="service" />
 
       <div className="container">
-        {products?.page && products?.totalPages > 1 && (
-          <Pagination page={products.page} totalPages={products.totalPages} />
+        {services?.page && services?.totalPages > 1 && (
+          <Pagination page={services.page} totalPages={services.totalPages} />
         )}
       </div>
     </div>
@@ -64,14 +64,14 @@ export default async function Page({ params: paramsPromise }: Args) {
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { pageNumber } = await paramsPromise
   return {
-    title: `Payload Website Template Products Page ${pageNumber || ''}`,
+    title: `Payload Website Template Services Page ${pageNumber || ''}`,
   }
 }
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const { totalDocs } = await payload.count({
-    collection: 'products',
+    collection: 'services',
     overrideAccess: false,
   })
 

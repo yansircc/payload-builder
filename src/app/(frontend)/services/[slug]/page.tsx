@@ -17,8 +17,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { PostHero } from '@/heros/components/PostHero'
-// import { ProductHero } from '@/heros/components/ProductHero'
-import type { Product } from '@/payload-types'
+// import { ServiceHero } from '@/heros/components/ServiceHero'
+import type { Service } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getTenantFromDomain } from '@/utilities/getTenant'
 import PageClient from './page.client'
@@ -26,8 +26,8 @@ import PageClient from './page.client'
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
 
-  const products = await payload.find({
-    collection: 'products',
+  const services = await payload.find({
+    collection: 'services',
     draft: false,
     limit: 1000,
     pagination: false,
@@ -36,7 +36,7 @@ export async function generateStaticParams() {
     },
   })
 
-  const params = products.docs.map(({ slug }) => {
+  const params = services.docs.map(({ slug }) => {
     return { slug }
   })
 
@@ -49,20 +49,20 @@ type Args = {
   }>
 }
 
-export default async function Product({ params: paramsPromise }: Args) {
+export default async function Service({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
-  const url = '/products/' + slug
+  const url = '/services/' + slug
   const tenant = await getTenantFromDomain()
 
-  let product: Product | null = null
+  let service: Service | null = null
 
   if (tenant) {
-    // Then query the product with both slug and tenant
-    product = await queryProductBySlugAndTenant({ slug, tenantId: tenant.id })
+    // Then query the service with both slug and tenant
+    service = await queryServiceBySlugAndTenant({ slug, tenantId: tenant.id })
   }
 
-  if (!product) return <PayloadRedirects url={url} />
+  if (!service) return <PayloadRedirects url={url} />
 
   return (
     <article className="pt-16 pb-16">
@@ -73,15 +73,15 @@ export default async function Product({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <PostHero item={product} />
+      <PostHero item={service} />
 
       <div className="flex flex-col items-center gap-8 pt-8">
         <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={product.content} enableGutter={false} />
+          <RichText className="max-w-[48rem] mx-auto" data={service.content} enableGutter={false} />
         </div>
 
         {/* Specifications Table */}
-        {product.specifications && product.specifications.length > 0 && (
+        {service.specifications && service.specifications.length > 0 && (
           <div className="max-w-[48rem] w-full">
             <h2 className="mb-6 text-2xl font-semibold">Specifications</h2>
             <Card>
@@ -93,7 +93,7 @@ export default async function Product({ params: paramsPromise }: Args) {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {product.specifications.map((spec, index) => (
+                  {service.specifications.map((spec, index) => (
                     <TableRow key={index}>
                       <TableCell className="font-medium">{spec.name}</TableCell>
                       <TableCell>{spec.description}</TableCell>
@@ -106,11 +106,11 @@ export default async function Product({ params: paramsPromise }: Args) {
         )}
 
         {/* Additional Images Gallery */}
-        {product.additionalImages && product.additionalImages.length > 0 && (
+        {service.additionalImages && service.additionalImages.length > 0 && (
           <div className="max-w-[48rem] w-full">
-            <h2 className="mb-6 text-2xl font-semibold">Product Gallery</h2>
+            <h2 className="mb-6 text-2xl font-semibold">Service Gallery</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {product.additionalImages.map((item, index) => (
+              {service.additionalImages.map((item, index) => (
                 <Card key={index} className="overflow-hidden">
                   <CardContent className="p-0">
                     {item.image && typeof item.image !== 'string' && (
@@ -135,24 +135,24 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const { slug = 'home' } = await paramsPromise
   const tenant = await getTenantFromDomain()
 
-  const product = tenant
-    ? await queryProductBySlugAndTenant({
+  const service = tenant
+    ? await queryServiceBySlugAndTenant({
         slug,
         tenantId: tenant.id,
       })
     : null
 
-  return generateMeta({ doc: product })
+  return generateMeta({ doc: service })
 }
 
-const queryProductBySlugAndTenant = cache(
+const queryServiceBySlugAndTenant = cache(
   async ({ slug, tenantId }: { slug: string; tenantId: string }) => {
     const { isEnabled: draft } = await draftMode()
 
     const payload = await getPayload({ config: configPromise })
 
     const result = await payload.find({
-      collection: 'products',
+      collection: 'services',
       draft,
       limit: 1,
       overrideAccess: draft,

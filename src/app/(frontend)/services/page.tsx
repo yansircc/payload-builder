@@ -6,7 +6,7 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next/types'
 import { CollectionArchive } from '@/components/CollectionArchive'
-import { Product } from '@/payload-types'
+import { Service } from '@/payload-types'
 import { getTenantFromDomain } from '@/utilities/getTenant'
 import PageClient from './page.client'
 
@@ -16,11 +16,11 @@ export default async function Page() {
 
   if (!tenant) notFound()
 
-  let products: PaginatedDocs<Product> | null = null
+  let services: PaginatedDocs<Service> | null = null
 
   if (tenant) {
-    products = await payload.find({
-      collection: 'products',
+    services = await payload.find({
+      collection: 'services',
       depth: 1,
       limit: 12,
       overrideAccess: false,
@@ -47,13 +47,13 @@ export default async function Page() {
   return (
     <div className="pt-24 pb-24">
       <PageClient />
-      {products && <CollectionArchive items={products} type="product" />}
+      {services && <CollectionArchive items={services} type="service" />}
     </div>
   )
 }
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `Payload Website Template Products`,
+    title: `Payload Website Template Services`,
   }
 }

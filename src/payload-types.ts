@@ -2867,8 +2867,9 @@ export interface ArchiveBlock {
  */
 export interface Product {
   id: string;
+  tenant?: (string | null) | Tenant;
   title: string;
-  featuredImage: string | Media;
+  heroImage?: (string | null) | Media;
   content: {
     root: {
       type: string;
@@ -2919,6 +2920,7 @@ export interface Product {
   fullPath?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2926,8 +2928,9 @@ export interface Product {
  */
 export interface Service {
   id: string;
+  tenant?: (string | null) | Tenant;
   title: string;
-  featuredImage: string | Media;
+  heroImage?: (string | null) | Media;
   content: {
     root: {
       type: string;
@@ -2978,6 +2981,7 @@ export interface Service {
   fullPath?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -13198,8 +13202,9 @@ export interface ErrorLogsSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
+  tenant?: T;
   title?: T;
-  featuredImage?: T;
+  heroImage?: T;
   content?: T;
   additionalImages?:
     | T
@@ -13235,14 +13240,16 @@ export interface ServicesSelect<T extends boolean = true> {
   fullPath?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
+  tenant?: T;
   title?: T;
-  featuredImage?: T;
+  heroImage?: T;
   content?: T;
   additionalImages?:
     | T
@@ -13278,6 +13285,7 @@ export interface ProductsSelect<T extends boolean = true> {
   fullPath?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -13591,6 +13599,14 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'posts';
           value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'products';
+          value: string | Product;
         } | null);
     global?: string | null;
     user?: (string | null) | User;

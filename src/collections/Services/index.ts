@@ -63,12 +63,16 @@ export const Services: CollectionConfig = {
   },
   fields: [
     { name: 'title', type: 'text', required: true },
-    { name: 'featuredImage', type: 'upload', relationTo: 'media', required: true },
     {
       type: 'tabs',
       tabs: [
         {
           fields: [
+            {
+              name: 'heroImage',
+              type: 'upload',
+              relationTo: 'media',
+            },
             {
               name: 'content',
               type: 'richText',
@@ -188,4 +192,13 @@ export const Services: CollectionConfig = {
     afterDelete: [revalidateDelete],
   },
   timestamps: true,
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 100, // We set this interval for optimal live preview
+      },
+      schedulePublish: true,
+    },
+    maxPerDoc: 50,
+  },
 }

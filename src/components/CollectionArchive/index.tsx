@@ -4,6 +4,7 @@ import type { Post, Product, Service } from '@/payload-types'
 import { getSiteSettings } from '@/utilities/getSiteSettings'
 import Style1 from './Style1/Component'
 import Style2 from './Style2/Component'
+import Style3 from './Style3/Component'
 import { getArchiveStyle } from './utils/getArchiveStyle'
 
 type CollectionType = 'post' | 'product' | 'service'
@@ -11,7 +12,7 @@ type CollectionType = 'post' | 'product' | 'service'
 const STYLE_COMPONENTS = {
   card: Style1,
   list: Style2,
-  grid: Style1,
+  grid: Style3,
 } as const
 
 export type Props = {
