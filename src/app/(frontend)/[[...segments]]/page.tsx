@@ -6,7 +6,6 @@ import { draftMode, headers } from 'next/headers'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
-import { homeStatic } from '@/endpoints/seed/home-static'
 import { RenderHero } from '@/heros/RenderHero'
 import type { Page as PageType } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -80,11 +79,6 @@ export default async function Page({ params: paramsPromise }: Args) {
       fullPath,
       tenantId: tenant.id,
     })
-  }
-
-  // Remove this code once your website is seeded
-  if (!page && fullPath === 'home') {
-    page = homeStatic
   }
 
   if (!page) {
