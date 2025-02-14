@@ -1,6 +1,7 @@
 import { CollectionSlug, PayloadRequest } from 'payload'
 import { headers } from 'next/headers'
 import { env } from '@/env'
+import { getTenantById } from './getTenant'
 
 const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
   posts: '/posts',
@@ -17,9 +18,14 @@ type Props = {
 }
 
 export const generatePreviewPath = async ({ collection, slug, tenant, req }: Props) => {
+  const currentTenant = await getTenantById(tenant)
+  if (!currentTenant) {
+    throw new Error('Tenant not found')
+  }
+
   const headersList = headers()
   const host = (await headersList).get('host') || ''
-  const [tenantDomain, port] = host.split(':')
+  const [, port] = host.split(':')
 
   const path = `${collectionPrefixMap[collection]}/${slug}`
 
@@ -41,7 +47,7 @@ export const generatePreviewPath = async ({ collection, slug, tenant, req }: Pro
   const protocol = isProduction ? 'https:' : req.protocol
   const portString = !isProduction && port ? `:${port}` : ''
 
-  const url = `${protocol}//${tenantDomain}${portString}/next/preview?${encodedParams.toString()}`
+  const url = `${protocol}//${currentTenant.domain}${portString}/next/preview?${encodedParams.toString()}`
 
   return url
 }
