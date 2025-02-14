@@ -40,17 +40,20 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     popup,
   } = props
 
-  // Handle popup type
   if (type === 'popup' && popup && typeof popup === 'object') {
     return (
       <PopupLink popup={popup} label={label || ''} appearance={appearance} className={className} />
     )
   }
 
-  const href =
+  let href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
       ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${reference.value.slug}`
       : url
+
+  if (href && !href.startsWith('http://') && !href.startsWith('https://')) {
+    href = `https://${href}`
+  }
 
   if (!href) return null
 

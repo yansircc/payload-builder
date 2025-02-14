@@ -6,17 +6,13 @@ type Props = {
   className?: string
 } & TableBlockProps
 
-export const TableBlock: React.FC<Props> = ({ className, content, wysiwyg, caption }) => {
+export const TableBlock: React.FC<Props> = ({ className, content, caption }) => {
   return (
     <div className={cn('mx-auto my-8 w-full', className)}>
       {content && (
         <div className="overflow-x-auto border border-border rounded-md p-4 bg-card">
           <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
-      )}
-
-      {wysiwyg && !content && (
-        <div className="overflow-x-auto border border-border rounded-md p-4 bg-card">Test</div>
       )}
 
       {caption && <p className="text-center text-sm text-muted-foreground mt-2">{caption}</p>}

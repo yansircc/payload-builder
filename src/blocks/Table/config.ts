@@ -1,4 +1,3 @@
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { Block } from 'payload'
 
 export const Table: Block = {
@@ -27,18 +26,7 @@ export const Table: Block = {
         return true
       },
     },
-    {
-      name: 'wysiwyg',
-      type: 'richText',
-      label: 'WYSIWYG Editor',
-      required: false,
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => [...rootFeatures],
-      }),
-      admin: {
-        description: 'Use this editor to create a table visually.',
-      },
-    },
+
     {
       name: 'caption',
       type: 'text',

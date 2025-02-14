@@ -4227,24 +4227,6 @@ export interface TableBlock {
    */
   content: string;
   /**
-   * Use this editor to create a table visually.
-   */
-  wysiwyg?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
    * Optional: Add a caption for the table.
    */
   caption?: string | null;
@@ -6721,7 +6703,7 @@ export interface VideoBlock {
   /**
    * Select the video source.
    */
-  videoType: 'youtube' | 'vimeo' | 'self-hosted';
+  videoType: 'youtube' | 'vimeo';
   /**
    * Ensure the URL is valid for the selected video type.
    */
@@ -10994,7 +10976,6 @@ export interface Feature15FieldsSelect<T extends boolean = true> {
  */
 export interface TableBlockSelect<T extends boolean = true> {
   content?: T;
-  wysiwyg?: T;
   caption?: T;
   id?: T;
   blockName?: T;

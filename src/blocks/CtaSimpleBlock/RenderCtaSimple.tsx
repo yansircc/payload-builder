@@ -16,6 +16,13 @@ export const CtaSimpleBlock: React.FC<Props> = React.memo(
     buttonUrl = '#',
     buttonStyle = 'solid',
   }) => {
+    const formattedUrl = useMemo(() => {
+      if (!buttonUrl.startsWith('http://') && !buttonUrl.startsWith('https://')) {
+        return `https://${buttonUrl}`
+      }
+      return buttonUrl
+    }, [buttonUrl])
+
     const bgColorClass = useMemo(() => {
       const bgColors: Record<string, string> = {
         primary: 'bg-blue-600 text-white',
@@ -34,7 +41,9 @@ export const CtaSimpleBlock: React.FC<Props> = React.memo(
           {description && <p className="text-lg mb-6">{description}</p>}
 
           <a
-            href={buttonUrl}
+            href={formattedUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className={cn(
               'inline-block px-6 py-2 rounded-md transition',
               {
