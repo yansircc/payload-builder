@@ -1,6 +1,6 @@
 import { PaginatedDocs } from 'payload'
 import React from 'react'
-import type { Post, Product } from '@/payload-types'
+import type { Post, Product, Service } from '@/payload-types'
 import { getSiteSettings } from '@/utilities/getSiteSettings'
 import Style1 from './Style1/Component'
 import Style2 from './Style2/Component'
@@ -15,7 +15,7 @@ const STYLE_COMPONENTS = {
 } as const
 
 export type Props = {
-  items: PaginatedDocs<Post | Product>
+  items: PaginatedDocs<Post | Product | Service>
   type: CollectionType
 }
 

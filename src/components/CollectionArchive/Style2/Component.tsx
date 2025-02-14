@@ -6,12 +6,12 @@ import { Media } from '@/components/Media'
 import { PageRange } from '@/components/PageRange'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
-import type { Post, Product } from '@/payload-types'
+import type { Post, Product, Service } from '@/payload-types'
 import { getCollectionEndpoint } from '../utils/getCollectionEndpoint'
 import { getCollectionTitle } from '../utils/getCollectionTitle'
 
 type Props = {
-  items: PaginatedDocs<Post | Product>
+  items: PaginatedDocs<Post | Product | Service>
   type: 'post' | 'product' | 'service'
 }
 

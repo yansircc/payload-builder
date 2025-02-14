@@ -2,13 +2,13 @@ import { PaginatedDocs } from 'payload'
 import { Card } from '@/components/Card'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
-import { Post, Product } from '@/payload-types'
+import { Post, Product, Service } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { getCollectionEndpoint } from '../utils/getCollectionEndpoint'
 import { getCollectionTitle } from '../utils/getCollectionTitle'
 
 type Props = {
-  items: PaginatedDocs<Post | Product>
+  items: PaginatedDocs<Post | Product | Service>
   type: 'post' | 'product' | 'service'
 }
 
