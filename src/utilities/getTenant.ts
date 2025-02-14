@@ -4,10 +4,10 @@ import { headers } from 'next/headers'
 import type { Tenant } from '@/payload-types'
 
 export async function getTenantFromDomain(): Promise<Tenant | null> {
+  const headersList = await headers()
   try {
     const payload = await getPayload({ config: configPromise })
-    const headersList = headers()
-    const host = (await headersList).get('host') || ''
+    const host = headersList.get('host') || ''
     const domain = host.split(':')[0]
 
     const tenantQuery = await payload.find({

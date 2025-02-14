@@ -1,5 +1,5 @@
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, PaginatedDocs } from 'payload'
 import React from 'react'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import RichText from '@/components/RichText'
@@ -14,7 +14,7 @@ export const ArchiveBlock: React.FC<
 
   const limit = limitFromProps || 3
 
-  let posts: Post[] = []
+  let posts: PaginatedDocs<Post> | null = null
 
   if (populateBy === 'collection') {
     const payload = await getPayload({ config: configPromise })
@@ -24,7 +24,7 @@ export const ArchiveBlock: React.FC<
       else return category
     })
 
-    const fetchedPosts = await payload.find({
+    posts = await payload.find({
       collection: 'posts',
       depth: 1,
       limit,
@@ -38,17 +38,27 @@ export const ArchiveBlock: React.FC<
           }
         : {}),
     })
+  } else if (selectedDocs?.length) {
+    // Convert selected docs into PaginatedDocs format
+    const validDocs = selectedDocs
+      .map((post) => (typeof post.value === 'object' ? post.value : null))
+      .filter((doc): doc is Post => doc !== null)
 
-    posts = fetchedPosts.docs
-  } else {
-    if (selectedDocs?.length) {
-      const filteredSelectedPosts = selectedDocs.map((post) => {
-        if (typeof post.value === 'object') return post.value
-      }) as Post[]
-
-      posts = filteredSelectedPosts
+    posts = {
+      docs: validDocs,
+      totalDocs: validDocs.length,
+      limit,
+      totalPages: 1,
+      page: 1,
+      pagingCounter: 1,
+      hasPrevPage: false,
+      hasNextPage: false,
+      prevPage: null,
+      nextPage: null,
     }
   }
+
+  if (!posts) return null
 
   return (
     <div className="my-16" id={`block-${id}`}>

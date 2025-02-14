@@ -1,5 +1,5 @@
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, PaginatedDocs } from 'payload'
 import React from 'react'
 import type { Metadata } from 'next/types'
 import { CollectionArchive } from '@/components/CollectionArchive'
@@ -75,7 +75,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       </div>
 
       {posts.totalDocs > 0 ? (
-        <CollectionArchive items={posts.docs as Post[]} type="post" />
+        <CollectionArchive items={posts as PaginatedDocs<Post>} type="post" />
       ) : (
         <div className="container">No results found.</div>
       )}

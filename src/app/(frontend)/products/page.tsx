@@ -1,74 +1,57 @@
+'use server'
+
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, PaginatedDocs } from 'payload'
 import React from 'react'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next/types'
 import { CollectionArchive } from '@/components/CollectionArchive'
-import { PageRange } from '@/components/PageRange'
-import { Pagination } from '@/components/Pagination'
+import { Product } from '@/payload-types'
 import { getTenantFromDomain } from '@/utilities/getTenant'
 import PageClient from './page.client'
 
-export const dynamic = 'force-static'
-export const revalidate = 600
-
 export default async function Page() {
-  const payload = await getPayload({ config: configPromise })
   const tenant = await getTenantFromDomain()
+  const payload = await getPayload({ config: configPromise })
 
-  if (!tenant) return notFound
+  if (!tenant) notFound()
 
-  const products = await payload.find({
-    collection: 'products',
-    depth: 1,
-    limit: 12,
-    overrideAccess: false,
-    select: {
-      title: true,
-      slug: true,
-      categories: true,
-      meta: true,
-      content: true,
-      updatedAt: true,
-      createdAt: true,
-    },
-    where: {
-      domain: {
-        equals: tenant.domain,
+  let products: PaginatedDocs<Product> | null = null
+
+  if (tenant) {
+    // Then query the page with both fullPath and tenant
+    products = await payload.find({
+      collection: 'products',
+      depth: 1,
+      limit: 12,
+      overrideAccess: false,
+      select: {
+        title: true,
+        featuredImage: true,
+        slug: true,
+        categories: true,
+        meta: true,
+        content: true,
+        updatedAt: true,
+        createdAt: true,
       },
-    },
-  })
+      where: {
+        tenant: {
+          equals: tenant.id,
+        },
+      },
+    })
+  }
 
   return (
     <div className="pt-24 pb-24">
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Products</h1>
-        </div>
-      </div>
-
-      <div className="container mb-8">
-        {/* <PageRange
-          collection="products"
-          currentPage={products.page}
-          limit={12}
-          totalDocs={products.totalDocs}
-        /> */}
-      </div>
-
-      <CollectionArchive items={products.docs} type="product" />
-
-      <div className="container">
-        {products.totalPages > 1 && products.page && (
-          <Pagination page={products.page} totalPages={products.totalPages} />
-        )}
-      </div>
+      {products && <CollectionArchive items={products} type="product" />}
     </div>
   )
 }
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `Payload Website Template Products`,
   }
