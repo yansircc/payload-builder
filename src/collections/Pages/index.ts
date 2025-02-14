@@ -9,9 +9,8 @@ import {
 import type { CollectionConfig } from 'payload'
 import { ColumnsBlock } from '@/blocks/ColumnBlock/config'
 import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/config'
-import { LinkBlock } from '@/blocks/Link/config'
+import { LinkPopupBlock } from '@/blocks/LinkPopupBlock/config'
 import { ListBlock } from '@/blocks/List/config'
-import { PopupTriggerBlock } from '@/blocks/PopTriggerBlock/config'
 import { Table } from '@/blocks/Table/config'
 import { VideoBlock } from '@/blocks/VideoBlock/config'
 import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
@@ -107,7 +106,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 FormBlock,
                 GalleryBlock,
                 Feature,
-                LinkBlock,
                 Table,
                 ColumnsBlock,
                 TestimonialBlock,
@@ -115,7 +113,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Team,
                 FAQ,
                 LogosBlock,
-                PopupTriggerBlock,
+                LinkPopupBlock,
                 ListBlock,
                 VideoBlock,
                 CtaSimpleBlock,

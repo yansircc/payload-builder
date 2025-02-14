@@ -13,10 +13,9 @@ import { BannerBlock } from '@/blocks/Banner/Component'
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 import { ColumnsBlock } from '@/blocks/ColumnBlock/RenderColumn'
 import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/RenderCtaSimple'
-import { LinkBlock } from '@/blocks/Link/RenderLink'
+import { RenderLinkPopup } from '@/blocks/LinkPopupBlock/RenderLinkPopup'
 import { ListBlock } from '@/blocks/List/RenderList'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
-import { PopupTriggerBlock } from '@/blocks/PopTriggerBlock/RenderTrigger'
 import { TableBlock } from '@/blocks/Table/RenderTable'
 import { VideoBlock } from '@/blocks/VideoBlock/RenderVideo'
 import type {
@@ -29,11 +28,11 @@ import {
   ColumnsBlock as ColumnsBlockProps,
   CtaSimpleBlock as CtaSimpleBlockProps,
   ListBlock as ListBlockProps,
-  PopupTriggerBlock as PopupTriggerBlockProps,
+  LinkPopupBlock as RenderLinkPopupProps,
 } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { RenderCTA } from '../../blocks/CallToAction/RenderCTA'
-import { LinkBlock as LinkBlockProps, TableBlock as TableBlockProps } from '../../payload-types'
+import { TableBlock as TableBlockProps } from '../../payload-types'
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -43,9 +42,8 @@ type NodeTypes =
       | BannerBlockProps
       | CodeBlockProps
       | TableBlockProps
-      | LinkBlockProps
       | ColumnsBlockProps
-      | PopupTriggerBlockProps
+      | RenderLinkPopupProps
       | VideoBlockProps
       | ListBlockProps
       | CtaSimpleBlockProps
@@ -78,12 +76,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
     cta: ({ node }) => <RenderCTA {...node.fields} />,
     table: ({ node }) => <TableBlock className="col-start-2" {...node.fields} />,
-    link: ({ node }) => <LinkBlock className="col-start-2" {...node.fields} />,
     list: ({ node }) => <ListBlock className="col-start-2" {...node.fields} />,
     video: ({ node }) => <VideoBlock className="col-start-2" {...node.fields} />,
     columns: ({ node }) => <ColumnsBlock className="col-start-2" {...node.fields} />,
     ctaSimple: ({ node }) => <CtaSimpleBlock className="col-start-2" {...node.fields} />,
-    popupTrigger: ({ node }) => <PopupTriggerBlock className="col-start-2" {...node.fields} />,
+    linkPopup: ({ node }) => <RenderLinkPopup className="col-start-2" {...node.fields} />,
   },
 })
 

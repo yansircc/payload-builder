@@ -15,9 +15,8 @@ import { RenderTestimonial } from '@/blocks/Testimonial/RenderTestimonial'
 import type { Page } from '@/payload-types'
 import { ColumnsBlock } from './ColumnBlock/RenderColumn'
 import { CtaSimpleBlock } from './CtaSimpleBlock/RenderCtaSimple'
-import { LinkBlock } from './Link/RenderLink'
+import { RenderLinkPopup } from './LinkPopupBlock/RenderLinkPopup'
 import { ListBlock } from './List/RenderList'
-import { PopupTriggerBlock } from './PopTriggerBlock/RenderTrigger'
 import { TableBlock } from './Table/RenderTable'
 import { VideoBlock } from './VideoBlock/RenderVideo'
 
@@ -26,7 +25,6 @@ const blockComponents = {
   archive: ArchiveBlock,
   content: ContentBlock,
   table: TableBlock,
-  link: LinkBlock,
   cta: RenderCTA,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
@@ -38,7 +36,7 @@ const blockComponents = {
   faq: RenderFAQ,
   logos: RenderLogos,
   columns: ColumnsBlock,
-  popupTrigger: PopupTriggerBlock,
+  linkPopup: RenderLinkPopup,
   video: VideoBlock,
   list: ListBlock,
   ctaSimple: CtaSimpleBlock,

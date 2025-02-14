@@ -16,9 +16,8 @@ import {
 import type { CollectionConfig } from 'payload'
 import { ColumnsBlock } from '@/blocks/ColumnBlock/config'
 import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/config'
-import { LinkBlock } from '@/blocks/Link/config'
+import { LinkPopupBlock } from '@/blocks/LinkPopupBlock/config'
 import { ListBlock } from '@/blocks/List/config'
-import { PopupTriggerBlock } from '@/blocks/PopTriggerBlock/config'
 import { Table } from '@/blocks/Table/config'
 import { VideoBlock } from '@/blocks/VideoBlock/config'
 import { slugField } from '@/fields/slug'
@@ -108,9 +107,8 @@ export const Posts: CollectionConfig<'posts'> = {
                         Table,
                         VideoBlock,
                         ListBlock,
-                        LinkBlock,
                         ColumnsBlock,
-                        PopupTriggerBlock,
+                        LinkPopupBlock,
                         CtaSimpleBlock,
                       ],
                     }),

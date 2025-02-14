@@ -178,7 +178,6 @@ export interface Page {
     | FormBlock
     | GalleryBlock
     | FeatureBlock
-    | LinkBlock
     | TableBlock
     | ColumnsBlock
     | TestimonialBlock
@@ -186,7 +185,7 @@ export interface Page {
     | TeamBlock
     | FAQBlock
     | LogosBlock
-    | PopupTriggerBlock
+    | LinkPopupBlock
     | ListBlock
     | VideoBlock
     | CtaSimpleBlock
@@ -4220,27 +4219,6 @@ export interface Feature15Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LinkBlock".
- */
-export interface LinkBlock {
-  text?: string | null;
-  /**
-   * Optional: Upload an image to use as a link.
-   */
-  image?: (string | null) | Media;
-  url: string;
-  newTab?: boolean | null;
-  nofollow?: boolean | null;
-  /**
-   * Select a button style if this is a button link.
-   */
-  buttonStyle?: ('solid' | 'outline' | 'ghost') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'link';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TableBlock".
  */
 export interface TableBlock {
@@ -6680,52 +6658,43 @@ export interface Logos8Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PopupTriggerBlock".
+ * via the `definition` "LinkPopupBlock".
  */
-export interface PopupTriggerBlock {
+export interface LinkPopupBlock {
   /**
-   * Pilih halaman yang akan dituju oleh link
+   * Link or Popup
    */
-  linkToPage: string | Page;
-  /**
-   * CTA button to trigger popup and link
-   */
-  ctaButton: {
+  link: {
+    type?: ('reference' | 'custom' | 'popup') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    popup?: (string | null) | Popup;
+    label: string;
     /**
-     * CTA button to trigger link and popup
+     * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
      */
-    link: {
-      type?: ('reference' | 'custom' | 'popup') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      popup?: (string | null) | Popup;
-      label: string;
-      /**
-       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-       */
-      prefixIcon?: string | null;
-      /**
-       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-       */
-      suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-    };
+    prefixIcon?: string | null;
+    /**
+     * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
+     */
+    suffixIcon?: string | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
   };
   id?: string | null;
   blockName?: string | null;
-  blockType: 'popupTrigger';
+  blockType: 'linkPopup';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9180,7 +9149,6 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         gallery?: T | GalleryBlockSelect<T>;
         feature?: T | FeatureBlockSelect<T>;
-        link?: T | LinkBlockSelect<T>;
         table?: T | TableBlockSelect<T>;
         columns?: T | ColumnsBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
@@ -9188,7 +9156,7 @@ export interface PagesSelect<T extends boolean = true> {
         team?: T | TeamBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
         logos?: T | LogosBlockSelect<T>;
-        popupTrigger?: T | PopupTriggerBlockSelect<T>;
+        linkPopup?: T | LinkPopupBlockSelect<T>;
         list?: T | ListBlockSelect<T>;
         video?: T | VideoBlockSelect<T>;
         ctaSimple?: T | CtaSimpleBlockSelect<T>;
@@ -11022,20 +10990,6 @@ export interface Feature15FieldsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LinkBlock_select".
- */
-export interface LinkBlockSelect<T extends boolean = true> {
-  text?: T;
-  image?: T;
-  url?: T;
-  newTab?: T;
-  nofollow?: T;
-  buttonStyle?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TableBlock_select".
  */
 export interface TableBlockSelect<T extends boolean = true> {
@@ -12264,26 +12218,21 @@ export interface Logos8FieldsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PopupTriggerBlock_select".
+ * via the `definition` "LinkPopupBlock_select".
  */
-export interface PopupTriggerBlockSelect<T extends boolean = true> {
-  linkToPage?: T;
-  ctaButton?:
+export interface LinkPopupBlockSelect<T extends boolean = true> {
+  link?:
     | T
     | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              popup?: T;
-              label?: T;
-              prefixIcon?: T;
-              suffixIcon?: T;
-              appearance?: T;
-            };
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        popup?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
       };
   id?: T;
   blockName?: T;
