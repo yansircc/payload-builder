@@ -96,6 +96,8 @@ export const plugins: Plugin[] = [
     collections: {
       pages: {},
       posts: {},
+      products: {},
+      services: {},
       categories: {},
       forms: {},
       redirects: {},

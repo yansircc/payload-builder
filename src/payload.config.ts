@@ -15,6 +15,8 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Popups } from './collections/Popups'
 import { Posts } from './collections/Posts'
+import { Products } from './collections/Products'
+import { Services } from './collections/Services'
 import { SiteSettings } from './collections/SiteSetting'
 import { Tenants } from './collections/Tenants'
 import Users from './collections/Users'
@@ -64,6 +66,8 @@ export default buildConfig({
     Popups,
     SiteSettings,
     ErrorLogs,
+    Services,
+    Products,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [ApiKey],

@@ -1,20 +1,28 @@
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, PaginatedDocs } from 'payload'
 import React from 'react'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import RichText from '@/components/RichText'
-import type { ArchiveBlock as ArchiveBlockProps, Post } from '@/payload-types'
+import type { ArchiveBlock as ArchiveBlockProps, Post, Product, Service } from '@/payload-types'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
     id?: string
   }
 > = async (props) => {
-  const { id, categories, introContent, limit: limitFromProps, populateBy, selectedDocs } = props
+  const {
+    id,
+    categories,
+    introContent,
+    limit: limitFromProps,
+    populateBy,
+    selectedDocs,
+    relationTo,
+  } = props
 
   const limit = limitFromProps || 3
 
-  let posts: Post[] = []
+  let results: PaginatedDocs<Post | Product | Service> | null = null
 
   if (populateBy === 'collection') {
     const payload = await getPayload({ config: configPromise })
@@ -24,8 +32,8 @@ export const ArchiveBlock: React.FC<
       else return category
     })
 
-    const fetchedPosts = await payload.find({
-      collection: 'posts',
+    results = await payload.find({
+      collection: relationTo || 'posts',
       depth: 1,
       limit,
       ...(flattenedCategories && flattenedCategories.length > 0
@@ -38,17 +46,27 @@ export const ArchiveBlock: React.FC<
           }
         : {}),
     })
+  } else if (selectedDocs?.length) {
+    // Convert selected docs into PaginatedDocs format
+    const validDocs = selectedDocs
+      .map((post) => (typeof post.value === 'object' ? post.value : null))
+      .filter((doc): doc is Post => doc !== null)
 
-    posts = fetchedPosts.docs
-  } else {
-    if (selectedDocs?.length) {
-      const filteredSelectedPosts = selectedDocs.map((post) => {
-        if (typeof post.value === 'object') return post.value
-      }) as Post[]
-
-      posts = filteredSelectedPosts
+    results = {
+      docs: validDocs,
+      totalDocs: validDocs.length,
+      limit,
+      totalPages: 1,
+      page: 1,
+      pagingCounter: 1,
+      hasPrevPage: false,
+      hasNextPage: false,
+      prevPage: null,
+      nextPage: null,
     }
   }
+
+  if (!results) return null
 
   return (
     <div className="my-16" id={`block-${id}`}>
@@ -57,7 +75,7 @@ export const ArchiveBlock: React.FC<
           <RichText className="ml-0 max-w-[48rem]" data={introContent} enableGutter={false} />
         </div>
       )}
-      <CollectionArchive posts={posts} />
+      <CollectionArchive items={results} type="post" />
     </div>
   )
 }
