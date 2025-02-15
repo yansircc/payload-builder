@@ -7,10 +7,12 @@ import {
   UnderlineFeature,
 } from '@payloadcms/richtext-lexical'
 import { Config } from 'payload'
+import { AI } from './ai/server'
 
 export const defaultLexical: Config['editor'] = lexicalEditor({
   features: () => {
     return [
+      AI(),
       ParagraphFeature(),
       UnderlineFeature(),
       BoldFeature(),
