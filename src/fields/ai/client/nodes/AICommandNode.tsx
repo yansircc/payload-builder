@@ -1,8 +1,4 @@
-import type {
-  LexicalNode,
-  NodeKey,
-  SerializedLexicalNode,
-} from '@payloadcms/richtext-lexical/lexical'
+import type { NodeKey, SerializedLexicalNode } from '@payloadcms/richtext-lexical/lexical'
 import { DecoratorNode } from '@payloadcms/richtext-lexical/lexical'
 import type { ReactElement } from 'react'
 
