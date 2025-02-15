@@ -224,7 +224,7 @@ export interface Tenant {
   /**
    * Select the design theme for this tenant
    */
-  theme: 'modern' | 'minimal' | 'bold';
+  theme: 'cool' | 'brutal' | 'neon';
   /**
    * Allow public access to content
    */

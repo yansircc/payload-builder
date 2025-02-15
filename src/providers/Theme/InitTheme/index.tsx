@@ -43,7 +43,7 @@ export const InitTheme: React.FC = () => {
     document.documentElement.setAttribute('data-theme', themeToSet)
 
     // Set initial layout variables from modern theme
-    var theme = ${JSON.stringify(themes.modern)}
+    var theme = ${JSON.stringify(themes.cool)}
     document.documentElement.style.setProperty('--layout-containerWidth', theme.layout.containerWidth)
     document.documentElement.style.setProperty('--layout-containerPadding', theme.layout.containerPadding)
   })();

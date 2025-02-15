@@ -37,7 +37,7 @@ interface DesignSystemProviderProps {
 
 export function DesignSystemProvider({
   children,
-  preset: initialPreset = 'modern',
+  preset: initialPreset = 'cool',
 }: DesignSystemProviderProps) {
   const [preset, setPreset] = useState<ThemePreset>(initialPreset)
   const [isLoading, setIsLoading] = useState(true)

@@ -35,7 +35,7 @@ export const Tenants: CollectionConfig = {
       name: 'theme',
       type: 'select',
       required: true,
-      defaultValue: 'modern',
+      defaultValue: 'cool',
       options: Object.entries(themes).map(([value, theme]) => ({ label: theme.label, value })),
       admin: { description: 'Select the design theme for this tenant', position: 'sidebar' },
     },
