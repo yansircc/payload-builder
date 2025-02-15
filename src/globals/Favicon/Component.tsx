@@ -12,11 +12,7 @@ async function getFaviconSettings() {
 
   const siteSettings = await payload.find({
     collection: 'site-settings',
-    where: {
-      tenant: {
-        equals: tenant.id,
-      },
-    },
+    where: { tenant: { equals: tenant.id } },
     limit: 1,
     depth: 1,
   })
@@ -51,8 +47,6 @@ export async function Favicon() {
         // For other image types (png, jpeg, etc.), create both standard and SVG favicon links
         <>
           <link href={faviconUrl} rel="icon" type={mimeType} sizes="32x32" />
-          {/* Provide SVG fallback if available */}
-          <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         </>
       )}
     </>

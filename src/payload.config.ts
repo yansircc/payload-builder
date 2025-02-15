@@ -13,7 +13,10 @@ import { CustomCodes } from './collections/CustomCodes'
 import { ErrorLogs } from './collections/ErrorLogs'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
+import { Popups } from './collections/Popups'
 import { Posts } from './collections/Posts'
+import { Products } from './collections/Products'
+import { Services } from './collections/Services'
 import { SiteSettings } from './collections/SiteSetting'
 import { Tenants } from './collections/Tenants'
 import Users from './collections/Users'
@@ -27,10 +30,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  i18n: {
-    fallbackLanguage: 'en',
-    supportedLanguages: { en, zh },
-  },
+  i18n: { fallbackLanguage: 'en', supportedLanguages: { en, zh } },
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
@@ -40,38 +40,19 @@ export default buildConfig({
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
       beforeDashboard: ['@/components/BeforeDashboard'],
     },
-    importMap: {
-      baseDir: path.resolve(dirname),
-    },
+    importMap: { baseDir: path.resolve(dirname) },
     user: Users.slug,
     livePreview: {
       breakpoints: [
-        {
-          label: 'Mobile',
-          name: 'mobile',
-          width: 375,
-          height: 667,
-        },
-        {
-          label: 'Tablet',
-          name: 'tablet',
-          width: 768,
-          height: 1024,
-        },
-        {
-          label: 'Desktop',
-          name: 'desktop',
-          width: 1440,
-          height: 900,
-        },
+        { label: 'Mobile', name: 'mobile', width: 375, height: 667 },
+        { label: 'Tablet', name: 'tablet', width: 768, height: 1024 },
+        { label: 'Desktop', name: 'desktop', width: 1440, height: 900 },
       ],
     },
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
-  db: mongooseAdapter({
-    url: env.DATABASE_URL || false,
-  }),
+  db: mongooseAdapter({ url: env.DATABASE_URL || false }),
   collections: [
     Pages,
     Posts,
@@ -82,8 +63,11 @@ export default buildConfig({
     Header,
     Footer,
     CustomCodes,
+    Popups,
     SiteSettings,
     ErrorLogs,
+    Services,
+    Products,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [ApiKey],
@@ -93,9 +77,7 @@ export default buildConfig({
   ],
   secret: env.PAYLOAD_SECRET,
   sharp,
-  typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
-  },
+  typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
   jobs: {
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {

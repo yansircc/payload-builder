@@ -1,8 +1,7 @@
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, PaginatedDocs } from 'payload'
 import React from 'react'
 import type { Metadata } from 'next/types'
-import { CardPostData } from '@/components/Card'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { Post } from '@/payload-types'
 import { Search } from '@/search/Component'
@@ -26,6 +25,9 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       slug: true,
       categories: true,
       meta: true,
+      content: true,
+      updatedAt: true,
+      createdAt: true,
     },
     // pagination: false reduces overhead if you don't need totalDocs
     pagination: false,
@@ -73,7 +75,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       </div>
 
       {posts.totalDocs > 0 ? (
-        <CollectionArchive posts={posts.docs as CardPostData[]} />
+        <CollectionArchive items={posts as PaginatedDocs<Post>} type="post" />
       ) : (
         <div className="container">No results found.</div>
       )}

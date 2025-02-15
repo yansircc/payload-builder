@@ -21,12 +21,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { isEnabled } = await draftMode()
   const customScripts = await CustomCode()
   const siteSettings = await getSiteSettings()
-  const defaultLocale = siteSettings?.defaultLanguage || 'en'
 
   return (
     <html
       className={cn(GeistSans.variable, GeistMono.variable, inter.variable, outfit.variable)}
-      lang={defaultLocale}
+      lang="en"
       suppressHydrationWarning
     >
       <head>
