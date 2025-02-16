@@ -1,6 +1,7 @@
 'use client'
 
 import { Button, GroupField, useField } from '@payloadcms/ui'
+import { SparklesIcon } from 'lucide-react'
 import type { GroupFieldClientProps } from 'payload'
 import type { CTA1Fields } from '@/payload-types'
 import { getObject } from '@/utilities/ai'
@@ -44,7 +45,9 @@ export const TestField: React.FC<GroupFieldClientProps> = (props) => {
 
   return (
     <div className="space-y-4">
-      <Button onClick={handleClick}>AI Generate</Button>
+      <Button onClick={handleClick} className="flex items-center gap-2">
+        <SparklesIcon className="mr-4" /> AI Generate
+      </Button>
       <GroupField {...props} />
     </div>
   )
