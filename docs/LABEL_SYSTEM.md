@@ -38,6 +38,7 @@ Our repository implements an automated label management system that helps mainta
       - `bug`: Notifies PR author to investigate and fix
       - `rejected`: Notifies PR author to address feedback
       - `unsolved`: Notifies PR author of QA issues
+      - `blocked`: Notifies admin team of blocker that needs attention
       - `approved`: Notifies that PR is ready for merge (no action required)
 
    4. **Notification Format**
@@ -52,49 +53,46 @@ Our repository implements an automated label management system that helps mainta
 
 ### Status Labels (For PRs Only)
 
-| Label       | Description                            | Who can use | Next Action                         | Color |
-| ----------- | -------------------------------------- | ----------- | ----------------------------------- | ----- |
-| in progress | Work in progress, not ready for review | Developer   | No action needed                    | grey  |
-| need check  | Development complete, ready for QA     | Developer   | QA will test                        | red   |
-| resolved    | Fix completed                          | Developer   | Automatically changes to need check | green |
-| unsolved    | Known issues pending resolution        | QA          | Developer needs to fix              | red   |
-| verified    | Testing passed                         | QA          | Testing passed                      | green |
-| rejected    | PR doesn't meet requirements           | Admin       | Developer needs to revise           | red   |
-| approved    | Admin approved, ready to merge         | Admin       | Can be merged                       | green |
+| Label           | Description                            | Who can use | Next Action                         | Color |
+| --------------- | -------------------------------------- | ----------- | ----------------------------------- | ----- |
+| dev:in-progress | Work in progress, not ready for review | Developer   | No action needed                    | grey  |
+| dev:need-check  | Development complete, ready for QA     | Developer   | QA will test                        | red   |
+| dev:blocked     | Blocked by development issues          | Developer   | Admin needs to review blocker       | red   |
+| dev:resolved    | Fix completed                          | Developer   | Automatically changes to need check | green |
+| qa:unsolved     | Known issues pending resolution        | QA          | Developer needs to fix              | red   |
+| qa:blocked      | Blocked by QA issues                   | QA          | Admin needs to review blocker       | red   |
+| qa:verified     | Testing passed                         | QA          | Testing passed                      | green |
+| admin:blocked   | Blocked by system/policy issues        | Admin       | Waiting for admin resolution        | red   |
+| admin:rejected  | PR doesn't meet requirements           | Admin       | Developer needs to revise           | red   |
+| admin:approved  | Admin approved, ready to merge         | Admin       | Can be merged                       | green |
 
 ### Type Labels (For Issues Only)
-
-**Yellow**: Need developer attention
-**Purple**: Need admin attention
-**Black**: This unique color stands for the state of a PR, if tagged, it means the issue is linked to a PR
 
 | Label           | Description                         | Color  |
 | --------------- | ----------------------------------- | ------ |
 | bug             | Software defect                     | yellow |
 | security        | Security related issues             | yellow |
-| technical debt  | Code improvement/refactoring needed | yellow |
+| technical-debt  | Code improvement/refactoring needed | yellow |
 | enhancement     | Improvement to existing feature     | purple |
-| feature request | New feature proposal                | purple |
+| feature-request | New feature proposal                | purple |
 | research        | Research/investigation needed       | purple |
 | doc             | Documentation related               | purple |
 | linked          | Linked to a PR                      | black  |
 
 ### Priority Labels (For Both PRs and Issues)
 
-Different colors stand for different priorities.
-
-| Label      | Description                                             | Color   |
-| ---------- | ------------------------------------------------------- | ------- |
-| 1 critical | Import and urgent, needs immediate attention            | deepred |
-| 2 major    | Important but not urgent, handle in regular order       | blue    |
-| 3 minor    | Not important but urgent, can be handled after critical | orange  |
-| 4 trivial  | Not important and not urgent, can be deferred           | brown   |
+| Label       | Description                                             | Color   |
+| ----------- | ------------------------------------------------------- | ------- |
+| p1:critical | Import and urgent, needs immediate attention            | deepred |
+| p2:major    | Important but not urgent, handle in regular order       | blue    |
+| p3:minor    | Not important but urgent, can be handled after critical | orange  |
+| p4:trivial  | Not important and not urgent, can be deferred           | brown   |
 
 ## Role-Based Usage Guidelines
 
 ### For Developers
 
-- **Focus on These Labels Only**: `in progress`, `need check`, `resolved`
+- **Focus on These Labels Only**: `dev:in-progress`, `dev:need-check`, `dev:resolved`, `dev:blocked`
 - **Let Automation Handle**:
   - Label conflicts
   - Priority synchronization with linked issues
@@ -103,7 +101,7 @@ Different colors stand for different priorities.
 
 ### For QA Team
 
-- **Focus on These Labels Only**: `unsolved`, `verified`
+- **Focus on These Labels Only**: `qa:blocked`, `qa:unsolved`, `qa:verified`
 - **Let Automation Handle**:
   - Removal of conflicting developer labels
   - Notification dispatch to relevant team members
@@ -111,7 +109,7 @@ Different colors stand for different priorities.
 
 ### For Admins
 
-- **Focus on These Labels Only**: `rejected`, `approved`
+- **Focus on These Labels Only**: `admin:rejected`, `admin:approved`
 - **Let Automation Handle**:
   - Removal of conflicting developer/QA labels
   - Notification management
@@ -190,40 +188,40 @@ Different colors stand for different priorities.
 
 #### For Developers
 
-- Can add/remove: `in progress`, `need check`, `resolved`
+- Can add/remove: `dev:in-progress`, `dev:need-check`, `dev:resolved`, `dev:blocked`
 - Can add priority labels to their PRs
 - Cannot remove QA or Admin labels
-- Start with `in progress` when creating PR
-- Change to `need check` when ready for QA review
+- Start with `dev:in-progress` when creating PR
+- Change to `dev:need-check` when ready for QA review
 
 #### For QA
 
 - Can add priority labels
-- Must remove `need check` when adding `bug`
+- Must remove `dev:need-check` when adding `dev:bug`
 - Cannot remove Admin labels
 
 #### For Admins
 
 - Can add/remove any labels
-- Should review PRs with `verified` label
-- Final approval with `approved` label
-- Can reject PR with `rejected` label
+- Should review PRs with `qa:verified` label
+- Final approval with `admin:approved` label
+- Can reject PR with `admin:rejected` label
 
 ### Best Practices
 
 1. Always update labels promptly
 2. Add detailed comments when changing labels
-3. Follow the standard flow: `in progress` -> `need check` -> `verified` -> `approved`
-4. For bug fixes: `bug` -> `resolved` -> `need check` -> `verified` -> `approved`
+3. Follow the standard flow: `dev:in-progress` -> `dev:need-check` -> `qa:verified` -> `admin:approved`
+4. For bug fixes: `dev:bug` -> `dev:resolved` -> `dev:need-check` -> `qa:verified` -> `admin:approved`
 5. Regular label audit to ensure correct usage
 6. Use priority labels consistently across related issues and PRs
 
 ### Notifications
 
-- `bug` label: Notifies developer
-- `verified` label: Notifies admin
-- `rejected` label: Notifies developer
-- `need check` label: Notifies QA team
+- `dev:bug` label: Notifies developer
+- `qa:verified` label: Notifies admin
+- `admin:rejected` label: Notifies developer
+- `dev:need-check` label: Notifies QA team
 
 ### Benefits of Separated Label Categories
 

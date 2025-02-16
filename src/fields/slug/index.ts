@@ -93,16 +93,11 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
                 depth: 1, // Include one level of depth to get the parent's fullPath
               })
 
-              console.log('Parent page details:', {
-                id: parentPage.id,
-                slug: parentPage.slug,
-                fullPath: parentPage.fullPath,
-              })
-
               if (parentPage.slug === 'home') {
                 path = `home/${pageData.slug}`
               } else if (parentPage.fullPath) {
                 path = `${parentPage.fullPath}/${pageData.slug}`
+              } else {
               }
             } catch (error) {
               console.error('Error fetching parent page:', error)

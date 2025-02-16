@@ -20,7 +20,7 @@ export const contact: Partial<Page> = {
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: 'Payload Website Template',
+                  text: 'Contact Us',
                   version: 1,
                 },
               ],
@@ -34,67 +34,12 @@ export const contact: Partial<Page> = {
               type: 'paragraph',
               children: [
                 {
-                  type: 'link',
-                  children: [
-                    {
-                      type: 'text',
-                      detail: 0,
-                      format: 0,
-                      mode: 'normal',
-                      style: '',
-                      text: 'Visit the admin dashboard',
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  fields: {
-                    linkType: 'custom',
-                    newTab: false,
-                    url: '/admin',
-                  },
-                  format: '',
-                  indent: 0,
-                  version: 3,
-                },
-                {
                   type: 'text',
                   detail: 0,
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: " to begin managing this site's content. The code for this template is completely open-source and can be found ",
-                  version: 1,
-                },
-                {
-                  type: 'link',
-                  children: [
-                    {
-                      type: 'text',
-                      detail: 0,
-                      format: 0,
-                      mode: 'normal',
-                      style: '',
-                      text: 'on our Github',
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  fields: {
-                    linkType: 'custom',
-                    newTab: true,
-                    url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
-                  },
-                  format: '',
-                  indent: 0,
-                  version: 3,
-                },
-                {
-                  type: 'text',
-                  detail: 0,
-                  format: 0,
-                  mode: 'normal',
-                  style: '',
-                  text: '. ',
+                  text: 'Get in touch with us using the form below.',
                   version: 1,
                 },
               ],
@@ -117,7 +62,8 @@ export const contact: Partial<Page> = {
     {
       blockType: 'formBlock',
       enableIntro: true,
-      form: '{{CONTACT_FORM_ID}}',
+      // @ts-expect-error - Will be replaced during seeding
+      form: null,
       introContent: {
         root: {
           type: 'root',
@@ -131,7 +77,7 @@ export const contact: Partial<Page> = {
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: 'Example contact form:',
+                  text: 'Contact Form:',
                   version: 1,
                 },
               ],

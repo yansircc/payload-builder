@@ -37,6 +37,7 @@ import { default as default_a48147a5d9e361c38690affd82c29136 } from 'src/collect
 import { default as default_2a39a1af771424381d098717f69480b6 } from '@/blocks/CallToAction/components/CTA1/config.client.tsx'
 import { default as default_1a7510af427896d367a49dbf838d2de6 } from '@/components/BeforeDashboard'
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
+import { default as default_78b39f784b86cf844383560b5f1a85bf } from '@/components/ColorPicker/'
 import { SlugComponent as SlugComponent_92cc057d0a2abb4f6cf0307edf59f986 } from '@/fields/slug/SlugComponent'
 
 export const importMap = {
@@ -81,6 +82,7 @@ export const importMap = {
     BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   '/collections/CustomCodes/components/ScriptRowLabel#default':
     default_a48147a5d9e361c38690affd82c29136,
+  '@/components/ColorPicker/#default': default_78b39f784b86cf844383560b5f1a85bf,
   '@payloadcms/plugin-search/client#LinkToDoc': LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   '@payloadcms/plugin-search/client#ReindexButton': ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   '@payloadcms/plugin-multi-tenant/rsc#GlobalViewRedirect':

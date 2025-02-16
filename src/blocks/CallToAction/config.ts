@@ -17,8 +17,8 @@ export const CallToAction: Block = {
   slug: 'cta',
   interfaceName: 'CTABlock',
   labels: {
-    singular: 'Block',
-    plural: 'Blocks',
+    singular: 'CTA Block',
+    plural: 'CTA Blocks',
   },
   fields: [
     {

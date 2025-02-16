@@ -1,34 +1,18 @@
 import type { Post } from '@/payload-types'
 
-export const post1: Partial<Post> = {
-  slug: 'digital-horizons',
+export const post3: Partial<Post> = {
+  slug: 'dollar-and-sense-the-financial-forecast',
   _status: 'published',
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  authors: ['{{AUTHOR}}'],
+  title: 'Dollar and Sense: The Financial Forecast',
+  meta: {
+    title: 'Dollar and Sense: The Financial Forecast',
+    description:
+      "Money isn't just currency; it's a language. Dive deep into its nuances, where strategy meets intuition in the vast sea of finance.",
+  },
   content: {
     root: {
       type: 'root',
       children: [
-        {
-          type: 'heading',
-          children: [
-            {
-              type: 'text',
-              detail: 0,
-              format: 0,
-              mode: 'normal',
-              style: '',
-              text: 'Dive into the marvels of modern innovation, where the only constant is change. A journey where pixels and data converge to craft the future.',
-              version: 1,
-            },
-          ],
-          direction: 'ltr',
-          format: '',
-          indent: 0,
-          tag: 'h2',
-          version: 1,
-        },
         {
           type: 'block',
           fields: {
@@ -47,7 +31,7 @@ export const post1: Partial<Post> = {
                         format: 1,
                         mode: 'normal',
                         style: '',
-                        text: 'Disclaimer:',
+                        text: 'Disclaimer: ',
                         version: 1,
                       },
                       {
@@ -56,7 +40,7 @@ export const post1: Partial<Post> = {
                         format: 0,
                         mode: 'normal',
                         style: '',
-                        text: ' This content is fabricated and for demonstration purposes only. To edit this post, ',
+                        text: 'This content is fabricated and for demonstration purposes only. To edit this post, ',
                         version: 1,
                       },
                       {
@@ -68,7 +52,7 @@ export const post1: Partial<Post> = {
                             format: 0,
                             mode: 'normal',
                             style: '',
-                            text: 'navigate to the admin dashboard',
+                            text: 'navigate to the admin dashboard.',
                             version: 1,
                           },
                         ],
@@ -82,20 +66,11 @@ export const post1: Partial<Post> = {
                         indent: 0,
                         version: 3,
                       },
-                      {
-                        type: 'text',
-                        detail: 0,
-                        format: 0,
-                        mode: 'normal',
-                        style: '',
-                        text: '.',
-                        version: 1,
-                      },
                     ],
                     direction: 'ltr',
                     format: '',
                     indent: 0,
-                    textFormat: 0,
+                    textFormat: 1,
                     version: 1,
                   },
                 ],
@@ -119,7 +94,25 @@ export const post1: Partial<Post> = {
               format: 0,
               mode: 'normal',
               style: '',
-              text: 'The Rise of AI and Machine Learning',
+              text: "Money isn't just currency; ",
+              version: 1,
+            },
+            {
+              type: 'text',
+              detail: 0,
+              format: 2,
+              mode: 'normal',
+              style: '',
+              text: "it's a language. ",
+              version: 1,
+            },
+            {
+              type: 'text',
+              detail: 0,
+              format: 0,
+              mode: 'normal',
+              style: '',
+              text: 'Dive deep into its nuances, where strategy meets intuition in the vast sea of finance.',
               version: 1,
             },
           ],
@@ -138,7 +131,7 @@ export const post1: Partial<Post> = {
               format: 0,
               mode: 'normal',
               style: '',
-              text: 'We find ourselves in a transformative era where artificial intelligence (AI) stands at the forefront of technological evolution. The ripple effects of its advancements are reshaping industries at an unprecedented pace. No longer are businesses bound by the limitations of tedious, manual processes. Instead, sophisticated machines, fueled by vast amounts of historical data, are now capable of making decisions previously left to human intuition. These intelligent systems are not only optimizing operations but also pioneering innovative approaches, heralding a new age of business transformation worldwide. ',
+              text: "Money, in its essence, transcends the mere concept of coins and paper notes; it becomes a profound language that speaks of value, trust, and societal structures. Like any language, it possesses intricate nuances and subtleties that require a discerning understanding. It's in these depths where the calculated world of financial strategy collides with the raw, instinctive nature of human intuition. Just as a seasoned linguist might dissect the syntax and semantics of a sentence, a financial expert navigates the vast and tumultuous ocean of finance, guided not only by logic and data but also by gut feelings and foresight. Every transaction, investment, and financial decision becomes a dialogue in this expansive lexicon of commerce and value.",
               version: 1,
             },
           ],
@@ -157,37 +150,7 @@ export const post1: Partial<Post> = {
               format: 0,
               mode: 'normal',
               style: '',
-              text: 'To demonstrate basic AI functionality, here is a javascript snippet that makes a POST request to a generic AI API in order to generate text based on a prompt. ',
-              version: 1,
-            },
-          ],
-          direction: 'ltr',
-          format: '',
-          indent: 0,
-          tag: 'h4',
-          version: 1,
-        },
-        {
-          type: 'block',
-          fields: {
-            blockName: 'Generate Text',
-            blockType: 'code',
-            code: "async function generateText(prompt) {\n    const apiKey = 'your-api-key';\n    const apiUrl = 'https://api.example.com/generate-text';\n\n    const response = await fetch(apiUrl, {\n        method: 'POST',\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': `Bearer ${apiKey}`\n        },\n        body: JSON.stringify({\n            model: 'text-generation-model',\n            prompt: prompt,\n            max_tokens: 50\n        })\n    });\n\n    const data = await response.json();\n    console.log(data.choices[0].text.trim());\n}\n\n// Example usage\ngenerateText(\"Once upon a time in a faraway land,\");\n",
-            language: 'javascript',
-          },
-          format: '',
-          version: 2,
-        },
-        {
-          type: 'heading',
-          children: [
-            {
-              type: 'text',
-              detail: 0,
-              format: 0,
-              mode: 'normal',
-              style: '',
-              text: 'IoT: Connecting the World Around Us',
+              text: 'Stock Market Dynamics: Bulls, Bears, and the Uncertain Middle',
               version: 1,
             },
           ],
@@ -206,7 +169,7 @@ export const post1: Partial<Post> = {
               format: 0,
               mode: 'normal',
               style: '',
-              text: "In today's rapidly evolving technological landscape, the Internet of Things (IoT) stands out as a revolutionary force. From transforming our residences with smart home systems to redefining transportation through connected cars, IoT's influence is palpable in nearly every facet of our daily lives.",
+              text: 'The stock market is a realm of vast opportunity but also poses risks. Discover the forces that drive market trends and the strategies employed by top traders to navigate this complex ecosystem. From market analysis to understanding investor psychology, get a comprehensive insight into the world of stocks.',
               version: 1,
             },
           ],
@@ -225,7 +188,7 @@ export const post1: Partial<Post> = {
               format: 0,
               mode: 'normal',
               style: '',
-              text: "This technology hinges on the seamless integration of devices and systems, allowing them to communicate and collaborate effortlessly. With each connected device, we move a step closer to a world where convenience and efficiency are embedded in the very fabric of our existence. As a result, we're transitioning into an era where our surroundings intuitively respond to our needs, heralding a smarter and more interconnected global community.",
+              text: "The stock market, often visualized as a bustling arena of numbers and ticker tapes, is as much about human behavior as it is about economics. It's a place where optimism, represented by the bullish rally, meets the caution of bearish downturns, with each vying to dictate the market's direction. But between these two extremes lies an uncertain middle ground, a zone populated by traders and investors who constantly weigh hope against fear. Successful navigation requires more than just financial acumen; it demands an understanding of collective sentiments and the ability to predict not just market movements, but also the reactions of other market participants. In this intricate dance of numbers and nerves, the most astute players are those who master both the hard data and the soft nuances of human behavior.",
               version: 1,
             },
           ],
@@ -238,17 +201,7 @@ export const post1: Partial<Post> = {
         {
           type: 'block',
           fields: {
-            blockName: '',
-            blockType: 'mediaBlock',
-            media: '{{IMAGE_2}}',
-          },
-          format: '',
-          version: 2,
-        },
-        {
-          type: 'block',
-          fields: {
-            blockName: 'Dynamic Components',
+            blockName: 'Dynamic components',
             blockType: 'banner',
             content: {
               root: {
@@ -292,17 +245,5 @@ export const post1: Partial<Post> = {
       version: 1,
     },
   },
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  heroImage: '{{IMAGE_1}}',
-  meta: {
-    description:
-      'Dive into the marvels of modern innovation, where the only constant is change. A journey where pixels and data converge to craft the future.',
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    image: '{{IMAGE_1}}',
-    title: 'Digital Horizons: A Glimpse into Tomorrow',
-  },
   relatedPosts: [], // this is populated by the seed script
-  title: 'Digital Horizons: A Glimpse into Tomorrow',
 }
