@@ -3123,6 +3123,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             required?: boolean | null;
             defaultValue?: boolean | null;
@@ -3133,6 +3136,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             required?: boolean | null;
             id?: string | null;
@@ -3142,6 +3148,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             required?: boolean | null;
             id?: string | null;
@@ -3171,6 +3180,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             defaultValue?: number | null;
             required?: boolean | null;
@@ -3181,6 +3193,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             defaultValue?: string | null;
             options?:
@@ -3198,6 +3213,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             required?: boolean | null;
             id?: string | null;
@@ -3207,6 +3225,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             defaultValue?: string | null;
             required?: boolean | null;
@@ -3217,6 +3238,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             defaultValue?: string | null;
             required?: boolean | null;

@@ -10,6 +10,7 @@ import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Plugin } from 'payload'
 import { isSuperAdmin } from '@/access/isSuperAdmin'
+import { processBlockField } from '@/hooks/form/formFieldValidation'
 import normalizeRedirectUrls from '@/hooks/normalizeRedirectUrls'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { Config, Page, Post } from '@/payload-types'
@@ -63,6 +64,22 @@ export const plugins: Plugin[] = [
     formOverrides: {
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
+          // Handle blocks field type
+          if ('type' in field && field.type === 'blocks' && 'blocks' in field) {
+            return {
+              ...field,
+              blocks: field.blocks.map((block) => {
+                if ('fields' in block) {
+                  return {
+                    ...block,
+                    fields: block.fields.map(processBlockField),
+                  }
+                }
+                return block
+              }),
+            }
+          }
+
           if ('name' in field && field.name === 'confirmationMessage') {
             return {
               ...field,
