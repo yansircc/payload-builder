@@ -71,6 +71,8 @@
     "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/react-toggle-group": "^1.1.1",
     "@t3-oss/env-nextjs": "^0.12.0",
+    "@upstash/ratelimit": "^2.0.5",
+    "@vercel/kv": "^3.0.0",
     "ai": "^4.1.5",
     "babel-plugin-react-compiler": "^19.0.0-beta-714736e-20250131",
     "class-variance-authority": "^0.7.1",
@@ -87,6 +89,7 @@
     "lucide-react": "^0.475.0",
     "next": "^15.1.6",
     "next-sitemap": "^4.2.3",
+    "openai": "^4.85.1",
     "payload": "3.23.0",
     "payload-admin-bar": "file:./patch/payload-admin-bar-1.0.6.tgz",
     "prism-react-renderer": "^2.3.1",
@@ -97,6 +100,7 @@
     "standard-slugify": "^4.0.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
+    "ts-pattern": "^5.6.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {
