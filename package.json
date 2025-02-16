@@ -113,7 +113,7 @@
     "@storybook/react": "^8.5.4",
     "@storybook/test": "^8.5.4",
     "@tailwindcss/postcss": "^4.0.0-beta.10",
-    "@tailwindcss/typography": "^0.5.13",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/escape-html": "^1.0.2",
     "@types/esprima": "^4.0.6",
     "@types/node": "^22.5.4",
