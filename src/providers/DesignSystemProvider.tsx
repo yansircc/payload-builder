@@ -1,7 +1,10 @@
 'use client'
 
+import { Where } from 'payload'
+import { stringify } from 'qs-esm'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import type { Config } from '@/payload-types'
 import type { ThemeDefinition, ThemePreset } from '@/themes'
 import { themes } from '@/themes'
 import { getClientSideURL } from '@/utilities/getURL'
@@ -16,8 +19,8 @@ interface DesignSystemContextType {
   setIsDark: (isDark: boolean) => void
 }
 
-interface TenantResponse {
-  docs: Array<{ theme?: ThemePreset; domain: string }>
+type TenantResponse = {
+  docs: Array<Config['collections']['tenants']>
 }
 
 const DesignSystemContext = createContext<DesignSystemContextType | null>(null)
@@ -59,15 +62,23 @@ export function DesignSystemProvider({
     async function fetchTenantTheme() {
       try {
         const hostname = window.location.hostname
-        const response = await fetch(
-          `${getClientSideURL()}/api/tenants?where=${encodeURIComponent(
-            JSON.stringify({ domain: { equals: hostname } }),
-          )}`,
-          {
-            headers: { 'Content-Type': 'application/json' },
-            next: { revalidate: 3600, tags: ['tenant-theme'] },
+        const query: Where = {
+          domain: {
+            equals: hostname,
           },
+        }
+
+        const stringifiedQuery = stringify(
+          {
+            where: query,
+          },
+          { addQueryPrefix: true },
         )
+
+        const response = await fetch(`${getClientSideURL()}/api/tenants${stringifiedQuery}`, {
+          headers: { 'Content-Type': 'application/json' },
+          next: { revalidate: 3600, tags: ['tenant-theme'] },
+        })
 
         if (!response.ok) {
           throw new Error('Failed to fetch tenant theme')
