@@ -11,18 +11,43 @@ import {
 } from '@payloadcms/richtext-lexical/react'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
+import { ColumnsBlock } from '@/blocks/ColumnBlock/RenderColumn'
+import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/RenderCtaSimple'
+import { RenderLinkPopup } from '@/blocks/LinkPopupBlock/RenderLinkPopup'
+import { ListBlock } from '@/blocks/List/RenderList'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { TableBlock } from '@/blocks/Table/RenderTable'
+import { VideoBlock } from '@/blocks/VideoBlock/RenderVideo'
 import type {
   BannerBlock as BannerBlockProps,
   CTABlock as CTABlockProps,
   MediaBlock as MediaBlockProps,
+  VideoBlock as VideoBlockProps,
+} from '@/payload-types'
+import {
+  ColumnsBlock as ColumnsBlockProps,
+  CtaSimpleBlock as CtaSimpleBlockProps,
+  ListBlock as ListBlockProps,
+  LinkPopupBlock as RenderLinkPopupProps,
 } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { RenderCTA } from '../../blocks/CallToAction/RenderCTA'
+import { TableBlock as TableBlockProps } from '../../payload-types'
 
 type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+  | SerializedBlockNode<
+      | CTABlockProps
+      | MediaBlockProps
+      | BannerBlockProps
+      | CodeBlockProps
+      | TableBlockProps
+      | ColumnsBlockProps
+      | RenderLinkPopupProps
+      | VideoBlockProps
+      | ListBlockProps
+      | CtaSimpleBlockProps
+    >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -50,6 +75,12 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     ),
     code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
     cta: ({ node }) => <RenderCTA {...node.fields} />,
+    table: ({ node }) => <TableBlock className="col-start-2" {...node.fields} />,
+    list: ({ node }) => <ListBlock className="col-start-2" {...node.fields} />,
+    video: ({ node }) => <VideoBlock className="col-start-2" {...node.fields} />,
+    columns: ({ node }) => <ColumnsBlock className="col-start-2" {...node.fields} />,
+    ctaSimple: ({ node }) => <CtaSimpleBlock className="col-start-2" {...node.fields} />,
+    linkPopup: ({ node }) => <RenderLinkPopup className="col-start-2" {...node.fields} />,
   },
 })
 
