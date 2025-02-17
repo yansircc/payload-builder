@@ -10,8 +10,8 @@ export default function Hero1({ hero }: Hero1Fields) {
   return (
     <section className="relative overflow-hidden bg-background py-section md:py-section-md lg:py-section-lg">
       <div className="container relative z-10">
-        <div className="grid gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg lg:grid-cols-2">
-          <div className="flex flex-col items-start gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg">
+        <div className="grid gap-8 lg:grid-cols-2">
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <ClientMotionDiv
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -30,25 +30,30 @@ export default function Hero1({ hero }: Hero1Fields) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-4"
+              className="space-y-4 "
             >
-              <h1 className="font-heading text-5xl lg:text-7xl tracking-tight font-bold">
+              <h1 className="my-6 font-heading text-5xl lg:text-7xl tracking-tight font-bold">
                 {title}
               </h1>
               {subtitle && (
-                <p className="text-muted-foreground text-xl font-sans max-w-[45ch]">{subtitle}</p>
+                <p className="mb-8 text-muted-foreground text-xl font-sans max-w-[45ch]">
+                  {subtitle}
+                </p>
               )}
             </ClientMotionDiv>
 
             {links && links.length > 0 && (
               <ClientMotionDiv
-                className="flex flex-wrap gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg"
+                className="flex flex-col gap-4 w-full sm:w-auto"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
                 {links.map((linkGroup, index) => (
-                  <div key={index} className="flex flex-col gap-2 sm:flex-row">
+                  <div
+                    key={index}
+                    className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start"
+                  >
                     {Object.entries(linkGroup)
                       .filter(([key]) => key.startsWith('link-'))
                       .map(
