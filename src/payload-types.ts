@@ -330,7 +330,7 @@ export interface Hero1Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Hero button with ArrowDownRight suffix icon
@@ -361,7 +361,7 @@ export interface Hero1Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -677,7 +677,7 @@ export interface Hero5Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -730,7 +730,7 @@ export interface Hero7Fields {
       /**
        * Choose how the link should be rendered.
        */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     };
     /**
      * Rating information
@@ -811,7 +811,7 @@ export interface Hero8Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -874,7 +874,7 @@ export interface Hero12Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Hero button with ExternalLink suffix icon
@@ -905,7 +905,7 @@ export interface Hero12Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -983,7 +983,7 @@ export interface Hero24Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1023,10 +1023,6 @@ export interface Hero25Fields {
      * Feature title
      */
     title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
     /**
      * Partner logo image
      */
@@ -1069,7 +1065,7 @@ export interface Hero25Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1087,10 +1083,6 @@ export interface Hero25Fields {
            * Feature title
            */
           title: string;
-          /**
-           * Feature description
-           */
-          description: string;
           id?: string | null;
         }[]
       | null;
@@ -1138,7 +1130,7 @@ export interface Hero32Fields {
       /**
        * Choose how the link should be rendered.
        */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     };
     /**
      * Integration images (exactly 15)
@@ -1213,7 +1205,7 @@ export interface Hero34Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           'link-2': {
             type?: ('reference' | 'custom' | 'popup') | null;
@@ -1241,7 +1233,7 @@ export interface Hero34Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1300,7 +1292,7 @@ export interface Hero6Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1388,7 +1380,7 @@ export interface Hero3Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Hero button with ArrowDownRight suffix icon
@@ -1419,7 +1411,7 @@ export interface Hero3Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1550,7 +1542,7 @@ export interface Hero115Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -1860,7 +1852,7 @@ export interface About3Fields {
         /**
          * Choose how the link should be rendered.
          */
-        appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+        appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
       };
     };
     /**
@@ -2002,7 +1994,7 @@ export interface About4Fields {
       /**
        * Choose how the link should be rendered.
        */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     };
   };
 }
@@ -2231,7 +2223,7 @@ export interface CTA1Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2289,7 +2281,7 @@ export interface CTA3Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2328,7 +2320,7 @@ export interface CTA3Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Description text for the link
@@ -2390,7 +2382,7 @@ export interface CTA4Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2468,7 +2460,7 @@ export interface CTA5Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2526,7 +2518,7 @@ export interface CTA7Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2600,7 +2592,7 @@ export interface CTA10Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2658,7 +2650,7 @@ export interface CTA11Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2724,7 +2716,7 @@ export interface CTA15Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2790,7 +2782,7 @@ export interface CTA16Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2848,7 +2840,7 @@ export interface CTA17Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -2905,7 +2897,7 @@ export interface ContentBlock {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
         };
         id?: string | null;
       }[]
@@ -3376,7 +3368,7 @@ export interface Gallery1Fields {
       /**
        * Choose how the link should be rendered.
        */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     };
     /**
      * Gallery image
@@ -3551,7 +3543,7 @@ export interface Gallery5Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -3624,7 +3616,7 @@ export interface Gallery6Fields {
       /**
        * Choose how the link should be rendered.
        */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     };
     /**
      * Gallery cards (3-6)
@@ -3668,7 +3660,7 @@ export interface Gallery6Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Card image
@@ -3816,7 +3808,7 @@ export interface Feature1Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Secondary link
@@ -3847,7 +3839,7 @@ export interface Feature1Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -3913,7 +3905,7 @@ export interface Feature2Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Secondary link
@@ -3944,7 +3936,7 @@ export interface Feature2Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -4227,7 +4219,7 @@ export interface Feature11Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -4591,7 +4583,7 @@ export interface Testimonial7Fields {
     /**
      * Choose how the link should be rendered.
      */
-    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
   };
   /**
    * Testimonial items (4-12)
@@ -4754,7 +4746,7 @@ export interface Testimonial15Fields {
     /**
      * Choose how the link should be rendered.
      */
-    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
   };
   /**
    * Company section configuration
@@ -4971,7 +4963,7 @@ export interface Testimonial19Fields {
     /**
      * Choose how the link should be rendered.
      */
-    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
   };
   /**
    * Testimonial items (3-12)
@@ -5269,7 +5261,7 @@ export interface Contact3Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -5324,7 +5316,7 @@ export interface Contact3Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -5420,7 +5412,7 @@ export interface Contact4Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -5476,7 +5468,7 @@ export interface Contact4Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -5631,7 +5623,7 @@ export interface Contact6Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -5763,7 +5755,7 @@ export interface Contact7Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -5834,7 +5826,7 @@ export interface Contact8Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -6004,7 +5996,7 @@ export interface Team2Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -6069,7 +6061,7 @@ export interface Team3Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -6128,7 +6120,7 @@ export interface Team3Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -6193,7 +6185,7 @@ export interface Team5Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -6299,7 +6291,7 @@ export interface Team6Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -6466,7 +6458,7 @@ export interface FAQ3Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -6557,7 +6549,7 @@ export interface FAQ4Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -6730,7 +6722,7 @@ export interface Logos2Fields {
       /**
        * Choose how the link should be rendered.
        */
-      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     };
     /**
      * Logo images (6 required)
@@ -6838,7 +6830,7 @@ export interface LinkPopupBlock {
     /**
      * Choose how the link should be rendered.
      */
-    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -6966,7 +6958,7 @@ export interface Header1Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Links in this column
@@ -7002,7 +6994,7 @@ export interface Header1Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 /**
                  * Description for this sub menu
@@ -7045,7 +7037,7 @@ export interface Header1Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -7093,7 +7085,7 @@ export interface Header3Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -7130,7 +7122,7 @@ export interface Header3Fields {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
         };
         submenu?: {
           style?: ('style-1' | 'style-2' | 'style-3' | 'style-4') | null;
@@ -7165,7 +7157,7 @@ export interface Header3Fields {
                 /**
                  * Choose how the link should be rendered.
                  */
-                appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               };
             };
             rightSection: {
@@ -7205,7 +7197,7 @@ export interface Header3Fields {
                       /**
                        * Choose how the link should be rendered.
                        */
-                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                     };
                     id?: string | null;
                   }[]
@@ -7243,7 +7235,7 @@ export interface Header3Fields {
                       /**
                        * Choose how the link should be rendered.
                        */
-                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                     };
                     id?: string | null;
                   }[]
@@ -7307,7 +7299,7 @@ export interface Header3Fields {
                       /**
                        * Choose how the link should be rendered.
                        */
-                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                     };
                     id?: string | null;
                   }[]
@@ -7345,7 +7337,7 @@ export interface Header3Fields {
                       /**
                        * Choose how the link should be rendered.
                        */
-                      appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                     };
                     id?: string | null;
                   }[]
@@ -7473,7 +7465,7 @@ export interface Header5Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           /**
            * Links in this column
@@ -7509,7 +7501,7 @@ export interface Header5Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 /**
                  * Description for this sub menu
@@ -7552,7 +7544,7 @@ export interface Header5Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -7653,7 +7645,7 @@ export interface Footer1Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -7702,7 +7694,7 @@ export interface Footer1Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -7778,7 +7770,7 @@ export interface Footer2Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -7818,7 +7810,7 @@ export interface Footer2Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -7886,7 +7878,7 @@ export interface Footer3Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -7926,7 +7918,7 @@ export interface Footer3Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -7963,7 +7955,7 @@ export interface Footer3Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -8031,7 +8023,7 @@ export interface Footer4Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -8071,7 +8063,7 @@ export interface Footer4Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -8108,7 +8100,7 @@ export interface Footer4Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -8182,7 +8174,7 @@ export interface Footer5Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -8225,7 +8217,7 @@ export interface Footer5Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -8266,7 +8258,7 @@ export interface Footer5Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -8342,7 +8334,7 @@ export interface Footer6Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -8382,7 +8374,7 @@ export interface Footer6Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -8458,7 +8450,7 @@ export interface Footer7Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -8497,7 +8489,7 @@ export interface Footer7Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -8535,7 +8527,7 @@ export interface Footer7Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -8607,7 +8599,7 @@ export interface Footer8Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -8646,7 +8638,7 @@ export interface Footer8Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -8713,7 +8705,7 @@ export interface Footer9Fields {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           };
           id?: string | null;
         }[]
@@ -8761,7 +8753,7 @@ export interface Footer9Fields {
                   /**
                    * Choose how the link should be rendered.
                    */
-                  appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 };
                 id?: string | null;
               }[]
@@ -8805,7 +8797,7 @@ export interface Footer9Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -8843,7 +8835,7 @@ export interface Footer9Fields {
               /**
                * Choose how the link should be rendered.
                */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             };
             id?: string | null;
           }[]
@@ -9610,7 +9602,6 @@ export interface Hero25FieldsSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        subtitle?: T;
         logo?: T;
         badge?: T;
         links?:
@@ -9636,7 +9627,6 @@ export interface Hero25FieldsSelect<T extends boolean = true> {
           | {
               icon?: T;
               title?: T;
-              description?: T;
               id?: T;
             };
       };
