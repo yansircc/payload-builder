@@ -153,6 +153,12 @@ export const Pages: CollectionConfig<'pages'> = {
               relationTo: 'media',
             }),
             MetaDescriptionField({}),
+            {
+              name: 'noindex',
+              label: 'If checked, the page will not be indexed by search engines',
+              type: 'checkbox',
+              defaultValue: false,
+            },
             PreviewField({
               hasGenerateFn: true,
               titlePath: 'meta.title',
