@@ -3,7 +3,6 @@ import { Media } from '@/components/Media'
 import type { Hero5Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
-import { ThemeEffect } from '../shared/ThemeEffect'
 
 export default function Hero5({ hero }: Hero5Fields) {
   const { title, subtitle, links, image } = hero
@@ -11,7 +10,6 @@ export default function Hero5({ hero }: Hero5Fields) {
 
   return (
     <section className="overflow-hidden py-section">
-      <ThemeEffect />
       <div className="container">
         <div className="flex flex-col items-center justify-between gap-grid-gap lg:flex-row lg:gap-grid-gap-md">
           <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
