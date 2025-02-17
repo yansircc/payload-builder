@@ -3,7 +3,6 @@ import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Avatar } from '@/components/ui/avatar'
 import type { Hero3Fields } from '@/payload-types'
-import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
@@ -18,12 +17,7 @@ export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
           transition={{ duration: 0.5 }}
           className="mx-auto flex flex-col items-center text-center md:ml-auto lg:max-w-3xl lg:items-start lg:text-left"
         >
-          <h1
-            className={cn(
-              'font-heading tracking-tight text-foreground',
-              'my-6 text-pretty text-4xl font-bold lg:text-6xl xl:text-7xl',
-            )}
-          >
+          <h1 className="font-heading tracking-tight text-foreground my-6 text-pretty text-4xl font-bold lg:text-6xl xl:text-7xl">
             {title}
           </h1>
           <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl font-sans">{subtitle}</p>
