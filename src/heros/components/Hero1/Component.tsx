@@ -8,10 +8,10 @@ import { ClientMotionDiv } from '../shared/motion'
 export default function Hero1({ hero }: Hero1Fields) {
   const { title, subtitle, links, image, badge } = hero
   return (
-    <section className="relative overflow-hidden bg-background py-section-sm md:py-section-md lg:py-section">
+    <section className="relative overflow-hidden bg-background py-section md:py-section-md lg:py-section-lg">
       <div className="container relative z-10">
-        <div className="grid gap-grid-gap lg:grid-cols-2">
-          <div className="flex flex-col items-start gap-grid-gap">
+        <div className="grid gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg lg:grid-cols-2">
+          <div className="flex flex-col items-start gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg">
             <ClientMotionDiv
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ export default function Hero1({ hero }: Hero1Fields) {
 
             {links && links.length > 0 && (
               <ClientMotionDiv
-                className="flex flex-wrap gap-grid-gap"
+                className="flex flex-wrap gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
