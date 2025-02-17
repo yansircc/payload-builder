@@ -12,22 +12,24 @@ export default function Hero7({ hero }: Hero7Fields) {
   const reviewCount = typeof count === 'number' ? count : 0
 
   return (
-    <section className="py-32">
+    <section className="py-section">
       <ThemeEffect theme="dark" />
       <div className="container text-center">
         <ClientMotionDiv
-          className="mx-auto flex max-w-screen-lg flex-col gap-6"
+          className="mx-auto flex max-w-screen-lg flex-col gap-grid-gap"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl font-extrabold lg:text-6xl">{title}</h1>
-          {subtitle && <p className="text-balance text-muted-foreground lg:text-lg">{subtitle}</p>}
+          <h1 className="font-heading text-4xl lg:text-6xl tracking-tight font-bold">{title}</h1>
+          {subtitle && (
+            <p className="text-muted-foreground text-base lg:text-lg font-sans">{subtitle}</p>
+          )}
         </ClientMotionDiv>
 
         {link && (
           <ClientMotionDiv
-            className="mt-10 flex flex-wrap justify-center gap-4"
+            className="mt-10 flex flex-wrap justify-center gap-grid-gap"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -37,7 +39,7 @@ export default function Hero7({ hero }: Hero7Fields) {
         )}
 
         <ClientMotionDiv
-          className="mx-auto mt-10 flex w-fit flex-col items-center gap-4 sm:flex-row"
+          className="mx-auto mt-10 flex w-fit flex-col items-center gap-grid-gap sm:flex-row"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
