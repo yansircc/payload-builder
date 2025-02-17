@@ -1,7 +1,6 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero5Fields } from '@/payload-types'
-import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero5({ hero }: Hero5Fields) {
@@ -19,15 +18,7 @@ export default function Hero5({ hero }: Hero5Fields) {
               transition={{ duration: 0.6 }}
               className="w-full"
             >
-              <h1
-                className={cn(
-                  'font-heading',
-                  'text-4xl lg:text-6xl',
-                  'tracking-tight',
-                  'font-bold',
-                  'text-foreground',
-                )}
-              >
+              <h1 className="font-heading text-4xl lg:text-6xl tracking-tight font-bold text-foreground">
                 {title}
               </h1>
             </ClientMotionDiv>
@@ -38,15 +29,7 @@ export default function Hero5({ hero }: Hero5Fields) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <p
-                  className={cn(
-                    'text-muted-foreground',
-                    'text-xl lg:text-2xl',
-                    'font-sans',
-                    'font-medium',
-                    'max-w-xl',
-                  )}
-                >
+                <p className="text-muted-foreground text-xl lg:text-2xl font-sans font-medium max-w-xl">
                   {subtitle}
                 </p>
               </ClientMotionDiv>
@@ -62,12 +45,7 @@ export default function Hero5({ hero }: Hero5Fields) {
                 <CMSLink
                   {...link}
                   size="lg"
-                  className={cn(
-                    'w-full sm:w-auto',
-                    'transition-button',
-                    'hover:scale-button-hover',
-                    'hover:opacity-button-hover',
-                  )}
+                  className="w-full sm:w-auto transition-button hover:scale-button-hover hover:opacity-button-hover"
                 />
               </ClientMotionDiv>
             )}
@@ -82,7 +60,7 @@ export default function Hero5({ hero }: Hero5Fields) {
             <Media
               resource={image}
               className="aspect-video w-full"
-              imgClassName={cn('rounded-md', 'object-cover')}
+              imgClassName="rounded-md object-cover"
               priority
             />
           </ClientMotionDiv>
