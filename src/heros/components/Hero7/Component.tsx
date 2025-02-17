@@ -4,7 +4,6 @@ import { Media } from '@/components/Media'
 import { Avatar } from '@/components/ui/avatar'
 import type { Hero7Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
-import { ThemeEffect } from '../shared/ThemeEffect'
 
 export default function Hero7({ hero }: Hero7Fields) {
   const { title, subtitle, link, rating } = hero
@@ -13,7 +12,6 @@ export default function Hero7({ hero }: Hero7Fields) {
 
   return (
     <section className="py-section">
-      <ThemeEffect theme="dark" />
       <div className="container text-center">
         <ClientMotionDiv
           className="mx-auto flex max-w-screen-lg flex-col gap-grid-gap"
