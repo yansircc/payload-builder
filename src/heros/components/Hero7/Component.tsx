@@ -14,7 +14,7 @@ export default function Hero7({ hero }: Hero7Fields) {
     <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container text-center">
         <ClientMotionDiv
-          className="mx-auto flex max-w-screen-lg flex-col gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg"
+          className="mx-auto flex max-w-screen-lg flex-col gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -27,7 +27,7 @@ export default function Hero7({ hero }: Hero7Fields) {
 
         {link && (
           <ClientMotionDiv
-            className="mt-10 flex flex-wrap justify-center gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg"
+            className="mt-10"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -37,7 +37,7 @@ export default function Hero7({ hero }: Hero7Fields) {
         )}
 
         <ClientMotionDiv
-          className="mx-auto mt-10 flex w-fit flex-col items-center gap-grid-gap sm:flex-row"
+          className="mx-auto mt-10 flex w-fit flex-col items-center gap-4 sm:flex-row"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
@@ -59,10 +59,9 @@ export default function Hero7({ hero }: Hero7Fields) {
           {reviewCount > 0 && (
             <div>
               <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, index) => (
+                {[...Array(rate)].map((_, index) => (
                   <Star key={index} className="size-5 fill-yellow-400 text-yellow-400" />
                 ))}
-                <span className="font-semibold">{rate}</span>
               </div>
               <p className="text-left font-medium text-muted-foreground">
                 from {reviewCount}+ reviews
