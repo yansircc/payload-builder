@@ -3,15 +3,14 @@ import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import type { Hero1Fields } from '@/payload-types'
-import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero1({ hero }: Hero1Fields) {
   const { title, subtitle, links, image, badge } = hero
   return (
-    <section className={cn('relative overflow-hidden', 'bg-background', 'py-section')}>
+    <section className="relative overflow-hidden bg-background py-section">
       <div className="container relative z-10">
-        <div className={cn('grid gap-grid-gap', 'lg:grid-cols-2')}>
+        <div className="grid gap-grid-gap lg:grid-cols-2">
           <div className="flex flex-col items-start gap-grid-gap">
             <ClientMotionDiv
               initial={{ opacity: 0, y: 20 }}
@@ -20,7 +19,7 @@ export default function Hero1({ hero }: Hero1Fields) {
             >
               <Badge
                 variant="outline"
-                className={cn('rounded-lg', 'transition-button', 'hover:scale-button-hover')}
+                className="rounded-lg transition-button hover:scale-button-hover"
               >
                 {badge}
                 <ArrowDownRight className="ml-2 size-4" />
@@ -33,20 +32,11 @@ export default function Hero1({ hero }: Hero1Fields) {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-4"
             >
-              <h1
-                className={cn(
-                  'font-heading',
-                  'text-5xl lg:text-7xl',
-                  'tracking-tight',
-                  'font-bold',
-                )}
-              >
+              <h1 className="font-heading text-5xl lg:text-7xl tracking-tight font-bold">
                 {title}
               </h1>
               {subtitle && (
-                <p className={cn('text-muted-foreground', 'text-xl', 'font-sans', 'max-w-[45ch]')}>
-                  {subtitle}
-                </p>
+                <p className="text-muted-foreground text-xl font-sans max-w-[45ch]">{subtitle}</p>
               )}
             </ClientMotionDiv>
 
@@ -58,7 +48,7 @@ export default function Hero1({ hero }: Hero1Fields) {
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
                 {links.map((linkGroup, index) => (
-                  <div key={index} className={cn('flex flex-col gap-2', 'sm:flex-row')}>
+                  <div key={index} className="flex flex-col gap-2 sm:flex-row">
                     {Object.entries(linkGroup)
                       .filter(([key]) => key.startsWith('link-'))
                       .map(
@@ -72,11 +62,7 @@ export default function Hero1({ hero }: Hero1Fields) {
           </div>
 
           <ClientMotionDiv
-            className={cn(
-              'relative',
-              'aspect-square lg:aspect-auto',
-              'min-h-[400px] lg:min-h-full',
-            )}
+            className="relative aspect-square lg:aspect-auto min-h-[400px] lg:min-h-full"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -84,7 +70,7 @@ export default function Hero1({ hero }: Hero1Fields) {
             <Media
               fill
               className="relative h-full w-full"
-              imgClassName={cn('object-cover', 'rounded-md', 'h-full w-full')}
+              imgClassName="object-cover rounded-md h-full w-full"
               priority
               resource={image}
             />
@@ -93,15 +79,7 @@ export default function Hero1({ hero }: Hero1Fields) {
       </div>
 
       <div className="absolute inset-0 -z-10">
-        <div
-          className={cn(
-            'absolute inset-0',
-            'bg-gradient-to-tr',
-            'from-background/80',
-            'via-background/60',
-            'to-background/20',
-          )}
-        />
+        <div className="absolute inset-0 bg-gradient-to-tr from-background/80 via-background/60 to-background/20" />
       </div>
     </section>
   )
