@@ -1,7 +1,6 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero6Fields } from '@/payload-types'
-import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero6({ hero }: Hero6Fields) {
@@ -18,20 +17,10 @@ export default function Hero6({ hero }: Hero6Fields) {
             transition={{ duration: 0.5 }}
           >
             <div className="max-w-screen-md">
-              <h1
-                className={cn(
-                  'font-heading',
-                  'text-4xl lg:text-6xl',
-                  'tracking-tight',
-                  'font-bold',
-                  'mb-4',
-                )}
-              >
+              <h1 className="font-heading text-4xl lg:text-6xl tracking-tight font-bold mb-4">
                 {title}
               </h1>
-              {subtitle && (
-                <p className={cn('text-muted-foreground', 'text-base', 'font-sans')}>{subtitle}</p>
-              )}
+              {subtitle && <p className="text-muted-foreground text-base font-sans">{subtitle}</p>}
             </div>
             {links && links.length > 0 && (
               <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
@@ -73,10 +62,7 @@ export default function Hero6({ hero }: Hero6Fields) {
 
         {partners && partners.length > 0 && (
           <ClientMotionDiv
-            className={cn(
-              'mx-auto mt-12 max-w-7xl',
-              'flex flex-wrap items-center justify-between gap-6',
-            )}
+            className="mx-auto mt-12 max-w-7xl flex flex-wrap items-center justify-between gap-6"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
@@ -86,13 +72,7 @@ export default function Hero6({ hero }: Hero6Fields) {
                 logo && (
                   <div
                     key={i}
-                    className={cn(
-                      'inline-flex h-8 sm:h-10',
-                      'p-card',
-                      'shadow-card',
-                      'rounded-md',
-                      'bg-card',
-                    )}
+                    className="inline-flex h-8 sm:h-10 p-card shadow-card rounded-md bg-card"
                   >
                     <Media
                       resource={logo}
