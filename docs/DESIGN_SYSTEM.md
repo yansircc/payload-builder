@@ -94,13 +94,8 @@ lg:container // Desktop container
 
 // Section Spacing
 py-section // Base section padding (mobile)
-md:py-section // Tablet section padding
-lg:py-section // Desktop section padding
-
-// Grid Gap
-gap-grid-gap // Base grid gap (mobile)
-md:gap-grid-gap // Tablet grid gap
-lg:gap-grid-gap // Desktop grid gap
+md:py-section-md // Tablet section padding
+lg:py-section-lg // Desktop section padding
 ```
 
 ### Breakpoints
@@ -252,12 +247,10 @@ h - input // Input height
 
    ```tsx
    // ✅ Good: Using theme spacing
-   <section className="py-section">
-   <div className="gap-grid-gap">
+   <section className="py-section md:py-section-md lg:py-section-md">
 
    // ❌ Bad: Arbitrary spacing
    <section className="py-24">
-   <div className="gap-6">
    ```
 
 4. **Component Styling**
@@ -284,7 +277,7 @@ h - input // Input height
 
    ```tsx
    // ✅ Good: Mobile-first grid
-   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-grid-gap">
+   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
    // ❌ Bad: Desktop-first grid
    <div className="grid grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4">
@@ -304,7 +297,7 @@ h - input // Input height
 
    ```tsx
    // ✅ Good: Mobile-first section spacing
-   <section className="py-section md:py-section lg:py-section">
+   <section className="py-section md:py-section-md lg:py-section-lg">
 
    // ❌ Bad: Desktop-first spacing
    <section className="py-24 sm:py-16 xs:py-8">

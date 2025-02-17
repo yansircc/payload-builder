@@ -101,11 +101,6 @@ export default {
           md: 'var(--layout-sectionSpacingTablet)',
           lg: 'var(--layout-sectionSpacingDesktop)',
         },
-        'grid-gap': {
-          DEFAULT: 'var(--layout-gridGap)',
-          md: 'var(--layout-gridGapTablet)',
-          lg: 'var(--layout-gridGapDesktop)',
-        },
       },
       transitionProperty: {
         button: 'var(--components-button-transition)',

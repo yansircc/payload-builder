@@ -95,12 +95,6 @@ export interface BaseTheme {
     sectionSpacingTablet: string
     /** Section spacing on desktop */
     sectionSpacingDesktop: string
-    /** Gap between grid items - mobile first */
-    gridGap: string
-    /** Grid gap on tablet */
-    gridGapTablet: string
-    /** Grid gap on desktop */
-    gridGapDesktop: string
   }
   /** Component-specific styles */
   components: {
@@ -217,9 +211,6 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       sectionSpacing: '3rem',
       sectionSpacingTablet: '4.5rem',
       sectionSpacingDesktop: '6rem',
-      gridGap: '1rem',
-      gridGapTablet: '1.5rem',
-      gridGapDesktop: '2rem',
     },
     components: {
       button: {
@@ -319,9 +310,6 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       sectionSpacing: '4rem',
       sectionSpacingTablet: '6rem',
       sectionSpacingDesktop: '8rem',
-      gridGap: '1rem',
-      gridGapTablet: '1.5rem',
-      gridGapDesktop: '2rem',
     },
     components: {
       button: {
@@ -421,9 +409,6 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       sectionSpacing: '4rem',
       sectionSpacingTablet: '6rem',
       sectionSpacingDesktop: '8rem',
-      gridGap: '1rem',
-      gridGapTablet: '1.5rem',
-      gridGapDesktop: '2rem',
     },
     components: {
       button: {
