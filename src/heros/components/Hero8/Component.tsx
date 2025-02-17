@@ -7,7 +7,7 @@ export default function Hero8({ hero }: Hero8Fields) {
   const { title, subtitle, links, image } = hero
 
   return (
-    <section className="relative overflow-hidden bg-background py-section-sm md:py-section-md lg:py-section">
+    <section className="relative overflow-hidden bg-background py-section md:py-section-md lg:py-section-lg">
       <div className="container relative z-10">
         {/* Content Area */}
         <div className="mx-auto flex max-w-5xl flex-col items-center">
@@ -31,7 +31,7 @@ export default function Hero8({ hero }: Hero8Fields) {
 
             {/* Button Group */}
             {links && links.length > 0 && (
-              <div className="mt-12 flex w-full flex-col justify-center gap-grid-gap sm:flex-row sm:gap-grid-gap-sm">
+              <div className="mt-12 flex w-full flex-col justify-center gap-2 sm:flex-row">
                 {links.map(({ link }, i) => (
                   <CMSLink
                     key={i}
