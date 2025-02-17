@@ -10,7 +10,7 @@ export default function Hero5({ hero }: Hero5Fields) {
   return (
     <section className="overflow-hidden py-section md:py-section-md lg:py-section-lg">
       <div className="container">
-        <div className="flex flex-col items-center justify-between gap-grid-gap md:gap-grid-gap-md lg:flex-row lg:gap-grid-gap-lg">
+        <div className="flex flex-col items-center justify-between gap-20 lg:flex-row">
           <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
             <ClientMotionDiv
               initial={{ opacity: 0, y: 30 }}
