@@ -9,8 +9,8 @@ export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
   const { title, subtitle, media, avatars, links, review } = hero
 
   return (
-    <section className="py-section-sm md:py-section-md lg:py-section">
-      <div className="container grid items-center gap-grid-gap lg:grid-cols-2">
+    <section className="py-section md:py-section-md lg:py-section-lg">
+      <div className="container grid items-center gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg lg:grid-cols-2">
         <ClientMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -21,7 +21,7 @@ export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
             {title}
           </h1>
           <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl font-sans">{subtitle}</p>
-          <div className="mb-12 flex w-fit flex-col items-center gap-grid-gap-sm sm:flex-row">
+          <div className="mb-12 flex w-fit flex-col items-center gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg sm:flex-row">
             <span className="inline-flex items-center -space-x-4">
               {avatars?.map((avatar, i) => (
                 <Avatar key={i} className="size-12 border-border border">
@@ -43,9 +43,12 @@ export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
               <p className="text-left font-medium text-muted-foreground">{review.count} reviews</p>
             </div>
           </div>
-          <div className="flex w-full flex-col justify-center gap-grid-gap-sm sm:flex-row lg:justify-start">
+          <div className="flex w-full flex-col justify-center gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg sm:flex-row lg:justify-start">
             {links?.map((linkGroup, index) => (
-              <div key={index} className="flex w-full flex-col gap-grid-gap-sm sm:flex-row">
+              <div
+                key={index}
+                className="flex w-full flex-col gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg sm:flex-row"
+              >
                 {Object.entries(linkGroup)
                   .filter(([key]) => key.startsWith('link-'))
                   .map(
