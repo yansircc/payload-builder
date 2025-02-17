@@ -1,4 +1,3 @@
-import { ExternalLink } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
@@ -12,7 +11,7 @@ export default function Hero12({ hero }: Hero12Fields) {
   const { logo, badge, partners, title, subtitle, links } = hero
 
   return (
-    <section className="relative overflow-hidden py-32">
+    <section className="relative overflow-hidden py-section md:py-section-md lg:py-section-lg">
       <ThemeEffect theme="dark" />
       <div className="container">
         <div className="magicpattern absolute inset-x-0 top-0 -z-10 flex h-full w-full items-center justify-center opacity-100" />
@@ -39,8 +38,10 @@ export default function Hero12({ hero }: Hero12Fields) {
 
             {/* Title & Description */}
             <div>
-              <h1 className="mb-6 text-pretty text-2xl font-bold lg:text-5xl">{title}</h1>
-              {subtitle && <p className="text-muted-foreground lg:text-xl">{subtitle}</p>}
+              <h1 className="mb-6 font-heading text-4xl tracking-tight font-bold text-foreground lg:text-6xl">
+                {title}
+              </h1>
+              {subtitle && <p className="text-muted-foreground text-base lg:text-xl">{subtitle}</p>}
             </div>
 
             {/* Buttons */}
@@ -68,7 +69,7 @@ export default function Hero12({ hero }: Hero12Fields) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
-                <p className="text-center text-muted-foreground lg:text-left">
+                <p className="text-center text-muted-foreground text-base lg:text-left">
                   Built with open-source technologies
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-4">
