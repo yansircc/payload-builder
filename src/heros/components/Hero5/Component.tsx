@@ -1,6 +1,7 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero5Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 import { ThemeEffect } from '../shared/ThemeEffect'
 
@@ -9,10 +10,10 @@ export default function Hero5({ hero }: Hero5Fields) {
   const link = links?.[0]?.link
 
   return (
-    <section className="overflow-hidden py-32">
+    <section className="overflow-hidden py-section">
       <ThemeEffect />
       <div className="container">
-        <div className="flex flex-col items-center justify-between gap-20 lg:flex-row">
+        <div className="flex flex-col items-center justify-between gap-grid-gap lg:flex-row lg:gap-grid-gap-md">
           <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
             <ClientMotionDiv
               initial={{ opacity: 0, y: 30 }}
@@ -20,7 +21,17 @@ export default function Hero5({ hero }: Hero5Fields) {
               transition={{ duration: 0.6 }}
               className="w-full"
             >
-              <h1 className="text-pretty text-4xl font-bold lg:max-w-md lg:text-7xl">{title}</h1>
+              <h1
+                className={cn(
+                  'font-heading',
+                  'text-4xl lg:text-6xl',
+                  'tracking-tight',
+                  'font-bold',
+                  'text-foreground',
+                )}
+              >
+                {title}
+              </h1>
             </ClientMotionDiv>
 
             {subtitle && (
@@ -29,7 +40,17 @@ export default function Hero5({ hero }: Hero5Fields) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <p className="max-w-xl text-xl font-medium lg:text-2xl">{subtitle}</p>
+                <p
+                  className={cn(
+                    'text-muted-foreground',
+                    'text-xl lg:text-2xl',
+                    'font-sans',
+                    'font-medium',
+                    'max-w-xl',
+                  )}
+                >
+                  {subtitle}
+                </p>
               </ClientMotionDiv>
             )}
 
@@ -40,7 +61,16 @@ export default function Hero5({ hero }: Hero5Fields) {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex w-full justify-center lg:justify-start"
               >
-                <CMSLink {...link} size="lg" className="w-full sm:w-auto" />
+                <CMSLink
+                  {...link}
+                  size="lg"
+                  className={cn(
+                    'w-full sm:w-auto',
+                    'transition-button',
+                    'hover:scale-button-hover',
+                    'hover:opacity-button-hover',
+                  )}
+                />
               </ClientMotionDiv>
             )}
           </div>
@@ -54,7 +84,7 @@ export default function Hero5({ hero }: Hero5Fields) {
             <Media
               resource={image}
               className="aspect-video w-full"
-              imgClassName="rounded-md object-cover"
+              imgClassName={cn('rounded-md', 'object-cover')}
               priority
             />
           </ClientMotionDiv>
