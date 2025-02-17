@@ -55,9 +55,18 @@ export interface BaseTheme {
     /** Base line height */
     lineHeight: string
     /** Font weight variations */
-    fontWeights: { normal: string; medium: string; semibold: string; bold: string }
+    fontWeights: {
+      normal: string
+      medium: string
+      semibold: string
+      bold: string
+    }
     /** Letter spacing variations */
-    letterSpacing: { tight: string; normal: string; wide: string }
+    letterSpacing: {
+      tight: string
+      normal: string
+      wide: string
+    }
   }
   /** Border radius settings */
   radius: {
@@ -76,19 +85,47 @@ export interface BaseTheme {
     containerWidth: string
     /** Container padding */
     containerPadding: string
+    /** Container padding on mobile */
+    containerPaddingMobile: string
+    /** Container padding on tablet */
+    containerPaddingTablet: string
     /** Vertical spacing between sections */
     sectionSpacing: string
+    /** Section spacing on mobile */
+    sectionSpacingMobile: string
+    /** Section spacing on tablet */
+    sectionSpacingTablet: string
     /** Gap between grid items */
     gridGap: string
+    /** Grid gap on mobile */
+    gridGapMobile: string
+    /** Grid gap on tablet */
+    gridGapTablet: string
   }
   /** Component-specific styles */
   components: {
     /** Button styling */
-    button: { padding: string; transition: string; hover: { scale: string; opacity: string } }
+    button: {
+      padding: string
+      transition: string
+      hover: {
+        scale: string
+        opacity: string
+      }
+    }
     /** Card styling */
-    card: { padding: string; shadow: string; hover: { transform: string } }
+    card: {
+      padding: string
+      shadow: string
+      hover: {
+        transform: string
+      }
+    }
     /** Input field styling */
-    input: { height: string; padding: string }
+    input: {
+      height: string
+      padding: string
+    }
   }
 }
 
@@ -149,33 +186,61 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       input: 'hsl(217 33% 17%)',
       ring: 'hsl(224 76% 48%)',
     },
-    radius: { small: '0.375rem', default: '0.5rem', medium: '0.75rem', large: '1rem' },
+    radius: {
+      small: '0.375rem',
+      default: '0.5rem',
+      medium: '0.75rem',
+      large: '1rem',
+    },
     typography: {
       fontFamily: 'var(--font-geist-sans)',
       headingFamily: 'var(--font-outfit)',
       baseFontSize: '16px',
       lineHeight: '1.6',
-      fontWeights: { normal: '400', medium: '500', semibold: '600', bold: '700' },
-      letterSpacing: { tight: '-0.02em', normal: '0', wide: '0.02em' },
+      fontWeights: {
+        normal: '400',
+        medium: '500',
+        semibold: '600',
+        bold: '700',
+      },
+      letterSpacing: {
+        tight: '-0.02em',
+        normal: '0',
+        wide: '0.02em',
+      },
     },
     layout: {
       containerWidth: '1280px',
       containerPadding: '2rem',
+      containerPaddingMobile: '1rem',
+      containerPaddingTablet: '1.5rem',
       sectionSpacing: '6rem',
+      sectionSpacingMobile: '3rem',
+      sectionSpacingTablet: '4.5rem',
       gridGap: '2rem',
+      gridGapMobile: '1rem',
+      gridGapTablet: '1.5rem',
     },
     components: {
       button: {
         padding: '0.75rem 1.5rem',
         transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-        hover: { scale: '1.02', opacity: '0.95' },
+        hover: {
+          scale: '1.02',
+          opacity: '0.95',
+        },
       },
       card: {
         padding: '2rem',
         shadow: '0 8px 16px -2px rgb(0 0 0 / 0.1), 0 4px 8px -2px rgb(0 0 0 / 0.1)',
-        hover: { transform: 'translateY(-2px)' },
+        hover: {
+          transform: 'translateY(-2px)',
+        },
       },
-      input: { height: '2.5rem', padding: '0.5rem 1rem' },
+      input: {
+        height: '2.5rem',
+        padding: '0.5rem 1rem',
+      },
     },
   },
   brutal: {
@@ -223,33 +288,61 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       input: 'hsl(0 0% 100%)',
       ring: 'hsl(0 0% 100%)',
     },
-    radius: { small: '0', default: '0', medium: '0', large: '0' },
+    radius: {
+      small: '0',
+      default: '0',
+      medium: '0',
+      large: '0',
+    },
     typography: {
       fontFamily: 'var(--font-geist-mono)',
       headingFamily: 'var(--font-geist-mono)',
       baseFontSize: '16px',
       lineHeight: '1.5',
-      fontWeights: { normal: '400', medium: '600', semibold: '700', bold: '800' },
-      letterSpacing: { tight: '0', normal: '0.05em', wide: '0.1em' },
+      fontWeights: {
+        normal: '400',
+        medium: '600',
+        semibold: '700',
+        bold: '800',
+      },
+      letterSpacing: {
+        tight: '0',
+        normal: '0.05em',
+        wide: '0.1em',
+      },
     },
     layout: {
       containerWidth: '1440px',
       containerPadding: '2rem',
+      containerPaddingMobile: '1rem',
+      containerPaddingTablet: '1.5rem',
       sectionSpacing: '8rem',
+      sectionSpacingMobile: '4rem',
+      sectionSpacingTablet: '6rem',
       gridGap: '2rem',
+      gridGapMobile: '1rem',
+      gridGapTablet: '1.5rem',
     },
     components: {
       button: {
         padding: '1rem 2rem',
         transition: 'all 0.1s ease-in-out',
-        hover: { scale: '0.98', opacity: '1' },
+        hover: {
+          scale: '0.98',
+          opacity: '1',
+        },
       },
       card: {
         padding: '2rem',
         shadow: '4px 4px 0 0 currentColor',
-        hover: { transform: 'translate(-2px, -2px)' },
+        hover: {
+          transform: 'translate(-2px, -2px)',
+        },
       },
-      input: { height: '3rem', padding: '0.75rem 1rem' },
+      input: {
+        height: '3rem',
+        padding: '0.75rem 1rem',
+      },
     },
   },
   neon: {
@@ -297,33 +390,61 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       input: 'hsl(230 25% 15%)',
       ring: 'hsl(263 90% 51%)',
     },
-    radius: { small: '0.25rem', default: '0.5rem', medium: '1rem', large: '1.5rem' },
+    radius: {
+      small: '0.25rem',
+      default: '0.5rem',
+      medium: '1rem',
+      large: '1.5rem',
+    },
     typography: {
       fontFamily: 'var(--font-geist-sans)',
       headingFamily: 'var(--font-geist-mono)',
       baseFontSize: '16px',
       lineHeight: '1.7',
-      fontWeights: { normal: '400', medium: '500', semibold: '700', bold: '900' },
-      letterSpacing: { tight: '0', normal: '0.05em', wide: '0.15em' },
+      fontWeights: {
+        normal: '400',
+        medium: '500',
+        semibold: '700',
+        bold: '900',
+      },
+      letterSpacing: {
+        tight: '0',
+        normal: '0.05em',
+        wide: '0.15em',
+      },
     },
     layout: {
       containerWidth: '1440px',
       containerPadding: '2rem',
+      containerPaddingMobile: '1rem',
+      containerPaddingTablet: '1.5rem',
       sectionSpacing: '8rem',
+      sectionSpacingMobile: '4rem',
+      sectionSpacingTablet: '6rem',
       gridGap: '2rem',
+      gridGapMobile: '1rem',
+      gridGapTablet: '1.5rem',
     },
     components: {
       button: {
         padding: '0.875rem 2rem',
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        hover: { scale: '1.05', opacity: '0.9' },
+        hover: {
+          scale: '1.05',
+          opacity: '0.9',
+        },
       },
       card: {
         padding: '2rem',
         shadow: '0 0 20px rgba(147, 51, 234, 0.3)',
-        hover: { transform: 'translateY(-4px)' },
+        hover: {
+          transform: 'translateY(-4px)',
+        },
       },
-      input: { height: '3rem', padding: '0.75rem 1.25rem' },
+      input: {
+        height: '3rem',
+        padding: '0.75rem 1.25rem',
+      },
     },
   },
 } as const

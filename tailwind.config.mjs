@@ -12,6 +12,7 @@ export default {
     './src/components/**/*.{ts,tsx}',
     './src/collections/**/*.{ts,tsx}',
     './src/providers/**/*.{ts,tsx}',
+    './src/heros/**/*.{ts,tsx}',
   ],
   safelist: [
     // Grid columns
@@ -33,6 +34,20 @@ export default {
     'bg-warning/30',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: 'var(--layout-containerPadding)',
+        sm: 'var(--layout-containerPaddingMobile)',
+        md: 'var(--layout-containerPaddingTablet)',
+      },
+      screens: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: 'var(--layout-containerWidth)',
+      },
+    },
     extend: {
       colors: {
         background: 'var(--background)',
@@ -62,8 +77,8 @@ export default {
         lg: 'var(--radius-large)',
       },
       fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans],
-        heading: ['var(--font-heading)', ...fontFamily.sans],
+        sans: ['var(--typography-fontFamily)', ...fontFamily.sans],
+        heading: ['var(--typography-headingFamily)', ...fontFamily.sans],
         mono: ['var(--font-geist-mono)', ...fontFamily.mono],
       },
       fontSize: {
@@ -81,10 +96,36 @@ export default {
         bold: 'var(--typography-fontWeights-bold)',
       },
       spacing: {
-        container: 'var(--layout-containerWidth)',
-        section: 'var(--layout-sectionSpacing)',
-        'container-padding': 'var(--layout-containerPadding)',
-        'grid-gap': 'var(--layout-gridGap)',
+        section: {
+          DEFAULT: 'var(--layout-sectionSpacing)',
+          sm: 'var(--layout-sectionSpacingMobile)',
+          md: 'var(--layout-sectionSpacingTablet)',
+        },
+        'grid-gap': {
+          DEFAULT: 'var(--layout-gridGap)',
+          sm: 'var(--layout-gridGapMobile)',
+          md: 'var(--layout-gridGapTablet)',
+        },
+      },
+      transitionProperty: {
+        button: 'var(--components-button-transition)',
+      },
+      scale: {
+        'button-hover': 'var(--components-button-hover-scale)',
+      },
+      opacity: {
+        'button-hover': 'var(--components-button-hover-opacity)',
+      },
+      boxShadow: {
+        card: 'var(--components-card-shadow)',
+      },
+      padding: {
+        card: 'var(--components-card-padding)',
+        button: 'var(--components-button-padding)',
+        input: 'var(--components-input-padding)',
+      },
+      height: {
+        input: 'var(--components-input-height)',
       },
       typography: ({ theme }) => ({
         DEFAULT: {
@@ -106,19 +147,44 @@ export default {
             '--tw-prose-th-borders': theme('colors.border'),
             '--tw-prose-td-borders': theme('colors.border'),
             h1: {
-              fontWeight: 'normal',
+              fontWeight: 'var(--typography-fontWeights-bold)',
               marginBottom: '0.25em',
               fontFamily: theme('fontFamily.heading'),
+              letterSpacing: 'var(--typography-letterSpacing-tight)',
             },
-            h2: { fontFamily: theme('fontFamily.heading') },
-            h3: { fontFamily: theme('fontFamily.heading') },
-            h4: { fontFamily: theme('fontFamily.heading') },
+            h2: {
+              fontFamily: theme('fontFamily.heading'),
+              fontWeight: 'var(--typography-fontWeights-semibold)',
+              letterSpacing: 'var(--typography-letterSpacing-tight)',
+            },
+            h3: {
+              fontFamily: theme('fontFamily.heading'),
+              fontWeight: 'var(--typography-fontWeights-semibold)',
+              letterSpacing: 'var(--typography-letterSpacing-tight)',
+            },
+            h4: {
+              fontFamily: theme('fontFamily.heading'),
+              fontWeight: 'var(--typography-fontWeights-medium)',
+              letterSpacing: 'var(--typography-letterSpacing-normal)',
+            },
           },
         },
         base: {
-          css: [{ h1: { fontSize: '2.5rem' }, h2: { fontSize: '1.25rem', fontWeight: 600 } }],
+          css: [
+            {
+              h1: { fontSize: '2.5rem' },
+              h2: { fontSize: '1.25rem' },
+            },
+          ],
         },
-        md: { css: [{ h1: { fontSize: '3.5rem' }, h2: { fontSize: '1.5rem' } }] },
+        md: {
+          css: [
+            {
+              h1: { fontSize: '3.5rem' },
+              h2: { fontSize: '1.5rem' },
+            },
+          ],
+        },
         invert: {
           css: {
             '--tw-prose-body': 'var(--foreground)',
