@@ -8,7 +8,7 @@ export default function Hero5({ hero }: Hero5Fields) {
   const link = links?.[0]?.link
 
   return (
-    <section className="overflow-hidden py-section">
+    <section className="overflow-hidden py-section-sm md:py-section-md lg:py-section">
       <div className="container">
         <div className="flex flex-col items-center justify-between gap-grid-gap lg:flex-row lg:gap-grid-gap-md">
           <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">

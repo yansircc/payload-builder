@@ -7,7 +7,7 @@ export default function Hero6({ hero }: Hero6Fields) {
   const { title, subtitle, links, image, secondaryImage, partners } = hero
 
   return (
-    <section className="py-section">
+    <section className="py-section-sm md:py-section-md lg:py-section">
       <div className="container">
         <div className="mx-auto flex max-w-5xl flex-col items-center">
           <ClientMotionDiv

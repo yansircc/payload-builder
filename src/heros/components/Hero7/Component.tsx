@@ -11,7 +11,7 @@ export default function Hero7({ hero }: Hero7Fields) {
   const reviewCount = typeof count === 'number' ? count : 0
 
   return (
-    <section className="py-section">
+    <section className="py-section-sm md:py-section-md lg:py-section">
       <div className="container text-center">
         <ClientMotionDiv
           className="mx-auto flex max-w-screen-lg flex-col gap-grid-gap"

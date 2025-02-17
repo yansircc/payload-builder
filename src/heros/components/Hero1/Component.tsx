@@ -8,7 +8,7 @@ import { ClientMotionDiv } from '../shared/motion'
 export default function Hero1({ hero }: Hero1Fields) {
   const { title, subtitle, links, image, badge } = hero
   return (
-    <section className="relative overflow-hidden bg-background py-section">
+    <section className="relative overflow-hidden bg-background py-section-sm md:py-section-md lg:py-section">
       <div className="container relative z-10">
         <div className="grid gap-grid-gap lg:grid-cols-2">
           <div className="flex flex-col items-start gap-grid-gap">

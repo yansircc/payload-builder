@@ -9,7 +9,7 @@ export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
   const { title, subtitle, media, avatars, links, review } = hero
 
   return (
-    <section className="py-section">
+    <section className="py-section-sm md:py-section-md lg:py-section">
       <div className="container grid items-center gap-grid-gap lg:grid-cols-2">
         <ClientMotionDiv
           initial={{ opacity: 0, y: 20 }}
