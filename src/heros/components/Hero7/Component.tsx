@@ -11,10 +11,10 @@ export default function Hero7({ hero }: Hero7Fields) {
   const reviewCount = typeof count === 'number' ? count : 0
 
   return (
-    <section className="py-section-sm md:py-section-md lg:py-section">
+    <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container text-center">
         <ClientMotionDiv
-          className="mx-auto flex max-w-screen-lg flex-col gap-grid-gap"
+          className="mx-auto flex max-w-screen-lg flex-col gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -27,7 +27,7 @@ export default function Hero7({ hero }: Hero7Fields) {
 
         {link && (
           <ClientMotionDiv
-            className="mt-10 flex flex-wrap justify-center gap-grid-gap"
+            className="mt-10 flex flex-wrap justify-center gap-grid-gap md:gap-grid-gap-md lg:gap-grid-gap-lg"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
