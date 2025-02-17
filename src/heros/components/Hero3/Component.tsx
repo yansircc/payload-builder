@@ -1,28 +1,36 @@
-import { ArrowDownRight, Star } from 'lucide-react'
+import { Star } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { Avatar } from '@/components/ui/avatar'
 import type { Hero3Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
   const { title, subtitle, media, avatars, links, review } = hero
 
   return (
-    <section className="py-32">
-      <div className="container grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
+    <section className="py-section">
+      <div className="container grid items-center gap-grid-gap lg:grid-cols-2">
         <ClientMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="mx-auto flex flex-col items-center text-center md:ml-auto lg:max-w-3xl lg:items-start lg:text-left"
         >
-          <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl xl:text-7xl">{title}</h1>
-          <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl">{subtitle}</p>
-          <div className="mb-12 flex w-fit flex-col items-center gap-4 sm:flex-row">
+          <h1
+            className={cn(
+              'font-heading tracking-tight text-foreground',
+              'my-6 text-pretty text-4xl font-bold lg:text-6xl xl:text-7xl',
+            )}
+          >
+            {title}
+          </h1>
+          <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl font-sans">{subtitle}</p>
+          <div className="mb-12 flex w-fit flex-col items-center gap-grid-gap-sm sm:flex-row">
             <span className="inline-flex items-center -space-x-4">
               {avatars?.map((avatar, i) => (
-                <Avatar key={i} className="size-12 border">
+                <Avatar key={i} className="size-12 border-border border">
                   <Media
                     resource={avatar.image}
                     className="h-full w-full object-cover"
@@ -36,14 +44,14 @@ export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="size-5 fill-yellow-400 text-yellow-400" />
                 ))}
-                <span className="font-semibold">{review.rate}</span>
+                <span className="font-semibold text-foreground">{review.rate}</span>
               </div>
               <p className="text-left font-medium text-muted-foreground">{review.count} reviews</p>
             </div>
           </div>
-          <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
+          <div className="flex w-full flex-col justify-center gap-grid-gap-sm sm:flex-row lg:justify-start">
             {links?.map((linkGroup, index) => (
-              <div key={index} className="flex w-full flex-col gap-2 sm:flex-row">
+              <div key={index} className="flex w-full flex-col gap-grid-gap-sm sm:flex-row">
                 {Object.entries(linkGroup)
                   .filter(([key]) => key.startsWith('link-'))
                   .map(
@@ -52,7 +60,7 @@ export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
                       typeof link === 'object' && (
                         <CMSLink
                           key={key}
-                          className="inline-flex w-full items-center sm:w-auto"
+                          className="inline-flex w-full items-center transition-button hover:scale-button-hover sm:w-auto"
                           {...link}
                         />
                       ),
@@ -70,7 +78,7 @@ export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
         >
           <Media
             resource={media.image}
-            className="max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]"
+            className="max-h-[600px] w-full rounded-md object-cover shadow-card lg:max-h-[800px]"
           />
         </ClientMotionDiv>
       </div>
