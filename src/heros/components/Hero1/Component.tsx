@@ -5,13 +5,11 @@ import { Badge } from '@/components/ui/badge'
 import type { Hero1Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
-import { ThemeEffect } from '../shared/ThemeEffect'
 
 export default function Hero1({ hero }: Hero1Fields) {
   const { title, subtitle, links, image, badge } = hero
   return (
     <section className={cn('relative overflow-hidden', 'bg-background', 'py-section')}>
-      <ThemeEffect />
       <div className="container relative z-10">
         <div className={cn('grid gap-grid-gap', 'lg:grid-cols-2')}>
           <div className="flex flex-col items-start gap-grid-gap">
