@@ -68,7 +68,6 @@ export const Pages: CollectionConfig<'pages'> = {
         collection: 'pages',
         req,
       }),
-    useAsTitle: 'title',
   },
   fields: [
     {
@@ -79,11 +78,17 @@ export const Pages: CollectionConfig<'pages'> = {
     createParentField('pages', {
       admin: {
         position: 'sidebar',
+        disableListColumn: true,
+        disableListFilter: true,
       },
       filterOptions: ({ id }) => ({ id: { not_equals: id } }),
     }),
     createBreadcrumbsField('pages', {
       label: 'Page Breadcrumbs',
+      admin: {
+        disableListColumn: true,
+        disableListFilter: true,
+      },
     }),
     {
       type: 'tabs',
@@ -91,6 +96,10 @@ export const Pages: CollectionConfig<'pages'> = {
         {
           fields: [HeroField],
           label: 'Hero',
+          admin: {
+            disableListColumn: true,
+            disableListFilter: true,
+          },
         },
         {
           fields: [
@@ -121,6 +130,8 @@ export const Pages: CollectionConfig<'pages'> = {
               required: true,
               admin: {
                 initCollapsed: true,
+                disableListColumn: true,
+                disableListFilter: true,
               },
             },
           ],
@@ -148,6 +159,10 @@ export const Pages: CollectionConfig<'pages'> = {
               descriptionPath: 'meta.description',
             }),
           ],
+          admin: {
+            disableListColumn: true,
+            disableListFilter: true,
+          },
         },
       ],
     },
