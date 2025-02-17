@@ -171,6 +171,12 @@ export const Posts: CollectionConfig<'posts'> = {
             }),
 
             MetaDescriptionField({}),
+            {
+              name: 'noindex',
+              label: 'If checked, the page will not be indexed by search engines',
+              type: 'checkbox',
+              defaultValue: false,
+            },
             PreviewField({
               // if the `generateUrl` function is configured
               hasGenerateFn: true,

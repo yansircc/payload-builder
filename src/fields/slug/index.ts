@@ -29,6 +29,7 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
     admin: {
       hidden: true,
       position: 'sidebar',
+      disableListColumn: true,
     },
     ...checkboxOverrides,
   }
@@ -67,6 +68,11 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
     index: true,
     admin: {
       hidden: true, // Hide from admin UI since it's auto-generated
+      components: {
+        Cell: {
+          path: '@/fields/slug/fullPath/cell#FullPathCell',
+        },
+      },
     },
     hooks: {
       beforeChange: [

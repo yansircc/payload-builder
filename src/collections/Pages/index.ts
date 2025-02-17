@@ -68,22 +68,34 @@ export const Pages: CollectionConfig<'pages'> = {
         collection: 'pages',
         req,
       }),
-    useAsTitle: 'title',
   },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
+      admin: {
+        components: {
+          Cell: {
+            path: '@/collections/Pages/components/cells/TitleCell#TitleCell',
+          },
+        },
+      },
     },
     createParentField('pages', {
       admin: {
         position: 'sidebar',
+        disableListColumn: true,
+        disableListFilter: true,
       },
       filterOptions: ({ id }) => ({ id: { not_equals: id } }),
     }),
     createBreadcrumbsField('pages', {
       label: 'Page Breadcrumbs',
+      admin: {
+        disableListColumn: true,
+        disableListFilter: true,
+      },
     }),
     {
       type: 'tabs',
@@ -91,6 +103,10 @@ export const Pages: CollectionConfig<'pages'> = {
         {
           fields: [HeroField],
           label: 'Hero',
+          admin: {
+            disableListColumn: true,
+            disableListFilter: true,
+          },
         },
         {
           fields: [
@@ -121,6 +137,8 @@ export const Pages: CollectionConfig<'pages'> = {
               required: true,
               admin: {
                 initCollapsed: true,
+                disableListColumn: true,
+                disableListFilter: true,
               },
             },
           ],
@@ -142,12 +160,22 @@ export const Pages: CollectionConfig<'pages'> = {
               relationTo: 'media',
             }),
             MetaDescriptionField({}),
+            {
+              name: 'noindex',
+              label: 'If checked, the page will not be indexed by search engines',
+              type: 'checkbox',
+              defaultValue: false,
+            },
             PreviewField({
               hasGenerateFn: true,
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
             }),
           ],
+          admin: {
+            disableListColumn: true,
+            disableListFilter: true,
+          },
         },
       ],
     },

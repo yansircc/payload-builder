@@ -120,7 +120,20 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
       })
     : null
 
-  return generateMeta({ doc: post })
+  const meta = generateMeta({ doc: post })
+
+  // Add robots meta tag if noindex is true
+  if (post?.meta?.noindex) {
+    return {
+      ...meta,
+      robots: {
+        index: false,
+        follow: true,
+      },
+    }
+  }
+
+  return meta
 }
 
 const queryPostBySlugAndTenant = cache(

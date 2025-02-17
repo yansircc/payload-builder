@@ -126,7 +126,19 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
       })
     : null
 
-  return generateMeta({ doc: page })
+  const meta = generateMeta({ doc: page })
+
+  // Add robots meta tag if noindex is true
+  if (page?.meta?.noindex) {
+    return {
+      ...meta,
+      robots: {
+        index: false,
+        follow: true,
+      },
+    }
+  }
+  return meta
 }
 
 const queryPageByFullPathAndTenant = cache(
