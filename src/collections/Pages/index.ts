@@ -74,6 +74,13 @@ export const Pages: CollectionConfig<'pages'> = {
       name: 'title',
       type: 'text',
       required: true,
+      admin: {
+        components: {
+          Cell: {
+            path: '@/collections/Pages/components/cells/TitleCell#TitleCell',
+          },
+        },
+      },
     },
     createParentField('pages', {
       admin: {
