@@ -72,21 +72,48 @@ leading - normal // Base line height
 
 ### Layout & Spacing
 
-Layout utilities for consistent spacing and structure:
+Layout utilities follow a mobile-first approach with responsive breakpoints:
 
 ```typescript
 // Container
-.container // Centered container with responsive padding
+.container // Base container (mobile)
+md:container // Tablet container
+lg:container // Desktop container
+
+// Container Padding
+// Mobile (default)
+.container { padding: var(--layout-containerPadding) }
+// Tablet (md)
+@screen md {
+  .container { padding: var(--layout-containerPaddingTablet) }
+}
+// Desktop (lg)
+@screen lg {
+  .container { padding: var(--layout-containerPaddingDesktop) }
+}
 
 // Section Spacing
-py-section // Default section padding
-py-section-sm // Mobile section padding
-py-section-md // Tablet section padding
+py-section // Base section padding (mobile)
+md:py-section // Tablet section padding
+lg:py-section // Desktop section padding
 
 // Grid Gap
-gap-grid-gap // Default grid gap
-gap-grid-gap-sm // Mobile grid gap
-gap-grid-gap-md // Tablet grid gap
+gap-grid-gap // Base grid gap (mobile)
+md:gap-grid-gap // Tablet grid gap
+lg:gap-grid-gap // Desktop grid gap
+```
+
+### Breakpoints
+
+The design system follows Tailwind's mobile-first approach with these breakpoints:
+
+```typescript
+screens: {
+  'sm': '640px',   // Small devices
+  'md': '768px',   // Tablets
+  'lg': '1024px',  // Desktop
+  'xl': 'var(--layout-containerWidth)' // Max container width
+}
 ```
 
 ### Border Radius
@@ -243,14 +270,44 @@ h - input // Input height
    <button className="transition-all duration-200 hover:scale-105">
    ```
 
-5. **Container Usage**
+5. **Mobile-First Development**
 
    ```tsx
-   // ✅ Good: Proper container with responsive padding
-   <div className="container">
+   // ✅ Good: Mobile-first approach
+   <div className="p-4 md:p-6 lg:p-8">
 
-   // ❌ Bad: Custom max-width and padding
-   <div className="max-w-7xl px-4 mx-auto">
+   // ❌ Bad: Desktop-first approach
+   <div className="p-8 sm:p-6 xs:p-4">
+   ```
+
+6. **Responsive Layout**
+
+   ```tsx
+   // ✅ Good: Mobile-first grid
+   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-grid-gap">
+
+   // ❌ Bad: Desktop-first grid
+   <div className="grid grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4">
+   ```
+
+7. **Container Usage**
+
+   ```tsx
+   // ✅ Good: Mobile-first container with responsive padding
+   <div className="container mx-auto">
+
+   // ❌ Bad: Fixed padding without responsive adjustments
+   <div className="max-w-7xl mx-auto px-8">
+   ```
+
+8. **Section Spacing**
+
+   ```tsx
+   // ✅ Good: Mobile-first section spacing
+   <section className="py-section md:py-section lg:py-section">
+
+   // ❌ Bad: Desktop-first spacing
+   <section className="py-24 sm:py-16 xs:py-8">
    ```
 
 ## Theme Customization

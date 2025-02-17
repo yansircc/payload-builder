@@ -83,24 +83,24 @@ export interface BaseTheme {
   layout: {
     /** Maximum container width */
     containerWidth: string
-    /** Container padding */
+    /** Container padding - mobile first */
     containerPadding: string
-    /** Container padding on mobile */
-    containerPaddingMobile: string
     /** Container padding on tablet */
     containerPaddingTablet: string
-    /** Vertical spacing between sections */
+    /** Container padding on desktop */
+    containerPaddingDesktop: string
+    /** Vertical spacing between sections - mobile first */
     sectionSpacing: string
-    /** Section spacing on mobile */
-    sectionSpacingMobile: string
     /** Section spacing on tablet */
     sectionSpacingTablet: string
-    /** Gap between grid items */
+    /** Section spacing on desktop */
+    sectionSpacingDesktop: string
+    /** Gap between grid items - mobile first */
     gridGap: string
-    /** Grid gap on mobile */
-    gridGapMobile: string
     /** Grid gap on tablet */
     gridGapTablet: string
+    /** Grid gap on desktop */
+    gridGapDesktop: string
   }
   /** Component-specific styles */
   components: {
@@ -211,15 +211,15 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
     },
     layout: {
       containerWidth: '1280px',
-      containerPadding: '2rem',
-      containerPaddingMobile: '1rem',
+      containerPadding: '1rem',
       containerPaddingTablet: '1.5rem',
-      sectionSpacing: '6rem',
-      sectionSpacingMobile: '3rem',
+      containerPaddingDesktop: '2rem',
+      sectionSpacing: '3rem',
       sectionSpacingTablet: '4.5rem',
-      gridGap: '2rem',
-      gridGapMobile: '1rem',
+      sectionSpacingDesktop: '6rem',
+      gridGap: '1rem',
       gridGapTablet: '1.5rem',
+      gridGapDesktop: '2rem',
     },
     components: {
       button: {
@@ -313,15 +313,15 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
     },
     layout: {
       containerWidth: '1440px',
-      containerPadding: '2rem',
-      containerPaddingMobile: '1rem',
+      containerPadding: '1rem',
       containerPaddingTablet: '1.5rem',
-      sectionSpacing: '8rem',
-      sectionSpacingMobile: '4rem',
+      containerPaddingDesktop: '2rem',
+      sectionSpacing: '4rem',
       sectionSpacingTablet: '6rem',
-      gridGap: '2rem',
-      gridGapMobile: '1rem',
+      sectionSpacingDesktop: '8rem',
+      gridGap: '1rem',
       gridGapTablet: '1.5rem',
+      gridGapDesktop: '2rem',
     },
     components: {
       button: {
@@ -415,15 +415,15 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
     },
     layout: {
       containerWidth: '1440px',
-      containerPadding: '2rem',
-      containerPaddingMobile: '1rem',
+      containerPadding: '1rem',
       containerPaddingTablet: '1.5rem',
-      sectionSpacing: '8rem',
-      sectionSpacingMobile: '4rem',
+      containerPaddingDesktop: '2rem',
+      sectionSpacing: '4rem',
       sectionSpacingTablet: '6rem',
-      gridGap: '2rem',
-      gridGapMobile: '1rem',
+      sectionSpacingDesktop: '8rem',
+      gridGap: '1rem',
       gridGapTablet: '1.5rem',
+      gridGapDesktop: '2rem',
     },
     components: {
       button: {

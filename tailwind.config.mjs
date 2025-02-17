@@ -38,8 +38,8 @@ export default {
       center: true,
       padding: {
         DEFAULT: 'var(--layout-containerPadding)',
-        sm: 'var(--layout-containerPaddingMobile)',
         md: 'var(--layout-containerPaddingTablet)',
+        lg: 'var(--layout-containerPaddingDesktop)',
       },
       screens: {
         sm: '640px',
@@ -98,13 +98,13 @@ export default {
       spacing: {
         section: {
           DEFAULT: 'var(--layout-sectionSpacing)',
-          sm: 'var(--layout-sectionSpacingMobile)',
           md: 'var(--layout-sectionSpacingTablet)',
+          lg: 'var(--layout-sectionSpacingDesktop)',
         },
         'grid-gap': {
           DEFAULT: 'var(--layout-gridGap)',
-          sm: 'var(--layout-gridGapMobile)',
           md: 'var(--layout-gridGapTablet)',
+          lg: 'var(--layout-gridGapDesktop)',
         },
       },
       transitionProperty: {
