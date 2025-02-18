@@ -15,7 +15,7 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
   const { badge, title, image, features } = hero
 
   return (
-    <section className="py-32">
+    <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container overflow-hidden">
         <ClientMotionDiv
           initial={{ opacity: 0, y: 20 }}
@@ -25,7 +25,7 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
         >
           <Badge variant="outline">{badge}</Badge>
           <div>
-            <h1 className="text-4xl font-semibold lg:text-6xl">{title}</h1>
+            <h1 className="font-heading text-4xl font-bold tracking-tight lg:text-6xl">{title}</h1>
           </div>
         </ClientMotionDiv>
 
@@ -37,7 +37,7 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
           >
             <Media
               resource={image}
-              imgClassName="aspect-video max-h-[500px] w-full rounded-xl object-cover"
+              imgClassName="aspect-video max-h-[500px] w-full rounded-lg object-cover"
             />
           </ClientMotionDiv>
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
@@ -53,7 +53,10 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
         >
           {features?.map((feature: Feature, index: number) => {
             return (
-              <div key={index} className="flex grow basis-0 flex-col rounded-md bg-background p-4">
+              <div
+                key={index}
+                className="flex grow basis-0 flex-col rounded-md bg-background p-card"
+              >
                 {index > 0 && (
                   <Separator
                     orientation="vertical"
