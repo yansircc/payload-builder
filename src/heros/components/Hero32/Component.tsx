@@ -4,7 +4,7 @@ import type { Hero32Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero32({ hero }: Hero32Fields) {
-  const { title, link, integrations } = hero
+  const { title, subtitle, link, integrations } = hero
 
   return (
     <section className="relative overflow-hidden">
@@ -29,9 +29,9 @@ export default function Hero32({ hero }: Hero32Fields) {
         </svg>
       </div>
       <div className="relative">
-        <div className="absolute left-0 z-10 hidden h-full w-1/2 bg-[linear-gradient(to_right,hsl(var(--background))_85%,transparent_100%)] md:block"></div>
+        <div className="absolute left-0 z-10 hidden h-full w-1/2 bg-[linear-gradient(to_right,var(--background)_85%,transparent_100%)] md:block"></div>
         <div className="md:-space-x-26 container relative flex flex-col items-start md:flex-row md:items-center">
-          <div className="z-20 -mx-[calc(theme(container.padding))] w-[calc(100%+2*theme(container.padding))] shrink-0 bg-background px-[calc(theme(container.padding))] pt-32 md:w-1/2 md:bg-transparent md:pb-32">
+          <div className="z-20 -mx-[var(--layout-containerPadding)] w-[calc(100%+2*var(--layout-containerPadding))] shrink-0 bg-background px-[var(--layout-containerPadding)] pt-32 md:w-1/2 md:bg-transparent md:pb-32">
             <div className="flex flex-col items-start text-left">
               <div className="max-w-sm">
                 <ClientMotionDiv
@@ -42,13 +42,28 @@ export default function Hero32({ hero }: Hero32Fields) {
                   <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">{title}</h1>
                 </ClientMotionDiv>
 
-                <ClientMotionDiv
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.4 }}
-                >
-                  <CMSLink {...link} />
-                </ClientMotionDiv>
+                {subtitle && (
+                  <ClientMotionDiv
+                    initial={{ opacity: 0, y: 35 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                  >
+                    <p className="text-muted-foreground text-base lg:text-lg font-sans">
+                      {subtitle}
+                    </p>
+                  </ClientMotionDiv>
+                )}
+
+                {link && (
+                  <ClientMotionDiv
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.4 }}
+                    className="mt-10"
+                  >
+                    <CMSLink {...link} />
+                  </ClientMotionDiv>
+                )}
               </div>
             </div>
           </div>
@@ -60,16 +75,7 @@ export default function Hero32({ hero }: Hero32Fields) {
                   const rowIntegrations = integrations.slice(startIndex, startIndex + 5)
 
                   return (
-                    <ClientMotionDiv
-                      key={rowIndex}
-                      className="flex gap-x-24 odd:-translate-x-24"
-                      initial={{ opacity: 0, x: rowIndex % 2 === 0 ? 50 : -50 }}
-                      animate={{ opacity: 1, x: rowIndex % 2 === 0 ? 0 : -96 }}
-                      transition={{
-                        duration: 0.8,
-                        delay: 0.3 + rowIndex * 0.2,
-                      }}
-                    >
+                    <div key={rowIndex} className="flex gap-x-24 odd:-translate-x-24">
                       {rowIntegrations.map((integration, i) => (
                         <div
                           key={i}
@@ -79,12 +85,12 @@ export default function Hero32({ hero }: Hero32Fields) {
                             <Media
                               resource={integration.image}
                               className="size-full"
-                              imgClassName="size-full object-contain"
+                              imgClassName="size-full object-cover"
                             />
                           </div>
                         </div>
                       ))}
-                    </ClientMotionDiv>
+                    </div>
                   )
                 })}
             </div>

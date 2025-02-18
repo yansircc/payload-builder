@@ -1102,6 +1102,10 @@ export interface Hero32Fields {
      */
     title: string;
     /**
+     * Subtitle text
+     */
+    subtitle?: string | null;
+    /**
      * Hero button
      */
     link: {
@@ -9640,6 +9644,7 @@ export interface Hero32FieldsSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
+        subtitle?: T;
         link?:
           | T
           | {
