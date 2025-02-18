@@ -9,10 +9,27 @@ import { header5Fields } from './components/Header5/config'
  */
 export const Header: CollectionConfig = {
   slug: 'header',
+  labels: {
+    singular: 'Header',
+    plural: 'Headers',
+  },
   access: {
     read: () => true,
   },
+  admin: {
+    group: 'Template',
+    useAsTitle: 'hiddenLabel',
+    description: 'Manage the header for your site',
+  },
   fields: [
+    {
+      name: 'hiddenLabel',
+      type: 'text',
+      defaultValue: 'Header',
+      admin: {
+        hidden: true,
+      },
+    },
     {
       name: 'style',
       type: 'select',
