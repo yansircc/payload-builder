@@ -182,15 +182,6 @@ h - input // Input height
 </p>
 ```
 
-### Grid Layout
-
-```tsx
-// Responsive grid with proper gap
-<div className={cn('grid gap-grid-gap', 'md:grid-cols-2', 'lg:grid-cols-4')}>
-  {/* Grid items */}
-</div>
-```
-
 ### Interactive Elements
 
 ```tsx
