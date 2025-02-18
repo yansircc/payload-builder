@@ -8,7 +8,7 @@ import { SCRIPT_TYPES } from '@/collections/CustomCodes'
 import type { CustomCode as CustomCodeType } from '@/payload-types'
 
 interface ScriptProps {
-  script: CustomCodeType['scripts'][number]
+  script: NonNullable<NonNullable<CustomCodeType['scripts']>[number]>
 }
 
 function ScriptRenderer({ script }: ScriptProps) {

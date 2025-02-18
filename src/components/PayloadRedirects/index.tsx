@@ -16,7 +16,6 @@ export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }
   const redirects = await getRedirects(1, tenant?.id || '')
 
   const redirectItem = redirects?.find((redirect) => redirect.from === url)
-  console.log(url)
 
   if (redirectItem) {
     const isPermanent = redirectItem.type === '301'
