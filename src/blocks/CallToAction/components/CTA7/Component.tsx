@@ -1,7 +1,7 @@
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import type { CTA7Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
+import { ClientMotionDiv } from '../shared'
 
 export default function CTA7({ title, subtitle, links, lists }: CTA7Fields) {
   return (

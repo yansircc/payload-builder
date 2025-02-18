@@ -248,7 +248,7 @@ import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import type { CTANFields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
+import { ClientMotionDiv } from '../shared'
 
 export default function CTAN({ cta }: CTANFields) {
   const { title, subtitle, links, image, badge } = cta
@@ -302,6 +302,7 @@ After implementing your CTA component, you need to register it in `src/blocks/Ca
 
 ```typescript
 import CTANComponent from './components/CTAN/Component'
+
 export { ctaNFields } from './components/CTAN/config'
 ```
 

@@ -1,64 +1,50 @@
 'use client'
 
-import { Button, GroupField, useField } from '@payloadcms/ui'
-import { SparklesIcon } from 'lucide-react'
+import { GroupField, useField } from '@payloadcms/ui'
 import type { GroupFieldClientProps } from 'payload'
-import { useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import type { CTA7Fields } from '@/payload-types'
-import { getCTA7Content } from './ai'
+import { CTAGenerateButton, getFieldPath } from '../shared'
+import { autogen } from './autogen'
+import { useCTA7Store } from './store'
 
-// Helper function to get field path
-function getFieldPath(props: GroupFieldClientProps, fieldName: string): string {
-  return `${props.parentPath}.${props.field.name}.${fieldName}`
-}
+export function CTA7Client(props: GroupFieldClientProps) {
+  // Initialize fields
+  const titleField = useField<string>({ path: getFieldPath(props, 'title') })
+  const subtitleField = useField<string>({ path: getFieldPath(props, 'subtitle') })
+  const linksField = useField<CTA7Fields['links']>({ path: getFieldPath(props, 'links') })
+  const listsField = useField<CTA7Fields['lists']>({ path: getFieldPath(props, 'lists') })
 
-// Helper type for field values
-type FieldValues = {
-  [K in keyof CTA7Fields]: ReturnType<typeof useField<CTA7Fields[K]>>
-}
+  // Get store actions
+  const { setFieldRef, updateFields, clearFields } = useCTA7Store()
 
-export const CTA7Client: React.FC<GroupFieldClientProps> = (props) => {
-  const [isLoading, setIsLoading] = useState(false)
+  // Register fields with store
+  useEffect(() => {
+    setFieldRef('title', titleField)
+    setFieldRef('subtitle', subtitleField)
+    setFieldRef('links', linksField)
+    setFieldRef('lists', listsField)
+  }, [titleField, subtitleField, linksField, listsField, setFieldRef])
 
-  // Use a more structured approach to manage fields
-  const fields: FieldValues = {
-    title: useField<string>({ path: getFieldPath(props, 'title') }),
-    subtitle: useField<string>({ path: getFieldPath(props, 'subtitle') }),
-    links: useField<CTA7Fields['links']>({ path: getFieldPath(props, 'links') }),
-    lists: useField<CTA7Fields['lists']>({ path: getFieldPath(props, 'lists') }),
-  }
+  // Handle AI generation
+  const handleGenerate = useCallback(async () => {
+    clearFields()
 
-  const handleClick = async () => {
-    if (isLoading) return
+    const { stream, objectPromise } = await autogen()
 
-    setIsLoading(true)
-    try {
-      // Clear all existing values first
-      fields.title?.setValue?.('')
-      fields.subtitle?.setValue?.('')
-      fields.links?.setValue?.([])
-      fields.lists?.setValue?.([])
-
-      // Generate data using specialized CTA7 AI generator
-      const generatedData = await getCTA7Content()
-
-      // Set new values after generation
-      fields.title?.setValue?.(generatedData.title ?? '')
-      fields.subtitle?.setValue?.(generatedData.subtitle ?? '')
-      fields.links?.setValue?.(generatedData.links ?? [])
-      fields.lists?.setValue?.(generatedData.lists ?? [])
-    } catch (error) {
-      console.error('Error generating CTA7 content:', error)
-    } finally {
-      setIsLoading(false)
+    // Process streaming updates
+    for await (const partial of stream) {
+      updateFields(partial as Partial<CTA7Fields>)
     }
-  }
+
+    // Set final values
+    const finalData = await objectPromise
+    updateFields(finalData)
+  }, [clearFields, updateFields])
 
   return (
     <div className="space-y-4">
-      <Button onClick={handleClick} disabled={isLoading} icon={<SparklesIcon />}>
-        {isLoading ? 'Generating...' : 'AI Generate'}
-      </Button>
+      <CTAGenerateButton onGenerate={handleGenerate} />
       <GroupField {...props} />
     </div>
   )

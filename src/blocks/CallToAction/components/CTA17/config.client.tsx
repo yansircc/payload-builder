@@ -1,61 +1,48 @@
 'use client'
 
-import { Button, GroupField, useField } from '@payloadcms/ui'
-import { SparklesIcon } from 'lucide-react'
+import { GroupField, useField } from '@payloadcms/ui'
 import type { GroupFieldClientProps } from 'payload'
-import { useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import type { CTA17Fields } from '@/payload-types'
-import { getCTA17Content } from './ai'
+import { CTAGenerateButton, getFieldPath } from '../shared'
+import { autogen } from './autogen'
+import { useCTA17Store } from './store'
 
-// Helper function to get field path
-function getFieldPath(props: GroupFieldClientProps, fieldName: string): string {
-  return `${props.parentPath}.${props.field.name}.${fieldName}`
-}
+export function CTA17Client(props: GroupFieldClientProps) {
+  // Initialize fields
+  const titleField = useField<string>({ path: getFieldPath(props, 'title') })
+  const subtitleField = useField<string>({ path: getFieldPath(props, 'subtitle') })
+  const linksField = useField<CTA17Fields['links']>({ path: getFieldPath(props, 'links') })
 
-// Helper type for field values
-type FieldValues = {
-  [K in keyof CTA17Fields]: ReturnType<typeof useField<CTA17Fields[K]>>
-}
+  // Get store actions
+  const { setFieldRef, updateFields, clearFields } = useCTA17Store()
 
-export const CTA17Client: React.FC<GroupFieldClientProps> = (props) => {
-  const [isLoading, setIsLoading] = useState(false)
+  // Register fields with store
+  useEffect(() => {
+    setFieldRef('title', titleField)
+    setFieldRef('subtitle', subtitleField)
+    setFieldRef('links', linksField)
+  }, [titleField, subtitleField, linksField, setFieldRef])
 
-  // Use a more structured approach to manage fields
-  const fields: FieldValues = {
-    title: useField<string>({ path: getFieldPath(props, 'title') }),
-    subtitle: useField<string>({ path: getFieldPath(props, 'subtitle') }),
-    links: useField<CTA17Fields['links']>({ path: getFieldPath(props, 'links') }),
-  }
+  // Handle AI generation
+  const handleGenerate = useCallback(async () => {
+    clearFields()
 
-  const handleClick = async () => {
-    if (isLoading) return
+    const { stream, objectPromise } = await autogen()
 
-    setIsLoading(true)
-    try {
-      // Clear all existing values first
-      fields.title?.setValue?.('')
-      fields.subtitle?.setValue?.('')
-      fields.links?.setValue?.([])
-
-      // Generate data using specialized CTA17 AI generator
-      const generatedData = await getCTA17Content()
-
-      // Set new values after generation
-      fields.title?.setValue?.(generatedData.title ?? '')
-      fields.subtitle?.setValue?.(generatedData.subtitle ?? '')
-      fields.links?.setValue?.(generatedData.links ?? [])
-    } catch (error) {
-      console.error('Error generating CTA17 content:', error)
-    } finally {
-      setIsLoading(false)
+    // Process streaming updates
+    for await (const partial of stream) {
+      updateFields(partial as Partial<CTA17Fields>)
     }
-  }
+
+    // Set final values
+    const finalData = await objectPromise
+    updateFields(finalData)
+  }, [clearFields, updateFields])
 
   return (
     <div className="space-y-4">
-      <Button onClick={handleClick} disabled={isLoading} icon={<SparklesIcon />}>
-        {isLoading ? 'Generating...' : 'AI Generate'}
-      </Button>
+      <CTAGenerateButton onGenerate={handleGenerate} />
       <GroupField {...props} />
     </div>
   )

@@ -1,65 +1,52 @@
 'use client'
 
-import { Button, GroupField, useField } from '@payloadcms/ui'
-import { SparklesIcon } from 'lucide-react'
+import { GroupField, useField } from '@payloadcms/ui'
 import type { GroupFieldClientProps } from 'payload'
-import { useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import type { CTA15Fields } from '@/payload-types'
-import { getCTA15Content } from './ai'
+import { CTAGenerateButton, getFieldPath } from '../shared'
+import { autogen } from './autogen'
+import { useCTA15Store } from './store'
 
-// Helper function to get field path
-function getFieldPath(props: GroupFieldClientProps, fieldName: string): string {
-  return `${props.parentPath}.${props.field.name}.${fieldName}`
-}
+export function CTA15Client(props: GroupFieldClientProps) {
+  // Initialize fields
+  const headingField = useField<string>({ path: getFieldPath(props, 'heading') })
+  const titleField = useField<string>({ path: getFieldPath(props, 'title') })
+  const subtitleField = useField<string>({ path: getFieldPath(props, 'subtitle') })
+  const imageField = useField<string>({ path: getFieldPath(props, 'image') })
+  const linksField = useField<CTA15Fields['links']>({ path: getFieldPath(props, 'links') })
 
-// Helper type for field values
-type FieldValues = {
-  [K in keyof CTA15Fields]: ReturnType<typeof useField<CTA15Fields[K]>>
-}
+  // Get store actions
+  const { setFieldRef, updateFields, clearFields } = useCTA15Store()
 
-export const CTA15Client: React.FC<GroupFieldClientProps> = (props) => {
-  const [isLoading, setIsLoading] = useState(false)
+  // Register fields with store
+  useEffect(() => {
+    setFieldRef('heading', headingField)
+    setFieldRef('title', titleField)
+    setFieldRef('subtitle', subtitleField)
+    setFieldRef('image', imageField)
+    setFieldRef('links', linksField)
+  }, [headingField, titleField, subtitleField, imageField, linksField, setFieldRef])
 
-  // Use a more structured approach to manage fields
-  const fields: FieldValues = {
-    heading: useField<string>({ path: getFieldPath(props, 'heading') }),
-    title: useField<string>({ path: getFieldPath(props, 'title') }),
-    subtitle: useField<string>({ path: getFieldPath(props, 'subtitle') }),
-    image: useField<string>({ path: getFieldPath(props, 'image') }),
-    links: useField<CTA15Fields['links']>({ path: getFieldPath(props, 'links') }),
-  }
+  // Handle AI generation
+  const handleGenerate = useCallback(async () => {
+    clearFields()
 
-  const handleClick = async () => {
-    if (isLoading) return
+    const { stream, objectPromise } = await autogen()
 
-    setIsLoading(true)
-    try {
-      // Clear all existing values first
-      fields.heading?.setValue?.('')
-      fields.title?.setValue?.('')
-      fields.subtitle?.setValue?.('')
-      fields.links?.setValue?.([])
-
-      // Generate data using specialized CTA15 AI generator
-      const generatedData = await getCTA15Content()
-
-      // Set new values after generation
-      fields.heading?.setValue?.(generatedData.heading ?? '')
-      fields.title?.setValue?.(generatedData.title ?? '')
-      fields.subtitle?.setValue?.(generatedData.subtitle ?? '')
-      fields.links?.setValue?.(generatedData.links ?? [])
-    } catch (error) {
-      console.error('Error generating CTA15 content:', error)
-    } finally {
-      setIsLoading(false)
+    // Process streaming updates
+    for await (const partial of stream) {
+      updateFields(partial as Partial<CTA15Fields>)
     }
-  }
+
+    // Set final values
+    const finalData = await objectPromise
+    updateFields(finalData)
+  }, [clearFields, updateFields])
 
   return (
     <div className="space-y-4">
-      <Button onClick={handleClick} disabled={isLoading} icon={<SparklesIcon />}>
-        {isLoading ? 'Generating...' : 'AI Generate'}
-      </Button>
+      <CTAGenerateButton onGenerate={handleGenerate} />
       <GroupField {...props} />
     </div>
   )

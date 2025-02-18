@@ -2114,11 +2114,11 @@ export interface CTA1Fields {
  */
 export interface CTA3Fields {
   /**
-   * The title of the CTA section
+   * The main heading for the CTA section
    */
   title: string;
   /**
-   * The subtitle text below the main title
+   * A brief description that explains the value proposition
    */
   subtitle?: string | null;
   /**
@@ -2127,7 +2127,7 @@ export interface CTA3Fields {
   buttons?:
     | {
         /**
-         * Primary CTA button with arrow
+         * Primary action button
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
@@ -2160,7 +2160,7 @@ export interface CTA3Fields {
   list?:
     | {
         /**
-         * Feature link with chevron
+         * Feature link with description
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;

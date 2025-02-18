@@ -3,7 +3,7 @@
 import { z } from 'zod'
 import type { CTA1Fields } from '@/payload-types'
 import { getObjectStream } from '@/utilities/ai'
-import { SYSTEM_PROMPT, USER_PROMPT } from '../shared/autogen'
+import { SYSTEM_PROMPT, USER_PROMPT } from '../shared'
 
 // Define the complete CTA schema
 const ctaSchema = z.object({

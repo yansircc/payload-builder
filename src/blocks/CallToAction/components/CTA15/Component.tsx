@@ -1,7 +1,7 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { CTA15Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
+import { ClientMotionDiv } from '../shared'
 
 export default function CTA15({ title, subtitle, links, image, heading }: CTA15Fields) {
   return (
