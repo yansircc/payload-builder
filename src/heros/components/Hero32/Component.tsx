@@ -19,7 +19,7 @@ export default function Hero32({ hero }: Hero32Fields) {
               <path
                 d="M 24 0 L 0 0 0 24"
                 fill="none"
-                stroke="hsl(var(--muted))"
+                stroke="var(--muted)"
                 strokeWidth="1"
                 strokeOpacity={0.5}
               />
