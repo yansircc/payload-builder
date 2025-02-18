@@ -1,6 +1,7 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero32Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero32({ hero }: Hero32Fields) {
@@ -29,9 +30,27 @@ export default function Hero32({ hero }: Hero32Fields) {
         </svg>
       </div>
       <div className="relative">
-        <div className="absolute left-0 z-10 hidden h-full w-1/2 bg-[linear-gradient(to_right,var(--background)_85%,transparent_100%)] md:block"></div>
-        <div className="md:-space-x-26 container relative flex flex-col items-start md:flex-row md:items-center">
-          <div className="z-20 -mx-[var(--layout-containerPadding)] w-[calc(100%+2*var(--layout-containerPadding))] shrink-0 bg-background px-[var(--layout-containerPadding)] pt-32 md:w-1/2 md:bg-transparent md:pb-32">
+        <div
+          className={cn(
+            'absolute left-0 z-10 hidden h-full w-1/2',
+            'bg-[linear-gradient(to_right,var(--background)_85%,transparent_100%)]',
+            'md:block',
+          )}
+        ></div>
+        <div
+          className={cn(
+            'container relative flex flex-col items-start',
+            'md:flex-row md:items-center',
+            'md:-space-x-26',
+          )}
+        >
+          <div
+            className={cn(
+              'z-20 -mx-[var(--layout-containerPadding)] w-[calc(100%+2*var(--layout-containerPadding))]',
+              'shrink-0 bg-background px-[var(--layout-containerPadding)] pt-32',
+              'md:w-1/2 md:bg-transparent md:pb-32',
+            )}
+          >
             <div className="flex flex-col items-start text-left">
               <div className="max-w-sm">
                 <ClientMotionDiv
@@ -39,7 +58,15 @@ export default function Hero32({ hero }: Hero32Fields) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">{title}</h1>
+                  <h1
+                    className={cn(
+                      'my-6 text-pretty font-heading font-bold',
+                      'text-4xl lg:text-6xl',
+                      'tracking-tight',
+                    )}
+                  >
+                    {title}
+                  </h1>
                 </ClientMotionDiv>
 
                 {subtitle && (
@@ -48,7 +75,7 @@ export default function Hero32({ hero }: Hero32Fields) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
                   >
-                    <p className="text-muted-foreground text-base lg:text-lg font-sans">
+                    <p className={cn('text-muted-foreground font-sans', 'text-base lg:text-lg')}>
                       {subtitle}
                     </p>
                   </ClientMotionDiv>
@@ -79,7 +106,11 @@ export default function Hero32({ hero }: Hero32Fields) {
                       {rowIntegrations.map((integration, i) => (
                         <div
                           key={i}
-                          className="size-24 rounded-xl border border-background bg-background shadow-xl"
+                          className={cn(
+                            'size-24 rounded-xl',
+                            'border border-border bg-background',
+                            'shadow-card',
+                          )}
                         >
                           <div className="h-full w-full bg-muted/20 p-4">
                             <Media
