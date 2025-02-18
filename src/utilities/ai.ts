@@ -5,10 +5,25 @@ import { generateObject } from 'ai'
 import OpenAI from 'openai'
 import { match } from 'ts-pattern'
 import { z } from 'zod'
+import { getSiteSettings } from '@/utilities/getSiteSettings'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+// Remove top-level await
+let openai: OpenAI | null = null
+
+async function getOpenAIClient() {
+  if (!openai) {
+    const siteSettings = await getSiteSettings()
+    if (!siteSettings?.ai?.openai) {
+      throw new Error(
+        'Missing API Key - please set it in the Site Settings by clicking on "Site Settings" in the sidebar and then going to the "AI" tab.',
+      )
+    }
+    openai = new OpenAI({
+      apiKey: siteSettings.ai.openai,
+    })
+  }
+  return openai
+}
 
 /**
  * 从 schema 中提取字段描述
@@ -73,10 +88,7 @@ interface AIRequestParams {
 }
 
 export async function processAIRequest({ prompt, option, command, ip }: AIRequestParams) {
-  // Check if the OPENAI_API_KEY is set
-  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === '') {
-    throw new Error('Missing OPENAI_API_KEY - make sure to add it to your .env file.')
-  }
+  const client = await getOpenAIClient()
 
   // Rate limiting
   if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN && ip) {
@@ -179,7 +191,7 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
     ])
     .run()
 
-  const completion = await openai.chat.completions.create({
+  const completion = await client.chat.completions.create({
     messages: messages as any,
     model: 'gpt-4',
     max_tokens: 4096,

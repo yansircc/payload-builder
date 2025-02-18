@@ -18,7 +18,20 @@ export const Footer: CollectionConfig = {
   access: {
     read: () => true,
   },
+  admin: {
+    group: 'Template',
+    description: 'Manage the footer for your site',
+    useAsTitle: 'hiddenLabel',
+  },
   fields: [
+    {
+      name: 'hiddenLabel',
+      type: 'text',
+      defaultValue: 'Footer',
+      admin: {
+        hidden: true,
+      },
+    },
     {
       name: 'style',
       type: 'select',

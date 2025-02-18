@@ -13,9 +13,9 @@ export const Popups: CollectionConfig = {
     update: superAdminOrTenantAdminAccess,
   },
   admin: {
+    group: 'Template',
     defaultColumns: ['title', 'updatedAt'],
     description: 'Create and manage popups that can be triggered from any link field.',
-    group: 'Content',
     useAsTitle: 'title',
   },
   fields: [

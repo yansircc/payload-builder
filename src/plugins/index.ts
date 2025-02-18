@@ -33,6 +33,10 @@ export const plugins: Plugin[] = [
   redirectsPlugin({
     collections: ['pages', 'posts'],
     overrides: {
+      admin: {
+        group: 'Configuration',
+        description: 'Manage the redirects for your site',
+      },
       // @ts-expect-error - This is a valid override, mapped fields don't resolve to the same type
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -62,6 +66,10 @@ export const plugins: Plugin[] = [
   formBuilderPlugin({
     fields: { payment: false },
     formOverrides: {
+      admin: {
+        group: 'Template',
+        description: 'Manage the form for your site',
+      },
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
           // Handle blocks field type
@@ -98,11 +106,21 @@ export const plugins: Plugin[] = [
         })
       },
     },
+    formSubmissionOverrides: {
+      admin: {
+        group: 'Notifications',
+        description: 'Manage the form submissions for your site',
+      },
+    },
   }),
   searchPlugin({
     collections: ['posts'],
     beforeSync: beforeSyncWithSearch,
     searchOverrides: {
+      admin: {
+        group: 'System',
+        description: 'Manage the search for your site',
+      },
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]
       },

@@ -13,7 +13,7 @@ export const Tenants: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    group: 'Settings',
+    group: 'Configuration',
     description: 'Manage tenant configurations and settings',
   },
   fields: [
