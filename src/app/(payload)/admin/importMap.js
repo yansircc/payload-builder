@@ -38,11 +38,14 @@ import { default as default_2a39a1af771424381d098717f69480b6 } from '@/blocks/Ca
 import { default as default_1a7510af427896d367a49dbf838d2de6 } from '@/components/BeforeDashboard'
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { default as default_78b39f784b86cf844383560b5f1a85bf } from '@/components/ColorPicker/'
+import { default as default_545a25a7f6f58e32e2350bd4892658ab } from '@/components/IconSelect/'
+import { AIFeature as AIFeature_c86cb9794e8dfc789dceffc1ecbdea8d } from '@/fields/ai/client'
 import { SlugComponent as SlugComponent_92cc057d0a2abb4f6cf0307edf59f986 } from '@/fields/slug/SlugComponent'
 
 export const importMap = {
   '@payloadcms/plugin-multi-tenant/client#TenantField':
     TenantField_1d0591e3cf4f332c83a86da13a0de59a,
+  '@/components/IconSelect/#default': default_545a25a7f6f58e32e2350bd4892658ab,
   '@/blocks/CallToAction/components/CTA1/config.client.tsx#default':
     default_2a39a1af771424381d098717f69480b6,
   '@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell':
@@ -55,6 +58,7 @@ export const importMap = {
     FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   '@payloadcms/richtext-lexical/client#HeadingFeatureClient':
     HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  '@/fields/ai/client#AIFeature': AIFeature_c86cb9794e8dfc789dceffc1ecbdea8d,
   '@payloadcms/richtext-lexical/client#ParagraphFeatureClient':
     ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   '@payloadcms/richtext-lexical/client#UnderlineFeatureClient':

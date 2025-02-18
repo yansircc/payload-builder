@@ -1,9 +1,17 @@
 'use server'
 
-import { openai } from '@ai-sdk/openai'
+import { openai as openaiSDK } from '@ai-sdk/openai'
+import { Ratelimit } from '@upstash/ratelimit'
+import { kv } from '@vercel/kv'
 import { generateObject } from 'ai'
+import OpenAI from 'openai'
 import type { ClientField } from 'payload'
+import { match } from 'ts-pattern'
 import { z } from 'zod'
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+})
 
 /**
  * 从 schema 中提取字段描述
@@ -92,7 +100,7 @@ export async function getObject(fields: ClientField[]) {
     const prompt = generatePrompt(schema)
 
     const { object } = await generateObject({
-      model: openai('gpt-4o-mini'),
+      model: openaiSDK('gpt-4o-mini'),
       prompt,
       schema,
     })
@@ -102,4 +110,134 @@ export async function getObject(fields: ClientField[]) {
     console.error('Error generating content:', error)
     throw error
   }
+}
+
+export type AIOption = 'continue' | 'improve' | 'shorter' | 'longer' | 'fix' | 'zap'
+
+interface AIRequestParams {
+  prompt: string
+  option: AIOption
+  command?: string
+  ip?: string
+}
+
+export async function processAIRequest({ prompt, option, command, ip }: AIRequestParams) {
+  // Check if the OPENAI_API_KEY is set
+  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === '') {
+    throw new Error('Missing OPENAI_API_KEY - make sure to add it to your .env file.')
+  }
+
+  // Rate limiting
+  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN && ip) {
+    const ratelimit = new Ratelimit({
+      redis: kv,
+      limiter: Ratelimit.slidingWindow(50, '1 d'),
+    })
+
+    const { success, limit, reset, remaining } = await ratelimit.limit(`novel_ratelimit_${ip}`)
+
+    if (!success) {
+      throw new Error(
+        JSON.stringify({
+          message: 'You have reached your request limit for the day.',
+          limit,
+          remaining,
+          reset,
+        }),
+      )
+    }
+  }
+
+  const messages = match(option)
+    .with('continue', () => [
+      {
+        role: 'system',
+        content:
+          'You are an AI writing assistant that continues existing text based on context from prior text. ' +
+          'Give more weight/priority to the later characters than the beginning ones. ' +
+          'Limit your response to no more than 200 characters, but make sure to construct complete sentences.' +
+          'Use Markdown formatting when appropriate.',
+      },
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ])
+    .with('improve', () => [
+      {
+        role: 'system',
+        content:
+          'You are an AI writing assistant that improves existing text. ' +
+          'Limit your response to no more than 200 characters, but make sure to construct complete sentences.' +
+          'Use Markdown formatting when appropriate.',
+      },
+      {
+        role: 'user',
+        content: `The existing text is: ${prompt}`,
+      },
+    ])
+    .with('shorter', () => [
+      {
+        role: 'system',
+        content:
+          'You are an AI writing assistant that shortens existing text. ' +
+          'Use Markdown formatting when appropriate.',
+      },
+      {
+        role: 'user',
+        content: `The existing text is: ${prompt}`,
+      },
+    ])
+    .with('longer', () => [
+      {
+        role: 'system',
+        content:
+          'You are an AI writing assistant that lengthens existing text. ' +
+          'Use Markdown formatting when appropriate.',
+      },
+      {
+        role: 'user',
+        content: `The existing text is: ${prompt}`,
+      },
+    ])
+    .with('fix', () => [
+      {
+        role: 'system',
+        content:
+          'You are an AI writing assistant that fixes grammar and spelling errors in existing text. ' +
+          'Limit your response to no more than 200 characters, but make sure to construct complete sentences.' +
+          'Use Markdown formatting when appropriate.',
+      },
+      {
+        role: 'user',
+        content: `The existing text is: ${prompt}`,
+      },
+    ])
+    .with('zap', () => [
+      {
+        role: 'system',
+        content:
+          'You area an AI writing assistant that generates text based on a prompt. ' +
+          'You take an input from the user and a command for manipulating the text' +
+          'Use Markdown formatting when appropriate.',
+      },
+      {
+        role: 'user',
+        content: `For this text: ${prompt}. You have to respect the command: ${command}`,
+      },
+    ])
+    .run()
+
+  const completion = await openai.chat.completions.create({
+    messages: messages as any,
+    model: 'gpt-4',
+    max_tokens: 4096,
+    temperature: 0.7,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+    stream: true,
+  })
+
+  return completion
 }

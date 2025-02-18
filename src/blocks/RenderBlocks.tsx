@@ -13,11 +13,18 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { RenderTeam } from '@/blocks/Team/RenderTeam'
 import { RenderTestimonial } from '@/blocks/Testimonial/RenderTestimonial'
 import type { Page } from '@/payload-types'
+import { ColumnsBlock } from './ColumnBlock/RenderColumn'
+import { CtaSimpleBlock } from './CtaSimpleBlock/RenderCtaSimple'
+import { RenderLinkPopup } from './LinkPopupBlock/RenderLinkPopup'
+import { ListBlock } from './List/RenderList'
+import { TableBlock } from './Table/RenderTable'
+import { VideoBlock } from './VideoBlock/RenderVideo'
 
 const blockComponents = {
   about: RenderAbout,
   archive: ArchiveBlock,
   content: ContentBlock,
+  table: TableBlock,
   cta: RenderCTA,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
@@ -28,6 +35,11 @@ const blockComponents = {
   team: RenderTeam,
   faq: RenderFAQ,
   logos: RenderLogos,
+  columns: ColumnsBlock,
+  linkPopup: RenderLinkPopup,
+  video: VideoBlock,
+  list: ListBlock,
+  ctaSimple: CtaSimpleBlock,
 }
 
 export const RenderBlocks: React.FC<{

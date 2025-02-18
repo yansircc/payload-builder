@@ -182,11 +182,17 @@ export interface Page {
     | FormBlock
     | GalleryBlock
     | FeatureBlock
+    | TableBlock
+    | ColumnsBlock
     | TestimonialBlock
     | ContactBlock
     | TeamBlock
     | FAQBlock
     | LogosBlock
+    | LinkPopupBlock
+    | ListBlock
+    | VideoBlock
+    | CtaSimpleBlock
   )[];
   meta?: {
     title?: string | null;
@@ -205,6 +211,8 @@ export interface Page {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Manage tenant configurations and settings
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tenants".
  */
@@ -212,15 +220,19 @@ export interface Tenant {
   id: string;
   name: string;
   /**
-   * Used for domain-based tenant handling
+   * The domain name for this tenant (e.g., example.com)
    */
   domain?: string | null;
   /**
-   * Used for url paths, example: /tenant-slug/page-slug
+   * A unique identifier for this tenant
    */
   slug: string;
   /**
-   * If checked, logging in is not required to read. Useful for building public pages.
+   * Select the design theme for this tenant
+   */
+  theme: 'cool' | 'brutal' | 'neon';
+  /**
+   * Allow public access to content
    */
   allowPublicRead?: boolean | null;
   updatedAt: string;
@@ -307,13 +319,7 @@ export interface Hero1Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -338,13 +344,7 @@ export interface Hero1Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -654,13 +654,7 @@ export interface Hero5Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -707,13 +701,7 @@ export interface Hero7Fields {
       url?: string | null;
       popup?: (string | null) | Popup;
       label: string;
-      /**
-       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-       */
       prefixIcon?: string | null;
-      /**
-       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-       */
       suffixIcon?: string | null;
       /**
        * Choose how the link should be rendered.
@@ -788,13 +776,7 @@ export interface Hero8Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -851,13 +833,7 @@ export interface Hero12Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -882,13 +858,7 @@ export interface Hero12Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -960,13 +930,7 @@ export interface Hero24Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -1046,13 +1010,7 @@ export interface Hero25Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -1115,13 +1073,7 @@ export interface Hero32Fields {
       url?: string | null;
       popup?: (string | null) | Popup;
       label: string;
-      /**
-       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-       */
       prefixIcon?: string | null;
-      /**
-       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-       */
       suffixIcon?: string | null;
       /**
        * Choose how the link should be rendered.
@@ -1190,13 +1142,7 @@ export interface Hero34Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -1218,13 +1164,7 @@ export interface Hero34Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -1277,13 +1217,7 @@ export interface Hero6Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -1365,13 +1299,7 @@ export interface Hero3Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -1396,13 +1324,7 @@ export interface Hero3Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -1527,13 +1449,7 @@ export interface Hero115Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -1837,13 +1753,7 @@ export interface About3Fields {
         url?: string | null;
         popup?: (string | null) | Popup;
         label: string;
-        /**
-         * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-         */
         prefixIcon?: string | null;
-        /**
-         * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-         */
         suffixIcon?: string | null;
         /**
          * Choose how the link should be rendered.
@@ -1979,13 +1889,7 @@ export interface About4Fields {
       url?: string | null;
       popup?: (string | null) | Popup;
       label: string;
-      /**
-       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-       */
       prefixIcon?: string | null;
-      /**
-       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-       */
       suffixIcon?: string | null;
       /**
        * Choose how the link should be rendered.
@@ -2199,13 +2103,7 @@ export interface CTA1Fields {
     url?: string | null;
     popup?: (string | null) | Popup;
     label: string;
-    /**
-     * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-     */
     prefixIcon?: string | null;
-    /**
-     * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-     */
     suffixIcon?: string | null;
     /**
      * Choose how the link should be rendered.
@@ -2253,13 +2151,7 @@ export interface CTA3Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -2292,13 +2184,7 @@ export interface CTA3Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -2354,13 +2240,7 @@ export interface CTA4Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -2432,13 +2312,7 @@ export interface CTA5Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -2490,13 +2364,7 @@ export interface CTA7Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -2564,13 +2432,7 @@ export interface CTA10Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -2622,13 +2484,7 @@ export interface CTA11Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -2688,13 +2544,7 @@ export interface CTA15Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -2754,13 +2604,7 @@ export interface CTA16Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -2812,13 +2656,7 @@ export interface CTA17Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -2869,13 +2707,7 @@ export interface ContentBlock {
           url?: string | null;
           popup?: (string | null) | Popup;
           label: string;
-          /**
-           * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-           */
           prefixIcon?: string | null;
-          /**
-           * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-           */
           suffixIcon?: string | null;
           /**
            * Choose how the link should be rendered.
@@ -3104,6 +2936,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             required?: boolean | null;
             defaultValue?: boolean | null;
@@ -3114,6 +2949,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             required?: boolean | null;
             id?: string | null;
@@ -3123,6 +2961,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             required?: boolean | null;
             id?: string | null;
@@ -3152,6 +2993,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             defaultValue?: number | null;
             required?: boolean | null;
@@ -3162,6 +3006,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             defaultValue?: string | null;
             options?:
@@ -3179,6 +3026,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             required?: boolean | null;
             id?: string | null;
@@ -3188,6 +3038,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             defaultValue?: string | null;
             required?: boolean | null;
@@ -3198,6 +3051,9 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            /**
+             * Enter a number between 0 and 100 (no decimals)
+             */
             width?: number | null;
             defaultValue?: string | null;
             required?: boolean | null;
@@ -3316,13 +3172,7 @@ export interface Gallery1Fields {
       url?: string | null;
       popup?: (string | null) | Popup;
       label: string;
-      /**
-       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-       */
       prefixIcon?: string | null;
-      /**
-       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-       */
       suffixIcon?: string | null;
       /**
        * Choose how the link should be rendered.
@@ -3491,13 +3341,7 @@ export interface Gallery5Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -3564,13 +3408,7 @@ export interface Gallery6Fields {
       url?: string | null;
       popup?: (string | null) | Popup;
       label: string;
-      /**
-       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-       */
       prefixIcon?: string | null;
-      /**
-       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-       */
       suffixIcon?: string | null;
       /**
        * Choose how the link should be rendered.
@@ -3608,13 +3446,7 @@ export interface Gallery6Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -3756,13 +3588,7 @@ export interface Feature1Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -3787,13 +3613,7 @@ export interface Feature1Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -3853,13 +3673,7 @@ export interface Feature2Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -3884,13 +3698,7 @@ export interface Feature2Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -4167,13 +3975,7 @@ export interface Feature11Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -4336,6 +4138,73 @@ export interface Feature15Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock".
+ */
+export interface TableBlock {
+  /**
+   * Paste the AI-generated table HTML here. Ensure it is valid table markup.
+   */
+  content: string;
+  /**
+   * Optional: Add a caption for the table.
+   */
+  caption?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'table';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ColumnsBlock".
+ */
+export interface ColumnsBlock {
+  /**
+   * Select the column layout. Columns will stack vertically on mobile screens.
+   */
+  layout: '50-50' | '33-67' | '67-33' | '25-75' | '75-25';
+  columns: {
+    content: (
+      | {
+          content: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          id?: string | null;
+          blockName?: string | null;
+          blockType: 'text';
+        }
+      | {
+          image?: (string | null) | Media;
+          id?: string | null;
+          blockName?: string | null;
+          blockType: 'image';
+        }
+      | {
+          url?: string | null;
+          id?: string | null;
+          blockName?: string | null;
+          blockType: 'video';
+        }
+    )[];
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'columns';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialBlock".
  */
 export interface TestimonialBlock {
@@ -4464,13 +4333,7 @@ export interface Testimonial7Fields {
     url?: string | null;
     popup?: (string | null) | Popup;
     label: string;
-    /**
-     * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-     */
     prefixIcon?: string | null;
-    /**
-     * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-     */
     suffixIcon?: string | null;
     /**
      * Choose how the link should be rendered.
@@ -4627,13 +4490,7 @@ export interface Testimonial15Fields {
     url?: string | null;
     popup?: (string | null) | Popup;
     label: string;
-    /**
-     * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-     */
     prefixIcon?: string | null;
-    /**
-     * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-     */
     suffixIcon?: string | null;
     /**
      * Choose how the link should be rendered.
@@ -4844,13 +4701,7 @@ export interface Testimonial19Fields {
     url?: string | null;
     popup?: (string | null) | Popup;
     label: string;
-    /**
-     * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-     */
     prefixIcon?: string | null;
-    /**
-     * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-     */
     suffixIcon?: string | null;
     /**
      * Choose how the link should be rendered.
@@ -5142,13 +4993,7 @@ export interface Contact3Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -5197,13 +5042,7 @@ export interface Contact3Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -5293,13 +5132,7 @@ export interface Contact4Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -5349,13 +5182,7 @@ export interface Contact4Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -5504,13 +5331,7 @@ export interface Contact6Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -5636,13 +5457,7 @@ export interface Contact7Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -5707,13 +5522,7 @@ export interface Contact8Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -5877,13 +5686,7 @@ export interface Team2Fields {
                       } | null);
                   url?: string | null;
                   popup?: (string | null) | Popup;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -5942,13 +5745,7 @@ export interface Team3Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -6001,13 +5798,7 @@ export interface Team3Fields {
                       } | null);
                   url?: string | null;
                   popup?: (string | null) | Popup;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -6066,13 +5857,7 @@ export interface Team5Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -6172,13 +5957,7 @@ export interface Team6Fields {
                       } | null);
                   url?: string | null;
                   popup?: (string | null) | Popup;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -6339,13 +6118,7 @@ export interface FAQ3Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -6430,13 +6203,7 @@ export interface FAQ4Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -6603,13 +6370,7 @@ export interface Logos2Fields {
       url?: string | null;
       popup?: (string | null) | Popup;
       label: string;
-      /**
-       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-       */
       prefixIcon?: string | null;
-      /**
-       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-       */
       suffixIcon?: string | null;
       /**
        * Choose how the link should be rendered.
@@ -6690,6 +6451,100 @@ export interface Logos8Fields {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkPopupBlock".
+ */
+export interface LinkPopupBlock {
+  /**
+   * Link or Popup
+   */
+  link: {
+    type?: ('reference' | 'custom' | 'popup') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    popup?: (string | null) | Popup;
+    label: string;
+    prefixIcon?: string | null;
+    suffixIcon?: string | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'linkPopup';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListBlock".
+ */
+export interface ListBlock {
+  /**
+   * Select the list type.
+   */
+  type: 'ordered' | 'unordered';
+  items: {
+    text: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'list';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  /**
+   * Select the video source.
+   */
+  videoType: 'youtube' | 'vimeo';
+  /**
+   * Ensure the URL is valid for the selected video type.
+   */
+  url: string;
+  /**
+   * Optional: Add a description or caption for the video.
+   */
+  caption?: string | null;
+  /**
+   * Optional: Upload a custom thumbnail for the video.
+   */
+  thumbnail?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'video';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaSimpleBlock".
+ */
+export interface CtaSimpleBlock {
+  /**
+   * Select the background color for the CTA.
+   */
+  backgroundColor: 'primary' | 'secondary' | 'accent' | 'light' | 'dark';
+  heading: string;
+  description?: string | null;
+  buttonLabel: string;
+  buttonUrl: string;
+  buttonStyle: 'solid' | 'outline' | 'ghost';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaSimple';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header".
  */
 export interface Header {
@@ -6739,13 +6594,7 @@ export interface Header1Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -6775,13 +6624,7 @@ export interface Header1Fields {
                   url?: string | null;
                   popup?: (string | null) | Popup;
                   label: string;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -6818,13 +6661,7 @@ export interface Header1Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -6866,13 +6703,7 @@ export interface Header3Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -6903,13 +6734,7 @@ export interface Header3Fields {
           url?: string | null;
           popup?: (string | null) | Popup;
           label: string;
-          /**
-           * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-           */
           prefixIcon?: string | null;
-          /**
-           * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-           */
           suffixIcon?: string | null;
           /**
            * Choose how the link should be rendered.
@@ -6970,13 +6795,7 @@ export interface Header3Fields {
                           } | null);
                       url?: string | null;
                       popup?: (string | null) | Popup;
-                      /**
-                       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                       */
                       prefixIcon?: string | null;
-                      /**
-                       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                       */
                       suffixIcon?: string | null;
                       /**
                        * Title for the link
@@ -7016,13 +6835,7 @@ export interface Header3Fields {
                       url?: string | null;
                       popup?: (string | null) | Popup;
                       label: string;
-                      /**
-                       * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                       */
                       prefixIcon?: string | null;
-                      /**
-                       * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                       */
                       suffixIcon?: string | null;
                       /**
                        * Choose how the link should be rendered.
@@ -7246,13 +7059,7 @@ export interface Header5Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -7282,13 +7089,7 @@ export interface Header5Fields {
                   url?: string | null;
                   popup?: (string | null) | Popup;
                   label: string;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -7325,13 +7126,7 @@ export interface Header5Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -7426,13 +7221,7 @@ export interface Footer1Fields {
                   url?: string | null;
                   popup?: (string | null) | Popup;
                   label: string;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -7475,13 +7264,7 @@ export interface Footer1Fields {
                   } | null);
               url?: string | null;
               popup?: (string | null) | Popup;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -7551,13 +7334,7 @@ export interface Footer2Fields {
                   url?: string | null;
                   popup?: (string | null) | Popup;
                   label: string;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -7591,13 +7368,7 @@ export interface Footer2Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -7659,13 +7430,7 @@ export interface Footer3Fields {
                   url?: string | null;
                   popup?: (string | null) | Popup;
                   label: string;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -7699,13 +7464,7 @@ export interface Footer3Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -7736,13 +7495,7 @@ export interface Footer3Fields {
                   } | null);
               url?: string | null;
               popup?: (string | null) | Popup;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -7804,13 +7557,7 @@ export interface Footer4Fields {
                   url?: string | null;
                   popup?: (string | null) | Popup;
                   label: string;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -7844,13 +7591,7 @@ export interface Footer4Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -7881,13 +7622,7 @@ export interface Footer4Fields {
                   } | null);
               url?: string | null;
               popup?: (string | null) | Popup;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -7955,13 +7690,7 @@ export interface Footer5Fields {
                   url?: string | null;
                   popup?: (string | null) | Popup;
                   label: string;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -7998,13 +7727,7 @@ export interface Footer5Fields {
                   } | null);
               url?: string | null;
               popup?: (string | null) | Popup;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -8039,13 +7762,7 @@ export interface Footer5Fields {
                   } | null);
               url?: string | null;
               popup?: (string | null) | Popup;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -8115,13 +7832,7 @@ export interface Footer6Fields {
                   url?: string | null;
                   popup?: (string | null) | Popup;
                   label: string;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -8155,13 +7866,7 @@ export interface Footer6Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -8231,13 +7936,7 @@ export interface Footer7Fields {
                   url?: string | null;
                   popup?: (string | null) | Popup;
                   label: string;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -8270,13 +7969,7 @@ export interface Footer7Fields {
                   } | null);
               url?: string | null;
               popup?: (string | null) | Popup;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -8308,13 +8001,7 @@ export interface Footer7Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -8380,13 +8067,7 @@ export interface Footer8Fields {
                   url?: string | null;
                   popup?: (string | null) | Popup;
                   label: string;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -8419,13 +8100,7 @@ export interface Footer8Fields {
                   } | null);
               url?: string | null;
               popup?: (string | null) | Popup;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -8486,13 +8161,7 @@ export interface Footer9Fields {
             url?: string | null;
             popup?: (string | null) | Popup;
             label: string;
-            /**
-             * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-             */
             prefixIcon?: string | null;
-            /**
-             * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-             */
             suffixIcon?: string | null;
             /**
              * Choose how the link should be rendered.
@@ -8534,13 +8203,7 @@ export interface Footer9Fields {
                   url?: string | null;
                   popup?: (string | null) | Popup;
                   label: string;
-                  /**
-                   * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-                   */
                   prefixIcon?: string | null;
-                  /**
-                   * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-                   */
                   suffixIcon?: string | null;
                   /**
                    * Choose how the link should be rendered.
@@ -8578,13 +8241,7 @@ export interface Footer9Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -8616,13 +8273,7 @@ export interface Footer9Fields {
               url?: string | null;
               popup?: (string | null) | Popup;
               label: string;
-              /**
-               * Optional: Lucide icon name for prefix (e.g., "ArrowLeft")
-               */
               prefixIcon?: string | null;
-              /**
-               * Optional: Lucide icon name for suffix (e.g., "ArrowRight")
-               */
               suffixIcon?: string | null;
               /**
                * Choose how the link should be rendered.
@@ -9103,11 +8754,17 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         gallery?: T | GalleryBlockSelect<T>;
         feature?: T | FeatureBlockSelect<T>;
+        table?: T | TableBlockSelect<T>;
+        columns?: T | ColumnsBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
         contact?: T | ContactBlockSelect<T>;
         team?: T | TeamBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
         logos?: T | LogosBlockSelect<T>;
+        linkPopup?: T | LinkPopupBlockSelect<T>;
+        list?: T | ListBlockSelect<T>;
+        video?: T | VideoBlockSelect<T>;
+        ctaSimple?: T | CtaSimpleBlockSelect<T>;
       };
   meta?:
     | T
@@ -10929,6 +10586,55 @@ export interface Feature15FieldsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock_select".
+ */
+export interface TableBlockSelect<T extends boolean = true> {
+  content?: T;
+  caption?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ColumnsBlock_select".
+ */
+export interface ColumnsBlockSelect<T extends boolean = true> {
+  layout?: T;
+  columns?:
+    | T
+    | {
+        content?:
+          | T
+          | {
+              text?:
+                | T
+                | {
+                    content?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+              image?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+              video?:
+                | T
+                | {
+                    url?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialBlock_select".
  */
 export interface TestimonialBlockSelect<T extends boolean = true> {
@@ -12107,6 +11813,68 @@ export interface Logos8FieldsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkPopupBlock_select".
+ */
+export interface LinkPopupBlockSelect<T extends boolean = true> {
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        popup?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListBlock_select".
+ */
+export interface ListBlockSelect<T extends boolean = true> {
+  type?: T;
+  items?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock_select".
+ */
+export interface VideoBlockSelect<T extends boolean = true> {
+  videoType?: T;
+  url?: T;
+  caption?: T;
+  thumbnail?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaSimpleBlock_select".
+ */
+export interface CtaSimpleBlockSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  heading?: T;
+  description?: T;
+  buttonLabel?: T;
+  buttonUrl?: T;
+  buttonStyle?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -12286,6 +12054,7 @@ export interface TenantsSelect<T extends boolean = true> {
   name?: T;
   domain?: T;
   slug?: T;
+  theme?: T;
   allowPublicRead?: T;
   updatedAt?: T;
   createdAt?: T;

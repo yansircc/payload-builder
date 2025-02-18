@@ -10,6 +10,7 @@ import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { cn } from '@/utilities/ui'
 import './globals.css'
+import { inter, outfit } from '@/config/fonts'
 import { CustomCode } from '@/globals/CustomCode/Component'
 import { Favicon } from '@/globals/Favicon/Component'
 import { RenderHeader } from '@/globals/Header/RenderHeader'
@@ -22,7 +23,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const siteSettings = await getSiteSettings()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(GeistSans.variable, GeistMono.variable, inter.variable, outfit.variable)}
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <Favicon />
