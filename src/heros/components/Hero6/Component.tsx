@@ -70,15 +70,8 @@ export default function Hero6({ hero }: Hero6Fields) {
             {partners.map(
               ({ logo }, i) =>
                 logo && (
-                  <div
-                    key={i}
-                    className="inline-flex h-8 sm:h-10 p-card shadow-card rounded-md bg-card"
-                  >
-                    <Media
-                      resource={logo}
-                      className="h-full w-auto"
-                      imgClassName="h-full w-auto object-cover"
-                    />
+                  <div key={i} className="inline-flex h-20">
+                    <Media resource={logo} imgClassName="h-full w-auto object-cover" />
                   </div>
                 ),
             )}
