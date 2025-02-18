@@ -35,7 +35,7 @@ export default function CTA7({ title, subtitle, links, lists }: CTA7Fields) {
             <ul className={`grid gap-x-8 gap-y-4 text-muted-foreground md:grid-cols-2`}>
               {lists?.map((list, index) => (
                 <li key={index} className="flex items-center gap-2">
-                  <DynamicIcon name={list.icon} className="size-5" />
+                  {list.icon && <DynamicIcon name={list.icon} className="size-5" />}
                   {list.text}
                 </li>
               ))}

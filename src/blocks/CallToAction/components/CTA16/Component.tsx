@@ -17,7 +17,7 @@ export default function CTA16({ title, subtitle, links, image, icon }: CTA16Fiel
         >
           <div className="flex flex-col gap-8 p-4 text-center text-primary-foreground">
             <div className="flex items-center justify-center gap-2 text-2xl font-medium">
-              <DynamicIcon name={icon} className="h-full w-7" /> {subtitle}
+              {icon && <DynamicIcon name={icon} className="h-full w-7" />} {subtitle}
             </div>
             <h2 className="text-5xl font-bold">{title}</h2>
             {/* Links */}

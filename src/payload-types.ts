@@ -2081,9 +2081,6 @@ export interface CTA1Fields {
    * The image shows on the right side of the CTA section
    */
   image?: (string | null) | Media;
-  /**
-   * The icon shows on the left side of the CTA section, should be a lucide icon name, such as "ArrowRight"
-   */
   icon?: string | null;
   /**
    * The CTA button with ArrowRight suffix icon
@@ -2246,10 +2243,7 @@ export interface CTA4Fields {
    */
   lists?:
     | {
-        /**
-         * Lucide icon name (e.g., Check, Star, Shield)
-         */
-        icon: string;
+        icon?: string | null;
         /**
          * Feature description
          */
@@ -2360,10 +2354,7 @@ export interface CTA7Fields {
    */
   lists?:
     | {
-        /**
-         * Lucide icon name (e.g., Check, Star, Shield)
-         */
-        icon: string;
+        icon?: string | null;
         /**
          * Feature description
          */
@@ -2534,10 +2525,7 @@ export interface CTA16Fields {
    * The subtitle text below the main title
    */
   subtitle?: string | null;
-  /**
-   * Lucide icon name (e.g., Rocket, Star, Lightning)
-   */
-  icon: string;
+  icon?: string | null;
   /**
    * The background image with dark overlay
    */

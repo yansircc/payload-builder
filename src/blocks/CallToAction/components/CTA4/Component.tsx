@@ -46,7 +46,7 @@ export default function CTA4({ title, subtitle, links, lists }: CTA4Fields) {
               >
                 {lists.map((item, index) => (
                   <li key={index} className="flex items-center">
-                    <DynamicIcon name={item.icon} className="mr-4 size-5" />
+                    {item.icon && <DynamicIcon name={item.icon} className="mr-4 size-5" />}
                     {item.text}
                   </li>
                 ))}
