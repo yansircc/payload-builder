@@ -70,6 +70,9 @@ export const CallToAction: Block = {
     {
       ...cta4Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA4/config.client.tsx',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-4',
       },
     },
@@ -80,6 +83,9 @@ export const CallToAction: Block = {
     {
       ...cta5Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA5/config.client.tsx',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-5',
       },
     },
@@ -90,6 +96,9 @@ export const CallToAction: Block = {
     {
       ...cta7Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA7/config.client.tsx',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-7',
       },
     },
@@ -100,6 +109,9 @@ export const CallToAction: Block = {
     {
       ...cta10Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA10/config.client.tsx',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-10',
       },
     },
@@ -110,6 +122,9 @@ export const CallToAction: Block = {
     {
       ...cta11Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA11/config.client.tsx',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-11',
       },
     },
@@ -120,6 +135,9 @@ export const CallToAction: Block = {
     {
       ...cta15Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA15/config.client.tsx',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-15',
       },
     },
@@ -130,6 +148,9 @@ export const CallToAction: Block = {
     {
       ...cta16Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA16/config.client.tsx',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-16',
       },
     },
@@ -140,6 +161,9 @@ export const CallToAction: Block = {
     {
       ...cta17Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA17/config.client.tsx',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-17',
       },
     },

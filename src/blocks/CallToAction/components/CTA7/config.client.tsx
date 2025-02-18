@@ -4,8 +4,8 @@ import { Button, GroupField, useField } from '@payloadcms/ui'
 import { SparklesIcon } from 'lucide-react'
 import type { GroupFieldClientProps } from 'payload'
 import { useState } from 'react'
-import type { CTA1Fields } from '@/payload-types'
-import { getCTA1Content } from './ai'
+import type { CTA7Fields } from '@/payload-types'
+import { getCTA7Content } from './ai'
 
 // Helper function to get field path
 function getFieldPath(props: GroupFieldClientProps, fieldName: string): string {
@@ -14,18 +14,18 @@ function getFieldPath(props: GroupFieldClientProps, fieldName: string): string {
 
 // Helper type for field values
 type FieldValues = {
-  [K in keyof CTA1Fields]: ReturnType<typeof useField<CTA1Fields[K]>>
+  [K in keyof CTA7Fields]: ReturnType<typeof useField<CTA7Fields[K]>>
 }
 
-export const CTA1Client: React.FC<GroupFieldClientProps> = (props) => {
+export const CTA7Client: React.FC<GroupFieldClientProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false)
 
   // Use a more structured approach to manage fields
   const fields: FieldValues = {
     title: useField<string>({ path: getFieldPath(props, 'title') }),
     subtitle: useField<string>({ path: getFieldPath(props, 'subtitle') }),
-    icon: useField<string>({ path: getFieldPath(props, 'icon') }),
-    btn: useField<CTA1Fields['btn']>({ path: getFieldPath(props, 'btn') }),
+    links: useField<CTA7Fields['links']>({ path: getFieldPath(props, 'links') }),
+    lists: useField<CTA7Fields['lists']>({ path: getFieldPath(props, 'lists') }),
   }
 
   const handleClick = async () => {
@@ -36,31 +36,19 @@ export const CTA1Client: React.FC<GroupFieldClientProps> = (props) => {
       // Clear all existing values first
       fields.title?.setValue?.('')
       fields.subtitle?.setValue?.('')
-      fields.icon?.setValue?.('')
-      fields.btn?.setValue?.(null)
+      fields.links?.setValue?.([])
+      fields.lists?.setValue?.([])
 
-      // Generate data using specialized CTA1 AI generator
-      const generatedData = await getCTA1Content()
-
-      console.log('Generated Data:', generatedData)
+      // Generate data using specialized CTA7 AI generator
+      const generatedData = await getCTA7Content()
 
       // Set new values after generation
       fields.title?.setValue?.(generatedData.title ?? '')
       fields.subtitle?.setValue?.(generatedData.subtitle ?? '')
-      fields.icon?.setValue?.(generatedData.icon ?? 'ArrowRight')
-
-      // Ensure btn is properly set with the complete structure
-      if (fields.btn?.setValue && generatedData.btn) {
-        const buttonData = {
-          ...generatedData.btn,
-          type: 'custom',
-          appearance: 'default',
-        }
-        console.log('Setting button data:', buttonData)
-        fields.btn.setValue(buttonData)
-      }
+      fields.links?.setValue?.(generatedData.links ?? [])
+      fields.lists?.setValue?.(generatedData.lists ?? [])
     } catch (error) {
-      console.error('Error generating CTA1 content:', error)
+      console.error('Error generating CTA7 content:', error)
     } finally {
       setIsLoading(false)
     }
@@ -76,4 +64,4 @@ export const CTA1Client: React.FC<GroupFieldClientProps> = (props) => {
   )
 }
 
-export default CTA1Client
+export default CTA7Client

@@ -1,4 +1,5 @@
 import { Field, GroupField } from 'payload'
+import { icon } from '@/fields/icon'
 import { link } from '@/fields/link'
 
 const title: Field = {
@@ -31,15 +32,10 @@ const image: Field = {
   },
 }
 
-const icon: Field = {
+const iconField = icon({
   name: 'icon',
-  type: 'text',
-  defaultValue: 'ArrowRight',
-  admin: {
-    description:
-      'The icon shows on the left side of the CTA section, should be a lucide icon name, such as "ArrowRight"',
-  },
-}
+  label: 'Icon',
+})
 
 const btn: Field = link({
   name: 'btn',
@@ -74,5 +70,5 @@ export const cta1Fields: GroupField = {
   admin: {
     description: 'Side-by-side layout with icon badge and single action button',
   },
-  fields: [title, subtitle, image, icon, btn],
+  fields: [title, subtitle, image, iconField, btn],
 }

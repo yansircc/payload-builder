@@ -3,16 +3,18 @@ import { Media } from '@/components/Media'
 import type { CTA5Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function CTA5({ cta }: CTA5Fields) {
-  const { title, subtitle, image, links } = cta
-
+export default function CTA5({ title, subtitle, image, links }: CTA5Fields) {
   return (
     <section className="py-32">
       <div className="container">
         <div className="flex w-full flex-col overflow-hidden rounded-lg border border-border bg-accent md:rounded-xl lg:flex-row lg:items-center">
           <div className="w-full shrink-0 self-stretch lg:w-1/2">
             {image && (
-              <Media fill imgClassName="-z-10 object-cover" priority resource={image} alt={title} />
+              <Media
+                imgClassName="aspect-[3/2] w-full rounded-md object-cover"
+                resource={image}
+                alt={title}
+              />
             )}
           </div>
           <div className="w-full shrink-0 px-4 py-6 md:p-8 lg:w-1/2 lg:px-16">
@@ -27,12 +29,10 @@ export default function CTA5({ cta }: CTA5Fields) {
               >
                 {links.map((linkGroup, index) => (
                   <div key={index} className="flex flex-col gap-2 sm:flex-row">
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
-                      )}
+                    {Object.entries(linkGroup).map(
+                      ([key, link]) =>
+                        link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                    )}
                   </div>
                 ))}
               </ClientMotionDiv>

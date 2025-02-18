@@ -8,7 +8,7 @@ export const LinkAppearanceEnum = z.enum(['default', 'ghost', 'outline', 'second
 
 // Base link schema that can be extended by specific components
 export const baseLinkSchema = z.object({
-  type: z.enum(['custom', 'reference']).default('custom'),
+  type: z.enum(['custom', 'reference', 'popup']).default('custom'),
   url: z.string().default('#'),
   label: z.string().min(1),
   prefixIcon: LucideIconEnum.optional(),

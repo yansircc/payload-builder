@@ -2,9 +2,7 @@ import { CMSLink } from '@/components/Link'
 import type { CTA11Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function CTA11({ cta }: CTA11Fields) {
-  const { title, subtitle, links } = cta
-
+export default function CTA11({ title, subtitle, links }: CTA11Fields) {
   return (
     <section className="py-32">
       <div className="container">
@@ -24,15 +22,13 @@ export default function CTA11({ cta }: CTA11Fields) {
             >
               {links.map((linkGroup, index) => (
                 <div key={index} className="w-full sm:w-auto">
-                  {Object.entries(linkGroup)
-                    .filter(([key]) => key.startsWith('link-'))
-                    .map(
-                      ([key, link]) =>
-                        link &&
-                        typeof link === 'object' && (
-                          <CMSLink key={key} {...link} className="w-full sm:w-auto" />
-                        ),
-                    )}
+                  {Object.entries(linkGroup).map(
+                    ([key, link]) =>
+                      link &&
+                      typeof link === 'object' && (
+                        <CMSLink key={key} {...link} className="w-full sm:w-auto" />
+                      ),
+                  )}
                 </div>
               ))}
             </ClientMotionDiv>

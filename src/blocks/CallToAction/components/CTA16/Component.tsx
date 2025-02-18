@@ -3,9 +3,7 @@ import { CMSLink } from '@/components/Link'
 import type { CTA16Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function CTA16({ cta }: CTA16Fields) {
-  const { title, subtitle, links, image, icon } = cta
-
+export default function CTA16({ title, subtitle, links, image, icon }: CTA16Fields) {
   return (
     <section className="py-32">
       <div className="container">
@@ -32,15 +30,13 @@ export default function CTA16({ cta }: CTA16Fields) {
               >
                 {links.map((linkGroup, index) => (
                   <div key={index} className="w-full sm:w-auto">
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link &&
-                          typeof link === 'object' && (
-                            <CMSLink key={key} {...link} className="w-full sm:w-auto" />
-                          ),
-                      )}
+                    {Object.entries(linkGroup).map(
+                      ([key, link]) =>
+                        link &&
+                        typeof link === 'object' && (
+                          <CMSLink key={key} {...link} className="w-full sm:w-auto" />
+                        ),
+                    )}
                   </div>
                 ))}
               </ClientMotionDiv>

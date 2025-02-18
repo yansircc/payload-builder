@@ -9,22 +9,16 @@ const cta3LinkSchema = baseLinkSchema.extend({
 
 // Button schema with specific link configuration
 export const buttonSchema = z.object({
-  link: cta3LinkSchema
-    .extend({
-      appearance: z.literal('default'),
-    })
-    .describe(
-      'Primary CTA button that should convey a strong call-to-action with a directional icon',
-    ),
+  link: cta3LinkSchema.describe(
+    'Primary CTA button that should convey a strong call-to-action with a directional icon',
+  ),
 })
 
 // Feature list item schema with specific link configuration
 export const listItemSchema = z.object({
-  link: cta3LinkSchema
-    .extend({
-      appearance: z.literal('ghost'),
-    })
-    .describe('Secondary feature link that should indicate additional information or a sub-action'),
+  link: cta3LinkSchema.describe(
+    'Secondary feature link that should indicate additional information or a sub-action',
+  ),
   description: z.string().min(1).describe('Brief description of the feature'),
 })
 

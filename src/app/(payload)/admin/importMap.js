@@ -36,6 +36,14 @@ import {
 import { default as default_a48147a5d9e361c38690affd82c29136 } from 'src/collections/CustomCodes/components/ScriptRowLabel'
 import { default as default_2a39a1af771424381d098717f69480b6 } from '@/blocks/CallToAction/components/CTA1/config.client.tsx'
 import { default as default_35255ec42d8f32ecd043bb2b02f0d65b } from '@/blocks/CallToAction/components/CTA3/config.client.tsx'
+import { default as default_4f5590e45a90eb434ada1df399f6564e } from '@/blocks/CallToAction/components/CTA4/config.client.tsx'
+import { default as default_d37134f7322778e01ca7a3ca8ae25ac1 } from '@/blocks/CallToAction/components/CTA5/config.client.tsx'
+import { default as default_2b197559a662bb08eadd63ff14a7f6fc } from '@/blocks/CallToAction/components/CTA7/config.client.tsx'
+import { default as default_63fc0bdd9b297e91ecfb9ddf27413d37 } from '@/blocks/CallToAction/components/CTA10/config.client.tsx'
+import { default as default_8e5f8c64f7244ddb08417184b5c5b763 } from '@/blocks/CallToAction/components/CTA11/config.client.tsx'
+import { default as default_c9e88eb416816f056243184d9024760b } from '@/blocks/CallToAction/components/CTA15/config.client.tsx'
+import { default as default_6f8bb1f48fffd0933e97720290f1a109 } from '@/blocks/CallToAction/components/CTA16/config.client.tsx'
+import { default as default_d6db59c80cebea06c148fec189e53daa } from '@/blocks/CallToAction/components/CTA17/config.client.tsx'
 import { default as default_1a7510af427896d367a49dbf838d2de6 } from '@/components/BeforeDashboard'
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { default as default_78b39f784b86cf844383560b5f1a85bf } from '@/components/ColorPicker/'
@@ -51,6 +59,22 @@ export const importMap = {
     default_2a39a1af771424381d098717f69480b6,
   '@/blocks/CallToAction/components/CTA3/config.client.tsx#default':
     default_35255ec42d8f32ecd043bb2b02f0d65b,
+  '@/blocks/CallToAction/components/CTA4/config.client.tsx#default':
+    default_4f5590e45a90eb434ada1df399f6564e,
+  '@/blocks/CallToAction/components/CTA5/config.client.tsx#default':
+    default_d37134f7322778e01ca7a3ca8ae25ac1,
+  '@/blocks/CallToAction/components/CTA7/config.client.tsx#default':
+    default_2b197559a662bb08eadd63ff14a7f6fc,
+  '@/blocks/CallToAction/components/CTA10/config.client.tsx#default':
+    default_63fc0bdd9b297e91ecfb9ddf27413d37,
+  '@/blocks/CallToAction/components/CTA11/config.client.tsx#default':
+    default_8e5f8c64f7244ddb08417184b5c5b763,
+  '@/blocks/CallToAction/components/CTA15/config.client.tsx#default':
+    default_c9e88eb416816f056243184d9024760b,
+  '@/blocks/CallToAction/components/CTA16/config.client.tsx#default':
+    default_6f8bb1f48fffd0933e97720290f1a109,
+  '@/blocks/CallToAction/components/CTA17/config.client.tsx#default':
+    default_d6db59c80cebea06c148fec189e53daa,
   '@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell':
     RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   '@payloadcms/richtext-lexical/rsc#RscEntryLexicalField':

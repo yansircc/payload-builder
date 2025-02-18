@@ -85,13 +85,6 @@ const featureList: Field = {
         },
       },
     }),
-    {
-      name: 'description',
-      type: 'textarea',
-      admin: {
-        description: 'Brief description of the feature',
-      },
-    },
   ],
 }
 

@@ -2191,10 +2191,6 @@ export interface CTA3Fields {
            */
           appearance?: 'ghost' | null;
         };
-        /**
-         * Brief description of the feature
-         */
-        description?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -2205,67 +2201,62 @@ export interface CTA3Fields {
  */
 export interface CTA4Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary CTA button
+   */
+  links?:
+    | {
+        /**
+         * CTA button with arrow
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * List with icons
-     */
-    lists?:
-      | {
-          /**
-           * Optional: Lucide icon name (e.g., CheckCircle)
-           */
-          icon: string;
-          /**
-           * List item text
-           */
-          text: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: 'default' | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * List of features with icons
+   */
+  lists?:
+    | {
+        /**
+         * Lucide icon name (e.g., Check, Star, Shield)
+         */
+        icon: string;
+        /**
+         * Feature description
+         */
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2273,55 +2264,50 @@ export interface CTA4Fields {
  */
 export interface CTA5Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA image
-     */
-    image: string | Media;
-    /**
-     * CTA links
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * The featured image that appears on the side
+   */
+  image: string | Media;
+  /**
+   * Primary CTA button
+   */
+  links?:
+    | {
+        /**
+         * CTA button
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * Primary link
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: 'default' | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2329,67 +2315,62 @@ export interface CTA5Fields {
  */
 export interface CTA7Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text (in uppercase) below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary CTA button
+   */
+  links?:
+    | {
+        /**
+         * CTA button
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * List with icons
-     */
-    lists?:
-      | {
-          /**
-           * Optional: Lucide icon name (e.g., CheckCircle)
-           */
-          icon: string;
-          /**
-           * List item text
-           */
-          text: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: 'default' | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * List of features with icons
+   */
+  lists?:
+    | {
+        /**
+         * Lucide icon name (e.g., Check, Star, Shield)
+         */
+        icon: string;
+        /**
+         * Feature description
+         */
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2397,51 +2378,46 @@ export interface CTA7Fields {
  */
 export interface CTA10Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary and secondary CTA buttons
+   */
+  links?:
+    | {
+        /**
+         * CTA button
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'ghost') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2449,51 +2425,46 @@ export interface CTA10Fields {
  */
 export interface CTA11Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary and secondary CTA buttons
+   */
+  links?:
+    | {
+        /**
+         * CTA button
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'ghost') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2501,59 +2472,54 @@ export interface CTA11Fields {
  */
 export interface CTA15Fields {
   /**
-   * CTA section fields
+   * The small heading text above the title
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * The heading text above the title
-     */
-    heading?: string | null;
-    /**
-     * CTA image
-     */
-    image: string | Media;
-    /**
-     * CTA button
-     */
-    links?:
-      | {
+  heading?: string | null;
+  /**
+   * The main title of the CTA section
+   */
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * The featured image that appears on the right side
+   */
+  image: string | Media;
+  /**
+   * CTA buttons
+   */
+  links?:
+    | {
+        /**
+         * CTA button with ArrowRight suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA button with ArrowRight suffix icon
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'ghost') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2561,59 +2527,54 @@ export interface CTA15Fields {
  */
 export interface CTA16Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA image
-     */
-    image: string | Media;
-    /**
-     * Optional: Lucide icon name (e.g., CheckCircle)
-     */
-    icon: string;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Lucide icon name (e.g., Rocket, Star, Lightning)
+   */
+  icon: string;
+  /**
+   * The background image with dark overlay
+   */
+  image: string | Media;
+  /**
+   * Primary and secondary CTA buttons
+   */
+  links?:
+    | {
+        /**
+         * CTA button with ArrowRight suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'ghost') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2621,51 +2582,46 @@ export interface CTA16Fields {
  */
 export interface CTA17Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary and secondary CTA buttons
+   */
+  links?:
+    | {
+        /**
+         * CTA button with ArrowRight suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'ghost') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9726,7 +9682,6 @@ export interface CTA3FieldsSelect<T extends boolean = true> {
               description?: T;
               appearance?: T;
             };
-        description?: T;
         id?: T;
       };
 }
@@ -9735,36 +9690,32 @@ export interface CTA3FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA4Fields_select".
  */
 export interface CTA4FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
-        lists?:
-          | T
-          | {
-              icon?: T;
-              text?: T;
-              id?: T;
-            };
+        id?: T;
+      };
+  lists?:
+    | T
+    | {
+        icon?: T;
+        text?: T;
+        id?: T;
       };
 }
 /**
@@ -9772,30 +9723,26 @@ export interface CTA4FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA5Fields_select".
  */
 export interface CTA5FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        image?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -9803,36 +9750,32 @@ export interface CTA5FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA7Fields_select".
  */
 export interface CTA7FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
-        lists?:
-          | T
-          | {
-              icon?: T;
-              text?: T;
-              id?: T;
-            };
+        id?: T;
+      };
+  lists?:
+    | T
+    | {
+        icon?: T;
+        text?: T;
+        id?: T;
       };
 }
 /**
@@ -9840,29 +9783,25 @@ export interface CTA7FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA10Fields_select".
  */
 export interface CTA10FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -9870,29 +9809,25 @@ export interface CTA10FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA11Fields_select".
  */
 export interface CTA11FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -9900,31 +9835,27 @@ export interface CTA11FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA15Fields_select".
  */
 export interface CTA15FieldsSelect<T extends boolean = true> {
-  cta?:
+  heading?: T;
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        heading?: T;
-        image?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -9932,31 +9863,27 @@ export interface CTA15FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA16Fields_select".
  */
 export interface CTA16FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  icon?: T;
+  image?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        image?: T;
-        icon?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -9964,29 +9891,25 @@ export interface CTA16FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA17Fields_select".
  */
 export interface CTA17FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**

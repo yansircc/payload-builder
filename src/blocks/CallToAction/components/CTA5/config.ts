@@ -1,30 +1,76 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
+import { Field, GroupField } from 'payload'
 import { link } from '@/fields/link'
-import { createCTAField, ctaSchemas } from '../shared/base-field'
+
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  minLength: 1,
+  maxLength: 100,
+  defaultValue: 'Image-Focused Call to Action',
+  admin: {
+    description: 'The title of the CTA section',
+  },
+}
+
+const subtitle: Field = {
+  name: 'subtitle',
+  type: 'text',
+  defaultValue: 'Engage your audience with a visually striking layout and compelling message.',
+  admin: {
+    description: 'The subtitle text below the main title',
+  },
+}
+
+const image: Field = {
+  name: 'image',
+  type: 'upload',
+  relationTo: 'media',
+  required: true,
+  admin: {
+    description: 'The featured image that appears on the side',
+  },
+}
+
+const links: Field = {
+  name: 'links',
+  type: 'array',
+  minRows: 1,
+  maxRows: 1,
+  admin: {
+    description: 'Primary CTA button',
+  },
+  fields: [
+    link({
+      name: 'link',
+      disableLabel: false,
+      appearances: ['default'],
+      ui: {
+        icons: true,
+        description: false,
+      },
+      overrides: {
+        admin: {
+          description: 'CTA button',
+        },
+        defaultValue: {
+          type: 'custom',
+          url: '#',
+          label: 'Get Started',
+          appearance: 'default',
+        },
+      },
+    }),
+  ],
+}
 
 /**
- * CTA 5: Image-focused side content layout
+ * Complete configuration for CTA 5
  * Features:
  * - Large image placement
  * - Side-by-side content structure
  * - Single action button
  * - Clean, minimal design
- */
-export const schemas = {
-  title: ctaSchemas.title,
-  subtitle: ctaSchemas.subtitle,
-  image: ctaSchemas.image,
-  links: z.array(ctaSchemas.link).min(1).max(2),
-}
-
-/**
- * CTA 5 configuration
- *
- * This CTA includes:
- * - Title and subtitle for main content
- * - Featured image placement
- * - Single action button
  */
 export const cta5Fields: GroupField = {
   name: 'cta-5',
@@ -34,29 +80,5 @@ export const cta5Fields: GroupField = {
   admin: {
     description: 'Image-focused layout with side content and action button',
   },
-  fields: [
-    createCTAField({
-      includeFields: ['title', 'subtitle', 'image'],
-      arrays: [
-        {
-          name: 'links',
-          fields: [
-            link({
-              name: 'link-1',
-              overrides: {
-                admin: {
-                  description: 'Primary link',
-                },
-              },
-            }),
-          ],
-          admin: {
-            description: 'CTA links',
-          },
-          minRows: 1,
-          maxRows: 1,
-        },
-      ],
-    }),
-  ],
+  fields: [title, subtitle, image, links],
 }

@@ -3,9 +3,7 @@ import { CMSLink } from '@/components/Link'
 import type { CTA7Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function CTA7({ cta }: CTA7Fields) {
-  const { title, subtitle, links, lists } = cta
-
+export default function CTA7({ title, subtitle, links, lists }: CTA7Fields) {
   return (
     <section className="py-32">
       <div className="container">

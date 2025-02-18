@@ -54,8 +54,8 @@ export default function CTA3({ title, subtitle, buttons, list }: CTA3Fields) {
                       )}
                       <div>
                         <h5 className="mb-2 font-medium leading-4">{item.link.label}</h5>
-                        {item.description && (
-                          <p className="text-sm text-muted-foreground">{item.description}</p>
+                        {item.link.description && (
+                          <p className="text-sm text-muted-foreground">{item.link.description}</p>
                         )}
                       </div>
                     </div>
