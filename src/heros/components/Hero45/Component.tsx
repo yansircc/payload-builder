@@ -1,4 +1,4 @@
-import * as LucideIcons from 'lucide-react'
+import { DynamicIcon } from '@/components/DynamicIcon'
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -12,8 +12,6 @@ interface Feature {
 }
 
 export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
-  if (!hero) return null
-
   const { badge, title, image, features } = hero
 
   return (
@@ -39,12 +37,12 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
           >
             <Media
               resource={image}
-              className="aspect-video max-h-[500px] w-full rounded-xl object-cover"
+              imgClassName="aspect-video max-h-[500px] w-full rounded-xl object-cover"
             />
           </ClientMotionDiv>
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-          <div className="absolute -right-28 -top-28 -z-10 aspect-video h-72 w-96 opacity-40 [background-size:12px_12px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_20%,transparent_100%)] sm:bg-[radial-gradient(hsl(var(--muted-foreground))_1px,transparent_1px)]" />
-          <div className="absolute -left-28 -top-28 -z-10 aspect-video h-72 w-96 opacity-40 [background-size:12px_12px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_20%,transparent_100%)] sm:bg-[radial-gradient(hsl(var(--muted-foreground))_1px,transparent_1px)]" />
+          <div className="absolute -right-28 -top-28 -z-10 aspect-video h-72 w-96 opacity-40 [background-size:12px_12px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_20%,transparent_100%)] sm:bg-[radial-gradient(var(--muted-foreground)_1px,transparent_1px)]" />
+          <div className="absolute -left-28 -top-28 -z-10 aspect-video h-72 w-96 opacity-40 [background-size:12px_12px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_20%,transparent_100%)] sm:bg-[radial-gradient(var(--muted-foreground)_1px,transparent_1px)]" />
         </div>
 
         <ClientMotionDiv
@@ -54,7 +52,6 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
           className="mx-auto mt-10 flex max-w-screen-lg flex-col md:flex-row"
         >
           {features?.map((feature: Feature, index: number) => {
-            const Icon = (LucideIcons as any)[feature.icon] || LucideIcons.HelpCircle
             return (
               <div key={index} className="flex grow basis-0 flex-col rounded-md bg-background p-4">
                 {index > 0 && (
@@ -64,7 +61,7 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
                   />
                 )}
                 <div className="mb-6 flex size-10 items-center justify-center rounded-full bg-background drop-shadow-lg">
-                  <Icon className="h-auto w-5" />
+                  <DynamicIcon name={feature.icon} className="h-auto w-5" />
                 </div>
                 <h3 className="mb-2 font-semibold">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground">{feature.description}</p>
