@@ -27,7 +27,7 @@ export const TitleCell: React.FC<DefaultCellComponentProps> = (props) => {
       href={`/admin/collections/${collectionSlug}/${rowData.id}`}
       className="whitespace-nowrap font-mono"
     >
-      {formattedPath}
+      {formattedPath || 'No title'}
     </Link>
   )
 }

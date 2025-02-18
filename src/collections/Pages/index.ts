@@ -88,7 +88,12 @@ export const Pages: CollectionConfig<'pages'> = {
         disableListColumn: true,
         disableListFilter: true,
       },
-      filterOptions: ({ id }) => ({ id: { not_equals: id } }),
+      filterOptions: ({ id }) => ({
+        id: { not_equals: id },
+        _status: {
+          not_equals: 'published',
+        },
+      }),
     }),
     createBreadcrumbsField('pages', {
       label: 'Page Breadcrumbs',
