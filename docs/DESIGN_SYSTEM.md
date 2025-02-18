@@ -19,497 +19,289 @@ Each theme extends Tailwind's base configuration with the following customizatio
 
 ### Colors
 
-The color system extends Tailwind's color palette:
+The color system extends Tailwind's color palette with semantic tokens:
 
 ```typescript
 colors: {
-  background: string // Maps to bg-background
-  foreground: string // Maps to text-foreground
-  card: string // Maps to bg-card
-  cardForeground: string // Maps to text-card-foreground
-  popover: string // Popover background
-  popoverForeground: string // Popover text color
-  primary: string // Primary brand color
-  primaryForeground: string // Text on primary color
-  secondary: string // Secondary brand color
-  secondaryForeground: string // Text on secondary color
-  muted: string // Muted background
-  mutedForeground: string // Muted text color
-  accent: string // Accent color
-  accentForeground: string // Text on accent color
-  destructive: string // Error/destructive color
-  destructiveForeground: string // Text on destructive color
-  border: string // Border color
-  input: string // Input border color
-  ring: string // Focus ring color
+  background: string // bg-background
+  foreground: string // text-foreground
+  card: string // bg-card
+  cardForeground: string // text-card-foreground
+  popover: string // bg-popover
+  popoverForeground: string // text-popover-foreground
+  primary: string // text-primary, bg-primary
+  primaryForeground: string // text-primary-foreground
+  secondary: string // text-secondary, bg-secondary
+  secondaryForeground: string // text-secondary-foreground
+  muted: string // text-muted, bg-muted
+  mutedForeground: string // text-muted-foreground
+  accent: string // text-accent, bg-accent
+  accentForeground: string // text-accent-foreground
+  destructive: string // text-destructive, bg-destructive
+  destructiveForeground: string // text-destructive-foreground
+  border: string // border-border
+  input: string // border-input
+  ring: string // ring-ring
 }
 ```
-
-These colors are automatically integrated into Tailwind's utility classes:
-
-- `bg-background`
-- `text-foreground`
-- `border-border`
-- etc.
 
 ### Typography
 
-Typography settings extend Tailwind's typography system:
+Typography settings extend Tailwind's typography system with the following utilities:
 
 ```typescript
-typography: {
-  fontFamily: string // Maps to font-sans
-  headingFamily: string // Maps to font-heading
-  baseFontSize: string // Configures Tailwind's text-base
-  lineHeight: string // Configures Tailwind's leading-*
-  fontWeights: {
-    normal: string // Maps to font-normal
-    medium: string // Maps to font-medium
-    semibold: string // Maps to font-semibold
-    bold: string // Maps to font-bold
-  }
-  letterSpacing: {
-    tight: string // Maps to tracking-tight
-    normal: string // Maps to tracking-normal
-    wide: string // Maps to tracking-wide
-  }
+// Font Families
+font - sans // Base font
+font - heading // Heading font
+font - mono // Monospace font
+
+// Font Weights
+font - normal
+font - medium
+font - semibold
+font - bold
+
+// Letter Spacing
+tracking - tight
+tracking - normal
+tracking - wide
+
+// Line Height
+leading - normal // Base line height
+```
+
+### Layout & Spacing
+
+Layout utilities follow a mobile-first approach with responsive breakpoints:
+
+```typescript
+// Container
+.container // Base container (mobile)
+md:container // Tablet container
+lg:container // Desktop container
+
+// Container Padding
+// Mobile (default)
+.container { padding: var(--layout-containerPadding) }
+// Tablet (md)
+@screen md {
+  .container { padding: var(--layout-containerPaddingTablet) }
+}
+// Desktop (lg)
+@screen lg {
+  .container { padding: var(--layout-containerPaddingDesktop) }
+}
+
+// Section Spacing
+py-section // Base section padding (mobile)
+md:py-section-md // Tablet section padding
+lg:py-section-lg // Desktop section padding
+```
+
+### Breakpoints
+
+The design system follows Tailwind's mobile-first approach with these breakpoints:
+
+```typescript
+screens: {
+  'sm': '640px',   // Small devices
+  'md': '768px',   // Tablets
+  'lg': '1024px',  // Desktop
+  'xl': 'var(--layout-containerWidth)' // Max container width
 }
 ```
 
-### Layout
+### Border Radius
+
+Consistent border radius utilities:
 
 ```typescript
-layout: {
-  containerWidth: string // Max container width
-  containerPadding: string // Container padding
-  sectionSpacing: string // Vertical section spacing
-  gridGap: string // Grid gap spacing
-}
+rounded - sm // Small radius
+rounded // Default radius
+rounded - md // Medium radius
+rounded - lg // Large radius
 ```
 
-### Component Styles
+### Component-Specific Utilities
 
-Component styles are implemented using Tailwind's utility classes through Shadcn UI:
+Pre-configured utilities for common component patterns:
 
 ```typescript
-components: {
-  button: {
-    padding: string // Applied via py-* and px-*
-    transition: string // Applied via transition-*
-    hover: {
-      scale: string // Applied via hover:scale-*
-      opacity: string // Applied via hover:opacity-*
-    }
-  }
-  card: {
-    padding: string // Card padding
-    shadow: string // Card shadow
-    hover: {
-      transform: string // Hover transform effect
-    }
-  }
-  input: {
-    height: string // Input height
-    padding: string // Input padding
-  }
-}
+// Transitions
+transition - button // Button transition
+hover: scale - button - hover // Button hover scale
+hover: opacity - button - hover // Button hover opacity
+
+// Shadows
+shadow - card // Card shadow
+
+// Padding
+p - card // Card padding
+p - button // Button padding
+p - input // Input padding
+
+// Heights
+h - input // Input height
 ```
 
-## Available Themes
+## Usage Examples
 
-### Cool & Professional
-
-- Clean and modern design with professional aesthetics
-- Subtle shadows and smooth transitions
-- Geist Sans for body text and Outfit for headings
-- Balanced blue-based color palette
-- Rounded corners and soft shadows
-
-### Modern Brutalism
-
-- Bold, minimalistic design with sharp edges
-- High contrast black and white base
-- Monospaced typography using Geist Mono
-- Sharp edges with no border radius
-- Distinctive "pixel-perfect" hover effects
-- Strong box shadows for depth
-
-### Neon Cyberpunk
-
-- Dark, futuristic design with neon accents
-- Vibrant purple and cyan highlights
-- Mixed typography with Geist Sans and Mono
-- Larger border radius for a modern feel
-- Glowing effects and smooth animations
-- Dark background with high contrast elements
-
-## Usage
-
-### With Tailwind CSS
-
-1. **Direct Utility Classes**:
+### Container Layout
 
 ```tsx
-<div className="bg-background text-foreground">
-  <h1 className="font-heading text-4xl tracking-tight">Heading</h1>
-  <p className="font-sans text-base leading-relaxed">Content</p>
+// Responsive container with proper padding
+<div className="container">
+  <div className="py-section">
+    {' '}
+    // Responsive section padding
+    {/* Content */}
+  </div>
 </div>
 ```
 
-2. **Component Styling**:
+### Typography
 
 ```tsx
-// Button component example
-const Button = ({ children, variant = 'default' }) => (
-  <button
-    className={cn(
-      // Base styles
-      'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors',
-      // Variant styles
-      variant === 'default' && 'bg-primary text-primary-foreground hover:bg-primary/90',
-      variant === 'secondary' && 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-    )}
-  >
-    {children}
-  </button>
-)
+// Heading with proper font family and tracking
+<h1 className={cn(
+  'font-heading',
+  'text-4xl lg:text-6xl',
+  'tracking-tight',
+  'font-bold'
+)}>
+  {title}
+</h1>
+
+// Body text with semantic color
+<p className={cn(
+  'text-muted-foreground',
+  'text-base',
+  'font-sans'
+)}>
+  {content}
+</p>
 ```
 
-3. **Dark Mode**:
+### Interactive Elements
 
 ```tsx
-// Dark mode is handled automatically through Tailwind's dark: modifier
-<div className="bg-background dark:bg-background text-foreground dark:text-foreground">Content</div>
+// Button with hover effects
+<button className={cn(
+  'transition-button',
+  'hover:scale-button-hover',
+  'hover:opacity-button-hover'
+)}>
+  Click me
+</button>
+
+// Card with shadow and padding
+<div className={cn(
+  'p-card',
+  'shadow-card',
+  'rounded-md',
+  'bg-card'
+)}>
+  {/* Card content */}
+</div>
 ```
 
-### Theme Configuration
-
-The theme system integrates with Tailwind's configuration:
-
-```typescript
-// tailwind.config.js
-import { themes } from './src/themes'
-
-/** Available theme presets */
-type ThemePreset = 'cool' | 'brutal' | 'neon'
-
-/** Base theme interface */
-interface BaseTheme {
-  colors: {
-    background: string
-    foreground: string
-    card: string
-    cardForeground: string
-    popover: string
-    popoverForeground: string
-    primary: string
-    primaryForeground: string
-    secondary: string
-    secondaryForeground: string
-    muted: string
-    mutedForeground: string
-    accent: string
-    accentForeground: string
-    destructive: string
-    destructiveForeground: string
-    border: string
-    input: string
-    ring: string
-  }
-  typography: {
-    fontFamily: string
-    headingFamily: string
-    baseFontSize: string
-    lineHeight: string
-    fontWeights: {
-      normal: string
-      medium: string
-      semibold: string
-      bold: string
-    }
-    letterSpacing: {
-      tight: string
-      normal: string
-      wide: string
-    }
-  }
-  radius: {
-    small: string
-    default: string
-    medium: string
-    large: string
-  }
-  layout: {
-    containerWidth: string
-    containerPadding: string
-    sectionSpacing: string
-    gridGap: string
-  }
-  components: {
-    button: {
-      padding: string
-      transition: string
-      hover: {
-        scale: string
-        opacity: string
-      }
-    }
-    card: {
-      padding: string
-      shadow: string
-      hover: {
-        transform: string
-      }
-    }
-    input: {
-      height: string
-      padding: string
-    }
-  }
-}
-
-/** Complete theme definition */
-interface ThemeDefinition extends BaseTheme {
-  name: ThemePreset
-  label: string
-  dark: BaseTheme['colors']
-}
-```
-
-### Example Theme Usage
+### Form Elements
 
 ```tsx
-// Component with theme-aware styling
-const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      'bg-card text-card-foreground',
-      'rounded-[--radius-medium]',
-      'shadow-[--shadow-card]',
-      'p-[--card-padding]',
-      'transition-transform duration-200',
-      'hover:transform-[--card-hover-transform]',
-      props.className,
-    )}
-    {...props}
-  />
-))
-
-// Button with theme variants
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => (
-  <button
-    ref={ref}
-    className={cn(
-      'inline-flex items-center justify-center',
-      'rounded-[--radius-small]',
-      'bg-primary text-primary-foreground',
-      'p-[--button-padding]',
-      'transition-[--button-transition]',
-      'hover:scale-[--button-hover-scale]',
-      'hover:opacity-[--button-hover-opacity]',
-      props.className,
-    )}
-    {...props}
-  />
-))
-```
-
-### Using Shadcn UI Components
-
-Our design system is built on top of Shadcn UI components, which are already integrated with our theme system:
-
-```tsx
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-
-function MyComponent() {
-  return (
-    <Card className="p-6">
-      <h2 className="text-2xl font-heading mb-4">Card Title</h2>
-      <p className="text-muted-foreground mb-4">Card content</p>
-      <Button>Click Me</Button>
-    </Card>
-  )
-}
+// Input field
+<input className={cn('h-input', 'p-input', 'rounded-sm', 'border-input')} />
 ```
 
 ## Best Practices
 
-1. **Theme-Aware Components**
-   - Use CSS variables for theme values instead of hardcoded values
-   - Leverage Tailwind's utility classes with CSS variable values
-   - Implement dark mode using the theme's dark color palette
+1. **Use Semantic Color Tokens**
 
-```tsx
-// ✅ Good: Using theme variables
-<div className="bg-card text-card-foreground rounded-[--radius-medium]">
+   ```tsx
+   // ✅ Good: Using semantic tokens
+   <div className="bg-background text-foreground">
 
-// ❌ Bad: Hardcoded values
-<div className="bg-white text-black rounded-md">
-```
+   // ❌ Bad: Using raw colors
+   <div className="bg-white text-black">
+   ```
 
-2. **Typography System**
-   - Use the appropriate font family for content type:
-     - Cool theme: Geist Sans for body, Outfit for headings
-     - Brutal theme: Geist Mono for both
-     - Neon theme: Geist Sans for body, Geist Mono for headings
-   - Apply consistent line heights and letter spacing
+2. **Responsive Typography**
 
-```tsx
-// ✅ Good: Using theme typography
-<h1 className="font-heading text-4xl tracking-[--letter-spacing-tight]">
-<p className="font-sans text-base leading-[--line-height]">
+   ```tsx
+   // ✅ Good: Responsive font sizes with proper tracking
+   <h1 className="font-heading text-4xl lg:text-6xl tracking-tight">
 
-// ❌ Bad: Inconsistent typography
-<h1 className="font-arial text-4xl">
-<p className="font-sans text-base leading-loose">
-```
+   // ❌ Bad: Fixed font size without proper typography
+   <h1 className="text-4xl">
+   ```
 
-3. **Component Styling**
-   - Use theme-provided spacing and sizing values
-   - Implement consistent hover and transition effects
-   - Follow the theme's border radius system
+3. **Consistent Spacing**
 
-```tsx
-// ✅ Good: Theme-consistent styling
-<Button className="
-  p-[--button-padding]
-  transition-[--button-transition]
-  hover:scale-[--button-hover-scale]
-">
+   ```tsx
+   // ✅ Good: Using theme spacing
+   <section className="py-section md:py-section-md lg:py-section-md">
 
-// ❌ Bad: Inconsistent styling
-<Button className="
-  p-4
-  transition-all duration-300
-  hover:scale-110
-">
-```
+   // ❌ Bad: Arbitrary spacing
+   <section className="py-24">
+   ```
 
-4. **Layout and Spacing**
-   - Use the theme's container width and padding
-   - Maintain consistent section spacing
-   - Apply grid gaps as defined in the theme
+4. **Component Styling**
 
-```tsx
-// ✅ Good: Theme-consistent layout
-<main className="
-  max-w-[--container-width]
-  px-[--container-padding]
-  gap-[--grid-gap]
-">
+   ```tsx
+   // ✅ Good: Using component-specific utilities
+   <button className="transition-button hover:scale-button-hover">
 
-// ❌ Bad: Arbitrary values
-<main className="
-  max-w-7xl
-  px-4
-  gap-4
-">
-```
+   // ❌ Bad: Custom transitions
+   <button className="transition-all duration-200 hover:scale-105">
+   ```
 
-5. **Color Usage**
-   - Use semantic color tokens instead of raw color values
-   - Implement proper color contrast for accessibility
-   - Consider dark mode implications
+5. **Mobile-First Development**
 
-```tsx
-// ✅ Good: Semantic colors
-<div className="
-  bg-background
-  text-foreground
-  border-border
-">
+   ```tsx
+   // ✅ Good: Mobile-first approach
+   <div className="p-4 md:p-6 lg:p-8">
 
-// ❌ Bad: Raw colors
-<div className="
-  bg-white
-  text-black
-  border-gray-200
-">
-```
+   // ❌ Bad: Desktop-first approach
+   <div className="p-8 sm:p-6 xs:p-4">
+   ```
 
-6. **Responsive Design**
-   - Use theme-defined breakpoints
-   - Implement mobile-first approach
-   - Maintain consistent spacing across viewports
+6. **Responsive Layout**
 
-```tsx
-// ✅ Good: Responsive with theme values
-<div className="
-  p-[--container-padding-mobile]
-  md:p-[--container-padding-tablet]
-  lg:p-[--container-padding-desktop]
-">
+   ```tsx
+   // ✅ Good: Mobile-first grid
+   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
-// ❌ Bad: Inconsistent responsive values
-<div className="
-  p-4
-  md:p-8
-  lg:p-12
-">
-```
+   // ❌ Bad: Desktop-first grid
+   <div className="grid grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-4">
+   ```
 
-7. **Theme Switching**
-   - Handle theme changes gracefully
-   - Ensure smooth transitions between themes
-   - Maintain consistent component behavior across themes
+7. **Container Usage**
 
-```tsx
-// ✅ Good: Theme-aware component
-const ThemedCard = ({ children }) => (
-  <div
-    className={cn(
-      'bg-card',
-      'text-card-foreground',
-      'transition-colors duration-200',
-      'rounded-[--radius-medium]',
-      'shadow-[--shadow-card]',
-    )}
-  >
-    {children}
-  </div>
-)
+   ```tsx
+   // ✅ Good: Mobile-first container with responsive padding
+   <div className="container mx-auto">
 
-// ❌ Bad: Theme-unaware component
-const Card = ({ children }) => (
-  <div
-    className="
-    bg-white
-    text-gray-900
-    rounded-lg
-    shadow-md
-  "
-  >
-    {children}
-  </div>
-)
-```
+   // ❌ Bad: Fixed padding without responsive adjustments
+   <div className="max-w-7xl mx-auto px-8">
+   ```
+
+8. **Section Spacing**
+
+   ```tsx
+   // ✅ Good: Mobile-first section spacing
+   <section className="py-section md:py-section-md lg:py-section-lg">
+
+   // ❌ Bad: Desktop-first spacing
+   <section className="py-24 sm:py-16 xs:py-8">
+   ```
 
 ## Theme Customization
 
-### Extending Components
-
-```tsx
-// Example of extending a Shadcn UI component with theme variables
-const CustomCard = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => (
-  <Card
-    ref={ref}
-    className={cn(
-      'transition-all duration-200',
-      'hover:translate-y-[-2px]',
-      'dark:bg-card/90',
-      props.className,
-    )}
-    {...props}
-  />
-))
-```
+To customize the theme, modify the theme configuration in `src/themes/index.ts`. All theme variables will be automatically reflected in the Tailwind utilities.
 
 ## Future Enhancements
 
-1. **Custom Theme Builder**: Visual theme customization tool integrated with Tailwind's config
+1. **Custom Theme Builder**: Visual theme customization tool
 2. **Component Presets**: Additional preset styles for Shadcn UI components
-3. **Animation Library**: Predefined animation classes extending Tailwind's transitions
-4. **Color Palette Generator**: Tool to generate Tailwind-compatible color schemes
+3. **Animation Library**: Predefined animation classes
+4. **Color Palette Generator**: Tool to generate theme-compatible color schemes
 5. **Theme Analytics**: Track component and utility class usage

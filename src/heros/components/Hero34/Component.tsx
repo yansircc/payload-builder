@@ -1,18 +1,19 @@
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero34Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero34({ hero }: Hero34Fields) {
   const { badge, title, subtitle, links, image } = hero
 
   return (
-    <section>
-      <div className="container flex flex-col items-center">
-        <div className="w-full overflow-clip rounded-lg bg-accent/50 2xl:w-[calc(min(100vw-2*theme(container.padding),100%+8rem))]">
+    <section className="py-section md:py-section-md lg:py-section-lg">
+      <div className="container">
+        <div className="w-full overflow-hidden rounded-lg bg-accent/50 2xl:w-[calc(min(100vw-2*theme(container.padding),100%+8rem))]">
           <div className="grid items-center gap-8 lg:grid-cols-2">
-            {/* Left Content Area */}
-            <div className="container flex flex-col items-center px-[4rem] py-32 text-center lg:mx-auto lg:items-start lg:px-[4rem] lg:text-left">
+            {/* Content Area */}
+            <div className="flex flex-col items-center p-card text-center lg:items-start lg:text-left">
               <ClientMotionDiv
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -21,17 +22,26 @@ export default function Hero34({ hero }: Hero34Fields) {
               >
                 {/* Badge */}
                 {badge && (
-                  <span className="text-sm tracking-widest text-muted-foreground md:text-base">
+                  <span className="font-sans text-sm tracking-wide text-muted-foreground md:text-base">
                     {badge}
                   </span>
                 )}
 
                 {/* Title */}
-                <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">{title}</h1>
+                <h1
+                  className={cn(
+                    'font-heading text-4xl font-bold tracking-tight text-foreground lg:text-6xl',
+                    'my-6 text-pretty',
+                  )}
+                >
+                  {title}
+                </h1>
 
                 {/* Description */}
                 {subtitle && (
-                  <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl">{subtitle}</p>
+                  <p className="mb-8 max-w-xl font-sans text-base text-muted-foreground lg:text-xl">
+                    {subtitle}
+                  </p>
                 )}
 
                 {/* Buttons */}
@@ -47,7 +57,7 @@ export default function Hero34({ hero }: Hero34Fields) {
                               typeof link === 'object' && (
                                 <CMSLink
                                   key={key}
-                                  className="inline-flex w-full items-center sm:w-auto"
+                                  className="inline-flex w-full items-center transition-button hover:scale-button-hover sm:w-auto"
                                   {...link}
                                 />
                               ),
@@ -59,7 +69,7 @@ export default function Hero34({ hero }: Hero34Fields) {
               </ClientMotionDiv>
             </div>
 
-            {/* Right Image */}
+            {/* Image */}
             <ClientMotionDiv
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -67,8 +77,7 @@ export default function Hero34({ hero }: Hero34Fields) {
             >
               <Media
                 resource={image}
-                className="h-full w-full"
-                imgClassName="object-cover"
+                imgClassName="h-[327px] md:h-[629px] w-full object-cover"
                 priority
               />
             </ClientMotionDiv>

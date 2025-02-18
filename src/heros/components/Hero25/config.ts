@@ -8,7 +8,6 @@ import { createHeroField, featureFields, heroSchemas } from '../shared/base-fiel
  */
 export const schemas = {
   title: heroSchemas.title,
-  subtitle: heroSchemas.subtitle,
   link: heroSchemas.link,
   logo: heroSchemas.logo,
   badge: heroSchemas.badge,
@@ -28,7 +27,7 @@ export const hero25Fields: GroupField = {
   },
   fields: [
     createHeroField({
-      includeFields: ['title', 'subtitle', 'logo', 'badge'],
+      includeFields: ['title', 'logo', 'badge'],
       arrays: [
         {
           name: 'links',
@@ -52,7 +51,7 @@ export const hero25Fields: GroupField = {
         },
         {
           name: 'features',
-          fields: [featureFields.icon, featureFields.title, featureFields.description],
+          fields: [featureFields.icon, featureFields.title],
           minRows: 1,
           maxRows: 4,
           admin: {

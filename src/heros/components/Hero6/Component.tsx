@@ -7,7 +7,7 @@ export default function Hero6({ hero }: Hero6Fields) {
   const { title, subtitle, links, image, secondaryImage, partners } = hero
 
   return (
-    <section className="py-32">
+    <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container">
         <div className="mx-auto flex max-w-5xl flex-col items-center">
           <ClientMotionDiv
@@ -17,8 +17,10 @@ export default function Hero6({ hero }: Hero6Fields) {
             transition={{ duration: 0.5 }}
           >
             <div className="max-w-screen-md">
-              <h1 className="mb-4 text-pretty text-4xl font-semibold lg:text-6xl">{title}</h1>
-              {subtitle && <p className="text-muted-foreground lg:text-xl">{subtitle}</p>}
+              <h1 className="font-heading text-4xl lg:text-6xl tracking-tight font-bold mb-4">
+                {title}
+              </h1>
+              {subtitle && <p className="text-muted-foreground text-base font-sans">{subtitle}</p>}
             </div>
             {links && links.length > 0 && (
               <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
@@ -31,32 +33,36 @@ export default function Hero6({ hero }: Hero6Fields) {
         </div>
 
         <ClientMotionDiv
-          className="mx-auto mt-20 max-w-7xl grid-cols-5 md:grid"
+          className={'mx-auto mt-20 max-w-7xl grid-cols-5 md:grid'}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="col-span-3">
-            <Media resource={image} className="h-full max-h-[500px] w-full object-cover" priority />
-          </div>
-          <div className="relative col-span-2">
+          {image && (
             <Media
-              resource={secondaryImage.image}
-              className="h-full max-h-[500px] w-full border-t object-cover md:border-l lg:border-t-0"
+              resource={image}
+              className="col-span-3 h-full max-h-[500px] w-full object-cover"
+              priority
             />
-            {links && links[2] && (
-              <CMSLink
-                {...links[2].link}
-                appearance="outline"
-                className="absolute bottom-5 right-5"
+          )}
+
+          <div className="relative col-span-2">
+            {secondaryImage?.image && (
+              <Media
+                resource={secondaryImage.image}
+                className="h-full max-h-[500px] w-full border-t object-cover md:border-l lg:border-t-0"
+                imgClassName="h-full"
               />
+            )}
+            {links && links[2] && (
+              <CMSLink {...links[2].link} className="absolute bottom-5 right-5" />
             )}
           </div>
         </ClientMotionDiv>
 
         {partners && partners.length > 0 && (
           <ClientMotionDiv
-            className="mx-auto mt-12 flex max-w-7xl flex-wrap items-center justify-between gap-6"
+            className="mx-auto mt-12 max-w-7xl flex flex-wrap items-center justify-between gap-6"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
@@ -64,12 +70,8 @@ export default function Hero6({ hero }: Hero6Fields) {
             {partners.map(
               ({ logo }, i) =>
                 logo && (
-                  <div key={i} className="inline-flex h-8 sm:h-10">
-                    <Media
-                      resource={logo}
-                      className="h-full w-auto"
-                      imgClassName="h-full w-auto object-contain"
-                    />
+                  <div key={i} className="inline-flex h-20">
+                    <Media resource={logo} imgClassName="h-full w-auto object-cover" />
                   </div>
                 ),
             )}
