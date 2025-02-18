@@ -3,15 +3,17 @@
 import { openai as openaiSDK } from '@ai-sdk/openai'
 import { Ratelimit } from '@upstash/ratelimit'
 import { kv } from '@vercel/kv'
-import { generateObject } from 'ai'
+import { generateObject, streamObject } from 'ai'
 import OpenAI from 'openai'
-import type { ClientField } from 'payload'
+import { ClientField } from 'payload'
 import { match } from 'ts-pattern'
 import { z } from 'zod'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
+
+const AI_MODEL = 'gpt-4o-mini' as const
 
 /**
  * 从 schema 中提取字段描述
@@ -100,7 +102,7 @@ export async function getObject(fields: ClientField[]) {
     const prompt = generatePrompt(schema)
 
     const { object } = await generateObject({
-      model: openaiSDK('gpt-4o-mini'),
+      model: openaiSDK(AI_MODEL),
       prompt,
       schema,
     })
@@ -109,6 +111,31 @@ export async function getObject(fields: ClientField[]) {
   } catch (error) {
     console.error('Error generating content:', error)
     throw error
+  }
+}
+
+/**
+ * Enhanced object stream with better typing and error handling
+ */
+export async function getObjectStream<T extends z.ZodRawShape>({
+  schema,
+  prompt,
+  systemPrompt,
+}: {
+  schema: z.ZodObject<T>
+  prompt: string
+  systemPrompt?: string
+}) {
+  const { partialObjectStream, object } = streamObject({
+    model: openaiSDK(AI_MODEL),
+    schema,
+    prompt,
+    system: systemPrompt,
+  })
+
+  return {
+    stream: partialObjectStream,
+    result: object,
   }
 }
 
@@ -230,7 +257,7 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
 
   const completion = await openai.chat.completions.create({
     messages: messages as any,
-    model: 'gpt-4',
+    model: AI_MODEL,
     max_tokens: 4096,
     temperature: 0.7,
     top_p: 1,
