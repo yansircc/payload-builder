@@ -2117,88 +2117,87 @@ export interface CTA1Fields {
  */
 export interface CTA3Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    buttonLinks?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary CTA buttons (1-2 buttons)
+   */
+  buttons?:
+    | {
+        /**
+         * CTA button with arrow
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * List of links
-     */
-    listLinks?:
-      | {
+          appearance?: 'default' | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * List of feature links with descriptions
+   */
+  list?:
+    | {
+        /**
+         * Feature link with chevron
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * List item link
-           */
-          link: {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-          };
-          /**
-           * Description text for the link
+           * Description for the link
            */
           description?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: 'ghost' | null;
+        };
+        /**
+         * Brief description of the feature
+         */
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9690,48 +9689,45 @@ export interface CTA1FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA3Fields_select".
  */
 export interface CTA3FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  buttons?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        buttonLinks?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
-        listLinks?:
+        id?: T;
+      };
+  list?:
+    | T
+    | {
+        link?:
           | T
           | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
               description?: T;
-              id?: T;
+              appearance?: T;
             };
+        description?: T;
+        id?: T;
       };
 }
 /**

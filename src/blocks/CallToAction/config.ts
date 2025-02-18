@@ -57,6 +57,9 @@ export const CallToAction: Block = {
     {
       ...cta3Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA3/config.client.tsx',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-3',
       },
     },
