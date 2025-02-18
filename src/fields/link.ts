@@ -1,5 +1,6 @@
 import type { Field, GroupField } from 'payload'
 import deepMerge from '@/utilities/deepMerge'
+import { icon } from './icon'
 
 export type LinkAppearances = 'default' | 'secondary' | 'outline' | 'ghost' | 'link'
 
@@ -198,22 +199,14 @@ export const link: LinkType = ({
     linkResult.fields.push({
       type: 'row',
       fields: [
-        {
+        icon({
           name: 'prefixIcon',
-          type: 'text',
-          admin: {
-            description: 'Optional: Lucide icon name for prefix (e.g., "ArrowLeft")',
-            width: '50%',
-          },
-        },
-        {
+          label: 'Prefix Icon',
+        }),
+        icon({
           name: 'suffixIcon',
-          type: 'text',
-          admin: {
-            description: 'Optional: Lucide icon name for suffix (e.g., "ArrowRight")',
-            width: '50%',
-          },
-        },
+          label: 'Suffix Icon',
+        }),
       ],
     })
   }
