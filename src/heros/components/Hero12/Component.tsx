@@ -5,14 +5,12 @@ import { buttonVariants } from '@/components/ui/button'
 import type { Hero12Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
-import { ThemeEffect } from '../shared/ThemeEffect'
 
 export default function Hero12({ hero }: Hero12Fields) {
   const { logo, badge, partners, title, subtitle, links } = hero
 
   return (
     <section className="relative overflow-hidden py-section md:py-section-md lg:py-section-lg">
-      <ThemeEffect theme="dark" />
       <div className="container">
         <div className="magicpattern absolute inset-x-0 top-0 -z-10 flex h-full w-full items-center justify-center opacity-100" />
         <div className="mx-auto flex max-w-5xl flex-col items-center">
