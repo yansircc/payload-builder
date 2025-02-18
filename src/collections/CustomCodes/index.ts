@@ -28,8 +28,8 @@ export const CustomCodes: CollectionConfig = {
     {
       name: 'scripts',
       type: 'array',
-      required: true,
-      minRows: 1,
+      required: false,
+      minRows: 0,
       admin: {
         description: 'Add one or more scripts',
         initCollapsed: true,
