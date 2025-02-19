@@ -9,6 +9,6 @@ export interface BaseStore<T> {
   clearFields: () => void
 }
 
-export interface ClientProps extends GroupFieldClientProps {
+export interface ClientProps<T> extends GroupFieldClientProps {
   onGenerate: () => Promise<void>
 }

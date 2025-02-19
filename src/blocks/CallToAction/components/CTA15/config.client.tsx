@@ -1,55 +1,21 @@
 'use client'
 
-import { GroupField, useField } from '@payloadcms/ui'
+import { GroupField } from '@payloadcms/ui'
 import type { GroupFieldClientProps } from 'payload'
-import { useCallback, useEffect } from 'react'
 import type { CTA15Fields } from '@/payload-types'
-import { CTAGenerateButton, getFieldPath } from '../shared'
-import { autogen } from './autogen'
+import { withFieldRegistration } from '../shared/hoc'
 import { useCTA15Store } from './store'
 
-export function CTA15Client(props: GroupFieldClientProps) {
-  // Initialize fields
-  const headingField = useField<string>({ path: getFieldPath(props, 'heading') })
-  const titleField = useField<string>({ path: getFieldPath(props, 'title') })
-  const subtitleField = useField<string>({ path: getFieldPath(props, 'subtitle') })
-  const imageField = useField<string>({ path: getFieldPath(props, 'image') })
-  const linksField = useField<CTA15Fields['links']>({ path: getFieldPath(props, 'links') })
+const fields: Array<keyof CTA15Fields> = ['heading', 'title', 'subtitle', 'image', 'links']
 
-  // Get store actions
-  const { setFieldRef, updateFields, clearFields } = useCTA15Store()
-
-  // Register fields with store
-  useEffect(() => {
-    setFieldRef('heading', headingField)
-    setFieldRef('title', titleField)
-    setFieldRef('subtitle', subtitleField)
-    setFieldRef('image', imageField)
-    setFieldRef('links', linksField)
-  }, [headingField, titleField, subtitleField, imageField, linksField, setFieldRef])
-
-  // Handle AI generation
-  const handleGenerate = useCallback(async () => {
-    clearFields()
-
-    const { stream, objectPromise } = await autogen()
-
-    // Process streaming updates
-    for await (const partial of stream) {
-      updateFields(partial as Partial<CTA15Fields>)
-    }
-
-    // Set final values
-    const finalData = await objectPromise
-    updateFields(finalData)
-  }, [clearFields, updateFields])
-
-  return (
+export const CTA15Client = withFieldRegistration<CTA15Fields>({
+  fields,
+  useStore: useCTA15Store,
+  Component: (props: GroupFieldClientProps) => (
     <div className="space-y-4">
-      <CTAGenerateButton onGenerate={handleGenerate} />
       <GroupField {...props} />
     </div>
-  )
-}
+  ),
+})
 
 export default CTA15Client

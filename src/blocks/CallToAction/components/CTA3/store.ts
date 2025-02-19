@@ -1,4 +1,4 @@
 import type { CTA3Fields } from '@/payload-types'
-import { createCTAStore } from '../shared'
+import { createStore } from '../shared'
 
-export const useCTA3Store = createCTAStore<CTA3Fields>(['title', 'subtitle', 'buttons', 'list'])
+export const useCTA3Store = createStore<CTA3Fields>(['title', 'subtitle', 'buttons', 'list'])

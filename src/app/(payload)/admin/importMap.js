@@ -34,6 +34,7 @@ import {
   RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
 } from '@payloadcms/richtext-lexical/rsc'
 import { default as default_a48147a5d9e361c38690affd82c29136 } from 'src/collections/CustomCodes/components/ScriptRowLabel'
+import { default as default_b128d0bd7c3a2b8021c74b08f7767dc4 } from '@/blocks/About/components/About1/config.client.tsx'
 import { default as default_2a39a1af771424381d098717f69480b6 } from '@/blocks/CallToAction/components/CTA1/config.client.tsx'
 import { default as default_35255ec42d8f32ecd043bb2b02f0d65b } from '@/blocks/CallToAction/components/CTA3/config.client.tsx'
 import { default as default_4f5590e45a90eb434ada1df399f6564e } from '@/blocks/CallToAction/components/CTA4/config.client.tsx'
@@ -55,6 +56,8 @@ export const importMap = {
   '@payloadcms/plugin-multi-tenant/client#TenantField':
     TenantField_1d0591e3cf4f332c83a86da13a0de59a,
   '@/components/IconSelect/#default': default_545a25a7f6f58e32e2350bd4892658ab,
+  '@/blocks/About/components/About1/config.client.tsx#default':
+    default_b128d0bd7c3a2b8021c74b08f7767dc4,
   '@/blocks/CallToAction/components/CTA1/config.client.tsx#default':
     default_2a39a1af771424381d098717f69480b6,
   '@/blocks/CallToAction/components/CTA3/config.client.tsx#default':

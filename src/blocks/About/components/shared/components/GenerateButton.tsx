@@ -2,17 +2,17 @@
 
 import { Button } from '@payloadcms/ui'
 import { SparklesIcon } from 'lucide-react'
-import { useCTAGenerationStore } from '../store'
+import { useGenerationStore } from '../store'
 
-interface CTAGenerateButtonProps {
+interface GenerateButtonProps {
   onGenerate: () => Promise<void>
 }
 
 /**
  * Button component for CTA content generation
  */
-export function CTAGenerateButton({ onGenerate }: CTAGenerateButtonProps) {
-  const { isLoading, setLoading } = useCTAGenerationStore()
+export function GenerateButton({ onGenerate }: GenerateButtonProps) {
+  const { isLoading, setLoading } = useGenerationStore()
 
   const handleClick = async () => {
     if (isLoading) return

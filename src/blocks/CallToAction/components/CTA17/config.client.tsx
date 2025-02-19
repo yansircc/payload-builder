@@ -1,51 +1,21 @@
 'use client'
 
-import { GroupField, useField } from '@payloadcms/ui'
+import { GroupField } from '@payloadcms/ui'
 import type { GroupFieldClientProps } from 'payload'
-import { useCallback, useEffect } from 'react'
 import type { CTA17Fields } from '@/payload-types'
-import { CTAGenerateButton, getFieldPath } from '../shared'
-import { autogen } from './autogen'
+import { withFieldRegistration } from '../shared/hoc'
 import { useCTA17Store } from './store'
 
-export function CTA17Client(props: GroupFieldClientProps) {
-  // Initialize fields
-  const titleField = useField<string>({ path: getFieldPath(props, 'title') })
-  const subtitleField = useField<string>({ path: getFieldPath(props, 'subtitle') })
-  const linksField = useField<CTA17Fields['links']>({ path: getFieldPath(props, 'links') })
+const fields: Array<keyof CTA17Fields> = ['title', 'subtitle', 'links']
 
-  // Get store actions
-  const { setFieldRef, updateFields, clearFields } = useCTA17Store()
-
-  // Register fields with store
-  useEffect(() => {
-    setFieldRef('title', titleField)
-    setFieldRef('subtitle', subtitleField)
-    setFieldRef('links', linksField)
-  }, [titleField, subtitleField, linksField, setFieldRef])
-
-  // Handle AI generation
-  const handleGenerate = useCallback(async () => {
-    clearFields()
-
-    const { stream, objectPromise } = await autogen()
-
-    // Process streaming updates
-    for await (const partial of stream) {
-      updateFields(partial as Partial<CTA17Fields>)
-    }
-
-    // Set final values
-    const finalData = await objectPromise
-    updateFields(finalData)
-  }, [clearFields, updateFields])
-
-  return (
+export const CTA17Client = withFieldRegistration<CTA17Fields>({
+  fields,
+  useStore: useCTA17Store,
+  Component: (props: GroupFieldClientProps) => (
     <div className="space-y-4">
-      <CTAGenerateButton onGenerate={handleGenerate} />
       <GroupField {...props} />
     </div>
-  )
-}
+  ),
+})
 
 export default CTA17Client

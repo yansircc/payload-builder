@@ -1484,11 +1484,11 @@ export interface AboutBlock {
 export interface About1Fields {
   mainSection: {
     /**
-     * Section title
+     * The main heading for the section
      */
     title: string;
     /**
-     * Section description
+     * The main description text
      */
     description: string;
   };
@@ -1498,21 +1498,21 @@ export interface About1Fields {
      */
     label: string;
     /**
-     * Section description
+     * Mission statement text
      */
     description: string;
     /**
-     * Image upload
+     * Mission section image
      */
     image: string | Media;
   };
   featuresSection: {
     /**
-     * Section title
+     * Features section heading
      */
     title: string;
     /**
-     * Section description
+     * Features section description
      */
     description: string;
     /**
@@ -1520,16 +1520,13 @@ export interface About1Fields {
      */
     features?:
       | {
+          icon?: string | null;
           /**
-           * Enter a Lucide icon name (e.g., "FileText", "ArrowRight", "Settings")
-           */
-          icon: string;
-          /**
-           * Section title
+           * Feature title
            */
           title: string;
           /**
-           * Section description
+           * Feature description
            */
           description: string;
           id?: string | null;
@@ -1542,15 +1539,15 @@ export interface About1Fields {
      */
     label: string;
     /**
-     * Section title
+     * Team section heading
      */
     title: string;
     /**
-     * Image upload
+     * Team section image
      */
     image: string | Media;
     /**
-     * Section description
+     * Team section description
      */
     description: string;
   };
