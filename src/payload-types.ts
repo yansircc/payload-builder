@@ -2812,12 +2812,7 @@ export interface Product {
     };
     [k: string]: unknown;
   };
-  additionalImages?:
-    | {
-        image?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
+  productImages?: (string | Media)[] | null;
   specifications?:
     | {
         name: string;
@@ -2873,12 +2868,7 @@ export interface Service {
     };
     [k: string]: unknown;
   };
-  additionalImages?:
-    | {
-        image?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
+  serviceImages?: (string | Media)[] | null;
   specifications?:
     | {
         name: string;
@@ -13274,12 +13264,7 @@ export interface ServicesSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
-  additionalImages?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
+  serviceImages?: T;
   specifications?:
     | T
     | {
@@ -13319,12 +13304,7 @@ export interface ProductsSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
-  additionalImages?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
+  productImages?: T;
   specifications?:
     | T
     | {

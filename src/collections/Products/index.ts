@@ -92,11 +92,12 @@ export const Products: CollectionConfig = {
               required: true,
             },
             {
-              name: 'additionalImages',
-              type: 'array',
-              label: 'Additional Images',
-              labels: { singular: 'Image', plural: 'Images' },
-              fields: [{ name: 'image', type: 'upload', relationTo: 'media', required: false }],
+              name: 'productImages',
+              label: 'Product Images',
+              type: 'upload',
+              relationTo: 'media',
+              required: false,
+              hasMany: true,
             },
             {
               name: 'specifications',

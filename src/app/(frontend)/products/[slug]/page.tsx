@@ -106,16 +106,16 @@ export default async function Product({ params: paramsPromise }: Args) {
         )}
 
         {/* Additional Images Gallery */}
-        {product.additionalImages && product.additionalImages.length > 0 && (
+        {product.productImages && product.productImages.length > 0 && (
           <div className="max-w-[48rem] w-full">
             <h2 className="mb-6 text-2xl font-semibold">Product Gallery</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {product.additionalImages.map((item, index) => (
+              {product.productImages.map((image, index) => (
                 <Card key={index} className="overflow-hidden">
                   <CardContent className="p-0">
-                    {item.image && typeof item.image !== 'string' && (
+                    {image && typeof image !== 'string' && (
                       <Media
-                        resource={item.image}
+                        resource={image}
                         size="100vw"
                         className="aspect-video w-full object-cover"
                       />

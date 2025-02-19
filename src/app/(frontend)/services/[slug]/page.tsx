@@ -106,16 +106,16 @@ export default async function Service({ params: paramsPromise }: Args) {
         )}
 
         {/* Additional Images Gallery */}
-        {service.additionalImages && service.additionalImages.length > 0 && (
+        {service.serviceImages && service.serviceImages.length > 0 && (
           <div className="max-w-[48rem] w-full">
             <h2 className="mb-6 text-2xl font-semibold">Service Gallery</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {service.additionalImages.map((item, index) => (
+              {service.serviceImages.map((image, index) => (
                 <Card key={index} className="overflow-hidden">
                   <CardContent className="p-0">
-                    {item.image && typeof item.image !== 'string' && (
+                    {image && typeof image !== 'string' && (
                       <Media
-                        resource={item.image}
+                        resource={image}
                         size="100vw"
                         className="aspect-video w-full object-cover"
                       />

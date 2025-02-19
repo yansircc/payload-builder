@@ -92,11 +92,12 @@ export const Services: CollectionConfig = {
               required: true,
             },
             {
-              name: 'additionalImages',
-              type: 'array',
-              label: 'Additional Images',
-              labels: { singular: 'Image', plural: 'Images' },
-              fields: [{ name: 'image', type: 'upload', relationTo: 'media', required: false }],
+              name: 'serviceImages',
+              label: 'Service Images',
+              type: 'upload',
+              relationTo: 'media',
+              required: false,
+              hasMany: true,
             },
             {
               name: 'specifications',
