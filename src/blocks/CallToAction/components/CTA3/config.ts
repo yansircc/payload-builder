@@ -5,9 +5,6 @@ const title: Field = {
   name: 'title',
   type: 'text',
   required: true,
-  minLength: 1,
-  maxLength: 100,
-  defaultValue: 'Feature List with Actions',
   admin: {
     description: 'The title of the CTA section',
   },
@@ -16,8 +13,6 @@ const title: Field = {
 const subtitle: Field = {
   name: 'subtitle',
   type: 'text',
-  defaultValue:
-    'Explore our key features and capabilities with easy access to detailed information.',
   admin: {
     description: 'The subtitle text below the main title',
   },
@@ -34,22 +29,13 @@ const buttonLinks: Field = {
   fields: [
     link({
       name: 'link',
-      disableLabel: false,
       appearances: ['default'],
       ui: {
         icons: true,
-        description: false,
       },
       overrides: {
         admin: {
-          description: 'CTA button with arrow',
-        },
-        defaultValue: {
-          type: 'custom',
-          url: '#',
-          label: 'Get Started',
-          suffixIcon: 'ArrowRight',
-          appearance: 'default',
+          description: 'Primary CTA button with arrow',
         },
       },
     }),
@@ -65,26 +51,33 @@ const featureList: Field = {
     description: 'List of feature links with descriptions',
   },
   fields: [
-    link({
-      name: 'link',
-      appearances: ['ghost'],
-      ui: {
-        icons: true,
-        description: true,
-      },
-      overrides: {
-        admin: {
-          description: 'Feature link with chevron',
+    {
+      type: 'row',
+      fields: [
+        link({
+          name: 'link',
+          appearances: ['ghost'],
+          ui: {
+            icons: true,
+          },
+          overrides: {
+            admin: {
+              description: 'Feature link with chevron',
+              width: '50%',
+            },
+          },
+        }),
+        {
+          name: 'description',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'Brief description of the feature',
+            width: '50%',
+          },
         },
-        defaultValue: {
-          type: 'custom',
-          url: '#',
-          label: 'Feature Item',
-          suffixIcon: 'ChevronRight',
-          appearance: 'ghost',
-        },
-      },
-    }),
+      ],
+    },
   ],
 }
 
@@ -103,6 +96,9 @@ export const cta3Fields: GroupField = {
   type: 'group',
   admin: {
     description: 'Feature list layout with primary action and multiple feature links',
+    components: {
+      Field: (() => import('./config.client')) as any,
+    },
   },
   fields: [title, subtitle, buttonLinks, featureList],
 }

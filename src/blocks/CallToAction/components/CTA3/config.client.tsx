@@ -3,9 +3,9 @@
 import { Button, GroupField, useField } from '@payloadcms/ui'
 import { SparklesIcon } from 'lucide-react'
 import type { GroupFieldClientProps } from 'payload'
-import { useState } from 'react'
-import { CTA3Fields } from '@/payload-types'
-import { getCTA3Content } from './ai'
+import { useCallback, useMemo, useState } from 'react'
+import type { CTA3Fields } from '@/payload-types'
+import { autogen } from './autogen'
 
 // Helper function to get field path
 function getFieldPath(props: GroupFieldClientProps, fieldName: string): string {
@@ -17,38 +17,87 @@ type FieldValues = {
   [K in keyof CTA3Fields]: ReturnType<typeof useField<CTA3Fields[K]>>
 }
 
+// Type for streaming update
+type StreamUpdate = {
+  title?: string | null
+  subtitle?: string | null
+  buttons?: CTA3Fields['buttons'] | null
+  list?: CTA3Fields['list'] | null
+}
+
 export const CTA3Client: React.FC<GroupFieldClientProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false)
 
-  // Use a more structured approach to manage fields
-  const fields: FieldValues = {
-    title: useField<string>({ path: getFieldPath(props, 'title') }),
-    subtitle: useField<string>({ path: getFieldPath(props, 'subtitle') }),
-    buttons: useField<CTA3Fields['buttons']>({ path: getFieldPath(props, 'buttons') }),
-    list: useField<CTA3Fields['list']>({ path: getFieldPath(props, 'list') }),
-  }
+  // Initialize individual fields
+  const titleField = useField<string>({ path: getFieldPath(props, 'title') })
+  const subtitleField = useField<string>({ path: getFieldPath(props, 'subtitle') })
+  const buttonsField = useField<CTA3Fields['buttons']>({ path: getFieldPath(props, 'buttons') })
+  const listField = useField<CTA3Fields['list']>({ path: getFieldPath(props, 'list') })
+
+  // Combine fields into a memoized object
+  const fields = useMemo<FieldValues>(
+    () => ({
+      title: titleField,
+      subtitle: subtitleField,
+      buttons: buttonsField,
+      list: listField,
+    }),
+    [titleField, subtitleField, buttonsField, listField],
+  )
+
+  // Helper to update a single field with type safety
+  const updateField = useCallback(
+    <K extends keyof FieldValues>(field: K, value: CTA3Fields[K] | null) => {
+      const fieldValue = fields[field]
+      if (fieldValue?.setValue) {
+        fieldValue.setValue(value)
+      }
+    },
+    [fields],
+  )
+
+  // Helper to clear all fields
+  const clearFields = useCallback(() => {
+    Object.keys(fields).forEach((key) => {
+      updateField(key as keyof FieldValues, null)
+    })
+  }, [fields, updateField])
+
+  // Handle streaming updates with proper type handling
+  const handleStreamUpdate = useCallback(
+    (partial: StreamUpdate) => {
+      Object.entries(partial).forEach(([key, value]) => {
+        if (value !== undefined) {
+          // Type assertion here is safe because we know the key exists in FieldValues
+          const fieldKey = key as keyof FieldValues
+          const fieldValue = value as CTA3Fields[typeof fieldKey] | null
+          updateField(fieldKey, fieldValue)
+        }
+      })
+    },
+    [updateField],
+  )
 
   const handleClick = async () => {
     if (isLoading) return
 
     setIsLoading(true)
     try {
-      // Clear all existing values first
-      fields.title?.setValue?.('')
-      fields.subtitle?.setValue?.('')
-      fields.buttons?.setValue?.([])
-      fields.list?.setValue?.([])
+      clearFields()
 
-      // Generate data using specialized CTA3 AI generator
-      const generatedData = await getCTA3Content()
+      const { stream, objectPromise } = await autogen()
 
-      // Set new values after generation
-      fields.title?.setValue?.(generatedData.title ?? '')
-      fields.subtitle?.setValue?.(generatedData.subtitle ?? '')
-      fields.buttons?.setValue?.(generatedData.buttons ?? [])
-      fields.list?.setValue?.(generatedData.list ?? [])
+      // Process streaming updates
+      for await (const partial of stream) {
+        handleStreamUpdate(partial as StreamUpdate)
+      }
+
+      // Set final values
+      const finalData = await objectPromise
+      handleStreamUpdate(finalData)
     } catch (error) {
       console.error('Error generating CTA3 content:', error)
+      // You could add a toast notification here
     } finally {
       setIsLoading(false)
     }
