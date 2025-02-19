@@ -5938,30 +5938,20 @@ export interface FAQBlock {
  */
 export interface FAQ1Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
      */
-    title: string;
-    /**
-     * List FAQ
-     */
-    faqs?:
-      | {
-          /**
-           * Question
-           */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5969,30 +5959,20 @@ export interface FAQ1Fields {
  */
 export interface FAQ2Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
      */
-    title: string;
-    /**
-     * List FAQ
-     */
-    faqs?:
-      | {
-          /**
-           * Question
-           */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6000,79 +5980,69 @@ export interface FAQ2Fields {
  */
 export interface FAQ3Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * The subtitle of the FAQ
+   */
+  subtitle: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
+     */
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
+  /**
+   * Support section
+   */
+  support: {
+    /**
+     * Support section title
      */
     title: string;
     /**
-     * FAQ subtitle
+     * Support section subtitle
      */
-    subtitle?: string | null;
+    subtitle: string;
     /**
-     * List FAQ
+     * Support links
      */
-    faqs?:
+    supportLink?:
       | {
           /**
-           * Question
+           * Support link
            */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
+          link: {
+            type?: ('reference' | 'custom' | 'popup') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            popup?: (string | null) | Popup;
+            label: string;
+            prefixIcon?: string | null;
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
           id?: string | null;
         }[]
       | null;
-    /**
-     * Support list
-     */
-    support: {
-      /**
-       * FAQ title
-       */
-      title: string;
-      /**
-       * FAQ subtitle
-       */
-      subtitle?: string | null;
-      /**
-       * Support link
-       */
-      supportLink?:
-        | {
-            /**
-             * Support link
-             */
-            link: {
-              type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: string | Post;
-                  } | null);
-              url?: string | null;
-              popup?: (string | null) | Popup;
-              label: string;
-              prefixIcon?: string | null;
-              suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
-    };
   };
 }
 /**
@@ -6081,83 +6051,73 @@ export interface FAQ3Fields {
  */
 export interface FAQ4Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * The subtitle of the FAQ
+   */
+  subtitle: string;
+  /**
+   * The description of the FAQ
+   */
+  description: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
+     */
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
+  /**
+   * Support section
+   */
+  support: {
+    /**
+     * Support section title
      */
     title: string;
     /**
-     * FAQ subtitle
+     * Support section subtitle
      */
-    subtitle?: string | null;
+    subtitle: string;
     /**
-     * FAQ description
+     * Support links
      */
-    description?: string | null;
-    /**
-     * List FAQ
-     */
-    faqs?:
+    supportLink?:
       | {
           /**
-           * Question
+           * Support link
            */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
+          link: {
+            type?: ('reference' | 'custom' | 'popup') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            popup?: (string | null) | Popup;
+            label: string;
+            prefixIcon?: string | null;
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          };
           id?: string | null;
         }[]
       | null;
-    /**
-     * Support list
-     */
-    support: {
-      /**
-       * FAQ title
-       */
-      title: string;
-      /**
-       * FAQ subtitle
-       */
-      subtitle?: string | null;
-      /**
-       * Support link
-       */
-      supportLink?:
-        | {
-            /**
-             * Support link
-             */
-            link: {
-              type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: string | Post;
-                  } | null);
-              url?: string | null;
-              popup?: (string | null) | Popup;
-              label: string;
-              prefixIcon?: string | null;
-              suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
-    };
   };
 }
 /**
@@ -6166,38 +6126,28 @@ export interface FAQ4Fields {
  */
 export interface FAQ5Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * The subtitle of the FAQ
+   */
+  subtitle: string;
+  /**
+   * The description of the FAQ
+   */
+  description: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
      */
-    title: string;
-    /**
-     * FAQ subtitle
-     */
-    subtitle?: string | null;
-    /**
-     * FAQ description
-     */
-    description?: string | null;
-    /**
-     * List FAQ
-     */
-    faqs?:
-      | {
-          /**
-           * Question
-           */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6205,38 +6155,28 @@ export interface FAQ5Fields {
  */
 export interface FAQ6Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * The subtitle of the FAQ
+   */
+  subtitle: string;
+  /**
+   * The description of the FAQ
+   */
+  description: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
      */
-    title: string;
-    /**
-     * FAQ subtitle
-     */
-    subtitle?: string | null;
-    /**
-     * FAQ description
-     */
-    description?: string | null;
-    /**
-     * List FAQ
-     */
-    faqs?:
-      | {
-          /**
-           * Question
-           */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -11466,17 +11406,13 @@ export interface FAQBlockSelect<T extends boolean = true> {
  * via the `definition` "FAQ1Fields_select".
  */
 export interface FAQ1FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  faqs?:
     | T
     | {
-        title?: T;
-        faqs?:
-          | T
-          | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
+        question?: T;
+        answer?: T;
+        id?: T;
       };
 }
 /**
@@ -11484,17 +11420,13 @@ export interface FAQ1FieldsSelect<T extends boolean = true> {
  * via the `definition` "FAQ2Fields_select".
  */
 export interface FAQ2FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  faqs?:
     | T
     | {
-        title?: T;
-        faqs?:
-          | T
-          | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
+        question?: T;
+        answer?: T;
+        id?: T;
       };
 }
 /**
@@ -11502,41 +11434,37 @@ export interface FAQ2FieldsSelect<T extends boolean = true> {
  * via the `definition` "FAQ3Fields_select".
  */
 export interface FAQ3FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  subtitle?: T;
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  support?:
     | T
     | {
         title?: T;
         subtitle?: T;
-        faqs?:
+        supportLink?:
           | T
           | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
-        support?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              supportLink?:
+              link?:
                 | T
                 | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          popup?: T;
-                          label?: T;
-                          prefixIcon?: T;
-                          suffixIcon?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    popup?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
                   };
+              id?: T;
             };
       };
 }
@@ -11545,42 +11473,38 @@ export interface FAQ3FieldsSelect<T extends boolean = true> {
  * via the `definition` "FAQ4Fields_select".
  */
 export interface FAQ4FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  support?:
     | T
     | {
         title?: T;
         subtitle?: T;
-        description?: T;
-        faqs?:
+        supportLink?:
           | T
           | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
-        support?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              supportLink?:
+              link?:
                 | T
                 | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          popup?: T;
-                          label?: T;
-                          prefixIcon?: T;
-                          suffixIcon?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    popup?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
                   };
+              id?: T;
             };
       };
 }
@@ -11589,19 +11513,15 @@ export interface FAQ4FieldsSelect<T extends boolean = true> {
  * via the `definition` "FAQ5Fields_select".
  */
 export interface FAQ5FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  faqs?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        description?: T;
-        faqs?:
-          | T
-          | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
+        question?: T;
+        answer?: T;
+        id?: T;
       };
 }
 /**
@@ -11609,19 +11529,15 @@ export interface FAQ5FieldsSelect<T extends boolean = true> {
  * via the `definition` "FAQ6Fields_select".
  */
 export interface FAQ6FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  faqs?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        description?: T;
-        faqs?:
-          | T
-          | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
+        question?: T;
+        answer?: T;
+        id?: T;
       };
 }
 /**

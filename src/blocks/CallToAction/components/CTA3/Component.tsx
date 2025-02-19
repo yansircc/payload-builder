@@ -1,9 +1,9 @@
 import Link from 'next/link'
+import { ClientMotionDiv } from '@/blocks/shared'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import { Card } from '@/components/ui/card'
 import type { CTA3Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared'
 
 export default function CTA3({ title, subtitle, buttons, list }: CTA3Fields) {
   return (

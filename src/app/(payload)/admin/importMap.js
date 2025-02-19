@@ -35,16 +35,19 @@ import {
 } from '@payloadcms/richtext-lexical/rsc'
 import { default as default_a48147a5d9e361c38690affd82c29136 } from 'src/collections/CustomCodes/components/ScriptRowLabel'
 import { default as default_b128d0bd7c3a2b8021c74b08f7767dc4 } from '@/blocks/About/components/About1/config.client.tsx'
-import { default as default_2a39a1af771424381d098717f69480b6 } from '@/blocks/CallToAction/components/CTA1/config.client.tsx'
-import { default as default_35255ec42d8f32ecd043bb2b02f0d65b } from '@/blocks/CallToAction/components/CTA3/config.client.tsx'
-import { default as default_4f5590e45a90eb434ada1df399f6564e } from '@/blocks/CallToAction/components/CTA4/config.client.tsx'
-import { default as default_d37134f7322778e01ca7a3ca8ae25ac1 } from '@/blocks/CallToAction/components/CTA5/config.client.tsx'
-import { default as default_2b197559a662bb08eadd63ff14a7f6fc } from '@/blocks/CallToAction/components/CTA7/config.client.tsx'
-import { default as default_63fc0bdd9b297e91ecfb9ddf27413d37 } from '@/blocks/CallToAction/components/CTA10/config.client.tsx'
-import { default as default_8e5f8c64f7244ddb08417184b5c5b763 } from '@/blocks/CallToAction/components/CTA11/config.client.tsx'
-import { default as default_c9e88eb416816f056243184d9024760b } from '@/blocks/CallToAction/components/CTA15/config.client.tsx'
-import { default as default_6f8bb1f48fffd0933e97720290f1a109 } from '@/blocks/CallToAction/components/CTA16/config.client.tsx'
-import { default as default_d6db59c80cebea06c148fec189e53daa } from '@/blocks/CallToAction/components/CTA17/config.client.tsx'
+import { default as default_aa6c37f8dc1d3551c15a2c1c58b2662d } from '@/blocks/CallToAction/components/Cta1/client.tsx'
+import { default as default_34ddeb8c1d4ae5914907716a0057e8a2 } from '@/blocks/CallToAction/components/Cta3/client.tsx'
+import { default as default_889269dd8dbeb3068a13bf6a5e2149ca } from '@/blocks/CallToAction/components/Cta4/client.tsx'
+import { default as default_7386329bc59c8040e88ced550968856c } from '@/blocks/CallToAction/components/Cta5/client.tsx'
+import { default as default_432d831e17b1579a8a48b058471a87ec } from '@/blocks/CallToAction/components/Cta7/client.tsx'
+import { default as default_8c71efbdf5c6acb36e61d0ff1e599477 } from '@/blocks/CallToAction/components/Cta10/client.tsx'
+import { default as default_5de0f1ca4031240ce1bd4122dbc70295 } from '@/blocks/CallToAction/components/Cta11/client.tsx'
+import { default as default_2bbbca9c2299acdc539d1e57cba43b6d } from '@/blocks/CallToAction/components/Cta15/client.tsx'
+import { default as default_96b8669dbd25c3a6e2b4b5b80e060dd4 } from '@/blocks/CallToAction/components/Cta16/client.tsx'
+import { default as default_de8e0e3a99839e0d921fedcc3f2850be } from '@/blocks/CallToAction/components/Cta17/client.tsx'
+import { default as default_856a0546a97e979b666ba7c33feec821 } from '@/blocks/Faq/components/Faq1/config.client'
+import { default as default_5dcc3c42add7b56ee2ce2fc4325e0bea } from '@/blocks/Faq/components/Faq2/config.client'
+import { default as default_e5bd6d4f21cd9e986b70461d9c56a783 } from '@/blocks/Faq/components/Faq3/config.client'
 import { default as default_1a7510af427896d367a49dbf838d2de6 } from '@/components/BeforeDashboard'
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { default as default_78b39f784b86cf844383560b5f1a85bf } from '@/components/ColorPicker/'
@@ -58,26 +61,26 @@ export const importMap = {
   '@/components/IconSelect/#default': default_545a25a7f6f58e32e2350bd4892658ab,
   '@/blocks/About/components/About1/config.client.tsx#default':
     default_b128d0bd7c3a2b8021c74b08f7767dc4,
-  '@/blocks/CallToAction/components/CTA1/config.client.tsx#default':
-    default_2a39a1af771424381d098717f69480b6,
-  '@/blocks/CallToAction/components/CTA3/config.client.tsx#default':
-    default_35255ec42d8f32ecd043bb2b02f0d65b,
-  '@/blocks/CallToAction/components/CTA4/config.client.tsx#default':
-    default_4f5590e45a90eb434ada1df399f6564e,
-  '@/blocks/CallToAction/components/CTA5/config.client.tsx#default':
-    default_d37134f7322778e01ca7a3ca8ae25ac1,
-  '@/blocks/CallToAction/components/CTA7/config.client.tsx#default':
-    default_2b197559a662bb08eadd63ff14a7f6fc,
-  '@/blocks/CallToAction/components/CTA10/config.client.tsx#default':
-    default_63fc0bdd9b297e91ecfb9ddf27413d37,
-  '@/blocks/CallToAction/components/CTA11/config.client.tsx#default':
-    default_8e5f8c64f7244ddb08417184b5c5b763,
-  '@/blocks/CallToAction/components/CTA15/config.client.tsx#default':
-    default_c9e88eb416816f056243184d9024760b,
-  '@/blocks/CallToAction/components/CTA16/config.client.tsx#default':
-    default_6f8bb1f48fffd0933e97720290f1a109,
-  '@/blocks/CallToAction/components/CTA17/config.client.tsx#default':
-    default_d6db59c80cebea06c148fec189e53daa,
+  '@/blocks/CallToAction/components/Cta1/client.tsx#default':
+    default_aa6c37f8dc1d3551c15a2c1c58b2662d,
+  '@/blocks/CallToAction/components/Cta3/client.tsx#default':
+    default_34ddeb8c1d4ae5914907716a0057e8a2,
+  '@/blocks/CallToAction/components/Cta4/client.tsx#default':
+    default_889269dd8dbeb3068a13bf6a5e2149ca,
+  '@/blocks/CallToAction/components/Cta5/client.tsx#default':
+    default_7386329bc59c8040e88ced550968856c,
+  '@/blocks/CallToAction/components/Cta7/client.tsx#default':
+    default_432d831e17b1579a8a48b058471a87ec,
+  '@/blocks/CallToAction/components/Cta10/client.tsx#default':
+    default_8c71efbdf5c6acb36e61d0ff1e599477,
+  '@/blocks/CallToAction/components/Cta11/client.tsx#default':
+    default_5de0f1ca4031240ce1bd4122dbc70295,
+  '@/blocks/CallToAction/components/Cta15/client.tsx#default':
+    default_2bbbca9c2299acdc539d1e57cba43b6d,
+  '@/blocks/CallToAction/components/Cta16/client.tsx#default':
+    default_96b8669dbd25c3a6e2b4b5b80e060dd4,
+  '@/blocks/CallToAction/components/Cta17/client.tsx#default':
+    default_de8e0e3a99839e0d921fedcc3f2850be,
   '@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell':
     RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   '@payloadcms/richtext-lexical/rsc#RscEntryLexicalField':
@@ -99,6 +102,9 @@ export const importMap = {
     ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   '@payloadcms/richtext-lexical/client#LinkFeatureClient':
     LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  '@/blocks/Faq/components/Faq1/config.client#default': default_856a0546a97e979b666ba7c33feec821,
+  '@/blocks/Faq/components/Faq2/config.client#default': default_5dcc3c42add7b56ee2ce2fc4325e0bea,
+  '@/blocks/Faq/components/Faq3/config.client#default': default_e5bd6d4f21cd9e986b70461d9c56a783,
   '@payloadcms/plugin-seo/client#OverviewComponent':
     OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   '@payloadcms/plugin-seo/client#MetaTitleComponent':

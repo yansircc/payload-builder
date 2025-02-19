@@ -1,7 +1,7 @@
 import type { Block } from 'payload'
-import { faq1Fields } from './components/FAQ1/config'
-import { faq2Fields } from './components/FAQ2/config'
-import { faq3Fields } from './components/FAQ3/config'
+import { faq1Fields } from './components/Faq1/config'
+import { faq2Fields } from './components/Faq2/config'
+import { faq3Fields } from './components/Faq3/config'
 import { faq4Fields } from './components/FAQ4/config'
 import { faq5Fields } from './components/FAQ5/config'
 import { faq6Fields } from './components/FAQ6/config'
@@ -51,18 +51,27 @@ export const FAQ: Block = {
     {
       ...faq1Fields,
       admin: {
+        components: {
+          Field: '@/blocks/Faq/components/Faq1/config.client',
+        },
         condition: (_, siblingData) => siblingData.style === 'faq-1',
       },
     },
     {
       ...faq2Fields,
       admin: {
+        components: {
+          Field: '@/blocks/Faq/components/Faq2/config.client',
+        },
         condition: (_, siblingData) => siblingData.style === 'faq-2',
       },
     },
     {
       ...faq3Fields,
       admin: {
+        components: {
+          Field: '@/blocks/Faq/components/Faq3/config.client',
+        },
         condition: (_, siblingData) => siblingData.style === 'faq-3',
       },
     },

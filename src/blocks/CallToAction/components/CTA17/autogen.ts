@@ -2,8 +2,8 @@
 
 import { z } from 'zod'
 import type { CTA17Fields } from '@/payload-types'
-import { getObjectStream } from '@/utilities/ai'
-import { SYSTEM_PROMPT, USER_PROMPT } from '../shared'
+import { getObject } from '@/utilities/ai'
+import { SYSTEM_PROMPT, USER_PROMPT } from '../shared/constants'
 
 // Define the complete CTA schema
 const cta17Schema = z.object({
@@ -82,16 +82,8 @@ function transformCTA17Data(data: CTA17Data): CTA17Fields {
  */
 export async function autogen() {
   try {
-    const { stream, result } = await getObjectStream({
-      schema: cta17Schema,
-      prompt: USER_PROMPT,
-      systemPrompt: SYSTEM_PROMPT,
-    })
-
-    return {
-      stream,
-      objectPromise: result.then(transformCTA17Data),
-    }
+    const { object } = await getObject(cta17Schema, USER_PROMPT, SYSTEM_PROMPT)
+    return transformCTA17Data(object)
   } catch (error) {
     console.error('Error generating CTA17 content:', error)
     throw error

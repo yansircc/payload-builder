@@ -1,13 +1,111 @@
-import { GroupField } from 'payload'
+import { ArrayField, Field, GroupField } from 'payload'
 import { link } from '@/fields/link'
-import { createFAQField, faqSchemas, faqsFields } from '../shared/base-field'
 
-/**
- * FAQ 4 field validation and type definitions
- */
-export const schemas = {
-  title: faqSchemas.title,
-  faqs: faqSchemas.faqs,
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  minLength: 1,
+  maxLength: 100,
+  admin: {
+    description: 'The title of the FAQ',
+  },
+}
+
+const subtitle: Field = {
+  name: 'subtitle',
+  type: 'text',
+  required: true,
+  minLength: 1,
+  admin: {
+    description: 'The subtitle of the FAQ',
+  },
+}
+
+const description: Field = {
+  name: 'description',
+  type: 'text',
+  required: true,
+  admin: {
+    description: 'The description of the FAQ',
+  },
+}
+
+const faqs: ArrayField = {
+  name: 'faqs',
+  type: 'array',
+  required: true,
+  minRows: 1,
+  maxRows: 6,
+  admin: {
+    description: 'List FAQ',
+  },
+  fields: [
+    {
+      name: 'question',
+      type: 'text',
+      required: true,
+      minLength: 1,
+      maxLength: 100,
+      admin: {
+        description: 'The question of the FAQ',
+      },
+    },
+    {
+      name: 'answer',
+      type: 'text',
+      required: true,
+      minLength: 1,
+    },
+  ],
+}
+
+const support: GroupField = {
+  name: 'support',
+  type: 'group',
+  admin: {
+    description: 'Support section',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Support section title',
+      },
+    },
+    {
+      name: 'subtitle',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Support section subtitle',
+      },
+    },
+    {
+      name: 'supportLink',
+      type: 'array',
+      minRows: 1,
+      maxRows: 1,
+      admin: {
+        description: 'Support links',
+      },
+      fields: [
+        link({
+          name: 'link',
+          overrides: {
+            admin: {
+              description: 'Support link',
+            },
+            defaultValue: {
+              appearances: 'link',
+            },
+          },
+        }),
+      ],
+    },
+  ],
 }
 
 /**
@@ -19,56 +117,7 @@ export const faq4Fields: GroupField = {
   label: false,
   type: 'group',
   admin: {
-    description: 'FAQ',
+    description: 'FAQ with Description',
   },
-  fields: [
-    createFAQField({
-      includeFields: ['subtitle', 'title', 'description'],
-      arrays: [
-        {
-          label: 'List FAQ:',
-          name: 'faqs',
-          fields: Object.values(faqsFields),
-          admin: {
-            description: 'List FAQ',
-          },
-          minRows: 1,
-          maxRows: 6,
-        },
-      ],
-      groups: [
-        {
-          name: 'support',
-          label: 'Support',
-          fields: ['title', 'subtitle'],
-          arrays: [
-            {
-              name: 'supportLink',
-              fields: [
-                link({
-                  name: 'link',
-                  overrides: {
-                    admin: {
-                      description: 'Support link',
-                    },
-                    defaultValue: {
-                      appearances: 'link',
-                    },
-                  },
-                }),
-              ],
-              minRows: 1,
-              maxRows: 1,
-              admin: {
-                description: 'Support link',
-              },
-            },
-          ],
-          admin: {
-            description: 'Support list',
-          },
-        },
-      ],
-    }),
-  ],
+  fields: [title, subtitle, description, faqs, support],
 }

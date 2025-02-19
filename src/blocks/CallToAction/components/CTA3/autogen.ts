@@ -2,8 +2,8 @@
 
 import { z } from 'zod'
 import type { CTA3Fields } from '@/payload-types'
-import { getObjectStream } from '@/utilities/ai'
-import { SYSTEM_PROMPT, USER_PROMPT } from '../shared'
+import { getObject } from '@/utilities/ai'
+import { SYSTEM_PROMPT, USER_PROMPT } from '../shared/constants'
 
 // Define the complete CTA schema
 const cta3Schema = z.object({
@@ -82,16 +82,8 @@ function transformCTA3Data(data: CTA3Data): CTA3Fields {
  */
 export async function autogen() {
   try {
-    const { stream, result } = await getObjectStream({
-      schema: cta3Schema,
-      prompt: USER_PROMPT,
-      systemPrompt: SYSTEM_PROMPT,
-    })
-
-    return {
-      stream,
-      objectPromise: result.then(transformCTA3Data),
-    }
+    const { object } = await getObject(cta3Schema, USER_PROMPT, SYSTEM_PROMPT)
+    return transformCTA3Data(object)
   } catch (error) {
     console.error('Error generating CTA3 content:', error)
     throw error

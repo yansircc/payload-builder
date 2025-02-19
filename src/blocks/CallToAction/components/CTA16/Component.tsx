@@ -1,7 +1,7 @@
+import { ClientMotionDiv } from '@/blocks/shared'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import type { CTA16Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared'
 
 export default function CTA16({ title, subtitle, links, image, icon }: CTA16Fields) {
   return (

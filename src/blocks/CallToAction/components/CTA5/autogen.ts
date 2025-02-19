@@ -2,8 +2,8 @@
 
 import { z } from 'zod'
 import type { CTA5Fields } from '@/payload-types'
-import { getObjectStream } from '@/utilities/ai'
-import { SYSTEM_PROMPT, USER_PROMPT } from '../shared'
+import { getObject } from '@/utilities/ai'
+import { SYSTEM_PROMPT, USER_PROMPT } from '../shared/constants'
 
 // Define the complete CTA schema
 const cta5Schema = z.object({
@@ -58,16 +58,8 @@ function transformCTA5Data(data: CTA5Data): Partial<CTA5Fields> {
  */
 export async function autogen() {
   try {
-    const { stream, result } = await getObjectStream({
-      schema: cta5Schema,
-      prompt: USER_PROMPT,
-      systemPrompt: SYSTEM_PROMPT,
-    })
-
-    return {
-      stream,
-      objectPromise: result.then(transformCTA5Data),
-    }
+    const { object } = await getObject(cta5Schema, USER_PROMPT, SYSTEM_PROMPT)
+    return transformCTA5Data(object)
   } catch (error) {
     console.error('Error generating CTA5 content:', error)
     throw error
