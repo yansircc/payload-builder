@@ -2798,7 +2798,7 @@ export interface Product {
   tenant?: (string | null) | Tenant;
   title: string;
   heroImage?: (string | null) | Media;
-  content: {
+  description: {
     root: {
       type: string;
       children: {
@@ -2814,13 +2814,36 @@ export interface Product {
     [k: string]: unknown;
   };
   productImages?: (string | Media)[] | null;
-  specifications?:
-    | {
-        name: string;
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  specifications?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   links?:
     | {
         link: {
@@ -13333,15 +13356,10 @@ export interface ProductsSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   heroImage?: T;
-  content?: T;
+  description?: T;
   productImages?: T;
-  specifications?:
-    | T
-    | {
-        name?: T;
-        description?: T;
-        id?: T;
-      };
+  content?: T;
+  specifications?: T;
   links?:
     | T
     | {

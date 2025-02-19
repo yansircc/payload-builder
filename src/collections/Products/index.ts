@@ -7,6 +7,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import {
   BlocksFeature,
+  EXPERIMENTAL_TableFeature,
   FixedToolbarFeature,
   HeadingFeature,
   HorizontalRuleFeature,
@@ -75,6 +76,28 @@ export const Products: CollectionConfig = {
               relationTo: 'media',
             },
             {
+              name: 'description',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [
+                    ...rootFeatures,
+                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                  ]
+                },
+              }),
+              label: 'Product Short Description',
+              required: true,
+            },
+            {
+              name: 'productImages',
+              label: 'Product Images',
+              type: 'upload',
+              relationTo: 'media',
+              required: false,
+              hasMany: true,
+            },
+            {
               name: 'content',
               type: 'richText',
               editor: lexicalEditor({
@@ -89,27 +112,19 @@ export const Products: CollectionConfig = {
                   ]
                 },
               }),
-              label: false,
-              required: true,
-            },
-            {
-              name: 'productImages',
-              label: 'Product Images',
-              type: 'upload',
-              relationTo: 'media',
+              label: 'Product Details',
               required: false,
-              hasMany: true,
             },
             {
               name: 'specifications',
-              type: 'array',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [...rootFeatures, EXPERIMENTAL_TableFeature()]
+                },
+              }),
               label: 'Specifications',
-              labels: { singular: 'Specification', plural: 'Specifications' },
-              fields: [
-                { name: 'name', type: 'text', required: true },
-                { name: 'description', type: 'text', required: true },
-              ],
-              minRows: 0,
+              required: false,
             },
             {
               name: 'links',

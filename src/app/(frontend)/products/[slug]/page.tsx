@@ -105,7 +105,7 @@ export default async function Product({ params: paramsPromise }: Args) {
             <CardHeader className="px-0 pt-0">
               <CardTitle className="text-3xl font-bold">{product.title}</CardTitle>
               <CardDescription>
-                {typeof product.meta?.description === 'string' ? product.meta.description : ''}
+                {product.description && <RichText data={product.description} className="p-0" />}
               </CardDescription>
             </CardHeader>
             <CardFooter className="px-0 pb-0 flex flex-row gap-2">
@@ -130,7 +130,7 @@ export default async function Product({ params: paramsPromise }: Args) {
               >
                 Description
               </TabsTrigger>
-              {product.specifications && product.specifications.length > 0 && (
+              {product.specifications && (
                 <TabsTrigger
                   value="specifications"
                   className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-background"
@@ -141,22 +141,13 @@ export default async function Product({ params: paramsPromise }: Args) {
             </TabsList>
             <TabsContent value="description" className="pt-6">
               <div className="prose dark:prose-invert max-w-4xl">
-                <RichText data={product.content} className="p-0" />
+                {product.content && <RichText data={product.content} className="p-0" />}
               </div>
             </TabsContent>
-            {product.specifications && product.specifications.length > 0 && (
+            {product.specifications && (
               <TabsContent value="specifications" className="pt-6">
-                <div className="max-w-4xl">
-                  <div className="grid gap-6 md:grid-cols-2">
-                    {product.specifications.map((spec, index) => (
-                      <Card key={index} className="bg-muted/50">
-                        <CardHeader>
-                          <CardTitle className="text-lg">{spec.name}</CardTitle>
-                          <CardDescription>{spec.description}</CardDescription>
-                        </CardHeader>
-                      </Card>
-                    ))}
-                  </div>
+                <div className="prose dark:prose-invert max-w-4xl">
+                  <RichText data={product.specifications} className="p-0" />
                 </div>
               </TabsContent>
             )}
