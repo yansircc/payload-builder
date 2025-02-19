@@ -1,10 +1,8 @@
+import { ClientMotionDiv } from '@/blocks/shared'
 import { CMSLink } from '@/components/Link'
 import type { CTA10Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
 
-export default function CTA10({ cta }: CTA10Fields) {
-  const { title, subtitle, links } = cta
-
+export default function CTA10({ title, subtitle, links }: CTA10Fields) {
   return (
     <section className="py-32">
       <div className="container">
@@ -23,12 +21,10 @@ export default function CTA10({ cta }: CTA10Fields) {
               >
                 {links.map((linkGroup, index) => (
                   <div key={index}>
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
-                      )}
+                    {Object.entries(linkGroup).map(
+                      ([key, link]) =>
+                        link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                    )}
                   </div>
                 ))}
               </ClientMotionDiv>

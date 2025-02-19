@@ -1,13 +1,11 @@
 import Link from 'next/link'
+import { ClientMotionDiv } from '@/blocks/shared'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import { Card } from '@/components/ui/card'
 import type { CTA3Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
 
-export default function CTA3({ cta }: CTA3Fields) {
-  const { title, subtitle, buttonLinks, listLinks } = cta
-
+export default function CTA3({ title, subtitle, buttons, list }: CTA3Fields) {
   return (
     <section className="py-32">
       <div className="container">
@@ -17,24 +15,22 @@ export default function CTA3({ cta }: CTA3Fields) {
             {subtitle && <p className="text-muted-foreground">{subtitle}</p>}
 
             {/* Button Links */}
-            {buttonLinks && buttonLinks.length > 0 && (
+            {buttons && buttons.length > 0 && (
               <ClientMotionDiv
                 className="mt-8 flex flex-col items-center gap-2 sm:flex-row"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
-                {buttonLinks.map((linkGroup, index) => (
+                {buttons.map((linkGroup, index) => (
                   <div key={index} className="w-full sm:w-auto">
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link &&
-                          typeof link === 'object' && (
-                            <CMSLink key={key} className="w-full sm:w-auto" {...link} />
-                          ),
-                      )}
+                    {Object.entries(linkGroup).map(
+                      ([key, link]) =>
+                        link &&
+                        typeof link === 'object' && (
+                          <CMSLink key={key} className="w-full sm:w-auto" {...link} />
+                        ),
+                    )}
                   </div>
                 ))}
               </ClientMotionDiv>
@@ -42,14 +38,14 @@ export default function CTA3({ cta }: CTA3Fields) {
           </div>
 
           {/* List Links */}
-          {listLinks && listLinks.length > 0 && (
+          {list && list.length > 0 && (
             <ClientMotionDiv
               className="flex flex-col gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              {listLinks.map((item, index) => (
+              {list.map((item, index) => (
                 <Link key={index} href={item.link?.url || ''} className="block">
                   <Card className="flex bg-white items-center justify-between gap-2 px-6 py-4 shadow-none hover:bg-accent">
                     <div className="flex items-start gap-2">
@@ -58,8 +54,8 @@ export default function CTA3({ cta }: CTA3Fields) {
                       )}
                       <div>
                         <h5 className="mb-2 font-medium leading-4">{item.link.label}</h5>
-                        {item.description && (
-                          <p className="text-sm text-muted-foreground">{item.description}</p>
+                        {item.link.description && (
+                          <p className="text-sm text-muted-foreground">{item.link.description}</p>
                         )}
                       </div>
                     </div>

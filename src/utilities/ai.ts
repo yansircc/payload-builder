@@ -1,7 +1,9 @@
-import { deepseek } from '@ai-sdk/deepseek'
+'use server'
+
+import { openai as openaiSDK } from '@ai-sdk/openai'
 import { Ratelimit } from '@upstash/ratelimit'
 import { kv } from '@vercel/kv'
-import { generateObject } from 'ai'
+import { generateObject, streamObject } from 'ai'
 import OpenAI from 'openai'
 import { match } from 'ts-pattern'
 import { z } from 'zod'
@@ -10,57 +12,124 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
+const AI_MODEL = 'gpt-4o-mini' as const
+
+// /**
+//  * 从 schema 中提取字段描述
+//  */
+// function getSchemaDescriptions<T extends z.ZodRawShape>(schema: z.ZodObject<T>) {
+//   const descriptions: Record<string, string> = {}
+
+//   for (const [key, value] of Object.entries(schema.shape)) {
+//     if (value instanceof z.ZodType && '_def' in value) {
+//       const description = value._def.description
+//       if (description) {
+//         descriptions[key] = description
+//       }
+//     }
+//   }
+
+//   return descriptions
+// }
+
+// /**
+//  * 生成 AI 提示文本
+//  */
+// function generatePrompt<T extends z.ZodRawShape>(schema: z.ZodObject<T>): string {
+//   const descriptions = getSchemaDescriptions(schema)
+//   const fields = Object.entries(descriptions)
+//     .map(([key, desc]) => `- ${key}: ${desc}`)
+//     .join('\n')
+
+//   return `You are an AI assistant for a CMS system, please generate content based on the following field descriptions:
+
+// ${fields}
+
+// Please ensure the generated content meets the requirements for each field.`
+// }
+
+// function createSchemaFromField(field: ClientField): z.ZodTypeAny {
+//   switch (field.type) {
+//     case 'text':
+//       const textSchema = z
+//         .string()
+//         .describe(typeof field.admin?.description === 'string' ? field.admin.description : '')
+//       return field.required ? textSchema.min(1) : textSchema.optional()
+
+//     case 'upload':
+//       return z
+//         .string()
+//         .describe(typeof field.admin?.description === 'string' ? field.admin.description : '')
+//         .optional()
+
+//     case 'group':
+//       const shape: Record<string, z.ZodTypeAny> = {}
+//       field.fields.forEach((subField: ClientField) => {
+//         if (subField.type === 'row' && 'fields' in subField) {
+//           subField.fields.forEach((rowField: ClientField) => {
+//             if ('name' in rowField && rowField.name && 'type' in rowField) {
+//               shape[rowField.name] = createSchemaFromField(rowField)
+//             }
+//           })
+//         } else if ('name' in subField && subField.name) {
+//           shape[subField.name] = createSchemaFromField(subField)
+//         }
+//       })
+//       return z
+//         .object(shape)
+//         .describe(typeof field.admin?.description === 'string' ? field.admin.description : '')
+
+//     default:
+//       return z.any().optional()
+//   }
+// }
+
 /**
- * 从 schema 中提取字段描述
- */
-function getSchemaDescriptions<T extends z.ZodRawShape>(schema: z.ZodObject<T>) {
-  const descriptions: Record<string, string> = {}
-
-  for (const [key, value] of Object.entries(schema.shape)) {
-    if (value instanceof z.ZodType && '_def' in value) {
-      const description = value._def.description
-      if (description) {
-        descriptions[key] = description
-      }
-    }
-  }
-
-  return descriptions
-}
-
-/**
- * 生成 AI 提示文本
- */
-function generatePrompt<T extends z.ZodRawShape>(schema: z.ZodObject<T>): string {
-  const descriptions = getSchemaDescriptions(schema)
-  const fields = Object.entries(descriptions)
-    .map(([key, desc]) => `- ${key}: ${desc}`)
-    .join('\n')
-
-  return `You are an AI assistant for a CMS system, please generate content based on the following field descriptions:
-
-${fields}
-
-Please ensure the generated content meets the requirements for each field.`
-}
-
-/**
- * 使用 AI 生成对象数据
+ * Use AI to generate object data
  */
 export async function getObject<T extends z.ZodRawShape>(
   schema: z.ZodObject<T>,
-): Promise<z.infer<z.ZodObject<T>>> {
-  console.log('AI is generating object data')
-  const prompt = generatePrompt(schema)
+  prompt: string,
+  systemPrompt?: string,
+) {
+  try {
+    const object = await generateObject({
+      model: openaiSDK(AI_MODEL),
+      prompt,
+      schema,
+      system: systemPrompt,
+    })
 
-  const { object } = await generateObject({
-    model: deepseek('deepseek-chat'),
-    prompt,
+    return object
+  } catch (error) {
+    console.error('Error generating content:', error)
+    throw error
+  }
+}
+
+/**
+ * Enhanced object stream with better typing and error handling
+ */
+export async function getObjectStream<T extends z.ZodRawShape>({
+  schema,
+  prompt,
+  systemPrompt,
+}: {
+  schema: z.ZodObject<T>
+  prompt: string
+  systemPrompt?: string
+}) {
+  const { partialObjectStream, object } = streamObject({
+    model: openaiSDK(AI_MODEL),
     schema,
+    prompt,
+    system: systemPrompt,
   })
 
-  console.log('AI generated data:', JSON.stringify(object, null, 2))
-  return object
+  return {
+    stream: partialObjectStream,
+    result: object,
+  }
 }
 
 export type AIOption = 'continue' | 'improve' | 'shorter' | 'longer' | 'fix' | 'zap'
@@ -181,7 +250,7 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
 
   const completion = await openai.chat.completions.create({
     messages: messages as any,
-    model: 'gpt-4',
+    model: AI_MODEL,
     max_tokens: 4096,
     temperature: 0.7,
     top_p: 1,

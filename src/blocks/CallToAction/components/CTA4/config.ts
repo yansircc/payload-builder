@@ -1,25 +1,97 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
+import { Field, GroupField } from 'payload'
+import { icon } from '@/fields/icon'
 import { link } from '@/fields/link'
-import { createCTAField, ctaSchemas, listFields } from '../shared/base-field'
+
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  minLength: 1,
+  maxLength: 100,
+  defaultValue: 'Accent Card with Features',
+  admin: {
+    description: 'The title of the CTA section',
+  },
+}
+
+const subtitle: Field = {
+  name: 'subtitle',
+  type: 'text',
+  defaultValue: 'Discover our key features and benefits with this engaging call-to-action.',
+  admin: {
+    description: 'The subtitle text below the main title',
+  },
+}
+
+const links: Field = {
+  name: 'links',
+  type: 'array',
+  minRows: 1,
+  maxRows: 1,
+  admin: {
+    description: 'Primary CTA button',
+  },
+  fields: [
+    link({
+      name: 'link',
+      disableLabel: false,
+      appearances: ['default'],
+      ui: {
+        icons: true,
+        description: false,
+      },
+      overrides: {
+        admin: {
+          description: 'CTA button with arrow',
+        },
+        defaultValue: {
+          type: 'custom',
+          url: '#',
+          label: 'Get Started',
+          suffixIcon: 'ArrowRight',
+          appearance: 'default',
+        },
+      },
+    }),
+  ],
+}
+
+const lists: Field = {
+  name: 'lists',
+  type: 'array',
+  minRows: 1,
+  maxRows: 6,
+  admin: {
+    description: 'List of features with icons',
+  },
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        icon({
+          name: 'icon',
+          label: 'Icon',
+        }),
+        {
+          name: 'text',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'Feature description',
+          },
+        },
+      ],
+    },
+  ],
+}
 
 /**
- * CTA 4: Accent card with feature list
+ * Complete configuration for CTA 4
  * Features:
  * - Accent background color
  * - Icon-based feature list
  * - Single action button with arrow
  * - Compact card layout
- */
-export const schemas = {
-  title: ctaSchemas.title,
-  subtitle: ctaSchemas.subtitle,
-  links: z.array(ctaSchemas.link).min(1).max(2),
-  lists: z.array(ctaSchemas.list).min(1).max(3),
-}
-
-/**
- * Complete configuration for CTA 4
  */
 export const cta4Fields: GroupField = {
   name: 'cta-4',
@@ -29,41 +101,5 @@ export const cta4Fields: GroupField = {
   admin: {
     description: 'Accent card with feature list and single action button',
   },
-  fields: [
-    createCTAField({
-      includeFields: ['title', 'subtitle'],
-      arrays: [
-        {
-          name: 'links',
-          fields: [
-            link({
-              name: 'link-1',
-              overrides: {
-                admin: {
-                  description: 'CTA buttons',
-                },
-                defaultValue: {
-                  suffixIcon: 'ArrowRight',
-                },
-              },
-            }),
-          ],
-          admin: {
-            description: 'CTA buttons',
-          },
-          minRows: 1,
-          maxRows: 1,
-        },
-        {
-          name: 'lists',
-          fields: Object.values(listFields),
-          admin: {
-            description: 'List with icons',
-          },
-          minRows: 1,
-          maxRows: 6,
-        },
-      ],
-    }),
-  ],
+  fields: [title, subtitle, links, lists],
 }

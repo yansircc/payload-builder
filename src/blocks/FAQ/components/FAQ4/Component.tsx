@@ -1,4 +1,3 @@
-import { ChevronRight } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import {
   Accordion,
@@ -10,8 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { FAQ4Fields } from '@/payload-types'
 
-export default function FAQ4({ faq }: FAQ4Fields) {
-  const { title, subtitle, description, faqs, support } = faq
+export default function FAQ4({ title, subtitle, description, faqs, support }: FAQ4Fields) {
   return (
     <section className="py-32">
       <div className="container">

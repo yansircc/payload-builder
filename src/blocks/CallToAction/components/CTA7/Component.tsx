@@ -1,11 +1,9 @@
+import { ClientMotionDiv } from '@/blocks/shared'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import type { CTA7Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
 
-export default function CTA7({ cta }: CTA7Fields) {
-  const { title, subtitle, links, lists } = cta
-
+export default function CTA7({ title, subtitle, links, lists }: CTA7Fields) {
   return (
     <section className="py-32">
       <div className="container">
@@ -37,7 +35,7 @@ export default function CTA7({ cta }: CTA7Fields) {
             <ul className={`grid gap-x-8 gap-y-4 text-muted-foreground md:grid-cols-2`}>
               {lists?.map((list, index) => (
                 <li key={index} className="flex items-center gap-2">
-                  <DynamicIcon name={list.icon} className="size-5" />
+                  {list.icon && <DynamicIcon name={list.icon} className="size-5" />}
                   {list.text}
                 </li>
               ))}

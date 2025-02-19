@@ -1,11 +1,9 @@
+import { ClientMotionDiv } from '@/blocks/shared'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import type { CTA4Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
 
-export default function CTA4({ cta }: CTA4Fields) {
-  const { title, subtitle, links, lists } = cta
-
+export default function CTA4({ title, subtitle, links, lists }: CTA4Fields) {
   return (
     <section className="py-32">
       <div className="container">
@@ -24,15 +22,13 @@ export default function CTA4({ cta }: CTA4Fields) {
               >
                 {links.map((linkGroup, index) => (
                   <div key={index} className="w-full sm:w-auto">
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link &&
-                          typeof link === 'object' && (
-                            <CMSLink key={key} {...link} className="w-full sm:w-auto" />
-                          ),
-                      )}
+                    {Object.entries(linkGroup).map(
+                      ([key, link]) =>
+                        link &&
+                        typeof link === 'object' && (
+                          <CMSLink key={key} {...link} className="w-full sm:w-auto" />
+                        ),
+                    )}
                   </div>
                 ))}
               </ClientMotionDiv>
@@ -50,7 +46,7 @@ export default function CTA4({ cta }: CTA4Fields) {
               >
                 {lists.map((item, index) => (
                   <li key={index} className="flex items-center">
-                    <DynamicIcon name={item.icon} className="mr-4 size-5" />
+                    {item.icon && <DynamicIcon name={item.icon} className="mr-4 size-5" />}
                     {item.text}
                   </li>
                 ))}

@@ -1,51 +1,74 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
-import { cardsFields, createFeatureField, featureSchemas } from '../shared/base-field'
+import { Field, GroupField } from 'payload'
+import { icon } from '@/fields/icon'
 
-/**
- * Feature 15 field validation and type definitions
- */
-export const schemas = {
-  title: featureSchemas.title,
-  features: z.object({
-    icon: featureSchemas.icon,
-    title: featureSchemas.title,
-    description: featureSchemas.description,
-  }),
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  defaultValue: 'Feature Title',
+  admin: {
+    description: 'The title of the feature',
+  },
 }
 
-/**
- * Feature 15 configuration
- *
- * This feature includes:
- * - Main title
- * - Grid of feature cards, each with:
- *   - Optional icon
- *   - Title and description
- *   - Optional image
- */
+const subtitle: Field = {
+  name: 'subtitle',
+  type: 'text',
+  required: true,
+  admin: {
+    description: 'The subtitle of the feature',
+  },
+}
+const description: Field = {
+  name: 'description',
+  type: 'text',
+  required: true,
+  admin: {
+    description: 'The description of the feature',
+  },
+}
+
+const features: Field = {
+  name: 'features',
+  type: 'array',
+  required: true,
+  minRows: 2,
+  maxRows: 3,
+  admin: {
+    description: 'The features of the feature',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The title of the feature',
+      },
+    },
+    icon({
+      name: 'icon',
+      label: 'Icon',
+    }),
+    {
+      name: 'description',
+      label: 'Description',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The description of the feature',
+      },
+    },
+  ],
+}
+
 export const feature15Fields: GroupField = {
   name: 'feature-15',
   interfaceName: 'Feature15Fields',
   label: false,
   type: 'group',
   admin: {
-    description: 'Feature section with 2 cards showing icon, title, description and optional image',
+    description: 'Feature section with 6 cards showing icon, title, description and optional image',
   },
-  fields: [
-    createFeatureField({
-      includeFields: ['title', 'subtitle', 'description'],
-      arrays: [
-        {
-          name: 'features',
-          fields: [cardsFields.icon, cardsFields.title, cardsFields.description],
-          minRows: 1,
-          maxRows: 6,
-          admin: {
-            description: 'Feature cards',
-          },
-        },
-      ],
-    }),
-  ],
+  fields: [title, subtitle, description, features],
 }

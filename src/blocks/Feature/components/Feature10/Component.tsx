@@ -1,8 +1,7 @@
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { Feature10Fields } from '@/payload-types'
 
-export default function Feature10({ feature }: Feature10Fields) {
-  const { title, description, features } = feature
+export default function Feature10({ title, description, features }: Feature10Fields) {
   return (
     <section className="py-32">
       <div className="container">

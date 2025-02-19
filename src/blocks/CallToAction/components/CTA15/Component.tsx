@@ -1,13 +1,9 @@
-import { Play } from 'lucide-react'
+import { ClientMotionDiv } from '@/blocks/shared'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { Button } from '@/components/ui/button'
 import type { CTA15Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
 
-export default function CTA15({ cta }: CTA15Fields) {
-  const { title, subtitle, links, image, heading } = cta
-
+export default function CTA15({ title, subtitle, links, image, heading }: CTA15Fields) {
   return (
     <section className="py-32">
       <div className="container">
@@ -25,15 +21,13 @@ export default function CTA15({ cta }: CTA15Fields) {
               >
                 {links.map((linkGroup, index) => (
                   <div key={index} className="w-full sm:w-auto">
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link &&
-                          typeof link === 'object' && (
-                            <CMSLink key={key} {...link} className="w-full sm:w-auto" />
-                          ),
-                      )}
+                    {Object.entries(linkGroup).map(
+                      ([key, link]) =>
+                        link &&
+                        typeof link === 'object' && (
+                          <CMSLink key={key} {...link} className="w-full sm:w-auto" />
+                        ),
+                    )}
                   </div>
                 ))}
               </ClientMotionDiv>

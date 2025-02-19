@@ -3,9 +3,7 @@ import { Media } from '@/components/Media'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import type { Feature3Fields } from '@/payload-types'
 
-export default function Feature3({ feature }: Feature3Fields) {
-  const { title, features } = feature
-
+export default function Feature3({ title, features }: Feature3Fields) {
   return (
     <section className="py-32">
       <div className="container">

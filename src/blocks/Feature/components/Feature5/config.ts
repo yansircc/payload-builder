@@ -1,29 +1,99 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
-import { cardsFields, createFeatureField, featureSchemas } from '../shared/base-field'
+import { Field, GroupField } from 'payload'
+import { icon } from '@/fields/icon'
 
-/**
- * Feature 5 field validation and type definitions
- */
-export const schemas = {
-  testimonial: featureSchemas.testimonial,
-  features: z.array(featureSchemas.card).length(2),
+const features: Field = {
+  name: 'features',
+  type: 'array',
+  required: true,
+  minRows: 2,
+  maxRows: 2,
+  admin: {
+    description: 'The features of the feature',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The title of the feature',
+      },
+    },
+    {
+      name: 'description',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The description of the feature',
+      },
+    },
+    icon({
+      name: 'icon',
+      label: 'Icon',
+    }),
+    {
+      name: 'image',
+      type: 'upload',
+      required: false,
+      relationTo: 'media',
+      admin: {
+        description: 'The image of the feature',
+      },
+    },
+  ],
 }
 
-/**
- * Feature 5 configuration
- *
- * This feature includes:
- * - Grid of feature cards (first card is larger)
- * - Each card has:
- *   - Optional icon
- *   - Title and description
- *   - Optional image
- * - Testimonial section with:
- *   - Quote
- *   - Author name and role
- *   - Author image
- */
+const testimonial: Field = {
+  name: 'testimonial',
+  type: 'group',
+  admin: {
+    description: 'The testimonial of the feature',
+  },
+  fields: [
+    {
+      name: 'quote',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The quote of the testimonial',
+      },
+    },
+    {
+      name: 'name',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The name of the testimonial',
+      },
+    },
+    {
+      name: 'role',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The role of the testimonial',
+      },
+    },
+    {
+      name: 'company',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The company of the testimonial',
+      },
+    },
+    {
+      name: 'image',
+      type: 'upload',
+      required: false,
+      relationTo: 'media',
+      admin: {
+        description: 'The image of the testimonial',
+      },
+    },
+  ],
+}
+
 export const feature5Fields: GroupField = {
   name: 'feature-5',
   interfaceName: 'Feature5Fields',
@@ -32,26 +102,5 @@ export const feature5Fields: GroupField = {
   admin: {
     description: 'Feature section with 2 cards (first one larger) and testimonial',
   },
-  fields: [
-    createFeatureField({
-      includeFields: ['testimonial'],
-      arrays: [
-        {
-          name: 'features',
-          fields: [cardsFields.icon, cardsFields.title, cardsFields.description, cardsFields.image],
-          minRows: 2,
-          maxRows: 2,
-          admin: {
-            description: 'Feature cards (first card will be larger)',
-          },
-        },
-      ],
-      groups: [
-        {
-          name: 'testimonial',
-          fields: ['quote', 'name', 'role', 'company', 'image'],
-        },
-      ],
-    }),
-  ],
+  fields: [features, testimonial],
 }

@@ -1,12 +1,43 @@
-import { GroupField } from 'payload'
-import { createFAQField, faqSchemas, faqsFields } from '../shared/base-field'
+import { ArrayField, Field, GroupField } from 'payload'
 
-/**
- * FAQ 2 field validation and type definitions
- */
-export const schemas = {
-  title: faqSchemas.title,
-  faqs: faqSchemas.faqs,
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  minLength: 1,
+  maxLength: 100,
+  admin: {
+    description: 'The title of the FAQ',
+  },
+}
+
+const faqs: ArrayField = {
+  name: 'faqs',
+  type: 'array',
+  required: true,
+  minRows: 1,
+  maxRows: 6,
+  admin: {
+    description: 'List FAQ',
+  },
+  fields: [
+    {
+      name: 'question',
+      type: 'text',
+      required: true,
+      minLength: 1,
+      maxLength: 100,
+      admin: {
+        description: 'The question of the FAQ',
+      },
+    },
+    {
+      name: 'answer',
+      type: 'text',
+      required: true,
+      minLength: 1,
+    },
+  ],
 }
 
 /**
@@ -20,21 +51,5 @@ export const faq2Fields: GroupField = {
   admin: {
     description: 'FAQ',
   },
-  fields: [
-    createFAQField({
-      includeFields: ['title'],
-      arrays: [
-        {
-          label: 'List FAQ:',
-          name: 'faqs',
-          fields: Object.values(faqsFields),
-          admin: {
-            description: 'List FAQ',
-          },
-          minRows: 1,
-          maxRows: 6,
-        },
-      ],
-    }),
-  ],
+  fields: [title, faqs],
 }

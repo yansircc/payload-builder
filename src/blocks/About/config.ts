@@ -48,6 +48,9 @@ export const AboutBlock: Block = {
     {
       ...about1Fields,
       admin: {
+        components: {
+          Field: '@/blocks/About/components/About1/config.client.tsx',
+        },
         condition: (_, siblingData) => siblingData?.style === 'about-1',
       },
     },

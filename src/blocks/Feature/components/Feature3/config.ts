@@ -1,28 +1,56 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
-import { cardsFields, createFeatureField, featureSchemas } from '../shared/base-field'
+import { Field, GroupField } from 'payload'
+import { icon } from '@/fields/icon'
 
-/**
- * Feature 3 field validation and type definitions
- */
-export const schemas = {
-  title: featureSchemas.title,
-  features: z.object({
-    title: z.string(),
-    card: z.array(featureSchemas.card),
-  }),
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  defaultValue: 'Feature Title',
+  admin: {
+    description: 'The title of the feature',
+  },
 }
 
-/**
- * Feature 3 configuration
- *
- * This feature includes:
- * - Main title
- * - Grid of feature cards, each with:
- *   - Optional icon
- *   - Title and description
- *   - Optional image
- */
+const features: Field = {
+  name: 'features',
+  type: 'array',
+  required: true,
+  admin: {
+    description: 'The features of the feature',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The title of the feature',
+      },
+    },
+    {
+      name: 'description',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The description of the feature',
+      },
+    },
+    icon({
+      name: 'icon',
+      label: 'Icon',
+    }),
+    {
+      name: 'image',
+      type: 'upload',
+      required: false,
+      relationTo: 'media',
+      admin: {
+        description: 'The image of the feature',
+      },
+    },
+  ],
+}
+
 export const feature3Fields: GroupField = {
   name: 'feature-3',
   interfaceName: 'Feature3Fields',
@@ -31,20 +59,5 @@ export const feature3Fields: GroupField = {
   admin: {
     description: 'Feature section with 6 cards showing icon, title, description and optional image',
   },
-  fields: [
-    createFeatureField({
-      includeFields: ['title'],
-      arrays: [
-        {
-          name: 'features',
-          fields: [cardsFields.icon, cardsFields.title, cardsFields.description, cardsFields.image],
-          minRows: 1,
-          maxRows: 6,
-          admin: {
-            description: 'Feature cards',
-          },
-        },
-      ],
-    }),
-  ],
+  fields: [title, features],
 }
