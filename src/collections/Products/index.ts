@@ -14,6 +14,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
+import { link } from '@/fields/link'
 import { slugField } from '@/fields/slug'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
@@ -110,6 +111,20 @@ export const Products: CollectionConfig = {
               ],
               minRows: 0,
             },
+            {
+              name: 'links',
+              type: 'array',
+              label: 'CTA Buttons',
+              labels: { singular: 'CTA Button', plural: 'CTA Buttons' },
+              fields: [
+                link({
+                  name: 'link',
+                  label: 'Button',
+                }),
+              ],
+              minRows: 0,
+              maxRows: 2,
+            },
           ],
           label: 'Content',
         },
@@ -133,12 +148,20 @@ export const Products: CollectionConfig = {
             },
             {
               name: 'categories',
+              label: 'Categories',
               type: 'relationship',
               admin: {
                 position: 'sidebar',
               },
               hasMany: true,
               relationTo: 'categories',
+              filterOptions: () => {
+                return {
+                  type: {
+                    equals: 'product',
+                  },
+                }
+              },
             },
           ],
           label: 'Meta',

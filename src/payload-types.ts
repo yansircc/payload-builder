@@ -506,6 +506,7 @@ export interface Category {
   id: string;
   tenant?: (string | null) | Tenant;
   title: string;
+  type: 'post' | 'product' | 'service';
   slug?: string | null;
   slugLock?: boolean | null;
   fullPath?: string | null;
@@ -2817,6 +2818,33 @@ export interface Product {
     | {
         name: string;
         description: string;
+        id?: string | null;
+      }[]
+    | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+        };
         id?: string | null;
       }[]
     | null;
@@ -12020,6 +12048,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface CategoriesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
+  type?: T;
   slug?: T;
   slugLock?: T;
   fullPath?: T;
@@ -13311,6 +13340,24 @@ export interface ProductsSelect<T extends boolean = true> {
     | {
         name?: T;
         description?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
         id?: T;
       };
   relatedProducts?: T;

@@ -121,6 +121,13 @@ export const Services: CollectionConfig = {
               admin: { position: 'sidebar' },
               hasMany: true,
               relationTo: 'categories',
+              filterOptions: () => {
+                return {
+                  type: {
+                    equals: 'service',
+                  },
+                }
+              },
             },
           ],
           label: 'Meta',
