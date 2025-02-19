@@ -1,70 +1,73 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
+import { Field, GroupField } from 'payload'
+import { icon } from '@/fields/icon'
 import { link } from '@/fields/link'
-import { createFeatureField, featureSchemas } from '../shared/base-field'
 
-/**
- * Feature 2 field validation and type definitions
- */
-export const schemas = {
-  title: featureSchemas.title,
-  description: featureSchemas.description,
-  icon: featureSchemas.icon,
-  image: featureSchemas.image,
-  links: z.array(featureSchemas.link).min(2).max(2),
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  defaultValue: 'Feature Title',
+  admin: {
+    description: 'The title of the feature',
+  },
 }
 
-/**
- * Feature 2 configuration
- *
- * This feature includes:
- * - Icon with accent background
- * - Title and description
- * - Two links (primary and secondary)
- * - Feature image on the left
- */
+const description: Field = {
+  name: 'description',
+  type: 'text',
+  required: true,
+  defaultValue: 'Feature Description',
+  admin: {
+    description: 'The description of the feature',
+  },
+}
+
+const iconField = icon({
+  name: 'icon',
+  label: 'Icon',
+})
+
+const image: Field = {
+  name: 'image',
+  type: 'upload',
+  relationTo: 'media',
+  required: true,
+  admin: {
+    description: 'The image of the feature',
+  },
+}
+
+const buttonGroup: Field = {
+  name: 'buttonGroup',
+  type: 'array',
+  minRows: 2,
+  maxRows: 2,
+  admin: {
+    description: 'Primary CTA buttons (1-2 buttons)',
+  },
+  fields: [
+    link({
+      name: 'link',
+      appearances: ['default', 'outline', 'ghost', 'link'],
+      ui: {
+        icons: true,
+      },
+      overrides: {
+        admin: {
+          description: 'Primary CTA button with arrow',
+        },
+      },
+    }),
+  ],
+}
+
 export const feature2Fields: GroupField = {
   name: 'feature-2',
   interfaceName: 'Feature2Fields',
   label: false,
   type: 'group',
   admin: {
-    description: 'Feature with image on the left',
+    description: 'Feature with image on the right',
   },
-  fields: [
-    createFeatureField({
-      includeFields: ['title', 'description', 'icon', 'image'],
-      arrays: [
-        {
-          name: 'links',
-          fields: [
-            link({
-              name: 'link-1',
-              overrides: {
-                admin: {
-                  description: 'Primary link with icon',
-                },
-                defaultValue: {
-                  prefixIcon: 'Play',
-                },
-              },
-            }),
-            link({
-              name: 'link-2',
-              overrides: {
-                admin: {
-                  description: 'Secondary link',
-                },
-              },
-            }),
-          ],
-          admin: {
-            description: 'Feature links',
-          },
-          minRows: 1,
-          maxRows: 1,
-        },
-      ],
-    }),
-  ],
+  fields: [title, description, iconField, image, buttonGroup],
 }

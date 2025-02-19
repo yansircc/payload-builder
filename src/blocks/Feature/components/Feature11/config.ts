@@ -1,72 +1,90 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
+import { Field, GroupField } from 'payload'
+import { icon } from '@/fields/icon'
 import { link } from '@/fields/link'
-import { createFeatureField, featureSchemas, listFields } from '../shared/base-field'
 
-/**
- * Feature 11 field validation and type definitions
- */
-export const schemas = {
-  title: featureSchemas.title,
-  description: featureSchemas.description,
-  icon: featureSchemas.icon,
-  image: featureSchemas.image,
-  links: z.array(featureSchemas.link).min(2).max(2),
-  features: featureSchemas.list.min(1).max(6),
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  defaultValue: 'Feature Title',
+  admin: {
+    description: 'The title of the feature',
+  },
 }
 
-/**
- * Feature 11 configuration
- *
- * This feature includes:
- * - Icon with accent background
- * - Title and description
- * - Two links (primary and secondary)
- * - Feature image
- */
+const description: Field = {
+  name: 'description',
+  type: 'text',
+  required: true,
+  admin: {
+    description: 'The description of the feature',
+  },
+}
+
+const buttonGroup: Field = {
+  name: 'buttonGroup',
+  type: 'array',
+  minRows: 2,
+  maxRows: 2,
+  admin: {
+    description: 'Primary CTA buttons (1-2 buttons)',
+  },
+  fields: [
+    link({
+      name: 'link',
+      appearances: ['default', 'outline', 'ghost', 'link'],
+      ui: {
+        icons: true,
+      },
+      overrides: {
+        admin: {
+          description: 'Primary CTA button with arrow',
+        },
+      },
+    }),
+  ],
+}
+
+const image: Field = {
+  name: 'image',
+  type: 'upload',
+  relationTo: 'media',
+  admin: {
+    description: 'The image of the feature',
+  },
+}
+const features: Field = {
+  name: 'features',
+  type: 'array',
+  required: true,
+  minRows: 2,
+  maxRows: 3,
+  admin: {
+    description: 'The features of the feature',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The title of the feature',
+      },
+    },
+    icon({
+      name: 'icon',
+      label: 'Icon',
+    }),
+  ],
+}
+
 export const feature11Fields: GroupField = {
   name: 'feature-11',
   interfaceName: 'Feature11Fields',
   label: false,
   type: 'group',
   admin: {
-    description: 'Feature with image on the right',
+    description: 'Feature section with 6 cards showing icon, title, description and optional image',
   },
-  fields: [
-    createFeatureField({
-      includeFields: ['title', 'description', 'image'],
-      arrays: [
-        {
-          name: 'links',
-          fields: [
-            link({
-              name: 'link-1',
-              overrides: {
-                admin: {
-                  description: 'Primary link with icon',
-                },
-                defaultValue: {
-                  prefixIcon: 'ArrowRight',
-                },
-              },
-            }),
-          ],
-          admin: {
-            description: 'Feature links',
-          },
-          minRows: 1,
-          maxRows: 1,
-        },
-        {
-          name: 'features',
-          fields: Object.values(listFields),
-          admin: {
-            description: 'List of features with icons',
-          },
-          minRows: 1,
-          maxRows: 6,
-        },
-      ],
-    }),
-  ],
+  fields: [title, description, image, buttonGroup, features],
 }

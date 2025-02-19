@@ -1,66 +1,74 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
-import { cardsFields, createFeatureField, featureSchemas, listFields } from '../shared/base-field'
+import { Field, GroupField } from 'payload'
+import { icon } from '@/fields/icon'
 
-/**
- * Feature 14 field validation and type definitions
- */
-export const schemas = {
-  features: z.object({
-    icon: featureSchemas.icon,
-    title: featureSchemas.title,
-    description: featureSchemas.description,
-    list: featureSchemas.list.min(1).max(6),
-  }),
+const features: Field = {
+  name: 'features',
+  type: 'array',
+  required: true,
+  minRows: 2,
+  maxRows: 3,
+  admin: {
+    description: 'The features of the feature',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The title of the feature',
+      },
+    },
+    {
+      name: 'description',
+      label: 'Description',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The description of the feature',
+      },
+    },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'The image of the feature',
+      },
+    },
+    {
+      name: 'list',
+      type: 'array',
+      required: true,
+      minRows: 2,
+      admin: {
+        description: 'The list of the feature',
+      },
+      fields: [
+        icon({
+          name: 'icon',
+          label: 'Icon',
+        }),
+        {
+          name: 'text',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'The text of the feature',
+          },
+        },
+      ],
+    },
+  ],
 }
 
-/**
- * Feature 14 configuration
- *
- * This feature includes:
- * - Main title
- * - Grid of feature cards, each with:
- *   - Optional icon
- *   - Title and description
- *   - Optional image
- *   - List of features with optional icons
- */
 export const feature14Fields: GroupField = {
   name: 'feature-14',
   interfaceName: 'Feature14Fields',
   label: false,
   type: 'group',
   admin: {
-    description: 'Feature section with 2 cards showing icon, title, description and optional image',
+    description: 'Feature section with 6 cards showing icon, title, description and optional image',
   },
-  fields: [
-    createFeatureField({
-      includeFields: ['title'],
-      arrays: [
-        {
-          name: 'features',
-          fields: [
-            cardsFields.image,
-            cardsFields.title,
-            cardsFields.description,
-            {
-              name: 'list',
-              type: 'array',
-              fields: Object.values(listFields),
-              minRows: 1,
-              maxRows: 6,
-              admin: {
-                description: 'List of features with icons',
-              },
-            },
-          ],
-          minRows: 1,
-          maxRows: 6,
-          admin: {
-            description: 'Feature cards',
-          },
-        },
-      ],
-    }),
-  ],
+  fields: [features],
 }

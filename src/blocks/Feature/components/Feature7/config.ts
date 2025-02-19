@@ -1,48 +1,70 @@
-import { GroupField } from 'payload'
-import { createFeatureField, featureSchemas, listFields } from '../shared/base-field'
+import { Field, GroupField } from 'payload'
+import { icon } from '@/fields/icon'
 
-/**
- * Feature 7 field validation and type definitions
- */
-export const schemas = {
-  title: featureSchemas.title,
-  description: featureSchemas.description,
-  icon: featureSchemas.icon,
-  image: featureSchemas.image,
-  features: featureSchemas.list.min(1).max(6),
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  defaultValue: 'Feature Title',
+  admin: {
+    description: 'The title of the feature',
+  },
 }
 
-/**
- * Feature 7 configuration
- *
- * This feature includes:
- * - Icon with accent background
- * - Title and description
- * - List of features with icons
- * - Feature image (positioned on the left)
- */
+const description: Field = {
+  name: 'description',
+  type: 'text',
+  required: true,
+  admin: {
+    description: 'The description of the feature',
+  },
+}
+
+const iconField = icon({
+  name: 'icon',
+  label: 'Icon',
+})
+
+const image: Field = {
+  name: 'image',
+  type: 'upload',
+  relationTo: 'media',
+  admin: {
+    description: 'The image of the feature',
+  },
+}
+const features: Field = {
+  name: 'features',
+  type: 'array',
+  required: true,
+  minRows: 2,
+  maxRows: 3,
+  admin: {
+    description: 'The features of the feature',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'The title of the feature',
+      },
+    },
+    icon({
+      name: 'icon',
+      label: 'Icon',
+    }),
+  ],
+}
+
 export const feature7Fields: GroupField = {
   name: 'feature-7',
   interfaceName: 'Feature7Fields',
   label: false,
   type: 'group',
   admin: {
-    description: 'Feature with image on the left and feature list',
+    description: 'Feature section with 6 cards showing icon, title, description and optional image',
   },
-  fields: [
-    createFeatureField({
-      includeFields: ['title', 'description', 'icon', 'image'],
-      arrays: [
-        {
-          name: 'features',
-          fields: Object.values(listFields),
-          admin: {
-            description: 'List of features with icons',
-          },
-          minRows: 1,
-          maxRows: 6,
-        },
-      ],
-    }),
-  ],
+  fields: [title, description, iconField, image, features],
 }

@@ -4,35 +4,29 @@ import { GroupField, useField } from '@payloadcms/ui'
 import type { GroupFieldClientProps } from 'payload'
 import { useCallback, useEffect, useMemo } from 'react'
 import { createStore, GenerateButton, getFieldPath } from '@/blocks/shared'
-import type { CTA3Fields } from '@/payload-types'
+import type { Feature10Fields } from '@/payload-types'
 import { autogen } from './autogen'
 
-const FIELDS: Array<keyof CTA3Fields> = ['title', 'subtitle', 'buttons', 'list']
-const useCTA3Store = createStore<CTA3Fields>(FIELDS)
+const FIELDS: Array<keyof Feature10Fields> = ['title', 'description', 'features']
+const useFeature10Store = createStore<Feature10Fields>(FIELDS)
 
-function CTA3Client(props: GroupFieldClientProps) {
-  const { setFieldRef, updateFields, clearFields } = useCTA3Store()
+function Feature10Client(props: GroupFieldClientProps) {
+  const { setFieldRef, updateFields, clearFields } = useFeature10Store()
 
   // Initialize fields at the component level
   const titleField = useField<string>({ path: getFieldPath(props, 'title') })
-  const subtitleField = useField<string>({ path: getFieldPath(props, 'subtitle') })
-  const buttonsField = useField<CTA3Fields['buttons']>({ path: getFieldPath(props, 'buttons') })
-  const listField = useField<CTA3Fields['list']>({ path: getFieldPath(props, 'list') })
+  const descriptionField = useField<string>({ path: getFieldPath(props, 'description') })
+  const featuresField = useField<Feature10Fields['features']>({
+    path: getFieldPath(props, 'features'),
+  })
 
   const fieldsMap = useMemo(
     () => ({
-      title: {
-        value: titleField.value ?? '',
-        setValue: (value: string) => titleField.setValue(value ?? ''),
-      },
-      subtitle: {
-        value: subtitleField.value ?? '',
-        setValue: (value: string) => subtitleField.setValue(value ?? ''),
-      },
-      buttons: buttonsField,
-      list: listField,
+      title: titleField,
+      description: descriptionField,
+      features: featuresField,
     }),
-    [titleField, subtitleField, buttonsField, listField],
+    [titleField, descriptionField, featuresField],
   )
   useEffect(() => {
     FIELDS.forEach((field) => {
@@ -59,4 +53,4 @@ function CTA3Client(props: GroupFieldClientProps) {
   )
 }
 
-export default CTA3Client
+export default Feature10Client
