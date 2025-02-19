@@ -103,7 +103,6 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
               console.error('Error fetching parent page:', error)
             }
           } else {
-            console.log('No parent page found, using path:', path)
           }
 
           return path

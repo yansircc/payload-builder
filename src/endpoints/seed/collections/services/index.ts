@@ -11,9 +11,9 @@ export async function seedServices({
   images: Record<string, string>
   demoAuthor: { id: string }
   categories: {
-    technology: { id: string }
+    'service-technology': { id: string }
     software: { id: string }
-    finance: { id: string }
+    'service-finance': { id: string }
   }
   tenant: { id: string }
 }) {
@@ -56,7 +56,7 @@ export async function seedServices({
             'Enterprise-grade IT support with guaranteed response times and comprehensive coverage.',
           image: images.image1,
         },
-        categories: [categories.technology.id],
+        categories: [categories['service-technology'].id],
         tenant: tenant.id,
         specifications: [
           { name: 'Response Time', description: '15 minutes or less' },
@@ -151,7 +151,7 @@ export async function seedServices({
           description: 'Expert guidance for digital transformation and innovation strategies.',
           image: images.image3,
         },
-        categories: [categories.finance.id],
+        categories: [categories['service-finance'].id],
         tenant: tenant.id,
         specifications: [
           { name: 'Engagement Length', description: '3-6 months' },

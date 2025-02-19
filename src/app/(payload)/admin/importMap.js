@@ -27,6 +27,7 @@ import {
   ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   LinkFeatureClient as LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   ParagraphFeatureClient as ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  TableFeatureClient as TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
 } from '@payloadcms/richtext-lexical/client'
 import {
@@ -84,6 +85,8 @@ export const importMap = {
   '/collections/CustomCodes/components/ScriptRowLabel#default':
     default_a48147a5d9e361c38690affd82c29136,
   '@/components/ColorPicker/#default': default_78b39f784b86cf844383560b5f1a85bf,
+  '@payloadcms/richtext-lexical/client#TableFeatureClient':
+    TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   '@payloadcms/plugin-search/client#LinkToDoc': LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   '@payloadcms/plugin-search/client#ReindexButton': ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   '@payloadcms/plugin-multi-tenant/rsc#GlobalViewRedirect':

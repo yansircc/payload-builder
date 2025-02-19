@@ -26,6 +26,7 @@ export default async function Page() {
       overrideAccess: false,
       select: {
         title: true,
+        description: true,
         slug: true,
         categories: true,
         meta: true,
