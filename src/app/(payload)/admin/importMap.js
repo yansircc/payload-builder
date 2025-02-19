@@ -37,6 +37,7 @@ import { default as default_a48147a5d9e361c38690affd82c29136 } from 'src/collect
 import { default as default_1a7510af427896d367a49dbf838d2de6 } from '@/components/BeforeDashboard'
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { default as default_78b39f784b86cf844383560b5f1a85bf } from '@/components/ColorPicker/'
+import { default as default_545a25a7f6f58e32e2350bd4892658ab } from '@/components/IconSelect/'
 import { default as default_451f87e9402710cb271a0a0c66065661 } from '@/components/StaticPreview'
 import { AIFeature as AIFeature_c86cb9794e8dfc789dceffc1ecbdea8d } from '@/fields/ai/client'
 import { SlugComponent as SlugComponent_92cc057d0a2abb4f6cf0307edf59f986 } from '@/fields/slug/SlugComponent'
@@ -44,6 +45,7 @@ import { SlugComponent as SlugComponent_92cc057d0a2abb4f6cf0307edf59f986 } from 
 export const importMap = {
   '@payloadcms/plugin-multi-tenant/client#TenantField':
     TenantField_1d0591e3cf4f332c83a86da13a0de59a,
+  '@/components/IconSelect/#default': default_545a25a7f6f58e32e2350bd4892658ab,
   '@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell':
     RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   '@payloadcms/richtext-lexical/rsc#RscEntryLexicalField':
