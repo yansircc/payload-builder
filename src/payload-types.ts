@@ -2127,7 +2127,7 @@ export interface CTA3Fields {
   buttons?:
     | {
         /**
-         * CTA button with arrow
+         * Primary CTA button with arrow
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
@@ -2188,6 +2188,10 @@ export interface CTA3Fields {
            */
           appearance?: 'ghost' | null;
         };
+        /**
+         * Brief description of the feature
+         */
+        description: string;
         id?: string | null;
       }[]
     | null;
@@ -9670,6 +9674,7 @@ export interface CTA3FieldsSelect<T extends boolean = true> {
               description?: T;
               appearance?: T;
             };
+        description?: T;
         id?: T;
       };
 }

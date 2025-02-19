@@ -59,6 +59,7 @@ const featureList: Field = {
           appearances: ['ghost'],
           ui: {
             icons: true,
+            description: true,
           },
           overrides: {
             admin: {
@@ -96,9 +97,6 @@ export const cta3Fields: GroupField = {
   type: 'group',
   admin: {
     description: 'Feature list layout with primary action and multiple feature links',
-    components: {
-      Field: (() => import('./config.client')) as any,
-    },
   },
   fields: [title, subtitle, buttonLinks, featureList],
 }
