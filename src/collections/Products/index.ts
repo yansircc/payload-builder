@@ -116,9 +116,27 @@ export const Products: CollectionConfig = {
         {
           fields: [
             {
+              name: 'relatedProducts',
+              type: 'relationship',
+              admin: {
+                position: 'sidebar',
+              },
+              filterOptions: ({ id }) => {
+                return {
+                  id: {
+                    not_in: [id],
+                  },
+                }
+              },
+              hasMany: true,
+              relationTo: 'products',
+            },
+            {
               name: 'categories',
               type: 'relationship',
-              admin: { position: 'sidebar' },
+              admin: {
+                position: 'sidebar',
+              },
               hasMany: true,
               relationTo: 'categories',
             },

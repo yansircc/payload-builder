@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import React, { cache } from 'react'
 import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
+import Link from 'next/link'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Media } from '@/components/Media'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
@@ -123,6 +124,42 @@ export default async function Product({ params: paramsPromise }: Args) {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Related Products Section */}
+        {product.relatedProducts && product.relatedProducts.length > 0 && (
+          <div className="max-w-[48rem] w-full">
+            <h2 className="mb-6 text-2xl font-semibold">Related Products</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {product.relatedProducts.map((relatedProduct, index) => {
+                if (typeof relatedProduct === 'string') return null
+                return (
+                  <Link href={`/products/${relatedProduct.slug}`} key={index}>
+                    <Card key={index} className="overflow-hidden">
+                      <CardContent className="p-0">
+                        {relatedProduct.heroImage &&
+                          typeof relatedProduct.heroImage !== 'string' && (
+                            <Media
+                              resource={relatedProduct.heroImage}
+                              size="100vw"
+                              className="aspect-video w-full object-cover"
+                            />
+                          )}
+                        <div className="p-4">
+                          <h3 className="text-lg font-semibold mb-2">{relatedProduct.title}</h3>
+                          {relatedProduct.content && (
+                            <div className="text-sm text-muted-foreground line-clamp-2">
+                              <RichText data={relatedProduct.content} />
+                            </div>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                )
+              })}
             </div>
           </div>
         )}

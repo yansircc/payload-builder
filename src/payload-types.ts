@@ -2820,6 +2820,7 @@ export interface Product {
         id?: string | null;
       }[]
     | null;
+  relatedProducts?: (string | Product)[] | null;
   categories?: (string | Category)[] | null;
   meta?: {
     title?: string | null;
@@ -13312,6 +13313,7 @@ export interface ProductsSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  relatedProducts?: T;
   categories?: T;
   meta?:
     | T
