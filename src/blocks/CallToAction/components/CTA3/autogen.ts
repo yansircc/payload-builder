@@ -68,10 +68,10 @@ function transformCTA3Data(data: CTA3Data): CTA3Fields {
       },
     })),
     list: data.list.map(({ link }) => ({
+      description: link.description,
       link: {
         ...DEFAULT_LIST_ITEM_CONFIG,
         label: link.label,
-        description: link.description,
       },
     })),
   }
