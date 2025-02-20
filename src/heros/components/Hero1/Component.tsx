@@ -12,19 +12,21 @@ export default function Hero1({ hero }: Hero1Fields) {
       <div className="container relative z-10">
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <ClientMotionDiv
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Badge
-                variant="outline"
-                className="rounded-lg transition-button hover:scale-button-hover"
+            {badge && (
+              <ClientMotionDiv
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
-                {badge}
-                <ArrowDownRight className="ml-2 size-4" />
-              </Badge>
-            </ClientMotionDiv>
+                <Badge
+                  variant="outline"
+                  className="rounded-lg transition-button hover:scale-button-hover"
+                >
+                  {badge}
+                  <ArrowDownRight className="ml-2 size-4" />
+                </Badge>
+              </ClientMotionDiv>
+            )}
 
             <ClientMotionDiv
               initial={{ opacity: 0, y: 30 }}

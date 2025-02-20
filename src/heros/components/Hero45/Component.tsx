@@ -23,7 +23,7 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
           transition={{ duration: 0.5 }}
           className="mb-20 flex flex-col items-center gap-6 text-center"
         >
-          <Badge variant="outline">{badge}</Badge>
+          {badge && <Badge variant="outline">{badge}</Badge>}
           <div>
             <h1 className="font-heading text-4xl font-bold tracking-tight lg:text-6xl">{title}</h1>
           </div>
