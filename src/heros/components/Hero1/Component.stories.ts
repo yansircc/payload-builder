@@ -75,9 +75,9 @@ export const SingleButton: Story = {
           },
           'link-2': {
             type: 'custom',
-            label: '',
+            label: 'Learn More',
             url: '#',
-            appearance: 'link',
+            appearance: 'outline',
           },
         },
       ],
@@ -105,7 +105,6 @@ export const LongContent: Story = {
   },
 }
 
-// Responsive Variants
 export const Mobile: Story = {
   parameters: {
     viewport: {
