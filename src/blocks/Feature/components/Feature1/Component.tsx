@@ -66,8 +66,7 @@ export default function Feature1({ feature }: Feature1Fields) {
             {image && (
               <div className="relative h-full w-full">
                 <Media
-                  fill
-                  imgClassName="-z-10 object-cover"
+                  imgClassName="-z-10 object-cover h-full w-full"
                   priority
                   resource={image}
                   alt={title}
