@@ -3,7 +3,7 @@ import type { Hero1Fields } from '@/payload-types'
 import Hero1 from './Component'
 
 const meta = {
-  title: 'Sections/Hero1',
+  title: 'Sections/Hero/Hero1',
   component: Hero1,
   tags: ['autodocs'],
   parameters: {
