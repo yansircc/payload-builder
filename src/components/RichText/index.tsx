@@ -13,6 +13,7 @@ import { BannerBlock } from '@/blocks/Banner/Component'
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 import { ColumnsBlock } from '@/blocks/ColumnBlock/RenderColumn'
 import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/RenderCtaSimple'
+import { HTMLBlock } from '@/blocks/HTML/RenderTable'
 import { RenderLinkPopup } from '@/blocks/LinkPopupBlock/RenderLinkPopup'
 import { ListBlock } from '@/blocks/List/RenderList'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
@@ -27,6 +28,7 @@ import type {
 import {
   ColumnsBlock as ColumnsBlockProps,
   CtaSimpleBlock as CtaSimpleBlockProps,
+  HTMLBlock as HTMLBlockProps,
   ListBlock as ListBlockProps,
   LinkPopupBlock as RenderLinkPopupProps,
 } from '@/payload-types'
@@ -42,6 +44,7 @@ type NodeTypes =
       | BannerBlockProps
       | CodeBlockProps
       | TableBlockProps
+      | HTMLBlockProps
       | ColumnsBlockProps
       | RenderLinkPopupProps
       | VideoBlockProps
@@ -81,6 +84,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     columns: ({ node }) => <ColumnsBlock className="col-start-2" {...node.fields} />,
     ctaSimple: ({ node }) => <CtaSimpleBlock className="col-start-2" {...node.fields} />,
     linkPopup: ({ node }) => <RenderLinkPopup className="col-start-2" {...node.fields} />,
+    html: ({ node }) => <HTMLBlock {...node.fields} />,
   },
 })
 

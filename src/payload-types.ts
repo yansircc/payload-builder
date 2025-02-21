@@ -183,6 +183,7 @@ export interface Page {
     | GalleryBlock
     | FeatureBlock
     | TableBlock
+    | HTMLBlock
     | ColumnsBlock
     | TestimonialBlock
     | ContactBlock
@@ -4165,6 +4166,19 @@ export interface TableBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'table';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HTMLBlock".
+ */
+export interface HTMLBlock {
+  /**
+   * Paste HTML.
+   */
+  content: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'html';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -8768,6 +8782,7 @@ export interface PagesSelect<T extends boolean = true> {
         gallery?: T | GalleryBlockSelect<T>;
         feature?: T | FeatureBlockSelect<T>;
         table?: T | TableBlockSelect<T>;
+        html?: T | HTMLBlockSelect<T>;
         columns?: T | ColumnsBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
         contact?: T | ContactBlockSelect<T>;
@@ -10613,6 +10628,15 @@ export interface Feature15FieldsSelect<T extends boolean = true> {
 export interface TableBlockSelect<T extends boolean = true> {
   content?: T;
   caption?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HTMLBlock_select".
+ */
+export interface HTMLBlockSelect<T extends boolean = true> {
+  content?: T;
   id?: T;
   blockName?: T;
 }
