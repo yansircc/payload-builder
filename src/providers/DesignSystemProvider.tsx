@@ -152,12 +152,12 @@ export function DesignSystemProvider({
           if (typeof value === 'object') {
             Object.entries(value).forEach(([subProperty, subValue]) => {
               root.style.setProperty(
-                `--component-${component}-${property}-${subProperty}`,
+                `--components-${component}-${property}-${subProperty}`,
                 subValue,
               )
             })
           } else {
-            root.style.setProperty(`--component-${component}-${property}`, value)
+            root.style.setProperty(`--components-${component}-${property}`, value)
           }
         },
       )
