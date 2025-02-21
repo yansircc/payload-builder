@@ -18,11 +18,13 @@ export default function About5({
           <p className="md:text-lg">{mainSection.description}</p>
         </div>
 
-        <Media
-          resource={imageSection.image}
-          className="ml-auto aspect-video max-h-[550px] rounded-xl object-cover"
-          imgClassName="ml-auto aspect-video max-h-[550px] rounded-xl object-cover"
-        />
+        {imageSection.image && (
+          <Media
+            resource={imageSection.image}
+            className="ml-auto aspect-video max-h-[550px] rounded-xl object-cover"
+            imgClassName="ml-auto aspect-video max-h-[550px] rounded-xl object-cover"
+          />
+        )}
         <p className="mt-6 text-center text-xl lg:text-right">{imageSection.caption}</p>
 
         <div className="flex flex-col gap-14 py-40 lg:flex-row">
@@ -30,13 +32,16 @@ export default function About5({
             {partnersSection.title}
           </p>
           <div className="grid grid-cols-2 items-center gap-6 md:grid-cols-4 max-w-2xl">
-            {partnersSection.partners?.map((partner, index) => (
-              <Media
-                key={index}
-                resource={partner.logo}
-                imgClassName="mx-auto h-20 md:mx-0 object-cover"
-              />
-            ))}
+            {partnersSection.partners?.map(
+              (partner, index) =>
+                partner.logo && (
+                  <Media
+                    key={index}
+                    resource={partner.logo}
+                    imgClassName="mx-auto h-20 md:mx-0 object-cover"
+                  />
+                ),
+            )}
           </div>
         </div>
 
@@ -56,11 +61,13 @@ export default function About5({
               ))}
             </div>
           </div>
-          <Media
-            resource={missionSection.image}
-            className="rounded-xl md:col-span-2"
-            imgClassName="rounded-xl w-full h-full object-cover"
-          />
+          {missionSection.image && (
+            <Media
+              resource={missionSection.image}
+              className="rounded-xl md:col-span-2"
+              imgClassName="rounded-xl w-full h-full object-cover"
+            />
+          )}
         </div>
       </div>
     </section>

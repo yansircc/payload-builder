@@ -237,44 +237,36 @@ export const WithMinimalFeature: Story = {
 
 export const WithoutImages: Story = {
   args: {
-    ...defaultAbout,
+    mainContent: defaultAbout.mainContent,
     images: {
       first: '',
       second: '',
       third: '',
     },
+    stats: defaultAbout.stats,
+    partners: {
+      trustedByTitle: 'Trusted By Industry Leaders',
+      partners: [
+        { logo: '', name: 'TechCorp' },
+        { logo: '', name: 'InnovateLabs' },
+        { logo: '', name: 'FutureWorks' },
+        { logo: '', name: 'GlobalTech' },
+      ],
+    },
     benefits: {
-      ...defaultAbout.benefits,
+      benefitsTitle: defaultAbout.benefits.benefitsTitle,
+      benefitsStats: defaultAbout.benefits.benefitsStats,
       benefitsImages: {
         first: '',
         second: '',
         third: '',
       },
     },
-    partners: {
-      trustedByTitle: 'Trusted By Industry Leaders',
-      partners: [
-        {
-          logo: '',
-          name: 'TechCorp',
-        },
-        {
-          logo: '',
-          name: 'InnovateLabs',
-        },
-        {
-          logo: '',
-          name: 'FutureWorks',
-        },
-        {
-          logo: '',
-          name: 'GlobalTech',
-        },
-      ],
-    },
     testimonial: {
-      ...defaultAbout.testimonial,
       logo: '',
+      companyName: defaultAbout.testimonial.companyName,
+      quote: defaultAbout.testimonial.quote,
+      author: defaultAbout.testimonial.author,
     },
   },
 }

@@ -17,10 +17,12 @@ export default function About1({
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          <Media
-            resource={missionSection.image}
-            imgClassName="size-full max-h-96 rounded-2xl object-cover"
-          />
+          {missionSection.image && (
+            <Media
+              resource={missionSection.image}
+              imgClassName="size-full max-h-96 rounded-2xl object-cover"
+            />
+          )}
           <div className="flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10">
             <p className="text-sm text-muted-foreground">{missionSection.label}</p>
             <p className="text-lg font-medium">{missionSection.description}</p>
@@ -51,10 +53,12 @@ export default function About1({
             <h2 className="mb-2.5 text-3xl font-semibold md:text-5xl">{teamSection.title}</h2>
           </div>
           <div>
-            <Media
-              resource={teamSection.image}
-              imgClassName="mb-6 max-h-36 w-full rounded-xl object-cover"
-            />
+            {teamSection.image && (
+              <Media
+                resource={teamSection.image}
+                imgClassName="mb-6 max-h-36 w-full rounded-xl object-cover"
+              />
+            )}
             <p className="text-muted-foreground">{teamSection.description}</p>
           </div>
         </div>

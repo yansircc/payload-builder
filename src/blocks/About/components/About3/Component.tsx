@@ -16,27 +16,33 @@ export default function About3({
           <p className="text-muted-foreground">{mainSection.description}</p>
         </div>
         <div className="grid gap-7 lg:grid-cols-3">
-          <Media
-            resource={contentSection.mainImage}
-            imgClassName="size-full max-h-[620px] rounded-xl object-cover"
-            className="lg:col-span-2"
-          />
+          {contentSection.mainImage && (
+            <Media
+              resource={contentSection.mainImage}
+              imgClassName="size-full max-h-[620px] rounded-xl object-cover"
+              className="lg:col-span-2"
+            />
+          )}
           <div className="flex flex-col gap-7 md:flex-row lg:flex-col">
             <div className="flex flex-col justify-between gap-6 rounded-xl bg-muted p-7 md:w-1/2 lg:w-auto">
-              <Media
-                resource={contentSection.infoBox.icon}
-                imgClassName="mr-auto h-12 w-12 object-cover"
-              />
+              {contentSection.infoBox.icon && (
+                <Media
+                  resource={contentSection.infoBox.icon}
+                  imgClassName="mr-auto h-12 w-12 object-cover"
+                />
+              )}
               <div>
                 <p className="mb-2 text-lg font-semibold">{contentSection.infoBox.title}</p>
                 <p className="text-muted-foreground">{contentSection.infoBox.description}</p>
               </div>
               <CMSLink {...contentSection.infoBox.buttonLink} className="mr-auto" />
             </div>
-            <Media
-              resource={contentSection.sideImage}
-              imgClassName="grow basis-0 rounded-xl object-cover md:w-1/2 lg:min-h-0 lg:w-auto"
-            />
+            {contentSection.sideImage && (
+              <Media
+                resource={contentSection.sideImage}
+                imgClassName="grow basis-0 rounded-xl object-cover md:w-1/2 lg:min-h-0 lg:w-auto"
+              />
+            )}
           </div>
         </div>
         <div className="py-32">
@@ -44,7 +50,7 @@ export default function About3({
           <div className="mt-8 flex flex-wrap justify-center gap-8">
             {clientSection.clients?.map((client, index) => (
               <div key={index} className="flex items-center gap-3">
-                <Media resource={client.logo} imgClassName="h-8 w-auto md:h-12" />
+                {client.logo && <Media resource={client.logo} imgClassName="h-8 w-auto md:h-12" />}
                 <p className="text-xl font-semibold md:text-2xl">{client.name}</p>
               </div>
             ))}

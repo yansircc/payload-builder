@@ -17,9 +17,12 @@ export default function About4({
         </div>
 
         <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-          {gallerySection?.images?.map((image, index) => (
-            <Media key={index} resource={image.image} imgClassName="h-80 w-full object-cover" />
-          ))}
+          {gallerySection?.images?.map(
+            (image, index) =>
+              image.image && (
+                <Media key={index} resource={image.image} imgClassName="h-80 w-full object-cover" />
+              ),
+          )}
         </div>
 
         <div className="mx-auto grid max-w-screen-lg gap-28 py-28 md:grid-cols-2">
