@@ -35,6 +35,7 @@ const Users: CollectionConfig = {
     update: updateAndDeleteAccess,
   },
   admin: {
+    group: 'Configuration',
     useAsTitle: 'email',
   },
   auth: true,
