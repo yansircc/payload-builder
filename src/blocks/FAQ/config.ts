@@ -1,10 +1,10 @@
 import type { Block } from 'payload'
-import { faq1Fields } from '@/blocks/Faq/components/Faq1/config'
-import { faq2Fields } from '@/blocks/Faq/components/Faq2/config'
-import { faq3Fields } from '@/blocks/Faq/components/Faq3/config'
-import { faq4Fields } from '@/blocks/Faq/components/Faq4/config'
-import { faq5Fields } from '@/blocks/Faq/components/Faq5/config'
-import { faq6Fields } from '@/blocks/Faq/components/Faq6/config'
+import { faq1Fields } from '@/blocks/FAQ/components/FAQ1/server'
+import { faq2Fields } from '@/blocks/FAQ/components/FAQ2/server'
+import { faq3Fields } from '@/blocks/FAQ/components/FAQ3/server'
+import { faq4Fields } from '@/blocks/FAQ/components/FAQ4/server'
+import { faq5Fields } from '@/blocks/FAQ/components/FAQ5/server'
+import { faq6Fields } from '@/blocks/FAQ/components/FAQ6/server'
 
 /**
  * FAQ Block configuration
@@ -52,7 +52,7 @@ export const FAQ: Block = {
       ...faq1Fields,
       admin: {
         components: {
-          Field: '@/blocks/Faq/components/Faq1/client.tsx',
+          Field: '@/blocks/FAQ/components/FAQ1/client',
         },
         condition: (_, siblingData) => siblingData.style === 'faq-1',
       },
@@ -61,7 +61,7 @@ export const FAQ: Block = {
       ...faq2Fields,
       admin: {
         components: {
-          Field: '@/blocks/Faq/components/Faq2/client.tsx',
+          Field: '@/blocks/FAQ/components/FAQ2/client',
         },
         condition: (_, siblingData) => siblingData.style === 'faq-2',
       },
@@ -70,7 +70,7 @@ export const FAQ: Block = {
       ...faq3Fields,
       admin: {
         components: {
-          Field: '@/blocks/Faq/components/Faq3/client.tsx',
+          Field: '@/blocks/FAQ/components/FAQ3/client',
         },
         condition: (_, siblingData) => siblingData.style === 'faq-3',
       },
@@ -79,7 +79,7 @@ export const FAQ: Block = {
       ...faq4Fields,
       admin: {
         components: {
-          Field: '@/blocks/Faq/components/Faq4/client.tsx',
+          Field: '@/blocks/FAQ/components/FAQ4/client',
         },
         condition: (_, siblingData) => siblingData.style === 'faq-4',
       },
@@ -88,7 +88,7 @@ export const FAQ: Block = {
       ...faq5Fields,
       admin: {
         components: {
-          Field: '@/blocks/Faq/components/Faq5/client.tsx',
+          Field: '@/blocks/FAQ/components/FAQ5/client',
         },
         condition: (_, siblingData) => siblingData.style === 'faq-5',
       },
@@ -97,7 +97,7 @@ export const FAQ: Block = {
       ...faq6Fields,
       admin: {
         components: {
-          Field: '@/blocks/Faq/components/Faq6/client.tsx',
+          Field: '@/blocks/FAQ/components/FAQ6/client',
         },
         condition: (_, siblingData) => siblingData.style === 'faq-6',
       },

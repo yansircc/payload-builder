@@ -11,21 +11,21 @@
 
 import type { ComponentType } from 'react'
 // Import all FAQ components
-import FAQ1Component from '@/blocks/Faq/components/Faq1/Component'
-import FAQ2Component from '@/blocks/Faq/components/Faq2/Component'
-import FAQ3Component from '@/blocks/Faq/components/Faq3/Component'
-import FAQ4Component from '@/blocks/Faq/components/Faq4/Component'
-import FAQ5Component from '@/blocks/Faq/components/Faq5/Component'
-import FAQ6Component from '@/blocks/Faq/components/Faq6/Component'
+import FAQ1Component from '@/blocks/FAQ/components/FAQ1/Component'
+import FAQ2Component from '@/blocks/FAQ/components/FAQ2/Component'
+import FAQ3Component from '@/blocks/FAQ/components/FAQ3/Component'
+import FAQ4Component from '@/blocks/FAQ/components/FAQ4/Component'
+import FAQ5Component from '@/blocks/FAQ/components/FAQ5/Component'
+import FAQ6Component from '@/blocks/FAQ/components/FAQ6/Component'
 import type { FAQBlock } from '@/payload-types'
 
 // Export config
-export { faq1Fields } from '@/blocks/Faq/components/Faq1/config'
-export { faq2Fields } from '@/blocks/Faq/components/Faq2/config'
-export { faq3Fields } from '@/blocks/Faq/components/Faq3/config'
-export { faq4Fields } from '@/blocks/Faq/components/Faq4/config'
-export { faq5Fields } from '@/blocks/Faq/components/Faq5/config'
-export { faq6Fields } from '@/blocks/Faq/components/Faq6/config'
+export { faq1Fields } from '@/blocks/FAQ/components/FAQ1/server'
+export { faq2Fields } from '@/blocks/FAQ/components/FAQ2/server'
+export { faq3Fields } from '@/blocks/FAQ/components/FAQ3/server'
+export { faq4Fields } from '@/blocks/FAQ/components/FAQ4/server'
+export { faq5Fields } from '@/blocks/FAQ/components/FAQ5/server'
+export { faq6Fields } from '@/blocks/FAQ/components/FAQ6/server'
 // Export components
 export const FAQ1 = FAQ1Component
 export const FAQ2 = FAQ2Component
