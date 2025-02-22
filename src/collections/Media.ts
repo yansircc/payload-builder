@@ -20,6 +20,10 @@ export const Media: CollectionConfig = {
     read: anyone,
     update: authenticated,
   },
+  admin: {
+    group: 'Content',
+    description: 'Upload and manage media files',
+  },
   fields: [
     {
       name: 'alt',

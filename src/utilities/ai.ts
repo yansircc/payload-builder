@@ -8,10 +8,25 @@ import OpenAI from 'openai'
 import { match } from 'ts-pattern'
 import { z } from 'zod'
 import type { Media } from '@/payload-types'
+import { getSiteSettings } from '@/utilities/getSiteSettings'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+// Remove top-level await
+let openai: OpenAI | null = null
+
+async function getOpenAIClient() {
+  if (!openai) {
+    const siteSettings = await getSiteSettings()
+    if (!siteSettings?.ai?.openai) {
+      throw new Error(
+        'Missing API Key - please set it in the Site Settings by clicking on "Site Settings" in the sidebar and then going to the "AI" tab.',
+      )
+    }
+    openai = new OpenAI({
+      apiKey: siteSettings.ai.openai,
+    })
+  }
+  return openai
+}
 
 const AI_MODEL = 'gpt-4o-mini' as const
 
@@ -143,10 +158,7 @@ interface AIRequestParams {
 }
 
 export async function processAIRequest({ prompt, option, command, ip }: AIRequestParams) {
-  // Check if the OPENAI_API_KEY is set
-  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === '') {
-    throw new Error('Missing OPENAI_API_KEY - make sure to add it to your .env file.')
-  }
+  const client = await getOpenAIClient()
 
   // Rate limiting
   if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN && ip) {
@@ -249,7 +261,7 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
     ])
     .run()
 
-  const completion = await openai.chat.completions.create({
+  const completion = await client.chat.completions.create({
     messages: messages as any,
     model: AI_MODEL,
     max_tokens: 4096,
@@ -284,11 +296,8 @@ export async function generateImage(
   prompt?: string,
   options: GenerateImageOptions = {},
 ): Promise<string | undefined> {
+  const client = await getOpenAIClient()
   try {
-    if (!process.env.OPENAI_API_KEY) {
-      throw new Error('Missing OPENAI_API_KEY - make sure to add it to your .env file.')
-    }
-
     const defaultPrompt = `Create a modern, metaphorical illustration that represents:
 Title: "${content.title}"
 Subtitle: "${content.subtitle}"
@@ -309,7 +318,7 @@ The illustration should enhance the message while maintaining visual simplicity 
 
     const { quality = 'hd', style = 'natural', model = 'dall-e-3', size = '1792x1024' } = options
 
-    const response = await openai.images.generate({
+    const response = await client.images.generate({
       model,
       prompt: prompt || defaultPrompt,
       n: 1,
