@@ -1,4 +1,4 @@
-import { createBreadcrumbsField, createParentField } from '@payloadcms/plugin-nested-docs'
+import { createParentField } from '@payloadcms/plugin-nested-docs'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -91,16 +91,9 @@ export const Pages: CollectionConfig<'pages'> = {
       filterOptions: ({ id }) => ({
         id: { not_equals: id },
         _status: {
-          not_equals: 'published',
+          equals: 'published',
         },
       }),
-    }),
-    createBreadcrumbsField('pages', {
-      label: 'Page Breadcrumbs',
-      admin: {
-        disableListColumn: true,
-        disableListFilter: true,
-      },
     }),
     {
       type: 'tabs',

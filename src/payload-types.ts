@@ -164,14 +164,6 @@ export interface Page {
   tenant?: (string | null) | Tenant;
   title: string;
   parent?: (string | null) | Page;
-  breadcrumbs?:
-    | {
-        doc?: (string | null) | Page;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   hero?: HeroField;
   layout: (
     | AboutBlock
@@ -9303,14 +9295,6 @@ export interface PagesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   parent?: T;
-  breadcrumbs?:
-    | T
-    | {
-        doc?: T;
-        url?: T;
-        label?: T;
-        id?: T;
-      };
   hero?: T | HeroFieldSelect<T>;
   layout?:
     | T
