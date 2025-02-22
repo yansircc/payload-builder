@@ -1,8 +1,11 @@
 'use server'
 
+import config from '@payload-config'
+import { getPayload } from 'payload'
 import { z } from 'zod'
-import type { CTA5Fields } from '@/payload-types'
-import { getObject } from '@/utilities/ai'
+import { cookies } from 'next/headers'
+import type { CTA5Fields, Media } from '@/payload-types'
+import { generateAndStoreImage, getObject } from '@/utilities/ai'
 import { SYSTEM_PROMPT, USER_PROMPT } from '../../shared/constants'
 
 // Define the complete CTA schema
@@ -35,12 +38,13 @@ const DEFAULT_BUTTON_CONFIG = {
 /**
  * Transforms raw CTA data by adding default configurations
  */
-function transformCTA5Data(data: CTA5Data): Partial<CTA5Fields> {
+function transformCTA5Data(data: CTA5Data, media?: Media): CTA5Fields {
   const buttonLabel = data.links[0]?.link?.label || 'Get Started'
 
   return {
     title: data.title,
     subtitle: data.subtitle,
+    image: media?.id || '',
     links: [
       {
         id: '1',
@@ -58,8 +62,34 @@ function transformCTA5Data(data: CTA5Data): Partial<CTA5Fields> {
  */
 export async function autogen() {
   try {
+    const payload = await getPayload({ config })
+
+    // Get tenant ID from cookie
+    const cookieStore = await cookies()
+    const tenantId = cookieStore.get('payload-tenant')?.value
+
+    if (!tenantId) {
+      throw new Error('No tenant selected')
+    }
+
     const { object } = await getObject(cta5Schema, USER_PROMPT, SYSTEM_PROMPT)
-    return transformCTA5Data(object)
+
+    // Generate and store the image
+    const media = await generateAndStoreImage(
+      {
+        title: object.title,
+        subtitle: object.subtitle,
+      },
+      payload,
+      {
+        size: '1792x1024',
+        quality: 'hd',
+        style: 'natural',
+      },
+      tenantId,
+    )
+
+    return transformCTA5Data(object, media)
   } catch (error) {
     console.error('Error generating CTA5 content:', error)
     throw error

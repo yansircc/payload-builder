@@ -7,6 +7,7 @@ import { generateObject, streamObject } from 'ai'
 import OpenAI from 'openai'
 import { match } from 'ts-pattern'
 import { z } from 'zod'
+import type { Media } from '@/payload-types'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -260,4 +261,124 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
   })
 
   return completion
+}
+
+interface GenerateImageOptions {
+  width?: number
+  height?: number
+  quality?: 'standard' | 'hd'
+  style?: 'natural' | 'vivid'
+  model?: 'dall-e-2' | 'dall-e-3'
+  size?: '256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792'
+}
+
+/**
+ * Generates an image using DALL-E based on provided content
+ * @param content - Object containing the content to base the image on
+ * @param prompt - Optional custom prompt template
+ * @param options - Configuration options for image generation
+ * @returns Promise with the generated image URL or undefined if generation fails
+ */
+export async function generateImage(
+  content: Record<string, string>,
+  prompt?: string,
+  options: GenerateImageOptions = {},
+): Promise<string | undefined> {
+  try {
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error('Missing OPENAI_API_KEY - make sure to add it to your .env file.')
+    }
+
+    const defaultPrompt = `Create a modern, metaphorical illustration that represents:
+Title: "${content.title}"
+Subtitle: "${content.subtitle}"
+
+Style guidelines:
+- Create a metaphorical and conceptual illustration that captures the essence of the message
+- Use modern, minimalist design with clean lines and simple shapes
+- Include subtle visual metaphors that relate to growth, progress, or the specific theme
+- Incorporate aspirational and positive imagery
+- Use a harmonious color palette that evokes the emotion of the message
+- Ensure the illustration works well as a website hero or CTA section background
+- Keep the design abstract enough to not overshadow text overlay
+- Avoid text in the image
+- Use soft gradients and lighting effects to create depth
+- Include subtle patterns or textures where appropriate
+
+The illustration should enhance the message while maintaining visual simplicity and professionalism.`
+
+    const { quality = 'hd', style = 'natural', model = 'dall-e-3', size = '1792x1024' } = options
+
+    const response = await openai.images.generate({
+      model,
+      prompt: prompt || defaultPrompt,
+      n: 1,
+      size,
+      quality,
+      style,
+    })
+
+    return response.data[0]?.url
+  } catch (error) {
+    console.error('Error generating image with DALL-E:', error)
+    return undefined
+  }
+}
+
+async function fetchFileByURL(url: string): Promise<{
+  name: string
+  data: Buffer
+  size: number
+  mimetype: string
+}> {
+  const res = await fetch(url)
+  if (!res.ok) {
+    throw new Error(`Failed to fetch file from ${url}, status: ${res.status}`)
+  }
+
+  const data = await res.arrayBuffer()
+  return {
+    name: `ai-generated-${Date.now()}.webp`,
+    data: Buffer.from(data),
+    mimetype: 'image/webp',
+    size: data.byteLength,
+  }
+}
+
+/**
+ * Generates an image using DALL-E and stores it in the Media collection
+ * @param content - Object containing the content to base the image on
+ * @param payload - Payload instance
+ * @param options - Configuration options for image generation
+ * @returns Promise with the stored Media object or undefined if generation fails
+ */
+export async function generateAndStoreImage(
+  content: Record<string, string>,
+  payload: any,
+  options: GenerateImageOptions = {},
+  tenant?: string,
+): Promise<Media | undefined> {
+  try {
+    // Generate image URL using DALL-E
+    const imageUrl = await generateImage(content, undefined, options)
+    if (!imageUrl) return undefined
+
+    // Fetch and prepare the file
+    const file = await fetchFileByURL(imageUrl)
+
+    // Store in Media collection with tenant
+    const media = await payload.create({
+      collection: 'media',
+      data: {
+        alt: `AI generated image for ${Object.values(content).join(' - ')}`,
+        tenant: tenant,
+      },
+      file: file,
+    })
+
+    return media
+  } catch (error) {
+    console.error('Error generating and storing image:', error)
+    return undefined
+  }
 }
