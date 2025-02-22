@@ -1,9 +1,9 @@
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import type { AdminViewProps } from 'payload'
 import React from 'react'
-import { CustomDefaultEditViewClient } from './CustomDefaultRootView.client'
+import { DefaultRootViewClient } from './DefaultRootView.client'
 
-export const CustomDefaultRootView: React.FC<AdminViewProps> = ({
+export const DefaultRootView: React.FC<AdminViewProps> = ({
   initPageResult,
   params,
   searchParams,
@@ -18,8 +18,9 @@ export const CustomDefaultRootView: React.FC<AdminViewProps> = ({
       searchParams={searchParams}
       user={initPageResult.req.user || undefined}
       visibleEntities={initPageResult.visibleEntities}
+      viewType="dashboard"
     >
-      <CustomDefaultEditViewClient />
+      <DefaultRootViewClient user={initPageResult.req.user} />
     </DefaultTemplate>
   )
 }

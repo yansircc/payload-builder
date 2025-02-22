@@ -3,7 +3,8 @@
 import { Button, Gutter } from '@payloadcms/ui'
 import React, { useCallback, useState } from 'react'
 
-export const CustomDefaultEditViewClient = () => {
+export const DefaultRootViewClient = ({ user }: { user: any }) => {
+  console.log('user', user)
   const [file, setFile] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)

@@ -40,9 +40,9 @@ export default buildConfig({
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
       beforeDashboard: ['@/components/BeforeDashboard'],
       views: {
-        CustomDefaultRootView: {
-          Component: '@/components/views/CustomDefaultRootView#CustomDefaultRootView',
-          path: '/custom-default',
+        WordpressMigrationView: {
+          Component: '@/components/views/WordpressMigration/DefaultRootView#DefaultRootView',
+          path: '/wordpress-migration',
         },
       },
     },
