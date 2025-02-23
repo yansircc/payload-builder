@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import type { SiteSetting } from '@/payload-types'
 import { getTenantFromCookie, getTenantFromDomain } from './getTenant'
 
-export async function getSiteSettings() {
+export async function getSiteSettingsFromDomain() {
   try {
     const payload = await getPayload({ config: configPromise })
 
