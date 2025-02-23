@@ -22,7 +22,14 @@ export default function Contact3({ contact }: Contact3Fields) {
                 <div key={index} className="flex flex-col gap-2 sm:flex-row">
                   {Object.entries(linkGroup).map(
                     ([key, link]) =>
-                      link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                      link &&
+                      typeof link === 'object' && (
+                        <CMSLink
+                          key={key}
+                          {...link}
+                          className="bg-background text-foreground hover:bg-accent border border-border [.theme-neon_&]:bg-black [.theme-neon_&]:text-white [.theme-neon_&]:hover:bg-black/90 [.theme-neon_&]:border-primary/30"
+                        />
+                      ),
                   )}
                 </div>
               ))}
