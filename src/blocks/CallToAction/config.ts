@@ -1,14 +1,14 @@
 import type { Block } from 'payload'
-import { cta1Fields } from './components/CTA1/config'
-import { cta3Fields } from './components/CTA3/config'
-import { cta4Fields } from './components/CTA4/config'
-import { cta5Fields } from './components/CTA5/config'
-import { cta7Fields } from './components/CTA7/config'
-import { cta10Fields } from './components/CTA10/config'
-import { cta11Fields } from './components/CTA11/config'
-import { cta15Fields } from './components/CTA15/config'
-import { cta16Fields } from './components/CTA16/config'
-import { cta17Fields } from './components/CTA17/config'
+import { cta1Fields } from '@/blocks/CallToAction/components/CTA1/server'
+import { cta3Fields } from '@/blocks/CallToAction/components/CTA3/server'
+import { cta4Fields } from '@/blocks/CallToAction/components/CTA4/server'
+import { cta5Fields } from '@/blocks/CallToAction/components/CTA5/server'
+import { cta7Fields } from '@/blocks/CallToAction/components/CTA7/server'
+import { cta10Fields } from '@/blocks/CallToAction/components/CTA10/server'
+import { cta11Fields } from '@/blocks/CallToAction/components/CTA11/server'
+import { cta15Fields } from '@/blocks/CallToAction/components/CTA15/server'
+import { cta16Fields } from '@/blocks/CallToAction/components/CTA16/server'
+import { cta17Fields } from '@/blocks/CallToAction/components/CTA17/server'
 
 /**
  * Call to Action Block configuration
@@ -25,16 +25,46 @@ export const CallToAction: Block = {
       name: 'style',
       type: 'select',
       options: [
-        'cta-1', // Side-by-side with icon badge
-        'cta-3', // Feature list with dual action
-        'cta-4', // Accent card with feature list
-        'cta-5', // Image-focused side content
-        'cta-7', // Feature list with icon highlights
-        'cta-10', // Full-width banner with background
-        'cta-11', // Newsletter signup section
-        'cta-15', // Modern split with radial gradient
-        'cta-16', // Full-height hero with icon
-        'cta-17', // Centered content with gradient
+        {
+          label: 'CTA 1',
+          value: 'cta-1',
+        },
+        {
+          label: 'CTA 3',
+          value: 'cta-3',
+        },
+        {
+          label: 'CTA 4',
+          value: 'cta-4',
+        },
+        {
+          label: 'CTA 5',
+          value: 'cta-5',
+        },
+        {
+          label: 'CTA 7',
+          value: 'cta-7',
+        },
+        {
+          label: 'CTA 10',
+          value: 'cta-10',
+        },
+        {
+          label: 'CTA 11',
+          value: 'cta-11',
+        },
+        {
+          label: 'CTA 15',
+          value: 'cta-15',
+        },
+        {
+          label: 'CTA 16',
+          value: 'cta-16',
+        },
+        {
+          label: 'CTA 17',
+          value: 'cta-17',
+        },
       ],
     },
     /**
@@ -44,6 +74,9 @@ export const CallToAction: Block = {
     {
       ...cta1Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA1/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-1',
       },
     },
@@ -54,6 +87,9 @@ export const CallToAction: Block = {
     {
       ...cta3Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA3/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-3',
       },
     },
@@ -64,6 +100,9 @@ export const CallToAction: Block = {
     {
       ...cta4Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA4/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-4',
       },
     },
@@ -74,6 +113,9 @@ export const CallToAction: Block = {
     {
       ...cta5Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA5/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-5',
       },
     },
@@ -84,6 +126,9 @@ export const CallToAction: Block = {
     {
       ...cta7Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA7/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-7',
       },
     },
@@ -94,6 +139,9 @@ export const CallToAction: Block = {
     {
       ...cta10Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA10/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-10',
       },
     },
@@ -104,6 +152,9 @@ export const CallToAction: Block = {
     {
       ...cta11Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA11/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-11',
       },
     },
@@ -114,6 +165,9 @@ export const CallToAction: Block = {
     {
       ...cta15Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA15/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-15',
       },
     },
@@ -124,6 +178,9 @@ export const CallToAction: Block = {
     {
       ...cta16Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA16/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-16',
       },
     },
@@ -134,6 +191,9 @@ export const CallToAction: Block = {
     {
       ...cta17Fields,
       admin: {
+        components: {
+          Field: '@/blocks/CallToAction/components/CTA17/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'cta-17',
       },
     },

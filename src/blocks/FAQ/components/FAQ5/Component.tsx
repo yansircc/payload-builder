@@ -1,8 +1,7 @@
 import { Badge } from '@/components/ui/badge'
 import { FAQ5Fields } from '@/payload-types'
 
-export default function FAQ5({ faq }: FAQ5Fields) {
-  const { title, subtitle, description, faqs } = faq
+export default function FAQ5({ title, subtitle, description, faqs }: FAQ5Fields) {
   return (
     <section className="py-32">
       <div className="container">

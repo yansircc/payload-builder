@@ -20,7 +20,6 @@ import { Services } from './collections/Services'
 import { SiteSettings } from './collections/SiteSetting'
 import { Tenants } from './collections/Tenants'
 import Users from './collections/Users'
-import { ApiKey } from './globals/api-keys'
 import { Footer } from './globals/Footer/config'
 import { Header } from './globals/Header/config'
 import { plugins } from './plugins'
@@ -76,7 +75,7 @@ export default buildConfig({
     Products,
   ],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [ApiKey],
+  globals: [],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

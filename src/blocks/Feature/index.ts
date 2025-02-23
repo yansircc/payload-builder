@@ -25,17 +25,17 @@ import Feature14Component from './components/Feature14/Component'
 import Feature15Component from './components/Feature15/Component'
 
 // Export config
-export { feature1Fields } from './components/Feature1/config'
-export { feature10Fields } from './components/Feature10/config'
-export { feature11Fields } from './components/Feature11/config'
-export { feature13Fields } from './components/Feature13/config'
-export { feature14Fields } from './components/Feature14/config'
-export { feature15Fields } from './components/Feature15/config'
-export { feature2Fields } from './components/Feature2/config'
-export { feature3Fields } from './components/Feature3/config'
-export { feature5Fields } from './components/Feature5/config'
-export { feature6Fields } from './components/Feature6/config'
-export { feature7Fields } from './components/Feature7/config'
+export { feature1Fields } from './components/Feature1/server'
+export { feature10Fields } from './components/Feature10/server'
+export { feature11Fields } from './components/Feature11/server'
+export { feature13Fields } from './components/Feature13/server'
+export { feature14Fields } from './components/Feature14/server'
+export { feature15Fields } from './components/Feature15/server'
+export { feature2Fields } from './components/Feature2/server'
+export { feature3Fields } from './components/Feature3/server'
+export { feature5Fields } from './components/Feature5/server'
+export { feature6Fields } from './components/Feature6/server'
+export { feature7Fields } from './components/Feature7/server'
 // Export components
 export const Feature1 = Feature1Component
 export const Feature2 = Feature2Component

@@ -4,36 +4,41 @@ import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
 import type { Hero1Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
-import { ThemeEffect } from '../shared/ThemeEffect'
 
 export default function Hero1({ hero }: Hero1Fields) {
   const { title, subtitle, links, image, badge } = hero
   return (
-    <section className="relative overflow-hidden bg-background py-24 md:py-32">
-      <ThemeEffect />
+    <section className="relative overflow-hidden bg-background py-section md:py-section-md lg:py-section-lg">
       <div className="container relative z-10">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-24">
-          <div className="flex flex-col items-start gap-6">
-            <ClientMotionDiv
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Badge variant="outline" className="rounded-full">
-                {badge}
-                <ArrowDownRight className="ml-2 size-4" />
-              </Badge>
-            </ClientMotionDiv>
+        <div className="grid gap-8 lg:grid-cols-2">
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+            {badge && (
+              <ClientMotionDiv
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Badge
+                  variant="outline"
+                  className="rounded-lg transition-button hover:scale-button-hover"
+                >
+                  {badge}
+                  <ArrowDownRight className="ml-2 size-4" />
+                </Badge>
+              </ClientMotionDiv>
+            )}
 
             <ClientMotionDiv
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-4"
+              className="space-y-4 "
             >
-              <h1 className="text-5xl font-bold tracking-tight lg:text-7xl">{title}</h1>
+              <h1 className="my-6 font-heading text-5xl lg:text-7xl tracking-tight font-bold">
+                {title}
+              </h1>
               {subtitle && (
-                <p className="text-muted-foreground text-xl leading-relaxed max-w-[45ch]">
+                <p className="mb-8 text-muted-foreground text-xl font-sans max-w-[45ch]">
                   {subtitle}
                 </p>
               )}
@@ -41,13 +46,16 @@ export default function Hero1({ hero }: Hero1Fields) {
 
             {links && links.length > 0 && (
               <ClientMotionDiv
-                className="flex flex-wrap gap-4"
+                className="flex flex-col gap-4 w-full sm:w-auto"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
                 {links.map((linkGroup, index) => (
-                  <div key={index} className="flex flex-col gap-2 sm:flex-row">
+                  <div
+                    key={index}
+                    className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start"
+                  >
                     {Object.entries(linkGroup)
                       .filter(([key]) => key.startsWith('link-'))
                       .map(
@@ -61,21 +69,24 @@ export default function Hero1({ hero }: Hero1Fields) {
           </div>
 
           <ClientMotionDiv
-            className="relative aspect-square lg:aspect-auto"
+            className="relative aspect-square lg:aspect-auto min-h-[400px] lg:min-h-full"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <div className="relative h-full w-full">
-              <Media fill imgClassName="-z-10 object-cover" priority resource={image} />
-            </div>
+            <Media
+              fill
+              className="relative h-full w-full"
+              imgClassName="object-cover rounded-md h-full w-full"
+              priority
+              resource={image}
+            />
           </ClientMotionDiv>
         </div>
       </div>
 
-      {/* 装饰性背景 */}
-      <div className="absolute left-1/2 top-0 -z-10 h-full w-full -translate-x-1/2">
-        <div className="absolute inset-0 bg-linear-to-tr from-background/80 via-background/60 to-background/20" />
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-tr from-background/80 via-background/60 to-background/20" />
       </div>
     </section>
   )

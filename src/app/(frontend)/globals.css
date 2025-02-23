@@ -134,21 +134,22 @@
   }
 }
 
-/* Prevent flash of unstyled content */
-:root:not([data-theme]) {
+/* Prevent flash of unstyled content except for Storybook */
+:root:not([data-theme]):not(.sb-show-main) {
   visibility: hidden;
 }
 
-:root[data-theme] {
+:root[data-theme], .sb-show-main {
   visibility: visible;
 }
 
-html {
+html:not(.sb-show-main) {
   opacity: 0;
 }
 
 html[data-theme='dark'],
-html[data-theme='light'] {
+html[data-theme='light'],
+html.sb-show-main {
   opacity: 1;
   transition: opacity 0ms;
 }
