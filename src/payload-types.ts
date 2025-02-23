@@ -117,12 +117,8 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  globals: {
-    'api-key': ApiKey;
-  };
-  globalsSelect: {
-    'api-key': ApiKeySelect<false> | ApiKeySelect<true>;
-  };
+  globals: {};
+  globalsSelect: {};
   locale: null;
   user: User & {
     collection: 'users';
@@ -358,6 +354,8 @@ export interface Hero1Fields {
   };
 }
 /**
+ * Upload and manage media files
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
@@ -2934,6 +2932,8 @@ export interface FormBlock {
   blockType: 'formBlock';
 }
 /**
+ * Manage the form for your site
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forms".
  */
@@ -6554,12 +6554,15 @@ export interface CtaSimpleBlock {
   blockType: 'ctaSimple';
 }
 /**
+ * Manage the header for your site
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header".
  */
 export interface Header {
   id: string;
   tenant?: (string | null) | Tenant;
+  hiddenLabel?: string | null;
   style?: ('header-1' | 'header-3' | 'header-5') | null;
   'header-1'?: Header1Fields;
   'header-3'?: Header3Fields;
@@ -7149,12 +7152,15 @@ export interface Header5Fields {
   };
 }
 /**
+ * Manage the footer for your site
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
   id: string;
   tenant?: (string | null) | Tenant;
+  hiddenLabel?: string | null;
   style?:
     | (
         | 'footer-1'
@@ -8330,6 +8336,7 @@ export interface Footer10Fields {
 export interface CustomCode {
   id: string;
   tenant?: (string | null) | Tenant;
+  hiddenLabel?: string | null;
   /**
    * Add one or more scripts
    */
@@ -8378,6 +8385,7 @@ export interface CustomCode {
 export interface SiteSetting {
   id: string;
   tenant?: (string | null) | Tenant;
+  hiddenLabel?: string | null;
   /**
    * SEO title for homepage (recommended: 50-60 characters)
    */
@@ -8415,6 +8423,16 @@ export interface SiteSetting {
      */
     products?: ('grid' | 'list' | 'card') | null;
   };
+  ai?: {
+    /**
+     * OpenAI API Key
+     */
+    openai?: string | null;
+    /**
+     * DeepSeek API Key
+     */
+    deepseek?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -8443,6 +8461,8 @@ export interface ErrorLog {
   createdAt: string;
 }
 /**
+ * Manage the redirects for your site
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
@@ -8471,6 +8491,8 @@ export interface Redirect {
   createdAt: string;
 }
 /**
+ * Manage the form submissions for your site
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
@@ -8489,7 +8511,7 @@ export interface FormSubmission {
   createdAt: string;
 }
 /**
- * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
+ * Manage the search for your site
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "search".
@@ -12083,6 +12105,7 @@ export interface TenantsSelect<T extends boolean = true> {
  */
 export interface HeaderSelect<T extends boolean = true> {
   tenant?: T;
+  hiddenLabel?: T;
   style?: T;
   'header-1'?: T | Header1FieldsSelect<T>;
   'header-3'?: T | Header3FieldsSelect<T>;
@@ -12466,6 +12489,7 @@ export interface Header5FieldsSelect<T extends boolean = true> {
  */
 export interface FooterSelect<T extends boolean = true> {
   tenant?: T;
+  hiddenLabel?: T;
   style?: T;
   'footer-1'?: T | Footer1FieldsSelect<T>;
   'footer-2'?: T | Footer2FieldsSelect<T>;
@@ -13169,6 +13193,7 @@ export interface Footer10FieldsSelect<T extends boolean = true> {
  */
 export interface CustomCodesSelect<T extends boolean = true> {
   tenant?: T;
+  hiddenLabel?: T;
   scripts?:
     | T
     | {
@@ -13227,6 +13252,7 @@ export interface PopupsSelect<T extends boolean = true> {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   tenant?: T;
+  hiddenLabel?: T;
   title?: T;
   description?: T;
   favicon?: T;
@@ -13243,6 +13269,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         posts?: T;
         services?: T;
         products?: T;
+      };
+  ai?:
+    | T
+    | {
+        openai?: T;
+        deepseek?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -13608,44 +13640,6 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "api-key".
- */
-export interface ApiKey {
-  id: string;
-  keys?:
-    | {
-        /**
-         * ⚠️ OpenAI API密钥将以加密形式存储
-         */
-        openai?: string | null;
-        /**
-         * ⚠️ DeepSeek API密钥将以加密形式存储
-         */
-        deepseek?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "api-key_select".
- */
-export interface ApiKeySelect<T extends boolean = true> {
-  keys?:
-    | T
-    | {
-        openai?: T;
-        deepseek?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
