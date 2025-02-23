@@ -1,8 +1,11 @@
 'use server'
 
+import config from '@payload-config'
+import { getPayload } from 'payload'
 import { z } from 'zod'
-import type { CTA16Fields } from '@/payload-types'
-import { getObject } from '@/utilities/ai'
+import { cookies } from 'next/headers'
+import type { CTA16Fields, Media } from '@/payload-types'
+import { generateAndStoreImage, getObject } from '@/utilities/ai'
 import { SYSTEM_PROMPT, USER_PROMPT } from '../../shared/constants'
 
 // Define the complete CTA schema
@@ -49,7 +52,7 @@ const DEFAULT_SECONDARY_BUTTON = {
 /**
  * Transforms raw CTA data by adding default configurations
  */
-function transformCTA16Data(data: CTA16Data): Partial<CTA16Fields> {
+function transformCTA16Data(data: CTA16Data, media?: Media): Partial<CTA16Fields> {
   const primaryLabel = data.links[0]?.link?.label || 'Get Started'
   const secondaryLabel = data.links[1]?.link?.label
 
@@ -57,6 +60,7 @@ function transformCTA16Data(data: CTA16Data): Partial<CTA16Fields> {
     title: data.title,
     subtitle: data.subtitle,
     icon: data.icon,
+    image: media?.id || '',
     links: [
       {
         id: '1',
@@ -86,8 +90,34 @@ function transformCTA16Data(data: CTA16Data): Partial<CTA16Fields> {
  */
 export async function autogen() {
   try {
+    const payload = await getPayload({ config })
+
+    // Get tenant ID from cookie
+    const cookieStore = await cookies()
+    const tenantId = cookieStore.get('payload-tenant')?.value
+
+    if (!tenantId) {
+      throw new Error('No tenant selected')
+    }
+
     const { object } = await getObject(cta16Schema, USER_PROMPT, SYSTEM_PROMPT)
-    return transformCTA16Data(object)
+
+    // Generate and store the background image
+    const media = await generateAndStoreImage(
+      {
+        title: object.title,
+        subtitle: object.subtitle,
+      },
+      payload,
+      {
+        size: '1792x1024',
+        quality: 'hd',
+        style: 'vivid',
+      },
+      tenantId,
+    )
+
+    return transformCTA16Data(object, media)
   } catch (error) {
     console.error('Error generating CTA16 content:', error)
     throw error

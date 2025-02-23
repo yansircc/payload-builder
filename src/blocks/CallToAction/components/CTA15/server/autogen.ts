@@ -1,8 +1,11 @@
 'use server'
 
+import config from '@payload-config'
+import { getPayload } from 'payload'
 import { z } from 'zod'
-import type { CTA15Fields } from '@/payload-types'
-import { getObject } from '@/utilities/ai'
+import { cookies } from 'next/headers'
+import type { CTA15Fields, Media } from '@/payload-types'
+import { generateAndStoreImage, getObject } from '@/utilities/ai'
 import { SYSTEM_PROMPT, USER_PROMPT } from '../../shared/constants'
 
 // Define the complete CTA schema
@@ -46,7 +49,7 @@ const DEFAULT_SECONDARY_BUTTON = {
 /**
  * Transforms raw CTA data by adding default configurations
  */
-function transformCTA15Data(data: CTA15Data): Partial<CTA15Fields> {
+function transformCTA15Data(data: CTA15Data, media?: Media): Partial<CTA15Fields> {
   const primaryLabel = data.links[0]?.link?.label || 'Get Started'
   const secondaryLabel = data.links[1]?.link?.label
 
@@ -54,6 +57,7 @@ function transformCTA15Data(data: CTA15Data): Partial<CTA15Fields> {
     heading: data.heading,
     title: data.title,
     subtitle: data.subtitle,
+    image: media?.id || '',
     links: [
       {
         id: '1',
@@ -83,8 +87,34 @@ function transformCTA15Data(data: CTA15Data): Partial<CTA15Fields> {
  */
 export async function autogen() {
   try {
+    const payload = await getPayload({ config })
+
+    // Get tenant ID from cookie
+    const cookieStore = await cookies()
+    const tenantId = cookieStore.get('payload-tenant')?.value
+
+    if (!tenantId) {
+      throw new Error('No tenant selected')
+    }
+
     const { object } = await getObject(cta15Schema, USER_PROMPT, SYSTEM_PROMPT)
-    return transformCTA15Data(object)
+
+    // Generate and store the image
+    const media = await generateAndStoreImage(
+      {
+        title: object.title,
+        subtitle: object.subtitle,
+      },
+      payload,
+      {
+        size: '1792x1024',
+        quality: 'hd',
+        style: 'natural',
+      },
+      tenantId,
+    )
+
+    return transformCTA15Data(object, media)
   } catch (error) {
     console.error('Error generating CTA15 content:', error)
     throw error
