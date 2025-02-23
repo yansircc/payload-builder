@@ -256,7 +256,7 @@ export async function processAIRequest({
   let companyContext = providedCompanyContext
   if (!companyContext) {
     try {
-      const siteSettings = await getSiteSettings()
+      const siteSettings = await getSiteSettingsFromCookie()
       if (siteSettings) {
         companyContext = {
           brandIdentity: siteSettings.brandIdentity || undefined,
