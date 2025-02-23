@@ -32,6 +32,7 @@ import { Team } from '../../blocks/Team/config'
 import { TestimonialBlock } from '../../blocks/Testimonial/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
+import { deleteChildPages } from './hooks/deleteChildPages'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { updateChildPaths } from './hooks/updateChildPaths'
 
@@ -49,6 +50,7 @@ export const Pages: CollectionConfig<'pages'> = {
     fullPath: true,
   },
   admin: {
+    group: 'Content',
     defaultColumns: ['title', 'fullPath', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) => {
@@ -163,7 +165,7 @@ export const Pages: CollectionConfig<'pages'> = {
   hooks: {
     afterChange: [revalidatePage, updateChildPaths],
     beforeChange: [populatePublishedAt],
-    afterDelete: [revalidateDelete],
+    afterDelete: [deleteChildPages, revalidateDelete],
   },
   versions: {
     drafts: {

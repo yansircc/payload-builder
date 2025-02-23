@@ -40,7 +40,14 @@ const targetAudienceOptions = [
 
 export const SiteSettings: CollectionConfig = {
   slug: 'site-settings',
-  admin: { group: 'Settings', useAsTitle: 'title' },
+  labels: {
+    singular: 'Site Settings',
+    plural: 'Site Settings',
+  },
+  admin: {
+    group: 'Configuration',
+    useAsTitle: 'hiddenLabel',
+  },
   access: {
     read: () => true,
     create: superAdminOrTenantAdminAccess,
@@ -49,6 +56,14 @@ export const SiteSettings: CollectionConfig = {
   },
   versions: { drafts: true },
   fields: [
+    {
+      name: 'hiddenLabel',
+      type: 'text',
+      defaultValue: 'Site Settings',
+      admin: {
+        hidden: true,
+      },
+    },
     {
       type: 'tabs',
       tabs: [
@@ -215,6 +230,40 @@ export const SiteSettings: CollectionConfig = {
               admin: {
                 description: 'Any additional notes about your target audience (optional)',
               },
+            },
+          ],
+        },
+        {
+          label: 'AI',
+          fields: [
+            {
+              name: 'ai',
+              label: 'AI',
+              type: 'group',
+              fields: [
+                {
+                  name: 'openai',
+                  type: 'text',
+                  admin: {
+                    description: 'OpenAI API Key',
+                    placeholder: 'sk-xxxxxxxxxxxxxxxx',
+                    style: {
+                      fontFamily: 'monospace',
+                    },
+                  },
+                },
+                {
+                  name: 'deepseek',
+                  type: 'text',
+                  admin: {
+                    description: 'DeepSeek API Key',
+                    placeholder: 'sk-xxxxxxxxxxxxxxxx',
+                    style: {
+                      fontFamily: 'monospace',
+                    },
+                  },
+                },
+              ],
             },
           ],
         },

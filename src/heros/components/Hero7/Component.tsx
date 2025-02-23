@@ -4,7 +4,6 @@ import { Media } from '@/components/Media'
 import { Avatar } from '@/components/ui/avatar'
 import type { Hero7Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
-import { ThemeEffect } from '../shared/ThemeEffect'
 
 export default function Hero7({ hero }: Hero7Fields) {
   const { title, subtitle, link, rating } = hero
@@ -12,8 +11,7 @@ export default function Hero7({ hero }: Hero7Fields) {
   const reviewCount = typeof count === 'number' ? count : 0
 
   return (
-    <section className="py-32">
-      <ThemeEffect theme="dark" />
+    <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container text-center">
         <ClientMotionDiv
           className="mx-auto flex max-w-screen-lg flex-col gap-6"
@@ -21,13 +19,15 @@ export default function Hero7({ hero }: Hero7Fields) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl font-extrabold lg:text-6xl">{title}</h1>
-          {subtitle && <p className="text-balance text-muted-foreground lg:text-lg">{subtitle}</p>}
+          <h1 className="font-heading text-4xl lg:text-6xl tracking-tight font-bold">{title}</h1>
+          {subtitle && (
+            <p className="text-muted-foreground text-base lg:text-lg font-sans">{subtitle}</p>
+          )}
         </ClientMotionDiv>
 
         {link && (
           <ClientMotionDiv
-            className="mt-10 flex flex-wrap justify-center gap-4"
+            className="mt-10"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -59,10 +59,9 @@ export default function Hero7({ hero }: Hero7Fields) {
           {reviewCount > 0 && (
             <div>
               <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, index) => (
+                {[...Array(rate)].map((_, index) => (
                   <Star key={index} className="size-5 fill-yellow-400 text-yellow-400" />
                 ))}
-                <span className="font-semibold">{rate}</span>
               </div>
               <p className="text-left font-medium text-muted-foreground">
                 from {reviewCount}+ reviews
