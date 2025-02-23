@@ -1,5 +1,6 @@
 import configPromise from '@payload-config'
 import { JSDOM } from 'jsdom'
+import { ObjectId } from 'mongodb'
 import { getPayload } from 'payload'
 import { NextRequest } from 'next/server'
 import { getTenantFromCookie } from '@/utilities/getTenant'
@@ -22,7 +23,7 @@ type RichTextDirection = 'ltr' | 'rtl' | null
 interface LexicalBaseNode {
   [key: string]: unknown
   type: string
-  format?: number
+  format?: RichTextFormat
   indent?: number
   version: number
   direction?: RichTextDirection
@@ -34,7 +35,7 @@ interface LexicalTextNode extends LexicalBaseNode {
   mode: string
   style: string
   text: string
-  format: number
+  format: RichTextFormat
 }
 
 interface LexicalParagraphNode extends LexicalBaseNode {
@@ -59,6 +60,17 @@ interface LexicalLinkNode extends LexicalBaseNode {
   }
 }
 
+interface LexicalBlockNode extends LexicalBaseNode {
+  type: 'block'
+  fields: {
+    id: string
+    style: 'success' | 'error'
+    content: RichTextContent
+    blockName: string
+    blockType: string
+  }
+}
+
 interface LexicalRootNode {
   type: 'root'
   children: LexicalNode[]
@@ -68,7 +80,12 @@ interface LexicalRootNode {
   version: number
 }
 
-type LexicalNode = LexicalTextNode | LexicalParagraphNode | LexicalHeadingNode | LexicalLinkNode
+type LexicalNode =
+  | LexicalTextNode
+  | LexicalParagraphNode
+  | LexicalHeadingNode
+  | LexicalLinkNode
+  | LexicalBlockNode
 
 interface RichTextContent {
   [key: string]: unknown
@@ -194,7 +211,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
       const textNode: LexicalTextNode = {
         type: 'text',
         detail: 0,
-        format: 0,
+        format: '',
         mode: 'normal',
         style: '',
         text: cleanedText,
@@ -205,7 +222,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
         type: 'paragraph',
         children: [textNode],
         direction: 'ltr',
-        format: 0,
+        format: '',
         indent: 0,
         textFormat: 0,
         version: 1,
@@ -234,7 +251,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
             type: 'heading',
             children,
             direction: 'ltr',
-            format: 0,
+            format: '',
             indent: 0,
             tag: element.tagName.toLowerCase(),
             version: 1,
@@ -242,6 +259,84 @@ function parseHTMLToLexical(html: string): RichTextContent {
           return headingNode
         }
         case 'p': {
+          // Check if the content is a [claim] shortcode
+          const content = element.textContent || ''
+          if (content.includes('[claim')) {
+            // Extract claim attributes using regex
+            const claimMatch = content.match(
+              /\[claim claim="([^"]*)" istrue="([^"]*)" explanation="([^"]*)"[^\]]*\]/,
+            )
+            if (claimMatch) {
+              const [, claim, istrueValue, explanation] = claimMatch
+              const istrue = istrueValue?.toLowerCase() === 'true'
+              const style = istrue ? 'success' : 'error'
+
+              // Create block node for claim
+              return {
+                type: 'block',
+                format: '',
+                version: 1,
+                fields: {
+                  id: new ObjectId().toString(),
+                  style,
+                  content: {
+                    root: {
+                      children: [
+                        {
+                          children: [
+                            {
+                              detail: 0,
+                              format: 1,
+                              mode: 'normal',
+                              style: '',
+                              text: claim || '',
+                              type: 'text',
+                              version: 1,
+                            },
+                          ],
+                          direction: 'ltr',
+                          format: '',
+                          indent: 0,
+                          type: 'paragraph',
+                          version: 1,
+                          textFormat: 1,
+                          textStyle: '',
+                        },
+                        {
+                          children: [
+                            {
+                              detail: 0,
+                              format: '',
+                              mode: 'normal',
+                              style: '',
+                              text: explanation || '',
+                              type: 'text',
+                              version: 1,
+                            },
+                          ],
+                          direction: 'ltr',
+                          format: '',
+                          indent: 0,
+                          type: 'paragraph',
+                          version: 1,
+                          textFormat: 0,
+                          textStyle: '',
+                        },
+                      ],
+                      direction: 'ltr',
+                      format: '',
+                      indent: 0,
+                      type: 'root',
+                      version: 1,
+                    },
+                  },
+                  blockName: claim || '',
+                  blockType: 'banner',
+                },
+              } as LexicalBlockNode
+            }
+          }
+
           // Skip empty paragraphs or those that were just 'n'
           if (
             children.length === 0 ||
@@ -255,7 +350,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
             type: 'paragraph',
             children,
             direction: 'ltr',
-            format: 0,
+            format: '',
             indent: 0,
             textFormat: 0,
             version: 1,
@@ -275,7 +370,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
               mode: 'normal',
               style: '',
               text: cleanWordPressContent(child.text),
-              format: 1,
+              format: '',
               version: 1,
             }
             return boldNode
@@ -295,7 +390,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
               mode: 'normal',
               style: '',
               text: cleanWordPressContent(child.text),
-              format: 2,
+              format: '',
               version: 1,
             }
             return italicNode
@@ -316,7 +411,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
               newTab: true,
               url: element.getAttribute('href') || '',
             },
-            format: 0,
+            format: '',
             indent: 0,
             version: 1,
           }
@@ -337,7 +432,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
                   {
                     type: 'text',
                     detail: 0,
-                    format: 0,
+                    format: '',
                     mode: 'normal',
                     style: '',
                     text: cleanedText,
@@ -345,7 +440,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
                   },
                 ],
             direction: 'ltr',
-            format: 0,
+            format: '',
             indent: 0,
             textFormat: 0,
             version: 1,
@@ -370,7 +465,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
         {
           type: 'text',
           detail: 0,
-          format: 0,
+          format: '',
           mode: 'normal',
           style: '',
           text: '',
@@ -378,7 +473,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
         },
       ],
       direction: 'ltr',
-      format: 0,
+      format: '',
       indent: 0,
       textFormat: 0,
       version: 1,
@@ -390,7 +485,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
       type: 'root',
       children: bodyContent,
       direction: 'ltr',
-      format: '' as RichTextFormat,
+      format: '',
       indent: 0,
       version: 1,
     },
