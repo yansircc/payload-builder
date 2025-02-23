@@ -23,7 +23,7 @@ type RichTextDirection = 'ltr' | 'rtl' | null
 interface LexicalBaseNode {
   [key: string]: unknown
   type: string
-  format?: RichTextFormat
+  format?: RichTextFormat | number
   indent?: number
   version: number
   direction?: RichTextDirection
@@ -35,7 +35,7 @@ interface LexicalTextNode extends LexicalBaseNode {
   mode: string
   style: string
   text: string
-  format: RichTextFormat
+  format: RichTextFormat | number
 }
 
 interface LexicalParagraphNode extends LexicalBaseNode {
@@ -273,12 +273,12 @@ function parseHTMLToLexical(html: string): RichTextContent {
 
               // Create block node for claim
               return {
-                type: 'block',
                 format: '',
-                version: 1,
+                type: 'block',
+                version: 2,
                 fields: {
                   id: new ObjectId().toString(),
-                  style,
+                  style: style,
                   content: {
                     root: {
                       children: [
@@ -299,14 +299,14 @@ function parseHTMLToLexical(html: string): RichTextContent {
                           indent: 0,
                           type: 'paragraph',
                           version: 1,
-                          textFormat: 1,
+                          textFormat: 0,
                           textStyle: '',
                         },
                         {
                           children: [
                             {
                               detail: 0,
-                              format: '',
+                              format: 0,
                               mode: 'normal',
                               style: '',
                               text: explanation || '',
@@ -330,10 +330,10 @@ function parseHTMLToLexical(html: string): RichTextContent {
                       version: 1,
                     },
                   },
-                  blockName: claim || '',
+                  blockName: '',
                   blockType: 'banner',
                 },
-              } as LexicalBlockNode
+              }
             }
           }
 
