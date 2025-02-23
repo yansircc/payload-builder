@@ -44,6 +44,7 @@ export default buildConfig({
           path: '/wordpress-migration',
         },
       },
+      afterNavLinks: ['@/components/Nav/WordpressMigration/Nav'],
     },
     importMap: { baseDir: path.resolve(dirname) },
     user: Users.slug,
