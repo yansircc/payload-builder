@@ -1,14 +1,19 @@
+import { ClientMotionDiv, ThemeEffect } from '@/blocks/shared'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Feature11Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
 
-export default function Feature11({ feature }: Feature11Fields) {
-  const { title, description, image, links, features } = feature
-
+export default function Feature11({
+  title,
+  description,
+  image,
+  buttonGroup,
+  features,
+}: Feature11Fields) {
   return (
     <section className="py-32">
+      <ThemeEffect />
       <div className="container max-w-6xl">
         <div className="flex flex-col gap-12 md:flex-row">
           {image && (
@@ -20,21 +25,16 @@ export default function Feature11({ feature }: Feature11Fields) {
           <div className="lg:p-10">
             <h2 className="text-balance text-3xl font-medium md:text-5xl">{title}</h2>
             <p className="mt-1 text-muted-foreground md:mt-6">{description}</p>
-            {links && links.length > 0 && (
+            {buttonGroup && buttonGroup.length > 0 && (
               <ClientMotionDiv
                 className="flex flex-wrap gap-4 mt-6"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
-                {links.map((linkGroup, index) => (
+                {buttonGroup.map((linkGroup, index) => (
                   <div key={index} className="flex flex-col gap-2 sm:flex-row">
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
-                      )}
+                    <CMSLink {...linkGroup.link} />
                   </div>
                 ))}
               </ClientMotionDiv>
@@ -43,7 +43,7 @@ export default function Feature11({ feature }: Feature11Fields) {
               {features?.map((feature, index) => (
                 <li key={index} className="flex items-center gap-3">
                   {feature.icon && <DynamicIcon name={feature.icon} className="size-4" />}
-                  {feature.text}
+                  {feature.title}
                 </li>
               ))}
             </ul>

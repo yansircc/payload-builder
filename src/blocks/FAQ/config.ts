@@ -1,10 +1,10 @@
 import type { Block } from 'payload'
-import { faq1Fields } from './components/FAQ1/config'
-import { faq2Fields } from './components/FAQ2/config'
-import { faq3Fields } from './components/FAQ3/config'
-import { faq4Fields } from './components/FAQ4/config'
-import { faq5Fields } from './components/FAQ5/config'
-import { faq6Fields } from './components/FAQ6/config'
+import { faq1Fields } from '@/blocks/FAQ/components/FAQ1/server'
+import { faq2Fields } from '@/blocks/FAQ/components/FAQ2/server'
+import { faq3Fields } from '@/blocks/FAQ/components/FAQ3/server'
+import { faq4Fields } from '@/blocks/FAQ/components/FAQ4/server'
+import { faq5Fields } from '@/blocks/FAQ/components/FAQ5/server'
+import { faq6Fields } from '@/blocks/FAQ/components/FAQ6/server'
 
 /**
  * FAQ Block configuration
@@ -51,36 +51,54 @@ export const FAQ: Block = {
     {
       ...faq1Fields,
       admin: {
+        components: {
+          Field: '@/blocks/FAQ/components/FAQ1/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'faq-1',
       },
     },
     {
       ...faq2Fields,
       admin: {
+        components: {
+          Field: '@/blocks/FAQ/components/FAQ2/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'faq-2',
       },
     },
     {
       ...faq3Fields,
       admin: {
+        components: {
+          Field: '@/blocks/FAQ/components/FAQ3/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'faq-3',
       },
     },
     {
       ...faq4Fields,
       admin: {
+        components: {
+          Field: '@/blocks/FAQ/components/FAQ4/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'faq-4',
       },
     },
     {
       ...faq5Fields,
       admin: {
+        components: {
+          Field: '@/blocks/FAQ/components/FAQ5/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'faq-5',
       },
     },
     {
       ...faq6Fields,
       admin: {
+        components: {
+          Field: '@/blocks/FAQ/components/FAQ6/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'faq-6',
       },
     },

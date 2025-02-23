@@ -1,11 +1,9 @@
+import { ClientMotionDiv } from '@/blocks/shared'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import type { CTA16Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
 
-export default function CTA16({ cta }: CTA16Fields) {
-  const { title, subtitle, links, image, icon } = cta
-
+export default function CTA16({ title, subtitle, links, image, icon }: CTA16Fields) {
   return (
     <section className="py-32">
       <div className="container">
@@ -19,7 +17,7 @@ export default function CTA16({ cta }: CTA16Fields) {
         >
           <div className="flex flex-col gap-8 p-4 text-center text-primary-foreground">
             <div className="flex items-center justify-center gap-2 text-2xl font-medium">
-              <DynamicIcon name={icon} className="h-full w-7" /> {subtitle}
+              {icon && <DynamicIcon name={icon} className="h-full w-7" />} {subtitle}
             </div>
             <h2 className="text-5xl font-bold">{title}</h2>
             {/* Links */}
@@ -32,15 +30,13 @@ export default function CTA16({ cta }: CTA16Fields) {
               >
                 {links.map((linkGroup, index) => (
                   <div key={index} className="w-full sm:w-auto">
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link &&
-                          typeof link === 'object' && (
-                            <CMSLink key={key} {...link} className="w-full sm:w-auto" />
-                          ),
-                      )}
+                    {Object.entries(linkGroup).map(
+                      ([key, link]) =>
+                        link &&
+                        typeof link === 'object' && (
+                          <CMSLink key={key} {...link} className="w-full sm:w-auto" />
+                        ),
+                    )}
                   </div>
                 ))}
               </ClientMotionDiv>
