@@ -1478,11 +1478,11 @@ export interface AboutBlock {
 export interface About1Fields {
   mainSection: {
     /**
-     * Section title
+     * The main heading for the section
      */
     title: string;
     /**
-     * Section description
+     * The main description text
      */
     description: string;
   };
@@ -1492,21 +1492,21 @@ export interface About1Fields {
      */
     label: string;
     /**
-     * Section description
+     * Mission statement text
      */
     description: string;
     /**
-     * Image upload
+     * Mission section image
      */
     image: string | Media;
   };
   featuresSection: {
     /**
-     * Section title
+     * Features section heading
      */
     title: string;
     /**
-     * Section description
+     * Features section description
      */
     description: string;
     /**
@@ -1514,16 +1514,13 @@ export interface About1Fields {
      */
     features?:
       | {
+          icon?: string | null;
           /**
-           * Enter a Lucide icon name (e.g., "FileText", "ArrowRight", "Settings")
-           */
-          icon: string;
-          /**
-           * Section title
+           * Feature title
            */
           title: string;
           /**
-           * Section description
+           * Feature description
            */
           description: string;
           id?: string | null;
@@ -1536,15 +1533,15 @@ export interface About1Fields {
      */
     label: string;
     /**
-     * Section title
+     * Team section heading
      */
     title: string;
     /**
-     * Image upload
+     * Team section image
      */
     image: string | Media;
     /**
-     * Section description
+     * Team section description
      */
     description: string;
   };
@@ -2064,58 +2061,42 @@ export interface CTABlock {
  */
 export interface CTA1Fields {
   /**
-   * CTA section fields
+   * The title of the CTA
    */
-  cta: {
+  title: string;
+  /**
+   * The subtitle of the CTA
+   */
+  subtitle?: string | null;
+  /**
+   * The image shows on the right side of the CTA section
+   */
+  image?: (string | null) | Media;
+  icon?: string | null;
+  /**
+   * The CTA button with ArrowRight suffix icon
+   */
+  btn: {
+    type?: ('reference' | 'custom' | 'popup') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    popup?: (string | null) | Popup;
+    label: string;
+    prefixIcon?: string | null;
+    suffixIcon?: string | null;
     /**
-     * Main title text
+     * Choose how the link should be rendered.
      */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA image
-     */
-    image: string | Media;
-    /**
-     * Optional: Lucide icon name (e.g., CheckCircle)
-     */
-    icon: string;
-    /**
-     * CTA button
-     */
-    links?:
-      | {
-          /**
-           * CTA button with ArrowRight suffix icon
-           */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
+    appearance?: 'default' | null;
   };
 }
 /**
@@ -2124,88 +2105,87 @@ export interface CTA1Fields {
  */
 export interface CTA3Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    buttonLinks?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary CTA buttons (1-2 buttons)
+   */
+  buttons?:
+    | {
+        /**
+         * Primary CTA button with arrow
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * List of links
-     */
-    listLinks?:
-      | {
+          appearance?: 'default' | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * List of feature links with descriptions
+   */
+  list?:
+    | {
+        /**
+         * Feature link with chevron
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * List item link
-           */
-          link: {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          /**
-           * Description text for the link
+           * Description for the link
            */
           description?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: 'ghost' | null;
+        };
+        /**
+         * Brief description of the feature
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2213,67 +2193,59 @@ export interface CTA3Fields {
  */
 export interface CTA4Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary CTA button
+   */
+  links?:
+    | {
+        /**
+         * CTA button with arrow
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * List with icons
-     */
-    lists?:
-      | {
-          /**
-           * Optional: Lucide icon name (e.g., CheckCircle)
-           */
-          icon: string;
-          /**
-           * List item text
-           */
-          text: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: 'default' | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * List of features with icons
+   */
+  lists?:
+    | {
+        icon?: string | null;
+        /**
+         * Feature description
+         */
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2281,55 +2253,50 @@ export interface CTA4Fields {
  */
 export interface CTA5Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA image
-     */
-    image: string | Media;
-    /**
-     * CTA links
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * The featured image that appears on the side
+   */
+  image: string | Media;
+  /**
+   * Primary CTA button
+   */
+  links?:
+    | {
+        /**
+         * CTA button
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * Primary link
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: 'default' | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2337,67 +2304,59 @@ export interface CTA5Fields {
  */
 export interface CTA7Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text (in uppercase) below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary CTA button
+   */
+  links?:
+    | {
+        /**
+         * CTA button
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * List with icons
-     */
-    lists?:
-      | {
-          /**
-           * Optional: Lucide icon name (e.g., CheckCircle)
-           */
-          icon: string;
-          /**
-           * List item text
-           */
-          text: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: 'default' | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * List of features with icons
+   */
+  lists?:
+    | {
+        icon?: string | null;
+        /**
+         * Feature description
+         */
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2405,51 +2364,46 @@ export interface CTA7Fields {
  */
 export interface CTA10Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary and secondary CTA buttons
+   */
+  links?:
+    | {
+        /**
+         * CTA button
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'ghost') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2457,51 +2411,46 @@ export interface CTA10Fields {
  */
 export interface CTA11Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary and secondary CTA buttons
+   */
+  links?:
+    | {
+        /**
+         * CTA button
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'ghost') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2509,59 +2458,54 @@ export interface CTA11Fields {
  */
 export interface CTA15Fields {
   /**
-   * CTA section fields
+   * The small heading text above the title
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * The heading text above the title
-     */
-    heading?: string | null;
-    /**
-     * CTA image
-     */
-    image: string | Media;
-    /**
-     * CTA button
-     */
-    links?:
-      | {
+  heading?: string | null;
+  /**
+   * The main title of the CTA section
+   */
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * The featured image that appears on the right side
+   */
+  image: string | Media;
+  /**
+   * CTA buttons
+   */
+  links?:
+    | {
+        /**
+         * CTA button with ArrowRight suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA button with ArrowRight suffix icon
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'ghost') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2569,59 +2513,51 @@ export interface CTA15Fields {
  */
 export interface CTA16Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA image
-     */
-    image: string | Media;
-    /**
-     * Optional: Lucide icon name (e.g., CheckCircle)
-     */
-    icon: string;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  icon?: string | null;
+  /**
+   * The background image with dark overlay
+   */
+  image: string | Media;
+  /**
+   * Primary and secondary CTA buttons
+   */
+  links?:
+    | {
+        /**
+         * CTA button with ArrowRight suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'ghost') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2629,51 +2565,46 @@ export interface CTA16Fields {
  */
 export interface CTA17Fields {
   /**
-   * CTA section fields
+   * The title of the CTA section
    */
-  cta: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * CTA buttons
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle text below the main title
+   */
+  subtitle?: string | null;
+  /**
+   * Primary and secondary CTA buttons
+   */
+  links?:
+    | {
+        /**
+         * CTA button with ArrowRight suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * CTA buttons
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'ghost') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3555,84 +3486,51 @@ export interface FeatureBlock {
  */
 export interface Feature1Fields {
   /**
-   * Feature section fields
+   * The title of the feature
    */
-  feature: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Feature description
-     */
-    description: string;
-    /**
-     * Author profile image
-     */
-    image?: (string | null) | Media;
-    /**
-     * Optional: Lucide icon name (e.g., CheckCircle)
-     */
-    icon?: string | null;
-    /**
-     * Feature links
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The description of the feature
+   */
+  description: string;
+  icon?: string | null;
+  /**
+   * The image of the feature
+   */
+  image: string | Media;
+  /**
+   * Primary CTA buttons (1-2 buttons)
+   */
+  buttonGroup?:
+    | {
+        /**
+         * Primary CTA button with arrow
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * Primary link with icon
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          /**
-           * Secondary link
-           */
-          'link-2': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3640,84 +3538,51 @@ export interface Feature1Fields {
  */
 export interface Feature2Fields {
   /**
-   * Feature section fields
+   * The title of the feature
    */
-  feature: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Feature description
-     */
-    description: string;
-    /**
-     * Author profile image
-     */
-    image?: (string | null) | Media;
-    /**
-     * Optional: Lucide icon name (e.g., CheckCircle)
-     */
-    icon?: string | null;
-    /**
-     * Feature links
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The description of the feature
+   */
+  description: string;
+  icon?: string | null;
+  /**
+   * The image of the feature
+   */
+  image: string | Media;
+  /**
+   * Primary CTA buttons (1-2 buttons)
+   */
+  buttonGroup?:
+    | {
+        /**
+         * Primary CTA button with arrow
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * Primary link with icon
+           * Choose how the link should be rendered.
            */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          /**
-           * Secondary link
-           */
-          'link-2': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3725,38 +3590,28 @@ export interface Feature2Fields {
  */
 export interface Feature3Fields {
   /**
-   * Feature section fields
+   * The title of the feature
    */
-  feature: {
+  title: string;
+  /**
+   * The features of the feature
+   */
+  features: {
     /**
-     * Feature title
+     * The title of the feature
      */
     title: string;
     /**
-     * Feature cards
+     * The description of the feature
      */
-    features?:
-      | {
-          /**
-           * Lucide icon name
-           */
-          icon?: string | null;
-          /**
-           * Feature title
-           */
-          title: string;
-          /**
-           * Feature description
-           */
-          description: string;
-          /**
-           * Feature image
-           */
-          image?: (string | null) | Media;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    description: string;
+    icon?: string | null;
+    /**
+     * The image of the feature
+     */
+    image?: (string | null) | Media;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3764,55 +3619,48 @@ export interface Feature3Fields {
  */
 export interface Feature5Fields {
   /**
-   * Feature section fields
+   * The features of the feature
    */
-  feature: {
+  features: {
     /**
-     * Feature cards (first card will be larger)
+     * The title of the feature
      */
-    features?:
-      | {
-          /**
-           * Lucide icon name
-           */
-          icon?: string | null;
-          /**
-           * Feature title
-           */
-          title: string;
-          /**
-           * Feature description
-           */
-          description: string;
-          /**
-           * Feature image
-           */
-          image?: (string | null) | Media;
-          id?: string | null;
-        }[]
-      | null;
-    testimonial: {
-      /**
-       * Author profile image
-       */
-      image?: (string | null) | Media;
-      /**
-       * Testimonial quote text
-       */
-      quote: string;
-      /**
-       * Author name
-       */
-      name: string;
-      /**
-       * Author role or position
-       */
-      role: string;
-      /**
-       * Author company
-       */
-      company: string;
-    };
+    title: string;
+    /**
+     * The description of the feature
+     */
+    description: string;
+    icon?: string | null;
+    /**
+     * The image of the feature
+     */
+    image?: (string | null) | Media;
+    id?: string | null;
+  }[];
+  /**
+   * The testimonial of the feature
+   */
+  testimonial: {
+    /**
+     * The quote of the testimonial
+     */
+    quote: string;
+    /**
+     * The name of the testimonial
+     */
+    name: string;
+    /**
+     * The role of the testimonial
+     */
+    role: string;
+    /**
+     * The company of the testimonial
+     */
+    company: string;
+    /**
+     * The image of the testimonial
+     */
+    image?: (string | null) | Media;
   };
 }
 /**
@@ -3821,42 +3669,29 @@ export interface Feature5Fields {
  */
 export interface Feature6Fields {
   /**
-   * Feature section fields
+   * The title of the feature
    */
-  feature: {
+  title: string;
+  /**
+   * The description of the feature
+   */
+  description: string;
+  icon?: string | null;
+  /**
+   * The image of the feature
+   */
+  image?: (string | null) | Media;
+  /**
+   * The features of the feature
+   */
+  features: {
     /**
-     * Feature title
+     * The title of the feature
      */
     title: string;
-    /**
-     * Feature description
-     */
-    description: string;
-    /**
-     * Author profile image
-     */
-    image?: (string | null) | Media;
-    /**
-     * Optional: Lucide icon name (e.g., CheckCircle)
-     */
     icon?: string | null;
-    /**
-     * List of features with icons
-     */
-    features?:
-      | {
-          /**
-           * Optional: Lucide icon name (e.g., CheckCircle)
-           */
-          icon?: string | null;
-          /**
-           * List item text
-           */
-          text: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3864,42 +3699,29 @@ export interface Feature6Fields {
  */
 export interface Feature7Fields {
   /**
-   * Feature section fields
+   * The title of the feature
    */
-  feature: {
+  title: string;
+  /**
+   * The description of the feature
+   */
+  description: string;
+  icon?: string | null;
+  /**
+   * The image of the feature
+   */
+  image?: (string | null) | Media;
+  /**
+   * The features of the feature
+   */
+  features: {
     /**
-     * Feature title
+     * The title of the feature
      */
     title: string;
-    /**
-     * Feature description
-     */
-    description: string;
-    /**
-     * Author profile image
-     */
-    image?: (string | null) | Media;
-    /**
-     * Optional: Lucide icon name (e.g., CheckCircle)
-     */
     icon?: string | null;
-    /**
-     * List of features with icons
-     */
-    features?:
-      | {
-          /**
-           * Optional: Lucide icon name (e.g., CheckCircle)
-           */
-          icon?: string | null;
-          /**
-           * List item text
-           */
-          text: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3907,38 +3729,28 @@ export interface Feature7Fields {
  */
 export interface Feature10Fields {
   /**
-   * Feature section fields
+   * The title of the feature
    */
-  feature: {
+  title: string;
+  /**
+   * The description of the feature
+   */
+  description: string;
+  /**
+   * The features of the feature
+   */
+  features: {
     /**
-     * Feature title
+     * The title of the feature
      */
     title: string;
+    icon?: string | null;
     /**
-     * Feature description
+     * The description of the feature
      */
     description: string;
-    /**
-     * Feature cards
-     */
-    features?:
-      | {
-          /**
-           * Lucide icon name
-           */
-          icon?: string | null;
-          /**
-           * Feature title
-           */
-          title: string;
-          /**
-           * Feature description
-           */
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3946,71 +3758,61 @@ export interface Feature10Fields {
  */
 export interface Feature11Fields {
   /**
-   * Feature section fields
+   * The title of the feature
    */
-  feature: {
+  title: string;
+  /**
+   * The description of the feature
+   */
+  description: string;
+  /**
+   * The image of the feature
+   */
+  image?: (string | null) | Media;
+  /**
+   * Primary CTA buttons (1-2 buttons)
+   */
+  buttonGroup?:
+    | {
+        /**
+         * Primary CTA button with arrow
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The features of the feature
+   */
+  features: {
     /**
-     * Feature title
+     * The title of the feature
      */
     title: string;
-    /**
-     * Feature description
-     */
-    description: string;
-    /**
-     * Author profile image
-     */
-    image?: (string | null) | Media;
-    /**
-     * Feature links
-     */
-    links?:
-      | {
-          /**
-           * Primary link with icon
-           */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * List of features with icons
-     */
-    features?:
-      | {
-          /**
-           * Optional: Lucide icon name (e.g., CheckCircle)
-           */
-          icon?: string | null;
-          /**
-           * List item text
-           */
-          text: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    icon?: string | null;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4018,38 +3820,27 @@ export interface Feature11Fields {
  */
 export interface Feature13Fields {
   /**
-   * Feature section fields
+   * The title of the feature
    */
-  feature: {
+  title: string;
+  /**
+   * The features of the feature
+   */
+  features: {
     /**
-     * Feature title
+     * The title of the feature
      */
     title: string;
     /**
-     * Feature cards
+     * The image of the feature
      */
-    features?:
-      | {
-          /**
-           * Feature image
-           */
-          image?: (string | null) | Media;
-          /**
-           * Feature subtitle
-           */
-          subtitle: string;
-          /**
-           * Feature title
-           */
-          title: string;
-          /**
-           * Feature description
-           */
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    image?: (string | null) | Media;
+    /**
+     * The description of the feature
+     */
+    description: string;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4057,50 +3848,34 @@ export interface Feature13Fields {
  */
 export interface Feature14Fields {
   /**
-   * Feature section fields
+   * The features of the feature
    */
-  feature: {
+  features: {
     /**
-     * Feature title
+     * The title of the feature
      */
     title: string;
     /**
-     * Feature cards
+     * The description of the feature
      */
-    features?:
-      | {
-          /**
-           * Feature image
-           */
-          image?: (string | null) | Media;
-          /**
-           * Feature title
-           */
-          title: string;
-          /**
-           * Feature description
-           */
-          description: string;
-          /**
-           * List of features with icons
-           */
-          list?:
-            | {
-                /**
-                 * Optional: Lucide icon name (e.g., CheckCircle)
-                 */
-                icon?: string | null;
-                /**
-                 * List item text
-                 */
-                text: string;
-                id?: string | null;
-              }[]
-            | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    description: string;
+    /**
+     * The image of the feature
+     */
+    image?: (string | null) | Media;
+    /**
+     * The list of the feature
+     */
+    list: {
+      icon?: string | null;
+      /**
+       * The text of the feature
+       */
+      text: string;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4108,42 +3883,32 @@ export interface Feature14Fields {
  */
 export interface Feature15Fields {
   /**
-   * Feature section fields
+   * The title of the feature
    */
-  feature: {
+  title: string;
+  /**
+   * The subtitle of the feature
+   */
+  subtitle: string;
+  /**
+   * The description of the feature
+   */
+  description: string;
+  /**
+   * The features of the feature
+   */
+  features: {
     /**
-     * Feature title
+     * The title of the feature
      */
     title: string;
+    icon?: string | null;
     /**
-     * Feature description
+     * The description of the feature
      */
     description: string;
-    /**
-     * Feature subtitle
-     */
-    subtitle: string;
-    /**
-     * Feature cards
-     */
-    features?:
-      | {
-          /**
-           * Lucide icon name
-           */
-          icon?: string | null;
-          /**
-           * Feature title
-           */
-          title: string;
-          /**
-           * Feature description
-           */
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6003,30 +5768,20 @@ export interface FAQBlock {
  */
 export interface FAQ1Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
      */
-    title: string;
-    /**
-     * List FAQ
-     */
-    faqs?:
-      | {
-          /**
-           * Question
-           */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6034,30 +5789,20 @@ export interface FAQ1Fields {
  */
 export interface FAQ2Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
      */
-    title: string;
-    /**
-     * List FAQ
-     */
-    faqs?:
-      | {
-          /**
-           * Question
-           */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6065,79 +5810,69 @@ export interface FAQ2Fields {
  */
 export interface FAQ3Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * The subtitle of the FAQ
+   */
+  subtitle: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
+     */
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
+  /**
+   * Support section
+   */
+  support: {
+    /**
+     * Support section title
      */
     title: string;
     /**
-     * FAQ subtitle
+     * Support section subtitle
      */
-    subtitle?: string | null;
+    subtitle: string;
     /**
-     * List FAQ
+     * Support links
      */
-    faqs?:
+    supportLink?:
       | {
           /**
-           * Question
+           * Support link
            */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
+          link: {
+            type?: ('reference' | 'custom' | 'popup') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            popup?: (string | null) | Popup;
+            label: string;
+            prefixIcon?: string | null;
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          };
           id?: string | null;
         }[]
       | null;
-    /**
-     * Support list
-     */
-    support: {
-      /**
-       * FAQ title
-       */
-      title: string;
-      /**
-       * FAQ subtitle
-       */
-      subtitle?: string | null;
-      /**
-       * Support link
-       */
-      supportLink?:
-        | {
-            /**
-             * Support link
-             */
-            link: {
-              type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: string | Post;
-                  } | null);
-              url?: string | null;
-              popup?: (string | null) | Popup;
-              label: string;
-              prefixIcon?: string | null;
-              suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
-    };
   };
 }
 /**
@@ -6146,83 +5881,73 @@ export interface FAQ3Fields {
  */
 export interface FAQ4Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * The subtitle of the FAQ
+   */
+  subtitle: string;
+  /**
+   * The description of the FAQ
+   */
+  description: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
+     */
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
+  /**
+   * Support section
+   */
+  support: {
+    /**
+     * Support section title
      */
     title: string;
     /**
-     * FAQ subtitle
+     * Support section subtitle
      */
-    subtitle?: string | null;
+    subtitle: string;
     /**
-     * FAQ description
+     * Support links
      */
-    description?: string | null;
-    /**
-     * List FAQ
-     */
-    faqs?:
+    supportLink?:
       | {
           /**
-           * Question
+           * Support link
            */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
+          link: {
+            type?: ('reference' | 'custom' | 'popup') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            popup?: (string | null) | Popup;
+            label: string;
+            prefixIcon?: string | null;
+            suffixIcon?: string | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          };
           id?: string | null;
         }[]
       | null;
-    /**
-     * Support list
-     */
-    support: {
-      /**
-       * FAQ title
-       */
-      title: string;
-      /**
-       * FAQ subtitle
-       */
-      subtitle?: string | null;
-      /**
-       * Support link
-       */
-      supportLink?:
-        | {
-            /**
-             * Support link
-             */
-            link: {
-              type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: string | Post;
-                  } | null);
-              url?: string | null;
-              popup?: (string | null) | Popup;
-              label: string;
-              prefixIcon?: string | null;
-              suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
-    };
   };
 }
 /**
@@ -6231,38 +5956,28 @@ export interface FAQ4Fields {
  */
 export interface FAQ5Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * The subtitle of the FAQ
+   */
+  subtitle: string;
+  /**
+   * The description of the FAQ
+   */
+  description: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
      */
-    title: string;
-    /**
-     * FAQ subtitle
-     */
-    subtitle?: string | null;
-    /**
-     * FAQ description
-     */
-    description?: string | null;
-    /**
-     * List FAQ
-     */
-    faqs?:
-      | {
-          /**
-           * Question
-           */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6270,38 +5985,28 @@ export interface FAQ5Fields {
  */
 export interface FAQ6Fields {
   /**
-   * FAQ fields
+   * The title of the FAQ
    */
-  faq: {
+  title: string;
+  /**
+   * The subtitle of the FAQ
+   */
+  subtitle: string;
+  /**
+   * The description of the FAQ
+   */
+  description: string;
+  /**
+   * List FAQ
+   */
+  faqs: {
     /**
-     * FAQ title
+     * The question of the FAQ
      */
-    title: string;
-    /**
-     * FAQ subtitle
-     */
-    subtitle?: string | null;
-    /**
-     * FAQ description
-     */
-    description?: string | null;
-    /**
-     * List FAQ
-     */
-    faqs?:
-      | {
-          /**
-           * Question
-           */
-          question: string;
-          /**
-           * Answer
-           */
-          answer: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9697,31 +9402,22 @@ export interface CTABlockSelect<T extends boolean = true> {
  * via the `definition` "CTA1Fields_select".
  */
 export interface CTA1FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  icon?: T;
+  btn?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        image?: T;
-        icon?: T;
-        links?:
-          | T
-          | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        popup?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
       };
 }
 /**
@@ -9729,48 +9425,45 @@ export interface CTA1FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA3Fields_select".
  */
 export interface CTA3FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  buttons?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        buttonLinks?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
-        listLinks?:
+        id?: T;
+      };
+  list?:
+    | T
+    | {
+        link?:
           | T
           | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
               description?: T;
-              id?: T;
+              appearance?: T;
             };
+        description?: T;
+        id?: T;
       };
 }
 /**
@@ -9778,36 +9471,32 @@ export interface CTA3FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA4Fields_select".
  */
 export interface CTA4FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
-        lists?:
-          | T
-          | {
-              icon?: T;
-              text?: T;
-              id?: T;
-            };
+        id?: T;
+      };
+  lists?:
+    | T
+    | {
+        icon?: T;
+        text?: T;
+        id?: T;
       };
 }
 /**
@@ -9815,30 +9504,26 @@ export interface CTA4FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA5Fields_select".
  */
 export interface CTA5FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        image?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -9846,36 +9531,32 @@ export interface CTA5FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA7Fields_select".
  */
 export interface CTA7FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
-        lists?:
-          | T
-          | {
-              icon?: T;
-              text?: T;
-              id?: T;
-            };
+        id?: T;
+      };
+  lists?:
+    | T
+    | {
+        icon?: T;
+        text?: T;
+        id?: T;
       };
 }
 /**
@@ -9883,29 +9564,25 @@ export interface CTA7FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA10Fields_select".
  */
 export interface CTA10FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -9913,29 +9590,25 @@ export interface CTA10FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA11Fields_select".
  */
 export interface CTA11FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -9943,31 +9616,27 @@ export interface CTA11FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA15Fields_select".
  */
 export interface CTA15FieldsSelect<T extends boolean = true> {
-  cta?:
+  heading?: T;
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        heading?: T;
-        image?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -9975,31 +9644,27 @@ export interface CTA15FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA16Fields_select".
  */
 export interface CTA16FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  icon?: T;
+  image?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        image?: T;
-        icon?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -10007,29 +9672,25 @@ export interface CTA16FieldsSelect<T extends boolean = true> {
  * via the `definition` "CTA17Fields_select".
  */
 export interface CTA17FieldsSelect<T extends boolean = true> {
-  cta?:
+  title?: T;
+  subtitle?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -10323,44 +9984,27 @@ export interface FeatureBlockSelect<T extends boolean = true> {
  * via the `definition` "Feature1Fields_select".
  */
 export interface Feature1FieldsSelect<T extends boolean = true> {
-  feature?:
+  title?: T;
+  description?: T;
+  icon?: T;
+  image?: T;
+  buttonGroup?:
     | T
     | {
-        title?: T;
-        description?: T;
-        image?: T;
-        icon?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              'link-2'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -10368,44 +10012,27 @@ export interface Feature1FieldsSelect<T extends boolean = true> {
  * via the `definition` "Feature2Fields_select".
  */
 export interface Feature2FieldsSelect<T extends boolean = true> {
-  feature?:
+  title?: T;
+  description?: T;
+  icon?: T;
+  image?: T;
+  buttonGroup?:
     | T
     | {
-        title?: T;
-        description?: T;
-        image?: T;
-        icon?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              'link-2'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -10413,19 +10040,15 @@ export interface Feature2FieldsSelect<T extends boolean = true> {
  * via the `definition` "Feature3Fields_select".
  */
 export interface Feature3FieldsSelect<T extends boolean = true> {
-  feature?:
+  title?: T;
+  features?:
     | T
     | {
         title?: T;
-        features?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              description?: T;
-              image?: T;
-              id?: T;
-            };
+        description?: T;
+        icon?: T;
+        image?: T;
+        id?: T;
       };
 }
 /**
@@ -10433,27 +10056,23 @@ export interface Feature3FieldsSelect<T extends boolean = true> {
  * via the `definition` "Feature5Fields_select".
  */
 export interface Feature5FieldsSelect<T extends boolean = true> {
-  feature?:
+  features?:
     | T
     | {
-        features?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              description?: T;
-              image?: T;
-              id?: T;
-            };
-        testimonial?:
-          | T
-          | {
-              image?: T;
-              quote?: T;
-              name?: T;
-              role?: T;
-              company?: T;
-            };
+        title?: T;
+        description?: T;
+        icon?: T;
+        image?: T;
+        id?: T;
+      };
+  testimonial?:
+    | T
+    | {
+        quote?: T;
+        name?: T;
+        role?: T;
+        company?: T;
+        image?: T;
       };
 }
 /**
@@ -10461,20 +10080,16 @@ export interface Feature5FieldsSelect<T extends boolean = true> {
  * via the `definition` "Feature6Fields_select".
  */
 export interface Feature6FieldsSelect<T extends boolean = true> {
-  feature?:
+  title?: T;
+  description?: T;
+  icon?: T;
+  image?: T;
+  features?:
     | T
     | {
         title?: T;
-        description?: T;
-        image?: T;
         icon?: T;
-        features?:
-          | T
-          | {
-              icon?: T;
-              text?: T;
-              id?: T;
-            };
+        id?: T;
       };
 }
 /**
@@ -10482,20 +10097,16 @@ export interface Feature6FieldsSelect<T extends boolean = true> {
  * via the `definition` "Feature7Fields_select".
  */
 export interface Feature7FieldsSelect<T extends boolean = true> {
-  feature?:
+  title?: T;
+  description?: T;
+  icon?: T;
+  image?: T;
+  features?:
     | T
     | {
         title?: T;
-        description?: T;
-        image?: T;
         icon?: T;
-        features?:
-          | T
-          | {
-              icon?: T;
-              text?: T;
-              id?: T;
-            };
+        id?: T;
       };
 }
 /**
@@ -10503,19 +10114,15 @@ export interface Feature7FieldsSelect<T extends boolean = true> {
  * via the `definition` "Feature10Fields_select".
  */
 export interface Feature10FieldsSelect<T extends boolean = true> {
-  feature?:
+  title?: T;
+  description?: T;
+  features?:
     | T
     | {
         title?: T;
+        icon?: T;
         description?: T;
-        features?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              description?: T;
-              id?: T;
-            };
+        id?: T;
       };
 }
 /**
@@ -10523,37 +10130,33 @@ export interface Feature10FieldsSelect<T extends boolean = true> {
  * via the `definition` "Feature11Fields_select".
  */
 export interface Feature11FieldsSelect<T extends boolean = true> {
-  feature?:
+  title?: T;
+  description?: T;
+  image?: T;
+  buttonGroup?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  features?:
     | T
     | {
         title?: T;
-        description?: T;
-        image?: T;
-        links?:
-          | T
-          | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        features?:
-          | T
-          | {
-              icon?: T;
-              text?: T;
-              id?: T;
-            };
+        icon?: T;
+        id?: T;
       };
 }
 /**
@@ -10561,19 +10164,14 @@ export interface Feature11FieldsSelect<T extends boolean = true> {
  * via the `definition` "Feature13Fields_select".
  */
 export interface Feature13FieldsSelect<T extends boolean = true> {
-  feature?:
+  title?: T;
+  features?:
     | T
     | {
         title?: T;
-        features?:
-          | T
-          | {
-              image?: T;
-              subtitle?: T;
-              title?: T;
-              description?: T;
-              id?: T;
-            };
+        image?: T;
+        description?: T;
+        id?: T;
       };
 }
 /**
@@ -10581,25 +10179,20 @@ export interface Feature13FieldsSelect<T extends boolean = true> {
  * via the `definition` "Feature14Fields_select".
  */
 export interface Feature14FieldsSelect<T extends boolean = true> {
-  feature?:
+  features?:
     | T
     | {
         title?: T;
-        features?:
+        description?: T;
+        image?: T;
+        list?:
           | T
           | {
-              image?: T;
-              title?: T;
-              description?: T;
-              list?:
-                | T
-                | {
-                    icon?: T;
-                    text?: T;
-                    id?: T;
-                  };
+              icon?: T;
+              text?: T;
               id?: T;
             };
+        id?: T;
       };
 }
 /**
@@ -10607,20 +10200,16 @@ export interface Feature14FieldsSelect<T extends boolean = true> {
  * via the `definition` "Feature15Fields_select".
  */
 export interface Feature15FieldsSelect<T extends boolean = true> {
-  feature?:
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  features?:
     | T
     | {
         title?: T;
+        icon?: T;
         description?: T;
-        subtitle?: T;
-        features?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              description?: T;
-              id?: T;
-            };
+        id?: T;
       };
 }
 /**
@@ -11596,17 +11185,13 @@ export interface FAQBlockSelect<T extends boolean = true> {
  * via the `definition` "FAQ1Fields_select".
  */
 export interface FAQ1FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  faqs?:
     | T
     | {
-        title?: T;
-        faqs?:
-          | T
-          | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
+        question?: T;
+        answer?: T;
+        id?: T;
       };
 }
 /**
@@ -11614,17 +11199,13 @@ export interface FAQ1FieldsSelect<T extends boolean = true> {
  * via the `definition` "FAQ2Fields_select".
  */
 export interface FAQ2FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  faqs?:
     | T
     | {
-        title?: T;
-        faqs?:
-          | T
-          | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
+        question?: T;
+        answer?: T;
+        id?: T;
       };
 }
 /**
@@ -11632,41 +11213,37 @@ export interface FAQ2FieldsSelect<T extends boolean = true> {
  * via the `definition` "FAQ3Fields_select".
  */
 export interface FAQ3FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  subtitle?: T;
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  support?:
     | T
     | {
         title?: T;
         subtitle?: T;
-        faqs?:
+        supportLink?:
           | T
           | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
-        support?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              supportLink?:
+              link?:
                 | T
                 | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          popup?: T;
-                          label?: T;
-                          prefixIcon?: T;
-                          suffixIcon?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    popup?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
                   };
+              id?: T;
             };
       };
 }
@@ -11675,42 +11252,38 @@ export interface FAQ3FieldsSelect<T extends boolean = true> {
  * via the `definition` "FAQ4Fields_select".
  */
 export interface FAQ4FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  support?:
     | T
     | {
         title?: T;
         subtitle?: T;
-        description?: T;
-        faqs?:
+        supportLink?:
           | T
           | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
-        support?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              supportLink?:
+              link?:
                 | T
                 | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          popup?: T;
-                          label?: T;
-                          prefixIcon?: T;
-                          suffixIcon?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    popup?: T;
+                    label?: T;
+                    prefixIcon?: T;
+                    suffixIcon?: T;
+                    appearance?: T;
                   };
+              id?: T;
             };
       };
 }
@@ -11719,19 +11292,15 @@ export interface FAQ4FieldsSelect<T extends boolean = true> {
  * via the `definition` "FAQ5Fields_select".
  */
 export interface FAQ5FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  faqs?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        description?: T;
-        faqs?:
-          | T
-          | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
+        question?: T;
+        answer?: T;
+        id?: T;
       };
 }
 /**
@@ -11739,19 +11308,15 @@ export interface FAQ5FieldsSelect<T extends boolean = true> {
  * via the `definition` "FAQ6Fields_select".
  */
 export interface FAQ6FieldsSelect<T extends boolean = true> {
-  faq?:
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  faqs?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        description?: T;
-        faqs?:
-          | T
-          | {
-              question?: T;
-              answer?: T;
-              id?: T;
-            };
+        question?: T;
+        answer?: T;
+        id?: T;
       };
 }
 /**

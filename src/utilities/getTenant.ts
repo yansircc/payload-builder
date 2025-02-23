@@ -1,6 +1,6 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { headers } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import type { Tenant } from '@/payload-types'
 
 /**
@@ -78,6 +78,42 @@ export async function getTenantById(id: string): Promise<Tenant | null> {
     return (tenantQuery as Tenant) || null
   } catch (error) {
     console.error('Error fetching tenant by ID:', error)
+    return null
+  }
+}
+
+/**
+ * Retrieves a tenant from a cookie value
+ *
+ * @description This function reads the tenant ID from a cookie and queries the database
+ * to find the corresponding tenant. It's useful for maintaining tenant context across requests
+ * without relying on domain or explicit IDs.
+ *
+ * @param {string} cookieName - The name of the cookie containing the tenant ID
+ * @returns {Promise<Tenant | null>} The tenant object if found, null otherwise
+ * @throws {Error} If there's an error fetching the tenant data
+ *
+ * @example
+ * ```typescript
+ * const tenant = await getTenantFromCookie('tenant-id')
+ * if (tenant) {
+ *   // Use tenant data
+ *   console.log(tenant.name)
+ * }
+ * ```
+ */
+export async function getTenantFromCookie(): Promise<Tenant | null> {
+  try {
+    const cookieStore = await cookies()
+    const tenantId = cookieStore.get('payload-tenant')?.value
+
+    if (!tenantId) {
+      return null
+    }
+
+    return getTenantById(tenantId)
+  } catch (error) {
+    console.error('Error fetching tenant from cookie:', error)
     return null
   }
 }
