@@ -2,6 +2,7 @@ import configPromise from '@payload-config'
 import { JSDOM } from 'jsdom'
 import { getPayload } from 'payload'
 import { NextRequest } from 'next/server'
+import { getTenantFromCookie } from '@/utilities/getTenant'
 
 interface WordPressPost {
   ID: string
@@ -399,6 +400,7 @@ function parseHTMLToLexical(html: string): RichTextContent {
 }
 
 export async function POST(req: NextRequest) {
+  const tenant = await getTenantFromCookie()
   try {
     const payload = await getPayload({ config: configPromise })
 
@@ -433,7 +435,7 @@ export async function POST(req: NextRequest) {
               _status: 'published',
               slug: post.post_name,
               createdAt: new Date(post.post_date).toISOString(),
-              tenant: '67b8446c5b289391635f0a30',
+              tenant: tenant,
             },
           })
           results.push({
