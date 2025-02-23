@@ -8,14 +8,15 @@ import OpenAI from 'openai'
 import { match } from 'ts-pattern'
 import { z } from 'zod'
 import type { Media } from '@/payload-types'
-import { getSiteSettings } from '@/utilities/getSiteSettings'
+import { getSiteSettingsFromCookie } from '@/utilities/getSiteSettings'
 
 // Remove top-level await
 let openai: OpenAI | null = null
+let aiSDK: ReturnType<typeof openaiSDK> | null = null
 
 async function getOpenAIClient() {
   if (!openai) {
-    const siteSettings = await getSiteSettings()
+    const siteSettings = await getSiteSettingsFromCookie()
     if (!siteSettings?.ai?.openai) {
       throw new Error(
         'Missing API Key - please set it in the Site Settings by clicking on "Site Settings" in the sidebar and then going to the "AI" tab.',
@@ -26,6 +27,20 @@ async function getOpenAIClient() {
     })
   }
   return openai
+}
+
+async function getAISDK() {
+  if (!aiSDK) {
+    const siteSettings = await getSiteSettingsFromCookie()
+    if (!siteSettings?.ai?.openai) {
+      throw new Error(
+        'Missing API Key - please set it in the Site Settings by clicking on "Site Settings" in the sidebar and then going to the "AI" tab.',
+      )
+    }
+    process.env.OPENAI_API_KEY = siteSettings.ai.openai
+    aiSDK = openaiSDK(AI_MODEL)
+  }
+  return aiSDK
 }
 
 const AI_MODEL = 'gpt-4o-mini' as const
@@ -109,8 +124,9 @@ export async function getObject<T extends z.ZodRawShape>(
   systemPrompt?: string,
 ) {
   try {
+    const model = await getAISDK()
     const object = await generateObject({
-      model: openaiSDK(AI_MODEL),
+      model,
       prompt,
       schema,
       system: systemPrompt,
@@ -135,8 +151,9 @@ export async function getObjectStream<T extends z.ZodRawShape>({
   prompt: string
   systemPrompt?: string
 }) {
+  const model = await getAISDK()
   const { partialObjectStream, object } = streamObject({
-    model: openaiSDK(AI_MODEL),
+    model,
     schema,
     prompt,
     system: systemPrompt,
