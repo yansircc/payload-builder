@@ -39,6 +39,7 @@ export const Products: CollectionConfig = {
     meta: { image: true, description: true },
   },
   admin: {
+    group: 'Content',
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) => {
