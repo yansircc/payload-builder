@@ -14,12 +14,22 @@ export const Categories: CollectionConfig = {
   admin: {
     group: 'Taxonomies',
     useAsTitle: 'title',
+    defaultColumns: ['title', 'type'],
   },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'type',
+      type: 'select',
+      required: true,
+      options: ['post', 'product', 'service'],
+      admin: {
+        position: 'sidebar',
+      },
     },
     ...slugField(),
   ],

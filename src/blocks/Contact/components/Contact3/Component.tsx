@@ -1,4 +1,4 @@
-import { ClientMotionDiv } from '@/blocks/Feature/components/shared/motion'
+import { ClientMotionDiv, ThemeEffect } from '@/blocks/shared'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import { Contact3Fields } from '@/payload-types'
@@ -8,6 +8,7 @@ export default function Contact3({ contact }: Contact3Fields) {
 
   return (
     <section className="py-32">
+      <ThemeEffect />
       <div className="container">
         <div className="text-center">
           <h1 className="mb-7 text-4xl font-bold md:text-6xl">{title}</h1>

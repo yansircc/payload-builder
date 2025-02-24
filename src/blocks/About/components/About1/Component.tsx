@@ -1,6 +1,7 @@
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { Media } from '@/components/Media'
 import type { About1Fields } from '@/payload-types'
+import { ClientMotionDiv } from '../shared'
 
 export default function About1({
   mainSection,
@@ -20,7 +21,12 @@ export default function About1({
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <ClientMotionDiv
+          className="grid gap-6 md:grid-cols-2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           {missionSection.image && (
             <Media
               resource={missionSection.image}
@@ -33,9 +39,15 @@ export default function About1({
               {missionSection.description}
             </p>
           </div>
-        </div>
+        </ClientMotionDiv>
 
-        <div className="flex flex-col gap-6 md:gap-20">
+        {/* Features Section */}
+        <ClientMotionDiv
+          className="flex flex-col gap-6 md:gap-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
           <div className="max-w-xl">
             <h2 className="mb-2.5 text-3xl font-semibold [.theme-neon_&]:text-black md:text-5xl">
               {featuresSection.title}
@@ -46,7 +58,12 @@ export default function About1({
             {featuresSection.features?.map((feature, index: number) => (
               <div key={index} className="flex flex-col">
                 <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-accent/20 border border-accent/30 [.theme-neon_&]:bg-black/40 [.theme-neon_&]:border-primary/30">
-                  <DynamicIcon name={feature.icon} className="size-5 [.theme-neon_&]:text-black" />
+                  {feature.icon && (
+                    <DynamicIcon
+                      name={feature.icon}
+                      className="size-5 [.theme-neon_&]:text-black"
+                    />
+                  )}
                 </div>
                 <h3 className="mb-3 mt-2 text-lg font-semibold [.theme-neon_&]:text-black">
                   {feature.title}
@@ -55,9 +72,15 @@ export default function About1({
               </div>
             ))}
           </div>
-        </div>
+        </ClientMotionDiv>
 
-        <div className="grid gap-10 md:grid-cols-2">
+        {/* Team Section */}
+        <ClientMotionDiv
+          className="grid gap-10 md:grid-cols-2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
           <div>
             <p className="mb-10 text-sm font-medium [.theme-neon_&]:text-black/80">
               {teamSection.label}
@@ -75,7 +98,7 @@ export default function About1({
             )}
             <p className="[.theme-neon_&]:text-black/80">{teamSection.description}</p>
           </div>
-        </div>
+        </ClientMotionDiv>
       </div>
     </section>
   )

@@ -14,13 +14,13 @@ import { inter, outfit } from '@/config/fonts'
 import { CustomCode } from '@/globals/CustomCode/Component'
 import { Favicon } from '@/globals/Favicon/Component'
 import { RenderHeader } from '@/globals/Header/RenderHeader'
-import { getSiteSettings } from '@/utilities/getSiteSettings'
+import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getServerSideURL } from '@/utilities/getURL'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
   const customScripts = await CustomCode()
-  const siteSettings = await getSiteSettings()
+  const siteSettings = await getSiteSettingsFromDomain()
 
   return (
     <html
@@ -52,7 +52,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const siteSettings = await getSiteSettings()
+  const siteSettings = await getSiteSettingsFromDomain()
 
   return {
     metadataBase: new URL(getServerSideURL()),

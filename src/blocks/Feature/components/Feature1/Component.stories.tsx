@@ -15,41 +15,41 @@ export default meta
 type Story = StoryObj<typeof Feature1>
 
 const defaultFeature: Feature1Fields = {
-  feature: {
-    icon: 'Zap',
-    title: 'Accelerate Your Digital Transformation',
-    description:
-      'Empower your business with cutting-edge solutions that drive growth and efficiency. Our platform combines innovation with reliability to deliver exceptional results.',
-    image: {
-      id: 'image-1',
-      alt: 'Feature 1',
-      url: '/website-template-OG.webp',
-      width: 120,
-      height: 24,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
-    links: [
-      {
-        'link-1': {
-          type: 'custom',
-          label: 'Get Started',
-          url: '#',
-          appearance: 'default',
-          prefixIcon: 'ArrowRight',
-          newTab: false,
-        },
-        'link-2': {
-          type: 'custom',
-          label: 'Learn More',
-          url: '#',
-          appearance: 'ghost',
-          prefixIcon: 'Info',
-          newTab: false,
-        },
-      },
-    ],
+  icon: 'Zap',
+  title: 'Accelerate Your Digital Transformation',
+  description:
+    'Empower your business with cutting-edge solutions that drive growth and efficiency. Our platform combines innovation with reliability to deliver exceptional results.',
+  image: {
+    id: 'image-1',
+    alt: 'Feature 1',
+    url: '/website-template-OG.webp',
+    width: 120,
+    height: 24,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
+  buttonGroup: [
+    {
+      link: {
+        type: 'custom',
+        label: 'Get Started',
+        url: '#',
+        appearance: 'default',
+        prefixIcon: 'ArrowRight',
+        newTab: false,
+      },
+    },
+    {
+      link: {
+        type: 'custom',
+        label: 'Learn More',
+        url: '#',
+        appearance: 'ghost',
+        prefixIcon: 'Info',
+        newTab: false,
+      },
+    },
+  ],
 }
 
 export const Default: Story = {
@@ -58,18 +58,14 @@ export const Default: Story = {
 
 export const WithoutIcon: Story = {
   args: {
-    feature: {
-      ...defaultFeature.feature,
-      icon: undefined,
-    },
+    ...defaultFeature,
+    icon: undefined,
   },
 }
 
 export const WithoutImage: Story = {
   args: {
-    feature: {
-      ...defaultFeature.feature,
-      image: undefined,
-    },
+    ...defaultFeature,
+    image: undefined,
   },
 }

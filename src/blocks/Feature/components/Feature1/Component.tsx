@@ -1,13 +1,10 @@
+import { ClientMotionDiv, ThemeEffect } from '@/blocks/shared'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Feature1Fields } from '@/payload-types'
-import { ClientMotionDiv } from '../shared/motion'
-import { ThemeEffect } from '../shared/ThemeEffect'
 
-export default function Feature1({ feature }: Feature1Fields) {
-  const { title, description, icon, image, links } = feature
-
+export default function Feature1({ title, description, icon, image, buttonGroup }: Feature1Fields) {
   return (
     <section className="relative overflow-hidden bg-background py-24 md:py-32">
       <ThemeEffect />
@@ -36,21 +33,16 @@ export default function Feature1({ feature }: Feature1Fields) {
               <p className="mb-8 max-w-xl text-muted-foreground lg:text-lg">{description}</p>
             </ClientMotionDiv>
 
-            {links && links.length > 0 && (
+            {buttonGroup && buttonGroup.length > 0 && (
               <ClientMotionDiv
                 className="flex flex-wrap gap-4"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
-                {links.map((linkGroup, index) => (
+                {buttonGroup.map((linkGroup, index) => (
                   <div key={index} className="flex flex-col gap-2 sm:flex-row">
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link && typeof link === 'object' && <CMSLink key={key} {...link} />,
-                      )}
+                    <CMSLink {...linkGroup.link} />
                   </div>
                 ))}
               </ClientMotionDiv>
@@ -58,7 +50,6 @@ export default function Feature1({ feature }: Feature1Fields) {
           </div>
 
           <ClientMotionDiv
-            className="relative aspect-square lg:aspect-auto"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
