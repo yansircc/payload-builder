@@ -11,9 +11,14 @@ export const SCRIPT_TYPES = {
 
 export const CustomCodes: CollectionConfig = {
   slug: 'custom-codes',
+  labels: {
+    singular: 'Custom Code',
+    plural: 'Custom Codes',
+  },
   admin: {
-    group: 'Settings',
+    group: 'Configuration',
     description: 'Manage custom JavaScript code snippets for your site',
+    useAsTitle: 'hiddenLabel',
   },
   access: {
     create: superAdminOrTenantAdminAccess,
@@ -26,10 +31,18 @@ export const CustomCodes: CollectionConfig = {
   },
   fields: [
     {
+      name: 'hiddenLabel',
+      type: 'text',
+      defaultValue: 'Custom Code',
+      admin: {
+        hidden: true,
+      },
+    },
+    {
       name: 'scripts',
       type: 'array',
-      required: true,
-      minRows: 1,
+      required: false,
+      minRows: 0,
       admin: {
         description: 'Add one or more scripts',
         initCollapsed: true,

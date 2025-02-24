@@ -51,6 +51,7 @@ export const Posts: CollectionConfig<'posts'> = {
     },
   },
   admin: {
+    group: 'Content',
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) => {
@@ -150,6 +151,13 @@ export const Posts: CollectionConfig<'posts'> = {
               },
               hasMany: true,
               relationTo: 'categories',
+              filterOptions: () => {
+                return {
+                  type: {
+                    equals: 'post',
+                  },
+                }
+              },
             },
           ],
           label: 'Meta',
@@ -171,6 +179,12 @@ export const Posts: CollectionConfig<'posts'> = {
             }),
 
             MetaDescriptionField({}),
+            {
+              name: 'noindex',
+              label: 'If checked, the page will not be indexed by search engines',
+              type: 'checkbox',
+              defaultValue: false,
+            },
             PreviewField({
               // if the `generateUrl` function is configured
               hasGenerateFn: true,

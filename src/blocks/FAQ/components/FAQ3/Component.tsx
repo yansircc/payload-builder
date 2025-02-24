@@ -1,3 +1,4 @@
+import { ClientMotionDiv } from '@/blocks/shared/components'
 import { CMSLink } from '@/components/Link'
 import {
   Accordion,
@@ -6,10 +7,9 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { FAQ3Fields } from '@/payload-types'
+import type { FAQ3Fields } from '@/payload-types'
 
-export default function FAQ3({ faq }: FAQ3Fields) {
-  const { title, subtitle, faqs, support } = faq
+export default function FAQ3({ title, subtitle, faqs, support }: FAQ3Fields) {
   return (
     <section className="py-32">
       <div className="container space-y-16">
@@ -19,19 +19,32 @@ export default function FAQ3({ faq }: FAQ3Fields) {
           </h2>
           <p className="max-w-3xl text-muted-foreground lg:text-lg">{subtitle}</p>
         </div>
-        <Accordion type="single" collapsible className="mx-auto w-full lg:max-w-3xl">
-          {faqs?.map((item) => (
-            <AccordionItem key={item.id} value={item.id || ''}>
-              <AccordionTrigger>
-                <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">{item.question}</div>
-              </AccordionTrigger>
-              <AccordionContent className="sm:mb-1 lg:mb-2">
-                <div className="text-muted-foreground lg:text-lg">{item.answer}</div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-        <div className="flex w-full flex-col items-center rounded-lg bg-accent p-4 text-center md:rounded-xl md:p-6 lg:p-8">
+        <ClientMotionDiv
+          className="mx-auto w-full lg:max-w-3xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, staggerChildren: 0.1 }}
+        >
+          <Accordion type="single" collapsible>
+            {faqs?.map((faq, index) => (
+              <AccordionItem key={faq.id || index} value={`item-${index}`}>
+                <AccordionTrigger>
+                  <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">{faq.question}</div>
+                </AccordionTrigger>
+                <AccordionContent className="sm:mb-1 lg:mb-2">
+                  <div className="text-muted-foreground lg:text-lg">{faq.answer}</div>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </ClientMotionDiv>
+
+        <ClientMotionDiv
+          className="flex w-full flex-col items-center rounded-lg bg-accent p-4 text-center md:rounded-xl md:p-6 lg:p-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <div className="relative">
             <Avatar className="absolute mb-4 size-16 origin-bottom -translate-x-[60%] scale-[80%] border md:mb-5">
               <AvatarImage src="https://shadcnblocks.com/images/block/avatar-2.webp" />
@@ -58,7 +71,7 @@ export default function FAQ3({ faq }: FAQ3Fields) {
               </div>
             ))}
           </div>
-        </div>
+        </ClientMotionDiv>
       </div>
     </section>
   )

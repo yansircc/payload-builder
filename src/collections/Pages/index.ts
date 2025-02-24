@@ -1,4 +1,4 @@
-import { createBreadcrumbsField, createParentField } from '@payloadcms/plugin-nested-docs'
+import { createParentField } from '@payloadcms/plugin-nested-docs'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -33,6 +33,7 @@ import { Team } from '../../blocks/Team/config'
 import { TestimonialBlock } from '../../blocks/Testimonial/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
+import { deleteChildPages } from './hooks/deleteChildPages'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { updateChildPaths } from './hooks/updateChildPaths'
 
@@ -50,7 +51,9 @@ export const Pages: CollectionConfig<'pages'> = {
     fullPath: true,
   },
   admin: {
-    defaultColumns: ['title', 'fullPath', 'updatedAt'],
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'fullPath', '_status', 'updatedAt'],
+    group: 'Content',
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
@@ -69,22 +72,32 @@ export const Pages: CollectionConfig<'pages'> = {
         collection: 'pages',
         req,
       }),
-    useAsTitle: 'title',
   },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
+      admin: {
+        components: {
+          Cell: {
+            path: '@/collections/Pages/components/cells/TitleCell#TitleCell',
+          },
+        },
+      },
     },
     createParentField('pages', {
       admin: {
         position: 'sidebar',
+        disableListColumn: true,
+        disableListFilter: true,
       },
-      filterOptions: ({ id }) => ({ id: { not_equals: id } }),
-    }),
-    createBreadcrumbsField('pages', {
-      label: 'Page Breadcrumbs',
+      filterOptions: ({ id }) => ({
+        id: { not_equals: id },
+        _status: {
+          equals: 'published',
+        },
+      }),
     }),
     {
       type: 'tabs',
@@ -92,6 +105,10 @@ export const Pages: CollectionConfig<'pages'> = {
         {
           fields: [HeroField],
           label: 'Hero',
+          admin: {
+            disableListColumn: true,
+            disableListFilter: true,
+          },
         },
         {
           fields: [
@@ -122,6 +139,8 @@ export const Pages: CollectionConfig<'pages'> = {
               required: true,
               admin: {
                 initCollapsed: true,
+                disableListColumn: true,
+                disableListFilter: true,
               },
             },
           ],
@@ -143,12 +162,22 @@ export const Pages: CollectionConfig<'pages'> = {
               relationTo: 'media',
             }),
             MetaDescriptionField({}),
+            {
+              name: 'noindex',
+              label: 'If checked, the page will not be indexed by search engines',
+              type: 'checkbox',
+              defaultValue: false,
+            },
             PreviewField({
               hasGenerateFn: true,
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
             }),
           ],
+          admin: {
+            disableListColumn: true,
+            disableListFilter: true,
+          },
         },
       ],
     },
@@ -175,7 +204,7 @@ export const Pages: CollectionConfig<'pages'> = {
   hooks: {
     afterChange: [revalidatePage, updateChildPaths],
     beforeChange: [populatePublishedAt, updatePreviewImage],
-    afterDelete: [revalidateDelete],
+    afterDelete: [deleteChildPages, revalidateDelete],
   },
   versions: {
     drafts: {

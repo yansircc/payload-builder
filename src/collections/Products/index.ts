@@ -7,6 +7,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import {
   BlocksFeature,
+  EXPERIMENTAL_TableFeature,
   FixedToolbarFeature,
   HeadingFeature,
   HorizontalRuleFeature,
@@ -14,6 +15,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
+import { link } from '@/fields/link'
 import { slugField } from '@/fields/slug'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
@@ -39,6 +41,7 @@ export const Products: CollectionConfig = {
     meta: { image: true, description: true },
   },
   admin: {
+    group: 'Content',
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) => {
@@ -74,6 +77,28 @@ export const Products: CollectionConfig = {
               relationTo: 'media',
             },
             {
+              name: 'description',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [
+                    ...rootFeatures,
+                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                  ]
+                },
+              }),
+              label: 'Product Short Description',
+              required: true,
+            },
+            {
+              name: 'productImages',
+              label: 'Product Images',
+              type: 'upload',
+              relationTo: 'media',
+              required: false,
+              hasMany: true,
+            },
+            {
               name: 'content',
               type: 'richText',
               editor: lexicalEditor({
@@ -88,26 +113,33 @@ export const Products: CollectionConfig = {
                   ]
                 },
               }),
-              label: false,
-              required: true,
-            },
-            {
-              name: 'additionalImages',
-              type: 'array',
-              label: 'Additional Images',
-              labels: { singular: 'Image', plural: 'Images' },
-              fields: [{ name: 'image', type: 'upload', relationTo: 'media', required: false }],
+              label: 'Product Details',
+              required: false,
             },
             {
               name: 'specifications',
-              type: 'array',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [...rootFeatures, EXPERIMENTAL_TableFeature()]
+                },
+              }),
               label: 'Specifications',
-              labels: { singular: 'Specification', plural: 'Specifications' },
+              required: false,
+            },
+            {
+              name: 'links',
+              type: 'array',
+              label: 'CTA Buttons',
+              labels: { singular: 'CTA Button', plural: 'CTA Buttons' },
               fields: [
-                { name: 'name', type: 'text', required: true },
-                { name: 'description', type: 'text', required: true },
+                link({
+                  name: 'link',
+                  label: 'Button',
+                }),
               ],
               minRows: 0,
+              maxRows: 2,
             },
           ],
           label: 'Content',
@@ -115,11 +147,37 @@ export const Products: CollectionConfig = {
         {
           fields: [
             {
-              name: 'categories',
+              name: 'relatedProducts',
               type: 'relationship',
-              admin: { position: 'sidebar' },
+              admin: {
+                position: 'sidebar',
+              },
+              filterOptions: ({ id }) => {
+                return {
+                  id: {
+                    not_in: [id],
+                  },
+                }
+              },
+              hasMany: true,
+              relationTo: 'products',
+            },
+            {
+              name: 'categories',
+              label: 'Categories',
+              type: 'relationship',
+              admin: {
+                position: 'sidebar',
+              },
               hasMany: true,
               relationTo: 'categories',
+              filterOptions: () => {
+                return {
+                  type: {
+                    equals: 'product',
+                  },
+                }
+              },
             },
           ],
           label: 'Meta',
@@ -137,6 +195,12 @@ export const Products: CollectionConfig = {
             MetaImageField({ relationTo: 'media' }),
 
             MetaDescriptionField({}),
+            {
+              name: 'noindex',
+              label: 'If checked, the page will not be indexed by search engines',
+              type: 'checkbox',
+              defaultValue: false,
+            },
             PreviewField({
               // if the `generateUrl` function is configured
               hasGenerateFn: true,

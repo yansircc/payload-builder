@@ -2,6 +2,7 @@ import * as LucideIcons from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero24Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
 // 移除不必要的 FeatureItem 接口
@@ -20,7 +21,7 @@ export default function Hero24({ hero }: Hero24Fields) {
   const { badge, logo, features, title, links } = hero
 
   return (
-    <section className="py-32">
+    <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container">
         <div className="text-center">
           <ClientMotionDiv
@@ -41,13 +42,19 @@ export default function Hero24({ hero }: Hero24Fields) {
 
             {/* Badge */}
             {badge && (
-              <span className="mb-3 text-sm tracking-widest text-muted-foreground md:text-base">
+              <span
+                className={cn('mb-3 tracking-wide text-muted-foreground', 'text-sm md:text-base')}
+              >
                 {badge}
               </span>
             )}
 
             {/* Title */}
-            <h1 className="mt-4 text-balance text-4xl font-semibold lg:text-6xl">{title}</h1>
+            <h1
+              className={cn('mt-4 font-heading font-bold tracking-tight', 'text-4xl lg:text-6xl')}
+            >
+              {title}
+            </h1>
 
             {/* Button */}
             {links && (
@@ -79,8 +86,12 @@ export default function Hero24({ hero }: Hero24Fields) {
                 <div key={i} className="flex flex-col gap-3 bg-background p-5 md:gap-6">
                   <IconComponent className="size-6 shrink-0" />
                   <div>
-                    <h2 className="text-sm font-semibold md:text-base">{title}</h2>
-                    <p className="text-sm text-muted-foreground md:text-base">{description}</p>
+                    <h2 className={cn('font-sans font-semibold', 'text-sm md:text-base')}>
+                      {title}
+                    </h2>
+                    <p className={cn('text-muted-foreground', 'text-sm md:text-base')}>
+                      {description}
+                    </p>
                   </div>
                 </div>
               )

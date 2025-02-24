@@ -39,6 +39,7 @@ export const Services: CollectionConfig = {
     meta: { image: true, description: true },
   },
   admin: {
+    group: 'Content',
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) => {
@@ -92,11 +93,12 @@ export const Services: CollectionConfig = {
               required: true,
             },
             {
-              name: 'additionalImages',
-              type: 'array',
-              label: 'Additional Images',
-              labels: { singular: 'Image', plural: 'Images' },
-              fields: [{ name: 'image', type: 'upload', relationTo: 'media', required: false }],
+              name: 'serviceImages',
+              label: 'Service Images',
+              type: 'upload',
+              relationTo: 'media',
+              required: false,
+              hasMany: true,
             },
             {
               name: 'specifications',
@@ -120,6 +122,13 @@ export const Services: CollectionConfig = {
               admin: { position: 'sidebar' },
               hasMany: true,
               relationTo: 'categories',
+              filterOptions: () => {
+                return {
+                  type: {
+                    equals: 'service',
+                  },
+                }
+              },
             },
           ],
           label: 'Meta',
@@ -137,6 +146,12 @@ export const Services: CollectionConfig = {
             MetaImageField({ relationTo: 'media' }),
 
             MetaDescriptionField({}),
+            {
+              name: 'noindex',
+              label: 'If checked, the page will not be indexed by search engines',
+              type: 'checkbox',
+              defaultValue: false,
+            },
             PreviewField({
               // if the `generateUrl` function is configured
               hasGenerateFn: true,
