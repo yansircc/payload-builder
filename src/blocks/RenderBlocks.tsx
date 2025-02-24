@@ -15,6 +15,7 @@ import { RenderTestimonial } from '@/blocks/Testimonial/RenderTestimonial'
 import type { Page } from '@/payload-types'
 import { ColumnsBlock } from './ColumnBlock/RenderColumn'
 import { CtaSimpleBlock } from './CtaSimpleBlock/RenderCtaSimple'
+import { HTMLBlock } from './HTML/RenderTable'
 import { RenderLinkPopup } from './LinkPopupBlock/RenderLinkPopup'
 import { ListBlock } from './List/RenderList'
 import { TableBlock } from './Table/RenderTable'
@@ -25,6 +26,7 @@ const blockComponents = {
   archive: ArchiveBlock,
   content: ContentBlock,
   table: TableBlock,
+  html: HTMLBlock,
   cta: RenderCTA,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
