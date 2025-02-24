@@ -133,3 +133,45 @@ export async function getFooter(depth = 2): Promise<Footer | null> {
 
   return siteSettingsQuery.docs[0] || null
 }
+
+/**
+ * Retrieves the active widgets for the current tenant
+ * @param depth Depth of relationship population
+ * @returns Array of active widgets for the tenant
+ */
+export async function getWidgets(depth = 2) {
+  const payload = await getPayload({ config: configPromise })
+  const headersList = headers()
+  const host = (await headersList).get('host') || ''
+  const domain = host.split(':')[0]
+
+  // Find tenant by domain
+  const tenantQuery = await payload.find({
+    collection: 'tenants',
+    where: {
+      domain: {
+        equals: domain,
+      },
+    },
+  })
+
+  const tenant = tenantQuery.docs[0]
+
+  // Get active widgets for this tenant
+  const widgetsQuery = await payload.find({
+    collection: 'widgets',
+    where: {
+      and: [
+        {
+          tenant: {
+            equals: tenant?.id,
+          },
+        },
+      ],
+    },
+    depth,
+    limit: 1,
+  })
+
+  return widgetsQuery.docs[0] || null
+}

@@ -22,6 +22,7 @@ import { Tenants } from './collections/Tenants'
 import Users from './collections/Users'
 import { Footer } from './globals/Footer/config'
 import { Header } from './globals/Header/config'
+import Widgets from './globals/Widget/config'
 import { plugins } from './plugins'
 import { getServerSideURL } from './utilities/getURL'
 
@@ -67,6 +68,7 @@ export default buildConfig({
     ErrorLogs,
     Services,
     Products,
+    Widgets,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [],

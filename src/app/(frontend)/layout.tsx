@@ -14,6 +14,7 @@ import { inter, outfit } from '@/config/fonts'
 import { CustomCode } from '@/globals/CustomCode/Component'
 import { Favicon } from '@/globals/Favicon/Component'
 import { RenderHeader } from '@/globals/Header/RenderHeader'
+import { RenderWidget } from '@/globals/Widget/RenderWidget'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getServerSideURL } from '@/utilities/getURL'
 
@@ -43,6 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {customScripts?.bodyStartScripts}
           <RenderHeader />
           {children}
+          <RenderWidget type="whatsapp" />
           <RenderFooter />
           {customScripts?.bodyEndScripts}
         </Providers>
