@@ -498,6 +498,7 @@ export interface Category {
   id: string;
   tenant?: (string | null) | Tenant;
   title: string;
+  type: 'post' | 'product' | 'service';
   slug?: string | null;
   slugLock?: boolean | null;
   fullPath?: string | null;
@@ -2716,7 +2717,7 @@ export interface Product {
   tenant?: (string | null) | Tenant;
   title: string;
   heroImage?: (string | null) | Media;
-  content: {
+  description: {
     root: {
       type: string;
       children: {
@@ -2731,19 +2732,65 @@ export interface Product {
     };
     [k: string]: unknown;
   };
-  additionalImages?:
+  productImages?: (string | Media)[] | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  specifications?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  links?:
     | {
-        image?: (string | null) | Media;
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+        };
         id?: string | null;
       }[]
     | null;
-  specifications?:
-    | {
-        name: string;
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
+  relatedProducts?: (string | Product)[] | null;
   categories?: (string | Category)[] | null;
   meta?: {
     title?: string | null;
@@ -2793,12 +2840,7 @@ export interface Service {
     };
     [k: string]: unknown;
   };
-  additionalImages?:
-    | {
-        image?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
+  serviceImages?: (string | Media)[] | null;
   specifications?:
     | {
         name: string;
@@ -11642,6 +11684,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface CategoriesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
+  type?: T;
   slug?: T;
   slugLock?: T;
   fullPath?: T;
@@ -12904,12 +12947,7 @@ export interface ServicesSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
-  additionalImages?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
+  serviceImages?: T;
   specifications?:
     | T
     | {
@@ -12949,20 +12987,29 @@ export interface ProductsSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   heroImage?: T;
+  description?: T;
+  productImages?: T;
   content?: T;
-  additionalImages?:
+  specifications?: T;
+  links?:
     | T
     | {
-        image?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
         id?: T;
       };
-  specifications?:
-    | T
-    | {
-        name?: T;
-        description?: T;
-        id?: T;
-      };
+  relatedProducts?: T;
   categories?: T;
   meta?:
     | T

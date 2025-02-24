@@ -1,26 +1,28 @@
 import configPromise from '@payload-config'
+import { ChevronRight } from 'lucide-react'
 import { getPayload } from 'payload'
 import React, { cache } from 'react'
 import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
+import Link from 'next/link'
+import { CMSLink } from '@/components/Link'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Media } from '@/components/Media'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import RichText from '@/components/RichText'
-import { Card, CardContent } from '@/components/ui/card'
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
-import { PostHero } from '@/heros/components/PostHero'
-// import { ProductHero } from '@/heros/components/ProductHero'
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { Product } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getTenantFromDomain } from '@/utilities/getTenant'
+import { ImageGallery } from './ImageGallery'
 import PageClient from './page.client'
 
 export async function generateStaticParams() {
@@ -58,76 +60,131 @@ export default async function Product({ params: paramsPromise }: Args) {
   let product: Product | null = null
 
   if (tenant) {
-    // Then query the product with both slug and tenant
     product = await queryProductBySlugAndTenant({ slug, tenantId: tenant.id })
   }
 
   if (!product) return <PayloadRedirects url={url} />
 
   return (
-    <article className="pt-16 pb-16">
+    <div className="container mx-auto px-4 py-8 space-y-8">
       <PageClient />
-
-      {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
-
       {draft && <LivePreviewListener />}
 
-      <PostHero item={product} />
-
-      <div className="flex flex-col items-center gap-8 pt-8">
-        <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={product.content} enableGutter={false} />
-        </div>
-
-        {/* Specifications Table */}
-        {product.specifications && product.specifications.length > 0 && (
-          <div className="max-w-[48rem] w-full">
-            <h2 className="mb-6 text-2xl font-semibold">Specifications</h2>
-            <Card>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[200px]">Feature</TableHead>
-                    <TableHead>Details</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {product.specifications.map((spec, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">{spec.name}</TableCell>
-                      <TableCell>{spec.description}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Card>
-          </div>
+      {/* Breadcrumb Navigation */}
+      <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
+        <Link href="/products" className="hover:text-foreground transition-colors">
+          Products
+        </Link>
+        <ChevronRight className="h-4 w-4" />
+        {product.categories?.[0] && typeof product.categories?.[0] !== 'string' && (
+          <>
+            {product.categories?.[0]?.breadcrumbs?.map((crumb) => (
+              <React.Fragment key={crumb.url}>
+                <Link href={crumb.url || '#'} className="hover:text-foreground transition-colors">
+                  {crumb.label}
+                </Link>
+                <ChevronRight className="h-4 w-4" />
+              </React.Fragment>
+            ))}
+          </>
         )}
+        <span className="text-foreground">{product.title}</span>
+      </nav>
 
-        {/* Additional Images Gallery */}
-        {product.additionalImages && product.additionalImages.length > 0 && (
-          <div className="max-w-[48rem] w-full">
-            <h2 className="mb-6 text-2xl font-semibold">Product Gallery</h2>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {product.additionalImages.map((item, index) => (
-                <Card key={index} className="overflow-hidden">
-                  <CardContent className="p-0">
-                    {item.image && typeof item.image !== 'string' && (
-                      <Media
-                        resource={item.image}
-                        size="100vw"
-                        className="aspect-video w-full object-cover"
-                      />
-                    )}
-                  </CardContent>
-                </Card>
+      {/* Main Product Overview */}
+      <Card className="overflow-hidden bg-background">
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Left column: Product Gallery */}
+          <div className="p-8">
+            <ImageGallery heroImage={product.heroImage} productImages={product.productImages} />
+          </div>
+
+          {/* Right column: Product Details */}
+          <div className="space-y-6 p-8">
+            <CardHeader className="px-0 pt-0">
+              <CardTitle className="text-3xl font-bold">{product.title}</CardTitle>
+              <CardDescription>
+                {product.description && <RichText data={product.description} className="p-0" />}
+              </CardDescription>
+            </CardHeader>
+            <CardFooter className="px-0 pb-0 flex flex-row gap-2">
+              {product?.links?.map((linkGroup, index) => (
+                <div key={index} className="flex flex-row gap-2">
+                  {Object.entries(linkGroup).map(
+                    ([key, link]) =>
+                      link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                  )}
+                </div>
               ))}
-            </div>
+            </CardFooter>
           </div>
-        )}
-      </div>
-    </article>
+        </div>
+        {/* Product Details Tabs */}
+        <div className="container  mb-8">
+          <Tabs defaultValue="description" className="w-full">
+            <TabsList className="w-full justify-start border-b rounded-none h-auto p-0">
+              <TabsTrigger
+                value="description"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-background"
+              >
+                Description
+              </TabsTrigger>
+              {product.specifications && (
+                <TabsTrigger
+                  value="specifications"
+                  className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-background"
+                >
+                  Specifications
+                </TabsTrigger>
+              )}
+            </TabsList>
+            <TabsContent value="description" className="pt-6">
+              <div className="prose dark:prose-invert max-w-4xl">
+                {product.content && <RichText data={product.content} className="p-0" />}
+              </div>
+            </TabsContent>
+            {product.specifications && (
+              <TabsContent value="specifications" className="pt-6">
+                <div className="prose dark:prose-invert max-w-4xl">
+                  <RichText data={product.specifications} className="p-0" />
+                </div>
+              </TabsContent>
+            )}
+          </Tabs>
+        </div>
+      </Card>
+
+      {/* Related Products Section */}
+      {product.relatedProducts && product.relatedProducts.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Related Products</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {product.relatedProducts.map((relatedProduct, index) => {
+                if (typeof relatedProduct === 'string') return null
+                return (
+                  <Link href={`/products/${relatedProduct.slug}`} key={index} className="space-y-2">
+                    <div className="aspect-square relative">
+                      {relatedProduct.heroImage && typeof relatedProduct.heroImage !== 'string' && (
+                        <Media
+                          resource={relatedProduct.heroImage}
+                          size="100vw"
+                          imgClassName="rounded-lg aspect-square object-cover"
+                        />
+                      )}
+                    </div>
+                    <h3 className="font-semibold text-sm">{relatedProduct.title}</h3>
+                  </Link>
+                )
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </div>
   )
 }
 
@@ -169,6 +226,7 @@ const queryProductBySlugAndTenant = cache(
       draft,
       limit: 1,
       overrideAccess: draft,
+      depth: 2,
       pagination: false,
       where: {
         and: [
