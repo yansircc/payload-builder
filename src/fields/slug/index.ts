@@ -102,7 +102,6 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
             } catch (error) {
               console.error('Error fetching parent page:', error)
             }
-          } else {
           }
 
           return path

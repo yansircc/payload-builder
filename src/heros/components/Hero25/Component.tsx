@@ -1,4 +1,3 @@
-import { MoveRight } from 'lucide-react'
 import * as LucideIcons from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
@@ -14,7 +13,7 @@ export default function Hero25({ hero }: Hero25Fields) {
   const { logo, badge, features, title, links } = hero
 
   return (
-    <section className="py-32">
+    <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container">
         <div className="text-center">
           {/* Logo */}
@@ -46,7 +45,9 @@ export default function Hero25({ hero }: Hero25Fields) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h1 className="mt-4 text-balance text-4xl font-semibold lg:text-6xl">{title}</h1>
+            <h1 className="mt-4 text-4xl font-heading font-bold tracking-tight lg:text-6xl text-foreground">
+              {title}
+            </h1>
           </ClientMotionDiv>
 
           {/* CTA Buttons */}
