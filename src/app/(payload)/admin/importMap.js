@@ -27,6 +27,7 @@ import {
   ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   LinkFeatureClient as LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   ParagraphFeatureClient as ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  TableFeatureClient as TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
 } from '@payloadcms/richtext-lexical/client'
 import {
@@ -61,6 +62,7 @@ import { default as default_7b6acd409189b1157ea3f3dc4aa5c9c1 } from '@/blocks/Fe
 import { default as default_5de19ba5c66374d15b5a07492729dedb } from '@/blocks/Feature/components/Feature11/client'
 import { default as default_1fc36faed0e4c8f1264abd36c8fb4fb7 } from '@/blocks/Feature/components/Feature13/client'
 import { default as default_5fced7c97585950e9fc132dcb6389c5f } from '@/blocks/Feature/components/Feature15/client'
+import { TitleCell as TitleCell_bd13935b4668de9bcb77da705b112676 } from '@/collections/Pages/components/cells/TitleCell'
 import { default as default_1a7510af427896d367a49dbf838d2de6 } from '@/components/BeforeDashboard'
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { default as default_78b39f784b86cf844383560b5f1a85bf } from '@/components/ColorPicker/'
@@ -68,11 +70,14 @@ import { default as default_545a25a7f6f58e32e2350bd4892658ab } from '@/component
 import { default as default_aeea2462fad41415a04ffbf0a5f77d84 } from '@/components/Nav/WordpressMigration'
 import { DefaultRootView as DefaultRootView_a5b063f5b2b9cdce4f0e1dd9b2761872 } from '@/components/views/WordpressMigration/DefaultRootView'
 import { AIFeature as AIFeature_c86cb9794e8dfc789dceffc1ecbdea8d } from '@/fields/ai/client'
+import { FullPathCell as FullPathCell_e1b3b2f313a2a78029b930d3989bed10 } from '@/fields/slug/fullPath/cell'
 import { SlugComponent as SlugComponent_92cc057d0a2abb4f6cf0307edf59f986 } from '@/fields/slug/SlugComponent'
 
 export const importMap = {
   '@payloadcms/plugin-multi-tenant/client#TenantField':
     TenantField_1d0591e3cf4f332c83a86da13a0de59a,
+  '@/collections/Pages/components/cells/TitleCell#TitleCell':
+    TitleCell_bd13935b4668de9bcb77da705b112676,
   '@/components/IconSelect/#default': default_545a25a7f6f58e32e2350bd4892658ab,
   '@/blocks/About/components/About1/config.client.tsx#default':
     default_b128d0bd7c3a2b8021c74b08f7767dc4,
@@ -134,6 +139,7 @@ export const importMap = {
   '@payloadcms/plugin-seo/client#PreviewComponent':
     PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   '@/fields/slug/SlugComponent#SlugComponent': SlugComponent_92cc057d0a2abb4f6cf0307edf59f986,
+  '@/fields/slug/fullPath/cell#FullPathCell': FullPathCell_e1b3b2f313a2a78029b930d3989bed10,
   '@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient':
     HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   '@payloadcms/richtext-lexical/client#BlocksFeatureClient':
@@ -141,6 +147,8 @@ export const importMap = {
   '/collections/CustomCodes/components/ScriptRowLabel#default':
     default_a48147a5d9e361c38690affd82c29136,
   '@/components/ColorPicker/#default': default_78b39f784b86cf844383560b5f1a85bf,
+  '@payloadcms/richtext-lexical/client#TableFeatureClient':
+    TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   '@payloadcms/plugin-search/client#LinkToDoc': LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   '@payloadcms/plugin-search/client#ReindexButton': ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   '@payloadcms/plugin-multi-tenant/rsc#GlobalViewRedirect':

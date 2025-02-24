@@ -109,11 +109,42 @@ async function streamingAIRequest(
 }
 
 /**
+ * Gets the content from the previous line relative to the current node
+ */
+function getPreviousLineContent(currentNode: any): string {
+  let prevNode = currentNode.getPreviousSibling()
+
+  // If no previous sibling, try to get the last child of the previous parent
+  if (!prevNode) {
+    const parentNode = currentNode.getParent()
+    if (parentNode) {
+      prevNode = parentNode.getPreviousSibling()
+      if (prevNode) {
+        const lastChild = prevNode.getLastChild()
+        if (lastChild) {
+          prevNode = lastChild
+        }
+      }
+    }
+  }
+
+  return prevNode ? prevNode.getTextContent() : ''
+}
+
+/**
  * Gets the text content based on the current selection or editor state
  */
 function getEditorContent(selection: any, shouldGetAllContent = false): string {
   if (!shouldGetAllContent && selection.isCollapsed()) {
-    return selection.anchor.getNode().getTextContent()
+    const currentNode = selection.anchor.getNode()
+    const currentText = currentNode.getTextContent()
+
+    // If current line is empty, get content from previous line
+    if (!currentText || currentText.trim() === '') {
+      const previousContent = getPreviousLineContent(currentNode)
+      return previousContent
+    }
+    return currentText
   }
 
   if (!shouldGetAllContent) {

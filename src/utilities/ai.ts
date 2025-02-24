@@ -167,14 +167,68 @@ export async function getObjectStream<T extends z.ZodRawShape>({
 
 export type AIOption = 'continue' | 'improve' | 'shorter' | 'longer' | 'fix' | 'zap'
 
+interface CompanyContext {
+  brandIdentity?: string
+  otherBrandIdentity?: string
+  industryFocus?: string
+  otherIndustryFocus?: string
+  targetAudience?: string
+  secondaryAudiences?: string[]
+  audienceNotes?: string
+}
+
 interface AIRequestParams {
   prompt: string
   option: AIOption
   command?: string
   ip?: string
+  companyContext?: CompanyContext
 }
 
-export async function processAIRequest({ prompt, option, command, ip }: AIRequestParams) {
+function generateContextPrompt(companyContext?: CompanyContext): string {
+  if (!companyContext) return ''
+
+  const contextParts = []
+
+  if (companyContext.brandIdentity || companyContext.otherBrandIdentity) {
+    contextParts.push(
+      `Brand Identity: ${companyContext.otherBrandIdentity || companyContext.brandIdentity}`,
+    )
+  }
+
+  if (companyContext.industryFocus || companyContext.otherIndustryFocus) {
+    contextParts.push(
+      `Industry: ${companyContext.otherIndustryFocus || companyContext.industryFocus}`,
+    )
+  }
+
+  if (companyContext.targetAudience) {
+    contextParts.push(`Primary Audience: ${companyContext.targetAudience}`)
+  }
+
+  if (companyContext.secondaryAudiences?.length) {
+    contextParts.push(`Secondary Audiences: ${companyContext.secondaryAudiences.join(', ')}`)
+  }
+
+  if (companyContext.audienceNotes) {
+    contextParts.push(`Additional Context: ${companyContext.audienceNotes}`)
+  }
+
+  if (contextParts.length === 0) return ''
+
+  return `Consider the following company context while generating content:
+${contextParts.join('\n')}
+
+`
+}
+
+export async function processAIRequest({
+  prompt,
+  option,
+  command,
+  ip,
+  companyContext: providedCompanyContext,
+}: AIRequestParams) {
   const client = await getOpenAIClient()
 
   // Rate limiting
@@ -198,6 +252,29 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
     }
   }
 
+  // Get company context from site settings if not provided
+  let companyContext = providedCompanyContext
+  if (!companyContext) {
+    try {
+      const siteSettings = await getSiteSettingsFromCookie()
+      if (siteSettings) {
+        companyContext = {
+          brandIdentity: siteSettings.brandIdentity || undefined,
+          otherBrandIdentity: siteSettings.otherBrandIdentity || undefined,
+          industryFocus: siteSettings.industryFocus || undefined,
+          otherIndustryFocus: siteSettings.otherIndustryFocus || undefined,
+          targetAudience: siteSettings.targetAudience || undefined,
+          secondaryAudiences: siteSettings.secondaryAudiences || undefined,
+          audienceNotes: siteSettings.audienceNotes || undefined,
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching site settings:', error)
+    }
+  }
+
+  const contextPrompt = generateContextPrompt(companyContext)
+
   const messages = match(option)
     .with('continue', () => [
       {
@@ -206,7 +283,8 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
           'You are an AI writing assistant that continues existing text based on context from prior text. ' +
           'Give more weight/priority to the later characters than the beginning ones. ' +
           'Limit your response to no more than 200 characters, but make sure to construct complete sentences.' +
-          'Use Markdown formatting when appropriate.',
+          'Use Markdown formatting when appropriate.\n\n' +
+          contextPrompt,
       },
       {
         role: 'user',
@@ -219,7 +297,8 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
         content:
           'You are an AI writing assistant that improves existing text. ' +
           'Limit your response to no more than 200 characters, but make sure to construct complete sentences.' +
-          'Use Markdown formatting when appropriate.',
+          'Use Markdown formatting when appropriate.\n\n' +
+          contextPrompt,
       },
       {
         role: 'user',
@@ -231,7 +310,8 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
         role: 'system',
         content:
           'You are an AI writing assistant that shortens existing text. ' +
-          'Use Markdown formatting when appropriate.',
+          'Use Markdown formatting when appropriate.\n\n' +
+          contextPrompt,
       },
       {
         role: 'user',
@@ -243,7 +323,8 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
         role: 'system',
         content:
           'You are an AI writing assistant that lengthens existing text. ' +
-          'Use Markdown formatting when appropriate.',
+          'Use Markdown formatting when appropriate.\n\n' +
+          contextPrompt,
       },
       {
         role: 'user',
@@ -256,7 +337,8 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
         content:
           'You are an AI writing assistant that fixes grammar and spelling errors in existing text. ' +
           'Limit your response to no more than 200 characters, but make sure to construct complete sentences.' +
-          'Use Markdown formatting when appropriate.',
+          'Use Markdown formatting when appropriate.\n\n' +
+          contextPrompt,
       },
       {
         role: 'user',
@@ -268,8 +350,9 @@ export async function processAIRequest({ prompt, option, command, ip }: AIReques
         role: 'system',
         content:
           'You area an AI writing assistant that generates text based on a prompt. ' +
-          'You take an input from the user and a command for manipulating the text' +
-          'Use Markdown formatting when appropriate.',
+          'You take an input from the user and a command for manipulating the text. ' +
+          'Use Markdown formatting when appropriate.\n\n' +
+          contextPrompt,
       },
       {
         role: 'user',

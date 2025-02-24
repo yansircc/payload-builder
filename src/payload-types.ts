@@ -188,14 +188,6 @@ export interface Page {
   tenant?: (string | null) | Tenant;
   title: string;
   parent?: (string | null) | Page;
-  breadcrumbs?:
-    | {
-        doc?: (string | null) | Page;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   hero?: HeroField;
   layout: (
     | AboutBlock
@@ -226,6 +218,7 @@ export interface Page {
      */
     image?: (string | null) | Media;
     description?: string | null;
+    noindex?: boolean | null;
   };
   publishedAt?: string | null;
   slug?: string | null;
@@ -509,6 +502,7 @@ export interface Post {
      */
     image?: (string | null) | Media;
     description?: string | null;
+    noindex?: boolean | null;
   };
   publishedAt?: string | null;
   authors?: (string | User)[] | null;
@@ -533,6 +527,7 @@ export interface Category {
   id: string;
   tenant?: (string | null) | Tenant;
   title: string;
+  type: 'post' | 'product' | 'service';
   slug?: string | null;
   slugLock?: boolean | null;
   fullPath?: string | null;
@@ -2751,7 +2746,7 @@ export interface Product {
   tenant?: (string | null) | Tenant;
   title: string;
   heroImage?: (string | null) | Media;
-  content: {
+  description: {
     root: {
       type: string;
       children: {
@@ -2766,19 +2761,65 @@ export interface Product {
     };
     [k: string]: unknown;
   };
-  additionalImages?:
+  productImages?: (string | Media)[] | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  specifications?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  links?:
     | {
-        image?: (string | null) | Media;
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+        };
         id?: string | null;
       }[]
     | null;
-  specifications?:
-    | {
-        name: string;
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
+  relatedProducts?: (string | Product)[] | null;
   categories?: (string | Category)[] | null;
   meta?: {
     title?: string | null;
@@ -2787,6 +2828,7 @@ export interface Product {
      */
     image?: (string | null) | Media;
     description?: string | null;
+    noindex?: boolean | null;
   };
   publishedAt?: string | null;
   authors?: (string | User)[] | null;
@@ -2827,12 +2869,7 @@ export interface Service {
     };
     [k: string]: unknown;
   };
-  additionalImages?:
-    | {
-        image?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
+  serviceImages?: (string | Media)[] | null;
   specifications?:
     | {
         name: string;
@@ -2848,6 +2885,7 @@ export interface Service {
      */
     image?: (string | null) | Media;
     description?: string | null;
+    noindex?: boolean | null;
   };
   publishedAt?: string | null;
   authors?: (string | User)[] | null;
@@ -8086,41 +8124,43 @@ export interface CustomCode {
   /**
    * Add one or more scripts
    */
-  scripts: {
-    /**
-     * A descriptive name for this script
-     */
-    name?: string | null;
-    /**
-     * Select script type for optimized loading
-     */
-    type?: ('google-analytics' | 'google-tag-manager' | 'custom') | null;
-    /**
-     * Enter tracking ID (e.g., G-XXXXXXX for GA4, GTM-XXXXXX for GTM)
-     */
-    trackingId?: string | null;
-    /**
-     * Enter script code
-     */
-    code?: string | null;
-    /**
-     * Enable or disable this script
-     */
-    isEnabled?: boolean | null;
-    /**
-     * Where to place the script in the document
-     */
-    position?: ('head' | 'body-start' | 'body-end') | null;
-    /**
-     * How the script should be loaded
-     */
-    loadingStrategy?: ('sync' | 'async' | 'defer') | null;
-    /**
-     * Optional: URL pattern where this script should load (e.g., "/blog/*" or "/about"). Leave empty for all pages.
-     */
-    urlPattern?: string | null;
-    id?: string | null;
-  }[];
+  scripts?:
+    | {
+        /**
+         * A descriptive name for this script
+         */
+        name?: string | null;
+        /**
+         * Select script type for optimized loading
+         */
+        type?: ('google-analytics' | 'google-tag-manager' | 'custom') | null;
+        /**
+         * Enter tracking ID (e.g., G-XXXXXXX for GA4, GTM-XXXXXX for GTM)
+         */
+        trackingId?: string | null;
+        /**
+         * Enter script code
+         */
+        code?: string | null;
+        /**
+         * Enable or disable this script
+         */
+        isEnabled?: boolean | null;
+        /**
+         * Where to place the script in the document
+         */
+        position?: ('head' | 'body-start' | 'body-end') | null;
+        /**
+         * How the script should be loaded
+         */
+        loadingStrategy?: ('sync' | 'async' | 'defer') | null;
+        /**
+         * Optional: URL pattern where this script should load (e.g., "/blog/*" or "/about"). Leave empty for all pages.
+         */
+        urlPattern?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -8169,6 +8209,45 @@ export interface SiteSetting {
      */
     products?: ('grid' | 'list' | 'card') | null;
   };
+  /**
+   * Select the primary brand identity that best represents your website or company
+   */
+  brandIdentity: 'luxury' | 'professional' | 'casual' | 'tech-oriented' | 'creative' | 'traditional' | 'modern';
+  /**
+   * If your brand identity is not listed above, please specify
+   */
+  otherBrandIdentity?: string | null;
+  /**
+   * Select the primary industry your business operates in
+   */
+  industryFocus:
+    | 'saas'
+    | 'finance'
+    | 'fashion'
+    | 'technology'
+    | 'healthcare'
+    | 'education'
+    | 'ecommerce'
+    | 'manufacturing'
+    | 'other';
+  /**
+   * If your industry is not listed above, please specify
+   */
+  otherIndustryFocus?: string | null;
+  /**
+   * Select your primary target audience
+   */
+  targetAudience: 'startups' | 'corporate' | 'consumers' | 'small-business' | 'enterprise' | 'developers';
+  /**
+   * Select any secondary target audiences (optional)
+   */
+  secondaryAudiences?:
+    | ('startups' | 'corporate' | 'consumers' | 'small-business' | 'enterprise' | 'developers')[]
+    | null;
+  /**
+   * Any additional notes about your target audience (optional)
+   */
+  audienceNotes?: string | null;
   ai?: {
     /**
      * OpenAI API Key
@@ -8512,14 +8591,6 @@ export interface PagesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   parent?: T;
-  breadcrumbs?:
-    | T
-    | {
-        doc?: T;
-        url?: T;
-        label?: T;
-        id?: T;
-      };
   hero?: T | HeroFieldSelect<T>;
   layout?:
     | T
@@ -8551,6 +8622,7 @@ export interface PagesSelect<T extends boolean = true> {
         title?: T;
         image?: T;
         description?: T;
+        noindex?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -11546,6 +11618,7 @@ export interface PostsSelect<T extends boolean = true> {
         title?: T;
         image?: T;
         description?: T;
+        noindex?: T;
       };
   publishedAt?: T;
   authors?: T;
@@ -11663,6 +11736,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface CategoriesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
+  type?: T;
   slug?: T;
   slugLock?: T;
   fullPath?: T;
@@ -12886,6 +12960,13 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         services?: T;
         products?: T;
       };
+  brandIdentity?: T;
+  otherBrandIdentity?: T;
+  industryFocus?: T;
+  otherIndustryFocus?: T;
+  targetAudience?: T;
+  secondaryAudiences?: T;
+  audienceNotes?: T;
   ai?:
     | T
     | {
@@ -12918,12 +12999,7 @@ export interface ServicesSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
-  additionalImages?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
+  serviceImages?: T;
   specifications?:
     | T
     | {
@@ -12938,6 +13014,7 @@ export interface ServicesSelect<T extends boolean = true> {
         title?: T;
         image?: T;
         description?: T;
+        noindex?: T;
       };
   publishedAt?: T;
   authors?: T;
@@ -12962,20 +13039,29 @@ export interface ProductsSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   heroImage?: T;
+  description?: T;
+  productImages?: T;
   content?: T;
-  additionalImages?:
+  specifications?: T;
+  links?:
     | T
     | {
-        image?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
         id?: T;
       };
-  specifications?:
-    | T
-    | {
-        name?: T;
-        description?: T;
-        id?: T;
-      };
+  relatedProducts?: T;
   categories?: T;
   meta?:
     | T
@@ -12983,6 +13069,7 @@ export interface ProductsSelect<T extends boolean = true> {
         title?: T;
         image?: T;
         description?: T;
+        noindex?: T;
       };
   publishedAt?: T;
   authors?: T;
