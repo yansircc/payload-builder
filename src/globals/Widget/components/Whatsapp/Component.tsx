@@ -26,9 +26,13 @@ export const WhatsAppWidget = ({ whatsapp }: Widget) => {
               <span className="sr-only">Close chat</span>
             </button>
             <div className="flex items-center gap-3">
-              <Avatar className="h-12 w-12 border-2 border-white">
-                {whatsapp?.avatar && <Media resource={whatsapp.avatar} alt="Profile" />}
-              </Avatar>
+              {whatsapp?.avatar && (
+                <Media
+                  resource={whatsapp.avatar}
+                  alt="Profile"
+                  imgClassName="h-12 w-12 border-2 border-white rounded-full"
+                />
+              )}
               <div className="flex flex-col text-white">
                 <span className="text-xl font-semibold">{whatsapp?.name}</span>
                 <div className="flex items-center gap-2">
