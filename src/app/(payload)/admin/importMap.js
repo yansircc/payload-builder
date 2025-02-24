@@ -138,8 +138,8 @@ export const importMap = {
   '@payloadcms/plugin-seo/client#PreviewComponent':
     PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   '@/fields/slug/SlugComponent#SlugComponent': SlugComponent_92cc057d0a2abb4f6cf0307edf59f986,
-  '@/components/StaticPreview#default': default_451f87e9402710cb271a0a0c66065661,
   '@/fields/slug/fullPath/cell#FullPathCell': FullPathCell_e1b3b2f313a2a78029b930d3989bed10,
+  '@/components/StaticPreview#default': default_451f87e9402710cb271a0a0c66065661,
   '@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient':
     HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   '@payloadcms/richtext-lexical/client#BlocksFeatureClient':

@@ -2,6 +2,7 @@
 
 import { useField } from '@payloadcms/ui'
 import React from 'react'
+import Image from 'next/image'
 
 const StaticPreview: React.FC = () => {
   const { value: heroStyle } = useField<string>({ path: 'hero.style' })
@@ -33,17 +34,16 @@ const StaticPreview: React.FC = () => {
 
   return (
     <div style={{ textAlign: 'center', width: '100%', padding: '20px 0' }}>
-      <img
+      <Image
         src={imagePath}
         alt="Hero Preview"
+        width={500}
+        height={300}
         style={{
-          maxWidth: '100%',
-          width: 'auto',
-          height: 'auto',
-          maxHeight: '300px',
           borderRadius: '8px',
           boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         }}
+        priority
       />
     </div>
   )
