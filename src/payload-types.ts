@@ -79,6 +79,7 @@ export interface Config {
     'error-logs': ErrorLog;
     services: Service;
     products: Product;
+    widgets: Widget;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -104,6 +105,7 @@ export interface Config {
     'error-logs': ErrorLogsSelect<false> | ErrorLogsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
+    widgets: WidgetsSelect<false> | WidgetsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -2785,7 +2787,7 @@ export interface Product {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
         };
         id?: string | null;
       }[]
@@ -8244,6 +8246,39 @@ export interface ErrorLog {
   createdAt: string;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "widgets".
+ */
+export interface Widget {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  widgetType: 'whatsapp';
+  whatsapp?: {
+    /**
+     * The avatar of the WhatsApp widget
+     */
+    avatar?: (string | null) | Media;
+    /**
+     * The name of the WhatsApp widget
+     */
+    name: string;
+    /**
+     * The default message that will be pre-filled in WhatsApp
+     */
+    text: string;
+    /**
+     * Enter phone number with country code (e.g., +1234567890)
+     */
+    phoneNumber: string;
+    /**
+     * Control whether this widget is active or not
+     */
+    isActive?: boolean | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Manage the redirects for your site
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -8478,6 +8513,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'products';
         value: string | Product;
+      } | null)
+    | ({
+        relationTo: 'widgets';
+        value: string | Widget;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -13033,6 +13072,25 @@ export interface ProductsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "widgets_select".
+ */
+export interface WidgetsSelect<T extends boolean = true> {
+  tenant?: T;
+  widgetType?: T;
+  whatsapp?:
+    | T
+    | {
+        avatar?: T;
+        name?: T;
+        text?: T;
+        phoneNumber?: T;
+        isActive?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
