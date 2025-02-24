@@ -8040,41 +8040,43 @@ export interface CustomCode {
   /**
    * Add one or more scripts
    */
-  scripts: {
-    /**
-     * A descriptive name for this script
-     */
-    name?: string | null;
-    /**
-     * Select script type for optimized loading
-     */
-    type?: ('google-analytics' | 'google-tag-manager' | 'custom') | null;
-    /**
-     * Enter tracking ID (e.g., G-XXXXXXX for GA4, GTM-XXXXXX for GTM)
-     */
-    trackingId?: string | null;
-    /**
-     * Enter script code
-     */
-    code?: string | null;
-    /**
-     * Enable or disable this script
-     */
-    isEnabled?: boolean | null;
-    /**
-     * Where to place the script in the document
-     */
-    position?: ('head' | 'body-start' | 'body-end') | null;
-    /**
-     * How the script should be loaded
-     */
-    loadingStrategy?: ('sync' | 'async' | 'defer') | null;
-    /**
-     * Optional: URL pattern where this script should load (e.g., "/blog/*" or "/about"). Leave empty for all pages.
-     */
-    urlPattern?: string | null;
-    id?: string | null;
-  }[];
+  scripts?:
+    | {
+        /**
+         * A descriptive name for this script
+         */
+        name?: string | null;
+        /**
+         * Select script type for optimized loading
+         */
+        type?: ('google-analytics' | 'google-tag-manager' | 'custom') | null;
+        /**
+         * Enter tracking ID (e.g., G-XXXXXXX for GA4, GTM-XXXXXX for GTM)
+         */
+        trackingId?: string | null;
+        /**
+         * Enter script code
+         */
+        code?: string | null;
+        /**
+         * Enable or disable this script
+         */
+        isEnabled?: boolean | null;
+        /**
+         * Where to place the script in the document
+         */
+        position?: ('head' | 'body-start' | 'body-end') | null;
+        /**
+         * How the script should be loaded
+         */
+        loadingStrategy?: ('sync' | 'async' | 'defer') | null;
+        /**
+         * Optional: URL pattern where this script should load (e.g., "/blog/*" or "/about"). Leave empty for all pages.
+         */
+        urlPattern?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
