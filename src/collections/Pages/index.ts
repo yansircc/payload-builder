@@ -1,4 +1,4 @@
-import { createBreadcrumbsField, createParentField } from '@payloadcms/plugin-nested-docs'
+import { createParentField } from '@payloadcms/plugin-nested-docs'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -50,8 +50,9 @@ export const Pages: CollectionConfig<'pages'> = {
     fullPath: true,
   },
   admin: {
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'fullPath', '_status', 'updatedAt'],
     group: 'Content',
-    defaultColumns: ['title', 'fullPath', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
@@ -70,22 +71,32 @@ export const Pages: CollectionConfig<'pages'> = {
         collection: 'pages',
         req,
       }),
-    useAsTitle: 'title',
   },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
+      admin: {
+        components: {
+          Cell: {
+            path: '@/collections/Pages/components/cells/TitleCell#TitleCell',
+          },
+        },
+      },
     },
     createParentField('pages', {
       admin: {
         position: 'sidebar',
+        disableListColumn: true,
+        disableListFilter: true,
       },
-      filterOptions: ({ id }) => ({ id: { not_equals: id } }),
-    }),
-    createBreadcrumbsField('pages', {
-      label: 'Page Breadcrumbs',
+      filterOptions: ({ id }) => ({
+        id: { not_equals: id },
+        _status: {
+          equals: 'published',
+        },
+      }),
     }),
     {
       type: 'tabs',
@@ -93,6 +104,10 @@ export const Pages: CollectionConfig<'pages'> = {
         {
           fields: [HeroField],
           label: 'Hero',
+          admin: {
+            disableListColumn: true,
+            disableListFilter: true,
+          },
         },
         {
           fields: [
@@ -123,6 +138,8 @@ export const Pages: CollectionConfig<'pages'> = {
               required: true,
               admin: {
                 initCollapsed: true,
+                disableListColumn: true,
+                disableListFilter: true,
               },
             },
           ],
@@ -144,12 +161,22 @@ export const Pages: CollectionConfig<'pages'> = {
               relationTo: 'media',
             }),
             MetaDescriptionField({}),
+            {
+              name: 'noindex',
+              label: 'If checked, the page will not be indexed by search engines',
+              type: 'checkbox',
+              defaultValue: false,
+            },
             PreviewField({
               hasGenerateFn: true,
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
             }),
           ],
+          admin: {
+            disableListColumn: true,
+            disableListFilter: true,
+          },
         },
       ],
     },

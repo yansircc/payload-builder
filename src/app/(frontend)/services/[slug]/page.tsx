@@ -142,9 +142,21 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
       })
     : null
 
-  return generateMeta({ doc: service })
-}
+  const meta = generateMeta({ doc: service })
 
+  // Add robots meta tag if noindex is true
+  if (service?.meta?.noindex) {
+    return {
+      ...meta,
+      robots: {
+        index: false,
+        follow: true,
+      },
+    }
+  }
+
+  return meta
+}
 const queryServiceBySlugAndTenant = cache(
   async ({ slug, tenantId }: { slug: string; tenantId: string }) => {
     const { isEnabled: draft } = await draftMode()

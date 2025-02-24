@@ -138,6 +138,12 @@ export const Services: CollectionConfig = {
             MetaImageField({ relationTo: 'media' }),
 
             MetaDescriptionField({}),
+            {
+              name: 'noindex',
+              label: 'If checked, the page will not be indexed by search engines',
+              type: 'checkbox',
+              defaultValue: false,
+            },
             PreviewField({
               // if the `generateUrl` function is configured
               hasGenerateFn: true,

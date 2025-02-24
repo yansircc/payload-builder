@@ -160,14 +160,6 @@ export interface Page {
   tenant?: (string | null) | Tenant;
   title: string;
   parent?: (string | null) | Page;
-  breadcrumbs?:
-    | {
-        doc?: (string | null) | Page;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   hero?: HeroField;
   layout: (
     | AboutBlock
@@ -197,6 +189,7 @@ export interface Page {
      */
     image?: (string | null) | Media;
     description?: string | null;
+    noindex?: boolean | null;
   };
   publishedAt?: string | null;
   slug?: string | null;
@@ -480,6 +473,7 @@ export interface Post {
      */
     image?: (string | null) | Media;
     description?: string | null;
+    noindex?: boolean | null;
   };
   publishedAt?: string | null;
   authors?: (string | User)[] | null;
@@ -2758,6 +2752,7 @@ export interface Product {
      */
     image?: (string | null) | Media;
     description?: string | null;
+    noindex?: boolean | null;
   };
   publishedAt?: string | null;
   authors?: (string | User)[] | null;
@@ -2819,6 +2814,7 @@ export interface Service {
      */
     image?: (string | null) | Media;
     description?: string | null;
+    noindex?: boolean | null;
   };
   publishedAt?: string | null;
   authors?: (string | User)[] | null;
@@ -8509,14 +8505,6 @@ export interface PagesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   parent?: T;
-  breadcrumbs?:
-    | T
-    | {
-        doc?: T;
-        url?: T;
-        label?: T;
-        id?: T;
-      };
   hero?: T | HeroFieldSelect<T>;
   layout?:
     | T
@@ -8547,6 +8535,7 @@ export interface PagesSelect<T extends boolean = true> {
         title?: T;
         image?: T;
         description?: T;
+        noindex?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -11533,6 +11522,7 @@ export interface PostsSelect<T extends boolean = true> {
         title?: T;
         image?: T;
         description?: T;
+        noindex?: T;
       };
   publishedAt?: T;
   authors?: T;
@@ -12932,6 +12922,7 @@ export interface ServicesSelect<T extends boolean = true> {
         title?: T;
         image?: T;
         description?: T;
+        noindex?: T;
       };
   publishedAt?: T;
   authors?: T;
@@ -12977,6 +12968,7 @@ export interface ProductsSelect<T extends boolean = true> {
         title?: T;
         image?: T;
         description?: T;
+        noindex?: T;
       };
   publishedAt?: T;
   authors?: T;
