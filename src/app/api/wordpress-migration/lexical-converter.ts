@@ -1,12 +1,18 @@
+import configPromise from '@payload-config'
 import { JSDOM } from 'jsdom'
 import { ObjectId } from 'mongodb'
+import { getPayload } from 'payload'
+import { getTenantFromCookie } from '@/utilities/getTenant'
 import {
+  ImageNode,
+  LexicalBlockNode,
   LexicalHeadingNode,
   LexicalLinkNode,
   LexicalNode,
   LexicalParagraphNode,
   LexicalTextNode,
   RichTextContent,
+  UploadFile,
 } from './types'
 
 function cleanWordPressContent(text: string): string {
@@ -35,11 +41,70 @@ function isLexicalTextNode(node: LexicalNode): node is LexicalTextNode {
   return node.type === 'text'
 }
 
-export function parseHTMLToLexical(html: string): RichTextContent {
+async function fetchFileByURL(url: string): Promise<UploadFile> {
+  const res = await fetch(url, { credentials: 'include', method: 'GET' })
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch file from ${url}, status: ${res.status}`)
+  }
+
+  const data = await res.arrayBuffer()
+
+  // Get the extension from the URL or default to jpg
+  const extension = url.split('.').pop()?.toLowerCase() || 'jpg'
+
+  // Generate random filename: timestamp + 6 random chars + extension
+  const randomStr = Math.random().toString(36).substring(2, 8)
+  const filename = `${Date.now()}-${randomStr}.${extension}`
+
+  return {
+    name: filename,
+    data: Buffer.from(data),
+    mimetype: `image/${extension}`,
+    size: data.byteLength,
+  }
+}
+
+async function processImageNode(node: ImageNode): Promise<LexicalBlockNode> {
+  try {
+    const tenant = await getTenantFromCookie()
+    const payload = await getPayload({ config: configPromise })
+
+    const file = await fetchFileByURL(node.src)
+
+    const media = await payload.create({
+      collection: 'media',
+      data: {
+        tenant: tenant,
+        alt: node.alt,
+      },
+      file: file,
+    })
+
+    const mediaBlock = {
+      type: 'block',
+      version: 2,
+      format: '',
+      fields: {
+        id: new ObjectId().toString(),
+        media: media.id,
+        blockName: '',
+        blockType: 'mediaBlock',
+      },
+    } as any
+
+    return mediaBlock
+  } catch (error) {
+    console.error('Failed to process image:', error)
+    throw error // Let the error propagate up to be handled by the caller
+  }
+}
+
+export async function parseHTMLToLexical(html: string): Promise<RichTextContent> {
   const dom = new JSDOM(html)
   const doc = dom.window.document
 
-  function convertNodeToLexical(node: Node): LexicalNode | null {
+  async function convertNodeToLexical(node: Node): Promise<LexicalNode | null> {
     if (node.nodeType === doc.TEXT_NODE) {
       const cleanedText = cleanWordPressContent(node.textContent || '')
       if (!cleanedText) {
@@ -68,9 +133,11 @@ export function parseHTMLToLexical(html: string): RichTextContent {
 
     if (node.nodeType === doc.ELEMENT_NODE) {
       const element = node as Element
-      const children = Array.from(node.childNodes)
-        .map((n) => convertNodeToLexical(n as Node))
-        .filter((n): n is LexicalNode => n !== null)
+
+      const childPromises = Array.from(node.childNodes).map((n) => convertNodeToLexical(n as Node))
+      const children = (await Promise.all(childPromises)).filter(
+        (n): n is LexicalNode => n !== null,
+      )
 
       switch (element.tagName.toLowerCase()) {
         case 'h1':
@@ -247,6 +314,25 @@ export function parseHTMLToLexical(html: string): RichTextContent {
           }
           return linkNode
         }
+        case 'img': {
+          const src = element.getAttribute('src')
+          const alt = element.getAttribute('alt') || ''
+
+          if (!src) return null
+
+          const imageNode: ImageNode = {
+            type: 'image',
+            src,
+            alt,
+          }
+          try {
+            const result = await processImageNode(imageNode)
+            return result
+          } catch (error) {
+            console.error('Failed to process image:', src, error)
+            return null
+          }
+        }
         default: {
           const cleanedText = cleanWordPressContent(element.textContent || '')
           if (!cleanedText && !children.length) {
@@ -281,9 +367,12 @@ export function parseHTMLToLexical(html: string): RichTextContent {
     return null
   }
 
-  const bodyContent = Array.from(doc.body.childNodes)
-    .map((n) => convertNodeToLexical(n as Node))
-    .filter((n): n is LexicalNode => n !== null)
+  const bodyContentPromises = Array.from(doc.body.childNodes).map((n) =>
+    convertNodeToLexical(n as Node),
+  )
+  const bodyContent = (await Promise.all(bodyContentPromises)).filter(
+    (n): n is LexicalNode => n !== null,
+  )
 
   if (bodyContent.length === 0) {
     bodyContent.push({
@@ -307,14 +396,15 @@ export function parseHTMLToLexical(html: string): RichTextContent {
     })
   }
 
-  return {
+  const result: RichTextContent = {
     root: {
-      type: 'root',
+      type: 'root' as const,
       children: bodyContent,
-      direction: 'ltr',
-      format: '',
+      direction: 'ltr' as const,
+      format: '' as const,
       indent: 0,
       version: 1,
     },
   }
+  return result
 }

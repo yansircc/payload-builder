@@ -91,3 +91,16 @@ export interface MigrationResult {
   newId?: string
   error?: string
 }
+
+export interface UploadFile {
+  name: string
+  data: Buffer
+  mimetype: string
+  size: number
+}
+
+export interface ImageNode {
+  type: 'image'
+  src: string
+  alt: string
+}

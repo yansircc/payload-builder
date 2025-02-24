@@ -54,7 +54,7 @@ export class WordPressMigrationService {
       collection: 'posts',
       data: {
         title: post.post_title,
-        content: parseHTMLToLexical(post.post_content),
+        content: await parseHTMLToLexical(post.post_content),
         _status: 'published',
         slug: post.post_name,
         createdAt: new Date(post.post_date).toISOString(),
