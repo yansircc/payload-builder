@@ -8127,6 +8127,45 @@ export interface SiteSetting {
      */
     products?: ('grid' | 'list' | 'card') | null;
   };
+  /**
+   * Select the primary brand identity that best represents your website or company
+   */
+  brandIdentity: 'luxury' | 'professional' | 'casual' | 'tech-oriented' | 'creative' | 'traditional' | 'modern';
+  /**
+   * If your brand identity is not listed above, please specify
+   */
+  otherBrandIdentity?: string | null;
+  /**
+   * Select the primary industry your business operates in
+   */
+  industryFocus:
+    | 'saas'
+    | 'finance'
+    | 'fashion'
+    | 'technology'
+    | 'healthcare'
+    | 'education'
+    | 'ecommerce'
+    | 'manufacturing'
+    | 'other';
+  /**
+   * If your industry is not listed above, please specify
+   */
+  otherIndustryFocus?: string | null;
+  /**
+   * Select your primary target audience
+   */
+  targetAudience: 'startups' | 'corporate' | 'consumers' | 'small-business' | 'enterprise' | 'developers';
+  /**
+   * Select any secondary target audiences (optional)
+   */
+  secondaryAudiences?:
+    | ('startups' | 'corporate' | 'consumers' | 'small-business' | 'enterprise' | 'developers')[]
+    | null;
+  /**
+   * Any additional notes about your target audience (optional)
+   */
+  audienceNotes?: string | null;
   ai?: {
     /**
      * OpenAI API Key
@@ -12834,6 +12873,13 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         services?: T;
         products?: T;
       };
+  brandIdentity?: T;
+  otherBrandIdentity?: T;
+  industryFocus?: T;
+  otherIndustryFocus?: T;
+  targetAudience?: T;
+  secondaryAudiences?: T;
+  audienceNotes?: T;
   ai?:
     | T
     | {

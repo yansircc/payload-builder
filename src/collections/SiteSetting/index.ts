@@ -7,6 +7,37 @@ const archiveStyleOptions = [
   { label: 'Card', value: 'card' },
 ]
 
+const brandIdentityOptions = [
+  { label: 'Luxury', value: 'luxury' },
+  { label: 'Professional', value: 'professional' },
+  { label: 'Casual', value: 'casual' },
+  { label: 'Tech-oriented', value: 'tech-oriented' },
+  { label: 'Creative', value: 'creative' },
+  { label: 'Traditional', value: 'traditional' },
+  { label: 'Modern', value: 'modern' },
+]
+
+const industryFocusOptions = [
+  { label: 'SaaS', value: 'saas' },
+  { label: 'Finance', value: 'finance' },
+  { label: 'Fashion', value: 'fashion' },
+  { label: 'Technology', value: 'technology' },
+  { label: 'Healthcare', value: 'healthcare' },
+  { label: 'Education', value: 'education' },
+  { label: 'E-commerce', value: 'ecommerce' },
+  { label: 'Manufacturing', value: 'manufacturing' },
+  { label: 'Other', value: 'other' },
+]
+
+const targetAudienceOptions = [
+  { label: 'Startups', value: 'startups' },
+  { label: 'Corporate Clients', value: 'corporate' },
+  { label: 'General Consumers', value: 'consumers' },
+  { label: 'Small Businesses', value: 'small-business' },
+  { label: 'Enterprise', value: 'enterprise' },
+  { label: 'Developers', value: 'developers' },
+]
+
 export const SiteSettings: CollectionConfig = {
   slug: 'site-settings',
   labels: {
@@ -130,6 +161,75 @@ export const SiteSettings: CollectionConfig = {
                   },
                 },
               ],
+            },
+          ],
+        },
+        {
+          label: 'Company Information',
+          fields: [
+            {
+              name: 'brandIdentity',
+              type: 'select',
+              label: 'Brand Identity',
+              options: brandIdentityOptions,
+              required: true,
+              admin: {
+                description:
+                  'Select the primary brand identity that best represents your website or company',
+              },
+            },
+            {
+              name: 'otherBrandIdentity',
+              type: 'text',
+              admin: {
+                description: 'If your brand identity is not listed above, please specify',
+              },
+            },
+            {
+              name: 'industryFocus',
+              type: 'select',
+              label: 'Industry Focus',
+              options: industryFocusOptions,
+              required: true,
+              admin: {
+                description: 'Select the primary industry your business operates in',
+              },
+            },
+            {
+              name: 'otherIndustryFocus',
+              type: 'text',
+              admin: {
+                description: 'If your industry is not listed above, please specify',
+                condition: (data, siblingData) => siblingData?.industryFocus === 'other',
+              },
+            },
+            {
+              name: 'targetAudience',
+              type: 'select',
+              label: 'Primary Target Audience',
+              options: targetAudienceOptions,
+              required: true,
+              admin: {
+                description: 'Select your primary target audience',
+              },
+            },
+            {
+              name: 'secondaryAudiences',
+              type: 'select',
+              label: 'Secondary Target Audiences',
+              options: targetAudienceOptions,
+              hasMany: true,
+              admin: {
+                description: 'Select any secondary target audiences (optional)',
+              },
+            },
+            {
+              name: 'audienceNotes',
+              type: 'textarea',
+              label: 'Additional Audience Notes',
+              admin: {
+                description: 'Any additional notes about your target audience (optional)',
+              },
             },
           ],
         },

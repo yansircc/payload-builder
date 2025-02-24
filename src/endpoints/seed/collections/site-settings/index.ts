@@ -25,6 +25,9 @@ export async function seedSiteSettings({
           products: 'grid',
           services: 'grid',
         },
+        brandIdentity: 'luxury',
+        industryFocus: 'fashion',
+        targetAudience: 'corporate',
       },
     }),
     payload.create({
@@ -40,6 +43,9 @@ export async function seedSiteSettings({
           products: 'grid',
           services: 'grid',
         },
+        brandIdentity: 'luxury',
+        industryFocus: 'fashion',
+        targetAudience: 'corporate',
       },
     }),
     payload.create({
@@ -55,6 +61,9 @@ export async function seedSiteSettings({
           products: 'grid',
           services: 'grid',
         },
+        brandIdentity: 'luxury',
+        industryFocus: 'fashion',
+        targetAudience: 'corporate',
       },
     }),
   ])
