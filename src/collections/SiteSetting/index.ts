@@ -120,6 +120,21 @@ export const SiteSettings: CollectionConfig = {
                 },
               ],
             },
+            {
+              name: 'blacklistCountries',
+              type: 'select',
+              label: 'Blacklist Countries',
+              options: [
+                { label: 'United States', value: 'us' },
+                { label: 'Canada', value: 'ca' },
+                { label: 'United Kingdom', value: 'uk' },
+                // Add more countries as needed
+              ],
+              hasMany: true,
+              admin: {
+                description: 'Select countries to blacklist from accessing the site',
+              },
+            },
           ],
         },
         {

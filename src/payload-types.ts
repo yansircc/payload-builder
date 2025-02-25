@@ -2785,7 +2785,7 @@ export interface Product {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
         };
         id?: string | null;
       }[]
@@ -8153,6 +8153,10 @@ export interface SiteSetting {
      */
     robotsTxtContent?: string | null;
   };
+  /**
+   * Select countries to blacklist from accessing the site
+   */
+  blacklistCountries?: ('us' | 'ca' | 'uk')[] | null;
   archiveStyles?: {
     /**
      * Select the layout style for the posts archive page
@@ -12901,6 +12905,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         allowIndexing?: T;
         robotsTxtContent?: T;
       };
+  blacklistCountries?: T;
   archiveStyles?:
     | T
     | {
