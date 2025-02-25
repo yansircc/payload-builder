@@ -3,7 +3,6 @@
 import { X } from 'lucide-react'
 import { useState } from 'react'
 import { Media } from '@/components/Media'
-import { Avatar } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
 import { Widget } from '@/payload-types'
 

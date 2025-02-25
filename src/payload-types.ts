@@ -8252,7 +8252,7 @@ export interface ErrorLog {
 export interface Widget {
   id: string;
   tenant?: (string | null) | Tenant;
-  widgetType: 'whatsapp';
+  widgetType: 'whatsapp' | 'consentBanner';
   whatsapp?: {
     /**
      * The avatar of the WhatsApp widget
@@ -8272,6 +8272,32 @@ export interface Widget {
     phoneNumber: string;
     /**
      * Control whether this widget is active or not
+     */
+    isActive?: boolean | null;
+  };
+  consentBanner?: {
+    /**
+     * The title of the consent banner
+     */
+    title: string;
+    /**
+     * The main text content of the consent banner
+     */
+    description: string;
+    /**
+     * Text to display on the accept button
+     */
+    acceptButtonText: string;
+    /**
+     * Text to display on the reject button
+     */
+    rejectButtonText: string;
+    /**
+     * Link to your privacy policy (optional)
+     */
+    privacyPolicyLink?: string | null;
+    /**
+     * Control whether this consent banner is active or not
      */
     isActive?: boolean | null;
   };
@@ -13087,6 +13113,16 @@ export interface WidgetsSelect<T extends boolean = true> {
         name?: T;
         text?: T;
         phoneNumber?: T;
+        isActive?: T;
+      };
+  consentBanner?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        acceptButtonText?: T;
+        rejectButtonText?: T;
+        privacyPolicyLink?: T;
         isActive?: T;
       };
   updatedAt?: T;
