@@ -3,7 +3,6 @@
 import { X } from 'lucide-react'
 import { useState } from 'react'
 import { Media } from '@/components/Media'
-import { Avatar } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
 import { Widget } from '@/payload-types'
 
@@ -45,7 +44,7 @@ export const WhatsAppWidget = ({ whatsapp }: Widget) => {
           <div className="bg-[#E5DDD5] bg-opacity-30 p-4">
             <div className="mb-4 space-y-2">
               <div className="w-fit max-w-[80%] rounded-lg bg-white p-3 shadow-sm">
-                <p>{whatsapp?.text}</p>
+                <p className="text-black">{whatsapp?.text}</p>
               </div>
             </div>
             <a
