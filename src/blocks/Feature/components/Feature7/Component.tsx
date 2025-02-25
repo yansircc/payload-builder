@@ -5,7 +5,7 @@ import { Feature7Fields } from '@/payload-types'
 
 export default function Feature7({ title, description, icon, image, features }: Feature7Fields) {
   return (
-    <section className="relative overflow-hidden bg-background py-16 md:py-24">
+    <section className="relative overflow-hidden  py-16 md:py-24">
       <ThemeEffect />
       <div className="container relative z-10">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
@@ -32,8 +32,8 @@ export default function Feature7({ title, description, icon, image, features }: 
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <span className="flex size-12 items-center justify-center rounded-full bg-accent">
-                  <DynamicIcon name={icon} className="size-6" />
+                <span className="flex size-12 items-center justify-center rounded-full bg-card/80">
+                  <DynamicIcon name={icon} className="size-6 text-primary" />
                 </span>
               </ClientMotionDiv>
             )}
@@ -43,7 +43,9 @@ export default function Feature7({ title, description, icon, image, features }: 
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h1 className="my-6 text-pretty text-3xl font-bold lg:text-4xl">{title}</h1>
+              <h1 className="my-6 text-pretty text-3xl font-bold lg:text-4xl text-muted-foreground">
+                {title}
+              </h1>
               <p className="mb-8 max-w-xl text-muted-foreground lg:text-lg">{description}</p>
             </ClientMotionDiv>
 
@@ -62,7 +64,10 @@ export default function Feature7({ title, description, icon, image, features }: 
                       transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
                     >
                       <li className="flex items-center gap-3">
-                        <DynamicIcon name={item.icon || 'CheckCircle'} className="size-6" />
+                        <DynamicIcon
+                          name={item.icon || 'CheckCircle'}
+                          className="size-6 text-primary"
+                        />
                         <p className="text-muted-foreground lg:text-lg">{item.title}</p>
                       </li>
                     </ClientMotionDiv>
@@ -74,7 +79,6 @@ export default function Feature7({ title, description, icon, image, features }: 
         </div>
       </div>
 
-      {/* Decorative background */}
       <div className="absolute left-1/2 top-0 -z-10 h-full w-full -translate-x-1/2">
         <div className="absolute inset-0 bg-gradient-to-tr from-background/80 via-background/60 to-background/20" />
       </div>

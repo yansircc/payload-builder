@@ -49,10 +49,7 @@ export default function Feature1({ title, description, icon, image, buttonGroup 
                     <CMSLink
                       {...linkGroup.link}
                       className="px-6 py-3 rounded-lg font-medium transition-all
-            bg-card/100 hover:bg-card/20 text-foreground 
-            [.theme-neon_&]:bg-primary/80 [.theme-neon_&]:hover:bg-primary/90 [.theme-neon_&]:text-white
-            [.theme-dark_&]:bg-white/10 [.theme-dark_&]:hover:bg-white/20 [.theme-dark_&]:text-white
-            [.theme-light_&]:bg-black/10 [.theme-light_&]:hover:bg-black/20 [.theme-light_&]:text-black"
+                        bg-card/100 text-foreground hover:bg-primary/20"
                     />
                   </div>
                 ))}

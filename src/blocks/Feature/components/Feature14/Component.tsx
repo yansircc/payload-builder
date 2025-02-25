@@ -31,7 +31,7 @@ export default function Feature14({ features }: Feature14Fields) {
                 {feature.image && (
                   <Media resource={feature.image} imgClassName="h-full w-full object-cover" />
                 )}
-                <span className="absolute left-5 top-5 flex size-6 items-center justify-center rounded-sm bg-primary font-mono text-xs text-primary-foreground md:left-10 md:top-10">
+                <span className="absolute left-5 top-5 flex size-6 items-center justify-center rounded-sm bg-card/100 font-mono text-xs text-foreground md:left-10 md:top-10">
                   {String(index + 1).padStart(2, '0')}
                 </span>
               </div>

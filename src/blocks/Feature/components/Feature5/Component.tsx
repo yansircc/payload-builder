@@ -29,11 +29,13 @@ export default function Feature5({ features, testimonial }: Feature5Fields) {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                       >
-                        <DynamicIcon name={item.icon} className="mb-1 w-7" />
+                        <DynamicIcon name={item.icon} className="mb-1 w-7 text-primary" />
                       </ClientMotionDiv>
                     )}
-                    <h2 className="mb-1 mt-4 text-lg font-semibold">{item.title}</h2>
-                    <p className="text-muted-foreground">{item.description}</p>
+                    <h2 className="mb-1 mt-4 text-lg font-semibold text-foreground">
+                      {item.title}
+                    </h2>
+                    <p className="text-foreground">{item.description}</p>
                   </div>
                   {item.image && (
                     <ClientMotionDiv
