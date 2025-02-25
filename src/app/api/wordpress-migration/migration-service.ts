@@ -21,12 +21,22 @@ export class WordPressMigrationService {
       for (const post of posts) {
         if (post.post_type === 'post') {
           try {
-            const newPost = await this.createPost(post)
-            results.push({
-              success: true,
-              id: post.ID,
-              newId: newPost.id,
-            })
+            const result = await this.createPost(post)
+
+            if (result.skipped) {
+              results.push({
+                success: true,
+                id: post.ID,
+                skipped: true,
+                existingId: result.existingId,
+              })
+            } else {
+              results.push({
+                success: true,
+                id: post.ID,
+                newId: result.newId,
+              })
+            }
           } catch (err) {
             const error = err as Error
             results.push({
@@ -49,8 +59,41 @@ export class WordPressMigrationService {
     }
   }
 
-  private async createPost(post: WordPressPost) {
-    return this.payload.create({
+  private async createPost(post: WordPressPost): Promise<{
+    skipped: boolean
+    existingId?: string
+    newId?: string
+  }> {
+    // Check if a post with the same slug already exists
+    const existingPosts = await this.payload.find({
+      collection: 'posts',
+      where: {
+        and: [
+          {
+            slug: {
+              equals: post.post_name,
+            },
+          },
+          {
+            tenant: {
+              equals: this.tenant,
+            },
+          },
+        ],
+      },
+    })
+
+    // If a post with the same slug exists, skip creation
+    if (existingPosts.docs.length > 0 && existingPosts.docs[0]) {
+      const existingPost = existingPosts.docs[0]
+      return {
+        skipped: true,
+        existingId: existingPost.id as string,
+      }
+    }
+
+    // Create new post if no duplicate found
+    const newPost = await this.payload.create({
       collection: 'posts',
       data: {
         title: post.post_title,
@@ -61,5 +104,10 @@ export class WordPressMigrationService {
         tenant: this.tenant,
       },
     })
+
+    return {
+      skipped: false,
+      newId: newPost.id as string,
+    }
   }
 }

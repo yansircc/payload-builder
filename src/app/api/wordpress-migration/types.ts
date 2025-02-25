@@ -90,6 +90,8 @@ export interface MigrationResult {
   id: string
   newId?: string
   error?: string
+  skipped?: boolean
+  existingId?: string
 }
 
 export interface UploadFile {
