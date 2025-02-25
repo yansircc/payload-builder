@@ -16,7 +16,7 @@ export default function Feature6({ title, description, icon, image, features }: 
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <span className="flex size-12 items-center justify-center rounded-full bg-accent">
+                <span className="flex text-foreground size-12 items-center justify-center rounded-full bg-accent">
                   <DynamicIcon name={icon} className="size-6" />
                 </span>
               </ClientMotionDiv>

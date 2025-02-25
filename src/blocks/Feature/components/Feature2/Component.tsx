@@ -35,10 +35,7 @@ export default function Feature2({ title, description, icon, image, buttonGroup 
                 transition={{ duration: 0.5 }}
               >
                 <span className="flex size-12 items-center justify-center rounded-full bg-card/10">
-                  <DynamicIcon
-                    name={icon}
-                    className="size-6 text-foreground [.theme-neon_&]:text-black"
-                  />
+                  <DynamicIcon name={icon} className="size-6 text-mute-foreground" />
                 </span>
               </ClientMotionDiv>
             )}
