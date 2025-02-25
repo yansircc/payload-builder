@@ -82,6 +82,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "countries-list": "^3.1.1",
     "cross-env": "^7.0.3",
     "date-fns": "^4.1.0",
     "embla-carousel-auto-scroll": "^8.5.2",
