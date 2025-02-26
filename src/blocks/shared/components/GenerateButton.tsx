@@ -28,7 +28,12 @@ export function GenerateButton({ onGenerate }: GenerateButtonProps) {
   }
 
   return (
-    <Button onClick={handleClick} disabled={isLoading} icon={<SparklesIcon />}>
+    <Button
+      className="bg-card/10"
+      onClick={handleClick}
+      disabled={isLoading}
+      icon={<SparklesIcon />}
+    >
       {isLoading ? 'Generating...' : 'AI Generate'}
     </Button>
   )
