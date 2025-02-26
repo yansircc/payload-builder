@@ -62,8 +62,7 @@ export const VideoBlock: React.FC<Props> = ({ className, videoType, url, caption
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="w-8 h-8"
-                style={{ marginLeft: '2px' }}
+                className="w-8 h-8 ml-0.5"
               >
                 <path d="M8 5v14l11-7z" />
               </svg>
@@ -79,7 +78,7 @@ export const VideoBlock: React.FC<Props> = ({ className, videoType, url, caption
         />
       ) : null}
 
-      {caption && <p className="text-sm text-gray-600 mt-2">{caption}</p>}
+      {caption && <p className="text-sm text-gray-600 mt-2 text-center">{caption}</p>}
     </div>
   )
 }
