@@ -86,45 +86,50 @@ export const SiteSettings: CollectionConfig = {
                 description: 'SEO description for homepage (recommended: 150-160 characters)',
               },
             },
+          ],
+        },
+        {
+          label: 'Appearance',
+          fields: [
             {
-              name: 'favicon',
-              type: 'upload',
-              relationTo: 'media',
-              required: false,
-              admin: { description: 'Upload your site favicon (recommended size: 32x32 or 16x16)' },
-            },
-            {
-              name: 'logo',
-              type: 'upload',
-              relationTo: 'media',
-              required: false,
-              admin: { description: 'Upload your site logo' },
-            },
-            {
-              name: 'searchEngineVisibility',
+              name: 'siteIdentity',
               type: 'group',
+              label: 'Site Identity',
               fields: [
                 {
-                  name: 'allowIndexing',
-                  type: 'checkbox',
-                  defaultValue: true,
-                  label: 'Allow search engines to index this site',
+                  name: 'favicon',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: false,
+                  admin: {
+                    description: 'Upload your site favicon (recommended size: 32x32 or 16x16)',
+                  },
                 },
                 {
-                  name: 'robotsTxtContent',
-                  type: 'textarea',
+                  name: 'logo',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: false,
+                  admin: { description: 'Upload your site logo' },
+                },
+              ],
+            },
+            {
+              name: 'notFoundSettings',
+              type: 'group',
+              label: '404 Page Settings',
+              fields: [
+                {
+                  name: 'custom404Page',
+                  type: 'relationship',
+                  relationTo: 'pages',
+                  hasMany: false,
                   admin: {
-                    description: 'Custom robots.txt content (optional)',
-                    condition: (data, siblingData) => !siblingData.allowIndexing,
+                    description: 'Select a page to use as the custom 404 page for this tenant',
                   },
                 },
               ],
             },
-          ],
-        },
-        {
-          label: 'Theme',
-          fields: [
             {
               name: 'archiveStyles',
               type: 'group',
@@ -158,6 +163,32 @@ export const SiteSettings: CollectionConfig = {
                   options: archiveStyleOptions,
                   admin: {
                     description: 'Select the layout style for the products archive page',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'SEO & Analytics',
+          fields: [
+            {
+              name: 'searchEngineVisibility',
+              type: 'group',
+              label: 'Search Engine Visibility',
+              fields: [
+                {
+                  name: 'allowIndexing',
+                  type: 'checkbox',
+                  defaultValue: true,
+                  label: 'Allow search engines to index this site',
+                },
+                {
+                  name: 'robotsTxtContent',
+                  type: 'textarea',
+                  admin: {
+                    description: 'Custom robots.txt content (optional)',
+                    condition: (data, siblingData) => !siblingData.allowIndexing,
                   },
                 },
               ],
@@ -234,11 +265,11 @@ export const SiteSettings: CollectionConfig = {
           ],
         },
         {
-          label: 'AI',
+          label: 'Integrations',
           fields: [
             {
               name: 'ai',
-              label: 'AI',
+              label: 'AI Services',
               type: 'group',
               fields: [
                 {
