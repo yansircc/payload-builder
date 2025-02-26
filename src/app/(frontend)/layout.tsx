@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { AdminBar } from '@/components/AdminBar'
 import { RenderFooter } from '@/globals/Footer/RenderFooter'
 import { Providers } from '@/providers'
@@ -15,6 +16,7 @@ import { CustomCode } from '@/globals/CustomCode/Component'
 import { Favicon } from '@/globals/Favicon/Component'
 import { RenderHeader } from '@/globals/Header/RenderHeader'
 import { RenderWidget } from '@/globals/Widget/RenderWidget'
+import { getCountryAccess } from '@/utilities/getCountryAccess'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getServerSideURL } from '@/utilities/getURL'
 
@@ -23,12 +25,26 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const customScripts = await CustomCode()
   const siteSettings = await getSiteSettingsFromDomain()
 
+  // Check country access
+  const { isAllowed, country } = await getCountryAccess()
+
+  // If access is not allowed and we're not already on the blocked page,
+  // redirect to the blocked page
+  if (!isAllowed) {
+    redirect('/blocked')
+  }
+
+  // Add country info to HTML element for potential client-side use
+  const htmlClassName = cn(
+    GeistSans.variable,
+    GeistMono.variable,
+    inter.variable,
+    outfit.variable,
+    `country-${country.toLowerCase()}`,
+  )
+
   return (
-    <html
-      className={cn(GeistSans.variable, GeistMono.variable, inter.variable, outfit.variable)}
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html className={htmlClassName} lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
         <Favicon />

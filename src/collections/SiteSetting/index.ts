@@ -1,3 +1,4 @@
+import { countries } from 'countries-list'
 import type { CollectionConfig } from 'payload'
 import { superAdminOrTenantAdminAccess } from './access/superAdminOrTenantAdmin'
 
@@ -130,6 +131,24 @@ export const SiteSettings: CollectionConfig = {
                 },
               ],
             },
+            {
+              name: 'blacklistCountries',
+              type: 'select',
+              label: 'Blacklist Countries',
+              options: Object.entries(countries).map(([code, country]) => ({
+                label: country.name,
+                value: code,
+              })),
+              hasMany: true,
+              admin: {
+                description: 'Select countries to blacklist from accessing the site',
+              },
+            },
+          ],
+        },
+        {
+          label: 'Theme',
+          fields: [
             {
               name: 'archiveStyles',
               type: 'group',
