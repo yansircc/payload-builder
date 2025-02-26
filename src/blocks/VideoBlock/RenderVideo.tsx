@@ -31,19 +31,21 @@ export const VideoBlock: React.FC<Props> = ({ className, videoType, url, caption
   return (
     <div className={cn('my-4', className)}>
       {thumbnail && typeof thumbnail === 'object' && (
-        <MediaComponent resource={thumbnail as Media} className="w-full h-auto rounded-md mb-2" />
+        <MediaComponent resource={thumbnail as Media} className="mb-2 h-auto w-full rounded-md" />
       )}
 
       {embedUrl && (
-        <iframe
-          src={embedUrl}
-          className="w-full aspect-video rounded-md"
-          allowFullScreen
-          title="Embedded Video"
-        />
+        <div className="overflow-hidden rounded-md border border-border bg-card">
+          <iframe
+            src={embedUrl}
+            className="w-full aspect-video"
+            allowFullScreen
+            title="Embedded Video"
+          />
+        </div>
       )}
 
-      {caption && <p className="text-sm text-gray-600 mt-2">{caption}</p>}
+      {caption && <p className="mt-2 text-sm text-muted-foreground">{caption}</p>}
     </div>
   )
 }
