@@ -17,7 +17,7 @@ async function getFaviconSettings() {
     depth: 1,
   })
 
-  return siteSettings.docs[0]?.favicon as Media | undefined
+  return siteSettings.docs[0]?.siteIdentity?.favicon as Media | undefined
 }
 
 export async function Favicon() {

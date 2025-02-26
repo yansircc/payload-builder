@@ -17,6 +17,7 @@ import { VideoBlock } from '@/blocks/VideoBlock/config'
 import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
 import { slugField } from '@/fields/slug'
 import { HeroField } from '@/heros/config'
+import { updatePreviewImage } from '@/hooks/beforeChange'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { AboutBlock } from '../../blocks/About/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
@@ -190,10 +191,21 @@ export const Pages: CollectionConfig<'pages'> = {
       },
     },
     ...slugField(),
+
+    {
+      name: 'previewImage',
+      type: 'ui',
+      admin: {
+        position: 'sidebar',
+        components: {
+          Field: '@/components/StaticPreview',
+        },
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidatePage, updateChildPaths],
-    beforeChange: [populatePublishedAt],
+    beforeChange: [populatePublishedAt, updatePreviewImage],
     afterDelete: [deleteChildPages, revalidateDelete],
   },
   versions: {

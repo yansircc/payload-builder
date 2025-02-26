@@ -2,12 +2,25 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import { headers } from 'next/headers'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { DefaultNotFoundPage } from '@/components/NotFound'
 import { getTenantFromDomain } from '@/utilities/getTenant'
+
+interface SiteSettingsDoc {
+  custom404Page?: string
+  notFoundSettings?: {
+    custom404Page?: string
+  }
+}
 
 export default async function NotFound() {
   const tenant = await getTenantFromDomain()
+
+  if (!tenant) {
+    // If no tenant found, render default 404
+    return <DefaultNotFoundPage />
+  }
+
   const payload = await getPayload({ config: configPromise })
   const headersList = await headers()
 
@@ -46,15 +59,40 @@ export default async function NotFound() {
     console.error('Failed to log 404 error:', error)
   }
 
-  return (
-    <div className="container py-28">
-      <div className="prose max-w-none">
-        <h1 style={{ marginBottom: 0 }}>404</h1>
-        <p className="mb-4">This page could not be found.</p>
-      </div>
-      <Button asChild variant="default">
-        <Link href="/">Go home</Link>
-      </Button>
-    </div>
-  )
+  // Get tenant's site settings
+  const siteSettings = await payload.find({
+    collection: 'site-settings',
+    where: { tenant: { equals: tenant.id } },
+    depth: 0,
+  })
+
+  const siteSettingsDoc = (siteSettings?.docs[0] || {}) as SiteSettingsDoc
+
+  // Get 404 settings
+  const notFoundSettings = siteSettingsDoc.notFoundSettings || {}
+  const custom404PageId = notFoundSettings.custom404Page || siteSettingsDoc.custom404Page
+
+  if (custom404PageId) {
+    // Fetch the custom 404 page with all blocks
+    const customPage = await payload.findByID({
+      collection: 'pages',
+      id: custom404PageId as string,
+      depth: 10, // Get all blocks and nested content
+    })
+
+    if (customPage) {
+      // Render the custom 404 page with its layout
+      return (
+        <>
+          <main>
+            {customPage.layout && Array.isArray(customPage.layout) && (
+              <RenderBlocks blocks={customPage.layout} />
+            )}
+          </main>
+        </>
+      )
+    }
+  }
+
+  return <DefaultNotFoundPage />
 }
