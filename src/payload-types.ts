@@ -79,6 +79,7 @@ export interface Config {
     'error-logs': ErrorLog;
     services: Service;
     products: Product;
+    widgets: Widget;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -104,6 +105,7 @@ export interface Config {
     'error-logs': ErrorLogsSelect<false> | ErrorLogsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
+    widgets: WidgetsSelect<false> | WidgetsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -8138,20 +8140,21 @@ export interface SiteSetting {
    * SEO description for homepage (recommended: 150-160 characters)
    */
   description: string;
-  /**
-   * Upload your site favicon (recommended size: 32x32 or 16x16)
-   */
-  favicon?: (string | null) | Media;
-  /**
-   * Upload your site logo
-   */
-  logo?: (string | null) | Media;
-  searchEngineVisibility?: {
-    allowIndexing?: boolean | null;
+  siteIdentity?: {
     /**
-     * Custom robots.txt content (optional)
+     * Upload your site favicon (recommended size: 32x32 or 16x16)
      */
-    robotsTxtContent?: string | null;
+    favicon?: (string | null) | Media;
+    /**
+     * Upload your site logo
+     */
+    logo?: (string | null) | Media;
+  };
+  notFoundSettings?: {
+    /**
+     * Select a page to use as the custom 404 page for this tenant
+     */
+    custom404Page?: (string | null) | Page;
   };
   /**
    * Select countries to blacklist from accessing the site
@@ -8424,6 +8427,13 @@ export interface SiteSetting {
      */
     products?: ('grid' | 'list' | 'card') | null;
   };
+  searchEngineVisibility?: {
+    allowIndexing?: boolean | null;
+    /**
+     * Custom robots.txt content (optional)
+     */
+    robotsTxtContent?: string | null;
+  };
   /**
    * Select the primary brand identity that best represents your website or company
    */
@@ -8497,6 +8507,65 @@ export interface ErrorLog {
    * The page that linked to this URL
    */
   referrer?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "widgets".
+ */
+export interface Widget {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  widgetType: 'whatsapp' | 'consentBanner';
+  whatsapp?: {
+    /**
+     * The avatar of the WhatsApp widget
+     */
+    avatar?: (string | null) | Media;
+    /**
+     * The name of the WhatsApp widget
+     */
+    name: string;
+    /**
+     * The default message that will be pre-filled in WhatsApp
+     */
+    text: string;
+    /**
+     * Enter phone number with country code (e.g., +1234567890)
+     */
+    phoneNumber: string;
+    /**
+     * Control whether this widget is active or not
+     */
+    isActive?: boolean | null;
+  };
+  consentBanner?: {
+    /**
+     * The title of the consent banner
+     */
+    title: string;
+    /**
+     * The main text content of the consent banner
+     */
+    description: string;
+    /**
+     * Text to display on the accept button
+     */
+    acceptButtonText: string;
+    /**
+     * Text to display on the reject button
+     */
+    rejectButtonText: string;
+    /**
+     * Link to your privacy policy (optional)
+     */
+    privacyPolicyLink?: string | null;
+    /**
+     * Control whether this consent banner is active or not
+     */
+    isActive?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -8735,6 +8804,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'products';
         value: string | Product;
+      } | null)
+    | ({
+        relationTo: 'widgets';
+        value: string | Widget;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -13150,13 +13223,16 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   hiddenLabel?: T;
   title?: T;
   description?: T;
-  favicon?: T;
-  logo?: T;
-  searchEngineVisibility?:
+  siteIdentity?:
     | T
     | {
-        allowIndexing?: T;
-        robotsTxtContent?: T;
+        favicon?: T;
+        logo?: T;
+      };
+  notFoundSettings?:
+    | T
+    | {
+        custom404Page?: T;
       };
   blacklistCountries?: T;
   archiveStyles?:
@@ -13165,6 +13241,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         posts?: T;
         services?: T;
         products?: T;
+      };
+  searchEngineVisibility?:
+    | T
+    | {
+        allowIndexing?: T;
+        robotsTxtContent?: T;
       };
   brandIdentity?: T;
   otherBrandIdentity?: T;
@@ -13291,6 +13373,35 @@ export interface ProductsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "widgets_select".
+ */
+export interface WidgetsSelect<T extends boolean = true> {
+  tenant?: T;
+  widgetType?: T;
+  whatsapp?:
+    | T
+    | {
+        avatar?: T;
+        name?: T;
+        text?: T;
+        phoneNumber?: T;
+        isActive?: T;
+      };
+  consentBanner?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        acceptButtonText?: T;
+        rejectButtonText?: T;
+        privacyPolicyLink?: T;
+        isActive?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
