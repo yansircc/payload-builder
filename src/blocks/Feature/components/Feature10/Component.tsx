@@ -29,7 +29,7 @@ export default function Feature10({ title, description, features }: Feature10Fie
               <div>
                 <h3 className="font-medium md:mb-2 md:text-xl">
                   {feature.title}
-                  <span className="absolute -left-px hidden h-6 w-px bg-primary md:inline-block"></span>
+                  <span className="absolute -left-px hidden h-6 w-px  md:inline-block"></span>
                 </h3>
                 <p className="text-sm text-muted-foreground md:text-base">{feature.description}</p>
               </div>

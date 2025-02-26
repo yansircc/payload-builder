@@ -1,7 +1,7 @@
 import { ClientMotionDiv, ThemeEffect } from '@/blocks/shared'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { Media } from '@/components/Media'
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
 import type { Feature5Fields } from '@/payload-types'
 
@@ -76,10 +76,12 @@ export default function Feature5({ features, testimonial }: Feature5Fields) {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.7 }}
                 >
-                  <Avatar className="size-9 rounded-full ring-1 ring-input">
-                    <AvatarImage>
-                      <Media resource={testimonial.image} alt={testimonial.name} />
-                    </AvatarImage>
+                  <Avatar className="size-9 ring-1 ring-input">
+                    <AvatarImage
+                      src={(typeof testimonial.image === 'object' && testimonial.image?.url) || ''}
+                      alt={testimonial.name}
+                    />
+                    <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
                   </Avatar>
                 </ClientMotionDiv>
               )}

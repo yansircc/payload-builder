@@ -23,8 +23,8 @@ const defaultFeature: Feature2Fields = {
     id: 'image-2',
     alt: 'Feature 2',
     url: '/website-template-OG.webp',
-    width: 120,
-    height: 24,
+    width: 1200,
+    height: 800,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
@@ -60,6 +60,13 @@ export const WithoutIcon: Story = {
   args: {
     ...defaultFeature,
     icon: undefined,
+  },
+}
+
+export const WithoutButtons: Story = {
+  args: {
+    ...defaultFeature,
+    buttonGroup: undefined,
   },
 }
 

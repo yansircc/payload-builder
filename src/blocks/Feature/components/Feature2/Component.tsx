@@ -46,7 +46,7 @@ export default function Feature2({ title, description, icon, image, buttonGroup 
               transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-4"
             >
-              <h1 className="my-6 text-pretty text-3xl font-bold lg:text-4xl text-foreground [.theme-neon_&]:text-black">
+              <h1 className="my-6 text-pretty text-3xl font-bold lg:text-4xl text-muted-foreground [.theme-neon_&]:text-black">
                 {title}
               </h1>
               <p className="mb-8 max-w-xl text-muted-foreground lg:max-w-none lg:text-lg [.theme-neon_&]:text-black/80">

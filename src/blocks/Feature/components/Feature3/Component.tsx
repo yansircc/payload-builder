@@ -2,6 +2,7 @@ import { DynamicIcon } from '@/components/DynamicIcon'
 import { Media } from '@/components/Media'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import type { Feature3Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 
 export default function Feature3({ title, features }: Feature3Fields) {
   return (
@@ -10,7 +11,12 @@ export default function Feature3({ title, features }: Feature3Fields) {
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 text-center">
           <h1 className="mb-6 text-pretty text-4xl font-semibold lg:text-5xl ">{title}</h1>
 
-          <div className="mt-10 grid grid-cols-1 place-items-center gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            className={cn(
+              'mt-10 grid grid-cols-1 place-items-center gap-8 sm:grid-cols-2 lg:grid-cols-3',
+              features?.length === 1 && 'sm:grid-cols-1 lg:grid-cols-1',
+            )}
+          >
             {features?.map((item, index) => (
               <Card key={index} className="border-card/10">
                 <CardHeader className="pb-1">
