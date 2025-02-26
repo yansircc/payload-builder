@@ -49,14 +49,14 @@ export const MediaBlock: React.FC<Props> = (props) => {
       {caption && (
         <div
           className={cn(
-            'text-foreground',
+            'mt-6',
             {
-              container: enableGutter,
+              container: !disableInnerContainer,
             },
-            className,
+            captionClassName,
           )}
         >
-          <RichText data={caption} enableGutter={false} />
+          <RichText data={caption} enableGutter={false} enableProse={false} />
         </div>
       )}
     </div>
