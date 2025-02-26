@@ -44,6 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {customScripts?.bodyStartScripts}
           <RenderHeader />
           {children}
+          <RenderWidget type="consentBanner" />
           <RenderWidget type="whatsapp" />
           <RenderFooter />
           {customScripts?.bodyEndScripts}

@@ -23,6 +23,10 @@ export const Widgets: CollectionConfig = {
           label: 'WhatsApp',
           value: 'whatsapp',
         },
+        {
+          label: 'Consent Banner',
+          value: 'consentBanner',
+        },
       ],
     },
     {
@@ -81,6 +85,69 @@ export const Widgets: CollectionConfig = {
           defaultValue: true,
           admin: {
             description: 'Control whether this widget is active or not',
+          },
+        },
+      ],
+    },
+    {
+      name: 'consentBanner',
+      type: 'group',
+      admin: {
+        condition: (_, siblingData) => siblingData.widgetType === 'consentBanner',
+      },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          label: 'Banner Title',
+          admin: {
+            description: 'The title of the consent banner',
+          },
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          required: true,
+          label: 'Banner Description',
+          admin: {
+            description: 'The main text content of the consent banner',
+          },
+        },
+        {
+          name: 'acceptButtonText',
+          type: 'text',
+          required: true,
+          label: 'Accept Button Text',
+          defaultValue: 'Accept',
+          admin: {
+            description: 'Text to display on the accept button',
+          },
+        },
+        {
+          name: 'rejectButtonText',
+          type: 'text',
+          required: true,
+          label: 'Reject Button Text',
+          defaultValue: 'Reject',
+          admin: {
+            description: 'Text to display on the reject button',
+          },
+        },
+        {
+          name: 'privacyPolicyLink',
+          type: 'text',
+          label: 'Privacy Policy Link',
+          admin: {
+            description: 'Link to your privacy policy (optional)',
+          },
+        },
+        {
+          name: 'isActive',
+          type: 'checkbox',
+          defaultValue: true,
+          admin: {
+            description: 'Control whether this consent banner is active or not',
           },
         },
       ],

@@ -67,6 +67,7 @@ import { default as default_1a7510af427896d367a49dbf838d2de6 } from '@/component
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { default as default_78b39f784b86cf844383560b5f1a85bf } from '@/components/ColorPicker/'
 import { default as default_545a25a7f6f58e32e2350bd4892658ab } from '@/components/IconSelect/'
+import { default as default_451f87e9402710cb271a0a0c66065661 } from '@/components/StaticPreview'
 import { AIFeature as AIFeature_c86cb9794e8dfc789dceffc1ecbdea8d } from '@/fields/ai/client'
 import { FullPathCell as FullPathCell_e1b3b2f313a2a78029b930d3989bed10 } from '@/fields/slug/fullPath/cell'
 import { SlugComponent as SlugComponent_92cc057d0a2abb4f6cf0307edf59f986 } from '@/fields/slug/SlugComponent'
@@ -138,6 +139,7 @@ export const importMap = {
     PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   '@/fields/slug/SlugComponent#SlugComponent': SlugComponent_92cc057d0a2abb4f6cf0307edf59f986,
   '@/fields/slug/fullPath/cell#FullPathCell': FullPathCell_e1b3b2f313a2a78029b930d3989bed10,
+  '@/components/StaticPreview#default': default_451f87e9402710cb271a0a0c66065661,
   '@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient':
     HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   '@payloadcms/richtext-lexical/client#BlocksFeatureClient':
