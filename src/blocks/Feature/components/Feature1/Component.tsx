@@ -55,12 +55,14 @@ export default function Feature1({ title, description, icon, image, buttonGroup 
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             {image && (
-              <Media
-                className="max-h-96 w-full rounded-md object-cover"
-                priority
-                resource={image}
-                alt={title}
-              />
+              <div className="relative h-full w-full">
+                <Media
+                  imgClassName="-z-10 object-cover h-full w-full"
+                  priority
+                  resource={image}
+                  alt={title}
+                />
+              </div>
             )}
           </ClientMotionDiv>
         </div>

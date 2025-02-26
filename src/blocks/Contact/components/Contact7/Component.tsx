@@ -17,13 +17,16 @@ export default function Contact7({ contact }: Contact7Fields) {
         <div className="grid gap-10 md:grid-cols-3">
           {supportList?.supports?.map((support, idx) => (
             <div key={idx}>
-              <span className="mb-3 flex size-12 flex-col items-center justify-center rounded-full bg-accent">
+              <span className="mb-3 flex size-12 flex-col items-center justify-center rounded-full ">
                 {support.icon && <DynamicIcon name={support.icon} className="h-6 w-auto" />}
               </span>
               <p className="mb-2 text-lg font-semibold">{support.title}</p>
               <p className="mb-3 text-muted-foreground">{support.subtitle}</p>
               {support.link && (
-                <CMSLink {...support.link} className="font-semibold hover:underline w-fit" />
+                <CMSLink
+                  {...support.link}
+                  className="font-semibold hover:underline w-fit text-muted-foreground"
+                />
               )}
             </div>
           ))}
