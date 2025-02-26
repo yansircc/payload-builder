@@ -2785,7 +2785,7 @@ export interface Product {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
         };
         id?: string | null;
       }[]
