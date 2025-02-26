@@ -2785,7 +2785,7 @@ export interface Product {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
         };
         id?: string | null;
       }[]
@@ -8138,20 +8138,21 @@ export interface SiteSetting {
    * SEO description for homepage (recommended: 150-160 characters)
    */
   description: string;
-  /**
-   * Upload your site favicon (recommended size: 32x32 or 16x16)
-   */
-  favicon?: (string | null) | Media;
-  /**
-   * Upload your site logo
-   */
-  logo?: (string | null) | Media;
-  searchEngineVisibility?: {
-    allowIndexing?: boolean | null;
+  siteIdentity?: {
     /**
-     * Custom robots.txt content (optional)
+     * Upload your site favicon (recommended size: 32x32 or 16x16)
      */
-    robotsTxtContent?: string | null;
+    favicon?: (string | null) | Media;
+    /**
+     * Upload your site logo
+     */
+    logo?: (string | null) | Media;
+  };
+  notFoundSettings?: {
+    /**
+     * Select a page to use as the custom 404 page for this tenant
+     */
+    custom404Page?: (string | null) | Page;
   };
   archiveStyles?: {
     /**
@@ -8166,6 +8167,13 @@ export interface SiteSetting {
      * Select the layout style for the products archive page
      */
     products?: ('grid' | 'list' | 'card') | null;
+  };
+  searchEngineVisibility?: {
+    allowIndexing?: boolean | null;
+    /**
+     * Custom robots.txt content (optional)
+     */
+    robotsTxtContent?: string | null;
   };
   /**
    * Select the primary brand identity that best represents your website or company
@@ -12893,13 +12901,16 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   hiddenLabel?: T;
   title?: T;
   description?: T;
-  favicon?: T;
-  logo?: T;
-  searchEngineVisibility?:
+  siteIdentity?:
     | T
     | {
-        allowIndexing?: T;
-        robotsTxtContent?: T;
+        favicon?: T;
+        logo?: T;
+      };
+  notFoundSettings?:
+    | T
+    | {
+        custom404Page?: T;
       };
   archiveStyles?:
     | T
@@ -12907,6 +12918,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         posts?: T;
         services?: T;
         products?: T;
+      };
+  searchEngineVisibility?:
+    | T
+    | {
+        allowIndexing?: T;
+        robotsTxtContent?: T;
       };
   brandIdentity?: T;
   otherBrandIdentity?: T;
