@@ -18,6 +18,7 @@ import type { CollectionConfig } from 'payload'
 import { getPayload, PaginatedDocs } from 'payload'
 import { ColumnsBlock } from '@/blocks/ColumnBlock/config'
 import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/config'
+import { HTML } from '@/blocks/HTML/config'
 import { LinkPopupBlock } from '@/blocks/LinkPopupBlock/config'
 import { ListBlock } from '@/blocks/List/config'
 import { Table } from '@/blocks/Table/config'
@@ -110,6 +111,7 @@ export const Posts: CollectionConfig<'posts'> = {
                         Code,
                         MediaBlock,
                         Table,
+                        HTML,
                         VideoBlock,
                         ListBlock,
                         ColumnsBlock,

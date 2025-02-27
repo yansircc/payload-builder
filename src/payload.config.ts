@@ -8,6 +8,7 @@ import { buildConfig, PayloadRequest } from 'payload'
 import sharp from 'sharp' // sharp-import
 import { env } from '@/env'
 import { defaultLexical } from '@/fields/defaultLexical'
+import { Banner } from './blocks/Banner/config'
 import { Categories } from './collections/Categories'
 import { CustomCodes } from './collections/CustomCodes'
 import { ErrorLogs } from './collections/ErrorLogs'
@@ -39,6 +40,13 @@ export default buildConfig({
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
       beforeDashboard: ['@/components/BeforeDashboard'],
+      views: {
+        WordpressMigrationView: {
+          Component: '@/components/views/WordpressMigration/DefaultRootView#DefaultRootView',
+          path: '/wordpress-migration',
+        },
+      },
+      afterNavLinks: ['@/components/Nav/WordpressMigration'],
     },
     importMap: { baseDir: path.resolve(dirname) },
     user: Users.slug,
@@ -53,6 +61,7 @@ export default buildConfig({
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: mongooseAdapter({ url: env.DATABASE_URL || false }),
+  blocks: [Banner],
   collections: [
     Pages,
     Posts,
