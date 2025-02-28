@@ -31,7 +31,7 @@ export const InfoBanner: Story = {
             type: 'paragraph',
             children: [
               {
-                text: 'Pro tip: You can customize your dashboard layout by dragging and dropping widgets.',
+                text: '💡 Pro tip: You can customize your dashboard layout by dragging and dropping widgets.',
                 type: 'text',
                 version: 1,
               },
@@ -45,7 +45,8 @@ export const InfoBanner: Story = {
         version: 1,
       },
     },
-    className: 'max-w-2xl',
+    className:
+      'text-foreground max-w-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5',
   },
 }
 
@@ -60,7 +61,7 @@ export const SuccessBanner: Story = {
             type: 'paragraph',
             children: [
               {
-                text: 'Great job! Your changes have been successfully saved and deployed.',
+                text: '✅ Great job! Your changes have been successfully saved and deployed.',
                 type: 'text',
                 version: 1,
               },
@@ -74,7 +75,8 @@ export const SuccessBanner: Story = {
         version: 1,
       },
     },
-    className: 'max-w-2xl',
+    className:
+      'max-w-2xl shadow-lg hover:shadow-success/20 transition-all duration-300 hover:scale-[1.01]',
   },
 }
 
@@ -89,7 +91,7 @@ export const WarningBanner: Story = {
             type: 'paragraph',
             children: [
               {
-                text: 'Warning: Your session will expire in 5 minutes. Please save your work to avoid data loss.',
+                text: '⚠️ Warning: Your session will expire in 5 minutes. Please save your work to avoid data loss.',
                 type: 'text',
                 version: 1,
               },
@@ -103,9 +105,11 @@ export const WarningBanner: Story = {
         version: 1,
       },
     },
-    className: 'max-w-2xl',
+    className:
+      'max-w-2xl shadow-md hover:shadow-warning/30 transition-all duration-300 hover:translate-x-0.5',
   },
 }
+
 export const ErrorBanner: Story = {
   args: {
     style: 'error',
@@ -117,7 +121,7 @@ export const ErrorBanner: Story = {
             type: 'paragraph',
             children: [
               {
-                text: ' Unable to connect to the server. Please check your internet connection and try again.',
+                text: '❌ Unable to connect to the server. Please check your internet connection and try again.',
                 type: 'text',
                 version: 1,
               },
@@ -131,7 +135,8 @@ export const ErrorBanner: Story = {
         version: 1,
       },
     },
-    className: 'max-w-2xl',
+    className:
+      'max-w-2xl shadow-lg hover:shadow-error/25 transition-all duration-300 hover:-translate-x-0.5',
   },
 }
 
@@ -146,7 +151,7 @@ export const RichContentBanner: Story = {
             type: 'paragraph',
             children: [
               {
-                text: 'Welcome to our new platform! ',
+                text: '🎉 Welcome to our new platform! ',
                 type: 'text',
                 version: 1,
               },
@@ -171,6 +176,7 @@ export const RichContentBanner: Story = {
         version: 1,
       },
     },
-    className: 'max-w-2xl',
+    className:
+      'max-w-2xl text-foreground backdrop-blur-sm bg-background/95 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]',
   },
 }
