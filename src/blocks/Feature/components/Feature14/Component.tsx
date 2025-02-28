@@ -12,7 +12,7 @@ export default function Feature14({ features }: Feature14Fields) {
             <div
               key={index}
               className={cn(
-                'grid rounded-lg border',
+                'grid overflow-hidden rounded-lg border',
                 feature.image ? 'md:grid-cols-2' : 'grid-cols-1',
               )}
             >

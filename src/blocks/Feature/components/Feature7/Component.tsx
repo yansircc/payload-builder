@@ -66,7 +66,7 @@ export default function Feature7({ title, description, icon, image, features }: 
                       <li className="flex items-center gap-3">
                         <DynamicIcon
                           name={item.icon || 'CheckCircle'}
-                          className="size-6 text-primary"
+                          className="size-6 text-muted-foreground"
                         />
                         <p className="text-muted-foreground lg:text-lg">{item.title}</p>
                       </li>
