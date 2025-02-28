@@ -10,13 +10,13 @@ import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { cn } from '@/utilities/ui'
 import './globals.css'
-import { redirect } from 'next/navigation'
+// import { redirect } from 'next/navigation'
 import { inter, outfit } from '@/config/fonts'
 import { CustomCode } from '@/globals/CustomCode/Component'
 import { Favicon } from '@/globals/Favicon/Component'
 import { RenderHeader } from '@/globals/Header/RenderHeader'
 import { RenderWidget } from '@/globals/Widget/RenderWidget'
-import { getCountryAccess } from '@/utilities/getCountryAccess'
+// import { getCountryAccess } from '@/utilities/getCountryAccess'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getServerSideURL } from '@/utilities/getURL'
 
@@ -26,13 +26,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const siteSettings = await getSiteSettingsFromDomain()
 
   // Check country access
-  const { isAllowed, country } = await getCountryAccess()
+  // const { isAllowed, country } = await getCountryAccess()
 
   // If access is not allowed and we're not already on the blocked page,
   // redirect to the blocked page
-  if (!isAllowed) {
-    redirect('/blocked')
-  }
+  // if (!isAllowed) {
+  //   redirect('/blocked')
+  // }
 
   // Add country info to HTML element for potential client-side use
   const htmlClassName = cn(
@@ -40,7 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     GeistMono.variable,
     inter.variable,
     outfit.variable,
-    `country-${country.toLowerCase()}`,
+    // `country-${country.toLowerCase()}`,
   )
 
   return (
