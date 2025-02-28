@@ -33,6 +33,7 @@ export const AdminBar: React.FC<{
   const { adminBarProps } = props || {}
   const segments = useSelectedLayoutSegments()
   const [show, setShow] = useState(false)
+  const [tenant, setTenant] = useState<string | null>(null)
   const collection = (
     collectionLabels[segments?.[1] as keyof typeof collectionLabels] ? segments[1] : 'pages'
   ) as keyof typeof collectionLabels
@@ -40,6 +41,7 @@ export const AdminBar: React.FC<{
 
   const onAuthChange = React.useCallback((user: PayloadMeUser) => {
     setShow(Boolean(user?.id))
+    setTenant(user?.tenant)
   }, [])
 
   return (
@@ -65,6 +67,7 @@ export const AdminBar: React.FC<{
             singular: collectionLabels[collection]?.singular || 'Page',
           }}
           logo={<Title />}
+          tenant={tenant}
           onAuthChange={onAuthChange}
           onPreviewExit={() => {
             fetch('/next/exit-preview').then(() => {
