@@ -50,38 +50,6 @@ const AIAgents: CollectionConfig = {
       },
     },
     {
-      name: 'promptTemplates',
-      type: 'array',
-      admin: {
-        description: 'Custom prompt templates for specific scenarios',
-      },
-      fields: [
-        {
-          name: 'name',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Name of this prompt template',
-          },
-        },
-        {
-          name: 'prompt',
-          type: 'textarea',
-          required: true,
-          admin: {
-            description: 'The prompt template text',
-          },
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          admin: {
-            description: 'Description of when to use this prompt template',
-          },
-        },
-      ],
-    },
-    {
       name: 'ragSettings',
       type: 'group',
       admin: {

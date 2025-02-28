@@ -8637,26 +8637,6 @@ export interface AiAgent {
    */
   systemPrompt: string;
   /**
-   * Custom prompt templates for specific scenarios
-   */
-  promptTemplates?:
-    | {
-        /**
-         * Name of this prompt template
-         */
-        name: string;
-        /**
-         * The prompt template text
-         */
-        prompt: string;
-        /**
-         * Description of when to use this prompt template
-         */
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
    * Retrieval-Augmented Generation settings
    */
   ragSettings?: {
@@ -13566,14 +13546,6 @@ export interface AiAgentsSelect<T extends boolean = true> {
   description?: T;
   isActive?: T;
   systemPrompt?: T;
-  promptTemplates?:
-    | T
-    | {
-        name?: T;
-        prompt?: T;
-        description?: T;
-        id?: T;
-      };
   ragSettings?:
     | T
     | {
