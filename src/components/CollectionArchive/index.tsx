@@ -1,7 +1,7 @@
 import { PaginatedDocs } from 'payload'
 import React from 'react'
 import type { Post, Product, Service } from '@/payload-types'
-import { getSiteSettingsFromCookie } from '@/utilities/getSiteSettings'
+import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import Style1 from './Style1/Component'
 import Style2 from './Style2/Component'
 import Style3 from './Style3/Component'
@@ -22,7 +22,7 @@ export type Props = {
 
 export const CollectionArchive: React.FC<Props> = async (props) => {
   const { type } = props
-  const siteSettings = await getSiteSettingsFromCookie()
+  const siteSettings = await getSiteSettingsFromDomain()
 
   const styleKey = getArchiveStyle(siteSettings?.archiveStyles, type)
   const ArchiveComponent = STYLE_COMPONENTS[styleKey]

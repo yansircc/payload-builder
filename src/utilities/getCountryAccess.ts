@@ -6,20 +6,17 @@ export interface CountryAccess {
   country: string
 }
 
-const siteSettings = await getSiteSettingsFromDomain()
-const BLOCKED_COUNTRIES = siteSettings?.blacklistCountries || ([] as const)
-type BlockedCountry = (typeof BLOCKED_COUNTRIES)[number]
-
-export function isBlockedCountry(country: string): country is BlockedCountry {
-  return BLOCKED_COUNTRIES.includes(country as BlockedCountry)
-}
-
 export async function getCountryAccess(): Promise<CountryAccess> {
+  const siteSettings = await getSiteSettingsFromDomain()
   const headersList = await headers()
   const country = headersList.get('x-vercel-ip-country') || 'UNKNOWN'
 
+  const BLOCKED_COUNTRIES = siteSettings?.blacklistCountries || ([] as const)
+  type BlockedCountry = (typeof BLOCKED_COUNTRIES)[number]
+  const isBlockedCountry = BLOCKED_COUNTRIES.includes(country as BlockedCountry)
+
   return {
-    isAllowed: !isBlockedCountry(country),
+    isAllowed: !isBlockedCountry,
     country,
   }
 }
