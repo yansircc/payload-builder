@@ -48,7 +48,10 @@ export default function Hero34({ hero }: Hero34Fields) {
                 {links && links.length > 0 && (
                   <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
                     {links?.map((linkGroup, index) => (
-                      <div key={index} className="flex w-full flex-col gap-2 sm:flex-row">
+                      <div
+                        key={index}
+                        className="flex w-full flex-col gap-2 sm:flex-row items-center justify-center lg:justify-start"
+                      >
                         {Object.entries(linkGroup)
                           .filter(([key]) => key.startsWith('link-'))
                           .map(
