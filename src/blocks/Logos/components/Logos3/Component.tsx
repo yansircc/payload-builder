@@ -10,7 +10,7 @@ export default function Logos3({ logos }: Logos3Fields) {
   const { title, logos: logoItems } = logos
 
   return (
-    <section className="relative overflow-hidden bg-background py-24 md:py-32">
+    <section className="relative overflow-hidden py-24 md:py-32">
       <div className="container flex flex-col items-center text-center">
         {title && (
           <ClientMotionDiv
@@ -35,7 +35,7 @@ export default function Logos3({ logos }: Logos3Fields) {
                   <ClientMotionDiv
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    transition={{ duration: 0.9, delay: index * 0.1 }}
                     className="mx-10 flex shrink-0 items-center justify-center"
                   >
                     <div>
