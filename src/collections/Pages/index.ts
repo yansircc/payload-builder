@@ -7,6 +7,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import type { CollectionConfig } from 'payload'
+import { CallToAction } from '@/blocks/CallToAction/config'
 import { ColumnsBlock } from '@/blocks/ColumnBlock/config'
 import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/config'
 import { HTML } from '@/blocks/HTML/config'
@@ -21,7 +22,6 @@ import { updatePreviewImage } from '@/hooks/beforeChange'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { AboutBlock } from '../../blocks/About/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
-import { CallToAction } from '../../blocks/CallToAction/config'
 import { Contact } from '../../blocks/Contact/config'
 import { Content } from '../../blocks/Content/config'
 import { FAQ } from '../../blocks/FAQ/config'
@@ -59,7 +59,7 @@ export const Pages: CollectionConfig<'pages'> = {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
           slug: typeof data?.fullPath === 'string' ? data.fullPath : '',
-          tenant: typeof data?.tenant === 'string' ? data.tenant : '',
+          tenant: data.tenant,
           collection: 'pages',
           req,
         })
@@ -69,7 +69,7 @@ export const Pages: CollectionConfig<'pages'> = {
     preview: (data: any, { req }) =>
       generatePreviewPath({
         slug: typeof data?.fullPath === 'string' ? data.fullPath : '',
-        tenant: typeof data?.tenant.id === 'string' ? data.tenant.id : '',
+        tenant: data.tenant.id,
         collection: 'pages',
         req,
       }),
