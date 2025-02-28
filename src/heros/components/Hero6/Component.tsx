@@ -50,8 +50,8 @@ export default function Hero6({ hero }: Hero6Fields) {
             {secondaryImage?.image && (
               <Media
                 resource={secondaryImage.image}
-                className="h-full max-h-[500px] w-full border-t object-cover md:border-l lg:border-t-0"
-                imgClassName="h-full"
+                className="h-full max-h-[500px] w-full border-t  md:border-l lg:border-t-0"
+                imgClassName="h-full object-cover"
               />
             )}
             {links && links[2] && (
