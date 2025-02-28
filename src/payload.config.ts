@@ -9,6 +9,7 @@ import sharp from 'sharp' // sharp-import
 import { env } from '@/env'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { Banner } from './blocks/Banner/config'
+import AIAgents from './collections/AIAgents'
 import { Categories } from './collections/Categories'
 import { CustomCodes } from './collections/CustomCodes'
 import { ErrorLogs } from './collections/ErrorLogs'
@@ -78,6 +79,7 @@ export default buildConfig({
     Services,
     Products,
     Widgets,
+    AIAgents,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [],

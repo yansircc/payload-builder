@@ -83,6 +83,7 @@ export interface Config {
     services: Service;
     products: Product;
     widgets: Widget;
+    'ai-agents': AiAgent;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -109,6 +110,7 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     widgets: WidgetsSelect<false> | WidgetsSelect<true>;
+    'ai-agents': AiAgentsSelect<false> | AiAgentsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -8612,6 +8614,101 @@ export interface Widget {
   createdAt: string;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ai-agents".
+ */
+export interface AiAgent {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  /**
+   * Name of the AI agent
+   */
+  name: string;
+  /**
+   * Description of what this AI agent does
+   */
+  description?: string | null;
+  /**
+   * Enable or disable this AI agent
+   */
+  isActive?: boolean | null;
+  /**
+   * The system prompt that defines the AI agent behavior
+   */
+  systemPrompt: string;
+  /**
+   * Custom prompt templates for specific scenarios
+   */
+  promptTemplates?:
+    | {
+        /**
+         * Name of this prompt template
+         */
+        name: string;
+        /**
+         * The prompt template text
+         */
+        prompt: string;
+        /**
+         * Description of when to use this prompt template
+         */
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Retrieval-Augmented Generation settings
+   */
+  ragSettings?: {
+    /**
+     * Enable RAG capabilities for this agent
+     */
+    isEnabled?: boolean | null;
+    /**
+     * Documents to be used for knowledge retrieval
+     */
+    documents?: (string | Media)[] | null;
+    /**
+     * Custom prompt for how to use retrieved context
+     */
+    contextPrompt?: string | null;
+  };
+  /**
+   * Settings for human-like response simulation
+   */
+  humanLikeResponseSettings?: {
+    /**
+     * Enable human-like response simulation
+     */
+    isEnabled?: boolean | null;
+    /**
+     * Characters per second typing speed
+     */
+    typingSpeed?: number | null;
+    /**
+     * Pause between sentences in milliseconds
+     */
+    pauseBetweenSentences?: number | null;
+  };
+  /**
+   * AI model to use for this agent
+   */
+  aiModel: 'gpt-4' | 'gpt-4-turbo' | 'gpt-3.5-turbo' | 'claude-3-opus' | 'claude-3-sonnet' | 'claude-3-haiku';
+  /**
+   * Temperature setting for the AI model (0-2)
+   */
+  temperature?: number | null;
+  /**
+   * Maximum tokens for AI response
+   */
+  maxTokens?: number | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  fullPath?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Manage the redirects for your site
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -8850,6 +8947,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'widgets';
         value: string | Widget;
+      } | null)
+    | ({
+        relationTo: 'ai-agents';
+        value: string | AiAgent;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -13452,6 +13553,47 @@ export interface WidgetsSelect<T extends boolean = true> {
         privacyPolicyLink?: T;
         isActive?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ai-agents_select".
+ */
+export interface AiAgentsSelect<T extends boolean = true> {
+  tenant?: T;
+  name?: T;
+  description?: T;
+  isActive?: T;
+  systemPrompt?: T;
+  promptTemplates?:
+    | T
+    | {
+        name?: T;
+        prompt?: T;
+        description?: T;
+        id?: T;
+      };
+  ragSettings?:
+    | T
+    | {
+        isEnabled?: T;
+        documents?: T;
+        contextPrompt?: T;
+      };
+  humanLikeResponseSettings?:
+    | T
+    | {
+        isEnabled?: T;
+        typingSpeed?: T;
+        pauseBetweenSentences?: T;
+      };
+  aiModel?: T;
+  temperature?: T;
+  maxTokens?: T;
+  slug?: T;
+  slugLock?: T;
+  fullPath?: T;
   updatedAt?: T;
   createdAt?: T;
 }

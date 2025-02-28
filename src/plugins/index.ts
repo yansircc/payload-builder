@@ -146,6 +146,7 @@ export const plugins: Plugin[] = [
       widgets: { isGlobal: true },
       'error-logs': {},
       media: { useTenantAccess: false },
+      'ai-agents': {},
     },
     tenantField: {
       access: {
