@@ -1,13 +1,13 @@
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import React from 'react'
-import type { Metadata } from 'next'
+// import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { AdminBar } from '@/components/AdminBar'
 import { RenderFooter } from '@/globals/Footer/RenderFooter'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+// import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { cn } from '@/utilities/ui'
 import './globals.css'
 // import { redirect } from 'next/navigation'
@@ -16,14 +16,15 @@ import { CustomCode } from '@/globals/CustomCode/Component'
 import { Favicon } from '@/globals/Favicon/Component'
 import { RenderHeader } from '@/globals/Header/RenderHeader'
 import { RenderWidget } from '@/globals/Widget/RenderWidget'
+
 // import { getCountryAccess } from '@/utilities/getCountryAccess'
-import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
-import { getServerSideURL } from '@/utilities/getURL'
+// import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
+// import { getServerSideURL } from '@/utilities/getURL'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
   const customScripts = await CustomCode()
-  const siteSettings = await getSiteSettingsFromDomain()
+  // const siteSettings = await getSiteSettingsFromDomain()
 
   // Check country access
   // const { isAllowed, country } = await getCountryAccess()
@@ -49,9 +50,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <InitTheme />
         <Favicon />
         {customScripts?.headScripts}
-        {siteSettings?.searchEngineVisibility?.allowIndexing === false && (
+        {/* {siteSettings?.searchEngineVisibility?.allowIndexing === false && (
           <meta content="noindex,nofollow" name="robots" />
-        )}
+        )} */}
       </head>
       <body>
         <Providers>
@@ -70,21 +71,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   )
 }
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  const siteSettings = await getSiteSettingsFromDomain()
+// export const generateMetadata = async (): Promise<Metadata> => {
+//   const siteSettings = await getSiteSettingsFromDomain()
 
-  return {
-    metadataBase: new URL(getServerSideURL()),
-    title: siteSettings?.title,
-    description: siteSettings?.description,
-    openGraph: mergeOpenGraph({
-      title: siteSettings?.title,
-      description: siteSettings?.description,
-    }),
-    twitter: { card: 'summary_large_image', creator: '@payloadcms' },
-    robots:
-      siteSettings?.searchEngineVisibility?.allowIndexing === false
-        ? { index: false, follow: false }
-        : undefined,
-  }
-}
+//   return {
+//     metadataBase: new URL(getServerSideURL()),
+//     title: siteSettings?.title,
+//     description: siteSettings?.description,
+//     openGraph: mergeOpenGraph({
+//       title: siteSettings?.title,
+//       description: siteSettings?.description,
+//     }),
+//     twitter: { card: 'summary_large_image', creator: '@payloadcms' },
+//     robots:
+//       siteSettings?.searchEngineVisibility?.allowIndexing === false
+//         ? { index: false, follow: false }
+//         : undefined,
+//   }
+// }
