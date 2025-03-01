@@ -46,16 +46,10 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     )
   }
 
-  let href =
+  const href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
       ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${reference.value.slug}`
       : url
-
-  if (href && !href.startsWith('http://') && !href.startsWith('https://')) {
-    href = `https://${href}`
-  }
-
-  if (!href) return null
 
   const size = appearance === 'inline' ? undefined : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
@@ -78,19 +72,9 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     )
   }
 
-  // ... rest of the code remains the same ...
-
   return (
-    <Button
-      asChild
-      className={cn(
-        '[.theme-neon_&]:bg-primary [.theme-neon_&]:text-primary-foreground [.theme-neon_&]:border-primary/50 [.theme-neon_&]:hover:bg-primary/90',
-        className,
-      )}
-      size={size}
-      variant={appearance}
-    >
-      <NextLink href={href || url || ''} {...newTabProps}>
+    <Button asChild className={className} size={size} variant={appearance}>
+      <NextLink className={cn(className)} href={href || url || ''} {...newTabProps}>
         {content}
       </NextLink>
     </Button>
