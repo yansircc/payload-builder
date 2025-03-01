@@ -159,7 +159,7 @@ export const FloatingButton: Story = {
 export const GlassButton: Story = {
   args: {
     className:
-      'group px-6 py-3 rounded-lg backdrop-blur-sm bg-background/100 dark:bg-background/1 border border-border/20 dark:border-border/10 hover:bg-accent/100 dark:hover:bg-accent/10 text-foreground dark:text-foreground/90 font-medium transition-all duration-300',
+      'group px-6 py-3 rounded-lg backdrop-blur-sm bg-background/100 dark:bg-background/1 border border-border/20 dark:border-border/10 hover:bg-accent/20 dark:hover:bg-accent/10 text-foreground dark:text-foreground/90 font-medium transition-all duration-300',
     link: {
       type: 'popup',
       label: '🌟 Explore Features',
@@ -193,7 +193,10 @@ export const GlassButton: Story = {
 export const MinimalistLink: Story = {
   args: {
     className:
-      'relative text-muted-foreground dark:text-foreground/70 after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-center after:scale-x-0 after:bg-primary dark:after:bg-primary/80 after:transition-transform after:duration-300 hover:after:scale-x-100',
+      'relative text-muted-foreground transition-colors duration-300 ' +
+      'hover:text-blue-500 ' +
+      'after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-center after:scale-x-0 ' +
+      'after:bg-blue-500 after:transition-transform after:duration-300 hover:after:scale-x-100',
     link: {
       type: 'popup',
       label: 'View Details',
