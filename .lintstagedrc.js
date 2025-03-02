@@ -4,6 +4,7 @@ export default {
   '*.{ts,tsx,js,jsx}': (files) => {
     const filesToString = files.join(' ')
     return [
+      'bun clean',
       'bun typecheck',
       `bun run format:write ${filesToString}`,
       `bunx eslint --fix ${filesToString}`,
