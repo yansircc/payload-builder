@@ -46,10 +46,6 @@ export const Login = ({ tenantSlug, tenantDomain }: Props) => {
     const json = await actionRes.json()
 
     if (actionRes.status === 200 && json.user) {
-      if (json.user.tenantID) {
-        setTenant({ id: json.user.tenantID, refresh: false })
-      }
-
       const redirectTo = searchParams.get('redirect')
       if (redirectTo) {
         router.push(redirectTo)
