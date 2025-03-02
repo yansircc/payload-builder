@@ -7,11 +7,6 @@ export const setCookieBasedOnDomain: CollectionAfterLoginHook = async ({ req, us
     collection: 'tenants',
     depth: 0,
     limit: 1,
-    where: {
-      domain: {
-        equals: req.headers.get('host'),
-      },
-    },
   })
 
   // If a matching tenant is found, set the 'payload-tenant' cookie
