@@ -316,7 +316,7 @@ export const Posts: CollectionConfig<'posts'> = {
       },
     },
     {
-      path: '/:id',
+      path: '/:slug',
       method: 'get',
       handler: async (req) => {
         const tenant = await getTenantFromDomain()
@@ -335,8 +335,8 @@ export const Posts: CollectionConfig<'posts'> = {
           where: {
             and: [
               {
-                id: {
-                  equals: req.routeParams?.id,
+                slug: {
+                  equals: req.routeParams?.slug,
                 },
               },
               {
