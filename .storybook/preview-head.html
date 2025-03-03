@@ -1,0 +1,43 @@
+<!-- Load the fonts used in the design system -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- Load Geist fonts directly -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist-font@latest/dist/geist-sans/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist-font@latest/dist/geist-mono/style.css">
+
+<style>
+  /* Define font variables to match the app */
+  :root {
+    --font-geist-sans: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-geist-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --font-outfit: 'Outfit', sans-serif;
+  }
+
+  /* Ensure Storybook loads with the correct styling */
+  .sb-show-main {
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* Fix for Storybook's default styling that might interfere with our design system */
+  .sb-show-main.sb-main-padded {
+    padding: 0;
+  }
+
+  /* Force the body to inherit theme styles */
+  body {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+    font-family: var(--font-geist-sans) !important;
+  }
+
+  /* Override Storybook's default styles */
+  .sb-show-main,
+  .sb-show-main.sb-main-padded,
+  #storybook-root,
+  #storybook-preview-wrapper {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+  }
+</style>
