@@ -15,7 +15,7 @@ export const ensureUniqueSlug =
       typeof originalDoc?.tenant === 'object' ? originalDoc.tenant.id : originalDoc?.tenant
     const tenantIDToMatch = incomingTenantID || currentTenantID
 
-    const findDuplicatePages = await req.payload.find({
+    const findDuplicateCollections = await req.payload.find({
       collection,
       where: {
         and: [
@@ -33,7 +33,7 @@ export const ensureUniqueSlug =
       },
     })
 
-    if (findDuplicatePages.docs.length > 0 && req.user) {
+    if (findDuplicateCollections.docs.length > 0 && req.user) {
       const tenantIDs = getUserTenantIDs(req.user)
       // if the user is an admin or has access to more than 1 tenant
       // provide a more specific error message
@@ -46,7 +46,7 @@ export const ensureUniqueSlug =
         throw new ValidationError({
           errors: [
             {
-              message: `The "${attemptedTenantChange.name}" tenant already has a page with the slug "${value}". Slugs must be unique per tenant.`,
+              message: `The "${attemptedTenantChange.name}" tenant already has a ${collection} with the slug "${value}". Slugs must be unique per tenant.`,
               path: 'slug',
             },
           ],
@@ -56,7 +56,7 @@ export const ensureUniqueSlug =
       throw new ValidationError({
         errors: [
           {
-            message: `A page with the slug ${value} already exists. Slug must be unique per tenant.`,
+            message: `A ${collection} with the slug ${value} already exists. Slug must be unique per tenant.`,
             path: 'slug',
           },
         ],
