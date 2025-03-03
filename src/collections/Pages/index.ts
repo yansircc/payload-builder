@@ -191,7 +191,6 @@ export const Pages: CollectionConfig<'pages'> = {
       },
     },
     ...slugField(),
-
     {
       name: 'previewImage',
       type: 'ui',
