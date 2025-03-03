@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { ListBlock } from './RenderList'
 
 const meta: Meta<typeof ListBlock> = {
-  title: 'Blocks/ListBlock',
+  title: 'Blocks/List',
   component: ListBlock,
   parameters: {
     layout: 'centered',
