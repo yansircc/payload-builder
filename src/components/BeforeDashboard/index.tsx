@@ -1,11 +1,22 @@
+'use client'
+
+import { useTenantSelection } from '@payloadcms/plugin-multi-tenant/client'
 import { Banner } from '@payloadcms/ui/elements/Banner'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SeedButton } from './SeedButton'
 import './index.scss'
 
 const baseClass = 'before-dashboard'
 
 const BeforeDashboard: React.FC = () => {
+  const { selectedTenantID, options, setTenant } = useTenantSelection()
+
+  useEffect(() => {
+    if (selectedTenantID === '_ALL_' && options.length > 0) {
+      setTenant({ id: options[0]?.value, refresh: true })
+    }
+  }, [])
+
   return (
     <div className={baseClass}>
       <Banner className={`${baseClass}__banner`} type="success">
