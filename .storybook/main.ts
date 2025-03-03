@@ -7,20 +7,17 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
     '@storybook/addon-interactions',
+    '@storybook/addon-mdx-gfm',
   ],
   framework: {
     name: '@storybook/nextjs',
     options: {
-      builder: {
-        useSWC: true,
-      },
+      builder: {},
       nextConfigPath: path.resolve(__dirname, '../next.config.js'),
     },
   },
   staticDirs: ['../public'],
-  docs: {
-    autodocs: 'tag',
-  },
+  docs: {},
   typescript: {
     reactDocgen: 'react-docgen-typescript',
     reactDocgenTypescriptOptions: {
