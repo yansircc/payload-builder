@@ -3,7 +3,7 @@ import type { ContentBlock as ContentBlockProps } from '@/payload-types'
 import { ContentBlock } from './Component'
 
 const meta: Meta<typeof ContentBlock> = {
-  title: 'Blocks/ContentBlock',
+  title: 'Blocks/Content',
   component: ContentBlock,
   parameters: {
     layout: 'fullscreen',
@@ -13,227 +13,123 @@ const meta: Meta<typeof ContentBlock> = {
 export default meta
 type Story = StoryObj<typeof ContentBlock>
 
-const defaultContentBlock: ContentBlockProps = {
-  blockType: 'content',
-  columns: [
-    {
-      size: 'half',
-      richText: {
-        root: {
-          type: 'root',
-          children: [
-            {
-              type: 'paragraph',
-              children: [
-                {
-                  text: '🚀 We bring your ideas to life with innovative solutions.',
-                  type: 'text',
-                  version: 1,
-                },
-              ],
-              direction: null,
-              format: '',
-              indent: 0,
-              version: 1,
-            },
-          ],
-          direction: null,
-          format: '',
-          indent: 0,
-          version: 1,
+const mockRichText = (text: string) => ({
+  root: {
+    type: 'root',
+    children: [
+      {
+        type: 'paragraph',
+        children: [{ text, type: 'text', version: 1 }],
+        direction: 'ltr' as 'ltr' | 'rtl' | null,
+        format: '' as const,
+        indent: 0,
+        version: 1,
+      },
+    ],
+    direction: 'ltr' as 'ltr' | 'rtl' | null,
+    format: '' as const,
+    indent: 0,
+    version: 1,
+  },
+})
+
+export const OneThirdColumn: Story = {
+  args: {
+    blockType: 'content',
+    columns: [
+      {
+        size: 'oneThird',
+        richText: mockRichText(
+          '🔍 One Third Column (4/12 grid)\nThis column takes up one-third of the available space.',
+        ),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'One Third Example',
+          url: '#',
         },
       },
-      enableLink: true,
-      link: {
-        type: 'custom',
-        label: 'Learn More',
-        url: '#',
-      },
-    },
-    {
-      size: 'half',
-      richText: {
-        root: {
-          type: 'root',
-          children: [
-            {
-              type: 'paragraph',
-              children: [
-                {
-                  text: '🌟 Trusted by 100+ companies worldwide for seamless digital transformation.',
-                  type: 'text',
-                  version: 1,
-                },
-              ],
-              direction: null,
-              format: '',
-              indent: 0,
-              version: 1,
-            },
-          ],
-          direction: null,
-          format: '',
-          indent: 0,
-          version: 1,
+    ],
+  },
+}
+
+export const HalfColumns: Story = {
+  args: {
+    blockType: 'content',
+    columns: [
+      {
+        size: 'half',
+        richText: mockRichText(
+          '📏 First Half Column (6/12 grid)\nThis column occupies half of the container width.',
+        ),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'First Half',
+          url: '#',
         },
       },
-      enableLink: true,
-      link: {
-        type: 'custom',
-        label: 'Our Work',
-        url: '#',
+      {
+        size: 'half',
+        richText: mockRichText(
+          '📏 Second Half Column (6/12 grid)\nThis column also takes up half of the width.',
+        ),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'Second Half',
+          url: '#',
+        },
       },
-    },
-  ],
+    ],
+  },
 }
 
-export const Default: Story = {
-  args: defaultContentBlock,
+export const TwoThirdsColumn: Story = {
+  args: {
+    blockType: 'content',
+    columns: [
+      {
+        size: 'twoThirds',
+        richText: mockRichText(
+          '📐 Two Thirds Column (8/12 grid)\nThis column spans two-thirds of the available width.',
+        ),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'Two Thirds Example',
+          url: '#',
+        },
+      },
+      {
+        size: 'oneThird',
+        richText: mockRichText(
+          '🔍 One Third Column (4/12 grid)\nComplementary column taking up the remaining space.',
+        ),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'Complementary',
+          url: '#',
+        },
+      },
+    ],
+  },
 }
 
-export const SingleColumn: Story = {
+export const FullWidthColumn: Story = {
   args: {
     blockType: 'content',
     columns: [
       {
         size: 'full',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'paragraph',
-                children: [
-                  {
-                    text: '📢 Big announcements coming soon! Stay tuned.',
-                    type: 'text',
-                    version: 1,
-                  },
-                ],
-                direction: null,
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: null,
-            format: '',
-            indent: 0,
-            version: 1,
-          },
-        },
+        richText: mockRichText(
+          '📏 Full Width Column (12/12 grid)\nThis column takes up the entire width of the container.',
+        ),
         enableLink: true,
         link: {
           type: 'custom',
-          label: 'Subscribe Now',
-          url: '#',
-        },
-      },
-    ],
-  },
-}
-export const ThreeColumns: Story = {
-  args: {
-    columns: [
-      {
-        size: 'oneThird',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'paragraph',
-                children: [
-                  {
-                    text: '📊 Data-driven insights to boost your business performance.',
-                    type: 'text',
-                    version: 1,
-                  },
-                ],
-                direction: null,
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: null,
-            format: '',
-            indent: 0,
-            version: 1,
-          },
-        },
-        enableLink: true,
-        link: {
-          type: 'custom',
-          label: 'Explore Data',
-          url: '#',
-        },
-      },
-      {
-        size: 'oneThird',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'paragraph',
-                children: [
-                  {
-                    text: '🔗 Seamless integration with your favorite tools.',
-                    type: 'text',
-                    version: 1,
-                  },
-                ],
-                direction: null,
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: null,
-            format: '',
-            indent: 0,
-            version: 1,
-          },
-        },
-        enableLink: true,
-        link: {
-          type: 'custom',
-          label: 'Integrations',
-          url: '#',
-        },
-      },
-      {
-        size: 'oneThird',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'paragraph',
-                children: [
-                  {
-                    text: '💡 AI-powered solutions for smarter decision-making.',
-                    type: 'text',
-                    version: 1,
-                  },
-                ],
-                direction: null,
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: null,
-            format: '',
-            indent: 0,
-            version: 1,
-          },
-        },
-        enableLink: true,
-        link: {
-          type: 'custom',
-          label: 'AI Features',
+          label: 'Full Width Example',
           url: '#',
         },
       },
@@ -241,62 +137,89 @@ export const ThreeColumns: Story = {
   },
 }
 
-export const WithoutLinks: Story = {
+export const MixedColumns: Story = {
   args: {
+    blockType: 'content',
     columns: [
       {
-        size: 'half',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'paragraph',
-                children: [
-                  { text: '🎨 Designing experiences that inspire.', type: 'text', version: 1 },
-                ],
-                direction: null,
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: null,
-            format: '',
-            indent: 0,
-            version: 1,
-          },
+        size: 'oneThird',
+        richText: mockRichText('🔍 One Third\n(4/12)'),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'Learn More',
+          url: '#',
         },
-        enableLink: false,
+      },
+      {
+        size: 'oneThird',
+        richText: mockRichText('🔍 One Third\n(4/12)'),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'Learn More',
+          url: '#',
+        },
+      },
+      {
+        size: 'oneThird',
+        richText: mockRichText('🔍 One Third\n(4/12)'),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'Learn More',
+          url: '#',
+        },
       },
       {
         size: 'half',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'paragraph',
-                children: [
-                  {
-                    text: '🔧 Optimized performance with cutting-edge technology.',
-                    type: 'text',
-                    version: 1,
-                  },
-                ],
-                direction: null,
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: null,
-            format: '',
-            indent: 0,
-            version: 1,
-          },
+        richText: mockRichText('📏 Half Width\n(6/12)'),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'Learn More',
+          url: '#',
         },
-        enableLink: false,
+      },
+      {
+        size: 'half',
+        richText: mockRichText('📏 Half Width\n(6/12)'),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'Learn More',
+          url: '#',
+        },
+      },
+      {
+        size: 'twoThirds',
+        richText: mockRichText('📐 Two Thirds\n(8/12)'),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'Learn More',
+          url: '#',
+        },
+      },
+      {
+        size: 'oneThird',
+        richText: mockRichText('🔍 One Third\n(4/12)'),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'Learn More',
+          url: '#',
+        },
+      },
+      {
+        size: 'full',
+        richText: mockRichText('📏 Full Width\n(12/12)'),
+        enableLink: true,
+        link: {
+          type: 'custom',
+          label: 'Learn More',
+          url: '#',
+        },
       },
     ],
   },
