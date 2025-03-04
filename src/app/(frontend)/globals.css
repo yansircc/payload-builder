@@ -134,27 +134,37 @@
   }
 }
 
-/* Prevent flash of unstyled content except for Storybook */
+/* Theme transition styles */
+:root {
+  --theme-transition-duration: 200ms;
+}
+
+:root,
+:root * {
+  transition: background-color var(--theme-transition-duration) ease-out,
+              border-color var(--theme-transition-duration) ease-out,
+              color var(--theme-transition-duration) ease-out,
+              fill var(--theme-transition-duration) ease-out,
+              stroke var(--theme-transition-duration) ease-out;
+}
+
+/* Prevent flash of unstyled content */
 :root:not([data-theme]):not(.sb-show-main) {
   visibility: hidden;
 }
 
-:root[data-theme], .sb-show-main {
+/* Show content when theme is set or in Storybook */
+:root[data-theme], 
+.sb-show-main,
+#storybook-root {
   visibility: visible;
-}
-
-html:not(.sb-show-main) {
-  opacity: 0;
-}
-
-html[data-theme='dark'],
-html[data-theme='light'],
-html.sb-show-main {
   opacity: 1;
-  transition: opacity 0ms;
 }
 
-/* Force immediate opacity when JS is disabled */
-html:not([data-theme]) {
-  opacity: 1;
+/* Special handling for Storybook */
+.sb-show-main {
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+  transition: background-color var(--theme-transition-duration) ease-out,
+              color var(--theme-transition-duration) ease-out !important;
 }
