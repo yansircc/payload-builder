@@ -6,13 +6,6 @@ const meta: Meta<typeof BannerBlock> = {
   component: BannerBlock,
   parameters: {
     layout: 'centered',
-    backgrounds: {
-      default: 'light',
-      values: [
-        { name: 'light', value: '#ffffff' },
-        { name: 'dark', value: '#0f172a' },
-      ],
-    },
   },
 }
 
@@ -46,7 +39,7 @@ export const InfoBanner: Story = {
       },
     },
     className:
-      'text-foreground max-w-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5',
+      'max-w-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5',
   },
 }
 
