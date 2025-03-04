@@ -30,6 +30,7 @@ export const Textarea: React.FC<
       </Label>
 
       <TextAreaComponent
+        className="text-foreground"
         defaultValue={defaultValue}
         id={name}
         rows={rows}
