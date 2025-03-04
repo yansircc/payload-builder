@@ -31,6 +31,6 @@ export const Categories: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    ...slugField(),
+    ...slugField('categories'),
   ],
 }
