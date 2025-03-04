@@ -31,6 +31,7 @@ export const Email: React.FC<
       <Input
         defaultValue={defaultValue}
         id={name}
+        className="text-foreground"
         type="text"
         {...register(name, {
           required: required ? 'This field is required' : false,
