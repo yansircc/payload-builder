@@ -13,31 +13,77 @@
     --font-geist-sans: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --font-geist-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
     --font-outfit: 'Outfit', sans-serif;
+    --theme-transition-duration: 200ms;
   }
 
-  /* Ensure Storybook loads with the correct styling */
-  .sb-show-main {
-    transition: background-color 0.3s, color 0.3s;
-  }
-
-  /* Fix for Storybook's default styling that might interfere with our design system */
-  .sb-show-main.sb-main-padded {
-    padding: 0;
-  }
-
-  /* Force the body to inherit theme styles */
+  /* Apply base styles */
   body {
-    background-color: var(--background) !important;
-    color: var(--foreground) !important;
-    font-family: var(--font-geist-sans) !important;
+    margin: 0;
+    font-family: var(--font-geist-sans);
+    background-color: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Override Storybook's default styles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-outfit);
+  }
+
+  code,
+  pre {
+    font-family: var(--font-geist-mono);
+  }
+
+  /* Theme transition styles */
+  :root,
+  :root * {
+    transition: background-color var(--theme-transition-duration) ease-out,
+      border-color var(--theme-transition-duration) ease-out,
+      color var(--theme-transition-duration) ease-out,
+      fill var(--theme-transition-duration) ease-out,
+      stroke var(--theme-transition-duration) ease-out !important;
+  }
+
+  /* Force Storybook to use our theme colors */
   .sb-show-main,
-  .sb-show-main.sb-main-padded,
   #storybook-root,
-  #storybook-preview-wrapper {
+  .sb-show-main.sb-main-padded {
     background-color: var(--background) !important;
     color: var(--foreground) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 100vh;
+  }
+
+  /* Ensure consistent theme colors in the Storybook UI */
+  .sidebar-container,
+  .search-field,
+  .search-field input,
+  .search-result-item,
+  .search-result-recentlyOpened {
+    transition: background-color var(--theme-transition-duration) ease-out,
+      color var(--theme-transition-duration) ease-out,
+      border-color var(--theme-transition-duration) ease-out !important;
   }
 </style>
+
+<script>
+  // Initialize theme as soon as possible
+  (function () {
+    const defaultTheme = 'cool';
+    const storedTheme = localStorage.getItem('storybook-theme');
+    const theme = storedTheme || defaultTheme;
+
+    // Set initial data-theme
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // Force immediate visibility
+    document.documentElement.classList.add('sb-show-main');
+  })();
+</script>
