@@ -20,7 +20,7 @@ export const Email: React.FC<
 > = ({ name, defaultValue, errors, label, register, required, width }) => {
   return (
     <Width width={width}>
-      <Label htmlFor={name} className="text-muted-foreground">
+      <Label htmlFor={name} className="text-foreground">
         {label}
         {required && (
           <span className="required">
