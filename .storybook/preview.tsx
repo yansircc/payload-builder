@@ -3,7 +3,6 @@ import type { ReactElement } from 'react'
 import React, { useEffect } from 'react'
 import '../src/app/(frontend)/globals.css'
 import { themes } from '../src/themes'
-import './fonts.css'
 import ThemeWrapper from './ThemeWrapper'
 
 // Create a component to handle theme changes
