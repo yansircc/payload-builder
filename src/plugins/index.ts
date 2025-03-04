@@ -143,6 +143,7 @@ export const plugins: Plugin[] = [
       'custom-codes': { isGlobal: true },
       popups: {},
       'site-settings': { isGlobal: true },
+      widgets: { isGlobal: true },
       'error-logs': {},
       media: { useTenantAccess: false },
     },

@@ -1,3 +1,4 @@
+import configPromise from '@payload-config'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -14,13 +15,17 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
+import { getPayload, PaginatedDocs } from 'payload'
 import { ColumnsBlock } from '@/blocks/ColumnBlock/config'
 import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/config'
+import { HTML } from '@/blocks/HTML/config'
 import { LinkPopupBlock } from '@/blocks/LinkPopupBlock/config'
 import { ListBlock } from '@/blocks/List/config'
 import { Table } from '@/blocks/Table/config'
 import { VideoBlock } from '@/blocks/VideoBlock/config'
 import { slugField } from '@/fields/slug'
+import { Post } from '@/payload-types'
+import { getTenantFromDomain } from '@/utilities/getTenant'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
@@ -106,6 +111,7 @@ export const Posts: CollectionConfig<'posts'> = {
                         Code,
                         MediaBlock,
                         Table,
+                        HTML,
                         VideoBlock,
                         ListBlock,
                         ColumnsBlock,
@@ -266,4 +272,84 @@ export const Posts: CollectionConfig<'posts'> = {
     },
     maxPerDoc: 50,
   },
+  endpoints: [
+    {
+      path: '/',
+      method: 'get',
+      handler: async () => {
+        const tenant = await getTenantFromDomain()
+        const payload = await getPayload({ config: configPromise })
+
+        if (!tenant) {
+          return Response.json({
+            message: `No tenant found`,
+          })
+        }
+
+        let posts: PaginatedDocs<Post> | null = null
+
+        if (tenant) {
+          // Then query the page with both fullPath and tenant
+          posts = await payload.find({
+            collection: 'posts',
+            depth: 1,
+            limit: 12,
+            overrideAccess: false,
+            select: {
+              title: true,
+              slug: true,
+              categories: true,
+              meta: true,
+              content: true,
+              updatedAt: true,
+              createdAt: true,
+            },
+            where: {
+              tenant: {
+                equals: tenant.id,
+              },
+            },
+          })
+        }
+
+        return Response.json(posts)
+      },
+    },
+    {
+      path: '/:slug',
+      method: 'get',
+      handler: async (req) => {
+        const tenant = await getTenantFromDomain()
+        const payload = await getPayload({ config: configPromise })
+
+        if (!tenant) {
+          return Response.json({
+            message: `No tenant found`,
+          })
+        }
+
+        const result = await payload.find({
+          collection: 'posts',
+          limit: 1,
+          pagination: false,
+          where: {
+            and: [
+              {
+                slug: {
+                  equals: req.routeParams?.slug,
+                },
+              },
+              {
+                tenant: {
+                  equals: tenant?.id,
+                },
+              },
+            ],
+          },
+        })
+
+        return Response.json(result.docs?.[0] || null)
+      },
+    },
+  ],
 }
