@@ -49,16 +49,21 @@ export default function Contact4({ contact }: Contact4Fields) {
                     {location.image && (
                       <Media
                         resource={location.image}
-                        className="h-full w-full rounded-t-lg object-cover md:rounded-lg"
+                        className="h-full w-full rounded-t-lg object-cover md:rounded-lg bg-muted/20"
                       />
                     )}
-                    <div className="bottom-8 left-8 flex flex-col justify-between gap-6 rounded-b-lg border-x border-b bg-background p-6 md:absolute md:max-w-96 md:rounded-lg md:border">
+                    <div className="bottom-8 left-8 flex flex-col justify-between gap-6 rounded-b-lg border-x border-b bg-black/95 p-6 md:absolute md:max-w-96 md:rounded-lg md:border backdrop-blur-sm">
                       <div>
-                        <h2 className="mb-4 text-xl font-medium md:text-2xl">{location.title}</h2>
-                        <p className="text-muted-foreground">{location.subtitle}</p>
+                        <h2 className="mb-4 text-xl font-medium md:text-2xl text-white">
+                          {location.title}
+                        </h2>
+                        <p className="text-white/80">{location.subtitle}</p>
                       </div>
                       {location.link && (
-                        <CMSLink {...location.link} className="hover:underline w-fit" />
+                        <CMSLink
+                          {...location.link}
+                          className="hover:underline w-fit text-white hover:text-white/90"
+                        />
                       )}
                     </div>
                   </div>
@@ -66,8 +71,8 @@ export default function Contact4({ contact }: Contact4Fields) {
               ))}
             </CarouselContent>
             <div className="absolute bottom-2 right-6 flex gap-4 md:bottom-5 md:right-10">
-              <CarouselPrevious className="static" />
-              <CarouselNext className="static" />
+              <CarouselPrevious className="static bg-white hover:bg-white/90 text-black" />
+              <CarouselNext className="static bg-white hover:bg-white/90 text-black" />
             </div>
           </Carousel>
         </div>

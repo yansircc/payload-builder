@@ -16,7 +16,7 @@ export default function Contact5({ contact }: Contact5Fields) {
           <Form
             fields={form?.fields || []}
             submitLabel={form?.submitButton?.label}
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-8 text-foreground [.theme-neon_&]:text-black [.theme-neon_&]:placeholder-black/6"
           />
         </div>
       </div>
