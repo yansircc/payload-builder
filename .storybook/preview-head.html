@@ -1,0 +1,132 @@
+<!-- Load the fonts used in the design system -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- Load Geist fonts directly -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist-font@latest/dist/geist-sans/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist-font@latest/dist/geist-mono/style.css">
+
+<style>
+  /* Define font variables to match the app */
+  :root {
+    --font-geist-sans: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-geist-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --font-outfit: 'Outfit', sans-serif;
+    --theme-transition-duration: 200ms;
+  }
+
+  /* Apply base styles */
+  body {
+    margin: 0;
+    background-color: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Theme transition styles */
+  :root,
+  :root * {
+    transition: background-color var(--theme-transition-duration) ease-out,
+      border-color var(--theme-transition-duration) ease-out,
+      color var(--theme-transition-duration) ease-out,
+      fill var(--theme-transition-duration) ease-out,
+      stroke var(--theme-transition-duration) ease-out !important;
+  }
+
+  /* Force Storybook to use our theme colors */
+  .sb-show-main,
+  #storybook-root,
+  .sb-show-main.sb-main-padded,
+  #storybook-docs {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 100vh;
+  }
+
+  /* Style docs content */
+  .sbdocs.sbdocs-wrapper,
+  .sbdocs.sbdocs-content {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+  }
+
+  /* Style the docs preview blocks */
+  .sb-previewBlock {
+    background-color: var(--background) !important;
+    border-color: var(--border) !important;
+  }
+
+  .sb-previewBlock_header {
+    background-color: var(--muted) !important;
+    border-bottom-color: var(--border) !important;
+  }
+
+  /* Style the args table */
+  .sb-argstableBlock {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+  }
+
+  .sb-argstableBlock-head th {
+    color: var(--foreground) !important;
+  }
+
+  .sb-argstableBlock-body td {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Style code blocks and inline code */
+  .sb-argstableBlock-code {
+    background-color: var(--muted) !important;
+    color: var(--foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Style headings */
+  #storybook-docs h1,
+  #storybook-docs h2,
+  #storybook-docs h3,
+  #storybook-docs h4,
+  #storybook-docs h5,
+  #storybook-docs h6,
+  #storybook-docs p,
+  #storybook-docs li {
+    color: var(--foreground) !important;
+  }
+
+  #storybook-docs .docblock-argstable th {
+    color: var(--foreground) !important;
+  }
+
+  /* Ensure consistent theme colors in the Storybook UI */
+  .sidebar-container,
+  .search-field,
+  .search-field input,
+  .search-result-item,
+  .search-result-recentlyOpened {
+    transition: background-color var(--theme-transition-duration) ease-out,
+      color var(--theme-transition-duration) ease-out,
+      border-color var(--theme-transition-duration) ease-out !important;
+  }
+</style>
+
+<script>
+  // Initialize theme as soon as possible
+  (function () {
+    const defaultTheme = 'cool';
+    const storedTheme = localStorage.getItem('storybook-theme');
+    const theme = storedTheme || defaultTheme;
+
+    // Set initial data-theme
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // Force immediate visibility
+    document.documentElement.classList.add('sb-show-main');
+  })();
+</script>
