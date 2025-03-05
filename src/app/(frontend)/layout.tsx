@@ -45,7 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   )
 
   return (
-    <html className={htmlClassName} lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
         <Favicon />
@@ -54,7 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <meta content="noindex,nofollow" name="robots" />
         )}
       </head>
-      <body>
+      <body className={htmlClassName}>
         <Providers>
           <AdminBar adminBarProps={{ preview: isEnabled }} />
 

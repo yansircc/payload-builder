@@ -31,34 +31,48 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     canUseDOM ? (document.documentElement.getAttribute('data-theme-mode') as Mode) : undefined,
   )
 
-  const setTheme = useCallback((themeToSet: ThemePreset | null) => {
-    if (themeToSet === null) {
-      window.localStorage.removeItem(themeLocalStorageKey)
-      // Fetch theme from site settings
-      getSiteSettingsFromDomainClient().then((siteSettings) => {
-        const siteTheme = siteSettings?.theme || defaultTheme
-        document.documentElement.setAttribute('data-theme', siteTheme)
-        setThemeState(siteTheme)
-      })
-    } else {
-      setThemeState(themeToSet)
-      window.localStorage.setItem(themeLocalStorageKey, themeToSet)
-      document.documentElement.setAttribute('data-theme', themeToSet)
+  // Helper function to set attributes on both html and body
+  const setDocumentAttributes = useCallback((attrName: string, value: string) => {
+    document.documentElement.setAttribute(attrName, value)
+    if (document.body) {
+      document.body.setAttribute(attrName, value)
     }
   }, [])
 
-  const setMode = useCallback((modeToSet: Mode | null) => {
-    if (modeToSet === null) {
-      window.localStorage.removeItem(modeLocalStorageKey)
-      const implicitPreference = getImplicitModePreference()
-      document.documentElement.setAttribute('data-theme-mode', implicitPreference || '')
-      if (implicitPreference) setModeState(implicitPreference)
-    } else {
-      setModeState(modeToSet)
-      window.localStorage.setItem(modeLocalStorageKey, modeToSet)
-      document.documentElement.setAttribute('data-theme-mode', modeToSet)
-    }
-  }, [])
+  const setTheme = useCallback(
+    (themeToSet: ThemePreset | null) => {
+      if (themeToSet === null) {
+        window.localStorage.removeItem(themeLocalStorageKey)
+        // Fetch theme from site settings
+        getSiteSettingsFromDomainClient().then((siteSettings) => {
+          const siteTheme = siteSettings?.theme || defaultTheme
+          setDocumentAttributes('data-theme', siteTheme)
+          setThemeState(siteTheme)
+        })
+      } else {
+        setThemeState(themeToSet)
+        window.localStorage.setItem(themeLocalStorageKey, themeToSet)
+        setDocumentAttributes('data-theme', themeToSet)
+      }
+    },
+    [setDocumentAttributes],
+  )
+
+  const setMode = useCallback(
+    (modeToSet: Mode | null) => {
+      if (modeToSet === null) {
+        window.localStorage.removeItem(modeLocalStorageKey)
+        const implicitPreference = getImplicitModePreference()
+        setDocumentAttributes('data-theme-mode', implicitPreference || '')
+        if (implicitPreference) setModeState(implicitPreference)
+      } else {
+        setModeState(modeToSet)
+        window.localStorage.setItem(modeLocalStorageKey, modeToSet)
+        setDocumentAttributes('data-theme-mode', modeToSet)
+      }
+    },
+    [setDocumentAttributes],
+  )
 
   useEffect(() => {
     async function initializeTheme() {
@@ -82,7 +96,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
 
-      document.documentElement.setAttribute('data-theme', themeToSet)
+      setDocumentAttributes('data-theme', themeToSet)
       setThemeState(themeToSet)
 
       // Initialize mode
@@ -98,14 +112,14 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
 
-      document.documentElement.setAttribute('data-theme-mode', modeToSet)
+      setDocumentAttributes('data-theme-mode', modeToSet)
       setModeState(modeToSet)
     }
 
     if (canUseDOM) {
       initializeTheme()
     }
-  }, [])
+  }, [setDocumentAttributes])
 
   return (
     <ThemeContext.Provider value={{ setTheme, theme, setMode, mode }}>
