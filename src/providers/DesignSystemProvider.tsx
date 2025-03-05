@@ -8,6 +8,7 @@ import type { Config } from '@/payload-types'
 import type { ThemeDefinition, ThemePreset } from '@/themes'
 import { themes } from '@/themes'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
+import { getSiteSettingsFromDomainClient } from '@/utilities/getSiteSettings.client'
 import { getClientSideURL } from '@/utilities/getURL'
 
 interface DesignSystemContextType {
@@ -62,7 +63,7 @@ export function DesignSystemProvider({
   useEffect(() => {
     async function fetchTenantTheme() {
       try {
-        const siteSettings = await getSiteSettingsFromDomain()
+        const siteSettings = await getSiteSettingsFromDomainClient()
 
         if (siteSettings?.theme) {
           setPreset(siteSettings?.theme)

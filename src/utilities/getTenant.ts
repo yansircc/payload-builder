@@ -1,6 +1,7 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { cookies, headers } from 'next/headers'
+import type { ReadonlyHeaders } from 'next/dist/server/web/spec-extension/adapters/headers'
+import { cookies, headers as nextHeaders } from 'next/headers'
 import type { Tenant } from '@/payload-types'
 
 /**
@@ -10,6 +11,7 @@ import type { Tenant } from '@/payload-types'
  * to find the corresponding tenant. It's typically used in server components and API routes
  * to determine the current tenant context.
  *
+ * @param {ReadonlyHeaders} [headersInstance] - Optional headers instance to use
  * @returns {Promise<Tenant | null>} The tenant object if found, null otherwise
  * @throws {Error} If there's an error fetching the tenant data
  *
@@ -22,8 +24,19 @@ import type { Tenant } from '@/payload-types'
  * }
  * ```
  */
-export async function getTenantFromDomain(): Promise<Tenant | null> {
-  const headersList = await headers()
+export async function getTenantFromDomain(
+  headersInstance?: ReadonlyHeaders,
+): Promise<Tenant | null> {
+  let headersList: ReadonlyHeaders
+
+  try {
+    // If headers instance is provided, use it, otherwise get new headers
+    headersList = headersInstance || (await nextHeaders())
+  } catch (error) {
+    console.error('Error accessing headers:', error)
+    return null
+  }
+
   try {
     const payload = await getPayload({ config: configPromise })
     const host = headersList.get('host') || ''
