@@ -3,7 +3,6 @@ import type { ReactElement } from 'react'
 import React from 'react'
 import '../src/app/(frontend)/globals.css'
 import { themes } from '../src/themes'
-import { withFonts } from './decorators'
 import './storybook.css' // Import Storybook-specific styles
 
 // These CSS variables are referenced in the themes and globals.css
@@ -92,7 +91,6 @@ const preview: Preview = {
     },
   },
   decorators: [
-    withFonts,
     (Story, context): ReactElement => {
       const selectedTheme = themes[context.globals.theme as keyof typeof themes]
       const themeMode = context.globals.themeMode || 'light'
