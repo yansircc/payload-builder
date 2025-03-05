@@ -1,7 +1,6 @@
 import React from 'react'
 import Script from 'next/script'
-import { themes } from '@/themes'
-import { defaultTheme, themeLocalStorageKey } from '../ThemeSelector/types'
+import { defaultMode, defaultTheme, modeLocalStorageKey, themeLocalStorageKey } from '../shared'
 
 export const InitTheme: React.FC = () => {
   return (
@@ -10,7 +9,7 @@ export const InitTheme: React.FC = () => {
       dangerouslySetInnerHTML={{
         __html: `
   (function () {
-    function getImplicitPreference() {
+    function getImplicitModePreference() {
       var mediaQuery = '(prefers-color-scheme: dark)'
       var mql = window.matchMedia(mediaQuery)
       var hasImplicitPreference = typeof mql.matches === 'boolean'
@@ -23,39 +22,37 @@ export const InitTheme: React.FC = () => {
     }
 
     function themeIsValid(theme) {
-      return theme === 'light' || theme === 'dark'
+      return theme === 'cool' || theme === 'brutal' || theme === 'neon'
     }
 
+    function modeIsValid(mode) {
+      return mode === 'light' || mode === 'dark'
+    }
+
+    // Initialize theme preset
     var themeToSet = '${defaultTheme}'
-    var preference = window.localStorage.getItem('${themeLocalStorageKey}')
+    var themePreference = window.localStorage.getItem('${themeLocalStorageKey}')
 
-    if (themeIsValid(preference)) {
-      themeToSet = preference
-    } else {
-      var implicitPreference = getImplicitPreference()
-      themeToSet = implicitPreference
+    if (themeIsValid(themePreference)) {
+      themeToSet = themePreference
     }
 
-    // Set theme attribute
+    // Set theme preset attribute
     document.documentElement.setAttribute('data-theme', themeToSet)
 
-    // Set initial layout variables from default theme
-    var theme = ${JSON.stringify(themes.cool)}
-    var root = document.documentElement
+    // Initialize mode
+    var modeToSet = '${defaultMode}'
+    var modePreference = window.localStorage.getItem('${modeLocalStorageKey}')
 
-    // Apply essential layout variables
-    root.style.setProperty('--layout-containerWidth', theme.layout.containerWidth)
-    root.style.setProperty('--layout-containerPadding', theme.layout.containerPadding)
+    if (modeIsValid(modePreference)) {
+      modeToSet = modePreference
+    } else {
+      var implicitPreference = getImplicitModePreference()
+      modeToSet = implicitPreference
+    }
 
-    // Apply essential colors from the default theme
-    var colors = themeToSet === 'dark' ? theme.dark : theme.colors
-    Object.entries(colors).forEach(function(entry) {
-      root.style.setProperty('--' + entry[0], entry[1])
-    })
-
-    // Apply essential typography
-    root.style.setProperty('--font-sans', theme.typography.fontFamily)
-    root.style.setProperty('--font-heading', theme.typography.headingFamily || theme.typography.fontFamily)
+    // Set mode attribute
+    document.documentElement.setAttribute('data-theme-mode', modeToSet)
   })();
   `,
       }}
