@@ -1,6 +1,5 @@
 import type { CollectionConfig } from 'payload'
 import { isSuperAdminAccess } from '@/access/isSuperAdmin'
-import { themes } from '@/themes'
 import { updateAndDeleteAccess } from './access/updateAndDelete'
 
 export const Tenants: CollectionConfig = {
@@ -30,14 +29,6 @@ export const Tenants: CollectionConfig = {
       required: true,
       unique: true,
       admin: { description: 'A unique identifier for this tenant' },
-    },
-    {
-      name: 'theme',
-      type: 'select',
-      required: true,
-      defaultValue: 'cool',
-      options: Object.entries(themes).map(([value, theme]) => ({ label: theme.label, value })),
-      admin: { description: 'Select the design theme for this tenant', position: 'sidebar' },
     },
     {
       name: 'allowPublicRead',

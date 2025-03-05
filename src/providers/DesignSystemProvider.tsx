@@ -1,26 +1,18 @@
 'use client'
 
-import { Where } from 'payload'
-import { stringify } from 'qs-esm'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import type { Config } from '@/payload-types'
-import type { ThemeDefinition, ThemePreset } from '@/themes'
-import { themes } from '@/themes'
-import { getClientSideURL } from '@/utilities/getURL'
+import type { ThemePreset } from '@/themes'
+import { getSiteSettingsFromDomainClient } from '@/utilities/getSiteSettings.client'
+import { useTheme } from './Theme'
 
 interface DesignSystemContextType {
-  theme: ThemeDefinition
   preset: ThemePreset
   isLoading: boolean
   error: Error | null
   setPreset: (preset: ThemePreset) => void
   isDark: boolean
   setIsDark: (isDark: boolean) => void
-}
-
-type TenantResponse = {
-  docs: Array<Config['collections']['tenants']>
 }
 
 const DesignSystemContext = createContext<DesignSystemContextType | null>(null)
@@ -42,53 +34,55 @@ export function DesignSystemProvider({
   children,
   preset: initialPreset = 'cool',
 }: DesignSystemProviderProps) {
-  const [preset, setPreset] = useState<ThemePreset>(initialPreset)
+  const { theme: currentTheme, mode, setTheme, setMode } = useTheme()
+  const [preset, setPresetState] = useState<ThemePreset>(currentTheme || initialPreset)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
-  const [isDark, setIsDark] = useState(false)
+  const [isDark, setIsDarkState] = useState(mode === 'dark')
   const pathname = usePathname()
 
   // Handle system dark mode preference
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    setIsDark(mediaQuery.matches)
+    const isDarkMode = mediaQuery.matches
+    setIsDarkState(isDarkMode)
 
-    const handler = (e: MediaQueryListEvent) => setIsDark(e.matches)
+    if (!mode) {
+      setMode(isDarkMode ? 'dark' : 'light')
+    }
+
+    const handler = (e: MediaQueryListEvent) => {
+      setIsDarkState(e.matches)
+      if (!mode) {
+        setMode(e.matches ? 'dark' : 'light')
+      }
+    }
+
     mediaQuery.addEventListener('change', handler)
     return () => mediaQuery.removeEventListener('change', handler)
-  }, [])
+  }, [mode, setMode])
 
+  // Update mode when isDark changes
+  useEffect(() => {
+    setMode(isDark ? 'dark' : 'light')
+  }, [isDark, setMode])
+
+  // Update preset when currentTheme changes
+  useEffect(() => {
+    if (currentTheme) {
+      setPresetState(currentTheme)
+    }
+  }, [currentTheme])
+
+  // Fetch theme from site settings
   useEffect(() => {
     async function fetchTenantTheme() {
       try {
-        const hostname = window.location.hostname
-        const query: Where = {
-          domain: {
-            equals: hostname,
-          },
-        }
+        const siteSettings = await getSiteSettingsFromDomainClient()
 
-        const stringifiedQuery = stringify(
-          {
-            where: query,
-          },
-          { addQueryPrefix: true },
-        )
-
-        const response = await fetch(`${getClientSideURL()}/api/tenants${stringifiedQuery}`, {
-          headers: { 'Content-Type': 'application/json' },
-          next: { revalidate: 3600, tags: ['tenant-theme'] },
-        })
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch tenant theme')
-        }
-
-        const data = (await response.json()) as TenantResponse
-
-        const tenant = data.docs?.[0]
-        if (tenant?.theme && themes[tenant.theme]) {
-          setPreset(tenant.theme)
+        if (siteSettings?.theme) {
+          setPresetState(siteSettings.theme)
+          setTheme(siteSettings.theme)
         }
       } catch (err) {
         console.error('Error fetching tenant theme:', err)
@@ -99,80 +93,21 @@ export function DesignSystemProvider({
     }
 
     fetchTenantTheme()
-  }, [pathname])
+  }, [pathname, setTheme])
 
-  const theme = themes[preset]
+  const setPreset = (newPreset: ThemePreset) => {
+    setPresetState(newPreset)
+    setTheme(newPreset)
+  }
 
-  useEffect(() => {
-    if (!theme) {
-      console.error('Theme not found:', preset)
-      return
-    }
-
-    const root = document.documentElement
-    const colors = isDark ? theme.dark : theme.colors
-
-    // Apply color variables
-    Object.entries(colors).forEach(([key, value]) => {
-      root.style.setProperty(`--${key}`, value as string)
-    })
-
-    // Apply typography variables
-    Object.entries(theme.typography).forEach(([key, value]) => {
-      if (typeof value === 'object') {
-        Object.entries(value as Record<string, string>).forEach(([subKey, subValue]) => {
-          root.style.setProperty(`--typography-${key}-${subKey}`, subValue)
-        })
-      } else {
-        root.style.setProperty(`--typography-${key}`, value)
-        // Set font family CSS variables directly
-        if (key === 'fontFamily') {
-          root.style.setProperty('--font-sans', value)
-        }
-        if (key === 'headingFamily') {
-          root.style.setProperty('--font-heading', value)
-        }
-      }
-    })
-
-    // Apply radius variables
-    Object.entries(theme.radius).forEach(([key, value]) => {
-      root.style.setProperty(`--radius-${key}`, value)
-    })
-
-    // Apply layout variables
-    Object.entries(theme.layout).forEach(([key, value]) => {
-      root.style.setProperty(`--layout-${key}`, value)
-    })
-
-    // Apply component variables
-    Object.entries(theme.components).forEach(([component, styles]) => {
-      Object.entries(styles as Record<string, string | Record<string, string>>).forEach(
-        ([property, value]) => {
-          if (typeof value === 'object') {
-            Object.entries(value).forEach(([subProperty, subValue]) => {
-              root.style.setProperty(
-                `--components-${component}-${property}-${subProperty}`,
-                subValue,
-              )
-            })
-          } else {
-            root.style.setProperty(`--components-${component}-${property}`, value)
-          }
-        },
-      )
-    })
-
-    // Update data-theme attribute
-    root.setAttribute('data-theme', isDark ? 'dark' : 'light')
-
-    // Force a re-render of styles
-    root.style.setProperty('--theme-updated', Date.now().toString())
-  }, [theme, preset, isDark])
+  const setIsDark = (dark: boolean) => {
+    setIsDarkState(dark)
+    setMode(dark ? 'dark' : 'light')
+  }
 
   return (
     <DesignSystemContext.Provider
-      value={{ theme, preset, isLoading, error, setPreset, isDark, setIsDark }}
+      value={{ preset, isLoading, error, setPreset, isDark, setIsDark }}
     >
       {children}
     </DesignSystemContext.Provider>
