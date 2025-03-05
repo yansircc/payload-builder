@@ -37,15 +37,8 @@ export const InitTheme: React.FC = () => {
       themeToSet = themePreference
     }
 
-    // Set theme preset attribute on both html and body for compatibility
+    // Set theme preset attribute
     document.documentElement.setAttribute('data-theme', themeToSet)
-
-    // Wait for DOM to be ready to set attributes on body
-    document.addEventListener('DOMContentLoaded', function() {
-      if (document.body) {
-        document.body.setAttribute('data-theme', themeToSet)
-      }
-    });
 
     // Initialize mode
     var modeToSet = '${defaultMode}'
@@ -58,15 +51,8 @@ export const InitTheme: React.FC = () => {
       modeToSet = implicitPreference
     }
 
-    // Set mode attribute on both html and body for compatibility
+    // Set mode attribute
     document.documentElement.setAttribute('data-theme-mode', modeToSet)
-
-    // Wait for DOM to be ready to set attributes on body
-    document.addEventListener('DOMContentLoaded', function() {
-      if (document.body) {
-        document.body.setAttribute('data-theme-mode', modeToSet)
-      }
-    });
   })();
   `,
       }}
