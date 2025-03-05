@@ -2,14 +2,23 @@ import type { Preview } from '@storybook/react'
 import type { ReactElement } from 'react'
 import React, { useEffect } from 'react'
 import '../src/app/(frontend)/globals.css'
+import { DocsContainer } from '@storybook/blocks'
 import { themes } from '../src/themes'
 import ThemeWrapper from './ThemeWrapper'
 
 // Create a component to handle theme changes
-const StoryWrapper = ({ theme, children }: { theme: string; children: React.ReactNode }) => {
+const StoryWrapper = ({
+  theme = 'cool',
+  children,
+}: {
+  theme?: string
+  children: React.ReactNode
+}) => {
   useEffect(() => {
-    const selectedTheme = themes[theme as keyof typeof themes]
-    if (!selectedTheme || typeof document === 'undefined') return
+    const themeKey = theme as keyof typeof themes
+    const selectedTheme = themes[themeKey] || themes.cool // Fallback to 'cool' theme if the selected theme doesn't exist
+
+    if (typeof document === 'undefined') return
 
     const root = document.documentElement
 
@@ -124,13 +133,23 @@ const StoryWrapper = ({ theme, children }: { theme: string; children: React.Reac
 
 // Create the decorator that uses our wrapper component
 const withThemeProvider = (Story: React.ComponentType, context: any): ReactElement => (
-  <StoryWrapper theme={context.globals.theme}>
+  <StoryWrapper theme={context?.globals?.theme || 'cool'}>
     <Story />
   </StoryWrapper>
 )
 
 const preview: Preview = {
   parameters: {
+    docs: {
+      container: ({ children, context }) => {
+        const theme = context?.store?.userGlobals?.globals?.theme || 'cool'
+        return (
+          <DocsContainer context={context}>
+            <StoryWrapper theme={theme}>{children}</StoryWrapper>
+          </DocsContainer>
+        )
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
