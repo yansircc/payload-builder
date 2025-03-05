@@ -43,6 +43,22 @@ export interface BaseTheme {
     input: string
     /** Focus ring color */
     ring: string
+    /** Success color */
+    success: string
+    /** Success text color */
+    successForeground: string
+    /** Warning color */
+    warning: string
+    /** Warning text color */
+    warningForeground: string
+    /** Error color */
+    error: string
+    /** Error text color */
+    errorForeground: string
+    /** Info color */
+    info: string
+    /** Info text color */
+    infoForeground: string
   }
   /** Typography settings */
   typography: {
@@ -157,7 +173,15 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       destructiveForeground: 'hsl(210 40% 98%)',
       border: 'hsl(214 32% 91%)',
       input: 'hsl(214 32% 91%)',
-      ring: 'hsl(222 83% 55%)',
+      ring: 'hsl(221 83% 53%)',
+      success: 'hsl(142 76% 36%)',
+      successForeground: 'hsl(210 40% 98%)',
+      warning: 'hsl(38 92% 50%)',
+      warningForeground: 'hsl(222 47% 11%)',
+      error: 'hsl(0 84% 60%)',
+      errorForeground: 'hsl(210 40% 98%)',
+      info: 'hsl(199 89% 48%)',
+      infoForeground: 'hsl(210 40% 98%)',
     },
     dark: {
       background: 'hsl(222 47% 10%)',
@@ -176,9 +200,17 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       accentForeground: 'hsl(210 40% 98%)',
       destructive: 'hsl(0 63% 31%)',
       destructiveForeground: 'hsl(210 40% 98%)',
-      border: 'hsl(217 33% 20%)',
-      input: 'hsl(217 33% 20%)',
-      ring: 'hsl(224 76% 55%)',
+      border: 'hsl(217 33% 17%)',
+      input: 'hsl(217 33% 17%)',
+      ring: 'hsl(224 76% 48%)',
+      success: 'hsl(142 70% 48%)',
+      successForeground: 'hsl(222 47% 11%)',
+      warning: 'hsl(45 93% 47%)',
+      warningForeground: 'hsl(222 47% 11%)',
+      error: 'hsl(0 84% 60%)',
+      errorForeground: 'hsl(222 47% 11%)',
+      info: 'hsl(199 89% 48%)',
+      infoForeground: 'hsl(222 47% 11%)',
     },
     radius: {
       small: '0.25rem',
@@ -257,6 +289,14 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       border: 'hsl(0 0% 0%)',
       input: 'hsl(0 0% 0%)',
       ring: 'hsl(0 0% 0%)',
+      success: 'hsl(143 64% 24%)',
+      successForeground: 'hsl(0 0% 100%)',
+      warning: 'hsl(45 93% 47%)',
+      warningForeground: 'hsl(0 0% 0%)',
+      error: 'hsl(0 84% 60%)',
+      errorForeground: 'hsl(0 0% 100%)',
+      info: 'hsl(200 97% 39%)',
+      infoForeground: 'hsl(0 0% 100%)',
     },
     dark: {
       background: 'hsl(0 0% 0%)',
@@ -278,6 +318,14 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       border: 'hsl(0 0% 100%)',
       input: 'hsl(0 0% 100%)',
       ring: 'hsl(0 0% 100%)',
+      success: 'hsl(143 64% 24%)',
+      successForeground: 'hsl(0 0% 100%)',
+      warning: 'hsl(45 93% 47%)',
+      warningForeground: 'hsl(0 0% 0%)',
+      error: 'hsl(0 84% 60%)',
+      errorForeground: 'hsl(0 0% 100%)',
+      info: 'hsl(200 97% 39%)',
+      infoForeground: 'hsl(0 0% 100%)',
     },
     radius: {
       small: '0',
@@ -356,6 +404,14 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       border: 'hsl(230 25% 15%)',
       input: 'hsl(230 25% 15%)',
       ring: 'hsl(263 90% 51%)',
+      success: 'hsl(143 100% 48%)',
+      successForeground: 'hsl(230 25% 5%)',
+      warning: 'hsl(35 100% 50%)',
+      warningForeground: 'hsl(230 25% 5%)',
+      error: 'hsl(0 100% 50%)',
+      errorForeground: 'hsl(230 25% 5%)',
+      info: 'hsl(190 100% 50%)',
+      infoForeground: 'hsl(230 25% 5%)',
     },
     dark: {
       background: 'hsl(230 25% 5%)',
@@ -373,10 +429,18 @@ export const themes: Record<ThemePreset, ThemeDefinition> = {
       accent: 'hsl(180 100% 50%)',
       accentForeground: 'hsl(230 25% 5%)',
       destructive: 'hsl(0 100% 50%)',
-      destructiveForeground: 'hsl(0 0% 100%)',
+      destructiveForeground: 'hsl(230 25% 5%)',
       border: 'hsl(230 25% 15%)',
       input: 'hsl(230 25% 15%)',
       ring: 'hsl(263 90% 51%)',
+      success: 'hsl(143 100% 48%)',
+      successForeground: 'hsl(230 25% 5%)',
+      warning: 'hsl(35 100% 50%)',
+      warningForeground: 'hsl(230 25% 5%)',
+      error: 'hsl(0 100% 50%)',
+      errorForeground: 'hsl(230 25% 5%)',
+      info: 'hsl(190 100% 50%)',
+      infoForeground: 'hsl(230 25% 5%)',
     },
     radius: {
       small: '0.25rem',

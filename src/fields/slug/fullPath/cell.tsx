@@ -3,7 +3,6 @@
 import { ExternalLink } from 'lucide-react'
 import type { DefaultCellComponentProps } from 'payload'
 import { useEffect, useState } from 'react'
-import { env } from '@/env'
 import type { Tenant } from '@/payload-types'
 import { getTenantByIdFromClient } from '@/utilities/getTenant.client'
 
@@ -11,8 +10,16 @@ import { getTenantByIdFromClient } from '@/utilities/getTenant.client'
 const tenantCache: Record<string, any> = {}
 
 function getFullUrl(domain: string, path: string): string {
-  const protocol = env.NODE_ENV === 'development' ? 'http' : 'https'
-  const port = env.NODE_ENV === 'development' ? ':3000' : ''
+  // Use window.location to determine if we're in development mode
+  // Development typically runs on localhost or has a non-standard port
+  const isDevelopment =
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.port === '3000')
+
+  const protocol = isDevelopment ? 'http' : 'https'
+  const port = isDevelopment ? ':3000' : ''
   return `${protocol}://${domain}${port}/${path}`
 }
 
