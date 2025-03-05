@@ -161,6 +161,7 @@ export const ComplexForm: Story = {
           label: 'Budget (USD)',
           required: true,
           width: 100,
+          numberOnly: true,
         },
         {
           blockType: 'checkbox',

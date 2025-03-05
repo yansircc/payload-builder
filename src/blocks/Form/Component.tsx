@@ -1,6 +1,6 @@
 'use client'
 
-import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
+import type { FormFieldBlock, Form as FormType } from '@payloadcms/plugin-form-builder/types'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { FormProvider, useForm } from 'react-hook-form'
 import React, { useCallback, useState } from 'react'
@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { getClientSideURL } from '@/utilities/getURL'
 import { buildInitialFormState } from './buildInitialFormState'
 import { fields } from './fields'
+import type { ExtendedTextField } from './types'
 
 export type Value = unknown
 
@@ -25,7 +26,9 @@ export type FormBlockType = {
   blockName?: string
   blockType?: 'formBlock'
   enableIntro: boolean
-  form: FormType
+  form: Omit<FormType, 'fields'> & {
+    fields: (FormFieldBlock | ExtendedTextField)[]
+  }
   introContent?: SerializedEditorState
 }
 
