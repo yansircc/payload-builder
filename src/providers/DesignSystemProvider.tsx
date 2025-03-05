@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import type { Config } from '@/payload-types'
 import type { ThemeDefinition, ThemePreset } from '@/themes'
 import { themes } from '@/themes'
+import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getClientSideURL } from '@/utilities/getURL'
 
 interface DesignSystemContextType {
@@ -61,34 +62,10 @@ export function DesignSystemProvider({
   useEffect(() => {
     async function fetchTenantTheme() {
       try {
-        const hostname = window.location.hostname
-        const query: Where = {
-          domain: {
-            equals: hostname,
-          },
-        }
+        const siteSettings = await getSiteSettingsFromDomain()
 
-        const stringifiedQuery = stringify(
-          {
-            where: query,
-          },
-          { addQueryPrefix: true },
-        )
-
-        const response = await fetch(`${getClientSideURL()}/api/tenants${stringifiedQuery}`, {
-          headers: { 'Content-Type': 'application/json' },
-          next: { revalidate: 3600, tags: ['tenant-theme'] },
-        })
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch tenant theme')
-        }
-
-        const data = (await response.json()) as TenantResponse
-
-        const tenant = data.docs?.[0]
-        if (tenant?.theme && themes[tenant.theme]) {
-          setPreset(tenant.theme)
+        if (siteSettings?.theme) {
+          setPreset(siteSettings?.theme)
         }
       } catch (err) {
         console.error('Error fetching tenant theme:', err)
