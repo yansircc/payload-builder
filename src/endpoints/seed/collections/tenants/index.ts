@@ -5,15 +5,15 @@ export async function seedTenants({ payload }: { payload: Payload }) {
   const [tenant1, tenant2, tenant3] = await Promise.all([
     payload.create({
       collection: 'tenants',
-      data: { name: 'Tenant 1', slug: 'gold', domain: 'gold.localhost.com', theme: 'cool' },
+      data: { name: 'Tenant 1', slug: 'gold', domain: 'gold.localhost.com' },
     }),
     payload.create({
       collection: 'tenants',
-      data: { name: 'Tenant 2', slug: 'silver', domain: 'silver.localhost.com', theme: 'brutal' },
+      data: { name: 'Tenant 2', slug: 'silver', domain: 'silver.localhost.com' },
     }),
     payload.create({
       collection: 'tenants',
-      data: { name: 'Tenant 3', slug: 'bronze', domain: 'bronze.localhost.com', theme: 'neon' },
+      data: { name: 'Tenant 3', slug: 'bronze', domain: 'bronze.localhost.com' },
     }),
   ])
 

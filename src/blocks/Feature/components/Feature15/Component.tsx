@@ -18,12 +18,14 @@ export default function Feature15({ title, subtitle, description, features }: Fe
               className="flex flex-col justify-between rounded-lg bg-accent p-6 md:min-h-[300px] md:p-8"
               key={idx}
             >
-              <span className="mb-6 flex size-11 items-center justify-center rounded-full bg-background">
-                {feature.icon && <DynamicIcon name={feature.icon} className="size-6" />}
+              <span className="mb-6 flex size-11 items-center justify-center rounded-full bg-card/10">
+                {feature.icon && (
+                  <DynamicIcon name={feature.icon} className="size-6 text-primary" />
+                )}
               </span>
               <div>
-                <h3 className="text-lg font-medium md:text-2xl">{feature.title}</h3>
-                <p className="mt-2 text-muted-foreground">{feature.description}</p>
+                <h3 className="text-lg font-medium md:text-2xl text-foreground">{feature.title}</h3>
+                <p className="mt-2 text-foreground">{feature.description}</p>
               </div>
             </div>
           ))}

@@ -1,0 +1,56 @@
+import type { Meta, StoryObj } from '@storybook/react'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination'
+
+/**
+ * Pagination with page navigation, next and previous links.
+ */
+const meta = {
+  title: 'ui/Pagination',
+  component: Pagination,
+  tags: ['autodocs'],
+  argTypes: {},
+  render: (args) => (
+    <Pagination {...args}>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink>1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink>2</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink>3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  ),
+  parameters: {
+    layout: 'centered',
+  },
+} satisfies Meta<typeof Pagination>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+/**
+ * The default form of the pagination.
+ */
+export const Default: Story = {}

@@ -28,6 +28,7 @@ export async function seedSiteSettings({
         brandIdentity: 'luxury',
         industryFocus: 'fashion',
         targetAudience: 'corporate',
+        theme: 'cool',
       },
     }),
     payload.create({
@@ -46,6 +47,7 @@ export async function seedSiteSettings({
         brandIdentity: 'luxury',
         industryFocus: 'fashion',
         targetAudience: 'corporate',
+        theme: 'brutal',
       },
     }),
     payload.create({
@@ -64,6 +66,7 @@ export async function seedSiteSettings({
         brandIdentity: 'luxury',
         industryFocus: 'fashion',
         targetAudience: 'corporate',
+        theme: 'neon',
       },
     }),
   ])

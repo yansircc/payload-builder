@@ -14,13 +14,22 @@ export default function Feature10({ title, description, features }: Feature10Fie
               key={index}
               className="relative flex gap-3 rounded-lg border-dashed md:block md:border-l md:p-5"
             >
-              <span className="mb-8 flex size-10 shrink-0 items-center justify-center rounded-full bg-accent md:size-12">
-                {feature.icon && <DynamicIcon name={feature.icon} className="size-5 md:size-6" />}
+              <span
+                className={`mb-8 flex shrink-0 items-center justify-center rounded-full md:size-12 ${
+                  feature.icon ? 'size-10 bg-card/10' : 'hidden'
+                }`}
+              >
+                {feature.icon && (
+                  <DynamicIcon
+                    name={feature.icon}
+                    className="size-5 md:size-6 text-muted-foreground"
+                  />
+                )}
               </span>
               <div>
                 <h3 className="font-medium md:mb-2 md:text-xl">
                   {feature.title}
-                  <span className="absolute -left-px hidden h-6 w-px bg-primary md:inline-block"></span>
+                  <span className="absolute -left-px hidden h-6 w-px  md:inline-block"></span>
                 </h3>
                 <p className="text-sm text-muted-foreground md:text-base">{feature.description}</p>
               </div>
