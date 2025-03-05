@@ -38,12 +38,69 @@
   /* Force Storybook to use our theme colors */
   .sb-show-main,
   #storybook-root,
-  .sb-show-main.sb-main-padded {
+  .sb-show-main.sb-main-padded,
+  #storybook-docs {
     background-color: var(--background) !important;
     color: var(--foreground) !important;
     padding: 0 !important;
     margin: 0 !important;
     min-height: 100vh;
+  }
+
+  /* Style docs content */
+  .sbdocs.sbdocs-wrapper,
+  .sbdocs.sbdocs-content {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+  }
+
+  /* Style the docs preview blocks */
+  .sb-previewBlock {
+    background-color: var(--background) !important;
+    border-color: var(--border) !important;
+  }
+
+  .sb-previewBlock_header {
+    background-color: var(--muted) !important;
+    border-bottom-color: var(--border) !important;
+  }
+
+  /* Style the args table */
+  .sb-argstableBlock {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+  }
+
+  .sb-argstableBlock-head th {
+    color: var(--foreground) !important;
+  }
+
+  .sb-argstableBlock-body td {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Style code blocks and inline code */
+  .sb-argstableBlock-code {
+    background-color: var(--muted) !important;
+    color: var(--foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Style headings */
+  .sbdocs h1,
+  .sbdocs h2,
+  .sbdocs h3,
+  .sbdocs h4,
+  .sbdocs h5,
+  .sbdocs h6 {
+    color: var(--foreground) !important;
+  }
+
+  /* Style links */
+  .sbdocs a {
+    color: var(--primary) !important;
   }
 
   /* Ensure consistent theme colors in the Storybook UI */
