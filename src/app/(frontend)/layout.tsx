@@ -45,7 +45,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   )
 
   return (
-    <html className={htmlClassName} lang="en" suppressHydrationWarning>
+    <html
+      className={htmlClassName}
+      lang="en"
+      suppressHydrationWarning
+      data-theme={siteSettings?.theme}
+    >
       <head>
         <InitTheme />
         <Favicon />

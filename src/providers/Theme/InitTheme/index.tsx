@@ -37,9 +37,6 @@ export const InitTheme: React.FC = () => {
       themeToSet = themePreference
     }
 
-    // Set theme preset attribute
-    document.documentElement.setAttribute('data-theme', themeToSet)
-
     // Initialize mode
     var modeToSet = '${defaultMode}'
     var modePreference = window.localStorage.getItem('${modeLocalStorageKey}')
