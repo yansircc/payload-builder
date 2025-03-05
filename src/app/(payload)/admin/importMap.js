@@ -1,4 +1,14 @@
 import {
+  CollectionField as CollectionField_cdf7e044479f899a31f804427d568b36,
+  ExportListMenuItem as ExportListMenuItem_cdf7e044479f899a31f804427d568b36,
+  ExportSaveButton as ExportSaveButton_cdf7e044479f899a31f804427d568b36,
+  FieldsToExport as FieldsToExport_cdf7e044479f899a31f804427d568b36,
+  ImportExportProvider as ImportExportProvider_cdf7e044479f899a31f804427d568b36,
+  Preview as Preview_cdf7e044479f899a31f804427d568b36,
+  SortBy as SortBy_cdf7e044479f899a31f804427d568b36,
+  WhereField as WhereField_cdf7e044479f899a31f804427d568b36,
+} from '@payloadcms/plugin-import-export/rsc'
+import {
   TenantField as TenantField_1d0591e3cf4f332c83a86da13a0de59a,
   TenantSelector as TenantSelector_1d0591e3cf4f332c83a86da13a0de59a,
 } from '@payloadcms/plugin-multi-tenant/client'
@@ -143,6 +153,10 @@ export const importMap = {
   '@/fields/slug/SlugComponent#SlugComponent': SlugComponent_92cc057d0a2abb4f6cf0307edf59f986,
   '@/fields/slug/fullPath/cell#FullPathCell': FullPathCell_e1b3b2f313a2a78029b930d3989bed10,
   '@/components/StaticPreview#default': default_451f87e9402710cb271a0a0c66065661,
+  '@payloadcms/plugin-import-export/rsc#ExportListMenuItem':
+    ExportListMenuItem_cdf7e044479f899a31f804427d568b36,
+  '@payloadcms/plugin-import-export/rsc#ExportSaveButton':
+    ExportSaveButton_cdf7e044479f899a31f804427d568b36,
   '@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient':
     HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   '@payloadcms/richtext-lexical/client#BlocksFeatureClient':
@@ -152,6 +166,13 @@ export const importMap = {
   '@/components/ColorPicker/#default': default_78b39f784b86cf844383560b5f1a85bf,
   '@payloadcms/richtext-lexical/client#TableFeatureClient':
     TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  '@payloadcms/plugin-import-export/rsc#SortBy': SortBy_cdf7e044479f899a31f804427d568b36,
+  '@payloadcms/plugin-import-export/rsc#FieldsToExport':
+    FieldsToExport_cdf7e044479f899a31f804427d568b36,
+  '@payloadcms/plugin-import-export/rsc#CollectionField':
+    CollectionField_cdf7e044479f899a31f804427d568b36,
+  '@payloadcms/plugin-import-export/rsc#WhereField': WhereField_cdf7e044479f899a31f804427d568b36,
+  '@payloadcms/plugin-import-export/rsc#Preview': Preview_cdf7e044479f899a31f804427d568b36,
   '@payloadcms/plugin-search/client#LinkToDoc': LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   '@payloadcms/plugin-search/client#ReindexButton': ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   '@payloadcms/plugin-multi-tenant/rsc#GlobalViewRedirect':
@@ -161,6 +182,8 @@ export const importMap = {
   '@/components/BeforeLogin#default': default_8a7ab0eb7ab5c511aba12e68480bfe5e,
   '@payloadcms/plugin-multi-tenant/client#TenantSelector':
     TenantSelector_1d0591e3cf4f332c83a86da13a0de59a,
+  '@payloadcms/plugin-import-export/rsc#ImportExportProvider':
+    ImportExportProvider_cdf7e044479f899a31f804427d568b36,
   '@payloadcms/plugin-multi-tenant/rsc#TenantSelectionProvider':
     TenantSelectionProvider_d6d5f193a167989e2ee7d14202901e62,
   '@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler':

@@ -1,5 +1,6 @@
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
+import { importExportPlugin } from '@payloadcms/plugin-import-export'
 import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
@@ -30,6 +31,9 @@ const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
 }
 
 export const plugins: Plugin[] = [
+  importExportPlugin({
+    collections: ['pages', 'posts'],
+  }),
   redirectsPlugin({
     collections: ['pages', 'posts'],
     overrides: {
