@@ -979,79 +979,74 @@ export interface Hero12Fields {
  */
 export interface Hero24Fields {
   /**
-   * Hero section fields
+   * The title of the Hero section
    */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Partner logo image
-     */
-    logo: string | Media;
-    /**
-     * Badge text displayed above title
-     */
-    badge?: string | null;
-    /**
-     * Hero button
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The subtitle of the Hero section
+   */
+  subtitle?: string | null;
+  /**
+   * The logo image
+   */
+  logo?: (string | null) | Media;
+  /**
+   * Badge text displayed above title
+   */
+  badge?: string | null;
+  /**
+   * Hero button
+   */
+  links?:
+    | {
+        /**
+         * Hero button with MoveRight suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * Hero button with MoveRight suffix icon
+           * Choose how the link should be rendered.
            */
-          link: {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Feature list (exactly 4 items)
-     */
-    features?:
-      | {
-          /**
-           * Lucide icon name
-           */
-          icon: string;
-          /**
-           * Feature title
-           */
-          title: string;
-          /**
-           * Feature description
-           */
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Feature list (exactly 4 items)
+   */
+  features?:
+    | {
+        /**
+         * Lucide icon name
+         */
+        icon: string;
+        /**
+         * Feature title
+         */
+        title: string;
+        /**
+         * Feature description
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9098,39 +9093,35 @@ export interface Hero12FieldsSelect<T extends boolean = true> {
  * via the `definition` "Hero24Fields_select".
  */
 export interface Hero24FieldsSelect<T extends boolean = true> {
-  hero?:
+  title?: T;
+  subtitle?: T;
+  logo?: T;
+  badge?: T;
+  links?:
     | T
     | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        icon?: T;
         title?: T;
-        subtitle?: T;
-        logo?: T;
-        badge?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        features?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              description?: T;
-              id?: T;
-            };
+        description?: T;
+        id?: T;
       };
 }
 /**

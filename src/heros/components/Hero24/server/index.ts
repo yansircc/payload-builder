@@ -1,18 +1,78 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
+import { Field, GroupField } from 'payload'
 import { link } from '@/fields/link'
-import { createHeroField, featureFields, heroSchemas } from '../../shared/base-field'
+import { featureFields } from '../../shared/base-field'
 
 /**
  * Hero 24 field validation and type definitions
  */
-export const schemas = {
-  title: heroSchemas.title,
-  subtitle: heroSchemas.subtitle,
-  link: heroSchemas.link,
-  logo: heroSchemas.logo,
-  badge: heroSchemas.badge,
-  features: z.array(heroSchemas.feature).length(4),
+
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  minLength: 1,
+  maxLength: 100,
+  admin: {
+    description: 'The title of the Hero section',
+  },
+}
+
+const subtitle: Field = {
+  name: 'subtitle',
+  type: 'text',
+  admin: {
+    description: 'The subtitle of the Hero section',
+  },
+}
+
+const logo: Field = {
+  name: 'logo',
+  type: 'upload',
+  relationTo: 'media',
+  admin: {
+    description: 'The logo image',
+  },
+}
+
+const badge: Field = {
+  name: 'badge',
+  type: 'text',
+  admin: {
+    description: 'Badge text displayed above title',
+  },
+}
+
+const links: Field = {
+  name: 'links',
+  type: 'array',
+  fields: [
+    link({
+      overrides: {
+        admin: {
+          description: 'Hero button with MoveRight suffix icon',
+        },
+        defaultValue: {
+          suffixIcon: 'MoveRight',
+        },
+      },
+    }),
+  ],
+  minRows: 1,
+  maxRows: 1,
+  admin: {
+    description: 'Hero button',
+  },
+}
+
+const features: Field = {
+  name: 'features',
+  type: 'array',
+  fields: [featureFields.icon, featureFields.title, featureFields.description],
+  minRows: 4,
+  maxRows: 4,
+  admin: {
+    description: 'Feature list (exactly 4 items)',
+  },
 }
 
 /**
@@ -26,40 +86,5 @@ export const hero24Fields: GroupField = {
   admin: {
     description: 'Hero with logo, badge and feature list',
   },
-  fields: [
-    createHeroField({
-      includeFields: ['logo', 'badge', 'title', 'subtitle'],
-      arrays: [
-        {
-          name: 'links',
-          fields: [
-            link({
-              overrides: {
-                admin: {
-                  description: 'Hero button with MoveRight suffix icon',
-                },
-                defaultValue: {
-                  suffixIcon: 'MoveRight',
-                },
-              },
-            }),
-          ],
-          minRows: 1,
-          maxRows: 1,
-          admin: {
-            description: 'Hero button',
-          },
-        },
-        {
-          name: 'features',
-          fields: [featureFields.icon, featureFields.title, featureFields.description],
-          minRows: 4,
-          maxRows: 4,
-          admin: {
-            description: 'Feature list (exactly 4 items)',
-          },
-        },
-      ],
-    }),
-  ],
+  fields: [title, subtitle, logo, badge, links, features],
 }
