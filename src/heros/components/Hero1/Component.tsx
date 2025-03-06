@@ -5,8 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import type { Hero1Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Hero1({ hero }: Hero1Fields) {
-  const { title, subtitle, links, image, badge } = hero
+export default function Hero1({ title, subtitle, links, image, badge }: Hero1Fields) {
   return (
     <section className="relative overflow-hidden bg-background py-section md:py-section-md lg:py-section-lg">
       <div className="container relative z-10">
@@ -74,13 +73,15 @@ export default function Hero1({ hero }: Hero1Fields) {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <Media
-              fill
-              className="relative h-full w-full"
-              imgClassName="object-cover rounded-md h-full w-full"
-              priority
-              resource={image}
-            />
+            {image && (
+              <Media
+                fill
+                className="relative h-full w-full"
+                imgClassName="object-cover rounded-md h-full w-full"
+                priority
+                resource={image}
+              />
+            )}
           </ClientMotionDiv>
         </div>
       </div>

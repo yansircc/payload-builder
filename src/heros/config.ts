@@ -1,5 +1,5 @@
 import type { Field } from 'payload'
-import { hero1Fields } from './components/Hero1/config'
+import { hero1Fields } from './components/Hero1/server'
 import { hero3Fields } from './components/Hero3/config'
 import { hero5Fields } from './components/Hero5/config'
 import { hero6Fields } from './components/Hero6/config'
@@ -43,6 +43,9 @@ export const HeroField: Field = {
     {
       ...hero1Fields,
       admin: {
+        components: {
+          Field: '@/heros/components/Hero1/client',
+        },
         condition: (_, siblingData) => siblingData.style === 'hero-1',
       },
     },

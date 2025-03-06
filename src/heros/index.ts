@@ -27,7 +27,7 @@ import Hero45Component from './components/Hero45/Component'
 import Hero115Component from './components/Hero115/Component'
 
 // Export config
-export { hero1Fields } from './components/Hero1/config'
+export { hero1Fields } from './components/Hero1/server'
 export { hero115Fields } from './components/Hero115/config'
 export { hero12Fields } from './components/Hero12/config'
 export { hero24Fields } from './components/Hero24/config'
