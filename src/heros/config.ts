@@ -1,6 +1,6 @@
 import type { Field } from 'payload'
 import { hero1Fields } from './components/Hero1/server'
-import { hero3Fields } from './components/Hero3/config'
+import { hero3Fields } from './components/Hero3/server'
 import { hero5Fields } from './components/Hero5/config'
 import { hero6Fields } from './components/Hero6/config'
 import { hero7Fields } from './components/Hero7/config'
@@ -26,7 +26,9 @@ export const HeroField: Field = {
       type: 'select',
       options: [
         'hero-1',
+        'hero-3',
         'hero-5',
+        'hero-6',
         'hero-7',
         'hero-8',
         'hero-12',
@@ -34,8 +36,6 @@ export const HeroField: Field = {
         'hero-25',
         'hero-32',
         'hero-34',
-        'hero-6',
-        'hero-3',
         'hero-45',
         'hero-115',
       ],
@@ -50,9 +50,24 @@ export const HeroField: Field = {
       },
     },
     {
+      ...hero3Fields,
+      admin: {
+        components: {
+          Field: '@/heros/components/Hero3/client',
+        },
+        condition: (_, siblingData) => siblingData.style === 'hero-3',
+      },
+    },
+    {
       ...hero5Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'hero-5',
+      },
+    },
+    {
+      ...hero6Fields,
+      admin: {
+        condition: (_, siblingData) => siblingData.style === 'hero-6',
       },
     },
     {
@@ -95,18 +110,6 @@ export const HeroField: Field = {
       ...hero34Fields,
       admin: {
         condition: (_, siblingData) => siblingData.style === 'hero-34',
-      },
-    },
-    {
-      ...hero6Fields,
-      admin: {
-        condition: (_, siblingData) => siblingData.style === 'hero-6',
-      },
-    },
-    {
-      ...hero3Fields,
-      admin: {
-        condition: (_, siblingData) => siblingData.style === 'hero-3',
       },
     },
     {

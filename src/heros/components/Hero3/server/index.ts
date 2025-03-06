@@ -29,13 +29,45 @@ const image: Field = {
   },
 }
 
-const badge: Field = {
-  name: 'badge',
+const rating: Field = {
+  name: 'rating',
+  type: 'number',
+  min: 0,
+  max: 5,
+  required: true,
+  admin: {
+    description: 'Rating value out of 5',
+  },
+}
+
+const reviewCount: Field = {
+  name: 'reviewCount',
   type: 'text',
   required: true,
   admin: {
-    description: 'The text displayed in the badge',
+    description: 'Text showing review count',
   },
+}
+
+const avatars: Field = {
+  name: 'avatars',
+  type: 'array',
+  fields: [
+    {
+      name: 'avatar',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+      admin: {
+        description: 'User avatar image',
+      },
+    },
+  ],
+  admin: {
+    description: 'Avatar images (exactly 5)',
+  },
+  minRows: 5,
+  maxRows: 5,
 }
 
 const links: Field = {
@@ -44,9 +76,6 @@ const links: Field = {
   fields: [
     link({
       name: 'link',
-      ui: {
-        icons: true,
-      },
       overrides: {
         admin: {
           description: 'Hero buttons',
@@ -62,15 +91,15 @@ const links: Field = {
 }
 
 /**
- * Complete configuration for Hero 1
+ * Complete configuration for Hero 3
  */
-export const hero1Fields: GroupField = {
-  name: 'hero-1',
-  interfaceName: 'Hero1Fields',
+export const hero3Fields: GroupField = {
+  name: 'hero-3',
+  interfaceName: 'Hero3Fields',
   label: false,
   type: 'group',
   admin: {
-    description: 'Hero with a badge on the top left',
+    description: 'Hero section with rating, avatars, and dual CTA buttons',
   },
-  fields: [title, subtitle, image, badge, links],
+  fields: [title, subtitle, image, rating, reviewCount, avatars, links],
 }
