@@ -1,14 +1,81 @@
-import { GroupField } from 'payload'
-import { createHeroField, heroSchemas, ratingFields } from '../../shared/base-field'
+import { Field, GroupField } from 'payload'
+import { link } from '@/fields/link'
 
-/**
- * Hero 7 field validation and type definitions
- */
-export const schemas = {
-  title: heroSchemas.title,
-  subtitle: heroSchemas.subtitle,
-  link: heroSchemas.link,
-  rating: heroSchemas.rating,
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  minLength: 1,
+  maxLength: 100,
+  admin: {
+    description: 'The title of the Hero section',
+  },
+}
+
+const subtitle: Field = {
+  name: 'subtitle',
+  type: 'text',
+  admin: {
+    description: 'The subtitle of the Hero section',
+  },
+}
+
+const heroLink: Field = link({
+  name: 'link',
+  overrides: {
+    admin: {
+      description: 'Hero button',
+    },
+  },
+})
+
+const rating: Field = {
+  name: 'rating',
+  type: 'group',
+  admin: {
+    description: 'Rating information',
+  },
+  fields: [
+    {
+      name: 'rate',
+      type: 'number',
+      min: 0,
+      max: 5,
+      required: true,
+      admin: {
+        description: 'Rating value (0-5)',
+      },
+    },
+    {
+      name: 'count',
+      type: 'number',
+      min: 0,
+      required: true,
+      admin: {
+        description: 'Number of ratings',
+      },
+    },
+    {
+      name: 'avatars',
+      type: 'array',
+      fields: [
+        {
+          name: 'avatar',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+          admin: {
+            description: 'User avatar',
+          },
+        },
+      ],
+      minRows: 3,
+      maxRows: 5,
+      admin: {
+        description: 'User avatars (3-5)',
+      },
+    },
+  ],
 }
 
 /**
@@ -22,29 +89,5 @@ export const hero7Fields: GroupField = {
   admin: {
     description: 'Hero with a rating on the center',
   },
-  fields: [
-    createHeroField({
-      includeFields: ['title', 'subtitle', 'link'],
-      groups: [
-        {
-          name: 'rating',
-          fields: ['rate', 'count'],
-          arrays: [
-            {
-              name: 'avatars',
-              fields: [ratingFields.avatar],
-              minRows: 3,
-              maxRows: 5,
-              admin: {
-                description: 'User avatars (3-5)',
-              },
-            },
-          ],
-          admin: {
-            description: 'Rating information',
-          },
-        },
-      ],
-    }),
-  ],
+  fields: [title, subtitle, heroLink, rating],
 }

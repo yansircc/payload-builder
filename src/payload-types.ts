@@ -800,67 +800,62 @@ export interface Hero6Fields {
  */
 export interface Hero7Fields {
   /**
-   * Hero section fields
+   * The title of the Hero section
    */
-  hero: {
+  title: string;
+  /**
+   * The subtitle of the Hero section
+   */
+  subtitle?: string | null;
+  /**
+   * Hero button
+   */
+  link: {
+    type?: ('reference' | 'custom' | 'popup') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    popup?: (string | null) | Popup;
+    label: string;
+    prefixIcon?: string | null;
+    suffixIcon?: string | null;
     /**
-     * Feature title
+     * Choose how the link should be rendered.
      */
-    title: string;
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+  };
+  /**
+   * Rating information
+   */
+  rating: {
     /**
-     * Subtitle text
+     * Rating value (0-5)
      */
-    subtitle?: string | null;
+    rate: number;
     /**
-     * Hero button
+     * Number of ratings
      */
-    link: {
-      type?: ('reference' | 'custom' | 'popup') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      popup?: (string | null) | Popup;
-      label: string;
-      prefixIcon?: string | null;
-      suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-    };
+    count: number;
     /**
-     * Rating information
+     * User avatars (3-5)
      */
-    rating: {
-      /**
-       * Rating value (0-5)
-       */
-      rate: number;
-      /**
-       * Number of ratings
-       */
-      count: number;
-      /**
-       * User avatars (3-5)
-       */
-      avatars?:
-        | {
-            /**
-             * User avatar
-             */
-            avatar: string | Media;
-            id?: string | null;
-          }[]
-        | null;
-    };
+    avatars?:
+      | {
+          /**
+           * User avatar
+           */
+          avatar: string | Media;
+          id?: string | null;
+        }[]
+      | null;
   };
 }
 /**
@@ -9041,35 +9036,31 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
  * via the `definition` "Hero7Fields_select".
  */
 export interface Hero7FieldsSelect<T extends boolean = true> {
-  hero?:
+  title?: T;
+  subtitle?: T;
+  link?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        link?:
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        popup?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
+      };
+  rating?:
+    | T
+    | {
+        rate?: T;
+        count?: T;
+        avatars?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              popup?: T;
-              label?: T;
-              prefixIcon?: T;
-              suffixIcon?: T;
-              appearance?: T;
-            };
-        rating?:
-          | T
-          | {
-              rate?: T;
-              count?: T;
-              avatars?:
-                | T
-                | {
-                    avatar?: T;
-                    id?: T;
-                  };
+              avatar?: T;
+              id?: T;
             };
       };
 }
