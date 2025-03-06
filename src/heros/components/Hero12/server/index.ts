@@ -1,21 +1,71 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
+import { Field, GroupField } from 'payload'
 import { link } from '@/fields/link'
-import { createHeroField, heroSchemas, partnerFields } from '../../shared/base-field'
+import { partnerFields } from '../../shared/base-field'
 
 /**
  * Hero 12 field validation and type definitions
  */
-export const schemas = {
-  title: heroSchemas.title,
-  subtitle: heroSchemas.subtitle,
-  links: z.array(heroSchemas.link).min(1).max(2),
-  logo: heroSchemas.logo,
-  badge: heroSchemas.badge,
-  partners: z
-    .array(z.object({ logo: heroSchemas.logo }))
-    .min(1)
-    .max(6),
+
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  minLength: 1,
+  maxLength: 100,
+  admin: {
+    description: 'The title of the Hero section',
+  },
+}
+
+const subtitle: Field = {
+  name: 'subtitle',
+  type: 'text',
+  admin: {
+    description: 'The subtitle of the Hero section',
+  },
+}
+
+const logo: Field = {
+  name: 'logo',
+  type: 'upload',
+  relationTo: 'media',
+  admin: {
+    description: 'The logo image',
+  },
+}
+
+const badge: Field = {
+  name: 'badge',
+  type: 'text',
+  admin: {
+    description: 'Badge text displayed above title',
+  },
+}
+
+const links: Field = {
+  name: 'links',
+  type: 'array',
+  fields: [
+    link({
+      name: 'link',
+    }),
+  ],
+  minRows: 1,
+  maxRows: 2,
+  admin: {
+    description: 'Hero buttons (1-2)',
+  },
+}
+
+const partners: Field = {
+  name: 'partners',
+  type: 'array',
+  fields: [partnerFields.logo],
+  minRows: 1,
+  maxRows: 6,
+  admin: {
+    description: 'Partner logos (1-6)',
+  },
 }
 
 /**
@@ -29,44 +79,5 @@ export const hero12Fields: GroupField = {
   admin: {
     description: 'Hero with logo, badge and partner logos',
   },
-  fields: [
-    createHeroField({
-      includeFields: ['title', 'subtitle', 'logo', 'badge'],
-      arrays: [
-        {
-          name: 'links',
-          fields: [
-            link({
-              name: 'link-1',
-            }),
-            link({
-              name: 'link-2',
-              overrides: {
-                admin: {
-                  description: 'Hero button with ExternalLink suffix icon',
-                },
-                defaultValue: {
-                  suffixIcon: 'ExternalLink',
-                },
-              },
-            }),
-          ],
-          minRows: 1,
-          maxRows: 1,
-          admin: {
-            description: 'Hero buttons (1-2)',
-          },
-        },
-        {
-          name: 'partners',
-          fields: [partnerFields.logo],
-          minRows: 1,
-          maxRows: 6,
-          admin: {
-            description: 'Partner logos (1-6)',
-          },
-        },
-      ],
-    }),
-  ],
+  fields: [title, subtitle, logo, badge, links, partners],
 }
