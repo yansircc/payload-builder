@@ -1,7 +1,7 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
 import { link } from '@/fields/link'
-import { createHeroField, featureFields, heroSchemas } from '../shared/base-field'
+import { createHeroField, featureFields, heroSchemas } from '../../shared/base-field'
 
 /**
  * Hero 25 field validation and type definitions

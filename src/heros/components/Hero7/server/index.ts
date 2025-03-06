@@ -1,5 +1,5 @@
 import { GroupField } from 'payload'
-import { createHeroField, heroSchemas, ratingFields } from '../shared/base-field'
+import { createHeroField, heroSchemas, ratingFields } from '../../shared/base-field'
 
 /**
  * Hero 7 field validation and type definitions

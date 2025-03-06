@@ -1,6 +1,6 @@
 import { GroupField } from 'payload'
 import { link } from '@/fields/link'
-import { createHeroField, heroSchemas } from '../shared/base-field'
+import { createHeroField, heroSchemas } from '../../shared/base-field'
 
 /**
  * Hero 115 field validation and type definitions
