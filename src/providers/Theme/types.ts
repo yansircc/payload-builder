@@ -9,6 +9,11 @@ export interface ThemeContextType {
   mode?: Mode | null
 }
 
+export interface ThemeOption {
+  label: string
+  value: ThemePreset
+}
+
 export function themeIsValid(string: null | string): string is ThemePreset {
   return string ? ['cool', 'brutal', 'neon'].includes(string) : false
 }
