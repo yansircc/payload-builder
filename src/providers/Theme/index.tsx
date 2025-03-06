@@ -1,7 +1,6 @@
 'use client'
 
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
-import type { ThemePreset } from '@/themes'
 import canUseDOM from '@/utilities/canUseDOM'
 import { getSiteSettingsFromDomainClient } from '@/utilities/getSiteSettings.client'
 import {
@@ -11,7 +10,7 @@ import {
   modeLocalStorageKey,
   themeLocalStorageKey,
 } from './shared'
-import type { Mode, ThemeContextType } from './types'
+import type { Mode, ThemeContextType, ThemePreset } from './types'
 import { modeIsValid, themeIsValid } from './types'
 
 const initialContext: ThemeContextType = {
