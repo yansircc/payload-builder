@@ -48,8 +48,18 @@ export const InitTheme: React.FC = () => {
       modeToSet = implicitPreference
     }
 
-    // Set mode attribute
+    // Set theme and mode attributes
+    document.documentElement.setAttribute('data-theme', themeToSet)
     document.documentElement.setAttribute('data-theme-mode', modeToSet)
+
+    // Add listener for system theme changes
+    var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    mediaQuery.addEventListener('change', function(e) {
+      if (!window.localStorage.getItem('${modeLocalStorageKey}')) {
+        var newMode = e.matches ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme-mode', newMode)
+      }
+    })
   })();
   `,
       }}
