@@ -1,4 +1,4 @@
-import type { ThemePreset } from '@/themes'
+export type ThemePreset = 'cool' | 'brutal' | 'neon'
 
 export type Mode = 'dark' | 'light'
 
