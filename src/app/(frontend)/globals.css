@@ -9,6 +9,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    @apply border-border;
   }
 
   html {
@@ -16,6 +17,7 @@
     font-size: var(--typography-baseFontSize, 16px);
     line-height: var(--typography-lineHeight, 1.5);
     font-family: var(--typography-fontFamily, system-ui, sans-serif);
+    visibility: hidden;
   }
 
   h1,
@@ -337,12 +339,7 @@
     --info: hsl(190 100% 50%);
     --info-foreground: hsl(230 25% 5%);
   }
-}
 
-@layer base {
-  * {
-    @apply border-border;
-  }
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
   }
@@ -399,4 +396,9 @@ html:not([data-theme-mode]) {
     --layout-containerPadding: var(--layout-containerPaddingDesktop, 2rem);
     --layout-sectionSpacing: var(--layout-sectionSpacingDesktop, 4rem);
   }
+}
+
+/* Ensure dark mode styles take precedence */
+html[data-theme-mode='dark'] {
+  color-scheme: dark;
 }
