@@ -30,13 +30,15 @@ const defaultHero: Hero1Fields = {
   },
   links: [
     {
-      'link-1': {
+      link: {
         type: 'custom',
         label: 'Get Started',
         url: '#',
         appearance: 'default',
       },
-      'link-2': {
+    },
+    {
+      link: {
         type: 'custom',
         label: 'Learn More',
         url: '#',
@@ -63,13 +65,15 @@ export const SingleButton: Story = {
     subtitle: null,
     links: [
       {
-        'link-1': {
+        link: {
           type: 'custom',
           label: 'Get Started',
           url: '#',
           appearance: 'default',
         },
-        'link-2': {
+      },
+      {
+        link: {
           type: 'custom',
           label: 'Learn More',
           url: '#',

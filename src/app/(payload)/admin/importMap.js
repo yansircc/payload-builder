@@ -73,6 +73,7 @@ import { DefaultRootView as DefaultRootView_a5b063f5b2b9cdce4f0e1dd9b2761872 } f
 import { AIFeature as AIFeature_c86cb9794e8dfc789dceffc1ecbdea8d } from '@/fields/ai/client'
 import { FullPathCell as FullPathCell_e1b3b2f313a2a78029b930d3989bed10 } from '@/fields/slug/fullPath/cell'
 import { SlugComponent as SlugComponent_92cc057d0a2abb4f6cf0307edf59f986 } from '@/fields/slug/SlugComponent'
+import { default as default_83e516dd9b75169562ed49d067b07699 } from '@/heros/components/Hero1/client'
 
 export const importMap = {
   '@payloadcms/plugin-multi-tenant/client#TenantField':
@@ -80,6 +81,7 @@ export const importMap = {
   '@/collections/Pages/components/cells/TitleCell#TitleCell':
     TitleCell_bd13935b4668de9bcb77da705b112676,
   '@/components/IconSelect/#default': default_545a25a7f6f58e32e2350bd4892658ab,
+  '@/heros/components/Hero1/client#default': default_83e516dd9b75169562ed49d067b07699,
   '@/blocks/About/components/About1/config.client.tsx#default':
     default_b128d0bd7c3a2b8021c74b08f7767dc4,
   '@/blocks/CallToAction/components/CTA1/client#default': default_c3b518973acc8f136eb7ceedd0826569,

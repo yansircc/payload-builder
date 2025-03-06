@@ -14,15 +14,30 @@ const heroSchema = z.object({
     .string()
     .describe('A brief, engaging description that explains the value proposition'),
   badge: z.string().describe('A short text badge to highlight new features or announcements'),
-  links: z.object({
-    primary: z.object({
-      label: z.string().min(1).describe('A clear, action-oriented primary button text'),
-    }),
-    secondary: z.object({
-      label: z.string().min(1).describe('A complementary secondary button text'),
-    }),
-  }),
+  links: z
+    .array(
+      z.object({
+        link: z.object({
+          label: z
+            .string()
+            .min(1)
+            .describe(
+              'A clear, action-oriented button text (2-4 words), first button is primary and second button is secondary',
+            ),
+        }),
+      }),
+    )
+    .min(1)
+    .max(2),
 })
+
+// Default configurations that match our schema
+const DEFAULT_BUTTON_CONFIG = {
+  type: 'custom' as const,
+  url: '#',
+  suffixIcon: 'ArrowRight',
+  appearance: 'default' as const,
+} as const
 
 function transformHero1Data(object: z.infer<typeof heroSchema>, media?: Media): Hero1Fields {
   return {
@@ -30,23 +45,13 @@ function transformHero1Data(object: z.infer<typeof heroSchema>, media?: Media): 
     subtitle: object.subtitle,
     badge: object.badge,
     image: media?.id || '',
-    links: [
-      {
-        'link-1': {
-          type: 'custom',
-          label: object.links.primary.label,
-          url: '#',
-          appearance: 'default',
-        },
-        'link-2': {
-          type: 'custom',
-          label: object.links.secondary.label,
-          url: '#',
-          appearance: 'outline',
-          suffixIcon: 'ArrowDownRight',
-        },
+    links: object.links.map((item, index) => ({
+      id: String(index + 1),
+      link: {
+        ...DEFAULT_BUTTON_CONFIG,
+        ...item.link,
       },
-    ],
+    })),
   }
 }
 

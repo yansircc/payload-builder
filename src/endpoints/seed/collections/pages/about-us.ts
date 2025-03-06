@@ -14,14 +14,16 @@ export const aboutUs: Partial<Page> = {
       badge: 'Our Story',
       links: [
         {
-          'link-1': {
+          link: {
             type: 'custom',
             url: '/',
             label: 'Back to Home',
             prefixIcon: 'ArrowLeft',
             appearance: 'default',
           },
-          'link-2': {
+        },
+        {
+          link: {
             type: 'custom',
             url: '/contact',
             label: 'Contact Us',

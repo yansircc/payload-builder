@@ -317,34 +317,9 @@ export interface Hero1Fields {
   links?:
     | {
         /**
-         * Primary hero button
+         * Hero buttons
          */
-        'link-1': {
-          type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          popup?: (string | null) | Popup;
-          label: string;
-          prefixIcon?: string | null;
-          suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-        };
-        /**
-         * Hero button with ArrowDownRight suffix icon
-         */
-        'link-2': {
+        link: {
           type?: ('reference' | 'custom' | 'popup') | null;
           newTab?: boolean | null;
           reference?:
@@ -8992,20 +8967,7 @@ export interface Hero1FieldsSelect<T extends boolean = true> {
   links?:
     | T
     | {
-        'link-1'?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              popup?: T;
-              label?: T;
-              prefixIcon?: T;
-              suffixIcon?: T;
-              appearance?: T;
-            };
-        'link-2'?:
+        link?:
           | T
           | {
               type?: T;

@@ -40,36 +40,27 @@ const badge: Field = {
   },
 }
 
-const link1: Field = link({
-  name: 'link-1',
-  overrides: {
-    admin: {
-      description: 'Primary hero button',
-    },
-  },
-})
-
-const link2: Field = link({
-  name: 'link-2',
-  overrides: {
-    admin: {
-      description: 'Hero button with ArrowDownRight suffix icon',
-    },
-    defaultValue: {
-      suffixIcon: 'ArrowDownRight',
-    },
-  },
-})
-
 const links: Field = {
   name: 'links',
   type: 'array',
-  fields: [link1, link2],
+  fields: [
+    link({
+      name: 'link',
+      ui: {
+        icons: true,
+      },
+      overrides: {
+        admin: {
+          description: 'Hero buttons',
+        },
+      },
+    }),
+  ],
   admin: {
     description: 'Hero buttons',
   },
-  minRows: 1,
-  maxRows: 1,
+  minRows: 0,
+  maxRows: 2,
 }
 
 /**
