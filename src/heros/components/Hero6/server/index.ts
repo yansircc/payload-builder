@@ -1,18 +1,83 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
+import { Field, GroupField } from 'payload'
 import { link } from '@/fields/link'
-import { createHeroField, heroSchemas, mediaFields } from '../../shared/base-field'
+import { mediaFields } from '../../shared/base-field'
 
 /**
  * Hero 6 field validation and type definitions
  */
-export const schemas = {
-  title: heroSchemas.title,
-  subtitle: heroSchemas.subtitle,
-  links: z.array(heroSchemas.link).min(3).max(3),
-  image: heroSchemas.image,
-  secondaryImage: heroSchemas.image,
-  partners: z.array(heroSchemas.partner).min(4).max(4),
+
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  minLength: 1,
+  maxLength: 100,
+  admin: {
+    description: 'The title of the Hero section',
+  },
+}
+
+const subtitle: Field = {
+  name: 'subtitle',
+  type: 'text',
+  admin: {
+    description: 'The subtitle of the Hero section',
+  },
+}
+
+const image: Field = {
+  name: 'image',
+  type: 'upload',
+  relationTo: 'media',
+  admin: {
+    description: 'The hero image',
+  },
+}
+
+const secondaryImage: Field = {
+  name: 'secondaryImage',
+  type: 'group',
+  admin: {
+    description: 'Secondary image with button',
+  },
+  fields: [
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'Secondary image',
+      },
+    },
+  ],
+}
+
+const links: Field = {
+  name: 'links',
+  type: 'array',
+  fields: [
+    link({
+      overrides: {
+        defaultValue: { suffixIcon: 'ChevronRight' },
+      },
+    }),
+  ],
+  minRows: 3,
+  maxRows: 3,
+  admin: {
+    description: 'Hero buttons (exactly 3)',
+  },
+}
+
+const partners: Field = {
+  name: 'partners',
+  type: 'array',
+  fields: [mediaFields.logo],
+  minRows: 4,
+  maxRows: 4,
+  admin: {
+    description: 'Partner logos (exactly 4)',
+  },
 }
 
 /**
@@ -26,44 +91,5 @@ export const hero6Fields: GroupField = {
   admin: {
     description: 'Hero with two images and partner logos',
   },
-  fields: [
-    createHeroField({
-      includeFields: ['title', 'subtitle', 'image'],
-      arrays: [
-        {
-          name: 'links',
-          fields: [
-            link({
-              overrides: {
-                defaultValue: { suffixIcon: 'ChevronRight' },
-              },
-            }),
-          ],
-          minRows: 3,
-          maxRows: 3,
-          admin: {
-            description: 'Hero buttons (exactly 3)',
-          },
-        },
-        {
-          name: 'partners',
-          fields: [mediaFields.logo],
-          minRows: 4,
-          maxRows: 4,
-          admin: {
-            description: 'Partner logos (exactly 4)',
-          },
-        },
-      ],
-      groups: [
-        {
-          name: 'secondaryImage',
-          fields: ['image'],
-          admin: {
-            description: 'Secondary image with button',
-          },
-        },
-      ],
-    }),
-  ],
+  fields: [title, subtitle, image, secondaryImage, links, partners],
 }
