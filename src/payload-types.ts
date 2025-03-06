@@ -248,10 +248,6 @@ export interface Tenant {
    */
   slug: string;
   /**
-   * Select the design theme for this tenant
-   */
-  theme: 'cool' | 'brutal' | 'neon';
-  /**
    * Allow public access to content
    */
   allowPublicRead?: boolean | null;
@@ -8455,6 +8451,10 @@ export interface SiteSetting {
         | 'ZW'
       )[]
     | null;
+  /**
+   * Select the design theme for this tenant
+   */
+  theme: 'cool' | 'brutal' | 'neon';
   archiveStyles?: {
     /**
      * Select the layout style for the posts archive page
@@ -12114,7 +12114,6 @@ export interface TenantsSelect<T extends boolean = true> {
   name?: T;
   domain?: T;
   slug?: T;
-  theme?: T;
   allowPublicRead?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -13287,6 +13286,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         custom404Page?: T;
       };
   blacklistCountries?: T;
+  theme?: T;
   archiveStyles?:
     | T
     | {
