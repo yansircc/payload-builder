@@ -9,11 +9,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import type { ThemePreset } from '@/themes'
-import { themes } from '@/themes'
 import { useTheme } from '..'
-import { modeLocalStorageKey, themeLocalStorageKey } from '../shared'
-import type { Mode } from '../types'
+import { modeLocalStorageKey, themeLocalStorageKey, themeOptions } from '../shared'
+import type { Mode, ThemePreset } from '../types'
 
 export const ThemeSelector: React.FC = () => {
   const { setTheme, setMode, theme, mode } = useTheme()
@@ -75,9 +73,9 @@ export const ThemeSelector: React.FC = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="auto">Auto</SelectItem>
-            {Object.entries(themes).map(([value, theme]) => (
+            {themeOptions.map(({ label, value }) => (
               <SelectItem key={value} value={value}>
-                {theme.label}
+                {label}
               </SelectItem>
             ))}
           </SelectContent>
