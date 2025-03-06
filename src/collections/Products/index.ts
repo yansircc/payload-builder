@@ -248,7 +248,7 @@ export const Products: CollectionConfig = {
         { name: 'name', type: 'text' },
       ],
     },
-    ...slugField(),
+    ...slugField('products'),
   ],
   hooks: {
     afterChange: [revalidatePost],
