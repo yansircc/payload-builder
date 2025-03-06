@@ -2197,13 +2197,13 @@ export interface CTA3Fields {
           prefixIcon?: string | null;
           suffixIcon?: string | null;
           /**
-           * Description for the link
-           */
-          description?: string | null;
-          /**
            * Choose how the link should be rendered.
            */
           appearance?: 'ghost' | null;
+          /**
+           * Description for the link
+           */
+          description?: string | null;
         };
         /**
          * Brief description of the feature
@@ -6559,6 +6559,10 @@ export interface Header3Fields {
                 url?: string | null;
                 popup?: (string | null) | Popup;
                 /**
+                 * Choose how the link should be rendered.
+                 */
+                appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                /**
                  * Image URL for the link
                  */
                 image?: (string | null) | Media;
@@ -6570,10 +6574,6 @@ export interface Header3Fields {
                  * Description for the link
                  */
                 description?: string | null;
-                /**
-                 * Choose how the link should be rendered.
-                 */
-                appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               };
             };
             rightSection: {
@@ -6597,6 +6597,10 @@ export interface Header3Fields {
                       prefixIcon?: string | null;
                       suffixIcon?: string | null;
                       /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                      /**
                        * Title for the link
                        */
                       title?: string | null;
@@ -6604,10 +6608,6 @@ export interface Header3Fields {
                        * Description for the link
                        */
                       description?: string | null;
-                      /**
-                       * Choose how the link should be rendered.
-                       */
-                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                     };
                     id?: string | null;
                   }[]
@@ -6727,6 +6727,10 @@ export interface Header3Fields {
                       url?: string | null;
                       popup?: (string | null) | Popup;
                       /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                      /**
                        * Image URL for the link
                        */
                       image?: (string | null) | Media;
@@ -6738,10 +6742,6 @@ export interface Header3Fields {
                        * Description for the link
                        */
                       description?: string | null;
-                      /**
-                       * Choose how the link should be rendered.
-                       */
-                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                     };
                     id?: string | null;
                   }[]
@@ -9904,8 +9904,8 @@ export interface CTA3FieldsSelect<T extends boolean = true> {
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              description?: T;
               appearance?: T;
+              description?: T;
             };
         description?: T;
         id?: T;
@@ -12262,10 +12262,10 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 popup?: T;
+                                appearance?: T;
                                 image?: T;
                                 title?: T;
                                 description?: T;
-                                appearance?: T;
                               };
                         };
                     rightSection?:
@@ -12285,9 +12285,9 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                       popup?: T;
                                       prefixIcon?: T;
                                       suffixIcon?: T;
+                                      appearance?: T;
                                       title?: T;
                                       description?: T;
-                                      appearance?: T;
                                     };
                                 id?: T;
                               };
@@ -12376,10 +12376,10 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       popup?: T;
+                                      appearance?: T;
                                       image?: T;
                                       title?: T;
                                       description?: T;
-                                      appearance?: T;
                                     };
                                 id?: T;
                               };

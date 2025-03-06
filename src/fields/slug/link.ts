@@ -1,6 +1,6 @@
 import type { Field, GroupField } from 'payload'
 import deepMerge from '@/utilities/deepMerge'
-import { icon } from './icon'
+import { icon } from '../icon'
 
 export type LinkAppearances = 'default' | 'secondary' | 'outline' | 'ghost' | 'link'
 
