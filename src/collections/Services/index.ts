@@ -199,7 +199,7 @@ export const Services: CollectionConfig = {
         { name: 'name', type: 'text' },
       ],
     },
-    ...slugField(),
+    ...slugField('services'),
   ],
   hooks: {
     afterChange: [revalidatePost],
