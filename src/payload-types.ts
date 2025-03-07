@@ -1054,71 +1054,66 @@ export interface Hero24Fields {
  */
 export interface Hero25Fields {
   /**
-   * Hero section fields
+   * The title of the Hero section
    */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Partner logo image
-     */
-    logo: string | Media;
-    /**
-     * Badge text displayed above title
-     */
-    badge?: string | null;
-    /**
-     * Hero buttons (1-2)
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * The logo image
+   */
+  logo?: (string | null) | Media;
+  /**
+   * Badge text displayed above title
+   */
+  badge?: string | null;
+  /**
+   * Hero buttons (1-2)
+   */
+  links?:
+    | {
+        /**
+         * Hero button
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * Hero button
+           * Choose how the link should be rendered.
            */
-          link: {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Feature list (1-4 items)
-     */
-    features?:
-      | {
-          /**
-           * Lucide icon name
-           */
-          icon: string;
-          /**
-           * Feature title
-           */
-          title: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Feature list (1-4 items)
+   */
+  features?:
+    | {
+        /**
+         * Lucide icon name
+         */
+        icon: string;
+        /**
+         * Feature title
+         */
+        title: string;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9129,37 +9124,33 @@ export interface Hero24FieldsSelect<T extends boolean = true> {
  * via the `definition` "Hero25Fields_select".
  */
 export interface Hero25FieldsSelect<T extends boolean = true> {
-  hero?:
+  title?: T;
+  logo?: T;
+  badge?: T;
+  links?:
     | T
     | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        icon?: T;
         title?: T;
-        logo?: T;
-        badge?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        features?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              id?: T;
-            };
+        id?: T;
       };
 }
 /**
