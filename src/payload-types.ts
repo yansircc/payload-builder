@@ -1121,55 +1121,38 @@ export interface Hero25Fields {
  */
 export interface Hero32Fields {
   /**
-   * Hero section fields
+   * The main title text
    */
-  hero: {
+  title: string;
+  /**
+   * The subtitle text
+   */
+  subtitle?: string | null;
+  /**
+   * Hero button
+   */
+  link: {
     /**
-     * Feature title
+     * Button text
      */
-    title: string;
+    label: string;
     /**
-     * Subtitle text
+     * Button URL
      */
-    subtitle?: string | null;
-    /**
-     * Hero button
-     */
-    link: {
-      type?: ('reference' | 'custom' | 'popup') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      popup?: (string | null) | Popup;
-      label: string;
-      prefixIcon?: string | null;
-      suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-    };
-    /**
-     * Integration images (exactly 15)
-     */
-    integrations?:
-      | {
-          /**
-           * Integration logo/image
-           */
-          image: string | Media;
-          id?: string | null;
-        }[]
-      | null;
+    url: string;
   };
+  /**
+   * Integration images (exactly 15)
+   */
+  integrations?:
+    | {
+        /**
+         * Integration logo/image
+         */
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9158,30 +9141,19 @@ export interface Hero25FieldsSelect<T extends boolean = true> {
  * via the `definition` "Hero32Fields_select".
  */
 export interface Hero32FieldsSelect<T extends boolean = true> {
-  hero?:
+  title?: T;
+  subtitle?: T;
+  link?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              popup?: T;
-              label?: T;
-              prefixIcon?: T;
-              suffixIcon?: T;
-              appearance?: T;
-            };
-        integrations?:
-          | T
-          | {
-              image?: T;
-              id?: T;
-            };
+        label?: T;
+        url?: T;
+      };
+  integrations?:
+    | T
+    | {
+        image?: T;
+        id?: T;
       };
 }
 /**

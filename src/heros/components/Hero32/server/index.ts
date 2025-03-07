@@ -1,15 +1,72 @@
-import { GroupField } from 'payload'
+import { Field, GroupField } from 'payload'
 import { createFieldLabel } from '@/i18n'
-import { createHeroField, heroSchemas } from '../../shared/base-field'
 
 /**
  * Hero 32 field validation and type definitions
  */
-export const schemas = {
-  title: heroSchemas.title,
-  subtitle: heroSchemas.subtitle,
-  link: heroSchemas.link,
-  image: heroSchemas.image,
+
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  admin: {
+    description: 'The main title text',
+  },
+}
+
+const subtitle: Field = {
+  name: 'subtitle',
+  type: 'textarea',
+  admin: {
+    description: 'The subtitle text',
+  },
+}
+
+const link: Field = {
+  name: 'link',
+  type: 'group',
+  fields: [
+    {
+      name: 'label',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Button text',
+      },
+    },
+    {
+      name: 'url',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Button URL',
+      },
+    },
+  ],
+  admin: {
+    description: 'Hero button',
+  },
+}
+
+const integrations: Field = {
+  name: 'integrations',
+  type: 'array',
+  fields: [
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+      admin: {
+        description: 'Integration logo/image',
+      },
+    },
+  ],
+  minRows: 15,
+  maxRows: 15,
+  admin: {
+    description: createFieldLabel('hero32.hero.integrations', 'pages'),
+  },
 }
 
 /**
@@ -23,30 +80,5 @@ export const hero32Fields: GroupField = {
   admin: {
     description: 'Hero section with title, button, and grid of integration images',
   },
-  fields: [
-    createHeroField({
-      includeFields: ['title', 'subtitle', 'link'],
-      arrays: [
-        {
-          name: 'integrations',
-          fields: [
-            {
-              name: 'image',
-              type: 'upload',
-              relationTo: 'media',
-              required: true,
-              admin: {
-                description: 'Integration logo/image',
-              },
-            },
-          ],
-          minRows: 15,
-          maxRows: 15,
-          admin: {
-            description: createFieldLabel('hero32.hero.integrations', 'pages'),
-          },
-        },
-      ],
-    }),
-  ],
+  fields: [title, subtitle, link, integrations],
 }
