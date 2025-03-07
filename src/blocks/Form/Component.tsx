@@ -1,6 +1,6 @@
 'use client'
 
-import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
+import type { FormFieldBlock, Form as FormType } from '@payloadcms/plugin-form-builder/types'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { FormProvider, useForm } from 'react-hook-form'
 import React, { useCallback, useState } from 'react'
@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { getClientSideURL } from '@/utilities/getURL'
 import { buildInitialFormState } from './buildInitialFormState'
 import { fields } from './fields'
+import type { ExtendedTextField } from './types'
 
 export type Value = unknown
 
@@ -25,7 +26,9 @@ export type FormBlockType = {
   blockName?: string
   blockType?: 'formBlock'
   enableIntro: boolean
-  form: FormType
+  form: Omit<FormType, 'fields'> & {
+    fields: (FormFieldBlock | ExtendedTextField)[]
+  }
   introContent?: SerializedEditorState
 }
 
@@ -124,45 +127,74 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div className="container lg:max-w-[48rem]">
+    <div className="container mx-auto lg:max-w-[48rem]">
       {enableIntro && introContent && !hasSubmitted && (
-        <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
+        <RichText
+          className="mb-8 lg:mb-12 text-center text-lg text-muted-foreground"
+          data={introContent}
+          enableGutter={false}
+        />
       )}
-      <div className="p-4 lg:p-6 border border-border rounded-[0.8rem]">
+      <div className="p-6 lg:p-8 border border-border rounded-xl shadow-sm bg-card">
         <FormProvider {...formMethods}>
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
-            <RichText data={confirmationMessage} />
+            <div className="text-center py-6">
+              <RichText data={confirmationMessage} />
+            </div>
           )}
-          {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
-          {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
+          {isLoading && !hasSubmitted && (
+            <div className="text-center py-6">
+              <p className="text-muted-foreground">Loading, please wait...</p>
+            </div>
+          )}
+          {error && (
+            <div className="bg-destructive/10 text-destructive p-4 rounded-lg mb-6">
+              {`${error.status || '500'}: ${error.message || ''}`}
+            </div>
+          )}
           {!hasSubmitted && (
             <form id={formID} onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-4 last:mb-0">
-                {formFromProps &&
-                  formFromProps.fields &&
-                  formFromProps.fields?.map((field, index) => {
-                    const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
-                    if (Field) {
-                      return (
-                        <div className="mb-6 last:mb-0" key={index}>
-                          <Field
-                            form={formFromProps}
-                            {...field}
-                            {...formMethods}
-                            control={control}
-                            errors={errors}
-                            register={register}
-                          />
-                        </div>
-                      )
-                    }
-                    return null
-                  })}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                {formFromProps?.fields?.map((field, index) => {
+                  const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
+                  if (Field) {
+                    return (
+                      <div
+                        key={index}
+                        className={`${
+                          field.blockType === 'checkbox'
+                            ? 'md:col-span-12 flex items-start space-x-2'
+                            : field.blockType === 'textarea' ||
+                                field.blockType === 'country' ||
+                                field.blockType === 'state' ||
+                                field.blockType === 'message' ||
+                                field.blockType === 'email'
+                              ? 'md:col-span-12'
+                              : field.name === 'firstName' || field.name === 'lastName'
+                                ? 'md:col-span-6'
+                                : 'md:col-span-12'
+                        }`}
+                      >
+                        <Field
+                          form={formFromProps}
+                          {...field}
+                          {...formMethods}
+                          control={control}
+                          errors={errors}
+                          register={register}
+                        />
+                      </div>
+                    )
+                  }
+                  return null
+                })}
               </div>
 
-              <Button form={formID} type="submit" variant="default">
-                {submitButtonLabel}
-              </Button>
+              <div className="mt-8 flex justify-end">
+                <Button form={formID} type="submit" size="lg" className="min-w-[160px]">
+                  {submitButtonLabel}
+                </Button>
+              </div>
             </form>
           )}
         </FormProvider>
