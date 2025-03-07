@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import type { Feature1Fields } from '@/payload-types'
-import Feature1 from './Component'
+import type { Feature2Fields } from '@/payload-types'
+import Feature2 from './Component'
 
-const meta: Meta<typeof Feature1> = {
-  title: 'blocks/Feature/Feature1',
-  component: Feature1,
+const meta: Meta<typeof Feature2> = {
+  title: 'blocks/Feature/Feature2',
+  component: Feature2,
   parameters: {
     layout: 'centered',
   },
@@ -12,19 +12,19 @@ const meta: Meta<typeof Feature1> = {
 
 export default meta
 
-type Story = StoryObj<typeof Feature1>
+type Story = StoryObj<typeof Feature2>
 
-const defaultFeature: Feature1Fields = {
-  icon: 'Zap',
-  title: 'Accelerate Your Digital Transformation',
+const defaultFeature: Feature2Fields = {
+  icon: 'Rocket',
+  title: 'Transform Your Business Vision',
   description:
-    'Empower your business with cutting-edge solutions that drive growth and efficiency. Our platform combines innovation with reliability to deliver exceptional results.',
+    "Take your business to new heights with our innovative solutions. We provide the tools and expertise you need to succeed in today's competitive landscape.",
   image: {
-    id: 'image-1',
-    alt: 'Feature 1',
+    id: 'image-2',
+    alt: 'Feature 2',
     url: '/website-template-OG.webp',
-    width: 120,
-    height: 24,
+    width: 1200,
+    height: 800,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
@@ -32,7 +32,7 @@ const defaultFeature: Feature1Fields = {
     {
       link: {
         type: 'custom',
-        label: 'Get Started',
+        label: 'Start Now',
         url: '#',
         appearance: 'default',
         prefixIcon: 'ArrowRight',
@@ -42,10 +42,10 @@ const defaultFeature: Feature1Fields = {
     {
       link: {
         type: 'custom',
-        label: 'Learn More',
+        label: 'View Demo',
         url: '#',
         appearance: 'ghost',
-        prefixIcon: 'Info',
+        prefixIcon: 'Play',
         newTab: false,
       },
     },
@@ -60,6 +60,13 @@ export const WithoutIcon: Story = {
   args: {
     ...defaultFeature,
     icon: undefined,
+  },
+}
+
+export const WithoutButtons: Story = {
+  args: {
+    ...defaultFeature,
+    buttonGroup: undefined,
   },
 }
 

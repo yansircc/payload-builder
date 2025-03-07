@@ -25,6 +25,7 @@ export const hero1Fields: GroupField = {
   admin: {
     description: 'Hero with a badge on the top left',
   },
+
   fields: [
     createHeroField({
       includeFields: ['title', 'subtitle', 'image', 'badge'],
