@@ -1212,42 +1212,37 @@ export interface Hero34Fields {
  */
 export interface Hero45Fields {
   /**
-   * Hero section fields
+   * Badge text
    */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Hero image
-     */
-    image: string | Media;
-    /**
-     * Badge text displayed above title
-     */
-    badge?: string | null;
-    /**
-     * Feature list (exactly 3 items)
-     */
-    features?:
-      | {
-          /**
-           * Lucide icon name
-           */
-          icon: string;
-          /**
-           * Feature title
-           */
-          title: string;
-          /**
-           * Feature description
-           */
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  badge: string;
+  /**
+   * The main title text
+   */
+  title: string;
+  /**
+   * Hero image
+   */
+  image: string | Media;
+  /**
+   * Feature list
+   */
+  features?:
+    | {
+        /**
+         * Lucide icon name
+         */
+        icon: string;
+        /**
+         * Feature title
+         */
+        title: string;
+        /**
+         * Feature description
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9159,20 +9154,16 @@ export interface Hero34FieldsSelect<T extends boolean = true> {
  * via the `definition` "Hero45Fields_select".
  */
 export interface Hero45FieldsSelect<T extends boolean = true> {
-  hero?:
+  badge?: T;
+  title?: T;
+  image?: T;
+  features?:
     | T
     | {
+        icon?: T;
         title?: T;
-        image?: T;
-        badge?: T;
-        features?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              description?: T;
-              id?: T;
-            };
+        description?: T;
+        id?: T;
       };
 }
 /**
