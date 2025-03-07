@@ -1,16 +1,68 @@
-import { GroupField } from 'payload'
+import { Field, GroupField } from 'payload'
 import { link } from '@/fields/link'
-import { createHeroField, heroSchemas } from '../../shared/base-field'
 
 /**
  * Hero 115 field validation and type definitions
  */
-export const schemas = {
-  title: heroSchemas.title,
-  subtitle: heroSchemas.subtitle,
-  link: heroSchemas.link,
-  trustText: heroSchemas.trustText,
-  image: heroSchemas.image,
+
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  admin: {
+    description: 'The main title text',
+  },
+}
+
+const subtitle: Field = {
+  name: 'subtitle',
+  type: 'text',
+  required: false,
+  admin: {
+    description: 'Subtitle text',
+  },
+}
+
+const trustText: Field = {
+  name: 'trustText',
+  type: 'text',
+  required: false,
+  admin: {
+    description: 'Trust text displayed below the main content',
+  },
+}
+
+const image: Field = {
+  name: 'image',
+  type: 'upload',
+  relationTo: 'media',
+  required: true,
+  admin: {
+    description: 'Hero image',
+  },
+}
+
+const links: Field = {
+  name: 'links',
+  type: 'array',
+  fields: [
+    link({
+      name: 'link',
+      overrides: {
+        admin: {
+          description: 'Hero button with Zap suffix icon',
+        },
+        defaultValue: {
+          suffixIcon: 'Zap',
+        },
+      },
+    }),
+  ],
+  admin: {
+    description: 'Hero button',
+  },
+  minRows: 1,
+  maxRows: 1,
 }
 
 /**
@@ -25,32 +77,5 @@ export const hero115Fields: GroupField = {
     description:
       'Hero section with centered content, circular decorative borders, and a large image',
   },
-  fields: [
-    createHeroField({
-      includeFields: ['title', 'subtitle', 'trustText', 'image'],
-      arrays: [
-        {
-          name: 'links',
-          fields: [
-            link({
-              name: 'link',
-              overrides: {
-                admin: {
-                  description: 'Hero button with Zap suffix icon',
-                },
-                defaultValue: {
-                  suffixIcon: 'Zap',
-                },
-              },
-            }),
-          ],
-          admin: {
-            description: 'Hero button',
-          },
-          minRows: 1,
-          maxRows: 1,
-        },
-      ],
-    }),
-  ],
+  fields: [title, subtitle, trustText, image, links],
 }

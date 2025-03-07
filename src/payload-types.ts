@@ -1250,59 +1250,54 @@ export interface Hero45Fields {
  */
 export interface Hero115Fields {
   /**
-   * Hero section fields
+   * The main title text
    */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Text showing trust metrics (e.g., "Trusted by X businesses")
-     */
-    trustText: string;
-    /**
-     * Hero image
-     */
-    image: string | Media;
-    /**
-     * Hero button
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * Subtitle text
+   */
+  subtitle?: string | null;
+  /**
+   * Trust text displayed below the main content
+   */
+  trustText?: string | null;
+  /**
+   * Hero image
+   */
+  image: string | Media;
+  /**
+   * Hero button
+   */
+  links?:
+    | {
+        /**
+         * Hero button with Zap suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * Hero button with Zap suffix icon
+           * Choose how the link should be rendered.
            */
-          link: {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -9171,31 +9166,27 @@ export interface Hero45FieldsSelect<T extends boolean = true> {
  * via the `definition` "Hero115Fields_select".
  */
 export interface Hero115FieldsSelect<T extends boolean = true> {
-  hero?:
+  title?: T;
+  subtitle?: T;
+  trustText?: T;
+  image?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        trustText?: T;
-        image?: T;
-        links?:
+        link?:
           | T
           | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
 /**
