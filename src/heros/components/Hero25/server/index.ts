@@ -1,17 +1,70 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
+import { Field, GroupField } from 'payload'
 import { link } from '@/fields/link'
-import { createHeroField, featureFields, heroSchemas } from '../../shared/base-field'
+import { featureFields } from '../../shared/base-field'
 
 /**
  * Hero 25 field validation and type definitions
  */
-export const schemas = {
-  title: heroSchemas.title,
-  link: heroSchemas.link,
-  logo: heroSchemas.logo,
-  badge: heroSchemas.badge,
-  features: z.array(heroSchemas.feature).min(1).max(4),
+
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  minLength: 1,
+  maxLength: 100,
+  admin: {
+    description: 'The title of the Hero section',
+  },
+}
+
+const logo: Field = {
+  name: 'logo',
+  type: 'upload',
+  relationTo: 'media',
+  admin: {
+    description: 'The logo image',
+  },
+}
+
+const badge: Field = {
+  name: 'badge',
+  type: 'text',
+  admin: {
+    description: 'Badge text displayed above title',
+  },
+}
+
+const links: Field = {
+  name: 'links',
+  type: 'array',
+  fields: [
+    link({
+      overrides: {
+        admin: {
+          description: 'Hero button',
+        },
+        defaultValue: {
+          suffixIcon: 'MoveRight',
+        },
+      },
+    }),
+  ],
+  minRows: 1,
+  maxRows: 2,
+  admin: {
+    description: 'Hero buttons (1-2)',
+  },
+}
+
+const features: Field = {
+  name: 'features',
+  type: 'array',
+  fields: [featureFields.icon, featureFields.title],
+  minRows: 1,
+  maxRows: 4,
+  admin: {
+    description: 'Feature list (1-4 items)',
+  },
 }
 
 /**
@@ -25,40 +78,5 @@ export const hero25Fields: GroupField = {
   admin: {
     description: 'Centered hero with logo, badge and feature list',
   },
-  fields: [
-    createHeroField({
-      includeFields: ['title', 'logo', 'badge'],
-      arrays: [
-        {
-          name: 'links',
-          fields: [
-            link({
-              overrides: {
-                admin: {
-                  description: 'Hero button',
-                },
-                defaultValue: {
-                  suffixIcon: 'MoveRight',
-                },
-              },
-            }),
-          ],
-          minRows: 1,
-          maxRows: 2,
-          admin: {
-            description: 'Hero buttons (1-2)',
-          },
-        },
-        {
-          name: 'features',
-          fields: [featureFields.icon, featureFields.title],
-          minRows: 1,
-          maxRows: 4,
-          admin: {
-            description: 'Feature list (1-4 items)',
-          },
-        },
-      ],
-    }),
-  ],
+  fields: [title, logo, badge, links, features],
 }
