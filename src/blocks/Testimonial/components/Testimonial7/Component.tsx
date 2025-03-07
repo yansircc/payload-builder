@@ -20,7 +20,6 @@ export default function Testimonial7({
   cta,
   hideAuthorImages,
 }: Testimonial7Props) {
-  // Split testimonials into two arrays for different scroll directions
   const testimonials1 = testimonials?.slice(0, Math.ceil(testimonials?.length / 2)) ?? []
   const testimonials2 = testimonials?.slice(Math.ceil(testimonials?.length / 2)) ?? []
 
@@ -58,10 +57,10 @@ export default function Testimonial7({
             <CarouselContent>
               {testimonials1.map((testimonial, index) => (
                 <CarouselItem key={index} className="basis-auto">
-                  <Card className="max-w-96 select-none p-6">
+                  <Card className="max-w-96 h-[200px] select-none p-6 flex flex-col">
                     <div className="mb-4 flex gap-4">
                       {!hideAuthorImages && (
-                        <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
+                        <Avatar className="size-9 flex-shrink-0 rounded-full ring-1 ring-input overflow-hidden">
                           {testimonial.authorImage ? (
                             <Media
                               resource={testimonial.authorImage}
@@ -83,7 +82,7 @@ export default function Testimonial7({
                         )}
                       </div>
                     </div>
-                    <q className="text-foreground">{testimonial.quote}</q>
+                    <q className="text-foreground line-clamp-4">{testimonial.quote}</q>
                   </Card>
                 </CarouselItem>
               ))}
@@ -99,10 +98,10 @@ export default function Testimonial7({
             <CarouselContent>
               {testimonials2.map((testimonial, index) => (
                 <CarouselItem key={index} className="basis-auto">
-                  <Card className="max-w-96 select-none p-6">
+                  <Card className="max-w-96 h-[200px] select-none p-6 flex flex-col">
                     <div className="mb-4 flex gap-4">
                       {!hideAuthorImages && (
-                        <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
+                        <Avatar className="size-9 flex-shrink-0 rounded-full ring-1 ring-input overflow-hidden">
                           {testimonial.authorImage ? (
                             <Media
                               resource={testimonial.authorImage}
@@ -124,7 +123,7 @@ export default function Testimonial7({
                         )}
                       </div>
                     </div>
-                    <q className="text-foreground">{testimonial.quote}</q>
+                    <q className="text-foreground line-clamp-4">{testimonial.quote}</q>
                   </Card>
                 </CarouselItem>
               ))}
