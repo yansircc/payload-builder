@@ -104,7 +104,7 @@ export default function Testimonial16({
                           <TweetContent content={tweet.content} isCollapsed={false} />
                         </div>
                       ) : (
-                        <div className="py-4 transition-colors hover:bg-muted">
+                        <div className="py-4 transition-colors hover:bg-muted/30">
                           <div className="flex gap-3 px-2">
                             {!hideAuthorImages && (
                               <Avatar className="size-8 flex-shrink-0 overflow-hidden rounded-full">
