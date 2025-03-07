@@ -10,13 +10,18 @@ import { Card } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import type { Testimonial19Fields } from '@/payload-types'
 
+interface Testimonial19Props extends Testimonial19Fields {
+  hideAuthorImages?: boolean
+}
+
 export default function Testimonial19({
   heading,
   subheading,
   statsText,
   viewAll,
   testimonials,
-}: Testimonial19Fields) {
+  hideAuthorImages,
+}: Testimonial19Props) {
   const plugin = useRef(
     AutoScroll({
       startDelay: 500,
@@ -48,20 +53,22 @@ export default function Testimonial19({
             <CarouselContent>
               {testimonials?.map((testimonial, index: number) => (
                 <CarouselItem key={index} className="basis-auto">
-                  <Card className="max-w-96 select-none p-6">
+                  <Card className="max-w-96 h-[200px] select-none p-6">
                     <div className="flex justify-between">
                       <div className="mb-4 flex gap-4">
-                        <Avatar className="size-14 rounded-full ring-1 ring-input overflow-hidden">
-                          {testimonial.authorImage && (
-                            <Media
-                              resource={testimonial.authorImage}
-                              imgClassName="aspect-square size-full object-cover object-center"
-                              className="!block size-full"
-                            />
-                          )}
-                        </Avatar>
+                        {!hideAuthorImages && (
+                          <Avatar className="size-14 rounded-full ring-1 ring-input overflow-hidden">
+                            {testimonial.authorImage && (
+                              <Media
+                                resource={testimonial.authorImage}
+                                imgClassName="aspect-square size-full object-cover object-center"
+                                className="!block size-full"
+                              />
+                            )}
+                          </Avatar>
+                        )}
                         <div>
-                          <p className="font-medium">{testimonial.authorName}</p>
+                          <p className="font-medium text-foreground">{testimonial.authorName}</p>
                           <p className="text-sm text-muted-foreground">{testimonial.authorRole}</p>
                         </div>
                       </div>
@@ -71,7 +78,9 @@ export default function Testimonial19({
                         ))}
                       </div>
                     </div>
-                    <q className="leading-7 text-muted-foreground">{testimonial.quote}</q>
+                    <q className="leading-7 text-foreground line-clamp-6 block">
+                      {testimonial.quote}
+                    </q>
                   </Card>
                 </CarouselItem>
               ))}

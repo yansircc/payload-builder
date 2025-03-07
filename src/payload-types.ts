@@ -4098,6 +4098,10 @@ export interface TestimonialBlock {
  */
 export interface Testimonial4Fields {
   /**
+   * Hide author images and show default avatars instead
+   */
+  hideAuthorImages?: boolean | null;
+  /**
    * Featured image displayed in the left column
    */
   featuredImage: string | Media;
@@ -10739,6 +10743,7 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
  * via the `definition` "Testimonial4Fields_select".
  */
 export interface Testimonial4FieldsSelect<T extends boolean = true> {
+  hideAuthorImages?: T;
   featuredImage?: T;
   testimonials?:
     | T

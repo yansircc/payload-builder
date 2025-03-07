@@ -9,12 +9,17 @@ import { Card } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import type { Testimonial7Fields } from '@/payload-types'
 
+interface Testimonial7Props extends Testimonial7Fields {
+  hideAuthorImages?: boolean
+}
+
 export default function Testimonial7({
   testimonials,
   title,
   description,
   cta,
-}: Testimonial7Fields) {
+  hideAuthorImages,
+}: Testimonial7Props) {
   // Split testimonials into two arrays for different scroll directions
   const testimonials1 = testimonials?.slice(0, Math.ceil(testimonials?.length / 2)) ?? []
   const testimonials2 = testimonials?.slice(Math.ceil(testimonials?.length / 2)) ?? []
@@ -55,28 +60,30 @@ export default function Testimonial7({
                 <CarouselItem key={index} className="basis-auto">
                   <Card className="max-w-96 select-none p-6">
                     <div className="mb-4 flex gap-4">
-                      <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
-                        {testimonial.authorImage ? (
-                          <Media
-                            resource={testimonial.authorImage}
-                            imgClassName="aspect-square size-full object-cover object-center"
-                            className="!block size-full"
-                          />
-                        ) : (
-                          <AvatarImage
-                            src="https://shadcnblocks.com/images/block/avatar-1.webp"
-                            alt={testimonial.authorName}
-                          />
-                        )}
-                      </Avatar>
+                      {!hideAuthorImages && (
+                        <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
+                          {testimonial.authorImage ? (
+                            <Media
+                              resource={testimonial.authorImage}
+                              imgClassName="aspect-square size-full object-cover object-center"
+                              className="!block size-full"
+                            />
+                          ) : (
+                            <AvatarImage
+                              src="https://shadcnblocks.com/images/block/avatar-1.webp"
+                              alt={testimonial.authorName}
+                            />
+                          )}
+                        </Avatar>
+                      )}
                       <div className="text-sm">
-                        <p className="font-medium">{testimonial.authorName}</p>
+                        <p className="font-medium text-foreground">{testimonial.authorName}</p>
                         {testimonial.authorRole && (
-                          <p className="text-muted-foreground">{testimonial.authorRole}</p>
+                          <p className="text-foreground">{testimonial.authorRole}</p>
                         )}
                       </div>
                     </div>
-                    <q>{testimonial.quote}</q>
+                    <q className="text-foreground">{testimonial.quote}</q>
                   </Card>
                 </CarouselItem>
               ))}
@@ -94,28 +101,30 @@ export default function Testimonial7({
                 <CarouselItem key={index} className="basis-auto">
                   <Card className="max-w-96 select-none p-6">
                     <div className="mb-4 flex gap-4">
-                      <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
-                        {testimonial.authorImage ? (
-                          <Media
-                            resource={testimonial.authorImage}
-                            imgClassName="aspect-square size-full object-cover object-center"
-                            className="!block size-full"
-                          />
-                        ) : (
-                          <AvatarImage
-                            src="https://shadcnblocks.com/images/block/avatar-1.webp"
-                            alt={testimonial.authorName}
-                          />
-                        )}
-                      </Avatar>
+                      {!hideAuthorImages && (
+                        <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
+                          {testimonial.authorImage ? (
+                            <Media
+                              resource={testimonial.authorImage}
+                              imgClassName="aspect-square size-full object-cover object-center"
+                              className="!block size-full"
+                            />
+                          ) : (
+                            <AvatarImage
+                              src="https://shadcnblocks.com/images/block/avatar-1.webp"
+                              alt={testimonial.authorName}
+                            />
+                          )}
+                        </Avatar>
+                      )}
                       <div className="text-sm">
-                        <p className="font-medium">{testimonial.authorName}</p>
+                        <p className="font-medium text-foreground">{testimonial.authorName}</p>
                         {testimonial.authorRole && (
-                          <p className="text-muted-foreground">{testimonial.authorRole}</p>
+                          <p className="text-foreground">{testimonial.authorRole}</p>
                         )}
                       </div>
                     </div>
-                    <q>{testimonial.quote}</q>
+                    <q className="text-foreground">{testimonial.quote}</q>
                   </Card>
                 </CarouselItem>
               ))}

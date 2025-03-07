@@ -44,7 +44,16 @@ const TweetContent = ({ content, isCollapsed }: TweetContentProps) => {
   )
 }
 
-export default function Testimonial16({ heading, subheading, testimonials }: Testimonial16Fields) {
+interface Testimonial16Props extends Testimonial16Fields {
+  hideAuthorImages?: boolean
+}
+
+export default function Testimonial16({
+  heading,
+  subheading,
+  testimonials,
+  hideAuthorImages,
+}: Testimonial16Props) {
   const [expandedTweetId, setExpandedTweetId] = useState<number | null>(null)
 
   return (
@@ -75,16 +84,18 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                       {expandedTweetId === index ? (
                         <div className="py-4">
                           <div className="mb-3 flex gap-4 leading-5">
-                            <Avatar className="size-9 flex-shrink-0 overflow-hidden rounded-full ring-1 ring-input">
-                              {tweet.authorImage && (
-                                <Media
-                                  resource={tweet.authorImage}
-                                  className="aspect-square h-full w-full object-cover"
-                                  alt={tweet.authorName}
-                                />
-                              )}
-                              <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
-                            </Avatar>
+                            {!hideAuthorImages && (
+                              <Avatar className="size-9 flex-shrink-0 overflow-hidden rounded-full ring-1 ring-input">
+                                {tweet.authorImage && (
+                                  <Media
+                                    resource={tweet.authorImage}
+                                    className="aspect-square h-full w-full object-cover"
+                                    alt={tweet.authorName}
+                                  />
+                                )}
+                                <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
+                              </Avatar>
+                            )}
                             <div className="text-sm">
                               <p className="font-medium">{tweet.authorName}</p>
                               <p className="text-muted-foreground">{tweet.tag}</p>
@@ -95,16 +106,18 @@ export default function Testimonial16({ heading, subheading, testimonials }: Tes
                       ) : (
                         <div className="py-4 transition-colors hover:bg-muted">
                           <div className="flex gap-3 px-2">
-                            <Avatar className="size-8 flex-shrink-0 overflow-hidden rounded-full">
-                              {tweet.authorImage && (
-                                <Media
-                                  resource={tweet.authorImage}
-                                  className="aspect-square h-full w-full object-cover"
-                                  alt={tweet.authorName}
-                                />
-                              )}
-                              <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
-                            </Avatar>
+                            {!hideAuthorImages && (
+                              <Avatar className="size-8 flex-shrink-0 overflow-hidden rounded-full">
+                                {tweet.authorImage && (
+                                  <Media
+                                    resource={tweet.authorImage}
+                                    className="aspect-square h-full w-full object-cover"
+                                    alt={tweet.authorName}
+                                  />
+                                )}
+                                <AvatarFallback>{tweet.authorName[0]}</AvatarFallback>
+                              </Avatar>
+                            )}
                             <div>
                               <TweetContent content={tweet.content} isCollapsed={true} />
                             </div>
