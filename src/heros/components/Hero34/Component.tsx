@@ -4,9 +4,7 @@ import type { Hero34Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Hero34({ hero }: Hero34Fields) {
-  const { badge, title, subtitle, links, image } = hero
-
+export default function Hero34({ badge, title, subtitle, links, image }: Hero34Fields) {
   return (
     <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container">

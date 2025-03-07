@@ -1,17 +1,59 @@
-import { GroupField } from 'payload'
-import { z } from 'zod'
+import { Field, GroupField } from 'payload'
 import { link } from '@/fields/link'
-import { createHeroField, heroSchemas } from '../../shared/base-field'
 
 /**
  * Hero 34 field validation and type definitions
  */
-export const schemas = {
-  title: heroSchemas.title,
-  subtitle: heroSchemas.subtitle,
-  links: z.array(heroSchemas.link).min(2).max(2),
-  image: heroSchemas.image,
-  badge: heroSchemas.badge,
+
+const title: Field = {
+  name: 'title',
+  type: 'text',
+  required: true,
+  admin: {
+    description: 'The main title text',
+  },
+}
+
+const subtitle: Field = {
+  name: 'subtitle',
+  type: 'textarea',
+  admin: {
+    description: 'The subtitle text',
+  },
+}
+
+const image: Field = {
+  name: 'image',
+  type: 'upload',
+  relationTo: 'media',
+  required: true,
+  admin: {
+    description: 'Hero image',
+  },
+}
+
+const badge: Field = {
+  name: 'badge',
+  type: 'text',
+  required: true,
+  admin: {
+    description: 'Badge text',
+  },
+}
+
+const links: Field = {
+  name: 'links',
+  type: 'array',
+  fields: [
+    link({
+      name: 'link',
+    }),
+  ],
+  admin: {
+    description: 'Hero buttons',
+  },
+  minRows: 1,
+  maxRows: 1,
 }
 
 /**
@@ -25,35 +67,5 @@ export const hero34Fields: GroupField = {
   admin: {
     description: 'Hero with left content and right image layout',
   },
-  fields: [
-    createHeroField({
-      includeFields: ['title', 'subtitle', 'image', 'badge'],
-      arrays: [
-        {
-          name: 'links',
-          fields: [
-            link({
-              name: 'link-1',
-              overrides: {
-                admin: {
-                  description: 'Hero button with ArrowRight prefix icon',
-                },
-                defaultValue: {
-                  prefixIcon: 'ArrowRight',
-                },
-              },
-            }),
-            link({
-              name: 'link-2',
-            }),
-          ],
-          admin: {
-            description: 'Hero buttons',
-          },
-          minRows: 1,
-          maxRows: 1,
-        },
-      ],
-    }),
-  ],
+  fields: [title, subtitle, image, badge, links],
 }
