@@ -8,11 +8,11 @@ interface ThemeEffectProps {
 }
 
 export function ThemeEffect({ theme = 'dark' }: ThemeEffectProps) {
-  const { setHeaderTheme } = useHeaderTheme()
+  const { setHeaderMode } = useHeaderTheme()
 
   useEffect(() => {
-    setHeaderTheme(theme)
-  }, [setHeaderTheme, theme])
+    setHeaderMode(theme)
+  }, [setHeaderMode, theme])
 
   return null
 }

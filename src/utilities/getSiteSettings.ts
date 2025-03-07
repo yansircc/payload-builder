@@ -1,13 +1,14 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import type { ReadonlyHeaders } from 'next/dist/server/web/spec-extension/adapters/headers'
 import type { SiteSetting } from '@/payload-types'
 import { getTenantFromCookie, getTenantFromDomain } from './getTenant'
 
-export async function getSiteSettingsFromDomain() {
+export async function getSiteSettingsFromDomain(headersInstance?: ReadonlyHeaders) {
   try {
     const payload = await getPayload({ config: configPromise })
 
-    const tenant = await getTenantFromDomain()
+    const tenant = await getTenantFromDomain(headersInstance)
 
     if (!tenant) return null
 

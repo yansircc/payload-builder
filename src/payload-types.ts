@@ -64,7 +64,9 @@ export interface Config {
   auth: {
     users: UserAuthOperations;
   };
-  blocks: {};
+  blocks: {
+    banner: BannerBlock;
+  };
   collections: {
     pages: Page;
     posts: Post;
@@ -80,6 +82,7 @@ export interface Config {
     'error-logs': ErrorLog;
     services: Service;
     products: Product;
+    widgets: Widget;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -105,6 +108,7 @@ export interface Config {
     'error-logs': ErrorLogsSelect<false> | ErrorLogsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
+    widgets: WidgetsSelect<false> | WidgetsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -154,6 +158,31 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BannerBlock".
+ */
+export interface BannerBlock {
+  style: 'info' | 'warning' | 'error' | 'success';
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'banner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -172,6 +201,7 @@ export interface Page {
     | GalleryBlock
     | FeatureBlock
     | TableBlock
+    | HTMLBlock
     | ColumnsBlock
     | TestimonialBlock
     | ContactBlock
@@ -217,10 +247,6 @@ export interface Tenant {
    * A unique identifier for this tenant
    */
   slug: string;
-  /**
-   * Select the design theme for this tenant
-   */
-  theme: 'cool' | 'brutal' | 'neon';
   /**
    * Allow public access to content
    */
@@ -3965,6 +3991,19 @@ export interface TableBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'table';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HTMLBlock".
+ */
+export interface HTMLBlock {
+  /**
+   * Paste HTML.
+   */
+  content: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'html';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -8139,21 +8178,283 @@ export interface SiteSetting {
    * SEO description for homepage (recommended: 150-160 characters)
    */
   description: string;
-  /**
-   * Upload your site favicon (recommended size: 32x32 or 16x16)
-   */
-  favicon?: (string | null) | Media;
-  /**
-   * Upload your site logo
-   */
-  logo?: (string | null) | Media;
-  searchEngineVisibility?: {
-    allowIndexing?: boolean | null;
+  siteIdentity?: {
     /**
-     * Custom robots.txt content (optional)
+     * Upload your site favicon (recommended size: 32x32 or 16x16)
      */
-    robotsTxtContent?: string | null;
+    favicon?: (string | null) | Media;
+    /**
+     * Upload your site logo
+     */
+    logo?: (string | null) | Media;
   };
+  notFoundSettings?: {
+    /**
+     * Select a page to use as the custom 404 page for this tenant
+     */
+    custom404Page?: (string | null) | Page;
+  };
+  /**
+   * Select countries to blacklist from accessing the site
+   */
+  blacklistCountries?:
+    | (
+        | 'AD'
+        | 'AE'
+        | 'AF'
+        | 'AG'
+        | 'AI'
+        | 'AL'
+        | 'AM'
+        | 'AO'
+        | 'AQ'
+        | 'AR'
+        | 'AS'
+        | 'AT'
+        | 'AU'
+        | 'AW'
+        | 'AX'
+        | 'AZ'
+        | 'BA'
+        | 'BB'
+        | 'BD'
+        | 'BE'
+        | 'BF'
+        | 'BG'
+        | 'BH'
+        | 'BI'
+        | 'BJ'
+        | 'BL'
+        | 'BM'
+        | 'BN'
+        | 'BO'
+        | 'BQ'
+        | 'BR'
+        | 'BS'
+        | 'BT'
+        | 'BV'
+        | 'BW'
+        | 'BY'
+        | 'BZ'
+        | 'CA'
+        | 'CC'
+        | 'CD'
+        | 'CF'
+        | 'CG'
+        | 'CH'
+        | 'CI'
+        | 'CK'
+        | 'CL'
+        | 'CM'
+        | 'CN'
+        | 'CO'
+        | 'CR'
+        | 'CU'
+        | 'CV'
+        | 'CW'
+        | 'CX'
+        | 'CY'
+        | 'CZ'
+        | 'DE'
+        | 'DJ'
+        | 'DK'
+        | 'DM'
+        | 'DO'
+        | 'DZ'
+        | 'EC'
+        | 'EE'
+        | 'EG'
+        | 'EH'
+        | 'ER'
+        | 'ES'
+        | 'ET'
+        | 'FI'
+        | 'FJ'
+        | 'FK'
+        | 'FM'
+        | 'FO'
+        | 'FR'
+        | 'GA'
+        | 'GB'
+        | 'GD'
+        | 'GE'
+        | 'GF'
+        | 'GG'
+        | 'GH'
+        | 'GI'
+        | 'GL'
+        | 'GM'
+        | 'GN'
+        | 'GP'
+        | 'GQ'
+        | 'GR'
+        | 'GS'
+        | 'GT'
+        | 'GU'
+        | 'GW'
+        | 'GY'
+        | 'HK'
+        | 'HM'
+        | 'HN'
+        | 'HR'
+        | 'HT'
+        | 'HU'
+        | 'ID'
+        | 'IE'
+        | 'IL'
+        | 'IM'
+        | 'IN'
+        | 'IO'
+        | 'IQ'
+        | 'IR'
+        | 'IS'
+        | 'IT'
+        | 'JE'
+        | 'JM'
+        | 'JO'
+        | 'JP'
+        | 'KE'
+        | 'KG'
+        | 'KH'
+        | 'KI'
+        | 'KM'
+        | 'KN'
+        | 'KP'
+        | 'KR'
+        | 'KW'
+        | 'KY'
+        | 'KZ'
+        | 'LA'
+        | 'LB'
+        | 'LC'
+        | 'LI'
+        | 'LK'
+        | 'LR'
+        | 'LS'
+        | 'LT'
+        | 'LU'
+        | 'LV'
+        | 'LY'
+        | 'MA'
+        | 'MC'
+        | 'MD'
+        | 'ME'
+        | 'MF'
+        | 'MG'
+        | 'MH'
+        | 'MK'
+        | 'ML'
+        | 'MM'
+        | 'MN'
+        | 'MO'
+        | 'MP'
+        | 'MQ'
+        | 'MR'
+        | 'MS'
+        | 'MT'
+        | 'MU'
+        | 'MV'
+        | 'MW'
+        | 'MX'
+        | 'MY'
+        | 'MZ'
+        | 'NA'
+        | 'NC'
+        | 'NE'
+        | 'NF'
+        | 'NG'
+        | 'NI'
+        | 'NL'
+        | 'NO'
+        | 'NP'
+        | 'NR'
+        | 'NU'
+        | 'NZ'
+        | 'OM'
+        | 'PA'
+        | 'PE'
+        | 'PF'
+        | 'PG'
+        | 'PH'
+        | 'PK'
+        | 'PL'
+        | 'PM'
+        | 'PN'
+        | 'PR'
+        | 'PS'
+        | 'PT'
+        | 'PW'
+        | 'PY'
+        | 'QA'
+        | 'RE'
+        | 'RO'
+        | 'RS'
+        | 'RU'
+        | 'RW'
+        | 'SA'
+        | 'SB'
+        | 'SC'
+        | 'SD'
+        | 'SE'
+        | 'SG'
+        | 'SH'
+        | 'SI'
+        | 'SJ'
+        | 'SK'
+        | 'SL'
+        | 'SM'
+        | 'SN'
+        | 'SO'
+        | 'SR'
+        | 'SS'
+        | 'ST'
+        | 'SV'
+        | 'SX'
+        | 'SY'
+        | 'SZ'
+        | 'TC'
+        | 'TD'
+        | 'TF'
+        | 'TG'
+        | 'TH'
+        | 'TJ'
+        | 'TK'
+        | 'TL'
+        | 'TM'
+        | 'TN'
+        | 'TO'
+        | 'TR'
+        | 'TT'
+        | 'TV'
+        | 'TW'
+        | 'TZ'
+        | 'UA'
+        | 'UG'
+        | 'UM'
+        | 'US'
+        | 'UY'
+        | 'UZ'
+        | 'VA'
+        | 'VC'
+        | 'VE'
+        | 'VG'
+        | 'VI'
+        | 'VN'
+        | 'VU'
+        | 'WF'
+        | 'WS'
+        | 'XK'
+        | 'YE'
+        | 'YT'
+        | 'ZA'
+        | 'ZM'
+        | 'ZW'
+      )[]
+    | null;
+  /**
+   * Select the design theme for this tenant
+   */
+  theme: 'cool' | 'brutal' | 'neon';
   archiveStyles?: {
     /**
      * Select the layout style for the posts archive page
@@ -8167,6 +8468,13 @@ export interface SiteSetting {
      * Select the layout style for the products archive page
      */
     products?: ('grid' | 'list' | 'card') | null;
+  };
+  searchEngineVisibility?: {
+    allowIndexing?: boolean | null;
+    /**
+     * Custom robots.txt content (optional)
+     */
+    robotsTxtContent?: string | null;
   };
   /**
    * Select the primary brand identity that best represents your website or company
@@ -8241,6 +8549,65 @@ export interface ErrorLog {
    * The page that linked to this URL
    */
   referrer?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "widgets".
+ */
+export interface Widget {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  widgetType: 'whatsapp' | 'consentBanner';
+  whatsapp?: {
+    /**
+     * The avatar of the WhatsApp widget
+     */
+    avatar?: (string | null) | Media;
+    /**
+     * The name of the WhatsApp widget
+     */
+    name: string;
+    /**
+     * The default message that will be pre-filled in WhatsApp
+     */
+    text: string;
+    /**
+     * Enter phone number with country code (e.g., +1234567890)
+     */
+    phoneNumber: string;
+    /**
+     * Control whether this widget is active or not
+     */
+    isActive?: boolean | null;
+  };
+  consentBanner?: {
+    /**
+     * The title of the consent banner
+     */
+    title: string;
+    /**
+     * The main text content of the consent banner
+     */
+    description: string;
+    /**
+     * Text to display on the accept button
+     */
+    acceptButtonText: string;
+    /**
+     * Text to display on the reject button
+     */
+    rejectButtonText: string;
+    /**
+     * Link to your privacy policy (optional)
+     */
+    privacyPolicyLink?: string | null;
+    /**
+     * Control whether this consent banner is active or not
+     */
+    isActive?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -8481,6 +8848,10 @@ export interface PayloadLockedDocument {
         value: string | Product;
       } | null)
     | ({
+        relationTo: 'widgets';
+        value: string | Widget;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -8563,6 +8934,7 @@ export interface PagesSelect<T extends boolean = true> {
         gallery?: T | GalleryBlockSelect<T>;
         feature?: T | FeatureBlockSelect<T>;
         table?: T | TableBlockSelect<T>;
+        html?: T | HTMLBlockSelect<T>;
         columns?: T | ColumnsBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
         contact?: T | ContactBlockSelect<T>;
@@ -10297,6 +10669,15 @@ export interface TableBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HTMLBlock_select".
+ */
+export interface HTMLBlockSelect<T extends boolean = true> {
+  content?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ColumnsBlock_select".
  */
 export interface ColumnsBlockSelect<T extends boolean = true> {
@@ -11733,7 +12114,6 @@ export interface TenantsSelect<T extends boolean = true> {
   name?: T;
   domain?: T;
   slug?: T;
-  theme?: T;
   allowPublicRead?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -12894,20 +13274,31 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   hiddenLabel?: T;
   title?: T;
   description?: T;
-  favicon?: T;
-  logo?: T;
-  searchEngineVisibility?:
+  siteIdentity?:
     | T
     | {
-        allowIndexing?: T;
-        robotsTxtContent?: T;
+        favicon?: T;
+        logo?: T;
       };
+  notFoundSettings?:
+    | T
+    | {
+        custom404Page?: T;
+      };
+  blacklistCountries?: T;
+  theme?: T;
   archiveStyles?:
     | T
     | {
         posts?: T;
         services?: T;
         products?: T;
+      };
+  searchEngineVisibility?:
+    | T
+    | {
+        allowIndexing?: T;
+        robotsTxtContent?: T;
       };
   brandIdentity?: T;
   otherBrandIdentity?: T;
@@ -13034,6 +13425,35 @@ export interface ProductsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "widgets_select".
+ */
+export interface WidgetsSelect<T extends boolean = true> {
+  tenant?: T;
+  widgetType?: T;
+  whatsapp?:
+    | T
+    | {
+        avatar?: T;
+        name?: T;
+        text?: T;
+        phoneNumber?: T;
+        isActive?: T;
+      };
+  consentBanner?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        acceptButtonText?: T;
+        rejectButtonText?: T;
+        privacyPolicyLink?: T;
+        isActive?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -13322,31 +13742,6 @@ export interface TaskSchedulePublish {
     user?: (string | null) | User;
   };
   output?: unknown;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BannerBlock".
- */
-export interface BannerBlock {
-  style: 'info' | 'warning' | 'error' | 'success';
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'banner';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
