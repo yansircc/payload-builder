@@ -1,5 +1,6 @@
 import { countries } from 'countries-list'
 import type { CollectionConfig } from 'payload'
+import { themeOptions } from '@/providers/Theme/shared'
 import { superAdminOrTenantAdminAccess } from './access/superAdminOrTenantAdmin'
 
 const archiveStyleOptions = [
@@ -149,6 +150,17 @@ export const SiteSettings: CollectionConfig = {
         {
           label: 'Theme',
           fields: [
+            {
+              name: 'theme',
+              type: 'select',
+              required: true,
+              defaultValue: 'cool',
+              options: themeOptions,
+              admin: {
+                description: 'Select the design theme for this tenant',
+                position: 'sidebar',
+              },
+            },
             {
               name: 'archiveStyles',
               type: 'group',
