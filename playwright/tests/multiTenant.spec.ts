@@ -1,6 +1,5 @@
 import { test } from '@playwright/test'
 import { TenantPage } from 'playwright/utils/pages/multiTenant'
-import userData from '../utils/fixtures/userData.json' assert { type: 'json' }
 import { LoginPage } from '../utils/pages/login'
 
 test.describe.configure({ mode: 'serial' })
@@ -13,7 +12,7 @@ test.describe('Multi-Tenant Test Cases', () => {
     tenant = new TenantPage(page)
 
     await page.goto('admin')
-    await logIn.logIn(userData.email, userData.password)
+    await logIn.logIn()
   })
 
   test('Create a Tenant', async () => {

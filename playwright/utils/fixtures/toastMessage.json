@@ -1,5 +1,6 @@
 {
   "tenantCreationSuccess": "Tenant successfully created.",
   "tenantDuplicationSuccess": "Tenant successfully duplicated.",
-  "tenantDeletionSuccess": "Deleted 2 Tenants successfully."
+  "tenantDeletionSuccess": "Deleted 1 Tenant successfully.",
+  "postCreationSuccess": "Updated successfully."
 }
