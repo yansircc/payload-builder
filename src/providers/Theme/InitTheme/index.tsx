@@ -1,6 +1,6 @@
 import React from 'react'
 import Script from 'next/script'
-import { defaultMode, defaultTheme, modeLocalStorageKey, themeLocalStorageKey } from '../shared'
+import { defaultMode, modeLocalStorageKey } from '../shared'
 
 export const InitTheme: React.FC = () => {
   return (
@@ -21,20 +21,8 @@ export const InitTheme: React.FC = () => {
       return 'light' // Fallback to light if no preference
     }
 
-    function themeIsValid(theme) {
-      return theme === 'cool' || theme === 'brutal' || theme === 'neon'
-    }
-
     function modeIsValid(mode) {
       return mode === 'light' || mode === 'dark'
-    }
-
-    // Initialize theme preset
-    var themeToSet = '${defaultTheme}'
-    var themePreference = window.localStorage.getItem('${themeLocalStorageKey}')
-
-    if (themeIsValid(themePreference)) {
-      themeToSet = themePreference
     }
 
     // Initialize mode
@@ -50,6 +38,15 @@ export const InitTheme: React.FC = () => {
 
     // Set mode attribute
     document.documentElement.setAttribute('data-theme-mode', modeToSet)
+
+    // Add listener for system theme changes
+    var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    mediaQuery.addEventListener('change', function(e) {
+      if (!window.localStorage.getItem('${modeLocalStorageKey}')) {
+        var newMode = e.matches ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme-mode', newMode)
+      }
+    })
   })();
   `,
       }}
