@@ -402,3 +402,8 @@ html:not([data-theme-mode]) {
 html[data-theme-mode='dark'] {
   color-scheme: dark;
 }
+
+/* Invert images in dark mode */
+html[data-theme-mode='dark'] img {
+  @apply invert;
+}
