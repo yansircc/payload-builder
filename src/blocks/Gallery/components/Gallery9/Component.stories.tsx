@@ -78,35 +78,12 @@ export const Default: Story = {
   args: mockGallery,
 }
 
-export const WithoutSections: Story = {
-  args: {
-    gallery: {
-      title: 'No Features Available',
-      description: 'Unfortunately, we have no features to show at the moment.',
-      sections: null,
-    },
-  },
-}
-
 export const SingleSection: Story = {
   args: {
     gallery: {
       title: 'Feature One',
       description: 'Explore our first feature.',
       sections: mockGallery.gallery.sections ? [mockGallery.gallery.sections[0] as Section] : [],
-    },
-  },
-}
-
-export const MultipleSections: Story = {
-  args: {
-    gallery: {
-      title: 'Multiple Features',
-      description: 'Browse through multiple features.',
-
-      sections: mockGallery.gallery.sections
-        ? [mockGallery.gallery.sections[0] as Section, mockGallery.gallery.sections[1] as Section]
-        : [],
     },
   },
 }

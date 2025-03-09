@@ -62,16 +62,3 @@ const mockGallery: Gallery6Fields = {
 export const Default: Story = {
   args: mockGallery,
 }
-
-export const WithoutCards: Story = {
-  args: {
-    gallery: {
-      title: 'No Projects Available',
-      link: {
-        label: 'See All Projects',
-        url: '/projects',
-      },
-      cards: null,
-    },
-  },
-}
