@@ -1,25 +1,11 @@
-import * as LucideIcons from 'lucide-react'
+import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Hero24Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
-// 移除不必要的 FeatureItem 接口
-type Feature = {
-  icon: string
-  title: string
-  description: string
-}
-
-type IconComponent = React.ComponentType<{
-  className?: string
-  size?: number | string
-}>
-
-export default function Hero24({ hero }: Hero24Fields) {
-  const { badge, logo, features, title, links } = hero
-
+export default function Hero24({ badge, logo, features, title, links }: Hero24Fields) {
   return (
     <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container">
@@ -77,14 +63,10 @@ export default function Hero24({ hero }: Hero24Fields) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {features.map(({ icon, title, description }: Feature, i) => {
-              // 使用双重类型转换来安全地获取图标组件
-              const IconComponent =
-                (LucideIcons as unknown as Record<string, IconComponent>)[icon] ?? LucideIcons.Globe
-
+            {features.map(({ icon, title, description }, i) => {
               return (
                 <div key={i} className="flex flex-col gap-3 bg-background p-5 md:gap-6">
-                  <IconComponent className="size-6 shrink-0" />
+                  <DynamicIcon name={icon} className="size-6 shrink-0" />
                   <div>
                     <h2 className={cn('font-sans font-semibold', 'text-sm md:text-base')}>
                       {title}

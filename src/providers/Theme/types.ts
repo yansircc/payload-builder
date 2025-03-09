@@ -1,4 +1,4 @@
-import type { ThemePreset } from '@/themes'
+export type ThemePreset = 'cool' | 'brutal' | 'neon'
 
 export type Mode = 'dark' | 'light'
 
@@ -7,6 +7,11 @@ export interface ThemeContextType {
   theme?: ThemePreset | null
   setMode: (mode: Mode | null) => void
   mode?: Mode | null
+}
+
+export interface ThemeOption {
+  label: string
+  value: ThemePreset
 }
 
 export function themeIsValid(string: null | string): string is ThemePreset {
