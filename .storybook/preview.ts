@@ -2,7 +2,8 @@ import type { Preview } from '@storybook/react'
 import type { ReactElement } from 'react'
 import React from 'react'
 import '../src/app/(frontend)/globals.css'
-import { themes } from '../src/themes'
+import { themeOptions } from '../src/providers/Theme/shared'
+import { ThemePreset } from '../src/providers/Theme/types'
 import './storybook.css' // Import Storybook-specific styles
 
 // These CSS variables are referenced in the themes and globals.css
@@ -71,8 +72,8 @@ const preview: Preview = {
       defaultValue: 'cool',
       toolbar: {
         icon: 'paintbrush',
-        items: Object.entries(themes).map(([key, theme]) => ({
-          value: key,
+        items: themeOptions.map((theme) => ({
+          value: theme.value,
           title: theme.label,
         })),
       },
@@ -92,13 +93,13 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context): ReactElement => {
-      const selectedTheme = themes[context.globals.theme as keyof typeof themes]
+      const selectedTheme = context.globals.theme as ThemePreset
       const themeMode = context.globals.themeMode || 'light'
 
       // Apply theme attributes to HTML element
       React.useEffect(() => {
         if (document && document.documentElement) {
-          document.documentElement.setAttribute('data-theme', selectedTheme.name)
+          document.documentElement.setAttribute('data-theme', selectedTheme)
           document.documentElement.setAttribute('data-theme-mode', themeMode)
           document.documentElement.classList.add('sb-show-main')
         }
@@ -109,7 +110,7 @@ const preview: Preview = {
             document.documentElement.removeAttribute('data-theme-mode')
           }
         }
-      }, [selectedTheme.name, themeMode])
+      }, [selectedTheme, themeMode])
 
       // Create a div with the appropriate styling
       const wrapperProps = {
