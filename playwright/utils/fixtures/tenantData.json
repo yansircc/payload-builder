@@ -1,0 +1,5 @@
+{
+  "name": "Test Tenant",
+  "domain": "localhost.com:3000",
+  "slug": "slug"
+}
