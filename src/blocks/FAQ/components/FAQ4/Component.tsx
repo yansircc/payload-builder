@@ -36,7 +36,7 @@ export default function FAQ4({ title, subtitle, description, faqs, support }: FA
             <h1 className="mt-4 text-2xl font-semibold">{support.title}</h1>
             <p className="mt-6 font-medium text-muted-foreground">{support.subtitle}</p>
           </div>
-          <div className="flex md:justify-end">
+          <div className="flex gap-4 md:justify-end">
             {support?.supportLink?.map((linkGroup, index) => (
               <div key={index} className="flex flex-col gap-2 sm:flex-row">
                 {Object.entries(linkGroup).map(
