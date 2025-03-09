@@ -1,8 +1,8 @@
 import { Block } from 'payload'
-import { logos1Fields } from './components/Logos1/config'
-import { logos2Fields } from './components/Logos2/config'
-import { logos3Fields } from './components/Logos3/config'
-import { logos8Fields } from './components/Logos8/config'
+import { logos1Fields } from './components/Logos1/server'
+import { logos2Fields } from './components/Logos2/server'
+import { logos3Fields } from './components/Logos3/server'
+import { logos8Fields } from './components/Logos8/server'
 
 export const LogosBlock: Block = {
   slug: 'logos',
