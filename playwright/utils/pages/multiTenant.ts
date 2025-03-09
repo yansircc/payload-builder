@@ -4,6 +4,7 @@ import toastMessage from '../fixtures/toastMessage.json' assert { type: 'json' }
 
 export class TenantPage {
   private page: Page
+  readonly clearTenant: Locator
   readonly tenantButton: Locator
 
   // Create Tenant
@@ -34,6 +35,7 @@ export class TenantPage {
 
   constructor(page: Page) {
     this.page = page
+    this.clearTenant = this.page.locator('.tenant-selector .clear-indicator')
     this.tenantButton = this.page.getByRole('link', { name: 'Tenants', exact: true })
 
     // Create Tenant
@@ -64,11 +66,15 @@ export class TenantPage {
 
   async goToTenants() {
     await this.tenantButton.click()
+    await expect(this.page).toHaveURL(/.*tenants.*/)
+    if (await this.clearTenant.elementHandle()) {
+      await this.clearTenant.click()
+      await this.page.waitForLoadState('networkidle')
+    }
+    await expect(this.clearTenant).not.toBeVisible()
   }
 
   async createTenant() {
-    await this.goToTenants()
-    await expect(this.page).toHaveURL(/.*tenants.*/)
     await this.createTenantButton.click()
     await this.tenantName.fill(tenantData.name)
     await this.tenantDomain.fill(tenantData.domain)
@@ -78,9 +84,10 @@ export class TenantPage {
   }
 
   async duplicateTenant() {
-    await this.goToTenants()
-    await expect(this.page).toHaveURL(/.*tenants.*/)
     await this.searchFilter.fill(tenantData.name)
+    await this.page.waitForLoadState('networkidle')
+    await this.page.waitForLoadState('load')
+    await this.page.waitForLoadState('domcontentloaded')
     await expect(this.pagination).toHaveText('1-1 of 1')
     await expect(this.tenantCellName).toHaveText(tenantData.name)
     await expect(this.tenantCellDomain).toHaveText(tenantData.domain)
@@ -92,7 +99,6 @@ export class TenantPage {
   }
 
   async deleteTenant() {
-    await this.goToTenants()
     await expect(this.page).toHaveURL(/.*tenants.*/)
     await this.searchFilter.fill(tenantData.name)
     await expect(this.pagination).toHaveText('1-2 of 2')
