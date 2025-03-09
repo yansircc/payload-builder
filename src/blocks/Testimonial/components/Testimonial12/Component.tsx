@@ -9,6 +9,8 @@ import {
 import type { Testimonial12Fields } from '@/payload-types'
 
 export default function Testimonial12({ testimonials }: Testimonial12Fields) {
+  const showNavigation = testimonials && testimonials.length > 1
+
   return (
     <section className="py-32">
       <div className="container">
@@ -24,11 +26,11 @@ export default function Testimonial12({ testimonials }: Testimonial12Fields) {
                     className={`${!testimonial.authorImage ? 'flex flex-col justify-center' : ''}`}
                   >
                     {testimonial.authorImage ? (
-                      <div className="mx-auto max-h-80 rounded-xl lg:mx-0 lg:max-h-none overflow-hidden">
+                      <div className="mx-auto max-w-[320px] lg:max-w-none rounded-xl lg:mx-0 overflow-hidden">
                         <Media
                           resource={testimonial.authorImage}
-                          className="w-full h-full"
-                          imgClassName="object-cover"
+                          className="w-full aspect-[4/3]"
+                          imgClassName="object-cover object-center w-full h-full"
                         />
                       </div>
                     ) : (
@@ -94,8 +96,12 @@ export default function Testimonial12({ testimonials }: Testimonial12Fields) {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-4 top-1/2 text-foreground" />
-            <CarouselNext className="absolute right-4 top-1/2 text-foreground" />
+            {showNavigation && (
+              <>
+                <CarouselPrevious className="absolute left-4 top-1/2 text-foreground" />
+                <CarouselNext className="absolute right-4 top-1/2 text-foreground" />
+              </>
+            )}
           </Carousel>
         </div>
       </div>
