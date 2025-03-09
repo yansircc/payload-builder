@@ -27,6 +27,8 @@ export default function Testimonial7({
     AutoScroll({
       startDelay: 500,
       speed: 0.7,
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
     }),
   )
 
@@ -35,8 +37,13 @@ export default function Testimonial7({
       startDelay: 500,
       speed: 0.7,
       direction: 'backward',
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
     }),
   )
+
+  const shouldShowCarousel1 = testimonials1.length > 3
+  const shouldShowCarousel2 = testimonials2.length > 3
 
   return (
     <section className="py-32">
@@ -45,90 +52,171 @@ export default function Testimonial7({
         <p className="text-muted-foreground lg:text-lg">{description}</p>
         {cta && <CMSLink className="mt-6" {...cta} />}
       </div>
-      <div className="lg:container">
+      <div className="container">
         <div className="mt-16 space-y-4">
-          <Carousel
-            opts={{
-              loop: true,
-            }}
-            plugins={[plugin1.current]}
-            onMouseLeave={() => plugin1.current.play()}
-          >
-            <CarouselContent>
+          {shouldShowCarousel1 ? (
+            <Carousel
+              opts={{
+                loop: true,
+                align: 'center',
+                containScroll: 'trimSnaps',
+              }}
+              plugins={[plugin1.current]}
+              onMouseLeave={() => plugin1.current.play()}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {testimonials1.map((testimonial, index) => (
+                  <CarouselItem
+                    key={index}
+                    className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
+                  >
+                    <Card className="mx-auto max-w-96 h-[200px] select-none p-6 flex flex-col">
+                      <div className="mb-4 flex gap-4">
+                        {!hideAuthorImages && (
+                          <Avatar className="size-9 flex-shrink-0 rounded-full ring-1 ring-input overflow-hidden">
+                            {testimonial.authorImage ? (
+                              <Media
+                                resource={testimonial.authorImage}
+                                imgClassName="aspect-square size-full object-cover object-center"
+                                className="!block size-full"
+                              />
+                            ) : (
+                              <AvatarImage
+                                src="https://shadcnblocks.com/images/block/avatar-1.webp"
+                                alt={testimonial.authorName}
+                              />
+                            )}
+                          </Avatar>
+                        )}
+                        <div className="text-sm">
+                          <p className="font-medium text-foreground">{testimonial.authorName}</p>
+                          {testimonial.authorRole && (
+                            <p className="text-foreground">{testimonial.authorRole}</p>
+                          )}
+                        </div>
+                      </div>
+                      <q className="text-foreground line-clamp-4">{testimonial.quote}</q>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <div className="flex justify-center gap-4 flex-wrap">
               {testimonials1.map((testimonial, index) => (
-                <CarouselItem key={index} className="basis-auto">
-                  <Card className="max-w-96 h-[200px] select-none p-6 flex flex-col">
-                    <div className="mb-4 flex gap-4">
-                      {!hideAuthorImages && (
-                        <Avatar className="size-9 flex-shrink-0 rounded-full ring-1 ring-input overflow-hidden">
-                          {testimonial.authorImage ? (
-                            <Media
-                              resource={testimonial.authorImage}
-                              imgClassName="aspect-square size-full object-cover object-center"
-                              className="!block size-full"
-                            />
-                          ) : (
-                            <AvatarImage
-                              src="https://shadcnblocks.com/images/block/avatar-1.webp"
-                              alt={testimonial.authorName}
-                            />
-                          )}
-                        </Avatar>
-                      )}
-                      <div className="text-sm">
-                        <p className="font-medium text-foreground">{testimonial.authorName}</p>
-                        {testimonial.authorRole && (
-                          <p className="text-foreground">{testimonial.authorRole}</p>
+                <Card key={index} className="w-[400px] h-[200px] select-none p-6 flex flex-col">
+                  <div className="mb-4 flex gap-4">
+                    {!hideAuthorImages && (
+                      <Avatar className="size-9 flex-shrink-0 rounded-full ring-1 ring-input overflow-hidden">
+                        {testimonial.authorImage ? (
+                          <Media
+                            resource={testimonial.authorImage}
+                            imgClassName="aspect-square size-full object-cover object-center"
+                            className="!block size-full"
+                          />
+                        ) : (
+                          <AvatarImage
+                            src="https://shadcnblocks.com/images/block/avatar-1.webp"
+                            alt={testimonial.authorName}
+                          />
                         )}
-                      </div>
+                      </Avatar>
+                    )}
+                    <div className="text-sm">
+                      <p className="font-medium text-foreground">{testimonial.authorName}</p>
+                      {testimonial.authorRole && (
+                        <p className="text-foreground">{testimonial.authorRole}</p>
+                      )}
                     </div>
-                    <q className="text-foreground line-clamp-4">{testimonial.quote}</q>
-                  </Card>
-                </CarouselItem>
+                  </div>
+                  <q className="text-foreground line-clamp-4">{testimonial.quote}</q>
+                </Card>
               ))}
-            </CarouselContent>
-          </Carousel>
-          <Carousel
-            opts={{
-              loop: true,
-            }}
-            plugins={[plugin2.current]}
-            onMouseLeave={() => plugin2.current.play()}
-          >
-            <CarouselContent>
+            </div>
+          )}
+
+          {shouldShowCarousel2 ? (
+            <Carousel
+              opts={{
+                loop: true,
+                align: 'center',
+                containScroll: 'trimSnaps',
+              }}
+              plugins={[plugin2.current]}
+              onMouseLeave={() => plugin2.current.play()}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {testimonials2.map((testimonial, index) => (
+                  <CarouselItem
+                    key={index}
+                    className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
+                  >
+                    <Card className="mx-auto max-w-96 h-[200px] select-none p-6 flex flex-col">
+                      <div className="mb-4 flex gap-4">
+                        {!hideAuthorImages && (
+                          <Avatar className="size-9 flex-shrink-0 rounded-full ring-1 ring-input overflow-hidden">
+                            {testimonial.authorImage ? (
+                              <Media
+                                resource={testimonial.authorImage}
+                                imgClassName="aspect-square size-full object-cover object-center"
+                                className="!block size-full"
+                              />
+                            ) : (
+                              <AvatarImage
+                                src="https://shadcnblocks.com/images/block/avatar-1.webp"
+                                alt={testimonial.authorName}
+                              />
+                            )}
+                          </Avatar>
+                        )}
+                        <div className="text-sm">
+                          <p className="font-medium text-foreground">{testimonial.authorName}</p>
+                          {testimonial.authorRole && (
+                            <p className="text-foreground">{testimonial.authorRole}</p>
+                          )}
+                        </div>
+                      </div>
+                      <q className="text-foreground line-clamp-4">{testimonial.quote}</q>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <div className="flex justify-center gap-4 flex-wrap">
               {testimonials2.map((testimonial, index) => (
-                <CarouselItem key={index} className="basis-auto">
-                  <Card className="max-w-96 h-[200px] select-none p-6 flex flex-col">
-                    <div className="mb-4 flex gap-4">
-                      {!hideAuthorImages && (
-                        <Avatar className="size-9 flex-shrink-0 rounded-full ring-1 ring-input overflow-hidden">
-                          {testimonial.authorImage ? (
-                            <Media
-                              resource={testimonial.authorImage}
-                              imgClassName="aspect-square size-full object-cover object-center"
-                              className="!block size-full"
-                            />
-                          ) : (
-                            <AvatarImage
-                              src="https://shadcnblocks.com/images/block/avatar-1.webp"
-                              alt={testimonial.authorName}
-                            />
-                          )}
-                        </Avatar>
-                      )}
-                      <div className="text-sm">
-                        <p className="font-medium text-foreground">{testimonial.authorName}</p>
-                        {testimonial.authorRole && (
-                          <p className="text-foreground">{testimonial.authorRole}</p>
+                <Card key={index} className="w-[400px] h-[200px] select-none p-6 flex flex-col">
+                  <div className="mb-4 flex gap-4">
+                    {!hideAuthorImages && (
+                      <Avatar className="size-9 flex-shrink-0 rounded-full ring-1 ring-input overflow-hidden">
+                        {testimonial.authorImage ? (
+                          <Media
+                            resource={testimonial.authorImage}
+                            imgClassName="aspect-square size-full object-cover object-center"
+                            className="!block size-full"
+                          />
+                        ) : (
+                          <AvatarImage
+                            src="https://shadcnblocks.com/images/block/avatar-1.webp"
+                            alt={testimonial.authorName}
+                          />
                         )}
-                      </div>
+                      </Avatar>
+                    )}
+                    <div className="text-sm">
+                      <p className="font-medium text-foreground">{testimonial.authorName}</p>
+                      {testimonial.authorRole && (
+                        <p className="text-foreground">{testimonial.authorRole}</p>
+                      )}
                     </div>
-                    <q className="text-foreground line-clamp-4">{testimonial.quote}</q>
-                  </Card>
-                </CarouselItem>
+                  </div>
+                  <q className="text-foreground line-clamp-4">{testimonial.quote}</q>
+                </Card>
               ))}
-            </CarouselContent>
-          </Carousel>
+            </div>
+          )}
         </div>
       </div>
     </section>

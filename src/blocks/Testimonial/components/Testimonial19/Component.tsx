@@ -69,7 +69,7 @@ export default function Testimonial19({
                         )}
                         <div>
                           <p className="font-medium text-foreground">{testimonial.authorName}</p>
-                          <p className="text-sm text-muted-foreground">{testimonial.authorRole}</p>
+                          <p className="text-sm text-foreground">{testimonial.authorRole}</p>
                         </div>
                       </div>
                       <div className="flex gap-1">

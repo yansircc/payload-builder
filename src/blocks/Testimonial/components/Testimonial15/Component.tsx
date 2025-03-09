@@ -20,7 +20,7 @@ export default function Testimonial15({
       <div className="container">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-24">
           <div className="text-center lg:text-left">
-            <h2 className="mb-6 text-balance text-3xl font-bold lg:text-4xl text-foreground">
+            <h2 className="mb-6 text-balance text-3xl font-bold lg:text-4xl text-muted-foreground">
               {title}
             </h2>
             <p className="mb-8 text-lg text-muted-foreground">{description}</p>
