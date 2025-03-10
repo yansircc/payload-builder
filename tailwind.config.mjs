@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable import/no-anonymous-default-export */
 import { fontFamily } from 'tailwindcss/defaultTheme'
-import { themes } from './src/themes'
 
 /** @type {import('tailwindcss').Config} */
 export default {
