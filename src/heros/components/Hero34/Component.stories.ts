@@ -34,7 +34,7 @@ const defaultArgs: Hero34Fields = {
         label: 'Get Started',
         url: '#',
         appearance: 'default',
-        prefixIcon: 'ArrowRight',
+        suffixIcon: 'ArrowRight',
       },
     },
     {

@@ -44,25 +44,20 @@ export default function Hero34({ badge, title, subtitle, links, image }: Hero34F
 
                 {/* Buttons */}
                 {links && links.length > 0 && (
-                  <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
+                  <div className="flex w-full flex-col gap-2 sm:flex-row justify-center lg:justify-start">
                     {links?.map((linkGroup, index) => (
-                      <div
-                        key={index}
-                        className="flex w-full flex-col gap-2 sm:flex-row items-center justify-center lg:justify-start"
-                      >
-                        {Object.entries(linkGroup)
-                          .filter(([key]) => key.startsWith('link-'))
-                          .map(
-                            ([key, link]) =>
-                              link &&
-                              typeof link === 'object' && (
-                                <CMSLink
-                                  key={key}
-                                  className="inline-flex w-full items-center transition-button hover:scale-button-hover sm:w-auto"
-                                  {...link}
-                                />
-                              ),
-                          )}
+                      <div key={index} className="flex flex-col gap-2 sm:flex-row">
+                        {Object.entries(linkGroup).map(
+                          ([key, link]) =>
+                            link &&
+                            typeof link === 'object' && (
+                              <CMSLink
+                                key={key}
+                                className="inline-flex items-center transition-button hover:scale-button-hover sm:w-auto"
+                                {...link}
+                              />
+                            ),
+                        )}
                       </div>
                     ))}
                   </div>
