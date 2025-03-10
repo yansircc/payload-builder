@@ -6,9 +6,7 @@ import type { Hero12Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Hero12({ hero }: Hero12Fields) {
-  const { logo, badge, partners, title, subtitle, links } = hero
-
+export default function Hero12({ logo, badge, partners, title, subtitle, links }: Hero12Fields) {
   return (
     <section className="relative overflow-hidden py-section md:py-section-md lg:py-section-lg">
       <div className="container">
@@ -51,10 +49,7 @@ export default function Hero12({ hero }: Hero12Fields) {
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 {links.map((linkGroup) => (
-                  <>
-                    {linkGroup['link-1'] && <CMSLink key="link-1" {...linkGroup['link-1']} />}
-                    {linkGroup['link-2'] && <CMSLink key="link-2" {...linkGroup['link-2']} />}
-                  </>
+                  <CMSLink key={linkGroup.id} {...linkGroup.link} />
                 ))}
               </ClientMotionDiv>
             )}

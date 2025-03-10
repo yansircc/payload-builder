@@ -1,32 +1,32 @@
 'use client'
 
 import React, { createContext, useCallback, useContext, useState } from 'react'
-import type { Theme } from '@/providers/Theme/types'
+import type { Mode } from '@/providers/Theme/types'
 import canUseDOM from '@/utilities/canUseDOM'
 
 export interface ContextType {
-  headerTheme?: Theme | null
-  setHeaderTheme: (theme: Theme | null) => void
+  headerMode?: Mode | null
+  setHeaderMode: (mode: Mode | null) => void
 }
 
 const initialContext: ContextType = {
-  headerTheme: undefined,
-  setHeaderTheme: () => null,
+  headerMode: undefined,
+  setHeaderMode: () => null,
 }
 
 const HeaderThemeContext = createContext(initialContext)
 
 export const HeaderThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [headerTheme, setThemeState] = useState<Theme | undefined | null>(
-    canUseDOM ? (document.documentElement.getAttribute('data-theme') as Theme) : undefined,
+  const [headerMode, setModeState] = useState<Mode | undefined | null>(
+    canUseDOM ? (document.documentElement.getAttribute('data-theme-mode') as Mode) : undefined,
   )
 
-  const setHeaderTheme = useCallback((themeToSet: Theme | null) => {
-    setThemeState(themeToSet)
+  const setHeaderMode = useCallback((modeToSet: Mode | null) => {
+    setModeState(modeToSet)
   }, [])
 
   return (
-    <HeaderThemeContext.Provider value={{ headerTheme, setHeaderTheme }}>
+    <HeaderThemeContext.Provider value={{ headerMode, setHeaderMode }}>
       {children}
     </HeaderThemeContext.Provider>
   )

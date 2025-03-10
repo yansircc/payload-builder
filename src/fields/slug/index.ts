@@ -1,4 +1,4 @@
-import type { CheckboxField, TextField } from 'payload'
+import type { CheckboxField, CollectionSlug, TextField } from 'payload'
 import { ensureUniqueSlug } from '@/collections/Pages/hooks/ensureUniqueSlug'
 import { formatSlugHook } from './formatSlug'
 
@@ -17,9 +17,13 @@ interface PageData {
     | string
 }
 
-type Slug = (fieldToUse?: string, overrides?: Overrides) => [TextField, CheckboxField, TextField]
+type Slug = (
+  collection: CollectionSlug,
+  fieldToUse?: string,
+  overrides?: Overrides,
+) => [TextField, CheckboxField, TextField]
 
-export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
+export const slugField: Slug = (collection, fieldToUse = 'title', overrides = {}) => {
   const { slugOverrides, checkboxOverrides } = overrides
 
   const checkBoxField: CheckboxField = {
@@ -44,7 +48,7 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
     ...(slugOverrides || {}),
     hooks: {
       // Only format the individual slug portion
-      beforeValidate: [formatSlugHook(fieldToUse), ensureUniqueSlug],
+      beforeValidate: [formatSlugHook(fieldToUse), ensureUniqueSlug(collection)],
     },
     admin: {
       position: 'sidebar',
