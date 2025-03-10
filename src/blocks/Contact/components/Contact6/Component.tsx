@@ -19,9 +19,7 @@ export default function Contact6({ contact }: Contact6Fields) {
           <div className="grid gap-10 sm:grid-cols-2">
             {supportList?.supports?.map((support, idx) => (
               <div key={idx}>
-                {support.icon && (
-                  <DynamicIcon name={support.icon} className="mb-3 h-6 w-auto text-foreground" />
-                )}
+                {support.icon && <DynamicIcon name={support.icon} className="mb-3 h-6 w-auto  " />}
                 <p className="mb-2 text-lg font-semibold">{support.title}</p>
                 <p className="mb-3 text-muted-foreground">{support.subtitle}</p>
                 {support.link && (
@@ -35,7 +33,7 @@ export default function Contact6({ contact }: Contact6Fields) {
             <Form
               fields={form?.fields || []}
               submitLabel={form?.submitButton?.label}
-              className="flex flex-col gap-6"
+              className="flex flex-col gap-8 text-foreground [.theme-neon_&]:text-black [.theme-neon_&]:placeholder-black/6"
             />
           </div>
         </div>

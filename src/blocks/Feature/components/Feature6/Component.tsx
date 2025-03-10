@@ -5,7 +5,7 @@ import type { Feature6Fields } from '@/payload-types'
 
 export default function Feature6({ title, description, icon, image, features }: Feature6Fields) {
   return (
-    <section className="relative overflow-hidden bg-background py-16 md:py-24">
+    <section className="relative overflow-hidden  py-16 md:py-24">
       <ThemeEffect />
       <div className="container relative z-10">
         <div className="grid gap-8 lg:grid-cols-2">
@@ -16,7 +16,7 @@ export default function Feature6({ title, description, icon, image, features }: 
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <span className="flex size-12 items-center justify-center rounded-full bg-accent">
+                <span className="flex text-foreground size-12 items-center justify-center rounded-full bg-accent">
                   <DynamicIcon name={icon} className="size-6" />
                 </span>
               </ClientMotionDiv>

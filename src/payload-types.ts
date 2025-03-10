@@ -211,7 +211,6 @@ export interface Page {
     | LinkPopupBlock
     | ListBlock
     | VideoBlock
-    | CtaSimpleBlock
   )[];
   meta?: {
     title?: string | null;
@@ -6140,24 +6139,6 @@ export interface VideoBlock {
   blockType: 'video';
 }
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CtaSimpleBlock".
- */
-export interface CtaSimpleBlock {
-  /**
-   * Select the background color for the CTA.
-   */
-  backgroundColor: 'primary' | 'secondary' | 'accent' | 'light' | 'dark';
-  heading: string;
-  description?: string | null;
-  buttonLabel: string;
-  buttonUrl: string;
-  buttonStyle: 'solid' | 'outline' | 'ghost';
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'ctaSimple';
-}
-/**
  * Manage the header for your site
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -8766,7 +8747,6 @@ export interface PagesSelect<T extends boolean = true> {
         linkPopup?: T | LinkPopupBlockSelect<T>;
         list?: T | ListBlockSelect<T>;
         video?: T | VideoBlockSelect<T>;
-        ctaSimple?: T | CtaSimpleBlockSelect<T>;
       };
   meta?:
     | T
@@ -11622,20 +11602,6 @@ export interface VideoBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CtaSimpleBlock_select".
- */
-export interface CtaSimpleBlockSelect<T extends boolean = true> {
-  backgroundColor?: T;
-  heading?: T;
-  description?: T;
-  buttonLabel?: T;
-  buttonUrl?: T;
-  buttonStyle?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -13456,6 +13422,24 @@ export interface CodeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'code';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaSimpleBlock".
+ */
+export interface CtaSimpleBlock {
+  /**
+   * Select the background color for the CTA.
+   */
+  backgroundColor: 'primary' | 'secondary' | 'accent' | 'light' | 'dark';
+  heading: string;
+  description?: string | null;
+  buttonLabel: string;
+  buttonUrl: string;
+  buttonStyle: 'solid' | 'outline' | 'ghost';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaSimple';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

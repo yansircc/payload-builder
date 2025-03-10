@@ -1,0 +1,12 @@
+/* Storybook-specific styles to ensure proper theme rendering */
+
+/* Load Geist fonts */
+@import url('https://fonts.cdnfonts.com/css/geist-mono');
+@import url('https://fonts.cdnfonts.com/css/geist-sans');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Storybook docs-story background color based on theme and mode */
+.docs-story {
+  background-color: var(--background) !important;
+  transition: background-color 0.2s ease-out;
+}
