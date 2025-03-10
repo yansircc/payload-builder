@@ -29,54 +29,41 @@ const createIntegrations = () => {
   }))
 }
 
-const defaultHero: Hero32Fields = {
-  hero: {
-    title: 'Integrate with Your Favorite Tools',
-    subtitle: 'Connect with over 100+ tools and services to streamline your workflow',
-    link: {
-      type: 'custom',
-      label: 'View All Integrations',
-      url: '#',
-      appearance: 'default',
-      suffixIcon: 'ArrowRight',
-    },
-    integrations: createIntegrations(),
+const defaultArgs: Hero32Fields = {
+  title: 'Integrate with Your Favorite Tools',
+  subtitle: 'Connect with over 100+ tools and services to streamline your workflow',
+  link: {
+    label: 'View All Integrations',
+    url: '#',
   },
+  integrations: createIntegrations(),
 }
 
 export const Default: Story = {
-  args: defaultHero,
+  args: defaultArgs,
 }
 
 export const WithoutSubtitle: Story = {
   args: {
-    hero: {
-      ...defaultHero.hero,
-      subtitle: null,
-    },
+    ...defaultArgs,
+    subtitle: null,
   },
 }
 
 export const WithoutLink: Story = {
   args: {
-    hero: {
-      ...defaultHero.hero,
-      link: {
-        type: 'custom',
-        label: '',
-        url: '',
-        appearance: 'link',
-      },
+    ...defaultArgs,
+    link: {
+      label: '',
+      url: '',
     },
   },
 }
 
 export const LongTitle: Story = {
   args: {
-    hero: {
-      ...defaultHero.hero,
-      title: 'Integrate with Your Favorite Tools and Services for Maximum Productivity',
-    },
+    ...defaultArgs,
+    title: 'Integrate with Your Favorite Tools and Services for Maximum Productivity',
   },
 }
 
@@ -86,7 +73,7 @@ export const Mobile: Story = {
       defaultViewport: 'mobile2',
     },
   },
-  args: defaultHero,
+  args: defaultArgs,
 }
 
 export const Tablet: Story = {
@@ -95,7 +82,7 @@ export const Tablet: Story = {
       defaultViewport: 'tablet',
     },
   },
-  args: defaultHero,
+  args: defaultArgs,
 }
 
 export const Desktop: Story = {
@@ -104,5 +91,5 @@ export const Desktop: Story = {
       defaultViewport: 'desktop',
     },
   },
-  args: defaultHero,
+  args: defaultArgs,
 }
