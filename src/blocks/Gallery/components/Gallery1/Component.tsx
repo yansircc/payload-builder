@@ -4,17 +4,7 @@ import { ArrowUpRight, Plus } from 'lucide-react'
 import { useState } from 'react'
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
-import type { Gallery1Fields, Media as MediaType } from '@/payload-types'
-
-interface GalleryItem {
-  id?: string | null
-  title: string
-  href: string
-  image: string | MediaType
-  logo: string | MediaType
-  company: string
-  badges?: { text: string; id?: string | null }[] | null
-}
+import type { Gallery1Fields } from '@/payload-types'
 
 export default function Gallery1({ gallery }: Gallery1Fields) {
   const { items } = gallery
@@ -26,7 +16,7 @@ export default function Gallery1({ gallery }: Gallery1Fields) {
     <section className="py-32">
       <div className="container">
         <div className="flex flex-col gap-5 lg:aspect-[1336/420] lg:flex-row">
-          {items.map((item: GalleryItem) => (
+          {items.map((item) => (
             <div
               key={item.id ?? ''}
               data-state={selection === item.id ? 'open' : 'closed'}
@@ -44,7 +34,7 @@ export default function Gallery1({ gallery }: Gallery1Fields) {
                     <div className="h-full w-full overflow-clip rounded-xl">
                       <Media
                         resource={item.image}
-                        className="h-full w-full object-cover object-center"
+                        imgClassName="h-full w-full object-cover object-center"
                       />
                     </div>
                   </div>

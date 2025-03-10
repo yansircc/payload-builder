@@ -2,6 +2,7 @@
 
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'
@@ -135,10 +136,15 @@ export default function Gallery5({ gallery }: Gallery5Props) {
                 <a href={item.href || '#'} className="group rounded-xl">
                   <div className="flex flex-col overflow-clip rounded-xl border border-border md:col-span-2 md:grid md:grid-cols-2 md:gap-6 lg:gap-8">
                     <div className="md:min-h-[24rem] lg:min-h-[28rem] xl:min-h-[32rem]">
-                      <Media
-                        resource={item.image}
-                        className="aspect-[16/9] h-full w-full object-cover object-center"
-                      />
+                      {typeof item.image === 'object' && item.image?.url && (
+                        <Image
+                          src={item.image.url}
+                          alt={item.title}
+                          width={1000}
+                          height={1000}
+                          className="aspect-[16/9] h-full w-full object-cover object-center"
+                        />
+                      )}
                     </div>
                     <div className="flex flex-col justify-center px-6 py-8 md:px-8 md:py-10 lg:px-10 lg:py-12">
                       <h3 className="mb-3 text-lg font-semibold md:mb-4 md:text-2xl lg:mb-6">

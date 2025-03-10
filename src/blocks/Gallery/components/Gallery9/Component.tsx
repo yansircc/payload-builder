@@ -65,34 +65,38 @@ export default function Gallery9({ gallery }: { gallery: Gallery9Fields['gallery
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="mb-8 hidden justify-between gap-8 md:flex">
-            {sections.map((section, index) => (
-              <div
-                key={section.id ?? index}
-                onClick={() => scrollToSection(index)}
-                className="flex cursor-pointer flex-col gap-2"
-              >
-                <DynamicIcon name={section.icon} className="h-5 w-5" />
-                <div className="text-lg font-medium">{section.title}</div>
-                <div
-                  className={`text-lg ${
-                    index + 1 === current ? 'text-muted-foreground' : 'text-muted-foreground/50'
-                  } hover:text-muted-foreground`}
-                >
-                  {section.text}
+          {sections.length > 1 && (
+            <>
+              <div className="mb-8 hidden justify-between gap-8 md:flex">
+                {sections.map((section, index) => (
+                  <div
+                    key={section.id ?? index}
+                    onClick={() => scrollToSection(index)}
+                    className="flex cursor-pointer flex-col gap-2"
+                  >
+                    <DynamicIcon name={section.icon} className="h-5 w-5" />
+                    <div className="text-lg font-medium">{section.title}</div>
+                    <div
+                      className={`text-lg ${
+                        index + 1 === current ? 'text-muted-foreground' : 'text-muted-foreground/50'
+                      } hover:text-muted-foreground`}
+                    >
+                      {section.text}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center gap-8">
+                <div>
+                  {current} / {count}
+                </div>
+                <div className="flex items-center justify-start gap-2">
+                  <CarouselPrevious className="static translate-y-0" disabled={false} />
+                  <CarouselNext className="static translate-y-0" disabled={false} />
                 </div>
               </div>
-            ))}
-          </div>
-          <div className="flex items-center gap-8">
-            <div>
-              {current} / {count}
-            </div>
-            <div className="flex items-center justify-start gap-2">
-              <CarouselPrevious className="static translate-y-0" disabled={false} />
-              <CarouselNext className="static translate-y-0" disabled={false} />
-            </div>
-          </div>
+            </>
+          )}
         </Carousel>
       </div>
     </section>
