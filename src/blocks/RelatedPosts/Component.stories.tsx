@@ -11,13 +11,6 @@ const meta: Meta<typeof RelatedPosts> = {
       appDirectory: true,
     },
   },
-  decorators: [
-    (Story) => (
-      <div className="bg-gray-50 min-h-screen py-12">
-        <Story />
-      </div>
-    ),
-  ],
 }
 
 export default meta
