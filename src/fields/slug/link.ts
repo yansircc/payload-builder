@@ -1,29 +1,15 @@
 import type { Field, GroupField } from 'payload'
 import deepMerge from '@/utilities/deepMerge'
+import { icon } from '../icon'
 
 export type LinkAppearances = 'default' | 'secondary' | 'outline' | 'ghost' | 'link'
 
 export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
-  default: {
-    label: 'Default',
-    value: 'default',
-  },
-  secondary: {
-    label: 'Secondary',
-    value: 'secondary',
-  },
-  outline: {
-    label: 'Outline',
-    value: 'outline',
-  },
-  ghost: {
-    label: 'Ghost',
-    value: 'ghost',
-  },
-  link: {
-    label: 'Link',
-    value: 'link',
-  },
+  default: { label: 'Default', value: 'default' },
+  secondary: { label: 'Secondary', value: 'secondary' },
+  outline: { label: 'Outline', value: 'outline' },
+  ghost: { label: 'Ghost', value: 'ghost' },
+  link: { label: 'Link', value: 'link' },
 }
 
 type LinkUIEnhancements = {
@@ -48,13 +34,7 @@ export const link: LinkType = ({
   label,
   appearances,
   disableLabel = false,
-  ui = {
-    image: false,
-    title: false,
-    subtitle: false,
-    description: false,
-    icons: true,
-  },
+  ui = { image: false, title: false, subtitle: false, description: false, icons: true },
   overrides = {},
 } = {}) => {
   const linkResult: GroupField = {
@@ -78,22 +58,14 @@ export const link: LinkType = ({
             ],
           },
           {
-            name: 'appearance', // Moved here
-            type: 'select',
+            name: 'newTab',
+            type: 'checkbox',
             admin: {
-              description: 'Choose how the link should be rendered.',
+              condition: (_, siblingData) => siblingData?.type !== 'popup',
+              style: { alignSelf: 'flex-end' },
               width: '50%',
             },
-            defaultValue: 'default',
-            options: appearances
-              ? appearances.map((appearance) => appearanceOptions[appearance])
-              : [
-                  appearanceOptions.default,
-                  appearanceOptions.secondary,
-                  appearanceOptions.outline,
-                  appearanceOptions.ghost,
-                  appearanceOptions.link,
-                ],
+            label: 'Open in new tab',
           },
         ],
       },
@@ -104,9 +76,7 @@ export const link: LinkType = ({
     {
       name: 'reference',
       type: 'relationship',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'reference',
-      },
+      admin: { condition: (_, siblingData) => siblingData?.type === 'reference' },
       label: 'Document to link to',
       relationTo: ['pages', 'posts'],
       required: true,
@@ -114,9 +84,7 @@ export const link: LinkType = ({
     {
       name: 'url',
       type: 'text',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'custom',
-      },
+      admin: { condition: (_, siblingData) => siblingData?.type === 'custom' },
       label: 'Custom URL',
       required: true,
     },
@@ -135,15 +103,7 @@ export const link: LinkType = ({
       type: 'row',
       fields: [
         ...linkTypes,
-        {
-          name: 'label',
-          type: 'text',
-          admin: {
-            width: '50%',
-          },
-          label: 'Label',
-          required: true,
-        },
+        { name: 'label', type: 'text', admin: { width: '50%' }, label: 'Label', required: true },
       ],
     })
   } else {
@@ -153,47 +113,45 @@ export const link: LinkType = ({
   const advancedFields: Field[] = []
 
   if (ui.icons) {
-    advancedFields.push({
-      type: 'row',
-      fields: [
-        {
-          name: 'prefixIcon',
-          type: 'text', // Use 'text' or proper type for the icon
-          admin: {
-            width: '50%',
-          },
-          label: 'Prefix Icon',
-        },
-        {
-          name: 'suffixIcon',
-          type: 'text', // Use 'text' or proper type for the icon
-          admin: {
-            width: '50%',
-          },
-          label: 'Suffix Icon',
-        },
-      ],
-    })
+    advancedFields.push(
+      icon({ name: 'prefixIcon', label: 'Prefix Icon' }),
+      icon({ name: 'suffixIcon', label: 'Suffix Icon' }),
+    )
   }
 
-  // Moved 'Open in new tab' to Advanced section
-  advancedFields.push({
-    name: 'newTab',
-    type: 'checkbox',
-    admin: {
-      condition: (_, siblingData) => siblingData?.type !== 'popup',
-      style: { alignSelf: 'flex-end' },
-      width: '50%',
-    },
-    label: 'Open in new tab',
-  })
+  if (appearances !== false) {
+    let appearanceOptionsToUse = [
+      appearanceOptions.default,
+      appearanceOptions.secondary,
+      appearanceOptions.outline,
+      appearanceOptions.ghost,
+      appearanceOptions.link,
+    ]
+
+    if (appearances) {
+      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
+    }
+
+    advancedFields.push({
+      name: 'appearance',
+      type: 'select',
+      admin: { description: 'Choose how the link should be rendered.', width: '50%' },
+      defaultValue: 'default',
+      options: appearanceOptionsToUse,
+    })
+  }
 
   if (advancedFields.length > 0) {
     linkResult.fields.push({
       type: 'collapsible',
       label: 'Advanced',
       admin: { initCollapsed: true },
-      fields: advancedFields,
+      fields: [
+        {
+          type: 'row',
+          fields: advancedFields,
+        },
+      ],
     })
   }
 
@@ -214,30 +172,14 @@ export const link: LinkType = ({
   if (ui.title) {
     linkResult.fields.push({
       type: 'row',
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          admin: {
-            description: 'Title for the link',
-          },
-        },
-      ],
+      fields: [{ name: 'title', type: 'text', admin: { description: 'Title for the link' } }],
     })
   }
 
   if (ui.subtitle) {
     linkResult.fields.push({
       type: 'row',
-      fields: [
-        {
-          name: 'subtitle',
-          type: 'text',
-          admin: {
-            description: 'Subtitle for the link',
-          },
-        },
-      ],
+      fields: [{ name: 'subtitle', type: 'text', admin: { description: 'Subtitle for the link' } }],
     })
   }
 
@@ -248,9 +190,7 @@ export const link: LinkType = ({
         {
           name: 'description',
           type: 'textarea',
-          admin: {
-            description: 'Description for the link',
-          },
+          admin: { description: 'Description for the link' },
         },
       ],
     })
