@@ -33,8 +33,10 @@ const defaultArgs: Hero32Fields = {
   title: 'Integrate with Your Favorite Tools',
   subtitle: 'Connect with over 100+ tools and services to streamline your workflow',
   link: {
+    type: 'custom',
     label: 'View All Integrations',
     url: '#',
+    appearance: 'default',
   },
   integrations: createIntegrations(),
 }
