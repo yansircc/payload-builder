@@ -95,16 +95,6 @@ export const Default: Story = {
   args: mockGallery,
 }
 
-export const WithoutItems: Story = {
-  args: {
-    gallery: {
-      title: 'No Projects Available',
-      description: 'Unfortunately, we have no projects at the moment.',
-      items: null,
-    },
-  },
-}
-
 export const SingleItem: Story = {
   args: {
     gallery: {
