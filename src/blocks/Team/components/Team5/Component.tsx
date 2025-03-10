@@ -37,7 +37,9 @@ export default function Team5({ team }: Team5Fields) {
             </div>
             <p className="w-full text-left font-medium">{person.name}</p>
             <p className="w-full text-left text-muted-foreground">{person.role}</p>
-            <p className="w-full py-3 text-sm text-muted-foreground">{person.description}</p>
+            <p className="w-full py-3 text-sm text-muted-foreground line-clamp-4">
+              {person.description}
+            </p>
           </div>
         ))}
       </div>
