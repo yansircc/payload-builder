@@ -3,8 +3,7 @@ import { Media } from '@/components/Media'
 import type { Hero5Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Hero5({ hero }: Hero5Fields) {
-  const { title, subtitle, links, image } = hero
+export default function Hero5({ title, subtitle, links, image }: Hero5Fields) {
   const link = links?.[0]?.link
 
   return (
@@ -51,19 +50,21 @@ export default function Hero5({ hero }: Hero5Fields) {
             )}
           </div>
 
-          <ClientMotionDiv
-            initial={{ opacity: 0, scale: 0.95, x: 20 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative aspect-video w-full lg:w-auto"
-          >
-            <Media
-              resource={image}
-              className="aspect-video w-full"
-              imgClassName="rounded-md object-cover"
-              priority
-            />
-          </ClientMotionDiv>
+          {image && (
+            <ClientMotionDiv
+              initial={{ opacity: 0, scale: 0.95, x: 20 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative aspect-video w-full lg:w-auto"
+            >
+              <Media
+                resource={image}
+                className="aspect-video w-full"
+                imgClassName="rounded-md object-cover"
+                priority
+              />
+            </ClientMotionDiv>
+          )}
         </div>
       </div>
     </section>

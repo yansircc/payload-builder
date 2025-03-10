@@ -5,9 +5,15 @@ import { Avatar } from '@/components/ui/avatar'
 import type { Hero3Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
-  const { title, subtitle, media, avatars, links, review } = hero
-
+export default function Hero3({
+  title,
+  subtitle,
+  image,
+  avatars,
+  links,
+  rating,
+  reviewCount,
+}: Hero3Fields) {
   return (
     <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
@@ -26,7 +32,7 @@ export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
               {avatars?.map((avatar, i) => (
                 <Avatar key={i} className="size-12 border-border border">
                   <Media
-                    resource={avatar.image}
+                    resource={avatar.avatar}
                     className="h-full w-full object-cover"
                     imgClassName="h-full w-full object-cover"
                   />
@@ -35,50 +41,47 @@ export default function Hero3({ hero }: { hero: Hero3Fields['hero'] }) {
             </span>
             <div>
               <div className="flex items-center gap-1">
-                {[...Array(review.rate)].map((_, i) => (
+                {[...Array(rating)].map((_, i) => (
                   <Star key={i} className="size-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
               <p className="text-left font-medium text-muted-foreground">
-                from {review.count} reviews
+                from {reviewCount} reviews
               </p>
             </div>
           </div>
           <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
             {links?.map((linkGroup, index) => (
-              <div
-                key={index}
-                className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start"
-              >
-                {Object.entries(linkGroup)
-                  .filter(([key]) => key.startsWith('link-'))
-                  .map(
-                    ([key, link]) =>
-                      link &&
-                      typeof link === 'object' && (
-                        <CMSLink
-                          key={key}
-                          className="inline-flex w-full items-center transition-button hover:scale-button-hover sm:w-auto"
-                          {...link}
-                        />
-                      ),
-                  )}
+              <div key={index}>
+                {Object.entries(linkGroup).map(
+                  ([key, link]) =>
+                    link &&
+                    typeof link === 'object' && (
+                      <CMSLink
+                        key={key}
+                        className="inline-flex w-full items-center transition-button hover:scale-button-hover sm:w-auto"
+                        {...link}
+                      />
+                    ),
+                )}
               </div>
             ))}
           </div>
         </ClientMotionDiv>
 
-        <ClientMotionDiv
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex bg-muted"
-        >
-          <Media
-            resource={media.image}
-            className="max-h-[600px] w-full rounded-md object-cover shadow-card lg:max-h-[800px]"
-          />
-        </ClientMotionDiv>
+        {image && (
+          <ClientMotionDiv
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="flex bg-muted"
+          >
+            <Media
+              resource={image}
+              className="max-h-[600px] w-full rounded-md object-cover shadow-card lg:max-h-[800px]"
+            />
+          </ClientMotionDiv>
+        )}
       </div>
     </section>
   )

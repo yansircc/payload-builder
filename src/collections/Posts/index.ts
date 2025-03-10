@@ -256,7 +256,7 @@ export const Posts: CollectionConfig<'posts'> = {
         },
       ],
     },
-    ...slugField(),
+    ...slugField('posts'),
   ],
   hooks: {
     afterChange: [revalidatePost],
