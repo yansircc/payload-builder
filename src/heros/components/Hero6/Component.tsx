@@ -67,7 +67,7 @@ export default function Hero6({
 
         {partners && partners.length > 0 && (
           <ClientMotionDiv
-            className="mx-auto mt-12 max-w-7xl flex flex-wrap items-center justify-between gap-6"
+            className="mx-auto mt-8 md:mt-12 max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap items-center justify-center md:justify-between gap-8 md:gap-6"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
@@ -75,8 +75,8 @@ export default function Hero6({
             {partners.map(
               ({ logo }, i) =>
                 logo && (
-                  <div key={i} className="inline-flex h-20">
-                    <Media resource={logo} imgClassName="h-full w-auto object-cover" />
+                  <div key={i} className="inline-flex h-12 sm:h-16 md:h-20 justify-center">
+                    <Media resource={logo} imgClassName="h-full w-auto object-contain" />
                   </div>
                 ),
             )}
