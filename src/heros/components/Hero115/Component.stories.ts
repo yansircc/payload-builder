@@ -14,73 +14,63 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof Hero115>
 
-const defaultHero: { hero: Hero115Fields['hero'] } = {
-  hero: {
-    title: 'Revolutionize Your Workflow with Our Video Platform',
-    subtitle:
-      'Seamlessly create, edit, and share professional videos with our intuitive platform designed for teams of all sizes',
-    trustText: 'Trusted by over 10,000+ companies worldwide',
-    image: {
-      id: 'hero-image',
-      alt: 'Video platform dashboard',
-      width: 1200,
-      height: 600,
-      url: '/website-template-OG.webp',
-      updatedAt: '2024-03-20T00:00:00.000Z',
-      createdAt: '2024-03-20T00:00:00.000Z',
-    },
-    links: [
-      {
-        link: {
-          type: 'custom',
-          label: 'Start Free Trial',
-          url: '#',
-          appearance: 'default',
-          suffixIcon: 'Zap',
-        },
-      },
-    ],
+const defaultArgs: Hero115Fields = {
+  title: 'Revolutionize Your Workflow with Our Video Platform',
+  subtitle:
+    'Seamlessly create, edit, and share professional videos with our intuitive platform designed for teams of all sizes',
+  trustText: 'Trusted by over 10,000+ companies worldwide',
+  image: {
+    id: 'hero-image',
+    alt: 'Video platform dashboard',
+    width: 1200,
+    height: 600,
+    url: '/website-template-OG.webp',
+    updatedAt: '2024-03-20T00:00:00.000Z',
+    createdAt: '2024-03-20T00:00:00.000Z',
   },
+  links: [
+    {
+      link: {
+        type: 'custom',
+        label: 'Start Free Trial',
+        url: '#',
+        appearance: 'default',
+        suffixIcon: 'Zap',
+      },
+    },
+  ],
 }
 
 export const Default: Story = {
-  args: defaultHero,
+  args: defaultArgs,
 }
 
 export const WithoutSubtitle: Story = {
   args: {
-    hero: {
-      ...defaultHero.hero,
-      subtitle: '',
-    },
+    ...defaultArgs,
+    subtitle: '',
   },
 }
 
 export const WithoutTrustText: Story = {
   args: {
-    hero: {
-      ...defaultHero.hero,
-      trustText: '',
-    },
+    ...defaultArgs,
+    trustText: '',
   },
 }
 
 export const WithoutLink: Story = {
   args: {
-    hero: {
-      ...defaultHero.hero,
-      links: [],
-    },
+    ...defaultArgs,
+    links: [],
   },
 }
 
 export const LongTitle: Story = {
   args: {
-    hero: {
-      ...defaultHero.hero,
-      title:
-        'Revolutionize Your Creative Workflow with Our Enterprise-Grade Video Production Platform',
-    },
+    ...defaultArgs,
+    title:
+      'Revolutionize Your Creative Workflow with Our Enterprise-Grade Video Production Platform',
   },
 }
 
@@ -90,7 +80,7 @@ export const Mobile: Story = {
       defaultViewport: 'mobile2',
     },
   },
-  args: defaultHero,
+  args: defaultArgs,
 }
 
 export const Tablet: Story = {
@@ -99,7 +89,7 @@ export const Tablet: Story = {
       defaultViewport: 'tablet',
     },
   },
-  args: defaultHero,
+  args: defaultArgs,
 }
 
 export const Desktop: Story = {
@@ -108,5 +98,5 @@ export const Desktop: Story = {
       defaultViewport: 'desktop',
     },
   },
-  args: defaultHero,
+  args: defaultArgs,
 }
