@@ -61,9 +61,7 @@ const preview: Preview = {
       },
     },
     // Apply theme to the HTML element
-    docs: {
-      theme: 'light',
-    },
+    docs: {},
   },
   globalTypes: {
     theme: {
