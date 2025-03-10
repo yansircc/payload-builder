@@ -8,30 +8,30 @@ export const aboutUs: Partial<Page> = {
   title: 'About Us',
   hero: {
     'hero-1': {
-      hero: {
-        title: 'About Our Company',
-        subtitle: 'Learn about our mission, values, and the team behind our success',
-        image: '{{IMAGE_1}}',
-        badge: 'Our Story',
-        links: [
-          {
-            'link-1': {
-              type: 'custom',
-              url: '/',
-              label: 'Back to Home',
-              prefixIcon: 'ArrowLeft',
-              appearance: 'default',
-            },
-            'link-2': {
-              type: 'custom',
-              url: '/contact',
-              label: 'Contact Us',
-              suffixIcon: 'ArrowRight',
-              appearance: 'outline',
-            },
+      title: 'About Our Company',
+      subtitle: 'Learn about our mission, values, and the team behind our success',
+      image: '{{IMAGE_1}}',
+      badge: 'Our Story',
+      links: [
+        {
+          link: {
+            type: 'custom',
+            url: '/',
+            label: 'Back to Home',
+            prefixIcon: 'ArrowLeft',
+            appearance: 'default',
           },
-        ],
-      },
+        },
+        {
+          link: {
+            type: 'custom',
+            url: '/contact',
+            label: 'Contact Us',
+            suffixIcon: 'ArrowRight',
+            appearance: 'outline',
+          },
+        },
+      ],
     },
   },
   layout: [

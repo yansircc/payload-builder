@@ -5,15 +5,7 @@ import { Separator } from '@/components/ui/separator'
 import type { Hero45Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-interface Feature {
-  icon: string
-  title: string
-  description: string
-}
-
-export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
-  const { badge, title, image, features } = hero
-
+export default function Hero45({ badge, title, image, features }: Hero45Fields) {
   return (
     <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container overflow-hidden">
@@ -51,7 +43,7 @@ export default function Hero45({ hero }: { hero: Hero45Fields['hero'] }) {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="mx-auto mt-10 flex max-w-screen-lg flex-col md:flex-row"
         >
-          {features?.map((feature: Feature, index: number) => {
+          {features?.map((feature, index: number) => {
             return (
               <div
                 key={index}
