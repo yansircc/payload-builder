@@ -40,7 +40,7 @@ export default function FAQ3({ title, subtitle, faqs, support }: FAQ3Fields) {
         </ClientMotionDiv>
 
         <ClientMotionDiv
-          className="flex w-full flex-col items-center rounded-lg bg-background p-4 text-center md:rounded-xl md:p-6 lg:p-8"
+          className="flex w-full flex-col items-center rounded-lg bg-card p-4 text-center md:rounded-xl md:p-6 lg:p-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
