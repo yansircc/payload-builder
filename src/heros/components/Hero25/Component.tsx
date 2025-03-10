@@ -9,9 +9,7 @@ type IconComponent = React.ComponentType<{
   size?: number | string
 }>
 
-export default function Hero25({ hero }: Hero25Fields) {
-  const { logo, badge, features, title, links } = hero
-
+export default function Hero25({ logo, badge, features, title, links }: Hero25Fields) {
   return (
     <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container">

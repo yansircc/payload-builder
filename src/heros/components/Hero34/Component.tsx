@@ -4,9 +4,7 @@ import type { Hero34Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Hero34({ hero }: Hero34Fields) {
-  const { badge, title, subtitle, links, image } = hero
-
+export default function Hero34({ badge, title, subtitle, links, image }: Hero34Fields) {
   return (
     <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container">
@@ -49,19 +47,17 @@ export default function Hero34({ hero }: Hero34Fields) {
                   <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
                     {links?.map((linkGroup, index) => (
                       <div key={index} className="flex w-full flex-col gap-2 sm:flex-row">
-                        {Object.entries(linkGroup)
-                          .filter(([key]) => key.startsWith('link-'))
-                          .map(
-                            ([key, link]) =>
-                              link &&
-                              typeof link === 'object' && (
-                                <CMSLink
-                                  key={key}
-                                  className="inline-flex w-full items-center transition-button hover:scale-button-hover sm:w-auto"
-                                  {...link}
-                                />
-                              ),
-                          )}
+                        {Object.entries(linkGroup).map(
+                          ([key, link]) =>
+                            link &&
+                            typeof link === 'object' && (
+                              <CMSLink
+                                key={key}
+                                className="inline-flex w-full items-center transition-button hover:scale-button-hover sm:w-auto"
+                                {...link}
+                              />
+                            ),
+                        )}
                       </div>
                     ))}
                   </div>
