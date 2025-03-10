@@ -37,11 +37,11 @@ export default function Team3({ team }: Team3Fields) {
             key={person.id}
             className="group relative flex flex-col items-center rounded-xl bg-card p-8 transition-all hover:shadow-lg"
           >
-            <Avatar className="mb-6 size-24 ring-2 ring-primary ring-offset-2 transition-transform group-hover:scale-105">
+            <Avatar className="mb-6 size-24 ring-2 ring-offset-2 transition-transform group-hover:scale-105">
               <Media resource={person.avatar} />
             </Avatar>
             <p className="text-xl font-semibold">{person.name}</p>
-            <p className="text-primary">{person.role}</p>
+            <p>{person.role}</p>
             <p className="mt-4 text-center text-muted-foreground">{person.description}</p>
             <div className="mt-6 flex gap-6">
               {person.links?.map((linkGroup, index) => (

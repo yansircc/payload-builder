@@ -153,7 +153,7 @@ export const Minimal: Story = {
       links: [
         {
           link: {
-            label: 'join',
+            label: 'Join Our Team',
             type: 'custom',
             url: 'https://example.com/join-us',
             appearance: 'default',
