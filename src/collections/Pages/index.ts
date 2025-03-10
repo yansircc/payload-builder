@@ -8,7 +8,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import type { CollectionConfig } from 'payload'
 import { ColumnsBlock } from '@/blocks/ColumnBlock/config'
-import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/config'
+import { HTML } from '@/blocks/HTML/config'
 import { LinkPopupBlock } from '@/blocks/LinkPopupBlock/config'
 import { ListBlock } from '@/blocks/List/config'
 import { Table } from '@/blocks/Table/config'
@@ -16,6 +16,7 @@ import { VideoBlock } from '@/blocks/VideoBlock/config'
 import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
 import { slugField } from '@/fields/slug'
 import { HeroField } from '@/heros/config'
+import { updatePreviewImage } from '@/hooks/beforeChange'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { AboutBlock } from '../../blocks/About/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
@@ -124,6 +125,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 GalleryBlock,
                 Feature,
                 Table,
+                HTML,
                 ColumnsBlock,
                 TestimonialBlock,
                 Contact,
@@ -133,7 +135,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 LinkPopupBlock,
                 ListBlock,
                 VideoBlock,
-                CtaSimpleBlock,
               ],
               required: true,
               admin: {
@@ -187,11 +188,21 @@ export const Pages: CollectionConfig<'pages'> = {
         position: 'sidebar',
       },
     },
-    ...slugField(),
+    ...slugField('pages'),
+    {
+      name: 'previewImage',
+      type: 'ui',
+      admin: {
+        position: 'sidebar',
+        components: {
+          Field: '@/components/StaticPreview',
+        },
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidatePage, updateChildPaths],
-    beforeChange: [populatePublishedAt],
+    beforeChange: [populatePublishedAt, updatePreviewImage],
     afterDelete: [deleteChildPages, revalidateDelete],
   },
   versions: {

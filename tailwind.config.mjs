@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable import/no-anonymous-default-export */
 import { fontFamily } from 'tailwindcss/defaultTheme'
-import { themes } from './src/themes'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -53,22 +52,30 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         card: 'var(--card)',
-        'card-foreground': 'var(--cardForeground)',
+        'card-foreground': 'var(--card-foreground)',
         popover: 'var(--popover)',
-        'popover-foreground': 'var(--popoverForeground)',
+        'popover-foreground': 'var(--popover-foreground)',
         primary: 'var(--primary)',
-        'primary-foreground': 'var(--primaryForeground)',
+        'primary-foreground': 'var(--primary-foreground)',
         secondary: 'var(--secondary)',
-        'secondary-foreground': 'var(--secondaryForeground)',
+        'secondary-foreground': 'var(--secondary-foreground)',
         muted: 'var(--muted)',
-        'muted-foreground': 'var(--mutedForeground)',
+        'muted-foreground': 'var(--muted-foreground)',
         accent: 'var(--accent)',
-        'accent-foreground': 'var(--accentForeground)',
+        'accent-foreground': 'var(--accent-foreground)',
         destructive: 'var(--destructive)',
-        'destructive-foreground': 'var(--destructiveForeground)',
+        'destructive-foreground': 'var(--destructive-foreground)',
         border: 'var(--border)',
         input: 'var(--input)',
         ring: 'var(--ring)',
+        success: 'var(--success)',
+        'success-foreground': 'var(--success-foreground)',
+        warning: 'var(--warning)',
+        'warning-foreground': 'var(--warning-foreground)',
+        error: 'var(--error)',
+        'error-foreground': 'var(--error-foreground)',
+        info: 'var(--info)',
+        'info-foreground': 'var(--info-foreground)',
       },
       borderRadius: {
         sm: 'var(--radius-small)',

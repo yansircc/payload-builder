@@ -5,8 +5,7 @@ import { Avatar } from '@/components/ui/avatar'
 import type { Hero7Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Hero7({ hero }: Hero7Fields) {
-  const { title, subtitle, link, rating } = hero
+export default function Hero7({ title, subtitle, link, rating }: Hero7Fields) {
   const { rate = 5, count = 0, avatars = [] } = rating || {}
   const reviewCount = typeof count === 'number' ? count : 0
 
