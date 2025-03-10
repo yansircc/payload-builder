@@ -24,6 +24,14 @@ export const testimonial14Fields: GroupField = {
     description: 'A carousel testimonial component with avatar, rating, and navigation dots',
   },
   fields: [
+    {
+      name: 'hideAuthorImages',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: 'Hide author images',
+      },
+    },
     ...createTestimonialField({
       arrays: [
         {

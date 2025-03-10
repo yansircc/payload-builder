@@ -12,6 +12,7 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
+    hideAuthorImages: false,
     featuredImage: {
       id: 'featured-1',
       alt: 'Office Environment',
@@ -92,41 +93,7 @@ export const Default: Story = {
 
 export const WithoutAuthorImages: Story = {
   args: {
-    featuredImage: {
-      id: 'featured-1',
-      alt: 'Office Environment',
-      url: '/website-template-OG.webp',
-      width: 1200,
-      height: 800,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
-    testimonials: [
-      {
-        id: 'testimonial-1',
-        quote:
-          'The impact on our business has been transformative. Their solutions are innovative and effective.',
-        authorName: 'David Wilson',
-        authorRole: 'CTO',
-      },
-      {
-        id: 'testimonial-2',
-        quote: 'Exceptional service and remarkable attention to detail. A truly professional team.',
-        authorName: 'Emma Thompson',
-        authorRole: 'Design Lead',
-      },
-      {
-        id: 'testimonial-3',
-        quote: 'They consistently exceed our expectations with their quality of work.',
-        authorName: 'James Rodriguez',
-        authorRole: 'Project Manager',
-      },
-      {
-        id: 'testimonial-4',
-        quote: 'A reliable partner that delivers outstanding results every time.',
-        authorName: 'Lisa Chen',
-        authorRole: 'Product Owner',
-      },
-    ],
+    ...Default.args,
+    hideAuthorImages: true,
   },
 }

@@ -25,7 +25,15 @@ const LogoWrapper = ({
   )
 }
 
-export default function Testimonial17({ heading, testimonials }: Testimonial17Fields) {
+interface Testimonial17Props extends Testimonial17Fields {
+  hideAuthorImages?: boolean
+}
+
+export default function Testimonial17({
+  heading,
+  testimonials,
+  hideAuthorImages,
+}: Testimonial17Props) {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
@@ -56,15 +64,17 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                     <LogoWrapper logo={testimonial.logo} logoAlt={testimonial.logoAlt} />
                     <p className="mb-10 text-xl font-semibold">{testimonial.quote}</p>
                     <div className="mb-3 flex gap-4">
-                      <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
-                        {testimonial.authorImage && (
-                          <Media
-                            resource={testimonial.authorImage}
-                            imgClassName="aspect-square size-full object-cover object-center"
-                            className="!block size-full"
-                          />
-                        )}
-                      </Avatar>
+                      {!hideAuthorImages && (
+                        <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
+                          {testimonial.authorImage && (
+                            <Media
+                              resource={testimonial.authorImage}
+                              imgClassName="aspect-square size-full object-cover object-center"
+                              className="!block size-full"
+                            />
+                          )}
+                        </Avatar>
+                      )}
                       <div>
                         <p className="font-medium">{testimonial.authorName}</p>
                         <p className="text-muted-foreground">{testimonial.authorRole}</p>
@@ -94,15 +104,15 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                   <LogoWrapper logo={testimonials[0].logo} logoAlt={testimonials[0].logoAlt} />
                   <p className="mb-10 text-xl font-semibold">{testimonials[0].quote}</p>
                   <div className="mb-3 flex gap-4">
-                    <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
-                      {testimonials[0].authorImage && (
+                    {!hideAuthorImages && testimonials[0].authorImage && (
+                      <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
                         <Media
                           resource={testimonials[0].authorImage}
                           imgClassName="aspect-square size-full object-cover object-center"
                           className="!block size-full"
                         />
-                      )}
-                    </Avatar>
+                      </Avatar>
+                    )}
                     <div>
                       <p className="font-medium">{testimonials[0].authorName}</p>
                       <p className="text-muted-foreground">{testimonials[0].authorRole}</p>
@@ -117,15 +127,15 @@ export default function Testimonial17({ heading, testimonials }: Testimonial17Fi
                   <LogoWrapper logo={testimonial.logo} logoAlt={testimonial.logoAlt} />
                   <p className="mb-10 text-xl font-semibold">{testimonial.quote}</p>
                   <div className="mb-3 flex gap-4">
-                    <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
-                      {testimonial.authorImage && (
+                    {!hideAuthorImages && testimonial.authorImage && (
+                      <Avatar className="size-12 rounded-full ring-1 ring-input overflow-hidden">
                         <Media
                           resource={testimonial.authorImage}
                           imgClassName="aspect-square size-full object-cover object-center"
                           className="!block size-full"
                         />
-                      )}
-                    </Avatar>
+                      </Avatar>
+                    )}
                     <div>
                       <p className="font-medium">{testimonial.authorName}</p>
                       <p className="text-muted-foreground">{testimonial.authorRole}</p>

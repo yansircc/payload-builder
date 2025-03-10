@@ -24,6 +24,14 @@ export const testimonial4Fields: GroupField = {
   },
   fields: [
     {
+      name: 'hideAuthorImages',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: 'Hide author images and show default avatars instead',
+      },
+    },
+    {
       name: 'featuredImage',
       type: 'upload',
       relationTo: 'media',
