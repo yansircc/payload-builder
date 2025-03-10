@@ -105,18 +105,8 @@ export const WithoutImages: Story = {
     testimonials: [
       {
         ...singleTestimonial,
-        authorImage: undefined,
-        companyLogo: {
-          id: 'placeholder-logo',
-          alt: 'Placeholder Logo',
-          url: '',
-          width: 1,
-          height: 1,
-          filename: 'placeholder.png',
-          mimeType: 'image/png',
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        },
+        authorImage: null,
+        companyLogo: null as unknown as Media,
       },
     ],
   },

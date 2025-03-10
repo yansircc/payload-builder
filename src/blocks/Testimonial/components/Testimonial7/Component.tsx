@@ -71,7 +71,7 @@ export default function Testimonial7({
                     key={index}
                     className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
                   >
-                    <Card className="mx-auto max-w-96 h-[200px] select-none p-6 flex flex-col">
+                    <Card className="mx-auto max-w-96 min-h-[200px] h-full select-none p-6 flex flex-col">
                       <div className="mb-4 flex gap-4">
                         {!hideAuthorImages && (
                           <Avatar className="size-9 flex-shrink-0 rounded-full ring-1 ring-input overflow-hidden">
@@ -96,7 +96,7 @@ export default function Testimonial7({
                           )}
                         </div>
                       </div>
-                      <q className="text-foreground line-clamp-4">{testimonial.quote}</q>
+                      <q className="text-foreground line-clamp-3">{testimonial.quote}</q>
                     </Card>
                   </CarouselItem>
                 ))}
@@ -178,7 +178,7 @@ export default function Testimonial7({
                           )}
                         </div>
                       </div>
-                      <q className="text-foreground line-clamp-4">{testimonial.quote}</q>
+                      <q className="text-foreground line-clamp-3">{testimonial.quote}</q>
                     </Card>
                   </CarouselItem>
                 ))}
@@ -212,7 +212,7 @@ export default function Testimonial7({
                       )}
                     </div>
                   </div>
-                  <q className="text-foreground line-clamp-4">{testimonial.quote}</q>
+                  <q className="text-foreground line-clamp-3">{testimonial.quote}</q>
                 </Card>
               ))}
             </div>

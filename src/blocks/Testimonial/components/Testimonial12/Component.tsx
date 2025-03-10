@@ -52,7 +52,7 @@ export default function Testimonial12({ testimonials }: Testimonial12Fields) {
                   </div>
                   <div className="col-span-2">
                     <div className="mb-6 flex items-center justify-center gap-2 lg:mb-8 lg:justify-start">
-                      {testimonial.companyLogo && (
+                      {testimonial.companyLogo && typeof testimonial.companyLogo !== 'string' && (
                         <div className="h-auto w-7 lg:w-11">
                           <Media
                             resource={testimonial.companyLogo}

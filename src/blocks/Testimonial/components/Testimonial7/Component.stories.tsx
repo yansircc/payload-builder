@@ -135,7 +135,7 @@ export const LongContent: Story = {
       .map((_, index) => ({
         id: `testimonial-${index + 1}`,
         quote:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         authorName: `Test User ${index + 1}`,
         authorRole: 'Client',
       })),

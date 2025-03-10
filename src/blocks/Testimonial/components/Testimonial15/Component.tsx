@@ -20,26 +20,30 @@ export default function Testimonial15({
       <div className="container">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-24">
           <div className="text-center lg:text-left">
-            <h2 className="mb-6 text-balance text-3xl font-bold lg:text-4xl text-muted-foreground">
+            <h2 className="mb-6 text-balance text-3xl font-bold lg:text-4xl text-foreground">
               {title}
             </h2>
             <p className="mb-8 text-lg text-muted-foreground">{description}</p>
-            {cta && <CMSLink className="mb-12 inline-block" {...cta} />}
-            <div className="mt-8">
-              <p className="mb-6 text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                {companySection?.text}
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-8 lg:justify-start">
-                {companySection?.logos?.map((logo, idx) => (
-                  <div
-                    key={idx}
-                    className="relative flex h-8 w-28 items-center justify-center overflow-hidden sm:h-10"
-                  >
-                    <Media resource={logo.image} className="max-h-full w-auto object-contain" />
-                  </div>
-                ))}
-              </div>
+            <div className="flex justify-center lg:justify-start">
+              {cta && <CMSLink {...cta} />}
             </div>
+            {companySection?.logos && companySection.logos.length > 0 && (
+              <div className="mt-8">
+                <p className="mb-6 text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                  {companySection.text}
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-8 lg:justify-start">
+                  {companySection.logos.map((logo, idx) => (
+                    <div
+                      key={idx}
+                      className="relative flex h-8 w-28 items-center justify-center overflow-hidden sm:h-10"
+                    >
+                      <Media resource={logo.image} className="max-h-full w-auto object-contain" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
           <div className="flex flex-col gap-6">
             {testimonials?.map((testimonial, idx) => (

@@ -73,22 +73,24 @@ export default function Testimonial14({ testimonials, hideAuthorImages }: Testim
           ))}
         </CarouselContent>
       </Carousel>
-      <div className="container flex justify-center py-16">
-        {testimonials.map((_, index) => (
-          <Button
-            key={index}
-            variant="ghost"
-            size="sm"
-            onClick={() => {
-              api?.scrollTo(index)
-            }}
-          >
-            <div
-              className={`size-2.5 rounded-full ${index === current ? 'bg-blue-500' : 'bg-input'}`}
-            />
-          </Button>
-        ))}
-      </div>
+      {testimonials.length > 1 && (
+        <div className="container flex justify-center py-16">
+          {testimonials.map((_, index) => (
+            <Button
+              key={index}
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                api?.scrollTo(index)
+              }}
+            >
+              <div
+                className={`size-2.5 rounded-full ${index === current ? 'bg-blue-500' : 'bg-input'}`}
+              />
+            </Button>
+          ))}
+        </div>
+      )}
     </section>
   )
 }
