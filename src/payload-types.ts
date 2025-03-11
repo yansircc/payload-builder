@@ -549,6 +549,55 @@ export interface User {
   id: string;
   roles?: ('super-admin' | 'user')[] | null;
   username?: string | null;
+  /**
+   * Professional title or position
+   */
+  title?: string | null;
+  /**
+   * Author bio or description
+   */
+  description?: string | null;
+  /**
+   * Social media and contact information
+   */
+  socialLinks?: {
+    /**
+     * Facebook profile URL
+     */
+    facebook?: string | null;
+    /**
+     * LinkedIn profile URL
+     */
+    linkedin?: string | null;
+    /**
+     * Instagram profile URL
+     */
+    instagram?: string | null;
+    /**
+     * TikTok profile URL
+     */
+    tiktok?: string | null;
+    /**
+     * Twitter/X profile URL
+     */
+    twitter?: string | null;
+    /**
+     * GitHub profile URL
+     */
+    github?: string | null;
+    /**
+     * WhatsApp contact URL (e.g., https://wa.me/1234567890)
+     */
+    whatsapp?: string | null;
+    /**
+     * Public contact email (may differ from account email)
+     */
+    email?: string | null;
+    /**
+     * Personal or professional website URL
+     */
+    website?: string | null;
+  };
   tenants?:
     | {
         tenant: string | Tenant;
@@ -12089,6 +12138,21 @@ export interface CategoriesSelect<T extends boolean = true> {
 export interface UsersSelect<T extends boolean = true> {
   roles?: T;
   username?: T;
+  title?: T;
+  description?: T;
+  socialLinks?:
+    | T
+    | {
+        facebook?: T;
+        linkedin?: T;
+        instagram?: T;
+        tiktok?: T;
+        twitter?: T;
+        github?: T;
+        whatsapp?: T;
+        email?: T;
+        website?: T;
+      };
   tenants?:
     | T
     | {
