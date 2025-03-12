@@ -7,7 +7,7 @@ export default function CTA15({ title, subtitle, links, image, heading }: CTA15F
   return (
     <section className="py-32">
       <div className="container">
-        <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-20 rounded-2xl border bg-[radial-gradient(ellipse_30%_60%_at_100%_50%,hsla(var(--primary)_/_20%),#ffffff00)] pt-20 sm:pl-16 lg:flex-row lg:bg-[radial-gradient(ellipse_50%_50%_at_50%_120%,hsla(var(--primary)_/_20%),#ffffff00)] lg:pl-20">
+        <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-20 rounded-2xl border bg-card pt-20 sm:pl-16 lg:flex-row lg:bg-[radial-gradient(ellipse_50%_50%_at_50%_120%,hsla(var(--primary)_/_20%),#ffffff00)] lg:pl-20">
           <div className="lg:texlf mx-auto max-w-md px-4 text-center md:px-0 lg:mx-0 lg:pb-20 lg:text-left">
             <p className="mb-6 font-medium">{heading || 'Ready to get started?'}</p>
             <h2 className="mb-6 text-4xl font-bold md:text-5xl">{title}</h2>
