@@ -51,15 +51,13 @@ export default function CTA7({ title, subtitle, links, lists }: CTA7Fields) {
               >
                 {links.map((linkGroup, index) => (
                   <div key={index}>
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link &&
-                          typeof link === 'object' && (
-                            <CMSLink key={key} className="mt-8 px-0 underline" {...link} />
-                          ),
-                      )}
+                    {Object.entries(linkGroup).map(
+                      ([key, link]) =>
+                        link &&
+                        typeof link === 'object' && (
+                          <CMSLink key={key} className="mt-8 px-0 underline" {...link} />
+                        ),
+                    )}
                   </div>
                 ))}
               </ClientMotionDiv>
