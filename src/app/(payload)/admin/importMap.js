@@ -92,7 +92,6 @@ export const importMap = {
     TenantField_1d0591e3cf4f332c83a86da13a0de59a,
   '@/collections/Pages/components/cells/TitleCell#TitleCell':
     TitleCell_bd13935b4668de9bcb77da705b112676,
-  '@/components/IconSelect/#default': default_545a25a7f6f58e32e2350bd4892658ab,
   '@/heros/components/Hero1/client#default': default_83e516dd9b75169562ed49d067b07699,
   '@/heros/components/Hero3/client#default': default_939feda8275c81603ff3e43cea28f6de,
   '@/heros/components/Hero5/client#default': default_70ba0900e43ad72ec8900a1ba96a3e84,
@@ -106,6 +105,7 @@ export const importMap = {
   '@/heros/components/Hero34/client#default': default_ac34d3ff6d88a8ffd46f9ec0a3f322da,
   '@/heros/components/Hero45/client#default': default_ce1e7c662f66ac4782eaa34d00f5bbcd,
   '@/heros/components/Hero115/client#default': default_12670c929d7daf4579856158af527b93,
+  '@/components/IconSelect/#default': default_545a25a7f6f58e32e2350bd4892658ab,
   '@/blocks/About/components/About1/config.client.tsx#default':
     default_b128d0bd7c3a2b8021c74b08f7767dc4,
   '@/blocks/CallToAction/components/CTA1/client#default': default_c3b518973acc8f136eb7ceedd0826569,
