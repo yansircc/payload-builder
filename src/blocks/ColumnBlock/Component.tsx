@@ -7,12 +7,6 @@ type Props = {
   className?: string
 } & ColumnsBlockProps
 
-type TextNode = {
-  type: string
-  version: number
-  text?: string
-}
-
 export const ColumnsBlock: React.FC<Props> = ({ className, layout = '50-50', columns = [] }) => {
   const gridLayout = useMemo(() => {
     const gridLayoutMap: Record<'50-50' | '33-67' | '67-33' | '25-75' | '75-25', string> = {
