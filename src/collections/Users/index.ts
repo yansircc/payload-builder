@@ -64,6 +64,93 @@ const Users: CollectionConfig = {
       },
       index: true,
     },
+    // Author Profile Fields
+    {
+      name: 'title',
+      type: 'text',
+      admin: {
+        description: 'Professional title or position',
+      },
+    },
+    {
+      name: 'description',
+      type: 'textarea',
+      admin: {
+        description: 'Author bio or description',
+      },
+    },
+    {
+      name: 'socialLinks',
+      type: 'group',
+      admin: {
+        description: 'Social media and contact information',
+      },
+      fields: [
+        {
+          name: 'facebook',
+          type: 'text',
+          admin: {
+            description: 'Facebook profile URL',
+          },
+        },
+        {
+          name: 'linkedin',
+          type: 'text',
+          admin: {
+            description: 'LinkedIn profile URL',
+          },
+        },
+        {
+          name: 'instagram',
+          type: 'text',
+          admin: {
+            description: 'Instagram profile URL',
+          },
+        },
+        {
+          name: 'tiktok',
+          type: 'text',
+          admin: {
+            description: 'TikTok profile URL',
+          },
+        },
+        {
+          name: 'twitter',
+          type: 'text',
+          admin: {
+            description: 'Twitter/X profile URL',
+          },
+        },
+        {
+          name: 'github',
+          type: 'text',
+          admin: {
+            description: 'GitHub profile URL',
+          },
+        },
+        {
+          name: 'whatsapp',
+          type: 'text',
+          admin: {
+            description: 'WhatsApp contact URL (e.g., https://wa.me/1234567890)',
+          },
+        },
+        {
+          name: 'email',
+          type: 'email',
+          admin: {
+            description: 'Public contact email (may differ from account email)',
+          },
+        },
+        {
+          name: 'website',
+          type: 'text',
+          admin: {
+            description: 'Personal or professional website URL',
+          },
+        },
+      ],
+    },
     {
       ...defaultTenantArrayField,
       admin: {
