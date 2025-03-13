@@ -8,7 +8,7 @@ export default function Team5({ team }: Team5Fields) {
   return (
     <section className="py-32">
       <div className="container flex flex-col items-center text-center">
-        <p className="semibold">{subtitle}</p>
+        <p className="text-muted-foreground">{subtitle}</p>
         <h2 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">{title}</h2>
         <p className="mb-8 max-w-3xl text-muted-foreground lg:text-xl">{description}</p>
         {links && links.length > 0 && (
@@ -29,17 +29,23 @@ export default function Team5({ team }: Team5Fields) {
           </ClientMotionDiv>
         )}
       </div>
-      <div className="container mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:px-32">
+      <div className="container mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
         {people?.map((person) => (
           <div key={person.id} className="flex flex-col items-center">
-            <div className="mb-4 aspect-square w-full overflow-clip bg-accent md:mb-5">
-              <Media resource={person.avatar} imgClassName="aspect-square" />
+            <div className="relative mb-4 w-full overflow-hidden md:mb-5">
+              <div className="aspect-square w-full">
+                <Media
+                  resource={person.avatar}
+                  imgClassName="h-full w-full object-cover object-center"
+                  className="h-full w-full"
+                />
+              </div>
             </div>
-            <p className="w-full text-left font-medium">{person.name}</p>
-            <p className="w-full text-left text-muted-foreground">{person.role}</p>
-            <p className="w-full py-3 text-sm text-muted-foreground line-clamp-4">
-              {person.description}
-            </p>
+            <div className="w-full space-y-2">
+              <p className="font-medium">{person.name}</p>
+              <p className="text-muted-foreground">{person.role}</p>
+              <p className="text-sm text-muted-foreground">{person.description}</p>
+            </div>
           </div>
         ))}
       </div>

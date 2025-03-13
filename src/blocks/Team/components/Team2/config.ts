@@ -1,6 +1,5 @@
 import { GroupField } from 'payload'
 import { z } from 'zod'
-import { link } from '@/fields/link'
 import { createTeamField, peopleFields, teamSchemas } from '../shared/base-field'
 
 /**
@@ -42,18 +41,37 @@ export const team2Fields: GroupField = {
                 description: 'Member social links',
               },
               fields: [
-                link({
+                {
                   name: 'link',
-                  disableLabel: true,
-                  overrides: {
-                    admin: {
-                      description: 'Link',
+                  type: 'group',
+                  fields: [
+                    {
+                      name: 'type',
+                      type: 'text',
+                      defaultValue: 'custom',
                     },
-                    defaultValue: {
-                      appearance: 'link',
+                    {
+                      name: 'icon',
+                      type: 'upload',
+                      relationTo: 'media',
+                      required: true,
                     },
-                  },
-                }),
+                    {
+                      name: 'url',
+                      type: 'text',
+                      required: true,
+                    },
+                    {
+                      name: 'appearance',
+                      type: 'select',
+                      defaultValue: 'link',
+                      options: [
+                        { label: 'Link', value: 'link' },
+                        { label: 'Button', value: 'default' },
+                      ],
+                    },
+                  ],
+                },
               ],
               minRows: 0,
               maxRows: 3,

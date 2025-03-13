@@ -54,8 +54,17 @@ export const Default: Story = {
             {
               link: {
                 type: 'custom',
+                url: 'https://github.com',
+                appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
+              },
+            },
+            {
+              link: {
+                type: 'custom',
                 url: 'https://twitter.com',
                 appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
               },
             },
             {
@@ -63,6 +72,7 @@ export const Default: Story = {
                 type: 'custom',
                 url: 'https://linkedin.com',
                 appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
               },
             },
           ],
@@ -87,6 +97,23 @@ export const Default: Story = {
                 type: 'custom',
                 url: 'https://github.com',
                 appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
+              },
+            },
+            {
+              link: {
+                type: 'custom',
+                url: 'https://twitter.com',
+                appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
+              },
+            },
+            {
+              link: {
+                type: 'custom',
+                url: 'https://linkedin.com',
+                appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
               },
             },
           ],
@@ -109,8 +136,25 @@ export const Default: Story = {
             {
               link: {
                 type: 'custom',
-                url: 'https://dribbble.com',
+                url: 'https://github.com',
                 appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
+              },
+            },
+            {
+              link: {
+                type: 'custom',
+                url: 'https://twitter.com',
+                appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
+              },
+            },
+            {
+              link: {
+                type: 'custom',
+                url: 'https://linkedin.com',
+                appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
               },
             },
           ],
@@ -135,6 +179,23 @@ export const Default: Story = {
                 type: 'custom',
                 url: 'https://github.com',
                 appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
+              },
+            },
+            {
+              link: {
+                type: 'custom',
+                url: 'https://twitter.com',
+                appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
+              },
+            },
+            {
+              link: {
+                type: 'custom',
+                url: 'https://linkedin.com',
+                appearance: 'link',
+                prefixIcon: '/website-template-OG.webp',
               },
             },
           ],

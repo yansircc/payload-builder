@@ -9,7 +9,7 @@ export default function Team2({ team }: Team2Fields) {
   return (
     <section className="py-32">
       <div className="container flex flex-col items-start text-left">
-        <p className="semibold">{subtitle}</p>
+        <p className="text-muted-foreground">{subtitle}</p>
         <h2 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">{title}</h2>
         <p className="mb-8 max-w-3xl text-muted-foreground lg:text-{xl">{description}</p>
       </div>
@@ -23,14 +23,34 @@ export default function Team2({ team }: Team2Fields) {
             <p className="text-muted-foreground">{person.role}</p>
             <p className="py-3 text-sm text-muted-foreground">{person.description}</p>
             <div className="mt-2 flex gap-4">
-              {person.links?.map((linkGroup, index) => (
-                <Fragment key={index}>
-                  {Object.entries(linkGroup).map(
-                    ([key, link]) =>
-                      link && typeof link === 'object' && <CMSLink key={key} {...link} />,
-                  )}
-                </Fragment>
-              ))}
+              {person.links?.map(
+                (linkGroup, index) =>
+                  linkGroup.link && (
+                    <a
+                      key={index}
+                      href={linkGroup.link.url || undefined}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-foreground"
+                    >
+                      {linkGroup.link.prefixIcon && (
+                        <Media
+                          resource={{
+                            url: linkGroup.link.prefixIcon,
+                            alt: 'Social Icon',
+                            width: 20,
+                            height: 20,
+                            id: `social-${index}`,
+                            createdAt: new Date().toISOString(),
+                            updatedAt: new Date().toISOString(),
+                          }}
+                          imgClassName="h-5 w-5 object-contain"
+                          htmlElement="span"
+                        />
+                      )}
+                    </a>
+                  ),
+              )}
             </div>
           </div>
         ))}

@@ -10,7 +10,9 @@ export default function Team3({ team }: Team3Fields) {
   return (
     <section className="py-32">
       <div className="container flex flex-col items-center text-center">
-        <p className="text-sm font-semibold uppercase tracking-wider text-primary">{subtitle}</p>
+        <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+          {subtitle}
+        </p>
         <h2 className="my-6 text-pretty text-3xl font-bold lg:text-5xl">{title}</h2>
         <p className="mb-12 max-w-3xl text-lg text-muted-foreground">{description}</p>
         {links && links.length > 0 && (
@@ -35,30 +37,43 @@ export default function Team3({ team }: Team3Fields) {
         {people?.map((person) => (
           <div
             key={person.id}
-            className="group relative flex flex-col items-center rounded-xl bg-card p-8 transition-all hover:shadow-lg"
+            className="group relative flex flex-col items-center rounded-xl bg-muted/40 p-8 text-center transition-all hover:shadow-lg"
           >
             <Avatar className="mb-6 size-24 ring-2 ring-offset-2 transition-transform group-hover:scale-105">
               <Media resource={person.avatar} />
             </Avatar>
-            <p className="text-xl font-semibold">{person.name}</p>
-            <p>{person.role}</p>
-            <p className="mt-4 text-center text-muted-foreground">{person.description}</p>
-            <div className="mt-6 flex gap-6">
-              {person.links?.map((linkGroup, index) => (
-                <Fragment key={index}>
-                  {Object.entries(linkGroup).map(
-                    ([key, link]) =>
-                      link &&
-                      typeof link === 'object' && (
-                        <CMSLink
-                          key={key}
-                          {...link}
-                          className="text-muted-foreground transition-colors hover:text-primary"
+            <p className="font-medium">{person.name}</p>
+            <p className="text-muted-foreground">{person.role}</p>
+            <p className="py-3 text-sm text-muted-foreground">{person.description}</p>
+            <div className="mt-2 flex gap-4">
+              {person.links?.map(
+                (linkGroup, index) =>
+                  linkGroup.link && (
+                    <a
+                      key={index}
+                      href={linkGroup.link.url || undefined}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {linkGroup.link.prefixIcon && (
+                        <Media
+                          resource={{
+                            url: linkGroup.link.prefixIcon,
+                            alt: 'Social Icon',
+                            width: 20,
+                            height: 20,
+                            id: `social-${index}`,
+                            createdAt: new Date().toISOString(),
+                            updatedAt: new Date().toISOString(),
+                          }}
+                          imgClassName="h-5 w-5 object-contain"
+                          htmlElement="span"
                         />
-                      ),
-                  )}
-                </Fragment>
-              ))}
+                      )}
+                    </a>
+                  ),
+              )}
             </div>
           </div>
         ))}
