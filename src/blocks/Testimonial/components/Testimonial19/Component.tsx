@@ -10,13 +10,18 @@ import { Card } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import type { Testimonial19Fields } from '@/payload-types'
 
+interface Testimonial19Props extends Testimonial19Fields {
+  hideAuthorImages?: boolean
+}
+
 export default function Testimonial19({
   heading,
   subheading,
   statsText,
   viewAll,
   testimonials,
-}: Testimonial19Fields) {
+  hideAuthorImages,
+}: Testimonial19Props) {
   const plugin = useRef(
     AutoScroll({
       startDelay: 500,
@@ -33,7 +38,12 @@ export default function Testimonial19({
         </div>
         <h2 className="text-center text-3xl font-semibold lg:text-4xl">{heading}</h2>
         <p className="text-center text-muted-foreground lg:text-lg">{subheading}</p>
-        {viewAll && <CMSLink {...viewAll} />}
+        {viewAll && (
+          <CMSLink
+            {...viewAll}
+            className="mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          />
+        )}
       </div>
       <div className="lg:container">
         <div className="mt-16 space-y-4">
@@ -48,30 +58,40 @@ export default function Testimonial19({
             <CarouselContent>
               {testimonials?.map((testimonial, index: number) => (
                 <CarouselItem key={index} className="basis-auto">
-                  <Card className="max-w-96 select-none p-6">
-                    <div className="flex justify-between">
-                      <div className="mb-4 flex gap-4">
-                        <Avatar className="size-14 rounded-full ring-1 ring-input overflow-hidden">
-                          {testimonial.authorImage && (
-                            <Media
-                              resource={testimonial.authorImage}
-                              imgClassName="aspect-square size-full object-cover object-center"
-                              className="!block size-full"
-                            />
-                          )}
-                        </Avatar>
-                        <div>
-                          <p className="font-medium">{testimonial.authorName}</p>
-                          <p className="text-sm text-muted-foreground">{testimonial.authorRole}</p>
+                  <Card className="w-[400px] h-[220px] select-none p-8">
+                    <div className="flex justify-between mb-8">
+                      <div className="flex gap-4">
+                        {!hideAuthorImages && (
+                          <Avatar className="size-14 rounded-full ring-1 ring-input overflow-hidden flex-shrink-0">
+                            {testimonial.authorImage && (
+                              <Media
+                                resource={testimonial.authorImage}
+                                imgClassName="aspect-square size-full object-cover object-center"
+                                className="!block size-full"
+                              />
+                            )}
+                          </Avatar>
+                        )}
+                        <div className="min-w-0 max-w-[180px] pt-1">
+                          <p className="font-medium text-foreground truncate">
+                            {testimonial.authorName}
+                          </p>
+                          <p className="text-sm text-foreground truncate">
+                            {testimonial.authorRole}
+                          </p>
                         </div>
                       </div>
-                      <div className="flex gap-1">
+                      <div className="flex gap-0.5 flex-shrink-0">
                         {Array.from({ length: testimonial.rating || 5 }).map((_, i) => (
-                          <Star key={i} className="size-5 fill-amber-500 text-amber-500" />
+                          <Star key={i} className="size-3.5 fill-amber-500 text-amber-500" />
                         ))}
                       </div>
                     </div>
-                    <q className="leading-7 text-muted-foreground">{testimonial.quote}</q>
+                    <div className="max-h-[84px] overflow-hidden">
+                      <q className="leading-7 text-foreground line-clamp-3 block text-ellipsis">
+                        {testimonial.quote}
+                      </q>
+                    </div>
                   </Card>
                 </CarouselItem>
               ))}

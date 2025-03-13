@@ -2,6 +2,11 @@ import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Avatar } from '@/components/ui/avatar'
 import type { Testimonial15Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
+
+interface Testimonial15Props extends Testimonial15Fields {
+  hideAuthorImages?: boolean
+}
 
 export default function Testimonial15({
   title,
@@ -9,59 +14,75 @@ export default function Testimonial15({
   cta,
   companySection,
   testimonials,
-}: Testimonial15Fields) {
+  hideAuthorImages,
+}: Testimonial15Props) {
   return (
-    <section className="mb-32 bg-muted pt-32">
+    <section className="py-32">
       <div className="container">
-        <div className="grid gap-20 lg:grid-cols-2 lg:gap-32">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-24">
           <div className="text-center lg:text-left">
-            <h1 className="mb-4 text-balance text-3xl font-bold lg:text-4xl">{title}</h1>
-            <p className="mb-8 text-muted-foreground">{description}</p>
-            {cta && <CMSLink className="mb-10 lg:mb-20" {...cta} />}
-            <p className="mb-7 text-xs uppercase text-muted-foreground">{companySection?.text}</p>
-            <div className="flex flex-wrap items-center justify-center gap-10 lg:justify-start">
-              {companySection?.logos?.map((logo, idx) => (
-                <div
-                  key={idx}
-                  className="relative flex h-8 w-32 items-center justify-center overflow-hidden sm:h-11"
-                >
-                  <Media resource={logo.image} className="max-h-full w-auto object-contain" />
-                </div>
-              ))}
+            <h2 className="mb-6 text-balance text-3xl font-bold lg:text-4xl text-foreground">
+              {title}
+            </h2>
+            <p className="mb-8 text-lg text-muted-foreground">{description}</p>
+            <div className="flex justify-center lg:justify-start">
+              {cta && <CMSLink {...cta} />}
             </div>
+            {companySection?.logos && companySection.logos.length > 0 && (
+              <div className="mt-8">
+                <p className="mb-6 text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                  {companySection.text}
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-8 lg:justify-start">
+                  {companySection.logos.map((logo, idx) => (
+                    <div
+                      key={idx}
+                      className="relative flex h-8 w-28 items-center justify-center overflow-hidden sm:h-10"
+                    >
+                      <Media resource={logo.image} className="max-h-full w-auto object-contain" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-          <div className="flex flex-col gap-5">
-            {testimonials?.map((testimonial, idx) => {
-              const isLast = idx === testimonials.length - 1
-              const isOdd = idx % 2 === 1
-
-              return (
-                <div
-                  key={idx}
-                  className={`flex gap-5 ${
-                    isLast
-                      ? 'rounded-t-xl border-x border-t px-5 pb-1 pt-6'
-                      : isOdd
-                        ? 'rounded-xl border p-6'
-                        : 'rounded-xl bg-background p-6'
-                  }`}
-                >
-                  <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
-                    {testimonial.authorImage && (
+          <div className="flex flex-col gap-6">
+            {testimonials?.map((testimonial, idx) => (
+              <div
+                key={idx}
+                className={cn('rounded-3xl p-8', idx % 2 === 0 ? 'bg-white' : 'rounded-xl border')}
+              >
+                <div className="flex gap-4">
+                  {!hideAuthorImages && testimonial.authorImage && (
+                    <Avatar className="size-12 overflow-hidden flex-shrink-0">
                       <Media
                         resource={testimonial.authorImage}
-                        imgClassName="aspect-square size-full object-cover object-center"
+                        imgClassName="aspect-square size-full object-cover"
                         className="!block size-full"
                       />
-                    )}
-                  </Avatar>
-                  <div>
-                    <p className="mb-1 text-sm font-medium">{testimonial.authorName}</p>
-                    <p className="text-xs text-muted-foreground">{testimonial.quote}</p>
+                    </Avatar>
+                  )}
+                  <div className="flex flex-col">
+                    <p
+                      className={cn(
+                        'font-medium',
+                        idx % 2 === 0 ? 'text-muted-foreground' : 'text-foreground',
+                      )}
+                    >
+                      {testimonial.authorName}
+                    </p>
+                    <p
+                      className={cn(
+                        'text-lg',
+                        idx % 2 === 0 ? 'text-muted-foreground' : 'text-muted-foreground/80',
+                      )}
+                    >
+                      {testimonial.quote}
+                    </p>
                   </div>
                 </div>
-              )
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </div>

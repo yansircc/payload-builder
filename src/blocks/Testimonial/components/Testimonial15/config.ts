@@ -37,6 +37,14 @@ export const testimonial15Fields: GroupField = {
   },
   fields: [
     {
+      name: 'hideAuthorImages',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: 'Hide author images',
+      },
+    },
+    {
       name: 'title',
       type: 'text',
       defaultValue: 'Explore the Innovators Community Today',
