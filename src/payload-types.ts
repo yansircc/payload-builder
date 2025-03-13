@@ -3951,6 +3951,10 @@ export interface Testimonial4Fields {
  */
 export interface Testimonial6Fields {
   /**
+   * Hide author images and show default avatars instead
+   */
+  hideAuthorImages?: boolean | null;
+  /**
    * Main title for the testimonial section
    */
   title?: string | null;
@@ -3984,6 +3988,10 @@ export interface Testimonial6Fields {
  * via the `definition` "Testimonial7Fields".
  */
 export interface Testimonial7Fields {
+  /**
+   * Hide author images and show default avatars instead
+   */
+  hideAuthorImages?: boolean | null;
   /**
    * Main title for the testimonial section
    */
@@ -4110,6 +4118,10 @@ export interface Testimonial12Fields {
  */
 export interface Testimonial14Fields {
   /**
+   * Hide author images
+   */
+  hideAuthorImages?: boolean | null;
+  /**
    * Testimonial items (1-10)
    */
   testimonials: {
@@ -4141,6 +4153,10 @@ export interface Testimonial14Fields {
  * via the `definition` "Testimonial15Fields".
  */
 export interface Testimonial15Fields {
+  /**
+   * Hide author images
+   */
+  hideAuthorImages?: boolean | null;
   /**
    * Main title for the testimonial section
    */
@@ -4222,6 +4238,10 @@ export interface Testimonial15Fields {
  */
 export interface Testimonial16Fields {
   /**
+   * Hide author images
+   */
+  hideAuthorImages?: boolean | null;
+  /**
    * Main heading text
    */
   heading?: string | null;
@@ -4259,6 +4279,10 @@ export interface Testimonial16Fields {
  * via the `definition` "Testimonial17Fields".
  */
 export interface Testimonial17Fields {
+  /**
+   * Hide author images
+   */
+  hideAuthorImages?: boolean | null;
   /**
    * Main heading text
    */
@@ -4301,6 +4325,10 @@ export interface Testimonial17Fields {
  * via the `definition` "Testimonial18Fields".
  */
 export interface Testimonial18Fields {
+  /**
+   * Hide author images
+   */
+  hideAuthorImages?: boolean | null;
   /**
    * Main heading text
    */
@@ -4348,6 +4376,10 @@ export interface Testimonial18Fields {
  * via the `definition` "Testimonial19Fields".
  */
 export interface Testimonial19Fields {
+  /**
+   * Hide author images
+   */
+  hideAuthorImages?: boolean | null;
   /**
    * Main heading text
    */
@@ -10423,6 +10455,7 @@ export interface Testimonial4FieldsSelect<T extends boolean = true> {
  * via the `definition` "Testimonial6Fields_select".
  */
 export interface Testimonial6FieldsSelect<T extends boolean = true> {
+  hideAuthorImages?: T;
   title?: T;
   testimonials?:
     | T
@@ -10439,6 +10472,7 @@ export interface Testimonial6FieldsSelect<T extends boolean = true> {
  * via the `definition` "Testimonial7Fields_select".
  */
 export interface Testimonial7FieldsSelect<T extends boolean = true> {
+  hideAuthorImages?: T;
   title?: T;
   description?: T;
   cta?:
@@ -10492,6 +10526,7 @@ export interface Testimonial12FieldsSelect<T extends boolean = true> {
  * via the `definition` "Testimonial14Fields_select".
  */
 export interface Testimonial14FieldsSelect<T extends boolean = true> {
+  hideAuthorImages?: T;
   testimonials?:
     | T
     | {
@@ -10508,6 +10543,7 @@ export interface Testimonial14FieldsSelect<T extends boolean = true> {
  * via the `definition` "Testimonial15Fields_select".
  */
 export interface Testimonial15FieldsSelect<T extends boolean = true> {
+  hideAuthorImages?: T;
   title?: T;
   description?: T;
   cta?:
@@ -10548,6 +10584,7 @@ export interface Testimonial15FieldsSelect<T extends boolean = true> {
  * via the `definition` "Testimonial16Fields_select".
  */
 export interface Testimonial16FieldsSelect<T extends boolean = true> {
+  hideAuthorImages?: T;
   heading?: T;
   subheading?: T;
   testimonials?:
@@ -10565,6 +10602,7 @@ export interface Testimonial16FieldsSelect<T extends boolean = true> {
  * via the `definition` "Testimonial17Fields_select".
  */
 export interface Testimonial17FieldsSelect<T extends boolean = true> {
+  hideAuthorImages?: T;
   heading?: T;
   testimonials?:
     | T
@@ -10583,6 +10621,7 @@ export interface Testimonial17FieldsSelect<T extends boolean = true> {
  * via the `definition` "Testimonial18Fields_select".
  */
 export interface Testimonial18FieldsSelect<T extends boolean = true> {
+  hideAuthorImages?: T;
   heading?: T;
   subheading?: T;
   statsText?: T;
@@ -10602,6 +10641,7 @@ export interface Testimonial18FieldsSelect<T extends boolean = true> {
  * via the `definition` "Testimonial19Fields_select".
  */
 export interface Testimonial19FieldsSelect<T extends boolean = true> {
+  hideAuthorImages?: T;
   heading?: T;
   subheading?: T;
   statsText?: T;
