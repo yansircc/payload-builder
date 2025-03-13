@@ -16,7 +16,7 @@ export default function Style1({ data }: Style1Props) {
         href={style1Config?.leftSection?.link?.url || '#'}
         className="group w-1/3 max-w-[398px]"
       >
-        <div className="overflow-clip rounded-lg border border-input bg-background hover:bg-accent hover:text-accent-foreground">
+        <div className="overflow-clip rounded-lg border border-input bg-secondary/30 group-hover:bg-secondary/80 group-focus:bg-secondary/80">
           {style1Config?.leftSection?.link?.image && (
             <div>
               <Media
