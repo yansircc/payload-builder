@@ -33,7 +33,8 @@ const defaultTestimonials: TestimonialItem[] = [
     rating: 5,
   },
   {
-    quote: 'Outstanding support and incredible features. Best decision we made this year!',
+    quote:
+      'Outstanding support and incredible features. Best decision we made this yeaasdasdasdsdasadsassbahsbdhkasbdhkbadshkbjdasbjhabsdhjabsdr!',
     authorName: 'Michael Chen',
     authorRole: 'CTO at InnovateCo',
     authorImage: {
@@ -50,7 +51,8 @@ const defaultTestimonials: TestimonialItem[] = [
     rating: 5,
   },
   {
-    quote: 'The integration was seamless and the results were immediate. Highly recommended!',
+    quote:
+      'The integration was seamless and the results were immediate. Highly recommendedasdasdasdasdsadasdasdsadsdasaddsadsadsasdasasdasdaads!',
     authorName: 'Emily Rodriguez',
     authorRole: 'Head of Operations at GlobalTech',
     authorImage: {
@@ -77,7 +79,9 @@ export const Default: Story = {
     viewAll: {
       label: 'View all testimonials',
       suffixIcon: 'ChevronRight',
-      appearance: 'link',
+      appearance: 'default',
+      type: 'custom',
+      url: '#',
     },
   },
 }

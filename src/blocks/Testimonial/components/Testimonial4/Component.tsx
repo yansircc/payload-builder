@@ -26,48 +26,46 @@ export default function Testimonial4({
   const [featuredTestimonial, ...gridTestimonials] = testimonials
 
   return (
-    <section className="py-16 md:py-24 lg:py-32">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col gap-4 md:gap-6">
-          <div className="grid grid-cols-1 items-stretch gap-x-0 gap-y-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 md:gap-6">
-            <div className="relative w-full aspect-[16/9] md:h-[300px] lg:h-[350px]">
-              <Media
-                resource={featuredImage}
-                className="absolute inset-0 w-full h-full rounded-lg object-cover md:object-center"
-              />
+    <section className="py-16 md:py-24">
+      <div className="container">
+        <div className="flex flex-col gap-6 md:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 items-stretch gap-6 md:gap-6 lg:grid-cols-3 lg:gap-8">
+            <div className="relative w-full bg-muted/50 rounded-2xl flex items-center justify-center py-12 md:py-16 lg:py-12 px-8">
+              <div className="relative w-[100%] aspect-[16/9] translate-y-1">
+                <Media
+                  resource={featuredImage}
+                  className="absolute inset-0 w-full h-full object-contain object-center"
+                />
+              </div>
             </div>
-            <Card className="col-span-1 md:col-span-1 lg:col-span-2 flex items-center md:h-[300px] lg:h-[250px] p-4 md:p-6 lg:p-8">
-              <div className="flex flex-col gap-2 md:gap-3">
-                <q className="text-base font-medium text-foreground md:text-lg lg:text-xl leading-relaxed">
+            <Card className="col-span-1 lg:col-span-2">
+              <div className="flex flex-col justify-center h-full p-8">
+                <q className="text-lg md:text-xl font-medium text-foreground leading-relaxed mb-6">
                   {featuredTestimonial.quote}
                 </q>
-                <div className="flex flex-col items-start gap-0.5">
-                  <p className="text-foreground text-sm md:text-base font-semibold">
-                    {featuredTestimonial.authorName}
-                  </p>
+                <div className="flex flex-col gap-1">
+                  <p className="text-foreground font-medium">{featuredTestimonial.authorName}</p>
                   {featuredTestimonial.authorRole && (
-                    <p className="text-foreground text-xs md:text-sm">
-                      {featuredTestimonial.authorRole}
-                    </p>
+                    <p className="text-muted-foreground">{featuredTestimonial.authorRole}</p>
                   )}
                 </div>
               </div>
             </Card>
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             {gridTestimonials.map((testimonial, idx) => (
               <Card key={idx} className="flex flex-col">
-                <CardContent className="flex-1 px-4 pt-4 md:px-6 md:pt-6 leading-relaxed text-foreground/70">
-                  <q className="text-sm md:text-base">{testimonial.quote}</q>
+                <CardContent className="flex-1 p-8">
+                  <q className="text-muted-foreground text-base">{testimonial.quote}</q>
                 </CardContent>
-                <CardFooter className="px-4 py-4 md:px-6 md:py-6 border-t">
-                  <div className="flex items-center gap-3 md:gap-4">
+                <CardFooter className="p-8 pt-0">
+                  <div className="flex items-center gap-3">
                     {!hideAuthorImages && (
-                      <Avatar className="size-8 md:size-10 rounded-full ring-1 ring-input overflow-hidden">
+                      <Avatar className="size-10 rounded-full overflow-hidden">
                         {testimonial.authorImage ? (
                           <Media
                             resource={testimonial.authorImage}
-                            imgClassName="aspect-square size-full object-cover object-center"
+                            imgClassName="aspect-square size-full object-cover"
                             className="!block size-full"
                           />
                         ) : (
@@ -78,14 +76,10 @@ export default function Testimonial4({
                         )}
                       </Avatar>
                     )}
-                    <div className="flex flex-col gap-0.5">
-                      <p className="font-medium text-foreground text-sm md:text-base">
-                        {testimonial.authorName}
-                      </p>
+                    <div className="flex flex-col">
+                      <p className="font-medium text-foreground">{testimonial.authorName}</p>
                       {testimonial.authorRole && (
-                        <p className="text-foreground text-xs md:text-sm">
-                          {testimonial.authorRole}
-                        </p>
+                        <p className="text-muted-foreground">{testimonial.authorRole}</p>
                       )}
                     </div>
                   </div>

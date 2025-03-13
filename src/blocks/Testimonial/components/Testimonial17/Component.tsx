@@ -84,18 +84,20 @@ export default function Testimonial17({
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="mt-8 flex justify-center">
-              {Array.from({ length: count }).map((_, index) => (
-                <span
-                  key={index}
-                  className={cn(
-                    'mx-2 inline-block size-3 cursor-pointer rounded-full border-2',
-                    index + 1 === current && 'border-primary bg-primary',
-                  )}
-                  onClick={() => api && api.scrollTo(index)}
-                />
-              ))}
-            </div>
+            {count > 1 && (
+              <div className="mt-8 flex justify-center">
+                {Array.from({ length: count }).map((_, index) => (
+                  <span
+                    key={index}
+                    className={cn(
+                      'mx-2 inline-block size-3 cursor-pointer rounded-full border-2',
+                      index + 1 === current && 'border-primary bg-primary',
+                    )}
+                    onClick={() => api && api.scrollTo(index)}
+                  />
+                ))}
+              </div>
+            )}
           </Carousel>
           <div className="col-span-2 hidden grid-cols-2 items-center gap-6 lg:grid">
             <div className="rounded-2xl border p-8">

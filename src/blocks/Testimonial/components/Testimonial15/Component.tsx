@@ -2,6 +2,7 @@ import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Avatar } from '@/components/ui/avatar'
 import type { Testimonial15Fields } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 
 interface Testimonial15Props extends Testimonial15Fields {
   hideAuthorImages?: boolean
@@ -47,11 +48,13 @@ export default function Testimonial15({
           </div>
           <div className="flex flex-col gap-6">
             {testimonials?.map((testimonial, idx) => (
-              <div key={idx} className="rounded-lg bg-background p-6 shadow-sm">
-                <p className="mb-4 text-lg text-foreground">{testimonial.quote}</p>
-                <div className="flex items-center gap-4">
+              <div
+                key={idx}
+                className={cn('rounded-3xl p-8', idx % 2 === 0 ? 'bg-white' : 'rounded-xl border')}
+              >
+                <div className="flex gap-4">
                   {!hideAuthorImages && testimonial.authorImage && (
-                    <Avatar className="size-12 overflow-hidden">
+                    <Avatar className="size-12 overflow-hidden flex-shrink-0">
                       <Media
                         resource={testimonial.authorImage}
                         imgClassName="aspect-square size-full object-cover"
@@ -59,8 +62,23 @@ export default function Testimonial15({
                       />
                     </Avatar>
                   )}
-                  <div>
-                    <p className="font-medium text-foreground">{testimonial.authorName}</p>
+                  <div className="flex flex-col">
+                    <p
+                      className={cn(
+                        'font-medium',
+                        idx % 2 === 0 ? 'text-muted-foreground' : 'text-foreground',
+                      )}
+                    >
+                      {testimonial.authorName}
+                    </p>
+                    <p
+                      className={cn(
+                        'text-lg',
+                        idx % 2 === 0 ? 'text-muted-foreground' : 'text-muted-foreground/80',
+                      )}
+                    >
+                      {testimonial.quote}
+                    </p>
                   </div>
                 </div>
               </div>

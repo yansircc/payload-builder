@@ -65,31 +65,27 @@ export default function Testimonial12({ testimonials }: Testimonial12Fields) {
                         {testimonial.companyName}
                       </span>
                     </div>
-                    <blockquote className="mb-8 text-lg lg:text-xl text-foreground">
+                    <blockquote className="mb-8 text-lg lg:text-xl text-foreground text-center">
                       &ldquo;{testimonial.quote}&rdquo;
                     </blockquote>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <div className="text-3xl font-bold lg:text-4xl text-foreground">
+                    <div className="flex flex-col gap-10 text-center sm:mx-auto sm:max-w-[480px] md:grid md:grid-cols-2 lg:mx-0 lg:max-w-none lg:text-left">
+                      <div className="flex flex-col">
+                        <span className="mb-4 text-4xl font-semibold md:text-6xl">
                           {testimonial.monthlyActiveUsers}
-                        </div>
-                        <div className="text-sm text-foreground">
-                          {testimonial.monthlyActiveUsersLabel}
-                        </div>
-                        <div className="mt-1 text-xs text-foreground">
+                        </span>
+                        <span className="font-medium">{testimonial.monthlyActiveUsersLabel}</span>
+                        <span className="text-muted-foreground">
                           {testimonial.monthlyActiveUsersPeriod}
-                        </div>
+                        </span>
                       </div>
-                      <div>
-                        <div className="text-3xl font-bold lg:text-4xl text-foreground">
+                      <div className="flex flex-col">
+                        <span className="mb-4 text-4xl font-semibold md:text-6xl">
                           {testimonial.revenueIncrease}
-                        </div>
-                        <div className="text-sm text-foreground">
-                          {testimonial.revenueIncreaseLabel}
-                        </div>
-                        <div className="mt-1 text-xs text-foreground">
+                        </span>
+                        <span className="font-medium">{testimonial.revenueIncreaseLabel}</span>
+                        <span className="text-muted-foreground">
                           {testimonial.revenueIncreasePeriod}
-                        </div>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -97,10 +93,12 @@ export default function Testimonial12({ testimonials }: Testimonial12Fields) {
               ))}
             </CarouselContent>
             {showNavigation && (
-              <>
-                <CarouselPrevious className="absolute left-4 top-1/2 text-foreground" />
-                <CarouselNext className="absolute right-4 top-1/2 text-foreground" />
-              </>
+              <div className="absolute bottom-6 right-6 z-10 lg:bottom-10 lg:right-10">
+                <div className="relative flex items-center gap-4">
+                  <CarouselPrevious className="static translate-y-0" />
+                  <CarouselNext className="static translate-y-0" />
+                </div>
+              </div>
             )}
           </Carousel>
         </div>
