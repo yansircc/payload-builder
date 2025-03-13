@@ -18,10 +18,10 @@ import Logos3Component from './components/Logos3/Component'
 import Logos8Component from './components/Logos8/Component'
 
 // Export config
-export { logos1Fields } from './components/Logos1/config'
-export { logos2Fields } from './components/Logos2/config'
-export { logos3Fields } from './components/Logos3/config'
-export { logos8Fields } from './components/Logos8/config'
+export { logos1Fields } from './components/Logos1/server'
+export { logos2Fields } from './components/Logos2/server'
+export { logos3Fields } from './components/Logos3/server'
+export { logos8Fields } from './components/Logos8/server'
 
 // Export components
 export const Logos1 = Logos1Component

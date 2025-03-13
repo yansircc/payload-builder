@@ -109,12 +109,12 @@
   [data-theme='cool'][data-theme-mode='dark'] {
     --background: hsl(222 47% 11%);
     --foreground: hsl(210 40% 98%);
-    --card: hsl(223 47% 11%);
+    --card: hsl(223 47% 15%);
     --card-foreground: hsl(210 40% 98%);
-    --popover: hsl(223 47% 11%);
+    --popover: hsl(223 47% 15%);
     --popover-foreground: hsl(210 40% 98%);
     --primary: hsl(217 91% 60%);
-    --primary-foreground: hsl(222 47% 11%);
+    --primary-foreground: hsl(210 40% 98%);
     --secondary: hsl(217 33% 17%);
     --secondary-foreground: hsl(210 40% 98%);
     --muted: hsl(217 33% 17%);
@@ -180,9 +180,9 @@
     /* Colors - Light Mode */
     --background: hsl(0 0% 100%);
     --foreground: hsl(0 0% 0%);
-    --card: hsl(0 0% 100%);
+    --card: hsl(0 0% 96%);
     --card-foreground: hsl(0 0% 0%);
-    --popover: hsl(0 0% 100%);
+    --popover: hsl(0 0% 96%);
     --popover-foreground: hsl(0 0% 0%);
     --primary: hsl(0 0% 0%);
     --primary-foreground: hsl(0 0% 100%);
@@ -211,9 +211,9 @@
   [data-theme='brutal'][data-theme-mode='dark'] {
     --background: hsl(0 0% 0%);
     --foreground: hsl(0 0% 100%);
-    --card: hsl(0 0% 0%);
+    --card: hsl(0 0% 10%);
     --card-foreground: hsl(0 0% 100%);
-    --popover: hsl(0 0% 0%);
+    --popover: hsl(0 0% 10%);
     --popover-foreground: hsl(0 0% 100%);
     --primary: hsl(0 0% 100%);
     --primary-foreground: hsl(0 0% 0%);
@@ -282,9 +282,9 @@
     /* Colors - Light Mode */
     --background: hsl(230 25% 5%);
     --foreground: hsl(0 0% 100%);
-    --card: hsl(230 25% 7%);
+    --card: hsl(230 25% 10%);
     --card-foreground: hsl(0 0% 100%);
-    --popover: hsl(230 25% 7%);
+    --popover: hsl(230 25% 10%);
     --popover-foreground: hsl(0 0% 100%);
     --primary: hsl(263 90% 51%);
     --primary-foreground: hsl(0 0% 100%);
@@ -313,9 +313,9 @@
   [data-theme='neon'][data-theme-mode='dark'] {
     --background: hsl(230 25% 5%);
     --foreground: hsl(0 0% 100%);
-    --card: hsl(230 25% 7%);
+    --card: hsl(230 25% 12%);
     --card-foreground: hsl(0 0% 100%);
-    --popover: hsl(230 25% 7%);
+    --popover: hsl(230 25% 12%);
     --popover-foreground: hsl(0 0% 100%);
     --primary: hsl(263 90% 51%);
     --primary-foreground: hsl(0 0% 100%);
@@ -401,4 +401,9 @@ html:not([data-theme-mode]) {
 /* Ensure dark mode styles take precedence */
 html[data-theme-mode='dark'] {
   color-scheme: dark;
+}
+
+/* Invert images in dark mode */
+html[data-theme-mode='dark'] img {
+  @apply invert;
 }

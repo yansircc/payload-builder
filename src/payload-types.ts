@@ -3927,6 +3927,10 @@ export interface TestimonialBlock {
  */
 export interface Testimonial4Fields {
   /**
+   * Hide author images and show default avatars instead
+   */
+  hideAuthorImages?: boolean | null;
+  /**
    * Featured image displayed in the left column
    */
   featuredImage: string | Media;
@@ -5939,26 +5943,21 @@ export interface LogosBlock {
  */
 export interface Logos1Fields {
   /**
-   * Logos fields
+   * Main title text
    */
-  logos: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Logo images (1-5)
-     */
-    logos?:
-      | {
-          /**
-           * Logo image
-           */
-          logo: string | Media;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  title: string;
+  /**
+   * Logo images (1-5)
+   */
+  logos?:
+    | {
+        /**
+         * Logo image
+         */
+        logo: string | Media;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5966,54 +5965,49 @@ export interface Logos1Fields {
  */
 export interface Logos2Fields {
   /**
-   * Logos fields
+   * Main title text
    */
-  logos: {
+  title: string;
+  /**
+   * Description text
+   */
+  description?: string | null;
+  /**
+   * Logo images (6 required)
+   */
+  logos?:
+    | {
+        /**
+         * Logo image
+         */
+        logo: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Button link
+   */
+  link: {
+    type?: ('reference' | 'custom' | 'popup') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    popup?: (string | null) | Popup;
+    label: string;
+    prefixIcon?: string | null;
+    suffixIcon?: string | null;
     /**
-     * Main title text
+     * Choose how the link should be rendered.
      */
-    title: string;
-    /**
-     * Description text
-     */
-    description?: string | null;
-    /**
-     * Button link
-     */
-    link: {
-      type?: ('reference' | 'custom' | 'popup') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      popup?: (string | null) | Popup;
-      label: string;
-      prefixIcon?: string | null;
-      suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-    };
-    /**
-     * Logo images (6 required)
-     */
-    logos?:
-      | {
-          /**
-           * Logo image
-           */
-          logo: string | Media;
-          id?: string | null;
-        }[]
-      | null;
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
   };
 }
 /**
@@ -6022,26 +6016,21 @@ export interface Logos2Fields {
  */
 export interface Logos3Fields {
   /**
-   * Logos fields
+   * Main title text
    */
-  logos: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Logo images (7-12)
-     */
-    logos?:
-      | {
-          /**
-           * Logo image
-           */
-          logo: string | Media;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  title: string;
+  /**
+   * Logo images (7-12)
+   */
+  logos?:
+    | {
+        /**
+         * Logo image
+         */
+        logo: string | Media;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6049,30 +6038,25 @@ export interface Logos3Fields {
  */
 export interface Logos8Fields {
   /**
-   * Logos fields
+   * Main title text
    */
-  logos: {
-    /**
-     * Main title text
-     */
-    title: string;
-    /**
-     * Description text
-     */
-    description?: string | null;
-    /**
-     * Logo images (1-12)
-     */
-    logos?:
-      | {
-          /**
-           * Logo image
-           */
-          logo: string | Media;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  title: string;
+  /**
+   * Description text
+   */
+  description?: string | null;
+  /**
+   * Logo images (1-12)
+   */
+  logos?:
+    | {
+        /**
+         * Logo image
+         */
+        logo: string | Media;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -10441,6 +10425,7 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
  * via the `definition` "Testimonial4Fields_select".
  */
 export interface Testimonial4FieldsSelect<T extends boolean = true> {
+  hideAuthorImages?: T;
   featuredImage?: T;
   testimonials?:
     | T
@@ -11493,16 +11478,12 @@ export interface LogosBlockSelect<T extends boolean = true> {
  * via the `definition` "Logos1Fields_select".
  */
 export interface Logos1FieldsSelect<T extends boolean = true> {
+  title?: T;
   logos?:
     | T
     | {
-        title?: T;
-        logos?:
-          | T
-          | {
-              logo?: T;
-              id?: T;
-            };
+        logo?: T;
+        id?: T;
       };
 }
 /**
@@ -11510,30 +11491,26 @@ export interface Logos1FieldsSelect<T extends boolean = true> {
  * via the `definition` "Logos2Fields_select".
  */
 export interface Logos2FieldsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
   logos?:
     | T
     | {
-        title?: T;
-        description?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              popup?: T;
-              label?: T;
-              prefixIcon?: T;
-              suffixIcon?: T;
-              appearance?: T;
-            };
-        logos?:
-          | T
-          | {
-              logo?: T;
-              id?: T;
-            };
+        logo?: T;
+        id?: T;
+      };
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        popup?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
       };
 }
 /**
@@ -11541,16 +11518,12 @@ export interface Logos2FieldsSelect<T extends boolean = true> {
  * via the `definition` "Logos3Fields_select".
  */
 export interface Logos3FieldsSelect<T extends boolean = true> {
+  title?: T;
   logos?:
     | T
     | {
-        title?: T;
-        logos?:
-          | T
-          | {
-              logo?: T;
-              id?: T;
-            };
+        logo?: T;
+        id?: T;
       };
 }
 /**
@@ -11558,17 +11531,13 @@ export interface Logos3FieldsSelect<T extends boolean = true> {
  * via the `definition` "Logos8Fields_select".
  */
 export interface Logos8FieldsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
   logos?:
     | T
     | {
-        title?: T;
-        description?: T;
-        logos?:
-          | T
-          | {
-              logo?: T;
-              id?: T;
-            };
+        logo?: T;
+        id?: T;
       };
 }
 /**

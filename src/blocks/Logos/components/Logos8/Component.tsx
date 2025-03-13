@@ -4,9 +4,7 @@ import { Media } from '@/components/Media'
 import type { Logos8Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Logos8({ logos }: Logos8Fields) {
-  const { title, description, logos: logoItems } = logos
-
+export default function Logos8({ title, description, logos }: Logos8Fields) {
   return (
     <section className="py-32">
       <div className="container">
@@ -20,7 +18,7 @@ export default function Logos8({ logos }: Logos8Fields) {
             <p className="mt-1 text-muted-foreground">{description}</p>
           </ClientMotionDiv>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-6 lg:gap-12">
-            {logoItems?.map((logo, index) => (
+            {logos?.map((logo, index) => (
               <ClientMotionDiv
                 key={logo.id || index}
                 initial={{ opacity: 0, scale: 0.95 }}

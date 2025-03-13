@@ -11,7 +11,7 @@ import {
 } from '@payloadcms/richtext-lexical/react'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
-import { ColumnsBlock } from '@/blocks/ColumnBlock/RenderColumn'
+import { ColumnsBlock } from '@/blocks/ColumnBlock/Component'
 import { CtaSimpleBlock } from '@/blocks/CtaSimpleBlock/RenderCtaSimple'
 import { HTMLBlock } from '@/blocks/HTML/RenderTable'
 import { RenderLinkPopup } from '@/blocks/LinkPopupBlock/RenderLinkPopup'
