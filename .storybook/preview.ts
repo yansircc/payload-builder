@@ -122,7 +122,6 @@ const preview: Preview = {
       const wrapperProps = {
         style: {
           minHeight: '100vh',
-          padding: '2rem',
         },
       }
 
