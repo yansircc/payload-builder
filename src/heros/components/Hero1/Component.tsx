@@ -78,7 +78,7 @@ export default function Hero1({ title, subtitle, links, image, badge }: Hero1Fie
               <Media
                 fill
                 className="relative h-full w-full"
-                imgClassName="object-cover rounded-lg h-full w-full"
+                imgClassName="max-h-96 w-full rounded-md object-cover"
                 priority
                 resource={image}
               />
