@@ -99,34 +99,6 @@ const ArchiveBlockWrapper: React.FC<
 
   return (
     <>
-      {/* Storybook Info Panel - not part of the actual component */}
-      <div className="mb-8 px-4 py-3 bg-accent/20 rounded-md mx-auto max-w-7xl flex items-center">
-        <div className="bg-primary/10 px-2 py-1 rounded text-xs uppercase tracking-wider font-bold mr-3">
-          Storybook Preview
-        </div>
-        <div className="flex-1">
-          {populateBy === 'collection' ? (
-            <span className="text-primary-foreground">
-              Collection Mode: Posts from{' '}
-              <code className="bg-muted/50 px-1 rounded">{relationTo || 'posts'}</code> collection
-              {categories && categories.length > 0 && (
-                <span className="ml-1">
-                  • Categories:{' '}
-                  {categories
-                    .map((cat: any) => (typeof cat === 'object' ? cat.title : cat))
-                    .join(', ')}
-                </span>
-              )}
-            </span>
-          ) : (
-            <span className="text-primary-foreground">Selection Mode: Manually selected posts</span>
-          )}
-        </div>
-        <div className="text-sm bg-secondary/20 px-3 py-1 rounded-full">
-          Style: <span className="font-semibold">{archiveStyle}</span>
-        </div>
-      </div>
-
       {/* This is the actual output structure that matches the original component */}
       <div className="my-16" id={`block-${id}`}>
         {introContent && (
