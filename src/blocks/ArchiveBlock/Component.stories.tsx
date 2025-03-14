@@ -3,9 +3,12 @@ import { PaginatedDocs } from 'payload'
 import React from 'react'
 // Import types but not the actual CollectionArchive component since it's a server component
 import type { Props as CollectionArchiveProps } from '@/components/CollectionArchive'
+// Import style components from the original locations
+import Style1 from '@/components/CollectionArchive/Style1/Component'
+import Style2 from '@/components/CollectionArchive/Style2/Component'
+import Style3 from '@/components/CollectionArchive/Style3/Component'
 import RichText from '@/components/RichText'
 import { ArchiveBlock as ArchiveBlockProps, Category, Post } from '@/payload-types'
-import { cn } from '@/utilities/ui'
 
 /**
  * IMPORTANT: The ArchiveBlock component is a server component that uses async/await
@@ -13,73 +16,47 @@ import { cn } from '@/utilities/ui'
  * The CollectionArchive component it uses is also a server component.
  *
  * This file creates wrappers that simulate the output of these server components
- * with a structure that closely matches the original components.
+ * with a structure that closely matches the original components, while using
+ * the actual Style components from their proper locations.
  */
 
+// Define the style components mapping exactly like the original CollectionArchive
+const STYLE_COMPONENTS = {
+  card: Style1,
+  list: Style2,
+  grid: Style3,
+} as const
+
 // Client-side mock of the CollectionArchive component for Storybook
-const MockCollectionArchive: React.FC<CollectionArchiveProps> = ({ items, type }) => {
-  return (
-    <div className="collection-archive">
-      <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {items.docs.map((post: any, i) => (
-            <div
-              key={i}
-              className={cn(
-                'flex flex-col overflow-hidden rounded-lg shadow-sm',
-                'border border-border hover:shadow-md transition-shadow',
-              )}
-            >
-              {post.heroImage && (
-                <div className="relative h-48 w-full overflow-hidden">
-                  <img
-                    src={post.heroImage.url}
-                    alt={post.heroImage.alt || post.title}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              )}
-              <div className="flex flex-1 flex-col justify-between p-4">
-                <div>
-                  {post.categories?.length > 0 && (
-                    <div className="mb-2 flex flex-wrap gap-2">
-                      {post.categories.map((cat: any, catIndex: number) => (
-                        <span
-                          key={catIndex}
-                          className="inline-block rounded-full px-2 py-1 text-xs bg-muted text-muted-foreground"
-                        >
-                          {typeof cat === 'object' ? cat.title : cat}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  <h3 className="text-lg font-medium">{post.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                    {post.excerpt || 'Article preview text would appear here'}
-                  </p>
-                </div>
-                <div className="mt-4">
-                  <a
-                    href={`/posts/${post.slug}`}
-                    className="text-sm font-medium text-primary hover:underline"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    Read more →
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
+const MockCollectionArchive: React.FC<
+  CollectionArchiveProps & { archiveStyle?: 'card' | 'list' | 'grid' }
+> = (props) => {
+  const { archiveStyle = 'card' } = props
+
+  // Get the appropriate style component - mimicking how the server component works
+  const ArchiveComponent = STYLE_COMPONENTS[archiveStyle]
+
+  // Render the selected style component with the props
+  return <ArchiveComponent {...props} />
 }
 
 // Create a wrapper component specifically for Storybook that matches the exact structure
 // of the original component but can be rendered in a client environment
-const ArchiveBlockWrapper: React.FC<ArchiveBlockProps & { id?: string }> = (props) => {
-  const { id, introContent, selectedDocs, populateBy, relationTo, categories } = props
+const ArchiveBlockWrapper: React.FC<
+  ArchiveBlockProps & {
+    id?: string
+    archiveStyle?: 'card' | 'list' | 'grid'
+  }
+> = (props) => {
+  const {
+    id,
+    introContent,
+    selectedDocs,
+    populateBy,
+    relationTo,
+    categories,
+    archiveStyle = 'card',
+  } = props
 
   // Create mock data similar to what the server component would receive
   const mockPosts =
@@ -128,7 +105,7 @@ const ArchiveBlockWrapper: React.FC<ArchiveBlockProps & { id?: string }> = (prop
         <div className="bg-primary/10 px-2 py-1 rounded text-xs uppercase tracking-wider font-bold mr-3">
           Storybook Preview
         </div>
-        <div>
+        <div className="flex-1">
           {populateBy === 'collection' ? (
             <span className="text-primary-foreground">
               Collection Mode: Posts from{' '}
@@ -146,6 +123,9 @@ const ArchiveBlockWrapper: React.FC<ArchiveBlockProps & { id?: string }> = (prop
             <span className="text-primary-foreground">Selection Mode: Manually selected posts</span>
           )}
         </div>
+        <div className="text-sm bg-secondary/20 px-3 py-1 rounded-full">
+          Style: <span className="font-semibold">{archiveStyle}</span>
+        </div>
       </div>
 
       {/* This is the actual output structure that matches the original component */}
@@ -155,8 +135,8 @@ const ArchiveBlockWrapper: React.FC<ArchiveBlockProps & { id?: string }> = (prop
             <RichText className="ml-0 max-w-[48rem]" data={introContent} enableGutter={false} />
           </div>
         )}
-        {/* Use our mock CollectionArchive instead of the server component */}
-        <MockCollectionArchive items={mockResults} type="post" />
+        {/* Use our mock CollectionArchive with the specified style */}
+        <MockCollectionArchive items={mockResults} type="post" archiveStyle={archiveStyle} />
       </div>
     </>
   )
@@ -389,48 +369,79 @@ const mockCategories: Category[] = [
 // Subset of posts for selection mode - make sure these are non-null
 const selectedPostsMock = [mockArchivePosts.docs[1], mockArchivePosts.docs[3]]
 
-export const CollectionPosts: Story = {
+// CARD STYLE STORIES
+export const CardStyle: Story = {
   args: {
-    id: 'archive-block-1',
+    id: 'archive-block-card',
     blockType: 'archive',
     relationTo: 'posts',
     populateBy: 'collection',
     limit: 5,
     introContent: mockRichText,
+    archiveStyle: 'card',
   },
 }
 
-export const SelectedDocs: Story = {
+export const CardStyleSelected: Story = {
   args: {
-    id: 'archive-block-2',
+    id: 'archive-block-card-selected',
     blockType: 'archive',
     populateBy: 'selection',
     introContent: mockRichText,
     selectedDocs: selectedPostsMock.map((post) => ({
       relationTo: 'posts',
       value: post,
-    })) as any, // Cast to any to avoid type errors since we know the structure is correct
+    })) as any,
+    archiveStyle: 'card',
   },
 }
 
-export const WithCategories: Story = {
+// LIST STYLE STORIES
+export const ListStyle: Story = {
   args: {
-    id: 'archive-block-3',
+    id: 'archive-block-list',
+    blockType: 'archive',
+    relationTo: 'posts',
+    populateBy: 'collection',
+    limit: 5,
+    introContent: mockRichText,
+    archiveStyle: 'list',
+  },
+}
+
+export const ListStyleWithCategories: Story = {
+  args: {
+    id: 'archive-block-list-with-categories',
     blockType: 'archive',
     relationTo: 'posts',
     populateBy: 'collection',
     limit: 5,
     introContent: mockRichText,
     categories: mockCategories,
+    archiveStyle: 'list',
   },
 }
 
-export const NoIntro: Story = {
+// GRID STYLE STORIES
+export const GridStyle: Story = {
   args: {
-    id: 'archive-block-4',
+    id: 'archive-block-grid',
     blockType: 'archive',
     relationTo: 'posts',
     populateBy: 'collection',
     limit: 5,
+    introContent: mockRichText,
+    archiveStyle: 'grid',
+  },
+}
+
+export const GridStyleNoIntro: Story = {
+  args: {
+    id: 'archive-block-grid-no-intro',
+    blockType: 'archive',
+    relationTo: 'posts',
+    populateBy: 'collection',
+    limit: 5,
+    archiveStyle: 'grid',
   },
 }
