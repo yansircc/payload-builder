@@ -37,7 +37,7 @@ export const Default: Story = {
           type: 'custom',
           label: 'Learn More',
           url: '#',
-          appearance: 'ghost',
+          appearance: 'secondary',
         },
         id: '2',
       },

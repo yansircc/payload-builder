@@ -44,7 +44,6 @@ export const VideoBlock: React.FC<Props> = ({ className, videoType, url, caption
           {thumbnail && typeof thumbnail === 'object' ? (
             <MediaComponent
               resource={thumbnail as Media}
-              pictureClassName="!m-0"
               imgClassName="w-full h-full object-cover"
             />
           ) : (

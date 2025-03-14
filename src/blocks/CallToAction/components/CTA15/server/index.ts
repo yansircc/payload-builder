@@ -53,7 +53,6 @@ const links: Field = {
     link({
       name: 'link',
       disableLabel: false,
-      appearances: ['default', 'ghost'],
       ui: {
         icons: true,
         description: false,

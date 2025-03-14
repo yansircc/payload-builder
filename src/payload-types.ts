@@ -2344,7 +2344,7 @@ export interface CTA15Fields {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'ghost') | null;
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
         };
         id?: string | null;
       }[]
@@ -2396,7 +2396,7 @@ export interface CTA16Fields {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'ghost') | null;
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
         };
         id?: string | null;
       }[]
@@ -2443,7 +2443,7 @@ export interface CTA17Fields {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'ghost') | null;
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
         };
         id?: string | null;
       }[]

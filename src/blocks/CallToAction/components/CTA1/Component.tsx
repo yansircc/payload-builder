@@ -2,13 +2,15 @@ import { ClientMotionDiv } from '@/blocks/shared'
 import { DynamicIcon } from '@/components/DynamicIcon'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
+import { ImageMedia } from '@/components/Media/ImageMedia'
+import { Card } from '@/components/ui/card'
 import type { CTA1Fields } from '@/payload-types'
 
 export default function CTA1({ title, subtitle, btn, image, icon }: CTA1Fields) {
   return (
     <section className="py-32">
       <div className="container max-w-5xl">
-        <div className="flex flex-col justify-between md:flex-row">
+        <Card className="flex flex-col justify-between md:flex-row">
           <div className="p-6 md:max-w-96">
             <div className="mb-2 flex items-center gap-2">
               {icon && (
@@ -32,10 +34,10 @@ export default function CTA1({ title, subtitle, btn, image, icon }: CTA1Fields) 
               </ClientMotionDiv>
             )}
           </div>
-          <div className="aspect-video md:max-w-96">
-            {image && <Media resource={image} className="h-full w-full object-cover" />}
-          </div>
-        </div>
+          {image && (
+            <ImageMedia resource={image} imgClassName="aspect-video object-cover md:max-w-96" />
+          )}
+        </Card>
       </div>
     </section>
   )
