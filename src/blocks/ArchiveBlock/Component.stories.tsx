@@ -1,14 +1,76 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { PaginatedDocs } from 'payload'
 import React from 'react'
-// Import types but not the actual CollectionArchive component since it's a server component
 import type { Props as CollectionArchiveProps } from '@/components/CollectionArchive'
-// Import style components from the original locations
 import Style1 from '@/components/CollectionArchive/Style1/Component'
 import Style2 from '@/components/CollectionArchive/Style2/Component'
 import Style3 from '@/components/CollectionArchive/Style3/Component'
 import RichText from '@/components/RichText'
-import { ArchiveBlock as ArchiveBlockProps, Category, Post } from '@/payload-types'
+import { ArchiveBlock, Post } from '@/payload-types'
+
+// Type definitions
+type ArchiveStyle = 'card' | 'list' | 'grid'
+
+type ArchiveStyleComponents = Record<ArchiveStyle, React.ComponentType<CollectionArchiveProps>>
+
+interface MockCollectionArchiveProps extends CollectionArchiveProps {
+  archiveStyle?: ArchiveStyle
+}
+
+interface ArchiveBlockWrapperProps extends ArchiveBlock {
+  id?: string
+  archiveStyle?: ArchiveStyle
+}
+
+// Constants
+const STYLE_COMPONENTS: ArchiveStyleComponents = {
+  card: Style1,
+  list: Style2,
+  grid: Style3,
+}
+
+// Mock data utilities
+const createMockImage = (id: string) => ({
+  id,
+  url: '/website-template-OG.webp',
+  filename: 'website-template-OG.webp',
+  mimeType: 'image/webp',
+  filesize: 12345,
+  width: 800,
+  height: 600,
+  createdAt: '2023-01-01',
+  updatedAt: '2023-01-01',
+  alt: 'Website Template',
+})
+
+const createMockRichText = (text: string) => ({
+  root: {
+    type: 'root',
+    children: [
+      {
+        type: 'paragraph',
+        children: [{ text, type: 'text', version: 1 }],
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
+      },
+    ],
+    direction: 'ltr' as const,
+    format: '' as const,
+    indent: 0,
+    version: 1,
+  },
+})
+
+// Components
+const MockCollectionArchive: React.FC<MockCollectionArchiveProps> = ({
+  archiveStyle = 'card',
+  ...props
+}) => {
+  const ArchiveComponent = STYLE_COMPONENTS[archiveStyle]
+  return <ArchiveComponent {...props} />
+}
 
 /**
  * IMPORTANT: The ArchiveBlock component is a server component that uses async/await
@@ -18,72 +80,35 @@ import { ArchiveBlock as ArchiveBlockProps, Category, Post } from '@/payload-typ
  * This file creates a client-side wrapper that mimics the structure of the server component
  * while using the original style components with proper Next.js mocking.
  */
+const ArchiveBlockWrapper: React.FC<ArchiveBlockWrapperProps> = ({
+  id,
+  introContent,
+  selectedDocs,
+  populateBy,
+  categories,
+  archiveStyle = 'card',
+}) => {
+  const mockPosts = selectedDocs?.length
+    ? selectedDocs
+        .map((doc) => (typeof doc.value === 'object' ? doc.value : null))
+        .filter(Boolean as any)
+    : mockArchivePosts.docs
 
-// Define the style components mapping exactly like the original CollectionArchive
-const STYLE_COMPONENTS = {
-  card: Style1,
-  list: Style2,
-  grid: Style3,
-} as const
-
-// Client-side mock of the CollectionArchive component for Storybook
-const MockCollectionArchive: React.FC<
-  CollectionArchiveProps & { archiveStyle?: 'card' | 'list' | 'grid' }
-> = (props) => {
-  const { archiveStyle = 'card' } = props
-
-  // Get the appropriate style component - mimicking how the server component works
-  const ArchiveComponent = STYLE_COMPONENTS[archiveStyle]
-
-  // Render the selected style component with the props
-  return <ArchiveComponent {...props} />
-}
-
-// Create a wrapper component specifically for Storybook that matches the exact structure
-// of the original component but can be rendered in a client environment
-const ArchiveBlockWrapper: React.FC<
-  ArchiveBlockProps & {
-    id?: string
-    archiveStyle?: 'card' | 'list' | 'grid'
-  }
-> = (props) => {
-  const {
-    id,
-    introContent,
-    selectedDocs,
-    populateBy,
-    relationTo,
-    categories,
-    archiveStyle = 'card',
-  } = props
-
-  // Create mock data similar to what the server component would receive
-  const mockPosts =
-    selectedDocs && selectedDocs.length > 0
-      ? selectedDocs
-          .map((doc) => (typeof doc.value === 'object' ? doc.value : null))
-          .filter(Boolean as any)
-      : mockArchivePosts.docs
-
-  // Filter posts by category if we're in the "WithCategories" story
   const filteredPosts =
-    categories && categories.length > 0 && populateBy === 'collection'
-      ? mockPosts.filter(
-          (post) =>
-            post &&
-            post.categories?.some((cat: any) =>
-              categories.some(
-                (c) =>
-                  (typeof c === 'object' && typeof cat === 'object' && c.id === cat.id) ||
-                  (typeof c === 'string' && typeof cat === 'string' && c === cat),
-              ),
+    categories?.length && populateBy === 'collection'
+      ? mockPosts.filter((post) =>
+          post?.categories?.some((cat: any) =>
+            categories.some(
+              (c) =>
+                (typeof c === 'object' && typeof cat === 'object' && c.id === cat.id) ||
+                (typeof c === 'string' && typeof cat === 'string' && c === cat),
             ),
+          ),
         )
       : mockPosts
 
-  const displayPosts = filteredPosts.length > 0 ? filteredPosts : mockPosts
+  const displayPosts = filteredPosts.length ? filteredPosts : mockPosts
 
-  // Create paginated mock results similar to what the server component would receive
   const mockResults: PaginatedDocs<Post> = {
     docs: displayPosts as Post[],
     totalDocs: displayPosts.length,
@@ -98,58 +123,18 @@ const ArchiveBlockWrapper: React.FC<
   }
 
   return (
-    <>
-      {/* This is the actual output structure that matches the original component */}
-      <div className="my-16" id={`block-${id}`}>
-        {introContent && (
-          <div className="container mb-16">
-            <RichText className="ml-0 max-w-[48rem]" data={introContent} enableGutter={false} />
-          </div>
-        )}
-        {/* Use our mock CollectionArchive with the specified style */}
-        <MockCollectionArchive items={mockResults} type="post" archiveStyle={archiveStyle} />
-      </div>
-    </>
+    <div className="my-16" id={`block-${id}`}>
+      {introContent && (
+        <div className="container mb-16">
+          <RichText className="ml-0 max-w-[48rem]" data={introContent} enableGutter={false} />
+        </div>
+      )}
+      <MockCollectionArchive items={mockResults} type="post" archiveStyle={archiveStyle} />
+    </div>
   )
 }
 
-const meta: Meta<typeof ArchiveBlockWrapper> = {
-  title: 'Blocks/Archive',
-  component: ArchiveBlockWrapper,
-  parameters: {
-    layout: 'padded',
-    // Enable App Router compatibility for this story
-    nextjs: {
-      appDirectory: true,
-    },
-  },
-  tags: ['autodocs'],
-}
-
-export default meta
-type Story = StoryObj<typeof ArchiveBlockWrapper>
-
-const mockRichText = {
-  root: {
-    type: 'root',
-    children: [
-      {
-        type: 'paragraph',
-        children: [{ text: '📚 Archive Block Introduction Content', type: 'text', version: 1 }],
-        direction: 'ltr' as const,
-        format: '' as const,
-        indent: 0,
-        version: 1,
-      },
-    ],
-    direction: 'ltr' as const,
-    format: '' as const,
-    indent: 0,
-    version: 1,
-  },
-}
-
-// Create posts with different categories to better demonstrate filtering
+// Mock Data
 const mockArchivePosts: PaginatedDocs<Post> = {
   docs: [
     {
@@ -158,20 +143,9 @@ const mockArchivePosts: PaginatedDocs<Post> = {
       slug: 'getting-started-with-react',
       createdAt: '2023-01-01',
       updatedAt: '2023-01-01',
-      content: mockRichText,
+      content: createMockRichText('Getting started with React development'),
       meta: {
-        image: {
-          id: '1',
-          url: '/website-template-OG.webp',
-          filename: 'website-template-OG.webp',
-          mimeType: 'image/webp',
-          filesize: 12345,
-          width: 800,
-          height: 600,
-          createdAt: '2023-01-01',
-          updatedAt: '2023-01-01',
-          alt: 'Website Template',
-        },
+        image: createMockImage('1'),
         description: 'Getting started with React development',
       },
       categories: [
@@ -190,20 +164,9 @@ const mockArchivePosts: PaginatedDocs<Post> = {
       slug: 'advanced-typescript-patterns',
       createdAt: '2023-01-02',
       updatedAt: '2023-01-02',
-      content: mockRichText,
+      content: createMockRichText('Advanced patterns in TypeScript development'),
       meta: {
-        image: {
-          id: '2',
-          url: '/website-template-OG.webp',
-          filename: 'website-template-OG.webp',
-          mimeType: 'image/webp',
-          filesize: 12345,
-          width: 800,
-          height: 600,
-          createdAt: '2023-01-02',
-          updatedAt: '2023-01-02',
-          alt: 'Website Template',
-        },
+        image: createMockImage('2'),
         description: 'Advanced patterns in TypeScript development',
       },
       categories: [
@@ -216,118 +179,9 @@ const mockArchivePosts: PaginatedDocs<Post> = {
         },
       ],
     },
-    {
-      id: '3',
-      title: 'Building with Next.js',
-      slug: 'building-with-nextjs',
-      createdAt: '2023-01-03',
-      updatedAt: '2023-01-03',
-      content: mockRichText,
-      meta: {
-        image: {
-          id: '3',
-          url: '/website-template-OG.webp',
-          filename: 'website-template-OG.webp',
-          mimeType: 'image/webp',
-          filesize: 12345,
-          width: 800,
-          height: 600,
-          createdAt: '2023-01-03',
-          updatedAt: '2023-01-03',
-          alt: 'Website Template',
-        },
-        description: 'Guide to building applications with Next.js',
-      },
-      categories: [
-        {
-          id: '3',
-          title: 'Next.js',
-          type: 'post',
-          createdAt: '2023-01-03',
-          updatedAt: '2023-01-03',
-        },
-      ],
-    },
-    {
-      id: '4',
-      title: 'CSS Grid Layouts',
-      slug: 'css-grid-layouts',
-      createdAt: '2023-01-04',
-      updatedAt: '2023-01-04',
-      content: mockRichText,
-      meta: {
-        image: {
-          id: '4',
-          url: '/website-template-OG.webp',
-          filename: 'website-template-OG.webp',
-          mimeType: 'image/webp',
-          filesize: 12345,
-          width: 800,
-          height: 600,
-          createdAt: '2023-01-04',
-          updatedAt: '2023-01-04',
-          alt: 'Website Template',
-        },
-        description: 'Understanding CSS Grid layouts',
-      },
-      categories: [
-        {
-          id: '1',
-          title: 'Development',
-          type: 'post',
-          createdAt: '2023-01-01',
-          updatedAt: '2023-01-01',
-        },
-        {
-          id: '4',
-          title: 'CSS',
-          type: 'post',
-          createdAt: '2023-01-04',
-          updatedAt: '2023-01-04',
-        },
-      ],
-    },
-    {
-      id: '5',
-      title: 'Server Components in Next.js',
-      slug: 'server-components-nextjs',
-      createdAt: '2023-01-05',
-      updatedAt: '2023-01-05',
-      content: mockRichText,
-      meta: {
-        image: {
-          id: '5',
-          url: '/website-template-OG.webp',
-          filename: 'website-template-OG.webp',
-          mimeType: 'image/webp',
-          filesize: 12345,
-          width: 800,
-          height: 600,
-          createdAt: '2023-01-05',
-          updatedAt: '2023-01-05',
-          alt: 'Website Template',
-        },
-        description: 'Deep dive into Next.js Server Components',
-      },
-      categories: [
-        {
-          id: '2',
-          title: 'TypeScript',
-          type: 'post',
-          createdAt: '2023-01-02',
-          updatedAt: '2023-01-02',
-        },
-        {
-          id: '3',
-          title: 'Next.js',
-          type: 'post',
-          createdAt: '2023-01-03',
-          updatedAt: '2023-01-03',
-        },
-      ],
-    },
+    // Add more mock posts as needed...
   ],
-  totalDocs: 5,
+  totalDocs: 2,
   limit: 10,
   totalPages: 1,
   page: 1,
@@ -338,28 +192,24 @@ const mockArchivePosts: PaginatedDocs<Post> = {
   nextPage: null,
 }
 
-// Define properly typed mock categories
-const mockCategories: Category[] = [
-  {
-    id: '1',
-    title: 'Development',
-    type: 'post',
-    createdAt: '2023-01-01',
-    updatedAt: '2023-01-01',
+// Storybook Configuration
+const meta = {
+  title: 'Blocks/Archive',
+  component: ArchiveBlockWrapper,
+  parameters: {
+    layout: 'padded',
+    // Enable App Router compatibility for this story
+    nextjs: {
+      appDirectory: true,
+    },
   },
-  {
-    id: '2',
-    title: 'TypeScript',
-    type: 'post',
-    createdAt: '2023-01-02',
-    updatedAt: '2023-01-02',
-  },
-]
+  tags: ['autodocs'],
+} satisfies Meta<typeof ArchiveBlockWrapper>
 
-// Subset of posts for selection mode - make sure these are non-null
-const selectedPostsMock = [mockArchivePosts.docs[1], mockArchivePosts.docs[3]]
+export default meta
+type Story = StoryObj<typeof ArchiveBlockWrapper>
 
-// CARD STYLE STORIES
+// Stories
 export const CardStyle: Story = {
   args: {
     id: 'archive-block-card',
@@ -367,26 +217,11 @@ export const CardStyle: Story = {
     relationTo: 'posts',
     populateBy: 'collection',
     limit: 5,
-    introContent: mockRichText,
+    introContent: createMockRichText('📚 Archive Block Introduction Content'),
     archiveStyle: 'card',
   },
 }
 
-export const CardStyleSelected: Story = {
-  args: {
-    id: 'archive-block-card-selected',
-    blockType: 'archive',
-    populateBy: 'selection',
-    introContent: mockRichText,
-    selectedDocs: selectedPostsMock.map((post) => ({
-      relationTo: 'posts',
-      value: post,
-    })) as any,
-    archiveStyle: 'card',
-  },
-}
-
-// LIST STYLE STORIES
 export const ListStyle: Story = {
   args: {
     id: 'archive-block-list',
@@ -394,25 +229,11 @@ export const ListStyle: Story = {
     relationTo: 'posts',
     populateBy: 'collection',
     limit: 5,
-    introContent: mockRichText,
+    introContent: createMockRichText('📚 Archive Block List Style'),
     archiveStyle: 'list',
   },
 }
 
-export const ListStyleWithCategories: Story = {
-  args: {
-    id: 'archive-block-list-with-categories',
-    blockType: 'archive',
-    relationTo: 'posts',
-    populateBy: 'collection',
-    limit: 5,
-    introContent: mockRichText,
-    categories: mockCategories,
-    archiveStyle: 'list',
-  },
-}
-
-// GRID STYLE STORIES
 export const GridStyle: Story = {
   args: {
     id: 'archive-block-grid',
@@ -420,18 +241,15 @@ export const GridStyle: Story = {
     relationTo: 'posts',
     populateBy: 'collection',
     limit: 5,
-    introContent: mockRichText,
+    introContent: createMockRichText('📚 Archive Block Grid Style'),
     archiveStyle: 'grid',
   },
 }
 
-export const GridStyleNoIntro: Story = {
+export const NoIntro: Story = {
   args: {
-    id: 'archive-block-grid-no-intro',
-    blockType: 'archive',
-    relationTo: 'posts',
-    populateBy: 'collection',
-    limit: 5,
-    archiveStyle: 'grid',
+    ...GridStyle.args,
+    id: 'archive-block-no-intro',
+    introContent: undefined,
   },
 }
