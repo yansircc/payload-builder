@@ -1132,7 +1132,10 @@ export interface Hero32Fields {
    */
   link: {
     type?: ('reference' | 'custom' | 'popup') | null;
-    newTab?: boolean | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     reference?:
       | ({
           relationTo: 'pages';
@@ -1147,10 +1150,7 @@ export interface Hero32Fields {
     label: string;
     prefixIcon?: string | null;
     suffixIcon?: string | null;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+    newTab?: boolean | null;
   };
   /**
    * Integration images (exactly 15)
@@ -9127,14 +9127,14 @@ export interface Hero32FieldsSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        newTab?: T;
+        appearance?: T;
         reference?: T;
         url?: T;
         popup?: T;
         label?: T;
         prefixIcon?: T;
         suffixIcon?: T;
-        appearance?: T;
+        newTab?: T;
       };
   integrations?:
     | T
