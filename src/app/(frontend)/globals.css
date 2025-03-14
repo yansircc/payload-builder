@@ -191,7 +191,7 @@
     --accent: hsl(0 100% 60%);
     --accent-foreground: hsl(0 0% 100%);
     --secondary: hsl(60 100% 50%);
-    --secondary-foreground: hsl(0 0% 0%);
+    --secondary-foreground: hsl(0 0% 100%);
     --border: hsl(0 0% 100%);
   }
 

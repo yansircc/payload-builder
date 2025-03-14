@@ -100,7 +100,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         <CardHeader className="pt-20 px-8">
           <div className="space-y-2">
             <h1 className="text-3xl sm:text-4xl font-bold">{author.username}</h1>
-            <p className="text-xl text-primary">{author.title}</p>
+            <p className="text-xl">{author.title}</p>
           </div>
         </CardHeader>
 
