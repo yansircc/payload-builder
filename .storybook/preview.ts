@@ -60,6 +60,14 @@ const preview: Preview = {
         },
       },
     },
+    // Enable Next.js App Router support
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/',
+        segments: [],
+      },
+    },
     // Apply theme to the HTML element
     docs: {},
   },

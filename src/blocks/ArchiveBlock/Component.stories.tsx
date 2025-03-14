@@ -15,9 +15,8 @@ import { ArchiveBlock as ArchiveBlockProps, Category, Post } from '@/payload-typ
  * and server-side data fetching, which isn't directly compatible with Storybook.
  * The CollectionArchive component it uses is also a server component.
  *
- * This file creates wrappers that simulate the output of these server components
- * with a structure that closely matches the original components, while using
- * the actual Style components from their proper locations.
+ * This file creates a client-side wrapper that mimics the structure of the server component
+ * while using the original style components with proper Next.js mocking.
  */
 
 // Define the style components mapping exactly like the original CollectionArchive
@@ -147,6 +146,10 @@ const meta: Meta<typeof ArchiveBlockWrapper> = {
   component: ArchiveBlockWrapper,
   parameters: {
     layout: 'padded',
+    // Enable App Router compatibility for this story
+    nextjs: {
+      appDirectory: true,
+    },
   },
   tags: ['autodocs'],
 }
