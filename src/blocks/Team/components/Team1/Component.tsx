@@ -16,9 +16,9 @@ export default function Team1({ team }: Team1Fields) {
       <div className="container mt-16">
         <div
           className={clsx('grid gap-x-8 gap-y-16', {
-            'grid-cols-2 max-w-2xl mx-auto': people?.length === 2,
-            'grid-cols-3 max-w-3xl mx-auto': people?.length === 3,
-            'grid-cols-1 md:grid-cols-2 lg:grid-cols-4': people!.length >= 4,
+            'grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto': people?.length === 2,
+            'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-3xl mx-auto': people?.length === 3,
+            'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4': people!.length >= 4,
           })}
         >
           {people?.map((person) => (
