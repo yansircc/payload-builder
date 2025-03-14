@@ -1,6 +1,5 @@
 import type { Field, GroupField } from 'payload'
 import deepMerge from '@/utilities/deepMerge'
-import { icon } from './icon'
 
 export type LinkAppearances = 'default' | 'secondary' | 'outline' | 'ghost' | 'link'
 
@@ -26,6 +25,7 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
     value: 'link',
   },
 }
+
 type LinkUIEnhancements = {
   image?: boolean
   title?: boolean
@@ -33,6 +33,7 @@ type LinkUIEnhancements = {
   description?: boolean
   icons?: boolean
 }
+
 type LinkType = (options?: {
   name?: string
   label?: string
@@ -57,12 +58,10 @@ export const link: LinkType = ({
   overrides = {},
 } = {}) => {
   const linkResult: GroupField = {
-    name: name,
-    label: label,
+    name,
+    label,
     type: 'group',
-    admin: {
-      hideGutter: true,
-    },
+    admin: { hideGutter: true },
     fields: [
       {
         type: 'row',
@@ -70,36 +69,31 @@ export const link: LinkType = ({
           {
             name: 'type',
             type: 'select',
-            admin: {
-              width: '50%',
-            },
+            admin: { width: '50%' },
             defaultValue: 'reference',
             options: [
-              {
-                label: 'Internal link',
-                value: 'reference',
-              },
-              {
-                label: 'Custom URL',
-                value: 'custom',
-              },
-              {
-                label: 'Popup',
-                value: 'popup',
-              },
+              { label: 'Internal link', value: 'reference' },
+              { label: 'Custom URL', value: 'custom' },
+              { label: 'Popup', value: 'popup' },
             ],
           },
           {
-            name: 'newTab',
-            type: 'checkbox',
+            name: 'appearance', // Moved here
+            type: 'select',
             admin: {
-              condition: (_, siblingData) => siblingData?.type !== 'popup',
-              style: {
-                alignSelf: 'flex-end',
-              },
+              description: 'Choose how the link should be rendered.',
               width: '50%',
             },
-            label: 'Open in new tab',
+            defaultValue: 'default',
+            options: appearances
+              ? appearances.map((appearance) => appearanceOptions[appearance])
+              : [
+                  appearanceOptions.default,
+                  appearanceOptions.secondary,
+                  appearanceOptions.outline,
+                  appearanceOptions.ghost,
+                  appearanceOptions.link,
+                ],
           },
         ],
       },
@@ -130,23 +124,13 @@ export const link: LinkType = ({
       name: 'popup',
       type: 'relationship',
       relationTo: 'popups',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'popup',
-      },
+      admin: { condition: (_, siblingData) => siblingData?.type === 'popup' },
       label: 'Select Popup',
       required: true,
     },
   ]
 
   if (!disableLabel) {
-    linkTypes.map((linkType) => ({
-      ...linkType,
-      admin: {
-        ...linkType.admin,
-        width: '50%',
-      },
-    }))
-
     linkResult.fields.push({
       type: 'row',
       fields: [
@@ -166,53 +150,54 @@ export const link: LinkType = ({
     linkResult.fields = [...linkResult.fields, ...linkTypes]
   }
 
-  // Add appearance and icons in the same row
-  const rowFields: Field[] = []
-
-  if (appearances !== false) {
-    let appearanceOptionsToUse = [
-      appearanceOptions.default,
-      appearanceOptions.secondary,
-      appearanceOptions.outline,
-      appearanceOptions.ghost,
-      appearanceOptions.link,
-    ]
-
-    if (appearances) {
-      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
-    }
-
-    rowFields.push({
-      name: 'appearance',
-      type: 'select',
-      admin: {
-        description: 'Choose how the link should be rendered.',
-        width: '50%',
-      },
-      defaultValue: 'default',
-      options: appearanceOptionsToUse,
-    })
-  }
+  const advancedFields: Field[] = []
 
   if (ui.icons) {
-    // Add icon fields
-    linkResult.fields.push({
+    advancedFields.push({
       type: 'row',
       fields: [
-        icon({
+        {
           name: 'prefixIcon',
+          type: 'text', // Use 'text' or proper type for the icon
+          admin: {
+            width: '50%',
+          },
           label: 'Prefix Icon',
-        }),
-        icon({
+        },
+        {
           name: 'suffixIcon',
+          type: 'text', // Use 'text' or proper type for the icon
+          admin: {
+            width: '50%',
+          },
           label: 'Suffix Icon',
-        }),
+        },
       ],
     })
   }
 
+  // Moved 'Open in new tab' to Advanced section
+  advancedFields.push({
+    name: 'newTab',
+    type: 'checkbox',
+    admin: {
+      condition: (_, siblingData) => siblingData?.type !== 'popup',
+      style: { alignSelf: 'flex-end' },
+      width: '50%',
+    },
+    label: 'Open in new tab',
+  })
+
+  if (advancedFields.length > 0) {
+    linkResult.fields.push({
+      type: 'collapsible',
+      label: 'Advanced',
+      admin: { initCollapsed: true },
+      fields: advancedFields,
+    })
+  }
+
   if (ui.image) {
-    // Add image link
     linkResult.fields.push({
       type: 'row',
       fields: [
@@ -220,16 +205,13 @@ export const link: LinkType = ({
           name: 'image',
           type: 'upload',
           relationTo: 'media',
-          admin: {
-            description: 'Image URL for the link',
-          },
+          admin: { description: 'Image URL for the link' },
         },
       ],
     })
   }
 
   if (ui.title) {
-    // Add image link
     linkResult.fields.push({
       type: 'row',
       fields: [
@@ -245,7 +227,6 @@ export const link: LinkType = ({
   }
 
   if (ui.subtitle) {
-    // Add image link
     linkResult.fields.push({
       type: 'row',
       fields: [
@@ -261,7 +242,6 @@ export const link: LinkType = ({
   }
 
   if (ui.description) {
-    // Add image link
     linkResult.fields.push({
       type: 'row',
       fields: [
@@ -273,13 +253,6 @@ export const link: LinkType = ({
           },
         },
       ],
-    })
-  }
-
-  if (rowFields.length > 0) {
-    linkResult.fields.push({
-      type: 'row',
-      fields: rowFields,
     })
   }
 
