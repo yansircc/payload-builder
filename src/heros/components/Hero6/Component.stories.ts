@@ -60,7 +60,7 @@ const defaultArgs: Hero6Fields = {
         type: 'custom',
         label: 'View Demo',
         url: '#',
-        appearance: 'link',
+        appearance: 'outline',
         suffixIcon: 'ArrowRight',
       },
     },
