@@ -6,7 +6,7 @@ import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero34({ badge, title, subtitle, links, image }: Hero34Fields) {
   return (
-    <section className="py-section md:py-section-md lg:py-section-lg">
+    <section>
       <div className="container">
         <div className="w-full overflow-hidden rounded-lg bg-accent/50 2xl:w-[calc(min(100vw-2*theme(container.padding),100%+8rem))]">
           <div className="grid items-center gap-8 lg:grid-cols-2">
