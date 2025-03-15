@@ -17,14 +17,14 @@ export class PostPage {
   readonly postContent: Locator
   readonly publishButton: Locator
 
-  // Post Duplication
+  // Duplicate Post
   readonly toastMessage: Locator
   readonly postCellTitle: Locator
   readonly postCellSlug: Locator
   readonly kebabButton: Locator
   readonly duplicatePostButton: Locator
 
-  // Post deletion
+  // Delete Post
   readonly deleteButton: Locator
   readonly confirmDeleteDialog: Locator
   readonly confirmDeleteButton: Locator
@@ -48,13 +48,13 @@ export class PostPage {
     this.publishButton = this.page.getByRole('button', { name: 'Publish changes' })
     this.toastMessage = this.page.locator('[class="toast-title"]')
 
-    // Post Duplication
+    // Duplicate Post
     this.postCellTitle = this.page.locator('[class="cell-title"]')
     this.postCellSlug = this.page.locator('[class="cell-slug"]')
     this.kebabButton = this.page.locator('[class="doc-controls__dots"]')
     this.duplicatePostButton = this.page.getByRole('button', { name: 'Duplicate' })
 
-    // Post deletion
+    // Delete Post
     this.deleteButton = this.page.getByRole('button', { name: 'Delete' })
     this.confirmDeleteDialog = this.page.getByRole('heading', { name: 'Confirm deletion' })
     this.confirmDeleteButton = this.page.getByRole('button', { name: 'Confirm' })

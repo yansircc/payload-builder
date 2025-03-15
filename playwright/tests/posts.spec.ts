@@ -16,11 +16,11 @@ test.describe('Posts Test Cases', () => {
     await post.createPost()
   })
 
-  test('Duplicate a Post', async () => {
+  test('Duplicate the Post', async () => {
     await post.duplicatePost()
   })
 
-  test('Delete a Post', async () => {
+  test('Delete the Post', async () => {
     await post.deletePost()
   })
 })

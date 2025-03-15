@@ -34,8 +34,8 @@
     "docker:build": "sh scripts/docker-build.sh",
     "docker:build:local": "sh scripts/docker-build-local.sh",
     "generate:translations": "bun generate:types && bun run scripts/generate-translations/index.ts",
+    "pw": "bun playwright test",
     "pw:open": "bun playwright test --ui",
-    "pw:run": "bun playwright test",
     "postinstall": "patch-package",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

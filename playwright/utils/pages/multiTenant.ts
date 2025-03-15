@@ -100,7 +100,6 @@ export class TenantPage {
     await expect(this.page).toHaveURL(/.*tenants.*/)
     await this.searchFilter.fill(tenantData.name)
     await expect(this.pagination).toHaveText('1-2 of 2')
-    //await this.checkbox.click()
     await this.allCheckboxButton.click()
     await this.deleteButton.click()
     await expect(this.confirmDeleteDialog).toBeVisible()

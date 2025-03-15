@@ -4,9 +4,10 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export default defineConfig({
+  timeout: 60 * 1000,
   testDir: './playwright/tests',
   outputDir: './playwright/artifacts/test-results',
-  reporter: [['line', { outputFolder: './playwright/artifacts/test-reports' }]],
+  reporter: [['line'], ['html', { outputFolder: './playwright/artifacts/test-reports' }]],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
