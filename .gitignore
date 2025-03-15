@@ -34,8 +34,9 @@ migrations/
 *storybook.log
 
 # Playwright
-/test-results/
-/playwright-report/
+.auth
+test-results
+test-reports
 /blob-report/
 /playwright/.cache/
 

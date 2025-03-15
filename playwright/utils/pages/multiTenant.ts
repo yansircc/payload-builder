@@ -66,7 +66,7 @@ export class TenantPage {
 
   async goToTenants() {
     await this.tenantButton.click()
-    await expect(this.page).toHaveURL(/.*tenants.*/)
+    await this.page.waitForURL(/.*tenants.*/)
     if (await this.clearTenant.elementHandle()) {
       await this.clearTenant.click()
       await this.page.waitForLoadState('networkidle')
@@ -85,9 +85,9 @@ export class TenantPage {
 
   async duplicateTenant() {
     await this.searchFilter.fill(tenantData.name)
-    await this.page.waitForLoadState('networkidle')
-    await this.page.waitForLoadState('load')
-    await this.page.waitForLoadState('domcontentloaded')
+    // await this.page.waitForLoadState('networkidle')
+    // await this.page.waitForLoadState('load')
+    // await this.page.waitForLoadState('domcontentloaded')
     await expect(this.pagination).toHaveText('1-1 of 1')
     await expect(this.tenantCellName).toHaveText(tenantData.name)
     await expect(this.tenantCellDomain).toHaveText(tenantData.domain)
