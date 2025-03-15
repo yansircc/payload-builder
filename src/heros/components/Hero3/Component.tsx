@@ -59,7 +59,7 @@ export default function Hero3({
                     typeof link === 'object' && (
                       <CMSLink
                         key={key}
-                        className="inline-flex w-full items-center transition-button hover:scale-button-hover sm:w-auto"
+                        className="inline-flex w-full items-center sm:w-auto"
                         {...link}
                       />
                     ),
@@ -74,11 +74,12 @@ export default function Hero3({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex bg-muted"
+            className="flex"
           >
             <Media
               resource={image}
-              className="max-h-[600px] w-full rounded-md object-cover shadow-card lg:max-h-[800px]"
+              className="max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]"
+              imgClassName="rounded-md w-full h-full object-cover"
             />
           </ClientMotionDiv>
         )}
