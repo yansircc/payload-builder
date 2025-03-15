@@ -9,7 +9,7 @@ export default function CTA3({ title, subtitle, buttons, list }: CTA3Fields) {
   return (
     <section className="py-32">
       <div className="container">
-        <div className="grid grid-cols-1 flex-col gap-10 rounded-lg border p-6 shadow-sm lg:grid-cols-2 lg:px-20 lg:py-16">
+        <div className="grid grid-cols-1 flex-col gap-10 rounded-lg bg-card border p-6 shadow-sm lg:grid-cols-2 lg:px-20 lg:py-16">
           <div>
             <h4 className="mb-2 text-2xl font-bold lg:text-4xl">{title}</h4>
             {subtitle && <p className="text-muted-foreground">{subtitle}</p>}
@@ -47,7 +47,7 @@ export default function CTA3({ title, subtitle, buttons, list }: CTA3Fields) {
             >
               {list.map((item, index) => (
                 <Link key={index} href={item.link?.url || ''} className="block">
-                  <Card className="flex bg-white items-center justify-between gap-2 px-6 py-4 shadow-none hover:bg-accent">
+                  <Card className="flex bg-card items-center justify-between gap-2 px-6 py-4 shadow-none">
                     <div className="flex items-start gap-2">
                       {item.link.prefixIcon && (
                         <DynamicIcon name={item.link.prefixIcon} className="size-4" />

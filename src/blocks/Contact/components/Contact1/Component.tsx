@@ -55,11 +55,11 @@ export default function Contact1({ contact }: Contact1Fields) {
         <div className="flex w-full justify-center lg:mt-2.5">
           <div className="relative flex w-full min-w-[20rem] max-w-[30rem] flex-col items-center overflow-visible md:min-w-[24rem]">
             <div className="w-full z-10 space-y-6">
-              <div className="w-full space-y-6 rounded-xl border border-border bg-background px-6 py-10 shadow-sm">
+              <div className="w-full space-y-6 rounded-xl border border-border bg-background px-6 py-10 shadow-sm [.theme-neon_&]:bg-white [.theme-neon_&]:border-primary/30">
                 <Form
                   fields={form?.fields || []}
                   submitLabel={form?.submitButton?.label}
-                  className="flex flex-col gap-6"
+                  className="flex flex-col gap-6 text-foreground [.theme-neon_&]:text-black [.theme-neon_&]:placeholder-black/60"
                 />
               </div>
             </div>

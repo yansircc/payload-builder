@@ -3,6 +3,7 @@ import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Avatar } from '@/components/ui/avatar'
 import type { Hero3Fields } from '@/payload-types'
+import { getClientSideURL } from '@/utilities/getURL'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero3({
@@ -14,8 +15,15 @@ export default function Hero3({
   rating,
   reviewCount,
 }: Hero3Fields) {
+  const imageSrc =
+    typeof image === 'string'
+      ? image
+      : image
+        ? `${getClientSideURL()}${image.url}?${image.updatedAt}`
+        : ''
+
   return (
-    <section className="py-section md:py-section-md lg:py-section-lg">
+    <section>
       <div className="container grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
         <ClientMotionDiv
           initial={{ opacity: 0, y: 20 }}
@@ -59,7 +67,7 @@ export default function Hero3({
                     typeof link === 'object' && (
                       <CMSLink
                         key={key}
-                        className="inline-flex w-full items-center transition-button hover:scale-button-hover sm:w-auto"
+                        className="inline-flex w-full items-center sm:w-auto"
                         {...link}
                       />
                     ),
@@ -69,16 +77,18 @@ export default function Hero3({
           </div>
         </ClientMotionDiv>
 
-        {image && (
+        {imageSrc && (
           <ClientMotionDiv
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex bg-muted"
+            className="flex"
           >
-            <Media
-              resource={image}
-              className="max-h-[600px] w-full rounded-md object-cover shadow-card lg:max-h-[800px]"
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={imageSrc}
+              alt="placeholder hero"
+              className="max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]"
             />
           </ClientMotionDiv>
         )}

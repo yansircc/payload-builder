@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
@@ -9,6 +10,14 @@ import { ClientMotionDiv } from '../shared/motion'
 export default function Hero12({ logo, badge, partners, title, subtitle, links }: Hero12Fields) {
   return (
     <section className="relative overflow-hidden py-section md:py-section-md lg:py-section-lg">
+      <div className="absolute inset-x-0 top-0 flex h-full w-full items-center justify-center opacity-100">
+        <Image
+          alt="background"
+          fill
+          src="https://shadcnblocks.com/images/block/hero12/background.svg"
+          className="[mask-image:radial-gradient(ellipse_at_center,white,transparent)]"
+        />
+      </div>
       <div className="container">
         <div className="magicpattern absolute inset-x-0 top-0 -z-10 flex h-full w-full items-center justify-center opacity-100" />
         <div className="mx-auto flex max-w-5xl flex-col items-center">

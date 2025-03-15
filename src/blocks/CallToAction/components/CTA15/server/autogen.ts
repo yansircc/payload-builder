@@ -33,17 +33,17 @@ type CTA15Data = z.infer<typeof cta15Schema>
 
 // Default configurations that match our schema
 const DEFAULT_PRIMARY_BUTTON = {
-  type: 'custom' as const,
+  type: 'custom',
   url: '#',
   suffixIcon: 'ArrowRight',
-  appearance: 'default' as const,
+  appearance: 'default',
 } as const
 
 const DEFAULT_SECONDARY_BUTTON = {
-  type: 'custom' as const,
+  type: 'custom',
   url: '#',
   suffixIcon: 'ArrowRight',
-  appearance: 'ghost' as const,
+  appearance: 'ghost',
 } as const
 
 /**

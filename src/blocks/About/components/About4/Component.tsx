@@ -17,9 +17,12 @@ export default function About4({
         </div>
 
         <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-          {gallerySection?.images?.map((image, index) => (
-            <Media key={index} resource={image.image} imgClassName="h-80 w-full object-cover" />
-          ))}
+          {gallerySection?.images?.map(
+            (image, index) =>
+              image.image && (
+                <Media key={index} resource={image.image} imgClassName="h-80 w-full object-cover" />
+              ),
+          )}
         </div>
 
         <div className="mx-auto grid max-w-screen-lg gap-28 py-28 md:grid-cols-2">
@@ -37,9 +40,11 @@ export default function About4({
           </div>
         </div>
 
-        <div className="mx-auto flex max-w-screen-lg flex-col items-center justify-between gap-8 rounded-2xl bg-muted/50 p-14 text-center md:flex-row md:text-left">
-          <h3 className="text-3xl font-semibold whitespace-pre-line">{ctaSection.title}</h3>
-          <CMSLink {...ctaSection.button} />
+        <div className="mx-auto flex max-w-screen-lg flex-col items-center justify-between gap-8 rounded-2xl bg-card/1 p-14 text-center md:flex-row md:text-left [.theme-neon_&]:bg-black/95 [.theme-neon_&]:border-primary/30 border border-border/100">
+          <h3 className="text-3xl font-semibold whitespace-pre-line [.theme-neon_&]:text-white">
+            {ctaSection.title}
+          </h3>
+          <CMSLink {...ctaSection.button} appearance="default" size="lg" />
         </div>
       </div>
     </section>

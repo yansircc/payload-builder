@@ -6,9 +6,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import type { Logos3Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Logos3({ logos }: Logos3Fields) {
-  const { title, logos: logoItems } = logos
-
+export default function Logos3({ title, logos }: Logos3Fields) {
   return (
     <section className="relative overflow-hidden bg-background py-24 md:py-32">
       <div className="container flex flex-col items-center text-center">
@@ -27,7 +25,7 @@ export default function Logos3({ logos }: Logos3Fields) {
         <div className="relative mx-auto flex items-center justify-center lg:max-w-5xl">
           <Carousel opts={{ loop: true }} plugins={[AutoScroll({ playOnInit: true })]}>
             <CarouselContent className="ml-0">
-              {logoItems?.map((item, index) => (
+              {logos?.map((item, index) => (
                 <CarouselItem
                   key={item.id || index}
                   className="flex basis-1/3 justify-center pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6"

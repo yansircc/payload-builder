@@ -30,6 +30,14 @@ export const testimonial19Fields: GroupField = {
   },
   fields: [
     {
+      name: 'hideAuthorImages',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: 'Hide author images',
+      },
+    },
+    {
       name: 'heading',
       type: 'text',
       defaultValue: 'Meet our happy clients',

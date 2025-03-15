@@ -29,11 +29,11 @@ export default function Contact2({ contact }: Contact2Fields) {
               </ul>
             </div>
           </div>
-          <div className="mx-auto flex max-w-screen-md flex-col gap-6 rounded-lg border p-10">
+          <div className="mx-auto w-full max-w-lg flex flex-col gap-6 rounded-xl border p-12 bg-background [.theme-neon_&]:bg-white [.theme-neon_&]:border-primary/30">
             <Form
               fields={form?.fields || []}
               submitLabel={form?.submitButton?.label}
-              className="flex flex-col gap-6"
+              className="flex flex-col gap-8 text-foreground [.theme-neon_&]:text-black [.theme-neon_&]:placeholder-black/60"
             />
           </div>
         </div>

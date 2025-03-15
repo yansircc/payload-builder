@@ -19,7 +19,7 @@ export default function Style4({ data }: Style4Props) {
             <NavigationMenuLink
               key={item.id}
               href={item?.link?.url || '#'}
-              className="flex h-full flex-col overflow-clip rounded-lg border border-input bg-background p-5 hover:bg-accent hover:text-accent-foreground xl:p-8"
+              className="flex h-full flex-col overflow-clip rounded-lg border border-input bg-secondary/30 p-5 hover:bg-secondary/80 xl:p-8"
             >
               <div className="mb-8">
                 <DynamicIcon name="CircleCheckBig" className="size-6" />
@@ -42,7 +42,7 @@ export default function Style4({ data }: Style4Props) {
           <NavigationMenuLink
             key={item.id}
             href={item?.link?.url || '#'}
-            className="mb-6 flex overflow-clip rounded-lg border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+            className="mb-6 flex overflow-clip rounded-lg border border-input bg-secondary/30 hover:bg-secondary/80"
           >
             <div className="flex-1 p-5 xl:p-8">
               <div className="mb-2 text-base">{item.link?.title}</div>

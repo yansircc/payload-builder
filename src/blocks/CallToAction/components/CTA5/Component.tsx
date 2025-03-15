@@ -7,7 +7,7 @@ export default function CTA5({ title, subtitle, image, links }: CTA5Fields) {
   return (
     <section className="py-32">
       <div className="container">
-        <div className="flex w-full flex-col overflow-hidden rounded-lg border border-border bg-accent md:rounded-xl lg:flex-row lg:items-center">
+        <div className="flex w-full flex-col overflow-hidden rounded-lg border border-border bg-card md:rounded-xl lg:flex-row lg:items-center">
           <div className="w-full shrink-0 self-stretch lg:w-1/2">
             {image && (
               <Media

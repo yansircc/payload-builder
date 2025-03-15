@@ -15,8 +15,8 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
   }
 
   return (
-    <div className="container my-16">
-      <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16">
+    <div className="container py-24">
+      <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-12 gap-x-8 lg:gap-x-16">
         {columns &&
           columns.length > 0 &&
           columns.map((col, index) => {
@@ -24,14 +24,53 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
 
             return (
               <div
-                className={cn(`col-span-4 lg:col-span-${colsSpanClasses[size!]}`, {
-                  'md:col-span-2': size !== 'full',
-                })}
+                className={cn(
+                  `col-span-4 lg:col-span-${colsSpanClasses[size!]}`,
+                  'group p-6 rounded-xl transition-all duration-300 hover:bg-accent/5',
+                  'flex flex-col space-y-4',
+                  {
+                    'md:col-span-2': size !== 'full',
+                  },
+                )}
                 key={index}
               >
-                {richText && <RichText data={richText} enableGutter={false} />}
+                <div className="prose prose-lg dark:prose-invert text-muted-foreground">
+                  {richText && (
+                    <RichText
+                      data={richText}
+                      enableGutter={false}
+                      className="text-muted-foreground"
+                    />
+                  )}
+                </div>
 
-                {enableLink && <CMSLink {...link} />}
+                {enableLink && link && (
+                  <div className="mt-auto pt-4">
+                    <CMSLink
+                      {...link}
+                      className="group/link inline-flex items-center gap-2 text-muted-foreground hover:text-blue-600 transition-all duration-300 relative 
+                    after:absolute after:bottom-0 after:left-0 after:w-full after:h-px 
+                    after:bg-blue-600 after:origin-left after:scale-x-0 hover:after:scale-x-100 
+                    after:transition-transform after:duration-300"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="transform translate-x-0 group-hover/link:translate-x-1 transition-transform duration-300"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </CMSLink>
+                  </div>
+                )}
               </div>
             )
           })}

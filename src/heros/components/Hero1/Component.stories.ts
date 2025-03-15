@@ -3,7 +3,7 @@ import type { Hero1Fields } from '@/payload-types'
 import Hero1 from './Component'
 
 const meta = {
-  title: 'Sections/Hero1',
+  title: 'Sections/Hero/Hero1',
   component: Hero1,
   tags: ['autodocs'],
   parameters: {
@@ -14,7 +14,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof Hero1>
 
-const defaultHero: Hero1Fields = {
+const defaultArgs: Hero1Fields = {
   title: 'Modern Solutions for Growing Businesses',
   subtitle:
     'Empower your business with cutting-edge technology and innovative solutions that drive growth and success.',
@@ -49,20 +49,19 @@ const defaultHero: Hero1Fields = {
 }
 
 export const Default: Story = {
-  args: defaultHero,
+  args: defaultArgs,
 }
 
 export const WithoutSubtitle: Story = {
   args: {
-    title: 'Modern Solutions for Growing Businesses',
+    ...defaultArgs,
     subtitle: null,
   },
 }
 
 export const SingleButton: Story = {
   args: {
-    title: 'Modern Solutions for Growing Businesses',
-    subtitle: null,
+    ...defaultArgs,
     links: [
       {
         link: {
@@ -72,27 +71,20 @@ export const SingleButton: Story = {
           appearance: 'default',
         },
       },
-      {
-        link: {
-          type: 'custom',
-          label: 'Learn More',
-          url: '#',
-          appearance: 'outline',
-        },
-      },
     ],
   },
 }
 
 export const WithoutBadge: Story = {
   args: {
-    title: 'Modern Solutions for Growing Businesses',
-    subtitle: null,
+    ...defaultArgs,
+    badge: '',
   },
 }
 
 export const LongContent: Story = {
   args: {
+    ...defaultArgs,
     title: 'Transform Your Business with Enterprise-Grade Solutions and Expert Guidance',
     subtitle:
       "Experience the power of our comprehensive suite of tools and services designed to elevate your business operations, streamline workflows, and drive unprecedented growth in today's competitive market.",
@@ -105,7 +97,7 @@ export const Mobile: Story = {
       defaultViewport: 'mobile2',
     },
   },
-  args: defaultHero,
+  args: defaultArgs,
 }
 
 export const Tablet: Story = {
@@ -114,7 +106,7 @@ export const Tablet: Story = {
       defaultViewport: 'tablet',
     },
   },
-  args: defaultHero,
+  args: defaultArgs,
 }
 
 export const Desktop: Story = {
@@ -123,5 +115,5 @@ export const Desktop: Story = {
       defaultViewport: 'desktop',
     },
   },
-  args: defaultHero,
+  args: defaultArgs,
 }

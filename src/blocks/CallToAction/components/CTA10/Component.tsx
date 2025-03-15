@@ -6,7 +6,7 @@ export default function CTA10({ title, subtitle, links }: CTA10Fields) {
   return (
     <section className="py-32">
       <div className="container">
-        <div className="flex w-full flex-col gap-16 overflow-hidden rounded-lg bg-accent p-8 md:rounded-xl lg:flex-row lg:items-center lg:p-16">
+        <div className="flex w-full flex-col gap-16 overflow-hidden rounded-lg bg-card p-8 md:rounded-xl lg:flex-row lg:items-center lg:p-16">
           <div className="flex-1">
             <h3 className="mb-3 text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6">{title}</h3>
             {subtitle && <p className="text-muted-foreground lg:text-lg">{subtitle}</p>}

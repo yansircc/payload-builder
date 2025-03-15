@@ -6,9 +6,11 @@ export default function CTA17({ title, subtitle, links }: CTA17Fields) {
   return (
     <section className="py-32">
       <div className="container">
-        <div className='flex items-center justify-center rounded-2xl border bg-[url("https://shadcnblocks.com/images/block/circles.svg")] bg-cover bg-center px-8 py-20 text-center md:p-20'>
+        <div className="flex items-center justify-center rounded-2xl border bg-card bg-center px-8 py-20 text-center md:p-20">
           <div className="mx-auto max-w-screen-md">
-            <h1 className="mb-4 text-balance text-3xl font-semibold md:text-5xl">{title}</h1>
+            <h1 className="mb-4 text-foreground text-balance text-3xl font-semibold md:text-5xl">
+              {title}
+            </h1>
             <p className="text-muted-foreground md:text-lg">{subtitle}</p>
             {/* Links */}
             {links && links.length > 0 && (
