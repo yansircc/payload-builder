@@ -47,7 +47,7 @@ export default function Hero7({ title, subtitle, link, rating }: Hero7Fields) {
               {avatars.map(({ avatar }, index) => (
                 <Avatar key={index} className="size-14 border">
                   {avatar && typeof avatar === 'object' && (
-                    <Media resource={avatar} fill className="object-cover" />
+                    <Media resource={avatar} fill imgClassName="object-cover" />
                   )}
                 </Avatar>
               ))}

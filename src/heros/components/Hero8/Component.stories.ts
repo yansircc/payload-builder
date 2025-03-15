@@ -1,29 +1,28 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import type { Hero1Fields } from '@/payload-types'
-import Hero1 from './Component'
+import type { Hero8Fields } from '@/payload-types'
+import Hero8 from './Component'
 
 const meta = {
-  title: 'Sections/Hero/Hero1',
-  component: Hero1,
+  title: 'Sections/Hero/Hero8',
+  component: Hero8,
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof Hero1>
+} satisfies Meta<typeof Hero8>
 
 export default meta
-type Story = StoryObj<typeof Hero1>
+type Story = StoryObj<typeof Hero8>
 
-const defaultArgs: Hero1Fields = {
-  title: 'Modern Solutions for Growing Businesses',
+const defaultArgs: Hero8Fields = {
+  title: 'Build Better Products Faster',
   subtitle:
-    'Empower your business with cutting-edge technology and innovative solutions that drive growth and success.',
-  badge: 'New Features Available',
+    'Our platform provides everything you need to create, launch, and scale your digital products with confidence.',
   image: {
     id: 'mock-image-1',
-    alt: 'Business Growth Illustration',
-    width: 800,
-    height: 800,
+    alt: 'Product Dashboard',
+    width: 1400,
+    height: 700,
     url: '/website-template-OG.webp',
     updatedAt: '2024-03-20T00:00:00.000Z',
     createdAt: '2024-03-20T00:00:00.000Z',
@@ -35,6 +34,7 @@ const defaultArgs: Hero1Fields = {
         label: 'Get Started',
         url: '#',
         appearance: 'default',
+        suffixIcon: 'ChevronRight',
       },
     },
     {
@@ -43,6 +43,7 @@ const defaultArgs: Hero1Fields = {
         label: 'Learn More',
         url: '#',
         appearance: 'outline',
+        suffixIcon: 'ChevronRight',
       },
     },
   ],
@@ -69,25 +70,17 @@ export const SingleButton: Story = {
           label: 'Get Started',
           url: '#',
           appearance: 'default',
+          suffixIcon: 'ChevronRight',
         },
       },
     ],
   },
 }
 
-export const WithoutBadge: Story = {
-  args: {
-    ...defaultArgs,
-    badge: '',
-  },
-}
-
-export const LongContent: Story = {
+export const LongTitle: Story = {
   args: {
     ...defaultArgs,
     title: 'Transform Your Business with Enterprise-Grade Solutions and Expert Guidance',
-    subtitle:
-      "Experience the power of our comprehensive suite of tools and services designed to elevate your business operations, streamline workflows, and drive unprecedented growth in today's competitive market.",
   },
 }
 

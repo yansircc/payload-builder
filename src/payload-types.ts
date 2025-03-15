@@ -1131,14 +1131,26 @@ export interface Hero32Fields {
    * Hero button
    */
   link: {
+    type?: ('reference' | 'custom' | 'popup') | null;
     /**
-     * Button text
+     * Choose how the link should be rendered.
      */
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    popup?: (string | null) | Popup;
     label: string;
-    /**
-     * Button URL
-     */
-    url: string;
+    prefixIcon?: string | null;
+    suffixIcon?: string | null;
+    newTab?: boolean | null;
   };
   /**
    * Integration images (exactly 15)
@@ -9114,8 +9126,15 @@ export interface Hero32FieldsSelect<T extends boolean = true> {
   link?:
     | T
     | {
-        label?: T;
+        type?: T;
+        appearance?: T;
+        reference?: T;
         url?: T;
+        popup?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        newTab?: T;
       };
   integrations?:
     | T

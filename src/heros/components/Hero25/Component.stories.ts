@@ -1,29 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import type { Hero1Fields } from '@/payload-types'
-import Hero1 from './Component'
+import type { Hero25Fields } from '@/payload-types'
+import Hero25 from './Component'
 
 const meta = {
-  title: 'Sections/Hero/Hero1',
-  component: Hero1,
+  title: 'Sections/Hero/Hero25',
+  component: Hero25,
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof Hero1>
+} satisfies Meta<typeof Hero25>
 
 export default meta
-type Story = StoryObj<typeof Hero1>
+type Story = StoryObj<typeof Hero25>
 
-const defaultArgs: Hero1Fields = {
-  title: 'Modern Solutions for Growing Businesses',
-  subtitle:
-    'Empower your business with cutting-edge technology and innovative solutions that drive growth and success.',
-  badge: 'New Features Available',
-  image: {
-    id: 'mock-image-1',
-    alt: 'Business Growth Illustration',
-    width: 800,
-    height: 800,
+const defaultArgs: Hero25Fields = {
+  title: 'The Platform for Modern Development',
+  badge: 'New Release v3.0',
+  logo: {
+    id: 'company-logo',
+    alt: 'Company Logo',
+    width: 120,
+    height: 120,
     url: '/website-template-OG.webp',
     updatedAt: '2024-03-20T00:00:00.000Z',
     createdAt: '2024-03-20T00:00:00.000Z',
@@ -35,6 +33,7 @@ const defaultArgs: Hero1Fields = {
         label: 'Get Started',
         url: '#',
         appearance: 'default',
+        suffixIcon: 'MoveRight',
       },
     },
     {
@@ -46,16 +45,34 @@ const defaultArgs: Hero1Fields = {
       },
     },
   ],
+  features: [
+    {
+      icon: 'Zap',
+      title: 'Lightning Fast',
+    },
+    {
+      icon: 'Shield',
+      title: 'Secure by Default',
+    },
+    {
+      icon: 'BarChart',
+      title: 'Analytics Built-in',
+    },
+    {
+      icon: 'Cloud',
+      title: 'Cloud Native',
+    },
+  ],
 }
 
 export const Default: Story = {
   args: defaultArgs,
 }
 
-export const WithoutSubtitle: Story = {
+export const WithoutBadge: Story = {
   args: {
     ...defaultArgs,
-    subtitle: null,
+    badge: null,
   },
 }
 
@@ -69,25 +86,33 @@ export const SingleButton: Story = {
           label: 'Get Started',
           url: '#',
           appearance: 'default',
+          suffixIcon: 'MoveRight',
         },
       },
     ],
   },
 }
 
-export const WithoutBadge: Story = {
+export const FewerFeatures: Story = {
   args: {
     ...defaultArgs,
-    badge: '',
+    features: [
+      {
+        icon: 'Zap',
+        title: 'Lightning Fast',
+      },
+      {
+        icon: 'Shield',
+        title: 'Secure by Default',
+      },
+    ],
   },
 }
 
-export const LongContent: Story = {
+export const LongTitle: Story = {
   args: {
     ...defaultArgs,
-    title: 'Transform Your Business with Enterprise-Grade Solutions and Expert Guidance',
-    subtitle:
-      "Experience the power of our comprehensive suite of tools and services designed to elevate your business operations, streamline workflows, and drive unprecedented growth in today's competitive market.",
+    title: 'The Comprehensive Platform for Modern Development and Enterprise Solutions',
   },
 }
 

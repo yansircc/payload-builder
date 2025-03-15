@@ -1,29 +1,28 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import type { Hero1Fields } from '@/payload-types'
-import Hero1 from './Component'
+import type { Hero34Fields } from '@/payload-types'
+import Hero34 from './Component'
 
 const meta = {
-  title: 'Sections/Hero/Hero1',
-  component: Hero1,
+  title: 'Sections/Hero/Hero34',
+  component: Hero34,
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof Hero1>
+} satisfies Meta<typeof Hero34>
 
 export default meta
-type Story = StoryObj<typeof Hero1>
+type Story = StoryObj<typeof Hero34>
 
-const defaultArgs: Hero1Fields = {
+const defaultArgs: Hero34Fields = {
   title: 'Modern Solutions for Growing Businesses',
-  subtitle:
-    'Empower your business with cutting-edge technology and innovative solutions that drive growth and success.',
+  subtitle: 'Streamline your operations with our powerful platform designed for scale',
   badge: 'New Features Available',
   image: {
-    id: 'mock-image-1',
-    alt: 'Business Growth Illustration',
+    id: 'hero-image',
+    alt: 'Business Dashboard',
     width: 800,
-    height: 800,
+    height: 629,
     url: '/website-template-OG.webp',
     updatedAt: '2024-03-20T00:00:00.000Z',
     createdAt: '2024-03-20T00:00:00.000Z',
@@ -35,6 +34,7 @@ const defaultArgs: Hero1Fields = {
         label: 'Get Started',
         url: '#',
         appearance: 'default',
+        suffixIcon: 'ArrowRight',
       },
     },
     {
@@ -59,22 +59,6 @@ export const WithoutSubtitle: Story = {
   },
 }
 
-export const SingleButton: Story = {
-  args: {
-    ...defaultArgs,
-    links: [
-      {
-        link: {
-          type: 'custom',
-          label: 'Get Started',
-          url: '#',
-          appearance: 'default',
-        },
-      },
-    ],
-  },
-}
-
 export const WithoutBadge: Story = {
   args: {
     ...defaultArgs,
@@ -82,12 +66,10 @@ export const WithoutBadge: Story = {
   },
 }
 
-export const LongContent: Story = {
+export const LongTitle: Story = {
   args: {
     ...defaultArgs,
-    title: 'Transform Your Business with Enterprise-Grade Solutions and Expert Guidance',
-    subtitle:
-      "Experience the power of our comprehensive suite of tools and services designed to elevate your business operations, streamline workflows, and drive unprecedented growth in today's competitive market.",
+    title: 'Modern Enterprise Solutions for Growing Businesses and Organizations',
   },
 }
 
