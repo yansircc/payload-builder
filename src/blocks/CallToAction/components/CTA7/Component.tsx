@@ -7,7 +7,7 @@ export default function CTA7({ title, subtitle, links, lists }: CTA7Fields) {
   return (
     <section className="py-32">
       <div className="container">
-        <div className="relative rounded-xl border border-border bg-accent px-6 py-8 2xl:grid 2xl:grid-cols-2 2xl:px-14 2xl:py-10">
+        <div className="relative rounded-xl border border-border bg-card px-6 py-8 2xl:grid 2xl:grid-cols-2 2xl:px-14 2xl:py-10">
           <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
             <svg
               fill="none"
@@ -51,15 +51,10 @@ export default function CTA7({ title, subtitle, links, lists }: CTA7Fields) {
               >
                 {links.map((linkGroup, index) => (
                   <div key={index}>
-                    {Object.entries(linkGroup)
-                      .filter(([key]) => key.startsWith('link-'))
-                      .map(
-                        ([key, link]) =>
-                          link &&
-                          typeof link === 'object' && (
-                            <CMSLink key={key} className="mt-8 px-0 underline" {...link} />
-                          ),
-                      )}
+                    {Object.entries(linkGroup).map(
+                      ([key, link]) =>
+                        link && typeof link === 'object' && <CMSLink key={key} {...link} />,
+                    )}
                   </div>
                 ))}
               </ClientMotionDiv>

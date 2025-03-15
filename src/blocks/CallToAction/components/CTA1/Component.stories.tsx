@@ -66,31 +66,3 @@ export const WithDifferentLink: Story = {
     },
   },
 }
-
-// Responsive Variants
-export const Mobile: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'mobile2',
-    },
-  },
-  args: defaultCTA,
-}
-
-export const Tablet: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'tablet',
-    },
-  },
-  args: defaultCTA,
-}
-
-export const Desktop: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'desktop',
-    },
-  },
-  args: defaultCTA,
-}

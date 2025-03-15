@@ -7,7 +7,7 @@ export default function CTA4({ title, subtitle, links, lists }: CTA4Fields) {
   return (
     <section className="py-32">
       <div className="container">
-        <div className="flex flex-col items-center justify-between gap-8 rounded-lg bg-accent p-6 md:flex-row lg:px-20 lg:py-16">
+        <div className="flex flex-col items-center justify-between gap-8 rounded-lg bg-card p-6 md:flex-row lg:px-20 lg:py-16">
           <div className="w-full">
             <h4 className="mb-1 text-2xl font-bold md:text-3xl">{title}</h4>
             {subtitle && <p className="text-muted-foreground">{subtitle}</p>}
