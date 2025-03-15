@@ -19,6 +19,10 @@ export class PostPage {
 
   // Post Duplication
   readonly toastMessage: Locator
+  readonly postCellTitle: Locator
+  readonly postCellSlug: Locator
+  readonly kebabButton: Locator
+  readonly duplicatePostButton: Locator
 
   // Post deletion
   readonly deleteButton: Locator
@@ -42,9 +46,13 @@ export class PostPage {
     this.heroImage = this.page.getByRole('button', { name: 'image-hero1.webp image-hero1.' })
     this.postContent = this.page.getByRole('textbox').nth(1)
     this.publishButton = this.page.getByRole('button', { name: 'Publish changes' })
+    this.toastMessage = this.page.locator('[class="toast-title"]')
 
     // Post Duplication
-    this.toastMessage = this.page.locator('[class="toast-title"]')
+    this.postCellTitle = this.page.locator('[class="cell-title"]')
+    this.postCellSlug = this.page.locator('[class="cell-slug"]')
+    this.kebabButton = this.page.locator('[class="doc-controls__dots"]')
+    this.duplicatePostButton = this.page.getByRole('button', { name: 'Duplicate' })
 
     // Post deletion
     this.deleteButton = this.page.getByRole('button', { name: 'Delete' })
@@ -63,10 +71,10 @@ export class PostPage {
   async goToPosts() {
     await this.selectATenant('Tenant 1')
     await this.postButton.click()
+    await expect(this.page).toHaveURL(/.*posts.*/)
   }
 
   async createPost() {
-    await expect(this.page).toHaveURL(/.*posts.*/)
     await this.createPostButton.click()
     await this.postTitle.fill(postData.postTitle)
     await this.selectHeroImage.click()
@@ -76,11 +84,25 @@ export class PostPage {
     await expect(this.toastMessage).toHaveText(toastMessage.postCreationSuccess)
   }
 
-  async deletePost() {
-    await expect(this.page).toHaveURL(/.*posts.*/)
+  async duplicatePost() {
     await this.searchFilter.fill(postData.postTitle)
     await expect(this.pagination).toHaveText('1-1 of 1')
-    //await this.checkbox.click()
+    await expect(this.postCellTitle).toHaveText(postData.postTitle)
+    await expect(this.postCellSlug).toHaveText(
+      postData.postTitle.toLowerCase().replace(/\s+/g, '-'),
+    )
+
+    await this.postCellTitle.click()
+    await expect(this.postContent).toHaveText(postData.postContent)
+    await this.kebabButton.click()
+    await this.duplicatePostButton.click()
+    await expect(this.toastMessage).toHaveText(toastMessage.PostDuplicationSuccess)
+    await this.page.waitForTimeout(2000)
+  }
+
+  async deletePost() {
+    await this.searchFilter.fill(postData.postTitle)
+    await expect(this.pagination).toHaveText('1-2 of 2')
     await this.allCheckboxButton.click()
     await this.deleteButton.click()
     await expect(this.confirmDeleteDialog).toBeVisible()

@@ -3,5 +3,6 @@
   "tenantDuplicationSuccess": "Tenant successfully duplicated.",
   "tenantDeletionSuccess": "Deleted 2 Tenants successfully.",
   "postCreationSuccess": "Updated successfully.",
-  "postDeletionSuccess": "Deleted 1 Post successfully."
+  "PostDuplicationSuccess": "Post successfully duplicated.",
+  "postDeletionSuccess": "Deleted 2 Posts successfully."
 }

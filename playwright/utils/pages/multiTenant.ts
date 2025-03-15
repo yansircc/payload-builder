@@ -72,6 +72,7 @@ export class TenantPage {
       await this.page.waitForLoadState('networkidle')
     }
     await expect(this.clearTenant).not.toBeVisible()
+    await expect.poll(async () => await this.tenantCellName.count()).toBeGreaterThan(1)
   }
 
   async createTenant() {
@@ -85,9 +86,6 @@ export class TenantPage {
 
   async duplicateTenant() {
     await this.searchFilter.fill(tenantData.name)
-    // await this.page.waitForLoadState('networkidle')
-    // await this.page.waitForLoadState('load')
-    // await this.page.waitForLoadState('domcontentloaded')
     await expect(this.pagination).toHaveText('1-1 of 1')
     await expect(this.tenantCellName).toHaveText(tenantData.name)
     await expect(this.tenantCellDomain).toHaveText(tenantData.domain)
