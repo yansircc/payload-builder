@@ -74,12 +74,12 @@ export default function Hero3({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex"
+            className="flex w-full h-full max-h-[600px] lg:max-h-[800px]"
           >
             <Media
               resource={image}
-              className="max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]"
-              imgClassName="rounded-md w-full h-full object-cover"
+              className=" w-full h-full rounded-md "
+              imgClassName="rounded-md object-cover w-full h-full"
             />
           </ClientMotionDiv>
         )}
