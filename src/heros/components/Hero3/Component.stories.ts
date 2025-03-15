@@ -23,7 +23,7 @@ const defaultArgs: Hero3Fields = {
     alt: 'Dashboard Interface',
     width: 1200,
     height: 800,
-    url: '/website-template-OG.webp',
+    url: '/placeholder-1.svg',
     updatedAt: '2024-03-20T00:00:00.000Z',
     createdAt: '2024-03-20T00:00:00.000Z',
   },
