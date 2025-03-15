@@ -81,15 +81,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   // ... rest of the code remains the same ...
 
   return (
-    <Button
-      asChild
-      className={cn(
-        '[.theme-neon_&]:bg-primary [.theme-neon_&]:text-primary-foreground [.theme-neon_&]:border-primary/50 [.theme-neon_&]:hover:bg-primary/90',
-        className,
-      )}
-      size={size}
-      variant={appearance}
-    >
+    <Button asChild className={className} size={size} variant={appearance}>
       <NextLink href={href || url || ''} {...newTabProps}>
         {content}
       </NextLink>

@@ -31,7 +31,7 @@ export default function Header3({ header, menu }: Header3Fields) {
     <section className="inset-x-0 top-0 z-20 bg-background">
       <div className="container">
         <NavigationMenu className="min-w-full">
-          <div className="flex w-full items-center justify-between gap-12 py-4">
+          <div className="fixed px-8 lg:px-0 lg:relative flex w-full items-center justify-between gap-12 py-4">
             <div>
               {(!open || !submenu) && (
                 <Link href="/">

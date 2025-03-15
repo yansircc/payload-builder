@@ -5,6 +5,10 @@ import type { Testimonial4Fields } from '@/payload-types'
 
 type TestimonialItem = Testimonial4Fields['testimonials'][number]
 
+interface Testimonial4Props extends Testimonial4Fields {
+  hideAuthorImages?: boolean
+}
+
 function assertValidTestimonials(
   testimonials: Testimonial4Fields['testimonials'],
 ): asserts testimonials is [TestimonialItem, TestimonialItem, TestimonialItem, TestimonialItem] {
@@ -13,24 +17,34 @@ function assertValidTestimonials(
   }
 }
 
-export default function Testimonial4({ testimonials, featuredImage }: Testimonial4Fields) {
+export default function Testimonial4({
+  testimonials,
+  featuredImage,
+  hideAuthorImages,
+}: Testimonial4Props) {
   assertValidTestimonials(testimonials)
   const [featuredTestimonial, ...gridTestimonials] = testimonials
 
   return (
-    <section className="py-32">
+    <section className="py-16 md:py-24">
       <div className="container">
-        <div className="flex flex-col gap-6">
-          <div className="grid grid-cols-1 items-stretch gap-x-0 gap-y-4 lg:grid-cols-3 lg:gap-4">
-            <Media
-              resource={featuredImage}
-              className="h-72 w-full rounded-md object-cover lg:h-auto"
-            />
-            <Card className="col-span-2 flex items-center justify-center p-6">
-              <div className="flex flex-col gap-4">
-                <q className="text-xl font-medium lg:text-3xl">{featuredTestimonial.quote}</q>
-                <div className="flex flex-col items-start">
-                  <p>{featuredTestimonial.authorName}</p>
+        <div className="flex flex-col gap-6 md:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 items-stretch gap-6 md:gap-6 lg:grid-cols-3 lg:gap-8">
+            <div className="relative w-full bg-muted/50 rounded-2xl flex items-center justify-center py-12 md:py-16 lg:py-12 px-8">
+              <div className="relative w-[100%] aspect-[16/9] translate-y-1">
+                <Media
+                  resource={featuredImage}
+                  className="absolute inset-0 w-full h-full object-contain object-center"
+                />
+              </div>
+            </div>
+            <Card className="col-span-1 lg:col-span-2">
+              <div className="flex flex-col justify-center h-full p-8">
+                <q className="text-lg md:text-xl font-medium text-foreground leading-relaxed mb-6">
+                  {featuredTestimonial.quote}
+                </q>
+                <div className="flex flex-col gap-1">
+                  <p className="text-foreground font-medium">{featuredTestimonial.authorName}</p>
                   {featuredTestimonial.authorRole && (
                     <p className="text-muted-foreground">{featuredTestimonial.authorRole}</p>
                   )}
@@ -38,30 +52,32 @@ export default function Testimonial4({ testimonials, featuredImage }: Testimonia
               </div>
             </Card>
           </div>
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             {gridTestimonials.map((testimonial, idx) => (
-              <Card key={idx}>
-                <CardContent className="px-6 pt-6 leading-7 text-foreground/70">
-                  <q>{testimonial.quote}</q>
+              <Card key={idx} className="flex flex-col">
+                <CardContent className="flex-1 p-8">
+                  <q className="text-muted-foreground text-base">{testimonial.quote}</q>
                 </CardContent>
-                <CardFooter>
-                  <div className="flex gap-4 leading-5">
-                    <Avatar className="size-9 rounded-full ring-1 ring-input overflow-hidden">
-                      {testimonial.authorImage ? (
-                        <Media
-                          resource={testimonial.authorImage}
-                          imgClassName="aspect-square size-full object-cover object-center"
-                          className="!block size-full"
-                        />
-                      ) : (
-                        <AvatarImage
-                          src="https://shadcnblocks.com/images/block/avatar-1.webp"
-                          alt={testimonial.authorName}
-                        />
-                      )}
-                    </Avatar>
-                    <div className="text-sm">
-                      <p className="font-medium">{testimonial.authorName}</p>
+                <CardFooter className="p-8 pt-0">
+                  <div className="flex items-center gap-3">
+                    {!hideAuthorImages && (
+                      <Avatar className="size-10 rounded-full overflow-hidden">
+                        {testimonial.authorImage ? (
+                          <Media
+                            resource={testimonial.authorImage}
+                            imgClassName="aspect-square size-full object-cover"
+                            className="!block size-full"
+                          />
+                        ) : (
+                          <AvatarImage
+                            src="https://shadcnblocks.com/images/block/avatar-1.webp"
+                            alt={testimonial.authorName}
+                          />
+                        )}
+                      </Avatar>
+                    )}
+                    <div className="flex flex-col">
+                      <p className="font-medium text-foreground">{testimonial.authorName}</p>
                       {testimonial.authorRole && (
                         <p className="text-muted-foreground">{testimonial.authorRole}</p>
                       )}

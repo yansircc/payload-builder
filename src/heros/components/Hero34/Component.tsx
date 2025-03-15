@@ -6,7 +6,7 @@ import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero34({ badge, title, subtitle, links, image }: Hero34Fields) {
   return (
-    <section className="py-section md:py-section-md lg:py-section-lg">
+    <section>
       <div className="container">
         <div className="w-full overflow-hidden rounded-lg bg-accent/50 2xl:w-[calc(min(100vw-2*theme(container.padding),100%+8rem))]">
           <div className="grid items-center gap-8 lg:grid-cols-2">
@@ -44,16 +44,16 @@ export default function Hero34({ badge, title, subtitle, links, image }: Hero34F
 
                 {/* Buttons */}
                 {links && links.length > 0 && (
-                  <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
+                  <div className="flex w-full flex-col gap-2 sm:flex-row justify-center lg:justify-start">
                     {links?.map((linkGroup, index) => (
-                      <div key={index} className="flex w-full flex-col gap-2 sm:flex-row">
+                      <div key={index} className="flex flex-col gap-2 sm:flex-row">
                         {Object.entries(linkGroup).map(
                           ([key, link]) =>
                             link &&
                             typeof link === 'object' && (
                               <CMSLink
                                 key={key}
-                                className="inline-flex w-full items-center transition-button hover:scale-button-hover sm:w-auto"
+                                className="inline-flex items-center transition-button hover:scale-button-hover sm:w-auto"
                                 {...link}
                               />
                             ),

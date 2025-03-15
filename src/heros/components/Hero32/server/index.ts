@@ -1,4 +1,5 @@
 import { Field, GroupField } from 'payload'
+import { link } from '@/fields/link'
 import { createFieldLabel } from '@/i18n'
 
 /**
@@ -22,31 +23,16 @@ const subtitle: Field = {
   },
 }
 
-const link: Field = {
-  name: 'link',
-  type: 'group',
-  fields: [
-    {
-      name: 'label',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'Button text',
-      },
+const fieldLink: Field = link({
+  overrides: {
+    admin: {
+      description: 'Hero button',
     },
-    {
-      name: 'url',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'Button URL',
-      },
+    defaultValue: {
+      suffixIcon: 'MoveRight',
     },
-  ],
-  admin: {
-    description: 'Hero button',
   },
-}
+})
 
 const integrations: Field = {
   name: 'integrations',
@@ -80,5 +66,5 @@ export const hero32Fields: GroupField = {
   admin: {
     description: 'Hero section with title, button, and grid of integration images',
   },
-  fields: [title, subtitle, link, integrations],
+  fields: [title, subtitle, fieldLink, integrations],
 }
