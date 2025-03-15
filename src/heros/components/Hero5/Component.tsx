@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { CMSLink } from '@/components/Link'
 import type { Hero5Fields } from '@/payload-types'
 import { getClientSideURL } from '@/utilities/getURL'
@@ -58,11 +59,13 @@ export default function Hero5({ title, subtitle, links, image }: Hero5Fields) {
           </div>
 
           {imageSrc && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <motion.img
               src={imageSrc}
               alt="placeholder hero"
               className="aspect-video w-full rounded-md object-cover"
+              initial={{ opacity: 0, scale: 0.95, x: 20 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
             />
           )}
         </div>
