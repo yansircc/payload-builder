@@ -1,10 +1,17 @@
 import { CMSLink } from '@/components/Link'
-import { Media } from '@/components/Media'
 import type { Hero5Fields } from '@/payload-types'
+import { getClientSideURL } from '@/utilities/getURL'
 import { ClientMotionDiv } from '../shared/motion'
 
 export default function Hero5({ title, subtitle, links, image }: Hero5Fields) {
   const link = links?.[0]?.link
+
+  const imageSrc =
+    typeof image === 'string'
+      ? image
+      : image
+        ? `${getClientSideURL()}${image.url}?${image.updatedAt}`
+        : ''
 
   return (
     <section className="overflow-hidden py-section md:py-section-md lg:py-section-lg">
@@ -50,20 +57,13 @@ export default function Hero5({ title, subtitle, links, image }: Hero5Fields) {
             )}
           </div>
 
-          {image && (
-            <ClientMotionDiv
-              initial={{ opacity: 0, scale: 0.95, x: 20 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative aspect-video w-full lg:w-auto"
-            >
-              <Media
-                resource={image}
-                className="aspect-video w-full"
-                imgClassName="rounded-md object-cover"
-                priority
-              />
-            </ClientMotionDiv>
+          {imageSrc && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={imageSrc}
+              alt="placeholder hero"
+              className="aspect-video w-full rounded-md object-cover"
+            />
           )}
         </div>
       </div>
