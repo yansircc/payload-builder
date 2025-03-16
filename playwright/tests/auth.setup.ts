@@ -10,6 +10,6 @@ const authFile = path.join(__dirname, '../.auth/user.json')
 setup('authenticate', async ({ page }) => {
   const auth = new AuthPage(page)
   await page.goto('admin')
-  await auth.logIn()
+  await auth.logIn(process.env.EMAIL as string, process.env.PASSWORD as string)
   await page.context().storageState({ path: authFile })
 })
