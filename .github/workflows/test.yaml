@@ -1,20 +1,37 @@
-name: 🚀 Build & Playwright Tests
+name: 🚀 CI
 
 on:
   push:
     branches: [main, develop]
+    paths:
+      - '**.js'
+      - '**.jsx'
+      - '**.ts'
+      - '**.tsx'
+      - 'package.json'
+      - 'bun.lockb'
+      - '.github/workflows/**'
   pull_request:
     branches: [main, develop]
-  workflow_dispatch: # Allows manual triggering
+  workflow_dispatch:
 
+# Prevent concurrent builds and cancel outdated ones
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
-  build:
-    name: 🏗️ Build Project
+  build-and-test:
+    name: 🏗️ Build & 🧪 Playwright Tests
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.9.0]
+      fail-fast: true
 
     steps:
       - name: 📥 Checkout Repository
@@ -23,7 +40,7 @@ jobs:
       - name: 🎯 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.9.0
+          node-version: ${{ matrix.node-version }}
 
       - name: 🎯 Setup Bun
         uses: oven-sh/setup-bun@v1
@@ -31,49 +48,23 @@ jobs:
           bun-version: latest
 
       - name: 📦 Install Dependencies
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --no-progress
+
+      - name: 📝 Copy Environment Files
+        run: |
+          cp .env.example .env
+          echo "DATABASE_URL=mongodb://localhost:27017/try_payload" >> .env
+          echo "PAYLOAD_SECRET=test-secret-for-ci-environment" >> .env
+          echo "NEXT_PUBLIC_SERVER_URL=http://localhost:3000" >> .env
+          echo "CRON_SECRET=test-cron-secret-for-ci" >> .env
 
       - name: 🏗️ Build Project
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+          NODE_OPTIONS: --max-old-space-size=8192
+          NEXT_TURBO: 1
+          NEXT_LOG_LEVEL: error
         run: bun run build --no-lint
-
-      - name: 📦 Archive Build Output
-        run: tar -czf build-output.tar.gz .next
-
-      - name: 📤 Upload Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-output
-          path: build-output.tar.gz
-          retention-days: 7
-          compression-level: 9
-
-  test:
-    name: 🧪 Run Playwright Tests
-    runs-on: ubuntu-latest
-    needs: build # Ensures tests run after the build is completed
-
-    steps:
-      - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: 🎯 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.9.0
-
-      - name: 🎯 Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
-      - name: 📥 Download Build Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build-output
-          path: .
-
-      - name: 🔄 Extract Build
-        run: tar -xzf build-output.tar.gz
 
       - name: 🚀 Start Server
         run: bun run start &  # Start the server in the background

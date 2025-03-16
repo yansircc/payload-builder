@@ -1,146 +1,145 @@
-# name: 🚀 CI
+name: 🚀 CI
 
-# on:
-#   push:
-#     branches: [main, develop]
-#     # Only trigger on relevant file changes
-#     paths:
-#       - '**.js'
-#       - '**.jsx'
-#       - '**.ts'
-#       - '**.tsx'
-#       - 'package.json'
-#       - 'bun.lockb'
-#       - '.github/workflows/**'
-#   pull_request:
-#     branches: [main, develop]
-#   workflow_dispatch:
+on:
+  push:
+    branches: [main, develop]
+    # Only trigger on relevant file changes
+    paths:
+      - '**.js'
+      - '**.jsx'
+      - '**.ts'
+      - '**.tsx'
+      - 'package.json'
+      - 'bun.lockb'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [main, develop]
 
-# # Prevent concurrent builds and cancel outdated ones
-# concurrency:
-#   group: ${{ github.workflow }}-${{ github.ref }}
-#   cancel-in-progress: true
+# Prevent concurrent builds and cancel outdated ones
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
-# permissions:
-#   contents: read
+permissions:
+  contents: read
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-#     strategy:
-#       matrix:
-#         node-version: [20.9.0]
-#       # Enable fast failure for faster feedback
-#       fail-fast: true
+    strategy:
+      matrix:
+        node-version: [20.9.0]
+      # Enable fast failure for faster feedback
+      fail-fast: true
 
-#     services:
-#       mongodb:
-#         image: mongo:latest
-#         ports:
-#           - 27017:27017
-#         options: >-
-#           --health-cmd mongosh
-#           --health-interval 10s
-#           --health-timeout 5s
-#           --health-retries 5
+    services:
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd mongosh
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-#     steps:
-#       - name: 📥 Checkout
-#         uses: actions/checkout@v4
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
 
-#       - name: 🟢 Setup Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: ${{ matrix.node-version }}
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
-#       - name: 🎯 Setup Bun
-#         uses: oven-sh/setup-bun@v1
-#         with:
-#           bun-version: latest
+      - name: 🎯 Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
-#       - name: 📦 Cache dependencies
-#         uses: actions/cache@v4
-#         with:
-#           path: |
-#             **/node_modules
-#             ~/.bun/install/cache
-#             ~/.bun/bin
-#             .next/cache
-#             .next/static
-#             .next/server
-#             dist
-#           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb', 'package.json') }}
-#           restore-keys: |
-#             ${{ runner.os }}-bun-
+      - name: 📦 Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/node_modules
+            ~/.bun/install/cache
+            ~/.bun/bin
+            .next/cache
+            .next/static
+            .next/server
+            dist
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb', 'package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
 
-#       - name: 📥 Install Dependencies
-#         run: |
-#           if [ "${{ github.event_name }}" = "pull_request" ]; then
-#             echo "🔍 Pull request: Using --frozen-lockfile"
-#             bun install --frozen-lockfile --no-progress
-#           else
-#             echo "🔄 Main branch: Updating lockfile"
-#             bun install --no-progress
-#           fi
+      - name: 📥 Install Dependencies
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "🔍 Pull request: Using --frozen-lockfile"
+            bun install --frozen-lockfile --no-progress
+          else
+            echo "🔄 Main branch: Updating lockfile"
+            bun install --no-progress
+          fi
 
-#       - name: 📝 Copy Environment Files
-#         run: |
-#           cp .env.example .env
-#           echo "DATABASE_URL=mongodb://localhost:27017/try_payload" >> .env
-#           echo "PAYLOAD_SECRET=test-secret-for-ci-environment" >> .env
-#           echo "NEXT_PUBLIC_SERVER_URL=http://localhost:3000" >> .env
-#           echo "CRON_SECRET=test-cron-secret-for-ci" >> .env
+      - name: 📝 Copy Environment Files
+        run: |
+          cp .env.example .env
+          echo "DATABASE_URL=mongodb://localhost:27017/try_payload" >> .env
+          echo "PAYLOAD_SECRET=test-secret-for-ci-environment" >> .env
+          echo "NEXT_PUBLIC_SERVER_URL=http://localhost:3000" >> .env
+          echo "CRON_SECRET=test-cron-secret-for-ci" >> .env
 
-#       # Parallel execution of check tasks
-#       - name: 🔍 Run Checks
-#         run: |
-#           bun generate:types &
-#           bun run format:check &
-#           bun run typecheck &
-#           bun run lint &
-#           wait
+      # Parallel execution of check tasks
+      - name: 🔍 Run Checks
+        run: |
+          bun generate:types &
+          bun run format:check &
+          bun run typecheck &
+          bun run lint &
+          wait
 
-#       # Use React Compiler for build
-#       - name: 🏗️ Build
-#         env:
-#           NEXT_TELEMETRY_DISABLED: 1
-#           NODE_OPTIONS: --max-old-space-size=8192
-#           NEXT_TURBO: 1
-#           NEXT_LOG_LEVEL: error
-#         run: bun run build --no-lint
+      # Use React Compiler for build
+      - name: 🏗️ Build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+          NODE_OPTIONS: --max-old-space-size=8192
+          NEXT_TURBO: 1
+          NEXT_LOG_LEVEL: error
+        run: bun run build --no-lint
 
-#       # Compress build output
-#       - name: 📦 Compress build output
-#         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-#         run: tar -czf build-output.tar.gz .next
+      # Compress build output
+      - name: 📦 Compress build output
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: tar -czf build-output.tar.gz .next
 
-#       # Upload compressed build output
-#       - name: 📤 Upload build artifact
-#         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: build-output
-#           path: build-output.tar.gz
-#           retention-days: 7
-#           compression-level: 9
+      # Upload compressed build output
+      - name: 📤 Upload build artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: build-output.tar.gz
+          retention-days: 7
+          compression-level: 9
 
-#       # Add build performance report
-#       - name: 📊 Generate build report
-#         if: always()
-#         run: |
-#           echo "📋 Build Summary:" > build-report.txt
-#           echo "⏱️ Build completed at: $(date)" >> build-report.txt
-#           echo "🔄 Branch: ${{ github.ref }}" >> build-report.txt
-#           echo "📍 Commit: ${{ github.sha }}" >> build-report.txt
+      # Add build performance report
+      - name: 📊 Generate build report
+        if: always()
+        run: |
+          echo "📋 Build Summary:" > build-report.txt
+          echo "⏱️ Build completed at: $(date)" >> build-report.txt
+          echo "🔄 Branch: ${{ github.ref }}" >> build-report.txt
+          echo "📍 Commit: ${{ github.sha }}" >> build-report.txt
 
-#       - name: 📤 Upload build report
-#         if: always()
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: build-report
-#           path: build-report.txt
+      - name: 📤 Upload build report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-report
+          path: build-report.txt
 
-#       - name: 💻 Get CPU core count
-#         id: cpu-cores
-#         run: echo "count=$(nproc)" >> $GITHUB_OUTPUT
+      - name: 💻 Get CPU core count
+        id: cpu-cores
+        run: echo "count=$(nproc)" >> $GITHUB_OUTPUT
