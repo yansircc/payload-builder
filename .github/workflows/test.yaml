@@ -39,7 +39,7 @@ jobs:
         ports:
           - 27017:27017
         options: >-
-          --health-cmd mongosh
+          --health-cmd "mongosh --eval 'db.runCommand({ ping: 1 })'"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -71,19 +71,58 @@ jobs:
 
       - name: 🏗️ Build Project
         env:
+          NODE_ENV: "production"  # ✅ Ensure production build
           NEXT_TELEMETRY_DISABLED: 1
           NODE_OPTIONS: --max-old-space-size=8192
           NEXT_TURBO: 1
           NEXT_LOG_LEVEL: error
-        run: bun run build --no-lint
+        run: |
+          bun run build --no-lint
+          if [ ! -d ".next" ]; then
+            echo "❌ Build failed! No .next/ directory found."
+            exit 1
+          fi
 
-      # - name: 🚀 Start Server
-      #   run: bun run start &  # Start the server in the background
-      #   env:
-      #     DATABASE_URL: "mongodb://localhost:27017/try_payload"
-      #     PAYLOAD_SECRET: "test-secret-for-ci-environment"
-      #     NEXT_PUBLIC_SERVER_URL: "http://localhost:3000"
-      #     CRON_SECRET: "test-cron-secret-for-ci"
+      - name: ⏳ Wait for MongoDB
+        run: |
+          for i in {1..10}; do
+            if mongosh --eval "db.runCommand({ ping: 1 })" localhost:27017; then
+              echo "✅ MongoDB is ready!"
+              exit 0
+            fi
+            echo "⏳ Waiting for MongoDB..."
+            sleep 3
+          done
+          echo "❌ MongoDB did not start in time"
+          exit 1
+
+      - name: 🚀 Start Server
+        env:
+          NODE_ENV: "production"  # ✅ Fix Next.js warning
+          DATABASE_URL: "mongodb://localhost:27017/try_payload"
+          PAYLOAD_SECRET: "test-secret-for-ci-environment"
+          NEXT_PUBLIC_SERVER_URL: "http://localhost:3000"
+          CRON_SECRET: "test-cron-secret-for-ci"
+        run: |
+          if [ ! -d ".next" ]; then
+            echo "❌ No .next directory found! Make sure build step ran successfully."
+            exit 1
+          fi
+          sudo lsof -ti:3000 | xargs --no-run-if-empty kill -9
+          bun run start &
+
+      - name: 🔍 Wait for Server to be Ready
+        run: |
+          for i in {1..10}; do
+            if curl --output /dev/null --silent --head --fail http://localhost:3000; then
+              echo "✅ Server is up!"
+              exit 0
+            fi
+            echo "⏳ Waiting for server..."
+            sleep 3
+          done
+          echo "❌ Server did not start in time"
+          exit 1
 
       - name: 📦 Install Playwright Dependencies
         run: bun install --frozen-lockfile
