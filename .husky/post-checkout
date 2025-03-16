@@ -1,3 +1,9 @@
+# Clean up unnecessary build files
+if [ -d ".next" ]; then
+  echo "🧹 Cleaning .next directory..."
+  rm -rf .next
+fi
+
 # Check if a branch was switched (not a file checkout)
 if [ $3 -eq 1 ]; then
   echo "🔄 Branch changed, checking dependencies..."
