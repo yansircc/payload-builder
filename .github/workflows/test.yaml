@@ -83,19 +83,6 @@ jobs:
             exit 1
           fi
 
-      - name: ⏳ Wait for MongoDB
-        run: |
-          for i in {1..10}; do
-            if mongosh --eval "db.runCommand({ ping: 1 })" localhost:27017; then
-              echo "✅ MongoDB is ready!"
-              exit 0
-            fi
-            echo "⏳ Waiting for MongoDB..."
-            sleep 3
-          done
-          echo "❌ MongoDB did not start in time"
-          exit 1
-
       - name: 🚀 Start Server
         env:
           NODE_ENV: "production"  # ✅ Fix Next.js warning
