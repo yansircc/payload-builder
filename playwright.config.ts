@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export default defineConfig({
-  timeout: 60 * 1000,
+  timeout: process.env.CI ? 60 * 1000 : 30 * 1000,
   testDir: './playwright/tests',
   outputDir: './playwright/artifacts/test-results',
   reporter: [['line'], ['html', { outputFolder: './playwright/artifacts/test-reports' }]],
@@ -16,7 +16,7 @@ export default defineConfig({
   use: {
     baseURL: 'http://www.localhost:3000',
     trace: 'on-first-retry',
-    headless: true,
+    viewport: { width: 1920, height: 1080 },
   },
 
   projects: [

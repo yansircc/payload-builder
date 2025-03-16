@@ -43,7 +43,7 @@ export class PostPage {
     this.createPostButton = this.page.getByRole('link', { name: 'Create new Post' })
     this.postTitle = this.page.locator('input[id="field-title"]')
     this.selectHeroImage = this.page.locator('.btn__label', { hasText: 'Choose from existing' })
-    this.heroImage = this.page.getByRole('button', { name: 'image-hero1.webp image-hero1.' })
+    this.heroImage = this.page.locator('tr[class="row-1"]').locator('.file__filename')
     this.postContent = this.page.getByRole('textbox').nth(1)
     this.publishButton = this.page.getByRole('button', { name: 'Publish changes' })
     this.toastMessage = this.page.locator('[class="toast-title"]')
