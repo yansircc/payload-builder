@@ -1,18 +1,59 @@
-name: 🧪 Playwright Tests
+name: 🚀 Build & Playwright Tests
 
 on:
-  workflow_run:
-    workflows: ["🚀 Build & Deploy"] # Matches the name in build.yaml
-    types:
-      - completed
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch: # Allows manual triggering
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  test:
-    name: Playwright Tests
+  build:
+    name: 🏗️ Build Project
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout repository
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🎯 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.9.0
+
+      - name: 🎯 Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 📦 Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: 🏗️ Build Project
+        run: bun run build --no-lint
+
+      - name: 📦 Archive Build Output
+        run: tar -czf build-output.tar.gz .next
+
+      - name: 📤 Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: build-output.tar.gz
+          retention-days: 7
+          compression-level: 9
+
+  test:
+    name: 🧪 Run Playwright Tests
+    runs-on: ubuntu-latest
+    needs: build # Ensures tests run after the build is completed
+
+    steps:
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v4
 
       - name: 🎯 Setup Node.js
@@ -42,7 +83,7 @@ jobs:
           NEXT_PUBLIC_SERVER_URL: "http://localhost:3000"
           CRON_SECRET: "test-cron-secret-for-ci"
 
-      - name: 📦 Install Dependencies
+      - name: 📦 Install Playwright Dependencies
         run: bun install --frozen-lockfile
 
       - name: Install Playwright Browsers
