@@ -248,10 +248,6 @@ export interface Tenant {
    */
   slug: string;
   /**
-   * Select the design theme for this tenant
-   */
-  theme: 'cool' | 'brutal' | 'neon';
-  /**
    * Allow public access to content
    */
   allowPublicRead?: boolean | null;
@@ -266,7 +262,9 @@ export interface HeroField {
   style?:
     | (
         | 'hero-1'
+        | 'hero-3'
         | 'hero-5'
+        | 'hero-6'
         | 'hero-7'
         | 'hero-8'
         | 'hero-12'
@@ -274,14 +272,14 @@ export interface HeroField {
         | 'hero-25'
         | 'hero-32'
         | 'hero-34'
-        | 'hero-6'
-        | 'hero-3'
         | 'hero-45'
         | 'hero-115'
       )
     | null;
   'hero-1'?: Hero1Fields;
+  'hero-3'?: Hero3Fields;
   'hero-5'?: Hero5Fields;
+  'hero-6'?: Hero6Fields;
   'hero-7'?: Hero7Fields;
   'hero-8'?: Hero8Fields;
   'hero-12'?: Hero12Fields;
@@ -289,8 +287,6 @@ export interface HeroField {
   'hero-25'?: Hero25Fields;
   'hero-32'?: Hero32Fields;
   'hero-34'?: Hero34Fields;
-  'hero-6'?: Hero6Fields;
-  'hero-3'?: Hero3Fields;
   'hero-45'?: Hero45Fields;
   'hero-115'?: Hero115Fields;
 }
@@ -300,7 +296,7 @@ export interface HeroField {
  */
 export interface Hero1Fields {
   /**
-   * Hero section fields
+   * The title of the Hero section
    */
   hero: {
     /**
@@ -326,7 +322,10 @@ export interface Hero1Fields {
       | {
           'link-1': {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -341,17 +340,14 @@ export interface Hero1Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
-          /**
-           * Hero button with ArrowDownRight suffix icon
-           */
           'link-2': {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -366,16 +362,14 @@ export interface Hero1Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           id?: string | null;
         }[]
       | null;
   };
 }
+
 /**
  * Upload and manage media files
  *
@@ -636,747 +630,785 @@ export interface Popup {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero3Fields".
+ */
+export interface Hero3Fields {
+  /**
+   * The title of the Hero section
+   */
+  title: string;
+  /**
+   * The subtitle of the Hero section
+   */
+  subtitle?: string | null;
+  /**
+   * The hero image
+   */
+  image?: (string | null) | Media;
+  /**
+   * Rating value out of 5
+   */
+  rating: number;
+  /**
+   * Text showing review count
+   */
+  reviewCount: string;
+  /**
+   * Avatar images (exactly 5)
+   */
+  avatars?:
+    | {
+        /**
+         * User avatar image
+         */
+        avatar: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Hero buttons
+   */
+  links?:
+    | {
+        /**
+         * Hero buttons
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero5Fields".
  */
 export interface Hero5Fields {
   /**
-   * Hero section fields
+   * The title of the Hero section
    */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Hero image
-     */
-    image: string | Media;
-    /**
-     * Hero button
-     */
-    links?:
-      | {
-          /**
-           * Hero button with ArrowRight prefix icon
-           */
-          link: {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero7Fields".
- */
-export interface Hero7Fields {
+  title: string;
   /**
-   * Hero section fields
+   * The subtitle of the Hero section
    */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Hero button
-     */
-    link: {
-      type?: ('reference' | 'custom' | 'popup') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      popup?: (string | null) | Popup;
-      label: string;
-      prefixIcon?: string | null;
-      suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-    };
-    /**
-     * Rating information
-     */
-    rating: {
-      /**
-       * Rating value (0-5)
-       */
-      rate: number;
-      /**
-       * Number of ratings
-       */
-      count: number;
-      /**
-       * User avatars (3-5)
-       */
-      avatars?:
-        | {
-            /**
-             * User avatar
-             */
-            avatar: string | Media;
-            id?: string | null;
-          }[]
-        | null;
-    };
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero8Fields".
- */
-export interface Hero8Fields {
+  subtitle?: string | null;
   /**
-   * Hero section fields
+   * The hero image
    */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Hero image
-     */
-    image: string | Media;
-    /**
-     * Hero buttons (exactly 2)
-     */
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero12Fields".
- */
-export interface Hero12Fields {
+  image?: (string | null) | Media;
   /**
-   * Hero section fields
+   * Hero button
    */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Partner logo image
-     */
-    logo: string | Media;
-    /**
-     * Badge text displayed above title
-     */
-    badge?: string | null;
-    /**
-     * Hero buttons (1-2)
-     */
-    links?:
-      | {
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
+  links?:
+    | {
+        /**
+         * Hero button with ArrowRight prefix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * Hero button with ExternalLink suffix icon
+           * Choose how the link should be rendered.
            */
-          'link-2': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Partner logos (1-6)
-     */
-    partners?:
-      | {
-          /**
-           * Partner logo image
-           */
-          logo: string | Media;
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero24Fields".
- */
-export interface Hero24Fields {
-  /**
-   * Hero section fields
-   */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Partner logo image
-     */
-    logo: string | Media;
-    /**
-     * Badge text displayed above title
-     */
-    badge?: string | null;
-    /**
-     * Hero button
-     */
-    links?:
-      | {
-          /**
-           * Hero button with MoveRight suffix icon
-           */
-          link: {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Feature list (exactly 4 items)
-     */
-    features?:
-      | {
-          /**
-           * Lucide icon name
-           */
-          icon: string;
-          /**
-           * Feature title
-           */
-          title: string;
-          /**
-           * Feature description
-           */
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero25Fields".
- */
-export interface Hero25Fields {
-  /**
-   * Hero section fields
-   */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Partner logo image
-     */
-    logo: string | Media;
-    /**
-     * Badge text displayed above title
-     */
-    badge?: string | null;
-    /**
-     * Hero buttons (1-2)
-     */
-    links?:
-      | {
-          /**
-           * Hero button
-           */
-          link: {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Feature list (1-4 items)
-     */
-    features?:
-      | {
-          /**
-           * Lucide icon name
-           */
-          icon: string;
-          /**
-           * Feature title
-           */
-          title: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero32Fields".
- */
-export interface Hero32Fields {
-  /**
-   * Hero section fields
-   */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Hero button
-     */
-    link: {
-      type?: ('reference' | 'custom' | 'popup') | null;
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null);
-      url?: string | null;
-      popup?: (string | null) | Popup;
-      label: string;
-      prefixIcon?: string | null;
-      suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-    };
-    /**
-     * Integration images (exactly 15)
-     */
-    integrations?:
-      | {
-          /**
-           * Integration logo/image
-           */
-          image: string | Media;
-          id?: string | null;
-        }[]
-      | null;
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero34Fields".
- */
-export interface Hero34Fields {
-  /**
-   * Hero section fields
-   */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Hero image
-     */
-    image: string | Media;
-    /**
-     * Badge text displayed above title
-     */
-    badge?: string | null;
-    /**
-     * Hero buttons
-     */
-    links?:
-      | {
-          /**
-           * Hero button with ArrowRight prefix icon
-           */
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          'link-2': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
-}
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero6Fields".
  */
 export interface Hero6Fields {
   /**
-   * Hero section fields
+   * The title of the Hero section
    */
-  hero: {
+  title: string;
+  /**
+   * The subtitle of the Hero section
+   */
+  subtitle?: string | null;
+  /**
+   * The hero image
+   */
+  image?: (string | null) | Media;
+  /**
+   * Secondary image with button
+   */
+  secondaryImage?: {
     /**
-     * Feature title
+     * Secondary image
      */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Hero image
-     */
-    image: string | Media;
-    /**
-     * Hero buttons (exactly 3)
-     */
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Partner logos (exactly 4)
-     */
-    partners?:
-      | {
-          /**
-           * Logo image
-           */
-          logo?: (string | null) | Media;
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Secondary image with button
-     */
-    secondaryImage: {
-      /**
-       * Hero image
-       */
-      image: string | Media;
-    };
+    image?: (string | null) | Media;
   };
+  /**
+   * Hero buttons (exactly 3)
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Partner logos (exactly 4)
+   */
+  partners?:
+    | {
+        /**
+         * Logo image
+         */
+        logo?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
 }
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero3Fields".
+ * via the `definition` "Hero7Fields".
  */
-export interface Hero3Fields {
+export interface Hero7Fields {
   /**
-   * Hero section fields
+   * The title of the Hero section
    */
-  hero: {
+  title: string;
+  /**
+   * The subtitle of the Hero section
+   */
+  subtitle?: string | null;
+  /**
+   * Hero button
+   */
+  link: {
+    type?: ('reference' | 'custom' | 'popup') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+    popup?: (string | null) | Popup;
+    label: string;
+    prefixIcon?: string | null;
+    suffixIcon?: string | null;
     /**
-     * Feature title
+     * Choose how the link should be rendered.
      */
-    title: string;
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+  };
+  /**
+   * Rating information
+   */
+  rating: {
     /**
-     * Subtitle text
+     * Rating value (0-5)
      */
-    subtitle?: string | null;
+    rate: number;
     /**
-     * Avatar images (exactly 5)
+     * Number of ratings
+     */
+    count: number;
+    /**
+     * User avatars (3-5)
      */
     avatars?:
       | {
           /**
-           * Hero image
+           * User avatar
            */
-          image: string | Media;
+          avatar: string | Media;
           id?: string | null;
         }[]
       | null;
-    /**
-     * Hero buttons (exactly 2)
-     */
-    links?:
-      | {
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          /**
-           * Hero button with ArrowDownRight suffix icon
-           */
-          'link-2': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Review section configuration
-     */
-    review: {
-      /**
-       * Rating value (0-5)
-       */
-      rate: number;
-      /**
-       * Number of ratings
-       */
-      count: number;
-    };
-    /**
-     * Hero media
-     */
-    media: {
-      /**
-       * Hero image
-       */
-      image: string | Media;
-    };
   };
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero8Fields".
+ */
+export interface Hero8Fields {
+  /**
+   * The title of the Hero section
+   */
+  title: string;
+  /**
+   * The subtitle of the Hero section
+   */
+  subtitle?: string | null;
+  /**
+   * Partner logo image
+   */
+  logo: string | Media;
+  /**
+   * Badge text displayed above title
+   */
+  badge?: string | null;
+  /**
+   * Hero button
+   */
+  links?:
+    | {
+        /**
+         * Hero button with MoveRight suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          newTab?: boolean | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Feature list (exactly 4 items)
+   */
+  features?:
+    | {
+        /**
+         * Lucide icon name
+         */
+        icon: string;
+        /**
+         * Feature title
+         */
+        title: string;
+        /**
+         * Feature description
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero25Fields".
+ */
+export interface Hero25Fields {
+  /**
+   * The title of the Hero section
+   */
+  title: string;
+  /**
+   * The subtitle of the Hero section
+   */
+  subtitle?: string | null;
+  /**
+   * The hero image
+   */
+  image?: (string | null) | Media;
+  /**
+   * Partner logo image
+   */
+  logo: string | Media;
+  /**
+   * Badge text displayed above title
+   */
+  badge?: string | null;
+  /**
+   * Hero buttons (exactly 2)
+   */
+  links?:
+    | {
+        /**
+         * Hero button with ChevronRight suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Feature list (1-4 items)
+   */
+  features?:
+    | {
+        /**
+         * Lucide icon name
+         */
+        icon: string;
+        /**
+         * Feature title
+         */
+        title: string;
+        /**
+         * Feature description
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero12Fields".
+ */
+export interface Hero12Fields {
+  /**
+   * The title of the Hero section
+   */
+  title: string;
+  /**
+   * The subtitle of the Hero section
+   */
+  subtitle?: string | null;
+  /**
+   * The logo image
+   */
+  logo?: (string | null) | Media;
+  /**
+   * Badge text displayed above title
+   */
+  badge?: string | null;
+  /**
+   * Hero buttons (1-2)
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Partner logos (1-6)
+   */
+  partners?:
+    | {
+        /**
+         * Partner logo image
+         */
+        logo: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero24Fields".
+ */
+export interface Hero24Fields {
+  /**
+   * The title of the Hero section
+   */
+  title: string;
+  /**
+   * The subtitle of the Hero section
+   */
+  subtitle?: string | null;
+  /**
+   * The logo image
+   */
+  logo?: (string | null) | Media;
+  /**
+   * Badge text displayed above title
+   */
+  badge?: string | null;
+  /**
+   * Hero button
+   */
+  links?:
+    | {
+        /**
+         * Hero button with MoveRight suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Feature list (exactly 4 items)
+   */
+  features?:
+    | {
+        /**
+         * Lucide icon name
+         */
+        icon: string;
+        /**
+         * Feature title
+         */
+        title: string;
+        /**
+         * Feature description
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero25Fields".
+ */
+export interface Hero25Fields {
+  /**
+   * The title of the Hero section
+   */
+  title: string;
+  /**
+   * The logo image
+   */
+  logo?: (string | null) | Media;
+  /**
+   * Badge text displayed above title
+   */
+  badge?: string | null;
+  /**
+   * Hero buttons (1-2)
+   */
+  links?:
+    | {
+        /**
+         * Hero button
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Feature list (1-4 items)
+   */
+  features?:
+    | {
+        /**
+         * Lucide icon name
+         */
+        icon: string;
+        /**
+         * Feature title
+         */
+        title: string;
+        id?: string | null;
+      }[]
+    | null;
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero32Fields".
+ */
+export interface Hero32Fields {
+  /**
+   * The main title text
+   */
+  title: string;
+  /**
+   * The subtitle text
+   */
+  subtitle?: string | null;
+  /**
+   * Hero button
+   */
+  link: {
+    /**
+     * Button text
+     */
+    label: string;
+    /**
+     * Button URL
+     */
+    url: string;
+  };
+  /**
+   * Avatar images (exactly 5)
+   */
+  avatars?:
+    | {
+        /**
+         * Hero image
+         */
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Integration images (exactly 15)
+   */
+  integrations?:
+    | {
+        /**
+         * Integration logo/image
+         */
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Hero buttons (exactly 2)
+   */
+  links?:
+    | {
+        'link-1': {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          newTab?: boolean | null;
+        };
+        /**
+         * Hero button with ArrowDownRight suffix icon
+         */
+        'link-2': {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          newTab?: boolean | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero34Fields".
+ */
+export interface Hero34Fields {
+  /**
+   * The main title text
+   */
+  title: string;
+  /**
+   * The subtitle text
+   */
+  subtitle?: string | null;
+  /**
+   * Hero image
+   */
+  image: string | Media;
+  /**
+   * Badge text
+   */
+  badge: string;
+  /**
+   * Hero buttons
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1384,42 +1416,37 @@ export interface Hero3Fields {
  */
 export interface Hero45Fields {
   /**
-   * Hero section fields
+   * Badge text
    */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Hero image
-     */
-    image: string | Media;
-    /**
-     * Badge text displayed above title
-     */
-    badge?: string | null;
-    /**
-     * Feature list (exactly 3 items)
-     */
-    features?:
-      | {
-          /**
-           * Lucide icon name
-           */
-          icon: string;
-          /**
-           * Feature title
-           */
-          title: string;
-          /**
-           * Feature description
-           */
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  badge: string;
+  /**
+   * The main title text
+   */
+  title: string;
+  /**
+   * Hero image
+   */
+  image: string | Media;
+  /**
+   * Feature list
+   */
+  features?:
+    | {
+        /**
+         * Lucide icon name
+         */
+        icon: string;
+        /**
+         * Feature title
+         */
+        title: string;
+        /**
+         * Feature description
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1427,60 +1454,56 @@ export interface Hero45Fields {
  */
 export interface Hero115Fields {
   /**
-   * Hero section fields
+   * The main title text
    */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Text showing trust metrics (e.g., "Trusted by X businesses")
-     */
-    trustText: string;
-    /**
-     * Hero image
-     */
-    image: string | Media;
-    /**
-     * Hero button
-     */
-    links?:
-      | {
+  title: string;
+  /**
+   * Subtitle text
+   */
+  subtitle?: string | null;
+  /**
+   * Trust text displayed below the main content
+   */
+  trustText?: string | null;
+  /**
+   * Hero image
+   */
+  image: string | Media;
+  /**
+   * Hero button
+   */
+  links?:
+    | {
+        /**
+         * Hero button with Zap suffix icon
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
           /**
-           * Hero button with Zap suffix icon
+           * Choose how the link should be rendered.
            */
-          link: {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AboutBlock".
@@ -1757,7 +1780,10 @@ export interface About3Fields {
        */
       buttonLink: {
         type?: ('reference' | 'custom' | 'popup') | null;
-        newTab?: boolean | null;
+        /**
+         * Choose how the link should be rendered.
+         */
+        appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
         reference?:
           | ({
               relationTo: 'pages';
@@ -1772,10 +1798,7 @@ export interface About3Fields {
         label: string;
         prefixIcon?: string | null;
         suffixIcon?: string | null;
-        /**
-         * Choose how the link should be rendered.
-         */
-        appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+        newTab?: boolean | null;
       };
     };
     /**
@@ -1893,7 +1916,10 @@ export interface About4Fields {
      */
     button: {
       type?: ('reference' | 'custom' | 'popup') | null;
-      newTab?: boolean | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
       reference?:
         | ({
             relationTo: 'pages';
@@ -1908,10 +1934,7 @@ export interface About4Fields {
       label: string;
       prefixIcon?: string | null;
       suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+      newTab?: boolean | null;
     };
   };
 }
@@ -2104,7 +2127,10 @@ export interface CTA1Fields {
    */
   btn: {
     type?: ('reference' | 'custom' | 'popup') | null;
-    newTab?: boolean | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: 'default' | null;
     reference?:
       | ({
           relationTo: 'pages';
@@ -2119,10 +2145,7 @@ export interface CTA1Fields {
     label: string;
     prefixIcon?: string | null;
     suffixIcon?: string | null;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: 'default' | null;
+    newTab?: boolean | null;
   };
 }
 /**
@@ -2148,7 +2171,10 @@ export interface CTA3Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: 'default' | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2163,10 +2189,7 @@ export interface CTA3Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: 'default' | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -2181,7 +2204,10 @@ export interface CTA3Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: 'ghost' | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2196,14 +2222,11 @@ export interface CTA3Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
+          newTab?: boolean | null;
           /**
            * Description for the link
            */
           description?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: 'ghost' | null;
         };
         /**
          * Brief description of the feature
@@ -2236,7 +2259,10 @@ export interface CTA4Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: 'default' | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2251,10 +2277,7 @@ export interface CTA4Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: 'default' | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -2300,7 +2323,10 @@ export interface CTA5Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: 'default' | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2315,10 +2341,7 @@ export interface CTA5Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: 'default' | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -2347,7 +2370,10 @@ export interface CTA7Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: 'default' | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2362,10 +2388,7 @@ export interface CTA7Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: 'default' | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -2407,7 +2430,10 @@ export interface CTA10Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'ghost') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2422,10 +2448,7 @@ export interface CTA10Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'ghost') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -2454,7 +2477,10 @@ export interface CTA11Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'ghost') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2469,10 +2495,7 @@ export interface CTA11Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'ghost') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -2509,7 +2532,10 @@ export interface CTA15Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'ghost') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2524,10 +2550,7 @@ export interface CTA15Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'ghost') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -2561,7 +2584,10 @@ export interface CTA16Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'ghost') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2576,10 +2602,7 @@ export interface CTA16Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'ghost') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -2608,7 +2631,10 @@ export interface CTA17Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'ghost') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2623,10 +2649,7 @@ export interface CTA17Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'ghost') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -2658,7 +2681,10 @@ export interface ContentBlock {
         enableLink?: boolean | null;
         link?: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2673,10 +2699,7 @@ export interface ContentBlock {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -2798,7 +2821,10 @@ export interface Product {
     | {
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -2813,10 +2839,7 @@ export interface Product {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -3168,7 +3191,10 @@ export interface Gallery1Fields {
      */
     link: {
       type?: ('reference' | 'custom' | 'popup') | null;
-      newTab?: boolean | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
       reference?:
         | ({
             relationTo: 'pages';
@@ -3183,10 +3209,7 @@ export interface Gallery1Fields {
       label: string;
       prefixIcon?: string | null;
       suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+      newTab?: boolean | null;
     };
     /**
      * Gallery image
@@ -3337,7 +3360,10 @@ export interface Gallery5Fields {
       | {
           link: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -3352,10 +3378,7 @@ export interface Gallery5Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           id?: string | null;
         }[]
@@ -3404,7 +3427,10 @@ export interface Gallery6Fields {
      */
     link: {
       type?: ('reference' | 'custom' | 'popup') | null;
-      newTab?: boolean | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
       reference?:
         | ({
             relationTo: 'pages';
@@ -3419,10 +3445,7 @@ export interface Gallery6Fields {
       label: string;
       prefixIcon?: string | null;
       suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+      newTab?: boolean | null;
     };
     /**
      * Gallery cards (3-6)
@@ -3442,7 +3465,10 @@ export interface Gallery6Fields {
            */
           link: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -3457,10 +3483,7 @@ export interface Gallery6Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           /**
            * Card image
@@ -3577,7 +3600,10 @@ export interface Feature1Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -3592,10 +3618,7 @@ export interface Feature1Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -3629,7 +3652,10 @@ export interface Feature2Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -3644,10 +3670,7 @@ export interface Feature2Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -3848,7 +3871,10 @@ export interface Feature11Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -3863,10 +3889,7 @@ export interface Feature11Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -4176,7 +4199,10 @@ export interface Testimonial7Fields {
    */
   cta: {
     type?: ('reference' | 'custom' | 'popup') | null;
-    newTab?: boolean | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     reference?:
       | ({
           relationTo: 'pages';
@@ -4191,10 +4217,7 @@ export interface Testimonial7Fields {
     label: string;
     prefixIcon?: string | null;
     suffixIcon?: string | null;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+    newTab?: boolean | null;
   };
   /**
    * Testimonial items (4-12)
@@ -4333,7 +4356,10 @@ export interface Testimonial15Fields {
    */
   cta: {
     type?: ('reference' | 'custom' | 'popup') | null;
-    newTab?: boolean | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     reference?:
       | ({
           relationTo: 'pages';
@@ -4348,10 +4374,7 @@ export interface Testimonial15Fields {
     label: string;
     prefixIcon?: string | null;
     suffixIcon?: string | null;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+    newTab?: boolean | null;
   };
   /**
    * Company section configuration
@@ -4544,7 +4567,10 @@ export interface Testimonial19Fields {
    */
   viewAll: {
     type?: ('reference' | 'custom' | 'popup') | null;
-    newTab?: boolean | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     reference?:
       | ({
           relationTo: 'pages';
@@ -4559,10 +4585,7 @@ export interface Testimonial19Fields {
     label: string;
     prefixIcon?: string | null;
     suffixIcon?: string | null;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+    newTab?: boolean | null;
   };
   /**
    * Testimonial items (3-12)
@@ -4836,7 +4859,10 @@ export interface Contact3Fields {
            */
           link: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -4851,10 +4877,7 @@ export interface Contact3Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           id?: string | null;
         }[]
@@ -4885,7 +4908,10 @@ export interface Contact3Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -4900,10 +4926,7 @@ export interface Contact3Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -4975,7 +4998,10 @@ export interface Contact4Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -4990,10 +5016,7 @@ export interface Contact4Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -5025,7 +5048,10 @@ export interface Contact4Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -5040,10 +5066,7 @@ export interface Contact4Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -5174,7 +5197,10 @@ export interface Contact6Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -5189,10 +5215,7 @@ export interface Contact6Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -5300,7 +5323,10 @@ export interface Contact7Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -5315,10 +5341,7 @@ export interface Contact7Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -5365,7 +5388,10 @@ export interface Contact8Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -5380,10 +5406,7 @@ export interface Contact8Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -5530,7 +5553,10 @@ export interface Team2Fields {
                  */
                 link?: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -5544,10 +5570,7 @@ export interface Team2Fields {
                   popup?: (string | null) | Popup;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -5588,7 +5611,10 @@ export interface Team3Fields {
            */
           link: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -5603,10 +5629,7 @@ export interface Team3Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           id?: string | null;
         }[]
@@ -5642,7 +5665,10 @@ export interface Team3Fields {
                  */
                 link?: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -5656,10 +5682,7 @@ export interface Team3Fields {
                   popup?: (string | null) | Popup;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -5700,7 +5723,10 @@ export interface Team5Fields {
            */
           link: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -5715,10 +5741,7 @@ export interface Team5Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           id?: string | null;
         }[]
@@ -5801,7 +5824,10 @@ export interface Team6Fields {
                  */
                 link?: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -5815,10 +5841,7 @@ export interface Team6Fields {
                   popup?: (string | null) | Popup;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -5932,7 +5955,10 @@ export interface FAQ3Fields {
            */
           link: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -5947,10 +5973,7 @@ export interface FAQ3Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           id?: string | null;
         }[]
@@ -6007,7 +6030,10 @@ export interface FAQ4Fields {
            */
           link: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -6022,10 +6048,7 @@ export interface FAQ4Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           id?: string | null;
         }[]
@@ -6153,7 +6176,10 @@ export interface Logos2Fields {
      */
     link: {
       type?: ('reference' | 'custom' | 'popup') | null;
-      newTab?: boolean | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
       reference?:
         | ({
             relationTo: 'pages';
@@ -6168,10 +6194,7 @@ export interface Logos2Fields {
       label: string;
       prefixIcon?: string | null;
       suffixIcon?: string | null;
-      /**
-       * Choose how the link should be rendered.
-       */
-      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+      newTab?: boolean | null;
     };
     /**
      * Logo images (6 required)
@@ -6255,7 +6278,10 @@ export interface LinkPopupBlock {
    */
   link: {
     type?: ('reference' | 'custom' | 'popup') | null;
-    newTab?: boolean | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     reference?:
       | ({
           relationTo: 'pages';
@@ -6270,10 +6296,7 @@ export interface LinkPopupBlock {
     label: string;
     prefixIcon?: string | null;
     suffixIcon?: string | null;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+    newTab?: boolean | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -6380,7 +6403,10 @@ export interface Header1Fields {
            */
           parentLink: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -6395,10 +6421,7 @@ export interface Header1Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           /**
            * Links in this column
@@ -6410,7 +6433,10 @@ export interface Header1Fields {
                  */
                 link: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -6425,10 +6451,7 @@ export interface Header1Fields {
                   label: string;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 /**
                  * Description for this sub menu
@@ -6447,7 +6470,10 @@ export interface Header1Fields {
            */
           link: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -6462,10 +6488,7 @@ export interface Header1Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           id?: string | null;
         }[]
@@ -6489,7 +6512,10 @@ export interface Header3Fields {
       | {
           link: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -6504,10 +6530,7 @@ export interface Header3Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           id?: string | null;
         }[]
@@ -6520,7 +6543,10 @@ export interface Header3Fields {
          */
         parentMenu: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -6535,10 +6561,7 @@ export interface Header3Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         submenu?: {
           style?: ('style-1' | 'style-2' | 'style-3' | 'style-4') | null;
@@ -6546,7 +6569,10 @@ export interface Header3Fields {
             leftSection?: {
               link?: {
                 type?: ('reference' | 'custom' | 'popup') | null;
-                newTab?: boolean | null;
+                /**
+                 * Choose how the link should be rendered.
+                 */
+                appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 reference?:
                   | ({
                       relationTo: 'pages';
@@ -6558,6 +6584,7 @@ export interface Header3Fields {
                     } | null);
                 url?: string | null;
                 popup?: (string | null) | Popup;
+                newTab?: boolean | null;
                 /**
                  * Image URL for the link
                  */
@@ -6570,10 +6597,6 @@ export interface Header3Fields {
                  * Description for the link
                  */
                 description?: string | null;
-                /**
-                 * Choose how the link should be rendered.
-                 */
-                appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               };
             };
             rightSection: {
@@ -6582,7 +6605,10 @@ export interface Header3Fields {
                 | {
                     link?: {
                       type?: ('reference' | 'custom' | 'popup') | null;
-                      newTab?: boolean | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                       reference?:
                         | ({
                             relationTo: 'pages';
@@ -6596,6 +6622,7 @@ export interface Header3Fields {
                       popup?: (string | null) | Popup;
                       prefixIcon?: string | null;
                       suffixIcon?: string | null;
+                      newTab?: boolean | null;
                       /**
                        * Title for the link
                        */
@@ -6604,10 +6631,6 @@ export interface Header3Fields {
                        * Description for the link
                        */
                       description?: string | null;
-                      /**
-                       * Choose how the link should be rendered.
-                       */
-                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                     };
                     id?: string | null;
                   }[]
@@ -6621,7 +6644,10 @@ export interface Header3Fields {
                 | {
                     link: {
                       type?: ('reference' | 'custom' | 'popup') | null;
-                      newTab?: boolean | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                       reference?:
                         | ({
                             relationTo: 'pages';
@@ -6636,10 +6662,7 @@ export interface Header3Fields {
                       label: string;
                       prefixIcon?: string | null;
                       suffixIcon?: string | null;
-                      /**
-                       * Choose how the link should be rendered.
-                       */
-                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                      newTab?: boolean | null;
                     };
                     id?: string | null;
                   }[]
@@ -6648,7 +6671,10 @@ export interface Header3Fields {
             rightSection?: {
               link?: {
                 type?: ('reference' | 'custom' | 'popup') | null;
-                newTab?: boolean | null;
+                /**
+                 * Choose how the link should be rendered.
+                 */
+                appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                 reference?:
                   | ({
                       relationTo: 'pages';
@@ -6660,6 +6686,7 @@ export interface Header3Fields {
                     } | null);
                 url?: string | null;
                 popup?: (string | null) | Popup;
+                newTab?: boolean | null;
                 /**
                  * Image URL for the link
                  */
@@ -6687,7 +6714,10 @@ export interface Header3Fields {
                 | {
                     link: {
                       type?: ('reference' | 'custom' | 'popup') | null;
-                      newTab?: boolean | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                       reference?:
                         | ({
                             relationTo: 'pages';
@@ -6700,10 +6730,7 @@ export interface Header3Fields {
                       url?: string | null;
                       popup?: (string | null) | Popup;
                       label: string;
-                      /**
-                       * Choose how the link should be rendered.
-                       */
-                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                      newTab?: boolean | null;
                     };
                     id?: string | null;
                   }[]
@@ -6714,7 +6741,10 @@ export interface Header3Fields {
                 | {
                     link?: {
                       type?: ('reference' | 'custom' | 'popup') | null;
-                      newTab?: boolean | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                       reference?:
                         | ({
                             relationTo: 'pages';
@@ -6726,6 +6756,7 @@ export interface Header3Fields {
                           } | null);
                       url?: string | null;
                       popup?: (string | null) | Popup;
+                      newTab?: boolean | null;
                       /**
                        * Image URL for the link
                        */
@@ -6738,10 +6769,6 @@ export interface Header3Fields {
                        * Description for the link
                        */
                       description?: string | null;
-                      /**
-                       * Choose how the link should be rendered.
-                       */
-                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                     };
                     id?: string | null;
                   }[]
@@ -6755,7 +6782,10 @@ export interface Header3Fields {
                 | {
                     link?: {
                       type?: ('reference' | 'custom' | 'popup') | null;
-                      newTab?: boolean | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                       reference?:
                         | ({
                             relationTo: 'pages';
@@ -6767,6 +6797,7 @@ export interface Header3Fields {
                           } | null);
                       url?: string | null;
                       popup?: (string | null) | Popup;
+                      newTab?: boolean | null;
                       /**
                        * Title for the link
                        */
@@ -6786,7 +6817,10 @@ export interface Header3Fields {
                 | {
                     link?: {
                       type?: ('reference' | 'custom' | 'popup') | null;
-                      newTab?: boolean | null;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                       reference?:
                         | ({
                             relationTo: 'pages';
@@ -6798,6 +6832,7 @@ export interface Header3Fields {
                           } | null);
                       url?: string | null;
                       popup?: (string | null) | Popup;
+                      newTab?: boolean | null;
                       /**
                        * Image URL for the link
                        */
@@ -6845,7 +6880,10 @@ export interface Header5Fields {
            */
           parentLink: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -6860,10 +6898,7 @@ export interface Header5Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           /**
            * Links in this column
@@ -6875,7 +6910,10 @@ export interface Header5Fields {
                  */
                 link: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -6890,10 +6928,7 @@ export interface Header5Fields {
                   label: string;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 /**
                  * Description for this sub menu
@@ -6912,7 +6947,10 @@ export interface Header5Fields {
            */
           link: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -6927,10 +6965,7 @@ export interface Header5Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           id?: string | null;
         }[]
@@ -7010,7 +7045,10 @@ export interface Footer1Fields {
                  */
                 link: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -7025,10 +7063,7 @@ export interface Footer1Fields {
                   label: string;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -7054,7 +7089,10 @@ export interface Footer1Fields {
              */
             link?: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7068,10 +7106,7 @@ export interface Footer1Fields {
               popup?: (string | null) | Popup;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7123,7 +7158,10 @@ export interface Footer2Fields {
                  */
                 link: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -7138,10 +7176,7 @@ export interface Footer2Fields {
                   label: string;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -7157,7 +7192,10 @@ export interface Footer2Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7172,10 +7210,7 @@ export interface Footer2Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7219,7 +7254,10 @@ export interface Footer3Fields {
                  */
                 link: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -7234,10 +7272,7 @@ export interface Footer3Fields {
                   label: string;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -7253,7 +7288,10 @@ export interface Footer3Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7268,10 +7306,7 @@ export interface Footer3Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7285,7 +7320,10 @@ export interface Footer3Fields {
              */
             link?: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7299,10 +7337,7 @@ export interface Footer3Fields {
               popup?: (string | null) | Popup;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7346,7 +7381,10 @@ export interface Footer4Fields {
                  */
                 link: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -7361,10 +7399,7 @@ export interface Footer4Fields {
                   label: string;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -7380,7 +7415,10 @@ export interface Footer4Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7395,10 +7433,7 @@ export interface Footer4Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7412,7 +7447,10 @@ export interface Footer4Fields {
              */
             link?: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7426,10 +7464,7 @@ export interface Footer4Fields {
               popup?: (string | null) | Popup;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7479,7 +7514,10 @@ export interface Footer5Fields {
                  */
                 link: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -7494,10 +7532,7 @@ export interface Footer5Fields {
                   label: string;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -7517,7 +7552,10 @@ export interface Footer5Fields {
              */
             link?: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7531,10 +7569,7 @@ export interface Footer5Fields {
               popup?: (string | null) | Popup;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7552,7 +7587,10 @@ export interface Footer5Fields {
              */
             link?: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7566,10 +7604,7 @@ export interface Footer5Fields {
               popup?: (string | null) | Popup;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7621,7 +7656,10 @@ export interface Footer6Fields {
                  */
                 link: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -7636,10 +7674,7 @@ export interface Footer6Fields {
                   label: string;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -7655,7 +7690,10 @@ export interface Footer6Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7670,10 +7708,7 @@ export interface Footer6Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7725,7 +7760,10 @@ export interface Footer7Fields {
                  */
                 link: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -7740,10 +7778,7 @@ export interface Footer7Fields {
                   label: string;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -7759,7 +7794,10 @@ export interface Footer7Fields {
              */
             link?: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7773,10 +7811,7 @@ export interface Footer7Fields {
               popup?: (string | null) | Popup;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7790,7 +7825,10 @@ export interface Footer7Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7805,10 +7843,7 @@ export interface Footer7Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7856,7 +7891,10 @@ export interface Footer8Fields {
                  */
                 link: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -7871,10 +7909,7 @@ export interface Footer8Fields {
                   label: string;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -7890,7 +7925,10 @@ export interface Footer8Fields {
              */
             link?: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -7904,10 +7942,7 @@ export interface Footer8Fields {
               popup?: (string | null) | Popup;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -7950,7 +7985,10 @@ export interface Footer9Fields {
       | {
           link: {
             type?: ('reference' | 'custom' | 'popup') | null;
-            newTab?: boolean | null;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -7965,10 +8003,7 @@ export interface Footer9Fields {
             label: string;
             prefixIcon?: string | null;
             suffixIcon?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+            newTab?: boolean | null;
           };
           id?: string | null;
         }[]
@@ -7992,7 +8027,10 @@ export interface Footer9Fields {
                  */
                 link: {
                   type?: ('reference' | 'custom' | 'popup') | null;
-                  newTab?: boolean | null;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
                   reference?:
                     | ({
                         relationTo: 'pages';
@@ -8007,10 +8045,7 @@ export interface Footer9Fields {
                   label: string;
                   prefixIcon?: string | null;
                   suffixIcon?: string | null;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+                  newTab?: boolean | null;
                 };
                 id?: string | null;
               }[]
@@ -8030,7 +8065,10 @@ export interface Footer9Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -8045,10 +8083,7 @@ export interface Footer9Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -8062,7 +8097,10 @@ export interface Footer9Fields {
              */
             link: {
               type?: ('reference' | 'custom' | 'popup') | null;
-              newTab?: boolean | null;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
               reference?:
                 | ({
                     relationTo: 'pages';
@@ -8077,10 +8115,7 @@ export interface Footer9Fields {
               label: string;
               prefixIcon?: string | null;
               suffixIcon?: string | null;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+              newTab?: boolean | null;
             };
             id?: string | null;
           }[]
@@ -8455,6 +8490,10 @@ export interface SiteSetting {
         | 'ZW'
       )[]
     | null;
+  /**
+   * Select the design theme for this tenant
+   */
+  theme: 'cool' | 'brutal' | 'neon';
   archiveStyles?: {
     /**
      * Select the layout style for the posts archive page
@@ -8969,7 +9008,9 @@ export interface PagesSelect<T extends boolean = true> {
 export interface HeroFieldSelect<T extends boolean = true> {
   style?: T;
   'hero-1'?: T | Hero1FieldsSelect<T>;
+  'hero-3'?: T | Hero3FieldsSelect<T>;
   'hero-5'?: T | Hero5FieldsSelect<T>;
+  'hero-6'?: T | Hero6FieldsSelect<T>;
   'hero-7'?: T | Hero7FieldsSelect<T>;
   'hero-8'?: T | Hero8FieldsSelect<T>;
   'hero-12'?: T | Hero12FieldsSelect<T>;
@@ -8977,11 +9018,10 @@ export interface HeroFieldSelect<T extends boolean = true> {
   'hero-25'?: T | Hero25FieldsSelect<T>;
   'hero-32'?: T | Hero32FieldsSelect<T>;
   'hero-34'?: T | Hero34FieldsSelect<T>;
-  'hero-6'?: T | Hero6FieldsSelect<T>;
-  'hero-3'?: T | Hero3FieldsSelect<T>;
   'hero-45'?: T | Hero45FieldsSelect<T>;
   'hero-115'?: T | Hero115FieldsSelect<T>;
 }
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero1Fields_select".
@@ -9001,30 +9041,95 @@ export interface Hero1FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               'link-2'?:
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
+      };
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero1Fields_select".
+ */
+export interface Hero1FieldsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  badge?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero3Fields_select".
+ */
+export interface Hero3FieldsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  rating?: T;
+  reviewCount?: T;
+  avatars?:
+    | T
+    | {
+        avatar?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              appearance?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              newTab?: T;
+            };
+        id?: T;
       };
 }
 /**
@@ -9032,42 +9137,12 @@ export interface Hero1FieldsSelect<T extends boolean = true> {
  * via the `definition` "Hero5Fields_select".
  */
 export interface Hero5FieldsSelect<T extends boolean = true> {
-  hero?:
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        image?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero7Fields_select".
- */
-export interface Hero7FieldsSelect<T extends boolean = true> {
-  hero?:
-    | T
-    | {
-        title?: T;
-        subtitle?: T;
         link?:
           | T
           | {
@@ -9081,100 +9156,155 @@ export interface Hero7FieldsSelect<T extends boolean = true> {
               suffixIcon?: T;
               appearance?: T;
             };
-        rating?:
-          | T
-          | {
-              rate?: T;
-              count?: T;
-              avatars?:
-                | T
-                | {
-                    avatar?: T;
-                    id?: T;
-                  };
-            };
+        id?: T;
       };
 }
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero8Fields_select".
+ * via the `definition` "Hero6Fields_select".
  */
-export interface Hero8FieldsSelect<T extends boolean = true> {
-  hero?:
-    | T
-    | {
-        title?: T;
-        subtitle?: T;
-        image?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero12Fields_select".
- */
-export interface Hero12FieldsSelect<T extends boolean = true> {
-  hero?:
+export interface Hero6FieldsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  secondaryImage?:
     | T
     | {
         title?: T;
         subtitle?: T;
         logo?: T;
         badge?: T;
-        links?:
+        image?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              'link-2'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
-        partners?:
+        id?: T;
+      };
+  partners?:
+    | T
+    | {
+        logo?: T;
+        id?: T;
+      };
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero7Fields_select".
+ */
+export interface Hero7FieldsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        popup?: T;
+        label?: T;
+        prefixIcon?: T;
+        suffixIcon?: T;
+        appearance?: T;
+      };
+  rating?:
+    | T
+    | {
+        rate?: T;
+        count?: T;
+        avatars?:
           | T
           | {
-              logo?: T;
+              avatar?: T;
               id?: T;
             };
+      };
+  features?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        icon?: T;
+        id?: T;
+      };
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero8Fields_select".
+ */
+export interface Hero8FieldsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero12Fields_select".
+ */
+export interface Hero12FieldsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  logo?: T;
+  badge?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              appearance?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              newTab?: T;
+            };
+        id?: T;
+      };
+  partners?:
+    | T
+    | {
+        logo?: T;
+        id?: T;
       };
 }
 /**
@@ -9182,89 +9312,13 @@ export interface Hero12FieldsSelect<T extends boolean = true> {
  * via the `definition` "Hero24Fields_select".
  */
 export interface Hero24FieldsSelect<T extends boolean = true> {
-  hero?:
+  title?: T;
+  subtitle?: T;
+  logo?: T;
+  badge?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        logo?: T;
-        badge?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        features?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              description?: T;
-              id?: T;
-            };
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero25Fields_select".
- */
-export interface Hero25FieldsSelect<T extends boolean = true> {
-  hero?:
-    | T
-    | {
-        title?: T;
-        logo?: T;
-        badge?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        features?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              id?: T;
-            };
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero32Fields_select".
- */
-export interface Hero32FieldsSelect<T extends boolean = true> {
-  hero?:
-    | T
-    | {
-        title?: T;
-        subtitle?: T;
         link?:
           | T
           | {
@@ -9278,69 +9332,68 @@ export interface Hero32FieldsSelect<T extends boolean = true> {
               suffixIcon?: T;
               appearance?: T;
             };
-        integrations?:
-          | T
-          | {
-              image?: T;
-              id?: T;
-            };
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
       };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero34Fields_select".
+ * via the `definition` "Hero25Fields_select".
  */
-export interface Hero34FieldsSelect<T extends boolean = true> {
-  hero?:
+export interface Hero25FieldsSelect<T extends boolean = true> {
+  title?: T;
+  logo?: T;
+  badge?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        image?: T;
-        badge?: T;
-        links?:
+        link?:
           | T
           | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              'link-2'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero6Fields_select".
- */
-export interface Hero6FieldsSelect<T extends boolean = true> {
-  hero?:
+  features?:
     | T
     | {
+        icon?: T;
         title?: T;
-        subtitle?: T;
+        id?: T;
+      };
+}
+
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero32Fields_select".
+ */
+export interface Hero32FieldsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  link?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+      };
+  integrations?:
+    | T
+    | {
         image?: T;
         links?:
           | T
@@ -9349,14 +9402,14 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
@@ -9373,85 +9426,70 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
             };
       };
 }
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero3Fields_select".
+ * via the `definition` "Hero34Fields_select".
  */
-export interface Hero3FieldsSelect<T extends boolean = true> {
-  hero?:
+export interface Hero34FieldsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  badge?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        avatars?:
+        link?:
           | T
           | {
-              image?: T;
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
-        links?:
-          | T
-          | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              'link-2'?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        review?:
-          | T
-          | {
-              rate?: T;
-              count?: T;
-            };
-        media?:
-          | T
-          | {
-              image?: T;
-            };
+        id?: T;
+      };
+  avatars?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  review?:
+    | T
+    | {
+        rate?: T;
+        count?: T;
+      };
+  media?:
+    | T
+    | {
+        type?: T;
+        content?: T;
+        id?: T;
       };
 }
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero45Fields_select".
  */
 export interface Hero45FieldsSelect<T extends boolean = true> {
-  hero?:
+  badge?: T;
+  title?: T;
+  image?: T;
+  features?:
     | T
     | {
+        icon?: T;
         title?: T;
-        image?: T;
-        badge?: T;
-        features?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              description?: T;
-              id?: T;
-            };
+        description?: T;
+        id?: T;
       };
 }
 /**
@@ -9459,33 +9497,30 @@ export interface Hero45FieldsSelect<T extends boolean = true> {
  * via the `definition` "Hero115Fields_select".
  */
 export interface Hero115FieldsSelect<T extends boolean = true> {
-  hero?:
+  title?: T;
+  subtitle?: T;
+  trustText?: T;
+  image?: T;
+  links?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        trustText?: T;
-        image?: T;
-        links?:
+        link?:
           | T
           | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              popup?: T;
+              label?: T;
+              prefixIcon?: T;
+              suffixIcon?: T;
+              appearance?: T;
             };
+        id?: T;
       };
 }
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AboutBlock_select".
@@ -9643,14 +9678,14 @@ export interface About3FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
             };
         sideImage?: T;
@@ -9726,14 +9761,14 @@ export interface About4FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
       };
 }
@@ -9855,14 +9890,14 @@ export interface CTA1FieldsSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        newTab?: T;
+        appearance?: T;
         reference?: T;
         url?: T;
         popup?: T;
         label?: T;
         prefixIcon?: T;
         suffixIcon?: T;
-        appearance?: T;
+        newTab?: T;
       };
 }
 /**
@@ -9879,14 +9914,14 @@ export interface CTA3FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -9897,15 +9932,15 @@ export interface CTA3FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
+              newTab?: T;
               description?: T;
-              appearance?: T;
             };
         description?: T;
         id?: T;
@@ -9925,14 +9960,14 @@ export interface CTA4FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -9959,14 +9994,14 @@ export interface CTA5FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -9985,14 +10020,14 @@ export interface CTA7FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -10018,14 +10053,14 @@ export interface CTA10FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -10044,14 +10079,14 @@ export interface CTA11FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -10072,14 +10107,14 @@ export interface CTA15FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -10100,14 +10135,14 @@ export interface CTA16FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -10126,14 +10161,14 @@ export interface CTA17FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -10153,14 +10188,14 @@ export interface ContentBlockSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -10230,14 +10265,14 @@ export interface Gallery1FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         image?: T;
         items?:
@@ -10316,14 +10351,14 @@ export interface Gallery5FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
@@ -10351,14 +10386,14 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         cards?:
           | T
@@ -10369,14 +10404,14 @@ export interface Gallery6FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               image?: T;
               id?: T;
@@ -10440,14 +10475,14 @@ export interface Feature1FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -10468,14 +10503,14 @@ export interface Feature2FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -10585,14 +10620,14 @@ export interface Feature11FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -10777,14 +10812,14 @@ export interface Testimonial7FieldsSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        newTab?: T;
+        appearance?: T;
         reference?: T;
         url?: T;
         popup?: T;
         label?: T;
         prefixIcon?: T;
         suffixIcon?: T;
-        appearance?: T;
+        newTab?: T;
       };
   testimonials?:
     | T
@@ -10846,14 +10881,14 @@ export interface Testimonial15FieldsSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        newTab?: T;
+        appearance?: T;
         reference?: T;
         url?: T;
         popup?: T;
         label?: T;
         prefixIcon?: T;
         suffixIcon?: T;
-        appearance?: T;
+        newTab?: T;
       };
   companySection?:
     | T
@@ -10941,14 +10976,14 @@ export interface Testimonial19FieldsSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        newTab?: T;
+        appearance?: T;
         reference?: T;
         url?: T;
         popup?: T;
         label?: T;
         prefixIcon?: T;
         suffixIcon?: T;
-        appearance?: T;
+        newTab?: T;
       };
   testimonials?:
     | T
@@ -11102,14 +11137,14 @@ export interface Contact3FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
@@ -11126,14 +11161,14 @@ export interface Contact3FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -11174,14 +11209,14 @@ export interface Contact4FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -11199,14 +11234,14 @@ export interface Contact4FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -11279,14 +11314,14 @@ export interface Contact6FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -11346,14 +11381,14 @@ export interface Contact7FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -11382,14 +11417,14 @@ export interface Contact8FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -11469,13 +11504,13 @@ export interface Team2FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -11501,14 +11536,14 @@ export interface Team3FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
@@ -11526,13 +11561,13 @@ export interface Team3FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -11558,14 +11593,14 @@ export interface Team5FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
@@ -11605,13 +11640,13 @@ export interface Team6FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -11688,14 +11723,14 @@ export interface FAQ3FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
@@ -11728,14 +11763,14 @@ export interface FAQ4FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
@@ -11817,14 +11852,14 @@ export interface Logos2FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         logos?:
           | T
@@ -11878,14 +11913,14 @@ export interface LinkPopupBlockSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        newTab?: T;
+        appearance?: T;
         reference?: T;
         url?: T;
         popup?: T;
         label?: T;
         prefixIcon?: T;
         suffixIcon?: T;
-        appearance?: T;
+        newTab?: T;
       };
   id?: T;
   blockName?: T;
@@ -12114,7 +12149,6 @@ export interface TenantsSelect<T extends boolean = true> {
   name?: T;
   domain?: T;
   slug?: T;
-  theme?: T;
   allowPublicRead?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -12150,14 +12184,14 @@ export interface Header1FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               subMenu?:
                 | T
@@ -12166,14 +12200,14 @@ export interface Header1FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     description?: T;
                     id?: T;
@@ -12187,14 +12221,14 @@ export interface Header1FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
@@ -12216,14 +12250,14 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
@@ -12235,14 +12269,14 @@ export interface Header3FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         submenu?:
           | T
@@ -12258,14 +12292,14 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                             | T
                             | {
                                 type?: T;
-                                newTab?: T;
+                                appearance?: T;
                                 reference?: T;
                                 url?: T;
                                 popup?: T;
+                                newTab?: T;
                                 image?: T;
                                 title?: T;
                                 description?: T;
-                                appearance?: T;
                               };
                         };
                     rightSection?:
@@ -12279,15 +12313,15 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                   | T
                                   | {
                                       type?: T;
-                                      newTab?: T;
+                                      appearance?: T;
                                       reference?: T;
                                       url?: T;
                                       popup?: T;
                                       prefixIcon?: T;
                                       suffixIcon?: T;
+                                      newTab?: T;
                                       title?: T;
                                       description?: T;
-                                      appearance?: T;
                                     };
                                 id?: T;
                               };
@@ -12307,14 +12341,14 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                   | T
                                   | {
                                       type?: T;
-                                      newTab?: T;
+                                      appearance?: T;
                                       reference?: T;
                                       url?: T;
                                       popup?: T;
                                       label?: T;
                                       prefixIcon?: T;
                                       suffixIcon?: T;
-                                      appearance?: T;
+                                      newTab?: T;
                                     };
                                 id?: T;
                               };
@@ -12326,10 +12360,11 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                             | T
                             | {
                                 type?: T;
-                                newTab?: T;
+                                appearance?: T;
                                 reference?: T;
                                 url?: T;
                                 popup?: T;
+                                newTab?: T;
                                 image?: T;
                                 title?: T;
                                 subtitle?: T;
@@ -12352,12 +12387,12 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                   | T
                                   | {
                                       type?: T;
-                                      newTab?: T;
+                                      appearance?: T;
                                       reference?: T;
                                       url?: T;
                                       popup?: T;
                                       label?: T;
-                                      appearance?: T;
+                                      newTab?: T;
                                     };
                                 id?: T;
                               };
@@ -12372,14 +12407,14 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                   | T
                                   | {
                                       type?: T;
-                                      newTab?: T;
+                                      appearance?: T;
                                       reference?: T;
                                       url?: T;
                                       popup?: T;
+                                      newTab?: T;
                                       image?: T;
                                       title?: T;
                                       description?: T;
-                                      appearance?: T;
                                     };
                                 id?: T;
                               };
@@ -12399,10 +12434,11 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                   | T
                                   | {
                                       type?: T;
-                                      newTab?: T;
+                                      appearance?: T;
                                       reference?: T;
                                       url?: T;
                                       popup?: T;
+                                      newTab?: T;
                                       title?: T;
                                       description?: T;
                                     };
@@ -12420,10 +12456,11 @@ export interface Header3FieldsSelect<T extends boolean = true> {
                                   | T
                                   | {
                                       type?: T;
-                                      newTab?: T;
+                                      appearance?: T;
                                       reference?: T;
                                       url?: T;
                                       popup?: T;
+                                      newTab?: T;
                                       image?: T;
                                       title?: T;
                                       description?: T;
@@ -12453,14 +12490,14 @@ export interface Header5FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               subMenus?:
                 | T
@@ -12469,14 +12506,14 @@ export interface Header5FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     description?: T;
                     id?: T;
@@ -12490,14 +12527,14 @@ export interface Header5FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
@@ -12545,14 +12582,14 @@ export interface Footer1FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12569,13 +12606,13 @@ export interface Footer1FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12605,14 +12642,14 @@ export interface Footer2FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12628,14 +12665,14 @@ export interface Footer2FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12663,14 +12700,14 @@ export interface Footer3FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12686,14 +12723,14 @@ export interface Footer3FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12708,13 +12745,13 @@ export interface Footer3FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12742,14 +12779,14 @@ export interface Footer4FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12765,14 +12802,14 @@ export interface Footer4FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12787,13 +12824,13 @@ export interface Footer4FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12826,14 +12863,14 @@ export interface Footer5FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12850,13 +12887,13 @@ export interface Footer5FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12872,13 +12909,13 @@ export interface Footer5FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12908,14 +12945,14 @@ export interface Footer6FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12931,14 +12968,14 @@ export interface Footer6FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12968,14 +13005,14 @@ export interface Footer7FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -12991,13 +13028,13 @@ export interface Footer7FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -13012,14 +13049,14 @@ export interface Footer7FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -13048,14 +13085,14 @@ export interface Footer8FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -13071,13 +13108,13 @@ export interface Footer8FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -13108,14 +13145,14 @@ export interface Footer9FieldsSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
+                    appearance?: T;
                     reference?: T;
                     url?: T;
                     popup?: T;
                     label?: T;
                     prefixIcon?: T;
                     suffixIcon?: T;
-                    appearance?: T;
+                    newTab?: T;
                   };
               id?: T;
             };
@@ -13130,14 +13167,14 @@ export interface Footer9FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -13154,14 +13191,14 @@ export interface Footer9FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -13176,14 +13213,14 @@ export interface Footer9FieldsSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
-                          newTab?: T;
+                          appearance?: T;
                           reference?: T;
                           url?: T;
                           popup?: T;
                           label?: T;
                           prefixIcon?: T;
                           suffixIcon?: T;
-                          appearance?: T;
+                          newTab?: T;
                         };
                     id?: T;
                   };
@@ -13287,6 +13324,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         custom404Page?: T;
       };
   blacklistCountries?: T;
+  theme?: T;
   archiveStyles?:
     | T
     | {
@@ -13390,14 +13428,14 @@ export interface ProductsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };

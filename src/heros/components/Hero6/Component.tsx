@@ -3,9 +3,14 @@ import { Media } from '@/components/Media'
 import type { Hero6Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Hero6({ hero }: Hero6Fields) {
-  const { title, subtitle, links, image, secondaryImage, partners } = hero
-
+export default function Hero6({
+  title,
+  subtitle,
+  links,
+  image,
+  secondaryImage,
+  partners,
+}: Hero6Fields) {
   return (
     <section className="py-section md:py-section-md lg:py-section-lg">
       <div className="container">

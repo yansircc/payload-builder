@@ -4,9 +4,7 @@ import type { Hero32Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Hero32({ hero }: Hero32Fields) {
-  const { title, subtitle, link, integrations } = hero
-
+export default function Hero32({ title, subtitle, link, integrations }: Hero32Fields) {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">

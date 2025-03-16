@@ -4,8 +4,7 @@ import { Media } from '@/components/Media'
 import type { Hero115Fields } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
-export default function Hero115({ hero }: { hero: Hero115Fields['hero'] }) {
-  const { title, subtitle, links, image, trustText } = hero
+export default function Hero115({ title, subtitle, links, image, trustText }: Hero115Fields) {
   const link = links?.[0]?.link
 
   return (

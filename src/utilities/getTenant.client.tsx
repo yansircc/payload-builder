@@ -60,7 +60,7 @@ export async function getTenantByDomainFromClient({
       { addQueryPrefix: true },
     )
 
-    const response = await fetch(`${env.NEXT_PUBLIC_SERVER_URL}/api/tenants${stringifiedQuery}`, {
+    const response = await fetch(`/api/tenants${stringifiedQuery}`, {
       headers: { 'Content-Type': 'application/json' },
       next: { revalidate, tags },
     })
@@ -110,7 +110,7 @@ export async function getTenantByIdFromClient(
   } = {},
 ): Promise<Tenant | null> {
   try {
-    const response = await fetch(`${env.NEXT_PUBLIC_SERVER_URL}/api/tenants/${id}`, {
+    const response = await fetch(`/api/tenants/${id}`, {
       headers: { 'Content-Type': 'application/json' },
       next: { revalidate, tags },
     })

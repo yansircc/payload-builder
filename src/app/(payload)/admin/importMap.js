@@ -34,6 +34,7 @@ import {
   RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
 } from '@payloadcms/richtext-lexical/rsc'
+import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 import { default as default_a48147a5d9e361c38690affd82c29136 } from 'src/collections/CustomCodes/components/ScriptRowLabel'
 import { default as default_b128d0bd7c3a2b8021c74b08f7767dc4 } from '@/blocks/About/components/About1/config.client.tsx'
 import { default as default_c3b518973acc8f136eb7ceedd0826569 } from '@/blocks/CallToAction/components/CTA1/client'
@@ -73,12 +74,38 @@ import { DefaultRootView as DefaultRootView_a5b063f5b2b9cdce4f0e1dd9b2761872 } f
 import { AIFeature as AIFeature_c86cb9794e8dfc789dceffc1ecbdea8d } from '@/fields/ai/client'
 import { FullPathCell as FullPathCell_e1b3b2f313a2a78029b930d3989bed10 } from '@/fields/slug/fullPath/cell'
 import { SlugComponent as SlugComponent_92cc057d0a2abb4f6cf0307edf59f986 } from '@/fields/slug/SlugComponent'
+import { default as default_83e516dd9b75169562ed49d067b07699 } from '@/heros/components/Hero1/client'
+import { default as default_939feda8275c81603ff3e43cea28f6de } from '@/heros/components/Hero3/client'
+import { default as default_70ba0900e43ad72ec8900a1ba96a3e84 } from '@/heros/components/Hero5/client'
+import { default as default_0e9bb65e8eb20c3ab1116a160b1f3ae9 } from '@/heros/components/Hero6/client'
+import { default as default_3af4fe9525ccc51e00373001b43ff400 } from '@/heros/components/Hero7/client'
+import { default as default_a0a4c0a863cb2584ffed303bc4837c54 } from '@/heros/components/Hero8/client'
+import { default as default_8e167f6a55ac4b64f4b6a2a8ab91b383 } from '@/heros/components/Hero12/client'
+import { default as default_597531ebe7828fa44843577061df89be } from '@/heros/components/Hero24/client'
+import { default as default_c18fdbdd56d390022533c853f2c7afd2 } from '@/heros/components/Hero25/client'
+import { default as default_126fc3915e4b723189966a3ffa9c9557 } from '@/heros/components/Hero32/client'
+import { default as default_ac34d3ff6d88a8ffd46f9ec0a3f322da } from '@/heros/components/Hero34/client'
+import { default as default_ce1e7c662f66ac4782eaa34d00f5bbcd } from '@/heros/components/Hero45/client'
+import { default as default_12670c929d7daf4579856158af527b93 } from '@/heros/components/Hero115/client'
 
 export const importMap = {
   '@payloadcms/plugin-multi-tenant/client#TenantField':
     TenantField_1d0591e3cf4f332c83a86da13a0de59a,
   '@/collections/Pages/components/cells/TitleCell#TitleCell':
     TitleCell_bd13935b4668de9bcb77da705b112676,
+  '@/heros/components/Hero1/client#default': default_83e516dd9b75169562ed49d067b07699,
+  '@/heros/components/Hero3/client#default': default_939feda8275c81603ff3e43cea28f6de,
+  '@/heros/components/Hero5/client#default': default_70ba0900e43ad72ec8900a1ba96a3e84,
+  '@/heros/components/Hero6/client#default': default_0e9bb65e8eb20c3ab1116a160b1f3ae9,
+  '@/heros/components/Hero7/client#default': default_3af4fe9525ccc51e00373001b43ff400,
+  '@/heros/components/Hero8/client#default': default_a0a4c0a863cb2584ffed303bc4837c54,
+  '@/heros/components/Hero12/client#default': default_8e167f6a55ac4b64f4b6a2a8ab91b383,
+  '@/heros/components/Hero24/client#default': default_597531ebe7828fa44843577061df89be,
+  '@/heros/components/Hero25/client#default': default_c18fdbdd56d390022533c853f2c7afd2,
+  '@/heros/components/Hero32/client#default': default_126fc3915e4b723189966a3ffa9c9557,
+  '@/heros/components/Hero34/client#default': default_ac34d3ff6d88a8ffd46f9ec0a3f322da,
+  '@/heros/components/Hero45/client#default': default_ce1e7c662f66ac4782eaa34d00f5bbcd,
+  '@/heros/components/Hero115/client#default': default_12670c929d7daf4579856158af527b93,
   '@/components/IconSelect/#default': default_545a25a7f6f58e32e2350bd4892658ab,
   '@/blocks/About/components/About1/config.client.tsx#default':
     default_b128d0bd7c3a2b8021c74b08f7767dc4,
@@ -162,6 +189,8 @@ export const importMap = {
     TenantSelector_1d0591e3cf4f332c83a86da13a0de59a,
   '@payloadcms/plugin-multi-tenant/rsc#TenantSelectionProvider':
     TenantSelectionProvider_d6d5f193a167989e2ee7d14202901e62,
+  '@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler':
+    VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
   '@/components/views/WordpressMigration/DefaultRootView#DefaultRootView':
     DefaultRootView_a5b063f5b2b9cdce4f0e1dd9b2761872,
 }

@@ -3,9 +3,7 @@ import { Media } from '@/components/Media'
 import type { Hero8Fields } from '@/payload-types'
 import { ClientMotionDiv } from '../shared/motion'
 
-export default function Hero8({ hero }: Hero8Fields) {
-  const { title, subtitle, links, image } = hero
-
+export default function Hero8({ title, subtitle, links, image }: Hero8Fields) {
   return (
     <section className="relative overflow-hidden bg-background py-section md:py-section-md lg:py-section-lg">
       <div className="container relative z-10">
@@ -45,19 +43,21 @@ export default function Hero8({ hero }: Hero8Fields) {
         </div>
 
         {/* Bottom Image */}
-        <ClientMotionDiv
-          className="mt-24"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <Media
-            resource={image}
-            className="mx-auto max-h-[700px] w-full max-w-7xl rounded-lg shadow-card"
-            imgClassName="object-cover w-full h-full"
-            priority
-          />
-        </ClientMotionDiv>
+        {image && (
+          <ClientMotionDiv
+            className="mt-24"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Media
+              resource={image}
+              className="mx-auto max-h-[700px] w-full max-w-7xl rounded-lg shadow-card"
+              imgClassName="object-cover w-full h-full"
+              priority
+            />
+          </ClientMotionDiv>
+        )}
       </div>
 
       {/* Decorative Background */}

@@ -296,7 +296,7 @@ h - input // Input height
 
 ## Theme Customization
 
-To customize the theme, modify the theme configuration in `src/themes/index.ts`. All theme variables will be automatically reflected in the Tailwind utilities.
+To customize the theme, modify the theme CSS variables in `src/app/(frontend)/globals.css`. All theme variables are defined using CSS custom properties and will be automatically reflected in the Tailwind utilities.
 
 ## Future Enhancements
 
