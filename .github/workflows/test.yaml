@@ -1,10 +1,10 @@
 name: 🧪 Playwright Tests
 
 on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main, develop]
+  workflow_run:
+    workflows: ["🚀 Build & Deploy"] # Matches the name in build.yaml
+    types:
+      - completed
 
 jobs:
   test:
@@ -12,8 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🎯 Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20.9.0
 
@@ -22,17 +25,33 @@ jobs:
         with:
           bun-version: latest
 
+      - name: 📥 Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: .
+
+      - name: 🔄 Extract Build
+        run: tar -xzf build-output.tar.gz
+
+      - name: 🚀 Start Server
+        run: bun run start &  # Start the server in the background
+        env:
+          DATABASE_URL: "mongodb://localhost:27017/try_payload"
+          PAYLOAD_SECRET: "test-secret-for-ci-environment"
+          NEXT_PUBLIC_SERVER_URL: "http://localhost:3000"
+          CRON_SECRET: "test-cron-secret-for-ci"
+
       - name: 📦 Install Dependencies
-        run: |
-          bun install --frozen-lockfile
-          
+        run: bun install --frozen-lockfile
+
       - name: Install Playwright Browsers
         run: bun playwright install --with-deps
 
       - name: 🔍 Run Playwright Tests
         run: bun playwright test --reporter=dot,line
 
-      - name: 📸 Upload Playwright Test Results (Artifacts)
+      - name: 📸 Upload Playwright Test Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
