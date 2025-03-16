@@ -16,9 +16,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20.9.0
+
+      - name: 🎯 Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
       - name: 📦 Install Dependencies
         run: |
           bun install --frozen-lockfile
+          
       - name: Install Playwright Browsers
         run: bun playwright install --with-deps
 
