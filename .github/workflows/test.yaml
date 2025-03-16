@@ -33,6 +33,17 @@ jobs:
         node-version: [20.9.0]
       fail-fast: true
 
+    services:
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd mongosh
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
