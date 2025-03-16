@@ -77,13 +77,13 @@ jobs:
           NEXT_LOG_LEVEL: error
         run: bun run build --no-lint
 
-      - name: 🚀 Start Server
-        run: bun run start &  # Start the server in the background
-        env:
-          DATABASE_URL: "mongodb://localhost:27017/try_payload"
-          PAYLOAD_SECRET: "test-secret-for-ci-environment"
-          NEXT_PUBLIC_SERVER_URL: "http://localhost:3000"
-          CRON_SECRET: "test-cron-secret-for-ci"
+      # - name: 🚀 Start Server
+      #   run: bun run start &  # Start the server in the background
+      #   env:
+      #     DATABASE_URL: "mongodb://localhost:27017/try_payload"
+      #     PAYLOAD_SECRET: "test-secret-for-ci-environment"
+      #     NEXT_PUBLIC_SERVER_URL: "http://localhost:3000"
+      #     CRON_SECRET: "test-cron-secret-for-ci"
 
       - name: 📦 Install Playwright Dependencies
         run: bun install --frozen-lockfile
