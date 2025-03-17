@@ -1,0 +1,5 @@
+/* Hide the login form default */
+.login__form,
+.login__form form {
+  display: none !important;
+}

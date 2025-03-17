@@ -34,7 +34,6 @@ import {
   RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
 } from '@payloadcms/richtext-lexical/rsc'
-import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 import { default as default_a48147a5d9e361c38690affd82c29136 } from 'src/collections/CustomCodes/components/ScriptRowLabel'
 import { default as default_b128d0bd7c3a2b8021c74b08f7767dc4 } from '@/blocks/About/components/About1/config.client.tsx'
 import { default as default_c3b518973acc8f136eb7ceedd0826569 } from '@/blocks/CallToAction/components/CTA1/client'
@@ -189,8 +188,6 @@ export const importMap = {
     TenantSelector_1d0591e3cf4f332c83a86da13a0de59a,
   '@payloadcms/plugin-multi-tenant/rsc#TenantSelectionProvider':
     TenantSelectionProvider_d6d5f193a167989e2ee7d14202901e62,
-  '@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler':
-    VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
   '@/components/views/WordpressMigration/DefaultRootView#DefaultRootView':
     DefaultRootView_a5b063f5b2b9cdce4f0e1dd9b2761872,
 }
