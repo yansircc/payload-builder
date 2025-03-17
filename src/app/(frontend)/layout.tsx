@@ -20,6 +20,7 @@ import { RenderWidget } from '@/globals/Widget/RenderWidget'
 import { getCountryAccess } from '@/utilities/getCountryAccess'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getServerSideURL } from '@/utilities/getURL'
+import GTM from './next/scripts/GTM/GTM'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
@@ -65,6 +66,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <InitDataLayer />
           <AdminBar adminBarProps={{ preview: isEnabled }} />
 
+          <GTM />
           {customScripts?.bodyStartScripts}
           <RenderHeader />
           {children}
