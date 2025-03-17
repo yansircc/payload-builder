@@ -11,6 +11,7 @@ import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { cn } from '@/utilities/ui'
 import './globals.css'
+import { InitDataLayer } from '@/components/InitDataLayer/InitDataLayer'
 import { inter, outfit } from '@/config/fonts'
 import { CustomCode } from '@/globals/CustomCode/Component'
 import { Favicon } from '@/globals/Favicon/Component'
@@ -61,6 +62,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
+          <InitDataLayer />
           <AdminBar adminBarProps={{ preview: isEnabled }} />
 
           {customScripts?.bodyStartScripts}
