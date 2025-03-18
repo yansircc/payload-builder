@@ -1,18 +1,20 @@
 name: 🧪 Playwright Tests
 
 on:
+  workflow_dispatch:
   # pull_request:
   #   branches: [main, develop]
   # workflow_dispatch:
-  workflow_run:
-    workflows: ["🚀 CI"]
-    types:
-      - completed
+  # workflow_run:
+  #   workflows: ["🚀 CI"]
+  #   types:
+  #     - completed
+  # workflow_dispatch:
 
 jobs:
   test:
     name: 🧪 Run Playwright Tests
-    runs-on: ubuntu-latest  # ✅ Removed 'needs: build'
+    runs-on: ubuntu-latest # ✅ Removed 'needs: build'
 
     steps:
       - name: 📥 Checkout Repository
@@ -39,11 +41,11 @@ jobs:
 
       - name: 🚀 Start Server
         env:
-          NODE_ENV: "production"
-          DATABASE_URL: "mongodb://localhost:27017/try_payload"
-          PAYLOAD_SECRET: "test-secret-for-ci-environment"
-          NEXT_PUBLIC_SERVER_URL: "http://localhost:3000"
-          CRON_SECRET: "test-cron-secret-for-ci"
+          NODE_ENV: 'production'
+          DATABASE_URL: 'mongodb://localhost:27017/try_payload'
+          PAYLOAD_SECRET: 'test-secret-for-ci-environment'
+          NEXT_PUBLIC_SERVER_URL: 'http://localhost:3000'
+          CRON_SECRET: 'test-cron-secret-for-ci'
         run: |
           if [ ! -d ".next" ]; then
             echo "❌ No .next directory found! Make sure build step ran successfully."
