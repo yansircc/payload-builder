@@ -1,13 +1,13 @@
 name: 🧪 Playwright Tests
 
 on:
-  pull_request:
-    branches: [main, develop]
-  workflow_dispatch:
-  # workflow_run:
-  #   workflows: ["🚀 CI"]
-  #   types:
-  #     - completed
+  # pull_request:
+  #   branches: [main, develop]
+  # workflow_dispatch:
+  workflow_run:
+    workflows: ["🚀 CI"]
+    types:
+      - completed
 
 jobs:
   test:
