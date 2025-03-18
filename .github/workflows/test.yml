@@ -1,15 +1,13 @@
 name: 🧪 Playwright Tests
 
 on:
+  workflow_run:
+    workflows: ["🚀 CI"]
+    types:
+      - completed
+    branches:
+      - '*' # This wildcard will trigger on all branches
   workflow_dispatch:
-  # pull_request:
-  #   branches: [main, develop]
-  # workflow_dispatch:
-  # workflow_run:
-  #   workflows: ["🚀 CI"]
-  #   types:
-  #     - completed
-  # workflow_dispatch:
 
 jobs:
   test:
