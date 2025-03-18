@@ -1,0 +1,88 @@
+name: 🧪 Playwright Tests
+
+on:
+  workflow_run:
+    workflows: ["🚀 CI"]
+    types:
+      - completed
+
+jobs:
+  test:
+    name: 🧪 Run Playwright Tests
+    runs-on: ubuntu-latest  # ✅ Removed 'needs: build'
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🎯 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.9.0
+
+      - name: 🎯 Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 📥 Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: .
+
+      - name: 🔄 Extract Build
+        run: tar -xzf build-output.tar.gz
+
+      - name: 🚀 Start Server
+        env:
+          NODE_ENV: "production"
+          DATABASE_URL: "mongodb://localhost:27017/try_payload"
+          PAYLOAD_SECRET: "test-secret-for-ci-environment"
+          NEXT_PUBLIC_SERVER_URL: "http://localhost:3000"
+          CRON_SECRET: "test-cron-secret-for-ci"
+        run: |
+          if [ ! -d ".next" ]; then
+            echo "❌ No .next directory found! Make sure build step ran successfully."
+            exit 1
+          fi
+          sudo lsof -ti:3000 | xargs --no-run-if-empty kill -9
+          node .next/standalone/server.js &
+
+      - name: 🔍 Wait for Server to be Ready
+        run: |
+          for i in {1..15}; do
+            if curl --output /dev/null --silent --head --fail http://localhost:3000; then
+              echo "✅ Server is up!"
+              exit 0
+            fi
+            echo "⏳ Waiting for server..."
+            sleep 3
+          done
+          echo "❌ Server did not start in time"
+          exit 1
+
+      - name: 📦 Install Playwright Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: bun playwright install --with-deps
+
+      - name: 🔍 Run Playwright Tests
+        run: bun playwright test --reporter=dot,line
+
+      - name: 📸 Upload Playwright Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+      - name: 🚀 Upload Playwright Traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-trace
+          path: test-results/
+          retention-days: 7
