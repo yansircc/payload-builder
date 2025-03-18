@@ -1,8 +1,8 @@
 import Script from 'next/script'
-import { getCustomCodes } from '@/utilities/getGTMId'
+import { getGTMId } from '@/utilities/getGTMId'
 
 const GTM = async () => {
-  const { gtmId } = await getCustomCodes()
+  const { gtmId } = await getGTMId()
   if (!gtmId) return null
 
   return (

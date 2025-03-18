@@ -9,7 +9,7 @@ interface Script {
   id: string
 }
 
-export const getCustomCodes = async () => {
+export const getGTMId = async () => {
   try {
     const res = await fetch(`${process.env.PAYLOAD_API_URL}/custom-codes?depth=0`, {
       cache: 'no-store',
