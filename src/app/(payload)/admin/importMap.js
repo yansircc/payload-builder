@@ -64,7 +64,6 @@ import { default as default_1fc36faed0e4c8f1264abd36c8fb4fb7 } from '@/blocks/Fe
 import { default as default_5fced7c97585950e9fc132dcb6389c5f } from '@/blocks/Feature/components/Feature15/client'
 import { TitleCell as TitleCell_bd13935b4668de9bcb77da705b112676 } from '@/collections/Pages/components/cells/TitleCell'
 import { default as default_1a7510af427896d367a49dbf838d2de6 } from '@/components/BeforeDashboard'
-import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { default as default_78b39f784b86cf844383560b5f1a85bf } from '@/components/ColorPicker/'
 import { default as default_545a25a7f6f58e32e2350bd4892658ab } from '@/components/IconSelect/'
 import { default as default_aeea2462fad41415a04ffbf0a5f77d84 } from '@/components/Nav/WordpressMigration'
@@ -183,7 +182,6 @@ export const importMap = {
     GlobalViewRedirect_d6d5f193a167989e2ee7d14202901e62,
   '@/components/Nav/WordpressMigration#default': default_aeea2462fad41415a04ffbf0a5f77d84,
   '@/components/BeforeDashboard#default': default_1a7510af427896d367a49dbf838d2de6,
-  '@/components/BeforeLogin#default': default_8a7ab0eb7ab5c511aba12e68480bfe5e,
   '@payloadcms/plugin-multi-tenant/client#TenantSelector':
     TenantSelector_1d0591e3cf4f332c83a86da13a0de59a,
   '@payloadcms/plugin-multi-tenant/rsc#TenantSelectionProvider':
