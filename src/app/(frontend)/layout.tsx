@@ -11,6 +11,7 @@ import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { cn } from '@/utilities/ui'
 import './globals.css'
+import { InitDataLayer } from '@/components/InitDataLayer/InitDataLayer'
 import { inter, outfit } from '@/config/fonts'
 import { CustomCode } from '@/globals/CustomCode/Component'
 import { Favicon } from '@/globals/Favicon/Component'
@@ -19,6 +20,7 @@ import { RenderWidget } from '@/globals/Widget/RenderWidget'
 import { getCountryAccess } from '@/utilities/getCountryAccess'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getServerSideURL } from '@/utilities/getURL'
+import GTM from './next/scripts/GTM/GTM'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
@@ -61,8 +63,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
+          <InitDataLayer />
           <AdminBar adminBarProps={{ preview: isEnabled }} />
 
+          <GTM />
           {customScripts?.bodyStartScripts}
           <RenderHeader />
           {children}
