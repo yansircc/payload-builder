@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 
-export class LoginPage {
+export class AuthPage {
   private page: Page
   readonly emailField: Locator
   readonly passwordField: Locator
@@ -14,9 +14,9 @@ export class LoginPage {
     this.loginButton = this.page.locator('button[type="submit"]')
     this.welcomeMessage = this.page.getByRole('heading', { name: 'Welcome to your dashboard!' })
   }
-  async logIn() {
-    await this.emailField.fill(process.env.EMAIL as string)
-    await this.passwordField.fill(process.env.PASSWORD as string)
+  async logIn(email: string, password: string) {
+    await this.emailField.fill(email)
+    await this.passwordField.fill(password)
     await this.loginButton.click()
     await expect(this.welcomeMessage).toBeVisible()
   }
