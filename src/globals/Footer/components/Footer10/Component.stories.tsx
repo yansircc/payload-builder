@@ -67,16 +67,3 @@ export const WithoutDescription: Story = {
     },
   },
 }
-
-export const MinimalFooter: Story = {
-  args: {
-    footer: {
-      ...defaultFooter,
-      logo: '',
-      bottomText: {
-        copyright: '© 2024 Your Company',
-        description: '',
-      },
-    },
-  },
-}
