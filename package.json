@@ -103,6 +103,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.45.4",
     "react-slick": "^0.30.3",
+    "schema-dts": "^1.1.5",
     "sharp": "^0.32.6",
     "slick-carousel": "^1.8.1",
     "standard-slugify": "^4.0.0",
