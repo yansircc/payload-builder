@@ -6,6 +6,7 @@
   justify-content: center;
   min-height: 100vh;
   background-color: white;
+  padding: 16px; 
 
   .form-wrapper {
     max-width: 600px;
@@ -38,7 +39,11 @@
     }
 
     .login-form-container {
-      padding: 48px 32px;
+      padding: 24px 24px;  
+      
+      @media (min-width: 640px) {
+        padding: 48px 40px;
+      }
       background: white;
       border-radius: 8px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
