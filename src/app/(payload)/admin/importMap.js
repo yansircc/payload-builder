@@ -35,6 +35,7 @@ import {
   RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
 } from '@payloadcms/richtext-lexical/rsc'
 import { default as default_a48147a5d9e361c38690affd82c29136 } from 'src/collections/CustomCodes/components/ScriptRowLabel'
+import { default as default_37fe8dffcaa733e5e3d853d005da24b9 } from '@/app/(payload)/admin/schema-docs/page'
 import { default as default_b128d0bd7c3a2b8021c74b08f7767dc4 } from '@/blocks/About/components/About1/config.client.tsx'
 import { default as default_c3b518973acc8f136eb7ceedd0826569 } from '@/blocks/CallToAction/components/CTA1/client'
 import { default as default_8d0667f89022766e1688b8712d465270 } from '@/blocks/CallToAction/components/CTA3/client'
@@ -67,6 +68,7 @@ import { default as default_1a7510af427896d367a49dbf838d2de6 } from '@/component
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { default as default_78b39f784b86cf844383560b5f1a85bf } from '@/components/ColorPicker/'
 import { default as default_545a25a7f6f58e32e2350bd4892658ab } from '@/components/IconSelect/'
+import { default as default_6044107c4001d10e0017f769e079dcc8 } from '@/components/Nav/SchemaDocsLink'
 import { default as default_aeea2462fad41415a04ffbf0a5f77d84 } from '@/components/Nav/WordpressMigration'
 import { default as default_451f87e9402710cb271a0a0c66065661 } from '@/components/StaticPreview'
 import { DefaultRootView as DefaultRootView_a5b063f5b2b9cdce4f0e1dd9b2761872 } from '@/components/views/WordpressMigration/DefaultRootView'
@@ -182,6 +184,7 @@ export const importMap = {
   '@payloadcms/plugin-multi-tenant/rsc#GlobalViewRedirect':
     GlobalViewRedirect_d6d5f193a167989e2ee7d14202901e62,
   '@/components/Nav/WordpressMigration#default': default_aeea2462fad41415a04ffbf0a5f77d84,
+  '@/components/Nav/SchemaDocsLink#default': default_6044107c4001d10e0017f769e079dcc8,
   '@/components/BeforeDashboard#default': default_1a7510af427896d367a49dbf838d2de6,
   '@/components/BeforeLogin#default': default_8a7ab0eb7ab5c511aba12e68480bfe5e,
   '@payloadcms/plugin-multi-tenant/client#TenantSelector':
@@ -190,4 +193,5 @@ export const importMap = {
     TenantSelectionProvider_d6d5f193a167989e2ee7d14202901e62,
   '@/components/views/WordpressMigration/DefaultRootView#DefaultRootView':
     DefaultRootView_a5b063f5b2b9cdce4f0e1dd9b2761872,
+  '@/app/(payload)/admin/schema-docs/page#default': default_37fe8dffcaa733e5e3d853d005da24b9,
 }
