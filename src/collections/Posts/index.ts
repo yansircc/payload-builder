@@ -62,7 +62,12 @@ export const Posts: CollectionConfig<'posts'> = {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
-          tenant: typeof data?.tenant === 'string' ? data.tenant : '',
+          tenant:
+            typeof data?.tenant === 'object' && data.tenant
+              ? data.tenant.id
+              : typeof data?.tenant === 'string'
+                ? data.tenant
+                : '',
           collection: 'posts',
           req,
         })
@@ -73,7 +78,12 @@ export const Posts: CollectionConfig<'posts'> = {
     preview: (data: any, { req }) =>
       generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
-        tenant: typeof data?.tenant.id === 'string' ? data.tenant.id : '',
+        tenant:
+          typeof data?.tenant === 'object' && data.tenant
+            ? data.tenant.id
+            : typeof data?.tenant === 'string'
+              ? data.tenant
+              : '',
         collection: 'posts',
         req,
       }),
@@ -281,9 +291,24 @@ export const Posts: CollectionConfig<'posts'> = {
         const payload = await getPayload({ config: configPromise })
 
         if (!tenant) {
-          return Response.json({
-            message: `No tenant found`,
+          // For super admin, still return posts but without tenant filter
+          const posts = await payload.find({
+            collection: 'posts',
+            depth: 1,
+            limit: 12,
+            overrideAccess: false,
+            select: {
+              title: true,
+              slug: true,
+              categories: true,
+              meta: true,
+              content: true,
+              updatedAt: true,
+              createdAt: true,
+            },
           })
+
+          return Response.json(posts)
         }
 
         let posts: PaginatedDocs<Post> | null = null
@@ -323,9 +348,19 @@ export const Posts: CollectionConfig<'posts'> = {
         const payload = await getPayload({ config: configPromise })
 
         if (!tenant) {
-          return Response.json({
-            message: `No tenant found`,
+          // For super admin, we still want to show the post without tenant filter
+          const result = await payload.find({
+            collection: 'posts',
+            limit: 1,
+            pagination: false,
+            where: {
+              slug: {
+                equals: req.routeParams?.slug,
+              },
+            },
           })
+
+          return Response.json(result.docs?.[0] || null)
         }
 
         const result = await payload.find({
