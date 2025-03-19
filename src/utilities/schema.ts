@@ -8,6 +8,7 @@ import {
   WithContext,
 } from 'schema-dts'
 import type { Page, Post, SiteSetting } from '@/payload-types'
+import type { ExtendedPage, ExtendedPost } from '@/types/payload-extended'
 import { getImageURL } from './getImageURL'
 
 export interface SchemaOptions {
@@ -17,7 +18,7 @@ export interface SchemaOptions {
 
 // Blog post schema (Article)
 export function generateBlogPostingSchema(
-  post: Post,
+  post: Post | ExtendedPost,
   options: SchemaOptions,
 ): WithContext<BlogPosting> {
   const { siteSettings, baseUrl } = options
@@ -80,7 +81,10 @@ export function generateBlogPostingSchema(
 }
 
 // Page schema (WebPage)
-export function generateWebPageSchema(page: Page, options: SchemaOptions): WithContext<WebPage> {
+export function generateWebPageSchema(
+  page: Page | ExtendedPage,
+  options: SchemaOptions,
+): WithContext<WebPage> {
   const { siteSettings, baseUrl } = options
   const url = `${baseUrl}/${page.slug}`
 
