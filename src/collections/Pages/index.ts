@@ -16,6 +16,7 @@ import { Table } from '@/blocks/Table/config'
 import { VideoBlock } from '@/blocks/VideoBlock/config'
 import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
 import { slugField } from '@/fields/slug'
+import { structuredDataField } from '@/fields/structuredData'
 import { HeroField } from '@/heros/config'
 import { updatePreviewImage } from '@/hooks/beforeChange'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
@@ -201,6 +202,7 @@ export const Pages: CollectionConfig<'pages'> = {
         },
       },
     },
+    structuredDataField,
   ],
   hooks: {
     afterChange: [revalidatePage, updateChildPaths],

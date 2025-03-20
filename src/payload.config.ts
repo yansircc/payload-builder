@@ -45,8 +45,12 @@ export default buildConfig({
           Component: '@/components/views/WordpressMigration/DefaultRootView#DefaultRootView',
           path: '/wordpress-migration',
         },
+        SchemaDocsView: {
+          Component: '@/app/(payload)/admin/schema-docs/page',
+          path: '/schema-docs',
+        },
       },
-      afterNavLinks: ['@/components/Nav/WordpressMigration'],
+      afterNavLinks: ['@/components/Nav/WordpressMigration', '@/components/Nav/SchemaDocsLink'],
     },
     importMap: { baseDir: path.resolve(dirname) },
     user: Users.slug,

@@ -33,6 +33,7 @@ export default async function Page() {
         content: true,
         updatedAt: true,
         createdAt: true,
+        structuredData: true,
       },
       where: {
         tenant: {

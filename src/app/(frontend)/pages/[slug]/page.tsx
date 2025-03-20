@@ -2,14 +2,12 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import RichText from '@/components/RichText'
 import SchemaMarkup from '@/components/SchemaMarkup'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getServerSideURL } from '@/utilities/getURL'
-import { generateBlogPostingSchema, generateOrganizationSchema } from '@/utilities/schema'
+import { generateOrganizationSchema, generateWebPageSchema } from '@/utilities/schema'
 
 interface Args {
   params: Promise<{ slug: string }>
@@ -33,14 +31,14 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   })
 
   const tenant = tenantQuery.docs[0]
-  const post = tenant
+  const page = tenant
     ? await payload
         .find({
-          collection: 'posts',
+          collection: 'pages',
           where: {
             and: [
               {
-                slug: {
+                fullPath: {
                   equals: slug,
                 },
               },
@@ -56,10 +54,10 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
         .then((result) => result.docs[0] || null)
     : null
 
-  const meta = generateMeta({ doc: post || null })
+  const meta = generateMeta({ doc: page || null })
 
   // Add robots meta tag if noindex is true
-  if (post?.meta?.noindex) {
+  if (page?.meta?.noindex) {
     return {
       ...meta,
       robots: {
@@ -72,8 +70,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   return meta
 }
 
-// Post component with schema implementation
-export default async function Post({ params: paramsPromise }: Args) {
+// Page component with schema implementation
+export default async function Page({ params: paramsPromise }: Args) {
   const { slug = 'home' } = await paramsPromise
   const headersList = headers()
   const host = (await headersList).get('host') || ''
@@ -90,14 +88,14 @@ export default async function Post({ params: paramsPromise }: Args) {
   })
 
   const tenant = tenantQuery.docs[0]
-  const post = tenant
+  const page = tenant
     ? await payload
         .find({
-          collection: 'posts',
+          collection: 'pages',
           where: {
             and: [
               {
-                slug: {
+                fullPath: {
                   equals: slug,
                 },
               },
@@ -113,16 +111,16 @@ export default async function Post({ params: paramsPromise }: Args) {
         .then((result) => result.docs[0])
     : null
 
-  if (!post) {
+  if (!page) {
     return notFound()
   }
 
-  // Generate schema for the post
+  // Generate schema for the page
   const siteSettings = await getSiteSettingsFromDomain()
   const baseUrl = getServerSideURL()
 
-  // Create basic blog post schema
-  const postSchema = generateBlogPostingSchema(post, { siteSettings, baseUrl })
+  // Create basic webpage schema
+  const pageSchema = generateWebPageSchema(page, { siteSettings, baseUrl })
 
   // Add organization schema
   const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
@@ -130,33 +128,23 @@ export default async function Post({ params: paramsPromise }: Args) {
   // Combine schemas
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@graph': [postSchema, orgSchema],
+    '@graph': [pageSchema, orgSchema],
   }
 
   return (
-    <article className="pt-16 pb-16">
+    <main className="page">
       <SchemaMarkup jsonLd={jsonLd} />
+      {/* Content rendering would normally be done here */}
+      {/* For now we'll just render a placeholder */}
       <div className="container mx-auto py-8">
-        <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-        {post.heroImage && (
-          <div className="mb-6">
-            {typeof post.heroImage === 'object' && post.heroImage.url && (
-              <Image
-                src={post.heroImage.url}
-                alt={post.heroImage.alt || post.title}
-                className="w-full h-auto rounded-lg"
-                width={post.heroImage.width || 1200}
-                height={post.heroImage.height || 630}
-              />
-            )}
-          </div>
-        )}
-        {post.content && (
-          <div className="mt-8">
-            <RichText data={post.content} enableGutter={false} enableProse={true} />
+        <h1 className="text-3xl font-bold mb-4">{page.title}</h1>
+        {page.layout && Array.isArray(page.layout) && (
+          <div>
+            {/* Content blocks would be rendered here */}
+            <p>Content blocks: {page.layout.length}</p>
           </div>
         )}
       </div>
-    </article>
+    </main>
   )
 }
