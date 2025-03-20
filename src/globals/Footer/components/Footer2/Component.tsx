@@ -35,8 +35,13 @@ export default function Footer2({ footer }: Footer2Fields) {
             <p>{copyright}</p>
             <ul className="flex gap-4">
               {rightLinks?.links?.map((linkGroup, index) => (
-                <li key={index} className="underline hover:text-primary">
-                  {linkGroup.link && <CMSLink {...linkGroup.link} className="p-0" />}
+                <li key={index} className="underline">
+                  {linkGroup.link && (
+                    <CMSLink
+                      {...linkGroup.link}
+                      className="p-0 text-muted-foreground hover:text-foreground"
+                    />
+                  )}
                 </li>
               ))}
             </ul>

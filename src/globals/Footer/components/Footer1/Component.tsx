@@ -14,12 +14,12 @@ export default function Footer1({ footer }: Footer1Fields) {
             <div className="flex flex-col gap-4 md:flex-row md:items-center">
               <p className="text-lg font-medium">{rightLinks.title}</p>
               {rightLinks?.links?.map((linkGroup, index) => (
-                <div key={index} className="flex gap-2">
+                <div key={index}>
                   {Object.entries(linkGroup).map(
                     ([key, link]) =>
                       link &&
                       typeof link === 'object' && (
-                        <CMSLink key={key} {...link} className="size-7 text-background" />
+                        <CMSLink key={key} {...link} className="size-7 text-foreground" />
                       ),
                   )}
                 </div>
