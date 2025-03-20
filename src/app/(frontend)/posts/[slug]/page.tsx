@@ -2,7 +2,9 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import RichText from '@/components/RichText'
 import SchemaMarkup from '@/components/SchemaMarkup'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
@@ -138,12 +140,20 @@ export default async function Post({ params: paramsPromise }: Args) {
         <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
         {post.heroImage && (
           <div className="mb-6">
-            <p>Featured image</p>
+            {typeof post.heroImage === 'object' && post.heroImage.url && (
+              <Image
+                src={post.heroImage.url}
+                alt={post.heroImage.alt || post.title}
+                className="w-full h-auto rounded-lg"
+                width={post.heroImage.width || 1200}
+                height={post.heroImage.height || 630}
+              />
+            )}
           </div>
         )}
         {post.content && (
-          <div className="prose max-w-none">
-            <p>Post content</p>
+          <div className="mt-8">
+            <RichText data={post.content} enableGutter={false} enableProse={true} />
           </div>
         )}
       </div>
