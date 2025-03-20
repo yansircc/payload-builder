@@ -24,6 +24,7 @@ import { ListBlock } from '@/blocks/List/config'
 import { Table } from '@/blocks/Table/config'
 import { VideoBlock } from '@/blocks/VideoBlock/config'
 import { slugField } from '@/fields/slug'
+import { structuredDataField } from '@/fields/structuredData'
 import { Post } from '@/payload-types'
 import { getTenantFromDomain } from '@/utilities/getTenant'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
@@ -267,6 +268,7 @@ export const Posts: CollectionConfig<'posts'> = {
       ],
     },
     ...slugField('posts'),
+    structuredDataField,
   ],
   hooks: {
     afterChange: [revalidatePost],
@@ -305,6 +307,7 @@ export const Posts: CollectionConfig<'posts'> = {
               content: true,
               updatedAt: true,
               createdAt: true,
+              structuredData: true,
             },
           })
 
@@ -328,6 +331,7 @@ export const Posts: CollectionConfig<'posts'> = {
               content: true,
               updatedAt: true,
               createdAt: true,
+              structuredData: true,
             },
             where: {
               tenant: {
