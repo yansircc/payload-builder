@@ -1,8 +1,4 @@
-'use client'
-
-import { JsonLd } from 'react-schemaorg'
 import { Thing, WithContext } from 'schema-dts'
-import { useMemo } from 'react'
 
 // Types
 type JsonLdData = WithContext<Thing> | Record<string, any> | string
@@ -13,7 +9,7 @@ interface JsonLdProps<T extends Thing = Thing> {
   tenantId?: string
 }
 
-// Resolve base URL from various sources
+// Resolve base URL from various sources - server-side only
 function resolveBaseUrl(providedUrl?: string, tenantId?: string): string | undefined {
   // Explicit URL takes precedence
   if (providedUrl) return providedUrl
@@ -22,41 +18,14 @@ function resolveBaseUrl(providedUrl?: string, tenantId?: string): string | undef
   if (tenantId) {
     // From environment variables
     const tenantEnvVar = `NEXT_PUBLIC_TENANT_${tenantId.toUpperCase()}_URL`
-    if (typeof process !== 'undefined' && process.env?.[tenantEnvVar]) {
+    if (process.env?.[tenantEnvVar]) {
       return process.env[tenantEnvVar]
-    }
-
-    // From localStorage
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const storedTenantUrl = localStorage.getItem(`tenant_${tenantId}_url`)
-      if (storedTenantUrl) return storedTenantUrl
     }
   }
 
   // Global environment variable
-  if (typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_SITE_URL) {
+  if (process.env?.NEXT_PUBLIC_SITE_URL) {
     return process.env.NEXT_PUBLIC_SITE_URL
-  }
-
-  // Browser URL with tenant detection
-  if (typeof window !== 'undefined') {
-    const { protocol, host, pathname } = window.location
-
-    // Detect tenant in URL path or subdomain
-    if (tenantId) {
-      // Path-based multi-tenant
-      if (pathname.includes(`/${tenantId}`)) return `${protocol}//${host}`
-
-      // Subdomain-based multi-tenant
-      if (host.startsWith(`${tenantId}.`)) return `${protocol}//${host}`
-
-      // Custom domain from localStorage
-      const customDomain = window.localStorage?.getItem(`tenant_${tenantId}_domain`)
-      if (customDomain) return `${protocol}//${customDomain}`
-    }
-
-    // Default to current host
-    return `${protocol}//${host}`
   }
 
   return undefined
@@ -135,8 +104,8 @@ function fixUrls(obj: Record<string, any>, baseUrl?: string): Record<string, any
 }
 
 /**
- * Schema.org structured data component with multi-tenant support
- * Uses react-schemaorg's JsonLd component with URL processing
+ * Server-rendered Schema.org structured data component
+ * Renders JSON-LD script tag directly
  *
  * @example
  * ```tsx
@@ -144,14 +113,10 @@ function fixUrls(obj: Record<string, any>, baseUrl?: string): Record<string, any
  * ```
  */
 export function SchemaJsonLd<T extends Thing = Thing>({ item, baseUrl, tenantId }: JsonLdProps<T>) {
-  const resolvedUrl = useMemo(() => resolveBaseUrl(baseUrl, tenantId), [baseUrl, tenantId])
-  const processedData = useMemo(() => {
-    // Validate input
-    if (!item) return null
-    return processJsonLd(item, resolvedUrl)
-  }, [item, resolvedUrl])
+  // Skip client-side processing with useMemo
+  const resolvedUrl = resolveBaseUrl(baseUrl, tenantId)
 
-  // Return null if no data
+  // Skip if no data
   if (!item) {
     if (process.env.NODE_ENV === 'development') {
       console.warn('SchemaJsonLd: No data provided. Please check the item prop.')
@@ -159,7 +124,18 @@ export function SchemaJsonLd<T extends Thing = Thing>({ item, baseUrl, tenantId 
     return null
   }
 
-  return <JsonLd<T> item={processedData as WithContext<T>} />
+  // Process the data
+  const processedData = processJsonLd(item, resolvedUrl)
+
+  // Convert to JSON string with proper formatting
+  const jsonString = JSON.stringify(
+    processedData,
+    null,
+    process.env.NODE_ENV === 'development' ? 2 : 0,
+  )
+
+  // Return script tag with JSON-LD data
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonString }} />
 }
 
 export default SchemaJsonLd
