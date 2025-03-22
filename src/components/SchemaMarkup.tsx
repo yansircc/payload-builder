@@ -1,130 +1,133 @@
 'use client'
 
-import { FC, useMemo } from 'react'
+import { JsonLd } from 'react-schemaorg'
+import { Thing, WithContext } from 'schema-dts'
+import { useMemo } from 'react'
 
-interface SchemaMarkupProps {
-  jsonLd: Record<string, any> | Record<string, any>[] | string
-  baseUrl?: string // Optional base URL for overriding the default from settings
-  tenantId?: string // Optional tenant identifier for multi-tenant environments
+// Types
+type JsonLdData = WithContext<Thing> | Record<string, any> | string
+
+interface JsonLdProps<T extends Thing = Thing> {
+  item: JsonLdData | JsonLdData[]
+  baseUrl?: string
+  tenantId?: string
 }
 
-// Helper to get the base URL from settings or environment
-function getBaseUrl(providedUrl?: string, tenantId?: string): string | undefined {
-  // Return the provided URL if it exists
+// Resolve base URL from various sources
+function resolveBaseUrl(providedUrl?: string, tenantId?: string): string | undefined {
+  // Explicit URL takes precedence
   if (providedUrl) return providedUrl
 
-  // Try to get tenant-specific URL if tenant ID is provided
+  // Tenant-specific URL sources
   if (tenantId) {
-    // Try to get from tenant-specific environment variables
+    // From environment variables
     const tenantEnvVar = `NEXT_PUBLIC_TENANT_${tenantId.toUpperCase()}_URL`
     if (typeof process !== 'undefined' && process.env?.[tenantEnvVar]) {
       return process.env[tenantEnvVar]
     }
 
-    // Try to get from tenant-specific local storage (client-side only)
+    // From localStorage
     if (typeof window !== 'undefined' && window.localStorage) {
       const storedTenantUrl = localStorage.getItem(`tenant_${tenantId}_url`)
       if (storedTenantUrl) return storedTenantUrl
     }
   }
 
-  // Try to get the global URL from environment variables
+  // Global environment variable
   if (typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_SITE_URL) {
     return process.env.NEXT_PUBLIC_SITE_URL
   }
 
-  // In the browser, try to get from window.location
+  // Browser URL with tenant detection
   if (typeof window !== 'undefined') {
     const { protocol, host, pathname } = window.location
 
-    // For path-based multi-tenant setups
-    if (tenantId && pathname.includes(`/${tenantId}`)) {
-      // If the URL contains tenantId as a path segment, use the base domain
-      return `${protocol}//${host}`
+    // Detect tenant in URL path or subdomain
+    if (tenantId) {
+      // Path-based multi-tenant
+      if (pathname.includes(`/${tenantId}`)) return `${protocol}//${host}`
+
+      // Subdomain-based multi-tenant
+      if (host.startsWith(`${tenantId}.`)) return `${protocol}//${host}`
+
+      // Custom domain from localStorage
+      const customDomain = window.localStorage?.getItem(`tenant_${tenantId}_domain`)
+      if (customDomain) return `${protocol}//${customDomain}`
     }
 
-    // For subdomain-based multi-tenant setups
-    if (tenantId && host.startsWith(`${tenantId}.`)) {
-      // If the host is a subdomain matching tenantId, use that
-      return `${protocol}//${host}`
-    }
-
-    // For custom domain multi-tenant setups, check localStorage for domain mapping
-    if (tenantId && window.localStorage) {
-      const customDomain = localStorage.getItem(`tenant_${tenantId}_domain`)
-      if (customDomain) {
-        return `${protocol}//${customDomain}`
-      }
-    }
-
-    // Default fallback: use current protocol and host
+    // Default to current host
     return `${protocol}//${host}`
   }
 
   return undefined
 }
 
-/**
- * Validates and transforms JSON-LD data:
- * - Removes duplicate @context declarations inside @graph
- * - Converts relative URLs to absolute URLs
- * - Handles empty URLs appropriately
- */
-function validateJsonLd(
-  jsonLd: Record<string, any> | Record<string, any>[],
-  baseUrl?: string,
-): Record<string, any> {
-  // Clone the object to avoid mutating the original
-  const processedJsonLd = JSON.parse(JSON.stringify(jsonLd))
-
-  // If it's a graph structure, process each item
-  if (processedJsonLd['@graph'] && Array.isArray(processedJsonLd['@graph'])) {
-    processedJsonLd['@graph'] = processedJsonLd['@graph'].map((item: Record<string, any>) => {
-      // Remove duplicate @context inside graph items
-      if (item['@context'] && processedJsonLd['@context']) {
-        delete item['@context']
-      }
-
-      return transformUrls(item, baseUrl)
-    })
-  } else {
-    // Process the object directly if it's not a graph
-    transformUrls(processedJsonLd, baseUrl)
+// Process JSON-LD data to fix common issues
+function processJsonLd(data: JsonLdData | JsonLdData[], baseUrl?: string): Record<string, any> {
+  // Handle string input
+  if (typeof data === 'string') {
+    try {
+      return processJsonLd(JSON.parse(data), baseUrl)
+    } catch {
+      return { '@context': 'https://schema.org', '@type': 'WebSite', description: data }
+    }
   }
 
-  return processedJsonLd
+  // Clone to avoid mutations
+  const processedData = JSON.parse(JSON.stringify(data))
+  const result = Array.isArray(processedData) ? processedData : processedData
+
+  // Fix @graph items
+  if (result['@graph'] && Array.isArray(result['@graph'])) {
+    result['@graph'] = result['@graph'].map((item: Record<string, any>) => {
+      // Remove duplicate @context
+      if (item['@context'] && result['@context']) delete item['@context']
+
+      // Fix URLs
+      return fixUrls(item, baseUrl)
+    })
+  } else {
+    // Fix URLs in non-graph object
+    fixUrls(result, baseUrl)
+  }
+
+  // Ensure required fields
+  const safeData: Record<string, any> = {
+    '@context': 'https://schema.org',
+    ...result,
+  }
+
+  // Ensure it has @type if missing
+  if (!safeData['@type'] && !safeData['@graph']) {
+    safeData['@type'] = 'WebSite'
+  }
+
+  return safeData
 }
 
-/**
- * Recursively transforms relative URLs to absolute URLs
- */
-function transformUrls(obj: Record<string, any>, baseUrl?: string): Record<string, any> {
-  if (!baseUrl) return obj
+// Fix relative URLs in JSON-LD object
+function fixUrls(obj: Record<string, any>, baseUrl?: string): Record<string, any> {
+  if (!baseUrl || !obj) return obj
 
   for (const key in obj) {
+    // Fix URL fields
     if (
       typeof obj[key] === 'string' &&
       (key === 'url' || key === 'image' || key === '@id') &&
       obj[key] &&
       obj[key].startsWith('/')
     ) {
-      // Convert relative URL to absolute
       obj[key] = `${baseUrl}${obj[key]}`
-    } else if (key === 'logo' && typeof obj[key] === 'object') {
-      // Handle logo object
-      transformUrls(obj[key], baseUrl)
-    } else if (key === 'author' && Array.isArray(obj[key])) {
-      // Handle author array
-      obj[key] = obj[key].map((author: Record<string, any>) => transformUrls(author, baseUrl))
-    } else if (key === 'author' && typeof obj[key] === 'object') {
-      // Handle author object
-      transformUrls(obj[key], baseUrl)
-    } else if (key === 'mainEntityOfPage' && typeof obj[key] === 'object') {
-      // Handle mainEntityOfPage object
-      transformUrls(obj[key], baseUrl)
-    } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-      // Recursively process nested objects
-      transformUrls(obj[key], baseUrl)
+    }
+    // Handle nested structures
+    else if (typeof obj[key] === 'object' && obj[key] !== null) {
+      if (Array.isArray(obj[key])) {
+        obj[key] = obj[key].map((item: Record<string, any>) =>
+          typeof item === 'object' ? fixUrls(item, baseUrl) : item,
+        )
+      } else {
+        fixUrls(obj[key], baseUrl)
+      }
     }
   }
 
@@ -132,47 +135,31 @@ function transformUrls(obj: Record<string, any>, baseUrl?: string): Record<strin
 }
 
 /**
- * Renders JSON-LD structured data in a script tag
+ * Schema.org structured data component with multi-tenant support
+ * Uses react-schemaorg's JsonLd component with URL processing
  *
- * Usage:
+ * @example
  * ```tsx
- * // With explicit URL
- * <SchemaMarkup
- *   jsonLd={jsonLdData}
- *   baseUrl="https://yourwebsite.com"
- * />
- *
- * // Using environment settings
- * <SchemaMarkup jsonLd={jsonLdData} />
- *
- * // For multi-tenant apps
- * <SchemaMarkup jsonLd={jsonLdData} tenantId="tenant1" />
+ * <SchemaJsonLd item={data} />
  * ```
  */
-const SchemaMarkup: FC<SchemaMarkupProps> = ({ jsonLd, baseUrl, tenantId }) => {
-  const resolvedBaseUrl = useMemo(() => getBaseUrl(baseUrl, tenantId), [baseUrl, tenantId])
+export function SchemaJsonLd<T extends Thing = Thing>({ item, baseUrl, tenantId }: JsonLdProps<T>) {
+  const resolvedUrl = useMemo(() => resolveBaseUrl(baseUrl, tenantId), [baseUrl, tenantId])
+  const processedData = useMemo(() => {
+    // Validate input
+    if (!item) return null
+    return processJsonLd(item, resolvedUrl)
+  }, [item, resolvedUrl])
 
-  const processedJsonLd = useMemo(() => {
-    if (!resolvedBaseUrl) {
-      console.warn(
-        'SchemaMarkup: No base URL could be resolved. URLs will not be transformed to absolute URLs.',
-      )
+  // Return null if no data
+  if (!item) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('SchemaJsonLd: No data provided. Please check the item prop.')
     }
+    return null
+  }
 
-    if (typeof jsonLd === 'string') {
-      try {
-        const parsed = JSON.parse(jsonLd)
-        return JSON.stringify(validateJsonLd(parsed, resolvedBaseUrl))
-      } catch (e) {
-        // If parsing fails, return the original string
-        return jsonLd
-      }
-    }
-
-    return JSON.stringify(validateJsonLd(jsonLd, resolvedBaseUrl))
-  }, [jsonLd, resolvedBaseUrl])
-
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: processedJsonLd }} />
+  return <JsonLd<T> item={processedData as WithContext<T>} />
 }
 
-export default SchemaMarkup
+export default SchemaJsonLd
