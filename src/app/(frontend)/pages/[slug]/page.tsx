@@ -133,7 +133,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   return (
     <main className="page">
-      <SchemaMarkup jsonLd={jsonLd} />
+      <SchemaMarkup item={jsonLd} />
       {/* Content rendering would normally be done here */}
       {/* For now we'll just render a placeholder */}
       <div className="container mx-auto py-8">
