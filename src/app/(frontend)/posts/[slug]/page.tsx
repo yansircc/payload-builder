@@ -74,7 +74,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 
 // Post component with schema implementation
 export default async function Post({ params: paramsPromise }: Args) {
-  const { slug = 'home' } = await paramsPromise
+  const { slug } = await paramsPromise
   const headersList = headers()
   const host = (await headersList).get('host') || ''
   const domain = host.split(':')[0]
@@ -108,7 +108,7 @@ export default async function Post({ params: paramsPromise }: Args) {
               },
             ],
           },
-          depth: 1,
+          depth: 2,
         })
         .then((result) => result.docs[0])
     : null
@@ -121,21 +121,21 @@ export default async function Post({ params: paramsPromise }: Args) {
   const siteSettings = await getSiteSettingsFromDomain()
   const baseUrl = getServerSideURL()
 
-  // Create basic blog post schema
+  // Create blog post schema
   const postSchema = generateBlogPostingSchema(post, { siteSettings, baseUrl })
 
   // Add organization schema
   const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
 
   // Combine schemas
-  const jsonLd = {
+  const structuredData = {
     '@context': 'https://schema.org',
     '@graph': [postSchema, orgSchema],
   }
 
   return (
     <article className="pt-16 pb-16">
-      <SchemaMarkup jsonLd={jsonLd} />
+      <SchemaMarkup item={structuredData} />
       <div className="container mx-auto py-8">
         <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
         {post.heroImage && (
