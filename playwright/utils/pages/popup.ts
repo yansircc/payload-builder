@@ -11,7 +11,7 @@ export class PopupPage {
 
   // popup Creation
   readonly createpopupButton: Locator
-  readonly PopupName: Locator
+  readonly popupName: Locator
   readonly popupTitle: Locator
   readonly popupContent: Locator
   readonly publishButton: Locator
@@ -38,7 +38,7 @@ export class PopupPage {
 
     // Create popup
     this.createpopupButton = this.page.getByRole('link', { name: 'Create new Popup' })
-    this.PopupName = this.page.getByRole('textbox', { name: 'Name of popup *' })
+    this.popupName = this.page.getByRole('textbox', { name: 'Name of popup *' })
     this.popupContent = this.page.getByRole('textbox', { name: 'Content *' })
     this.publishButton = this.page.getByRole('button', { name: 'Publish changes' })
 
@@ -72,7 +72,7 @@ export class PopupPage {
 
   async createpopup() {
     await this.createpopupButton.click()
-    await this.PopupName.fill(popupData.popupName)
+    await this.popupName.fill(popupData.popupName)
     await this.popupTitle.fill(popupData.popupTitle)
     await this.popupContent.fill(popupData.popupContent)
     await this.publishButton.click()
