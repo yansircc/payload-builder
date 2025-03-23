@@ -1,5 +1,4 @@
 import { test } from '@playwright/test'
-import { LoginPage } from '../utils/pages/login'
 import { TenantPage } from '../utils/pages/multiTenant'
 
 test.describe.configure({ mode: 'serial' })
@@ -8,11 +7,9 @@ test.describe('Multi-Tenant Test Cases', () => {
   let tenant: TenantPage
 
   test.beforeEach(async ({ page }) => {
-    const logIn = new LoginPage(page)
     tenant = new TenantPage(page)
 
     await page.goto('admin')
-    await logIn.logIn()
     await tenant.goToTenants()
   })
 

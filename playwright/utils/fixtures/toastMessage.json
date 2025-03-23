@@ -2,5 +2,22 @@
   "tenantCreationSuccess": "Tenant successfully created.",
   "tenantDuplicationSuccess": "Tenant successfully duplicated.",
   "tenantDeletionSuccess": "Deleted 2 Tenants successfully.",
-  "postCreationSuccess": "Updated successfully."
+  "postCreationSuccess": "Updated successfully.",
+  "PostDuplicationSuccess": "Post successfully duplicated.",
+  "postDeletionSuccess": "Deleted 2 Posts successfully.",
+  "productCreationSuccess": "Updated successfully.",
+  "productDuplicationSuccess": "Product successfully duplicated.",
+  "productDeletionSuccess": "Deleted 2 Products successfully.",
+  "serviceCreationSuccess": "Updated successfully.",
+  "serviceDuplicationSuccess": "Service successfully duplicated.",
+  "serviceDeletionSuccess": "Deleted 2 Services successfully.",
+  "headerCreationSuccess": "Header successfully created.",
+  "headerUpdationSuccess": "Updated successfully.",
+  "headerDeletionSuccess": "Header \"Header\" successfully deleted.",
+  "footerCreationSuccess": "Footer successfully created.",
+  "footerUpdationSuccess": "Updated successfully.",
+  "footerDeletionSuccess": "Footer \"Footer\" successfully deleted.",
+  "popupCreationSuccess": "Updated successfully.",
+  "popupDuplicationSuccess": "Popup successfully duplicated.",
+  "popupDeletionSuccess": "Deleted 2 Popups successfully."
 }

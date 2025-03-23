@@ -14,6 +14,7 @@ on:
       - '.github/workflows/**'
   pull_request:
     branches: [main, develop]
+  workflow_dispatch:
 
 # Prevent concurrent builds and cancel outdated ones
 concurrency:
@@ -123,6 +124,9 @@ jobs:
           path: build-output.tar.gz
           retention-days: 7
           compression-level: 9
+
+      - name: 🧐 Debug Build Directory
+        run: ls -la .next/standalone
 
       # Add build performance report
       - name: 📊 Generate build report

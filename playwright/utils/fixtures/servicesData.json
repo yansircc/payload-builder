@@ -1,0 +1,7 @@
+{
+  "serviceTitle": "Payload Builder service by Automated Test",
+  "serviceContent": "Hello World from the Testing Expert",
+  "serviceShortDescription": "This is a short test description for the service",
+  "seoTitle": "Testing Title for SEO to Test if SEO is Working Well or Not.",
+  "seoDescription": "This is the testing description for SEO. This ensures that a good description is available to test during the automation testing."
+}
