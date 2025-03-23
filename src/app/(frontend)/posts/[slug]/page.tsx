@@ -1,5 +1,6 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import { WithContext } from 'schema-dts'
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import Image from 'next/image'
@@ -127,13 +128,19 @@ export default async function Post({ params: paramsPromise }: Args) {
   // Create blog post schema with the correct domain
   const postSchema = generateBlogPostingSchema(post, { siteSettings, baseUrl })
 
-  // Add organization schema with the correct domain
-  const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
+  // Initialize schemas array with post schema
+  const schemas: WithContext<any>[] = [postSchema]
+
+  // Add organization schema only if not disabled in structured data settings
+  if (!post.structuredData?.disableGlobalSchema) {
+    const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
+    schemas.push(orgSchema)
+  }
 
   // Combine schemas
   const structuredData = {
     '@context': 'https://schema.org',
-    '@graph': [postSchema, orgSchema],
+    '@graph': schemas,
   }
 
   return (

@@ -1,5 +1,6 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import { WithContext } from 'schema-dts'
 import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
@@ -122,13 +123,19 @@ export default async function Page({ params: paramsPromise }: Args) {
   // Create basic webpage schema
   const pageSchema = generateWebPageSchema(page, { siteSettings, baseUrl })
 
-  // Add organization schema
-  const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
+  // Initialize schemas array with page schema
+  const schemas: WithContext<any>[] = [pageSchema]
+
+  // Add organization schema only if not disabled in structured data settings
+  if (!page.structuredData?.disableGlobalSchema) {
+    const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
+    schemas.push(orgSchema)
+  }
 
   // Combine schemas
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@graph': [pageSchema, orgSchema],
+    '@graph': schemas,
   }
 
   return (
