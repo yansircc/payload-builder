@@ -1,28 +1,27 @@
 import { expect, type Locator, type Page } from '@playwright/test'
-import PopupsData from '../fixtures/PopupsData.json' assert { type: 'json' }
+import popupData from '../fixtures/popupsData.json' assert { type: 'json' }
 import toastMessage from '../fixtures/toastMessage.json' assert { type: 'json' }
 
-export class PopupsPage {
+export class PopupPage {
   private page: Page
   readonly tenantSelector: Locator
   readonly tenantContainer: Locator
   readonly selectTenant: (tenantName: string) => Locator
-  readonly PopupsButton: Locator
+  readonly popupButton: Locator
 
-  // popups Creation
-  readonly createPopupsButton: Locator
+  // popup Creation
+  readonly createpopupButton: Locator
   readonly PopupName: Locator
   readonly popupTitle: Locator
   readonly popupContent: Locator
-  readonly popupsContent: Locator
   readonly publishButton: Locator
 
-  // Duplicate popups
+  // Duplicate popup
   readonly toastMessage: Locator
   readonly kebabButton: Locator
-  readonly duplicatepopupsButton: Locator
+  readonly duplicatepopupButton: Locator
 
-  // Delete popups
+  // Delete popup
   readonly deleteButton: Locator
   readonly confirmDeleteDialog: Locator
   readonly confirmDeleteButton: Locator
@@ -35,24 +34,23 @@ export class PopupsPage {
     this.tenantSelector = this.page.locator('[class="tenant-selector"]')
     this.tenantContainer = this.page.locator('[class="value-container"]')
     this.selectTenant = (tenantName: string) => this.page.getByRole('option', { name: tenantName })
-    this.PopupsButton = this.page.locator('#nav-popups')
+    this.popupButton = this.page.locator('#nav-popups')
 
-    // Create popups
-    this.createPopupsButton = this.page.getByRole('link', { name: 'Create new Popup' })
+    // Create popup
+    this.createpopupButton = this.page.getByRole('link', { name: 'Create new Popup' })
     this.PopupName = this.page.getByRole('textbox', { name: 'Name of popup *' })
     this.popupContent = this.page.getByRole('textbox', { name: 'Content *' })
     this.publishButton = this.page.getByRole('button', { name: 'Publish changes' })
 
     this.popupTitle = this.page.getByRole('textbox', { name: 'Title *' })
-    this.popupsContent = this.page.getByRole('textbox').nth(1)
 
     this.toastMessage = this.page.locator('[class="toast-title"]')
 
-    // Duplicate popups
+    // Duplicate popup
     this.kebabButton = this.page.locator('[class="doc-controls__dots"]')
-    this.duplicatepopupsButton = this.page.getByRole('button', { name: 'Duplicate' })
+    this.duplicatepopupButton = this.page.getByRole('button', { name: 'Duplicate' })
 
-    // Delete popups
+    // Delete popup
     this.deleteButton = this.page.getByRole('button', { name: 'Delete' })
     this.confirmDeleteDialog = this.page.getByRole('heading', { name: 'Confirm deletion' })
     this.confirmDeleteButton = this.page.getByRole('button', { name: 'Confirm' })
@@ -66,37 +64,37 @@ export class PopupsPage {
     await this.selectTenant(tenantName).click()
   }
 
-  async goToPopups() {
+  async goTopopup() {
     await this.selectATenant('Tenant 1')
-    await this.PopupsButton.click()
-    await expect(this.page).toHaveURL(/.*popups.*/)
+    await this.popupButton.click()
+    await expect(this.page).toHaveURL(/.*popup.*/)
   }
 
-  async createPopups() {
-    await this.createPopupsButton.click()
-    await this.PopupName.fill(PopupsData.popupName)
-    await this.popupTitle.fill(PopupsData.popupTitle)
-    await this.popupContent.fill(PopupsData.popupContent)
+  async createpopup() {
+    await this.createpopupButton.click()
+    await this.PopupName.fill(popupData.popupName)
+    await this.popupTitle.fill(popupData.popupTitle)
+    await this.popupContent.fill(popupData.popupContent)
     await this.publishButton.click()
-    await expect(this.toastMessage).toHaveText(toastMessage.PopupCreationSuccess)
+    await expect(this.toastMessage).toHaveText(toastMessage.popupCreationSuccess)
   }
 
-  async duplicatePopups() {
+  async duplicatepopup() {
     await this.page.getByRole('link', { name: 'Payload Popup' }).click()
     await this.kebabButton.click()
-    await this.duplicatepopupsButton.click()
-    // await expect(this.toastMessage).toHaveText(toastMessage.popupsDuplicationSuccess)
+    await this.duplicatepopupButton.click()
+    await expect(this.toastMessage).toHaveText(toastMessage.popupDuplicationSuccess)
     await this.page.waitForTimeout(2000)
   }
 
-  async deletePopups() {
-    await this.searchFilter.fill(PopupsData.popupName)
+  async deletepopup() {
+    await this.searchFilter.fill(popupData.popupName)
     await expect(this.pagination).toHaveText('1-2 of 2')
     await this.allCheckboxButton.click()
     await this.deleteButton.click()
     await expect(this.confirmDeleteDialog).toBeVisible()
     await this.confirmDeleteButton.click()
-    // await expect(this.toastMessage).toHaveText(toastMessage.PopupDeletionSuccess)
-    await expect(this.page.locator('body')).not.toHaveText(PopupsData.popupName)
+    await expect(this.toastMessage).toHaveText(toastMessage.popupDeletionSuccess)
+    await expect(this.page.locator('body')).not.toHaveText(popupData.popupName)
   }
 }

@@ -63,11 +63,13 @@ export class FootersPage {
 
   async createFooter() {
     await this.selectLogoImage.click()
+    await this.page.waitForLoadState('domcontentloaded')
+    await this.page.waitForTimeout(1000)
     await this.heroImage.click()
-    await this.page.waitForLoadState('load')
+    await this.page.waitForLoadState('networkidle')
     await this.headerTitle.fill(footersData.footerTitle)
     await this.saveFooters.click()
-    await expect(this.toastMessage).toHaveText(toastMessage.FooterCreationSuccess)
+    await expect(this.toastMessage).toHaveText(toastMessage.footerCreationSuccess)
   }
 
   async CreateNewFooter() {
@@ -75,7 +77,7 @@ export class FootersPage {
     await this.createNew.click()
     await this.headerTitle.fill(footersData.CreateNewTilte)
     await this.saveFooters.click()
-    await expect(this.toastMessage).toHaveText(toastMessage.FooterUpdationSuccess)
+    await expect(this.toastMessage).toHaveText(toastMessage.footerUpdationSuccess)
   }
 
   async deleteFooter() {
@@ -83,6 +85,6 @@ export class FootersPage {
     await this.deleteButton.click()
     await expect(this.confirmDeleteDialog).toBeVisible()
     await this.confirmDeleteButton.click()
-    // await expect(this.toastMessage).toHaveText(toastMessage.HeaderDeletionSuccess)
+    await expect(this.toastMessage).toHaveText(toastMessage.footerDeletionSuccess)
   }
 }

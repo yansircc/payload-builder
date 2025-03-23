@@ -11,13 +11,13 @@
   "serviceCreationSuccess": "Updated successfully.",
   "serviceDuplicationSuccess": "Service successfully duplicated.",
   "serviceDeletionSuccess": "Deleted 2 Services successfully.",
-  "HeaderCreationSuccess": "Header successfully created.",
-  "HeaderUpdationSuccess": "Updated successfully.",
-  "HeaderDeletionSuccess": "Header \"Header\" successfully deleted.",
-  "FooterCreationSuccess": "Footer successfully created.",
-  "FooterUpdationSuccess": "Updated successfully.",
-  "FooterDeletionSuccess": "Footer \"Footer\" successfully deleted.",
-  "PopupCreationSuccess": "Updated successfully.",
-  "PopupDuplicationSuccess": "Popup successfully duplicated.",
-  "PopupDeletionSuccess": "Deleted 2 Popups successfully."
+  "headerCreationSuccess": "Header successfully created.",
+  "headerUpdationSuccess": "Updated successfully.",
+  "headerDeletionSuccess": "Header \"Header\" successfully deleted.",
+  "footerCreationSuccess": "Footer successfully created.",
+  "footerUpdationSuccess": "Updated successfully.",
+  "footerDeletionSuccess": "Footer \"Footer\" successfully deleted.",
+  "popupCreationSuccess": "Updated successfully.",
+  "popupDuplicationSuccess": "Popup successfully duplicated.",
+  "popupDeletionSuccess": "Deleted 2 Popups successfully."
 }

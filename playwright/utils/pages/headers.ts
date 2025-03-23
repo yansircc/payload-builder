@@ -78,7 +78,7 @@ export class HeaderPage {
     await this.page.waitForLoadState()
     await this.headerTitle.fill(headerData.headerTitle)
     await this.saveHeader.click()
-    await expect(this.toastMessage).toHaveText(toastMessage.HeaderCreationSuccess)
+    await expect(this.toastMessage).toHaveText(toastMessage.headerCreationSuccess)
   }
 
   async CreateNewHeader() {
@@ -86,7 +86,7 @@ export class HeaderPage {
     await this.createNew.click()
     await this.headerTitle.fill(headerData.CreateNewTilte)
     await this.saveHeader.click()
-    await expect(this.toastMessage).toHaveText(toastMessage.HeaderUpdationSuccess)
+    await expect(this.toastMessage).toHaveText(toastMessage.headerUpdationSuccess)
   }
 
   async deleteHeader() {
@@ -94,6 +94,6 @@ export class HeaderPage {
     await this.deleteButton.click()
     await expect(this.confirmDeleteDialog).toBeVisible()
     await this.confirmDeleteButton.click()
-    await expect(this.toastMessage).toHaveText(toastMessage.HeaderDeletionSuccess)
+    await expect(this.toastMessage).toHaveText(toastMessage.headerDeletionSuccess)
   }
 }

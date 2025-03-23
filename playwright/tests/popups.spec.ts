@@ -1,26 +1,26 @@
 import { test } from '@playwright/test'
-import { PopupsPage } from '../utils/pages/Popups'
+import { PopupPage } from '../utils/pages/popup'
 
 test.describe.configure({ mode: 'serial' })
 
 test.describe('Popups Test Cases', () => {
-  let Popups: PopupsPage
+  let popup: PopupPage
 
   test.beforeEach(async ({ page }) => {
-    Popups = new PopupsPage(page)
+    popup = new PopupPage(page)
     await page.goto('admin')
-    await Popups.goToPopups()
+    await popup.goTopopup()
   })
 
   test('Create a Popup', async () => {
-    await Popups.createPopups()
+    await popup.createpopup()
   })
 
   test('Duplicate the Popup', async () => {
-    await Popups.duplicatePopups()
+    await popup.duplicatepopup()
   })
 
   test('Delete the Popup', async () => {
-    await Popups.deletePopups()
+    await popup.deletepopup()
   })
 })
