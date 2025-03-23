@@ -62,10 +62,14 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   const content = (
     <>
-      {prefixIcon && <DynamicIcon name={prefixIcon} className="mr-2 size-4" />}
+      {prefixIcon && (
+        <DynamicIcon name={prefixIcon} className={cn('size-4', label ? 'mr-2' : '')} />
+      )}
       {label}
       {children}
-      {suffixIcon && <DynamicIcon name={suffixIcon} className="ml-2 size-4" />}
+      {suffixIcon && (
+        <DynamicIcon name={suffixIcon} className={cn('size-4', label ? 'ml-2' : '')} />
+      )}
     </>
   )
 

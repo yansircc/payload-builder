@@ -34,7 +34,7 @@ export default function Footer3({ footer }: Footer3Fields) {
                     {linkGroup.link && (
                       <CMSLink
                         {...linkGroup.link}
-                        className='className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary"'
+                        className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary"
                       ></CMSLink>
                     )}
                   </li>
