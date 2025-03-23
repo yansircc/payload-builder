@@ -47,6 +47,34 @@ export function generateBlogPostingSchema(
     )
   }
 
+  // Create publisher logo URL with multiple fallback options
+  let publisherLogoURL = ''
+
+  // Option 1: Use the site identity logo if available
+  if (siteSettings?.siteIdentity?.logo) {
+    publisherLogoURL =
+      getImageURL(
+        typeof siteSettings.siteIdentity.logo === 'object'
+          ? siteSettings.siteIdentity.logo
+          : { id: siteSettings.siteIdentity.logo },
+      ) || ''
+  }
+
+  // Option 2: Use the site identity favicon if available
+  if (!publisherLogoURL && siteSettings?.siteIdentity?.favicon) {
+    publisherLogoURL =
+      getImageURL(
+        typeof siteSettings.siteIdentity.favicon === 'object'
+          ? siteSettings.siteIdentity.favicon
+          : { id: siteSettings.siteIdentity.favicon },
+      ) || ''
+  }
+
+  // Option 3: Use the favicon (which should be a square image)
+  if (!publisherLogoURL) {
+    publisherLogoURL = `${baseUrl}/favicon.svg`
+  }
+
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -65,13 +93,7 @@ export function generateBlogPostingSchema(
       name: siteSettings?.title || '',
       logo: {
         '@type': 'ImageObject',
-        url: siteSettings?.siteIdentity?.logo
-          ? getImageURL(
-              typeof siteSettings.siteIdentity.logo === 'object'
-                ? siteSettings.siteIdentity.logo
-                : { id: siteSettings.siteIdentity.logo },
-            ) || ''
-          : '',
+        url: publisherLogoURL,
       },
     },
     image: image || undefined,
