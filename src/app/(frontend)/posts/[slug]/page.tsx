@@ -8,7 +8,6 @@ import RichText from '@/components/RichText'
 import SchemaMarkup from '@/components/SchemaMarkup'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
-import { getServerSideURL } from '@/utilities/getURL'
 import { generateBlogPostingSchema, generateOrganizationSchema } from '@/utilities/schema'
 
 interface Args {
@@ -78,6 +77,7 @@ export default async function Post({ params: paramsPromise }: Args) {
   const headersList = headers()
   const host = (await headersList).get('host') || ''
   const domain = host.split(':')[0]
+  const port = host.includes(':') ? ':' + host.split(':')[1] : ''
 
   const payload = await getPayload({ config: configPromise })
   const tenantQuery = await payload.find({
@@ -119,12 +119,15 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   // Generate schema for the post
   const siteSettings = await getSiteSettingsFromDomain()
-  const baseUrl = getServerSideURL()
 
-  // Create blog post schema
+  // Use the tenant domain for the baseUrl
+  const protocol = host.includes('localhost') ? 'http://' : 'https://'
+  const baseUrl = `${protocol}${domain}${port}`
+
+  // Create blog post schema with the correct domain
   const postSchema = generateBlogPostingSchema(post, { siteSettings, baseUrl })
 
-  // Add organization schema
+  // Add organization schema with the correct domain
   const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
 
   // Combine schemas
@@ -135,7 +138,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   return (
     <article className="pt-16 pb-16">
-      <SchemaMarkup item={structuredData} />
+      <SchemaMarkup item={structuredData} baseUrl={baseUrl} tenantId={tenant?.id} domain={domain} />
       <div className="container mx-auto py-8">
         <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
         {post.heroImage && (

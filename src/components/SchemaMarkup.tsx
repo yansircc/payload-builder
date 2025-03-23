@@ -1,3 +1,5 @@
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
 import { Thing, WithContext } from 'schema-dts'
 
 // Types
@@ -7,15 +9,37 @@ interface JsonLdProps<T extends Thing = Thing> {
   item: JsonLdData | JsonLdData[]
   baseUrl?: string
   tenantId?: string
+  domain?: string
 }
 
 // Resolve base URL from various sources - server-side only
-function resolveBaseUrl(providedUrl?: string, tenantId?: string): string | undefined {
-  // Explicit URL takes precedence
+async function resolveBaseUrl(
+  providedUrl?: string,
+  tenantId?: string,
+  domain?: string,
+): Promise<string | undefined> {
+  // Explicit URL or domain takes precedence
   if (providedUrl) return providedUrl
+  if (domain) return `https://${domain}`
 
-  // Tenant-specific URL sources
+  // Tenant-specific database lookup if tenantId is provided
   if (tenantId) {
+    try {
+      // Try to get the tenant domain from the database
+      const payload = await getPayload({ config: configPromise })
+      const tenant = await payload.findByID({
+        collection: 'tenants',
+        id: tenantId,
+      })
+
+      if (tenant?.domain) {
+        return `https://${tenant.domain}`
+      }
+    } catch (error) {
+      // Silently fail and continue to environment variables
+      console.error('Error fetching tenant domain:', error)
+    }
+
     // From environment variables
     const tenantEnvVar = `NEXT_PUBLIC_TENANT_${tenantId.toUpperCase()}_URL`
     if (process.env?.[tenantEnvVar]) {
@@ -112,10 +136,12 @@ function fixUrls(obj: Record<string, any>, baseUrl?: string): Record<string, any
  * <SchemaJsonLd item={data} />
  * ```
  */
-export function SchemaJsonLd<T extends Thing = Thing>({ item, baseUrl, tenantId }: JsonLdProps<T>) {
-  // Skip client-side processing with useMemo
-  const resolvedUrl = resolveBaseUrl(baseUrl, tenantId)
-
+export async function SchemaJsonLd<T extends Thing = Thing>({
+  item,
+  baseUrl,
+  tenantId,
+  domain,
+}: JsonLdProps<T>) {
   // Skip if no data
   if (!item) {
     if (process.env.NODE_ENV === 'development') {
@@ -123,6 +149,9 @@ export function SchemaJsonLd<T extends Thing = Thing>({ item, baseUrl, tenantId 
     }
     return null
   }
+
+  // Resolve URL with tenant domain support
+  const resolvedUrl = await resolveBaseUrl(baseUrl, tenantId, domain)
 
   // Process the data
   const processedData = processJsonLd(item, resolvedUrl)
