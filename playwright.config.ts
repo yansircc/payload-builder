@@ -5,13 +5,15 @@ dotenv.config()
 
 export default defineConfig({
   timeout: process.env.CI ? 60 * 1000 : 30 * 1000,
+
   testDir: './playwright/tests',
   outputDir: './playwright/artifacts/test-results',
   reporter: [['line'], ['html', { outputFolder: './playwright/artifacts/test-reports' }]],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: 2,
+  // workers: process.env.CI ? 2 : 2,
 
   use: {
     baseURL: 'http://www.localhost:3000',
@@ -63,9 +65,9 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   // webServer: {
-  //   command: 'bun run start',
+  //   command: 'bun run dev',
   //   url: 'http://localhost:3000/',
-  //   timeout: 120000,
+  //   timeout: 180000,
   //   reuseExistingServer: !process.env.CI,
   // },
 })
