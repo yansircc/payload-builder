@@ -1,14 +1,19 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import { Thing, WithContext } from 'schema-dts'
 import React, { cache } from 'react'
 import type { Metadata } from 'next'
 import { draftMode, headers } from 'next/headers'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
+import SchemaMarkup from '@/components/SchemaMarkup'
 import { RenderHero } from '@/heros/RenderHero'
 import type { Page as PageType } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
+import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
+import { getServerSideURL } from '@/utilities/getURL'
+import { generateOrganizationSchema, generateWebPageSchema } from '@/utilities/schema'
 import PageClient from './page.client'
 
 export async function generateStaticParams() {
@@ -81,14 +86,69 @@ export default async function Page({ params: paramsPromise }: Args) {
     })
   }
 
+  // Get siteSettings for schema markup
+  const siteSettings = await getSiteSettingsFromDomain()
+  const baseUrl = getServerSideURL()
+
+  // Create schema array
+  const schemas: WithContext<Thing>[] = []
+
+  // Add basic WebPage schema
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: segments.join('/') || 'Page',
+    url: baseUrl + url,
+  })
+
+  // Add organization schema
+  if (siteSettings) {
+    const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
+    schemas.push(orgSchema)
+  }
+
+  // Combine schemas
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': schemas,
+  }
+
   if (!page) {
-    return <PayloadRedirects url={url} />
+    return (
+      <article>
+        <SchemaMarkup item={jsonLd} />
+        <PageClient />
+        <PayloadRedirects url={url} />
+      </article>
+    )
   }
 
   const { hero, layout } = page
 
+  // If page is found, use page-specific schema
+  const pageSchemas: WithContext<Thing>[] = []
+
+  if (page) {
+    // Create basic webpage schema for the found page
+    const pageSchema = generateWebPageSchema(page, { siteSettings, baseUrl })
+    pageSchemas.push(pageSchema)
+
+    // Add organization schema only if not disabled in structured data settings
+    if (!page.structuredData?.disableGlobalSchema && siteSettings) {
+      const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
+      pageSchemas.push(orgSchema)
+    }
+  }
+
+  // Combine page schemas
+  const pageJsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': pageSchemas.length > 0 ? pageSchemas : schemas,
+  }
+
   return (
     <article>
+      <SchemaMarkup item={pageJsonLd} />
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
