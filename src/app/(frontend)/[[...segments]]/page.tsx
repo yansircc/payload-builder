@@ -12,7 +12,6 @@ import { RenderHero } from '@/heros/RenderHero'
 import type { Page as PageType } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
-import { getServerSideURL } from '@/utilities/getURL'
 import { generateOrganizationSchema, generateWebPageSchema } from '@/utilities/schema'
 import PageClient from './page.client'
 
@@ -62,6 +61,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const headersList = headers()
   const host = (await headersList).get('host') || ''
   const domain = host.split(':')[0]
+  const port = host.includes(':') ? ':' + host.split(':')[1] : ''
 
   let page: PageType | null = null
   const payload = await getPayload({ config: configPromise })
@@ -88,7 +88,10 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   // Get siteSettings for schema markup
   const siteSettings = await getSiteSettingsFromDomain()
-  const baseUrl = getServerSideURL()
+
+  // Use the tenant domain for the baseUrl
+  const protocol = host.includes('localhost') ? 'http://' : 'https://'
+  const baseUrl = `${protocol}${domain}${port}`
 
   // Create schema array
   const schemas: WithContext<Thing>[] = []
@@ -116,7 +119,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   if (!page) {
     return (
       <article>
-        <SchemaMarkup item={jsonLd} />
+        <SchemaMarkup item={jsonLd} baseUrl={baseUrl} tenantId={tenant?.id} domain={domain} />
         <PageClient />
         <PayloadRedirects url={url} />
       </article>
@@ -148,7 +151,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   return (
     <article>
-      <SchemaMarkup item={pageJsonLd} />
+      <SchemaMarkup item={pageJsonLd} baseUrl={baseUrl} tenantId={tenant?.id} domain={domain} />
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
