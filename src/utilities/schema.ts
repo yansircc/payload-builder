@@ -167,6 +167,11 @@ export function generateProductSchema(product: any, options: SchemaOptions): Wit
     )
   }
 
+  // Ensure image URL is absolute
+  if (image && image.startsWith('/')) {
+    image = `${baseUrl}${image}`
+  }
+
   // Get product images array if available
   const productImages = []
   if (image) {
@@ -176,11 +181,23 @@ export function generateProductSchema(product: any, options: SchemaOptions): Wit
   if (product.productImages && Array.isArray(product.productImages)) {
     product.productImages.forEach((img: any) => {
       if (typeof img === 'object' && img.url) {
-        productImages.push(img.url)
+        let imgUrl = img.url
+        // Ensure the URL is absolute
+        if (imgUrl.startsWith('/')) {
+          imgUrl = `${baseUrl}${imgUrl}`
+        }
+        productImages.push(imgUrl)
       } else if (typeof img === 'string') {
         // Handle case where image is just an ID string
         const imgUrl = getImageURL({ id: img })
-        if (imgUrl) productImages.push(imgUrl)
+        if (imgUrl) {
+          // Ensure the URL is absolute
+          if (imgUrl.startsWith('/')) {
+            productImages.push(`${baseUrl}${imgUrl}`)
+          } else {
+            productImages.push(imgUrl)
+          }
+        }
       }
     })
   }
@@ -242,18 +259,26 @@ export function generateFAQSchema(
 export function generateOrganizationSchema(options: SchemaOptions): WithContext<Organization> {
   const { siteSettings, baseUrl } = options
 
+  // Get organization logo URL
+  let logoUrl = siteSettings?.siteIdentity?.logo
+    ? getImageURL(
+        typeof siteSettings.siteIdentity.logo === 'object'
+          ? siteSettings.siteIdentity.logo
+          : { id: siteSettings.siteIdentity.logo },
+      )
+    : undefined
+
+  // Ensure the logo URL is absolute and not null
+  if (logoUrl && logoUrl.startsWith('/')) {
+    logoUrl = `${baseUrl}${logoUrl}`
+  }
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: siteSettings?.title || '',
     url: baseUrl,
-    logo: siteSettings?.siteIdentity?.logo
-      ? getImageURL(
-          typeof siteSettings.siteIdentity.logo === 'object'
-            ? siteSettings.siteIdentity.logo
-            : { id: siteSettings.siteIdentity.logo },
-        ) || undefined
-      : undefined,
+    logo: logoUrl || undefined,
     description: siteSettings?.description || '',
   }
 }

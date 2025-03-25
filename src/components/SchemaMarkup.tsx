@@ -106,17 +106,30 @@ function fixUrls(obj: Record<string, any>, baseUrl?: string): Record<string, any
     // Fix URL fields
     if (
       typeof obj[key] === 'string' &&
-      (key === 'url' || key === 'image' || key === '@id') &&
+      (key === 'url' || key === 'image' || key === '@id' || key === 'logo') &&
       obj[key] &&
       obj[key].startsWith('/')
     ) {
       obj[key] = `${baseUrl}${obj[key]}`
     }
+    // Handle image arrays - common in Product schema
+    else if (key === 'image' && Array.isArray(obj[key])) {
+      obj[key] = obj[key].map((imageUrl: string) =>
+        typeof imageUrl === 'string' && imageUrl.startsWith('/')
+          ? `${baseUrl}${imageUrl}`
+          : imageUrl,
+      )
+    }
     // Handle nested structures
     else if (typeof obj[key] === 'object' && obj[key] !== null) {
       if (Array.isArray(obj[key])) {
-        obj[key] = obj[key].map((item: Record<string, any>) =>
-          typeof item === 'object' ? fixUrls(item, baseUrl) : item,
+        obj[key] = obj[key].map((item: Record<string, any> | string) =>
+          typeof item === 'object'
+            ? fixUrls(item, baseUrl)
+            : // Also fix string URLs in arrays
+              typeof item === 'string' && item.startsWith('/')
+              ? `${baseUrl}${item}`
+              : item,
         )
       } else {
         fixUrls(obj[key], baseUrl)
