@@ -2700,6 +2700,27 @@ export interface Product {
         name?: string | null;
       }[]
     | null;
+  /**
+   * Configure structured data (schema.org) for this content
+   */
+  structuredData: {
+    /**
+     * Select the primary schema type for this content
+     */
+    type: 'auto' | 'BlogPosting' | 'WebPage' | 'Product' | 'FAQPage' | 'manual';
+    /**
+     * Manually enter JSON-LD schema data
+     */
+    manualSchema?: string | null;
+    /**
+     * Disable global organization schema on this page
+     */
+    disableGlobalSchema?: boolean | null;
+    /**
+     * Automatically extract FAQs from page content
+     */
+    extractFAQs?: boolean | null;
+  };
   slug?: string | null;
   slugLock?: boolean | null;
   fullPath?: string | null;
@@ -13194,6 +13215,14 @@ export interface ProductsSelect<T extends boolean = true> {
     | {
         id?: T;
         name?: T;
+      };
+  structuredData?:
+    | T
+    | {
+        type?: T;
+        manualSchema?: T;
+        disableGlobalSchema?: T;
+        extractFAQs?: T;
       };
   slug?: T;
   slugLock?: T;

@@ -1,15 +1,17 @@
 import configPromise from '@payload-config'
 import { ChevronRight } from 'lucide-react'
 import { getPayload } from 'payload'
+import { WithContext } from 'schema-dts'
 import React, { cache } from 'react'
 import type { Metadata } from 'next'
-import { draftMode } from 'next/headers'
+import { draftMode, headers } from 'next/headers'
 import Link from 'next/link'
 import { CMSLink } from '@/components/Link'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Media } from '@/components/Media'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import RichText from '@/components/RichText'
+import SchemaMarkup from '@/components/SchemaMarkup'
 import {
   Card,
   CardContent,
@@ -21,7 +23,9 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { Product } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
+import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getTenantFromDomain } from '@/utilities/getTenant'
+import { generateOrganizationSchema, generateProductSchema } from '@/utilities/schema'
 import { ImageGallery } from './ImageGallery'
 import PageClient from './page.client'
 
@@ -65,11 +69,46 @@ export default async function Product({ params: paramsPromise }: Args) {
 
   if (!product) return <PayloadRedirects url={url} />
 
+  // Generate schema for the product
+  const siteSettings = await getSiteSettingsFromDomain()
+
+  // Get the appropriate domain for schema URLs
+  const headersList = await headers()
+  const host = headersList.get('host') || ''
+  const domain = host.split(':')[0]
+  const port = host.includes(':') ? ':' + host.split(':')[1] : ''
+
+  // Use the tenant domain for the baseUrl
+  const protocol = host.includes('localhost') ? 'http://' : 'https://'
+  const baseUrl = `${protocol}${domain}${port}`
+
+  // Create product schema with the correct domain
+  const productSchema = generateProductSchema(product, { siteSettings, baseUrl })
+
+  // Initialize schemas array with product schema
+  const schemas: WithContext<any>[] = [productSchema]
+
+  // Check if disableGlobalSchema is true
+  const disableGlobalSchema = product.structuredData?.disableGlobalSchema === true
+
+  // Add organization schema only if not disabled in structured data settings
+  if (!disableGlobalSchema) {
+    const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
+    schemas.push(orgSchema)
+  }
+
+  // Combine schemas
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': schemas,
+  }
+
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
       <PageClient />
       <PayloadRedirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
+      <SchemaMarkup item={structuredData} baseUrl={baseUrl} tenantId={tenant?.id} domain={domain} />
 
       {/* Breadcrumb Navigation */}
       <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
@@ -228,6 +267,22 @@ const queryProductBySlugAndTenant = cache(
       overrideAccess: draft,
       depth: 2,
       pagination: false,
+      select: {
+        title: true,
+        description: true,
+        slug: true,
+        categories: true,
+        meta: true,
+        content: true,
+        specifications: true,
+        heroImage: true,
+        productImages: true,
+        links: true,
+        relatedProducts: true,
+        updatedAt: true,
+        createdAt: true,
+        structuredData: true,
+      },
       where: {
         and: [
           {

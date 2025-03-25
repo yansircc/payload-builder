@@ -150,7 +150,7 @@ export function generateWebPageSchema(
 
 // Product schema
 export function generateProductSchema(product: any, options: SchemaOptions): WithContext<Product> {
-  const { baseUrl } = options
+  const { baseUrl, siteSettings } = options
   const url = `${baseUrl}/products/${product.slug}`
 
   // Get product image
@@ -167,15 +167,56 @@ export function generateProductSchema(product: any, options: SchemaOptions): Wit
     )
   }
 
-  return {
+  // Get product images array if available
+  const productImages = []
+  if (image) {
+    productImages.push(image)
+  }
+
+  if (product.productImages && Array.isArray(product.productImages)) {
+    product.productImages.forEach((img: any) => {
+      if (typeof img === 'object' && img.url) {
+        productImages.push(img.url)
+      } else if (typeof img === 'string') {
+        // Handle case where image is just an ID string
+        const imgUrl = getImageURL({ id: img })
+        if (imgUrl) productImages.push(imgUrl)
+      }
+    })
+  }
+
+  // Extract categories
+  const categories =
+    product.categories
+      ?.map((cat: any) => (typeof cat === 'object' ? cat.title : ''))
+      .filter(Boolean) || []
+
+  // Extract product description - try to use clean text without HTML
+  const description =
+    product.meta?.description ||
+    (typeof product.description === 'string' ? product.description : '')
+
+  // Create basic product schema
+  const productSchema: WithContext<Product> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.title,
-    description: product.meta?.description || '',
-    image: image || undefined,
+    description,
+    image: productImages.length > 0 ? productImages : image || undefined,
     url,
-    // Add additional product details here
+    brand: {
+      '@type': 'Brand' as const,
+      name: siteSettings?.title || '',
+    },
+    category: categories.join(', '),
+    offers: {
+      '@type': 'Offer' as const,
+      availability: 'https://schema.org/InStock',
+      url,
+    },
   }
+
+  return productSchema
 }
 
 // FAQ Schema
