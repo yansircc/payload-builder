@@ -2781,6 +2781,27 @@ export interface Service {
   slug?: string | null;
   slugLock?: boolean | null;
   fullPath?: string | null;
+  /**
+   * Configure structured data (schema.org) for this content
+   */
+  structuredData: {
+    /**
+     * Select the primary schema type for this content
+     */
+    type: 'auto' | 'BlogPosting' | 'WebPage' | 'Product' | 'FAQPage' | 'manual';
+    /**
+     * Manually enter JSON-LD schema data
+     */
+    manualSchema?: string | null;
+    /**
+     * Disable global organization schema on this page
+     */
+    disableGlobalSchema?: boolean | null;
+    /**
+     * Automatically extract FAQs from page content
+     */
+    extractFAQs?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -13164,6 +13185,14 @@ export interface ServicesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   fullPath?: T;
+  structuredData?:
+    | T
+    | {
+        type?: T;
+        manualSchema?: T;
+        disableGlobalSchema?: T;
+        extractFAQs?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

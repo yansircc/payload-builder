@@ -236,6 +236,90 @@ export function generateProductSchema(product: any, options: SchemaOptions): Wit
   return productSchema
 }
 
+// Service schema
+export function generateServiceSchema(service: any, options: SchemaOptions): WithContext<any> {
+  const { baseUrl, siteSettings } = options
+  const url = `${baseUrl}/services/${service.slug}`
+
+  // Get service image
+  let image = service.heroImage
+    ? getImageURL(
+        typeof service.heroImage === 'object' ? service.heroImage : { id: service.heroImage },
+      )
+    : null
+
+  // Use meta image as fallback
+  if (!image && service.meta?.image) {
+    image = getImageURL(
+      typeof service.meta.image === 'object' ? service.meta.image : { id: service.meta.image },
+    )
+  }
+
+  // Ensure image URL is absolute
+  if (image && image.startsWith('/')) {
+    image = `${baseUrl}${image}`
+  }
+
+  // Get service images array if available
+  const serviceImages = []
+  if (image) {
+    serviceImages.push(image)
+  }
+
+  if (service.serviceImages && Array.isArray(service.serviceImages)) {
+    service.serviceImages.forEach((img: any) => {
+      if (typeof img === 'object' && img.url) {
+        let imgUrl = img.url
+        // Ensure the URL is absolute
+        if (imgUrl.startsWith('/')) {
+          imgUrl = `${baseUrl}${imgUrl}`
+        }
+        serviceImages.push(imgUrl)
+      } else if (typeof img === 'string') {
+        // Handle case where image is just an ID string
+        const imgUrl = getImageURL({ id: img })
+        if (imgUrl) {
+          // Ensure the URL is absolute
+          if (imgUrl.startsWith('/')) {
+            serviceImages.push(`${baseUrl}${imgUrl}`)
+          } else {
+            serviceImages.push(imgUrl)
+          }
+        }
+      }
+    })
+  }
+
+  // Extract categories
+  const categories =
+    service.categories
+      ?.map((cat: any) => (typeof cat === 'object' ? cat.title : ''))
+      .filter(Boolean) || []
+
+  // Extract service description - try to use clean text without HTML
+  const description =
+    service.meta?.description ||
+    (typeof service.description === 'string' ? service.description : '')
+
+  // Create basic service schema
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: service.title,
+    description,
+    url,
+    image: serviceImages.length > 0 ? serviceImages : image || undefined,
+    provider: {
+      '@type': 'Organization',
+      name: siteSettings?.title || '',
+      url: baseUrl,
+    },
+    category: categories.join(', '),
+  }
+
+  return serviceSchema
+}
+
 // FAQ Schema
 export function generateFAQSchema(
   faqs: Array<{ question: string; answer: string }>,

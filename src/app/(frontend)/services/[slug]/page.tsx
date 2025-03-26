@@ -1,12 +1,14 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import { WithContext } from 'schema-dts'
 import React, { cache } from 'react'
 import type { Metadata } from 'next'
-import { draftMode } from 'next/headers'
+import { draftMode, headers } from 'next/headers'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Media } from '@/components/Media'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import RichText from '@/components/RichText'
+import SchemaMarkup from '@/components/SchemaMarkup'
 import { Card, CardContent } from '@/components/ui/card'
 import {
   Table,
@@ -20,7 +22,15 @@ import { PostHero } from '@/heros/components/PostHero'
 // import { ServiceHero } from '@/heros/components/ServiceHero'
 import type { Service } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
+import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getTenantFromDomain } from '@/utilities/getTenant'
+import {
+  generateBlogPostingSchema,
+  generateOrganizationSchema,
+  generateProductSchema,
+  generateServiceSchema,
+  generateWebPageSchema,
+} from '@/utilities/schema'
 import PageClient from './page.client'
 
 export async function generateStaticParams() {
@@ -54,6 +64,10 @@ export default async function Service({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
   const url = '/services/' + slug
   const tenant = await getTenantFromDomain()
+  const headersList = headers()
+  const host = (await headersList).get('host') || ''
+  const domain = host.split(':')[0]
+  const port = host.includes(':') ? ':' + host.split(':')[1] : ''
 
   let service: Service | null = null
 
@@ -64,8 +78,80 @@ export default async function Service({ params: paramsPromise }: Args) {
 
   if (!service) return <PayloadRedirects url={url} />
 
+  // Generate schema for the service
+  const siteSettings = await getSiteSettingsFromDomain()
+
+  // Use the tenant domain for the baseUrl
+  const protocol = host.includes('localhost') ? 'http://' : 'https://'
+  const baseUrl = `${protocol}${domain}${port}`
+
+  // Initialize schemas array
+  const schemas: WithContext<any>[] = []
+
+  // Safely access structuredData field
+  const serviceData = service as any
+  const structuredData = serviceData.structuredData || {}
+  const schemaType = structuredData.type || 'auto'
+
+  if (schemaType === 'auto') {
+    // Default schema for this content type
+    const serviceSchema = generateServiceSchema(service, { siteSettings, baseUrl })
+    schemas.push(serviceSchema)
+
+    // Add organization schema by default for auto
+    const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
+    schemas.push(orgSchema)
+  } else if (schemaType === 'manual' && structuredData.manualSchema) {
+    // For manual schema, use the provided JSON-LD
+    try {
+      const manualSchema = JSON.parse(structuredData.manualSchema)
+      schemas.push(manualSchema)
+    } catch (error) {
+      console.error('Error parsing manual schema:', error)
+    }
+
+    // Add organization schema unless disabled
+    if (!structuredData.disableGlobalSchema) {
+      const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
+      schemas.push(orgSchema)
+    }
+  } else {
+    // For specific schema types
+    let contentSchema: any
+
+    switch (schemaType) {
+      case 'WebPage':
+        contentSchema = generateWebPageSchema(service as any, { siteSettings, baseUrl })
+        break
+      case 'BlogPosting':
+        contentSchema = generateBlogPostingSchema(service as any, { siteSettings, baseUrl })
+        break
+      case 'Product':
+        contentSchema = generateProductSchema(service as any, { siteSettings, baseUrl })
+        break
+      default:
+        contentSchema = generateServiceSchema(service, { siteSettings, baseUrl })
+        break
+    }
+
+    schemas.push(contentSchema)
+
+    // Add organization schema unless disabled
+    if (!structuredData.disableGlobalSchema) {
+      const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
+      schemas.push(orgSchema)
+    }
+  }
+
+  // Combine schemas
+  const schemaData = {
+    '@context': 'https://schema.org',
+    '@graph': schemas,
+  }
+
   return (
     <article className="pt-16 pb-16">
+      <SchemaMarkup item={schemaData} baseUrl={baseUrl} tenantId={tenant?.id} domain={domain} />
       <PageClient />
 
       {/* Allows redirects for valid pages too */}
@@ -182,6 +268,21 @@ const queryServiceBySlugAndTenant = cache(
             },
           },
         ],
+      },
+      depth: 2,
+      select: {
+        title: true,
+        slug: true,
+        content: true,
+        meta: true,
+        heroImage: true,
+        serviceImages: true,
+        specifications: true,
+        categories: true,
+        structuredData: true,
+        updatedAt: true,
+        createdAt: true,
+        publishedAt: true,
       },
     })
 
