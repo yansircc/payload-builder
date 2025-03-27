@@ -1,6 +1,9 @@
 /**
  * Schema/structured data field configuration
  * This field allows users to manually configure structured data for pages and posts
+ *
+ * Schema.org structured data helps search engines understand your content
+ * and can lead to rich results in search engine result pages (SERPs)
  */
 export const structuredDataField = {
   name: 'structuredData',
@@ -18,27 +21,27 @@ export const structuredDataField = {
       },
       options: [
         {
-          label: 'Auto (Default)',
+          label: 'Auto (Default) - Intelligently selects schema based on content',
           value: 'auto',
         },
         {
-          label: 'Article / Blog Post',
+          label: 'Article / Blog Post - For articles with authors and dates',
           value: 'BlogPosting',
         },
         {
-          label: 'Web Page',
+          label: 'Web Page - For general content pages',
           value: 'WebPage',
         },
         {
-          label: 'Product',
+          label: 'Product - For product listings with details',
           value: 'Product',
         },
         {
-          label: 'FAQ Page',
+          label: 'FAQ Page - For question and answer content',
           value: 'FAQPage',
         },
         {
-          label: 'Manual JSON-LD',
+          label: 'Manual JSON-LD - Custom schema markup',
           value: 'manual',
         },
       ],

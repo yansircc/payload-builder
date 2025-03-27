@@ -1,6 +1,6 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { WithContext } from 'schema-dts'
+import { Thing, WithContext } from 'schema-dts'
 import React, { cache } from 'react'
 import type { Metadata } from 'next'
 import { draftMode, headers } from 'next/headers'
@@ -8,7 +8,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Media } from '@/components/Media'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import RichText from '@/components/RichText'
-import SchemaMarkup from '@/components/SchemaMarkup'
+import SchemaOrganizer from '@/components/SchemaOrganizer'
 import { Card, CardContent } from '@/components/ui/card'
 import {
   Table,
@@ -24,13 +24,7 @@ import type { Service } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getTenantFromDomain } from '@/utilities/getTenant'
-import {
-  generateBlogPostingSchema,
-  generateOrganizationSchema,
-  generateProductSchema,
-  generateServiceSchema,
-  generateWebPageSchema,
-} from '@/utilities/schema'
+import { generateServiceSchema } from '@/utilities/schema'
 import PageClient from './page.client'
 
 export async function generateStaticParams() {
@@ -85,73 +79,29 @@ export default async function Service({ params: paramsPromise }: Args) {
   const protocol = host.includes('localhost') ? 'http://' : 'https://'
   const baseUrl = `${protocol}${domain}${port}`
 
-  // Initialize schemas array
-  const schemas: WithContext<any>[] = []
+  // Prepare schemas array
+  const schemas: WithContext<Thing>[] = []
 
   // Safely access structuredData field
-  const serviceData = service as any
-  const structuredData = serviceData.structuredData || {}
+  const structuredData = service.structuredData || {}
   const schemaType = structuredData.type || 'auto'
+  const disableGlobalSchema = structuredData.disableGlobalSchema === true
 
-  if (schemaType === 'auto') {
-    // Default schema for this content type
-    const serviceSchema = generateServiceSchema(service, { siteSettings, baseUrl })
-    schemas.push(serviceSchema)
-
-    // Add organization schema by default for auto
-    const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
-    schemas.push(orgSchema)
-  } else if (schemaType === 'manual' && structuredData.manualSchema) {
-    // For manual schema, use the provided JSON-LD
-    try {
-      const manualSchema = JSON.parse(structuredData.manualSchema)
-      schemas.push(manualSchema)
-    } catch (error) {
-      console.error('Error parsing manual schema:', error)
-    }
-
-    // Add organization schema unless disabled
-    if (!structuredData.disableGlobalSchema) {
-      const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
-      schemas.push(orgSchema)
-    }
-  } else {
-    // For specific schema types
-    let contentSchema: any
-
-    switch (schemaType) {
-      case 'WebPage':
-        contentSchema = generateWebPageSchema(service as any, { siteSettings, baseUrl })
-        break
-      case 'BlogPosting':
-        contentSchema = generateBlogPostingSchema(service as any, { siteSettings, baseUrl })
-        break
-      case 'Product':
-        contentSchema = generateProductSchema(service as any, { siteSettings, baseUrl })
-        break
-      default:
-        contentSchema = generateServiceSchema(service, { siteSettings, baseUrl })
-        break
-    }
-
-    schemas.push(contentSchema)
-
-    // Add organization schema unless disabled
-    if (!structuredData.disableGlobalSchema) {
-      const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
-      schemas.push(orgSchema)
-    }
-  }
-
-  // Combine schemas
-  const schemaData = {
-    '@context': 'https://schema.org',
-    '@graph': schemas,
-  }
+  // Add appropriate schema based on type
+  // For all types, we'll use the service schema since SchemaOrganizer will handle organization schema
+  const serviceSchema = generateServiceSchema(service, { siteSettings, baseUrl })
+  schemas.push(serviceSchema)
 
   return (
     <article className="pt-16 pb-16">
-      <SchemaMarkup item={schemaData} baseUrl={baseUrl} tenantId={tenant?.id} domain={domain} />
+      <SchemaOrganizer
+        items={schemas}
+        baseUrl={baseUrl}
+        tenantId={tenant?.id}
+        domain={domain}
+        siteSettings={siteSettings}
+        disableGlobalSchema={disableGlobalSchema}
+      />
       <PageClient />
 
       {/* Allows redirects for valid pages too */}
@@ -243,18 +193,18 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 
   return meta
 }
+
 const queryServiceBySlugAndTenant = cache(
   async ({ slug, tenantId }: { slug: string; tenantId: string }) => {
     const { isEnabled: draft } = await draftMode()
 
     const payload = await getPayload({ config: configPromise })
-
     const result = await payload.find({
       collection: 'services',
       draft,
       limit: 1,
-      overrideAccess: draft,
       pagination: false,
+      overrideAccess: draft,
       where: {
         and: [
           {
@@ -268,21 +218,6 @@ const queryServiceBySlugAndTenant = cache(
             },
           },
         ],
-      },
-      depth: 2,
-      select: {
-        title: true,
-        slug: true,
-        content: true,
-        meta: true,
-        heroImage: true,
-        serviceImages: true,
-        specifications: true,
-        categories: true,
-        structuredData: true,
-        updatedAt: true,
-        createdAt: true,
-        publishedAt: true,
       },
     })
 

@@ -1,10 +1,9 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { SchemaJsonLd } from '@/components/SchemaMarkup'
+import SchemaOrganizer from '@/components/SchemaOrganizer'
 import type { Page, Post, SiteSetting } from '@/payload-types'
 import {
-  combineSchemas,
   extractFAQsFromBlocks,
   generateBlogPostingSchema,
   generateFAQSchema,
@@ -27,36 +26,36 @@ export default function SchemaExample({ post, page, siteSettings }: SchemaExampl
   }, [])
 
   // Generate schema based on content
-  const schema = useMemo(() => {
-    if (!baseUrl) return null
+  const schemas = useMemo(() => {
+    if (!baseUrl) return []
 
     const options = { siteSettings: siteSettings || null, baseUrl }
-    const schemas = []
+    const schemaItems = []
 
     // Always include organization schema
-    schemas.push(generateOrganizationSchema(options))
+    schemaItems.push(generateOrganizationSchema(options))
 
     // Page-specific schemas
     if (page) {
-      schemas.push(generateWebPageSchema(page, options))
+      schemaItems.push(generateWebPageSchema(page, options))
 
       // Check for FAQs in page content
       const faqs = extractFAQsFromBlocks(page.layout || [])
       if (faqs.length > 0) {
-        schemas.push(generateFAQSchema(faqs, options))
+        schemaItems.push(generateFAQSchema(faqs, options))
       }
     }
 
     // Blog post schema
     if (post) {
-      schemas.push(generateBlogPostingSchema(post, options))
+      schemaItems.push(generateBlogPostingSchema(post, options))
     }
 
-    return combineSchemas(schemas)
+    return schemaItems
   }, [post, page, siteSettings, baseUrl])
 
   // Only render when schema data is available
-  if (!schema) return null
+  if (!baseUrl || schemas.length === 0) return null
 
-  return <SchemaJsonLd item={schema} />
+  return <SchemaOrganizer items={schemas} baseUrl={baseUrl} />
 }

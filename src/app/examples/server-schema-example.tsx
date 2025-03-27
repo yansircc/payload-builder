@@ -1,4 +1,4 @@
-import SchemaJsonLd from '@/components/SchemaMarkup'
+import SchemaOrganizer from '@/components/SchemaOrganizer'
 import type { SiteSetting } from '@/payload-types'
 import { generateOrganizationSchema } from '@/utilities/schema'
 
@@ -21,13 +21,13 @@ export default function ServerSchemaExample({ siteSettings }: ServerSchemaExampl
   // Generate organization schema
   const organizationSchema = generateOrganizationSchema(options)
 
-  // Return the schema with SchemaJsonLd component
-  return <SchemaJsonLd item={organizationSchema} />
+  // For a single schema, we still use SchemaOrganizer for consistent API
+  return <SchemaOrganizer items={[organizationSchema]} baseUrl={baseUrl} />
 
-  // For multiple schemas, use combineSchemas:
+  // For multiple schemas, use this pattern:
   // const schemas = [
   //   generateOrganizationSchema(options),
   //   // Add other schemas here
   // ]
-  // return <SchemaJsonLd item={combineSchemas(schemas)} />
+  // return <SchemaOrganizer items={schemas} baseUrl={baseUrl} />
 }

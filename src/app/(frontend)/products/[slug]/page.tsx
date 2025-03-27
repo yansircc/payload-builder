@@ -1,7 +1,7 @@
 import configPromise from '@payload-config'
 import { ChevronRight } from 'lucide-react'
 import { getPayload } from 'payload'
-import { WithContext } from 'schema-dts'
+import { Thing, WithContext } from 'schema-dts'
 import React, { cache } from 'react'
 import type { Metadata } from 'next'
 import { draftMode, headers } from 'next/headers'
@@ -11,7 +11,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Media } from '@/components/Media'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import RichText from '@/components/RichText'
-import SchemaMarkup from '@/components/SchemaMarkup'
+import SchemaOrganizer from '@/components/SchemaOrganizer'
 import {
   Card,
   CardContent,
@@ -25,7 +25,7 @@ import type { Product } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getTenantFromDomain } from '@/utilities/getTenant'
-import { generateOrganizationSchema, generateProductSchema } from '@/utilities/schema'
+import { generateProductSchema } from '@/utilities/schema'
 import { ImageGallery } from './ImageGallery'
 import PageClient from './page.client'
 
@@ -82,33 +82,28 @@ export default async function Product({ params: paramsPromise }: Args) {
   const protocol = host.includes('localhost') ? 'http://' : 'https://'
   const baseUrl = `${protocol}${domain}${port}`
 
-  // Create product schema with the correct domain
+  // Create product schema
   const productSchema = generateProductSchema(product, { siteSettings, baseUrl })
 
-  // Initialize schemas array with product schema
-  const schemas: WithContext<any>[] = [productSchema]
+  // Prepare schemas array with product schema
+  const schemas: WithContext<Thing>[] = [productSchema]
 
   // Check if disableGlobalSchema is true
   const disableGlobalSchema = product.structuredData?.disableGlobalSchema === true
-
-  // Add organization schema only if not disabled in structured data settings
-  if (!disableGlobalSchema) {
-    const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
-    schemas.push(orgSchema)
-  }
-
-  // Combine schemas
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@graph': schemas,
-  }
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
       <PageClient />
       <PayloadRedirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
-      <SchemaMarkup item={structuredData} baseUrl={baseUrl} tenantId={tenant?.id} domain={domain} />
+      <SchemaOrganizer
+        items={schemas}
+        baseUrl={baseUrl}
+        tenantId={tenant?.id}
+        domain={domain}
+        siteSettings={siteSettings}
+        disableGlobalSchema={disableGlobalSchema}
+      />
 
       {/* Breadcrumb Navigation */}
       <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
@@ -160,7 +155,7 @@ export default async function Product({ params: paramsPromise }: Args) {
           </div>
         </div>
         {/* Product Details Tabs */}
-        <div className="container  mb-8">
+        <div className="container mb-8">
           <Tabs defaultValue="description" className="w-full">
             <TabsList className="w-full justify-start border-b rounded-none h-auto p-0">
               <TabsTrigger
@@ -259,30 +254,12 @@ const queryProductBySlugAndTenant = cache(
     const { isEnabled: draft } = await draftMode()
 
     const payload = await getPayload({ config: configPromise })
-
     const result = await payload.find({
       collection: 'products',
       draft,
       limit: 1,
-      overrideAccess: draft,
-      depth: 2,
       pagination: false,
-      select: {
-        title: true,
-        description: true,
-        slug: true,
-        categories: true,
-        meta: true,
-        content: true,
-        specifications: true,
-        heroImage: true,
-        productImages: true,
-        links: true,
-        relatedProducts: true,
-        updatedAt: true,
-        createdAt: true,
-        structuredData: true,
-      },
+      overrideAccess: draft,
       where: {
         and: [
           {

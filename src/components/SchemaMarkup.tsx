@@ -4,6 +4,11 @@ import { Thing, WithContext } from 'schema-dts'
 
 // Types
 type JsonLdData = WithContext<Thing> | Record<string, any> | string
+type BaseUrlOptions = {
+  providedUrl?: string
+  tenantId?: string
+  domain?: string
+}
 
 interface JsonLdProps<T extends Thing = Thing> {
   item: JsonLdData | JsonLdData[]
@@ -12,12 +17,15 @@ interface JsonLdProps<T extends Thing = Thing> {
   domain?: string
 }
 
-// Resolve base URL from various sources - server-side only
-async function resolveBaseUrl(
-  providedUrl?: string,
-  tenantId?: string,
-  domain?: string,
-): Promise<string | undefined> {
+/**
+ * Resolves the base URL from various sources - server-side only
+ * Prioritizes: providedUrl > domain > tenant database lookup > environment variables
+ */
+async function resolveBaseUrl({
+  providedUrl,
+  tenantId,
+  domain,
+}: BaseUrlOptions): Promise<string | undefined> {
   // Explicit URL or domain takes precedence
   if (providedUrl) return providedUrl
   if (domain) return `https://${domain}`
@@ -48,41 +56,58 @@ async function resolveBaseUrl(
   }
 
   // Global environment variable
-  if (process.env?.NEXT_PUBLIC_SITE_URL) {
-    return process.env.NEXT_PUBLIC_SITE_URL
-  }
-
-  return undefined
+  return process.env?.NEXT_PUBLIC_SITE_URL
 }
 
-// Process JSON-LD data to fix common issues
+/**
+ * Handles string JSON-LD input by parsing it safely
+ */
+function handleStringInput(data: string, baseUrl?: string): Record<string, any> {
+  try {
+    return processJsonLd(JSON.parse(data), baseUrl)
+  } catch {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      description: data,
+    }
+  }
+}
+
+/**
+ * Processes JSON-LD graph array if present
+ */
+function processGraphItems(data: Record<string, any>, baseUrl?: string): Record<string, any> {
+  if (data['@graph'] && Array.isArray(data['@graph'])) {
+    data['@graph'] = data['@graph'].map((item: Record<string, any>) => {
+      // Remove duplicate @context
+      if (item['@context'] && data['@context']) delete item['@context']
+      // Fix URLs
+      return fixUrls(item, baseUrl)
+    })
+  } else {
+    // Fix URLs in non-graph object
+    fixUrls(data, baseUrl)
+  }
+
+  return data
+}
+
+/**
+ * Process JSON-LD data to fix common issues
+ */
 function processJsonLd(data: JsonLdData | JsonLdData[], baseUrl?: string): Record<string, any> {
   // Handle string input
   if (typeof data === 'string') {
-    try {
-      return processJsonLd(JSON.parse(data), baseUrl)
-    } catch {
-      return { '@context': 'https://schema.org', '@type': 'WebSite', description: data }
-    }
+    return handleStringInput(data, baseUrl)
   }
 
   // Clone to avoid mutations
   const processedData = JSON.parse(JSON.stringify(data))
   const result = Array.isArray(processedData) ? processedData : processedData
 
-  // Fix @graph items
-  if (result['@graph'] && Array.isArray(result['@graph'])) {
-    result['@graph'] = result['@graph'].map((item: Record<string, any>) => {
-      // Remove duplicate @context
-      if (item['@context'] && result['@context']) delete item['@context']
-
-      // Fix URLs
-      return fixUrls(item, baseUrl)
-    })
-  } else {
-    // Fix URLs in non-graph object
-    fixUrls(result, baseUrl)
-  }
+  // Process @graph items or fix URLs directly
+  processGraphItems(result, baseUrl)
 
   // Ensure required fields
   const safeData: Record<string, any> = {
@@ -98,7 +123,9 @@ function processJsonLd(data: JsonLdData | JsonLdData[], baseUrl?: string): Recor
   return safeData
 }
 
-// Fix relative URLs in JSON-LD object
+/**
+ * Fix relative URLs in JSON-LD object
+ */
 function fixUrls(obj: Record<string, any>, baseUrl?: string): Record<string, any> {
   if (!baseUrl || !obj) return obj
 
@@ -164,7 +191,7 @@ export async function SchemaJsonLd<T extends Thing = Thing>({
   }
 
   // Resolve URL with tenant domain support
-  const resolvedUrl = await resolveBaseUrl(baseUrl, tenantId, domain)
+  const resolvedUrl = await resolveBaseUrl({ providedUrl: baseUrl, tenantId, domain })
 
   // Process the data
   const processedData = processJsonLd(item, resolvedUrl)

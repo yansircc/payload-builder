@@ -31,11 +31,13 @@ const SchemaDocsPage: React.FC = () => {
             <strong>Pages</strong> - Use WebPage schema with basic page information
           </li>
           <li>
-            <strong>FAQ Pages</strong> - Auto-detect FAQ content blocks and add FAQPage schema
+            <strong>Products</strong> - Product schema with image gallery, pricing, and availability
           </li>
           <li>
-            <strong>Product Pages</strong> - Content containing product information will use Product
-            schema
+            <strong>Services</strong> - Service schema with appropriate service details
+          </li>
+          <li>
+            <strong>FAQ Pages</strong> - Auto-detect FAQ content blocks and add FAQPage schema
           </li>
         </ul>
         <p>
@@ -56,6 +58,54 @@ const SchemaDocsPage: React.FC = () => {
           </li>
           <li>For manual JSON-LD, enter your custom schema in the code editor</li>
         </ol>
+      </div>
+
+      <div className="bg-blue-50 p-6 rounded-lg mb-8 border border-blue-200">
+        <h2 className="text-xl font-bold mb-4 text-blue-800">Schema Features</h2>
+        <p className="mb-4 text-blue-800">
+          Our schema implementation includes these advanced features:
+        </p>
+        <ul className="list-disc ml-6 mb-4 text-blue-800">
+          <li>
+            <strong>Schema Organization</strong> - Multiple schemas are intelligently combined into
+            a single @graph structure
+          </li>
+          <li>
+            <strong>Schema Deduplication</strong> - Duplicate schema types are automatically removed
+          </li>
+          <li>
+            <strong>URL Fixing</strong> - Relative URLs in schemas are automatically converted to
+            absolute URLs
+          </li>
+          <li>
+            <strong>Tenant-Aware</strong> - Schema URLs are generated using the correct tenant
+            domain
+          </li>
+          <li>
+            <strong>Multi-Page Support</strong> - Consistent schema implementation across all page
+            types (Pages, Posts, Products, Services)
+          </li>
+        </ul>
+      </div>
+
+      <div className="bg-green-50 p-6 rounded-lg mb-8 border border-green-200">
+        <h2 className="text-xl font-bold mb-4 text-green-800">Per-Page Type Implementation</h2>
+        <p className="mb-4 text-green-800">Each page type has specialized schema implementation:</p>
+        <ul className="list-disc ml-6 space-y-2 text-green-800">
+          <li>
+            <strong>Dynamic Pages</strong> - Uses appropriate schema based on page path/structure
+          </li>
+          <li>
+            <strong>Blog Posts</strong> - Includes author, publication date, and category
+            information
+          </li>
+          <li>
+            <strong>Products</strong> - Adds product images, descriptions, and related product links
+          </li>
+          <li>
+            <strong>Services</strong> - Includes service descriptions, specifications, and images
+          </li>
+        </ul>
       </div>
 
       <div className="bg-slate-100 p-6 rounded-lg mb-8">
@@ -85,16 +135,23 @@ const SchemaDocsPage: React.FC = () => {
                 <td className="py-2 px-4 border-b border-gray-200">Basic SEO improvements</td>
               </tr>
               <tr>
-                <td className="py-2 px-4 border-b border-gray-200 font-medium">FAQPage</td>
-                <td className="py-2 px-4 border-b border-gray-200">Pages with Q&A content</td>
-                <td className="py-2 px-4 border-b border-gray-200">FAQ rich results in search</td>
-              </tr>
-              <tr>
                 <td className="py-2 px-4 border-b border-gray-200 font-medium">Product</td>
                 <td className="py-2 px-4 border-b border-gray-200">Product pages</td>
                 <td className="py-2 px-4 border-b border-gray-200">
                   Product rich results with price, availability
                 </td>
+              </tr>
+              <tr>
+                <td className="py-2 px-4 border-b border-gray-200 font-medium">Service</td>
+                <td className="py-2 px-4 border-b border-gray-200">Service offering pages</td>
+                <td className="py-2 px-4 border-b border-gray-200">
+                  Better representation of services in search results
+                </td>
+              </tr>
+              <tr>
+                <td className="py-2 px-4 border-b border-gray-200 font-medium">FAQPage</td>
+                <td className="py-2 px-4 border-b border-gray-200">Pages with Q&A content</td>
+                <td className="py-2 px-4 border-b border-gray-200">FAQ rich results in search</td>
               </tr>
             </tbody>
           </table>

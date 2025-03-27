@@ -1,15 +1,16 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { WithContext } from 'schema-dts'
-import { Metadata } from 'next'
+import { Thing, WithContext } from 'schema-dts'
+import React from 'react'
+import type { Metadata } from 'next'
 import { headers } from 'next/headers'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import RichText from '@/components/RichText'
-import SchemaMarkup from '@/components/SchemaMarkup'
+import SchemaOrganizer from '@/components/SchemaOrganizer'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
-import { generateBlogPostingSchema, generateOrganizationSchema } from '@/utilities/schema'
+import { generateBlogPostingSchema } from '@/utilities/schema'
 
 interface Args {
   params: Promise<{ slug: string }>
@@ -125,27 +126,25 @@ export default async function Post({ params: paramsPromise }: Args) {
   const protocol = host.includes('localhost') ? 'http://' : 'https://'
   const baseUrl = `${protocol}${domain}${port}`
 
-  // Create blog post schema with the correct domain
+  // Create blog post schema
   const postSchema = generateBlogPostingSchema(post, { siteSettings, baseUrl })
 
-  // Initialize schemas array with post schema
-  const schemas: WithContext<any>[] = [postSchema]
+  // Create schemas array with post schema
+  const schemas: WithContext<Thing>[] = [postSchema]
 
-  // Add organization schema only if not disabled in structured data settings
-  if (!post.structuredData?.disableGlobalSchema) {
-    const orgSchema = generateOrganizationSchema({ siteSettings, baseUrl })
-    schemas.push(orgSchema)
-  }
-
-  // Combine schemas
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@graph': schemas,
-  }
+  // Determine if global schema should be disabled
+  const disableGlobalSchema = post.structuredData?.disableGlobalSchema === true
 
   return (
     <article className="pt-16 pb-16">
-      <SchemaMarkup item={structuredData} baseUrl={baseUrl} tenantId={tenant?.id} domain={domain} />
+      <SchemaOrganizer
+        items={schemas}
+        baseUrl={baseUrl}
+        tenantId={tenant?.id}
+        domain={domain}
+        siteSettings={siteSettings}
+        disableGlobalSchema={disableGlobalSchema}
+      />
       <div className="container mx-auto py-8">
         <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
         {post.heroImage && (

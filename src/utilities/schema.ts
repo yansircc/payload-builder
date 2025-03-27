@@ -391,34 +391,19 @@ export function extractFAQsFromBlocks(blocks: any[]): Array<{ question: string; 
   return faqs
 }
 
-// Combine multiple schemas into one
-export function combineSchemas(schemas: WithContext<any>[]): WithContext<any> {
-  if (schemas.length === 0) {
-    return {
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-    }
-  }
-
-  if (schemas.length === 1) {
-    return schemas[0]
-  }
-
-  // If multiple schemas, wrap them in a @graph
-  return {
-    '@context': 'https://schema.org',
-    '@graph': schemas.map((schema) => {
-      // Remove @context from individual items to avoid duplication
-      const { '@context': _, ...rest } = schema
-      return rest
-    }),
-  }
-}
-
 // For backward compatibility with string JSON-LD formats
 export function schemaToString(schema: WithContext<any> | WithContext<any>[]): string {
   if (Array.isArray(schema)) {
-    return JSON.stringify(combineSchemas(schema))
+    // Create a @graph structure for multiple schemas
+    const combined = {
+      '@context': 'https://schema.org',
+      '@graph': schema.map((item) => {
+        // Remove @context from individual items to avoid duplication
+        const { '@context': _, ...rest } = item
+        return rest
+      }),
+    }
+    return JSON.stringify(combined)
   }
   return JSON.stringify(schema)
 }
