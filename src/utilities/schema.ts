@@ -450,6 +450,25 @@ function extractFAQsFromLexical(content: any, faqs: Array<{ question: string; an
 
   // Start processing from root's children
   if (content.root.children && Array.isArray(content.root.children)) {
+    // First try a direct pass of root children to look for consecutive H3-paragraph pairs
+    for (let i = 0; i < content.root.children.length - 1; i++) {
+      const current = content.root.children[i]
+      const next = content.root.children[i + 1]
+
+      if (current.type === 'heading' && current.tag === 'h3' && next.type === 'paragraph') {
+        const question = getTextFromNode(current)
+        const answer = getTextFromNode(next)
+
+        console.log('Found root-level FAQ pair:', { question, answer })
+
+        if (question && answer) {
+          faqs.push({ question, answer })
+          console.log('Added root-level FAQ to list')
+        }
+      }
+    }
+
+    // Then do the regular recursive processing
     content.root.children.forEach(processNode)
   }
 }
