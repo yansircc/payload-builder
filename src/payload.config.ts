@@ -46,7 +46,7 @@ export default buildConfig({
           path: '/wordpress-migration',
         },
         SchemaDocsView: {
-          Component: '@/app/(payload)/admin/schema-docs/page',
+          Component: '@/components/views/SchemaDocs/SchemaDocsView#SchemaDocsView',
           path: '/schema-docs',
         },
       },
