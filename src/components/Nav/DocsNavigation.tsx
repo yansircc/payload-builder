@@ -1,16 +1,17 @@
 'use client'
 
+import { NavGroup } from '@payloadcms/ui'
 import React from 'react'
 import Link from 'next/link'
 
-export const SchemaDocsLink: React.FC = () => {
+export const DocsNavigation: React.FC = () => {
   return (
-    <li>
+    <NavGroup label="Docs">
       <Link href="/admin/schema-docs" prefetch={false}>
         Schema.org Docs
       </Link>
-    </li>
+    </NavGroup>
   )
 }
 
-export default SchemaDocsLink
+export default DocsNavigation

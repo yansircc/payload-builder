@@ -50,7 +50,7 @@ export default buildConfig({
           path: '/schema-docs',
         },
       },
-      afterNavLinks: ['@/components/Nav/WordpressMigration', '@/components/Nav/SchemaDocsLink'],
+      afterNavLinks: ['@/components/Nav/WordpressMigration', '@/components/Nav/DocsNavigation'],
     },
     importMap: { baseDir: path.resolve(dirname) },
     user: Users.slug,
