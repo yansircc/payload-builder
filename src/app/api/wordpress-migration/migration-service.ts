@@ -102,6 +102,9 @@ export class WordPressMigrationService {
         slug: post.post_name,
         createdAt: new Date(post.post_date).toISOString(),
         tenant: this.tenant,
+        structuredData: {
+          type: 'auto',
+        },
       },
     })
 

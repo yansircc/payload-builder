@@ -1,12 +1,14 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import { Thing, WithContext } from 'schema-dts'
 import React, { cache } from 'react'
 import type { Metadata } from 'next'
-import { draftMode } from 'next/headers'
+import { draftMode, headers } from 'next/headers'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Media } from '@/components/Media'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import RichText from '@/components/RichText'
+import SchemaOrganizer from '@/components/SchemaOrganizer'
 import { Card, CardContent } from '@/components/ui/card'
 import {
   Table,
@@ -20,7 +22,9 @@ import { PostHero } from '@/heros/components/PostHero'
 // import { ServiceHero } from '@/heros/components/ServiceHero'
 import type { Service } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
+import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getTenantFromDomain } from '@/utilities/getTenant'
+import { generateServiceSchema } from '@/utilities/schema'
 import PageClient from './page.client'
 
 export async function generateStaticParams() {
@@ -54,6 +58,10 @@ export default async function Service({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
   const url = '/services/' + slug
   const tenant = await getTenantFromDomain()
+  const headersList = headers()
+  const host = (await headersList).get('host') || ''
+  const domain = host.split(':')[0]
+  const port = host.includes(':') ? ':' + host.split(':')[1] : ''
 
   let service: Service | null = null
 
@@ -64,8 +72,48 @@ export default async function Service({ params: paramsPromise }: Args) {
 
   if (!service) return <PayloadRedirects url={url} />
 
+  // Generate schema for the service
+  const siteSettings = await getSiteSettingsFromDomain()
+
+  // Use the tenant domain for the baseUrl
+  const protocol = host.includes('localhost') ? 'http://' : 'https://'
+  const baseUrl = `${protocol}${domain}${port}`
+
+  // Prepare schemas array
+  const schemas: WithContext<Thing>[] = []
+
+  // Safely access structuredData field
+  const structuredData = service.structuredData || {}
+
+  const disableGlobalSchema = structuredData.disableGlobalSchema === true
+  // Check extractFAQs setting (default to true if not explicitly set to false)
+  const extractFAQs = structuredData.extractFAQs !== false
+
+  // Add service schema
+  const serviceSchema = generateServiceSchema(service, { siteSettings, baseUrl })
+  schemas.push(serviceSchema)
+
+  // Collect all blocks that might contain FAQs
+  const contentBlocks = [
+    ...(service.content ? [service.content] : []),
+    // Include specifications if they exist and have a structure that might contain FAQs
+    ...(service.specifications && Array.isArray(service.specifications)
+      ? service.specifications
+      : []),
+  ]
+
   return (
     <article className="pt-16 pb-16">
+      <SchemaOrganizer
+        items={schemas}
+        baseUrl={baseUrl}
+        tenantId={tenant?.id}
+        domain={domain}
+        siteSettings={siteSettings}
+        disableGlobalSchema={disableGlobalSchema}
+        contentBlocks={contentBlocks}
+        extractFAQs={extractFAQs}
+      />
       <PageClient />
 
       {/* Allows redirects for valid pages too */}
@@ -157,18 +205,18 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 
   return meta
 }
+
 const queryServiceBySlugAndTenant = cache(
   async ({ slug, tenantId }: { slug: string; tenantId: string }) => {
     const { isEnabled: draft } = await draftMode()
 
     const payload = await getPayload({ config: configPromise })
-
     const result = await payload.find({
       collection: 'services',
       draft,
       limit: 1,
-      overrideAccess: draft,
       pagination: false,
+      overrideAccess: draft,
       where: {
         and: [
           {

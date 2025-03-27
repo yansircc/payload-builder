@@ -15,6 +15,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
 import { slugField } from '@/fields/slug'
+import { structuredDataField } from '@/fields/structuredData'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
@@ -200,6 +201,7 @@ export const Services: CollectionConfig = {
       ],
     },
     ...slugField('services'),
+    structuredDataField,
   ],
   hooks: {
     afterChange: [revalidatePost],

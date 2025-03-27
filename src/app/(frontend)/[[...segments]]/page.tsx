@@ -1,14 +1,18 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import { Thing, WithContext } from 'schema-dts'
 import React, { cache } from 'react'
 import type { Metadata } from 'next'
 import { draftMode, headers } from 'next/headers'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
+import SchemaOrganizer from '@/components/SchemaOrganizer'
 import { RenderHero } from '@/heros/RenderHero'
 import type { Page as PageType } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
+import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
+import { generateWebPageSchema } from '@/utilities/schema'
 import PageClient from './page.client'
 
 export async function generateStaticParams() {
@@ -57,6 +61,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const headersList = headers()
   const host = (await headersList).get('host') || ''
   const domain = host.split(':')[0]
+  const port = host.includes(':') ? ':' + host.split(':')[1] : ''
 
   let page: PageType | null = null
   const payload = await getPayload({ config: configPromise })
@@ -81,14 +86,65 @@ export default async function Page({ params: paramsPromise }: Args) {
     })
   }
 
+  // Get siteSettings for schema markup
+  const siteSettings = await getSiteSettingsFromDomain()
+
+  // Use the tenant domain for the baseUrl
+  const protocol = host.includes('localhost') ? 'http://' : 'https://'
+  const baseUrl = `${protocol}${domain}${port}`
+
+  // Prepare schemas based on whether a page was found or not
+  const schemas: WithContext<Thing>[] = []
+  const disableGlobalSchema = page?.structuredData?.disableGlobalSchema === true
+  // Check extractFAQs setting (default to true if not explicitly set to false)
+  const extractFAQs = page?.structuredData?.extractFAQs !== false
+
+  if (page) {
+    // If page is found, use page-specific schema
+    const pageSchema = generateWebPageSchema(page, { siteSettings, baseUrl })
+    schemas.push(pageSchema)
+  } else {
+    // For not found pages, add basic WebPage schema
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: segments.join('/') || 'Page',
+      url: baseUrl + url,
+    })
+  }
+
   if (!page) {
-    return <PayloadRedirects url={url} />
+    return (
+      <article>
+        <SchemaOrganizer
+          items={schemas}
+          baseUrl={baseUrl}
+          tenantId={tenant?.id}
+          domain={domain}
+          siteSettings={siteSettings}
+          disableGlobalSchema={disableGlobalSchema}
+          // Not passing contentBlocks since we don't have a page
+        />
+        <PageClient />
+        <PayloadRedirects url={url} />
+      </article>
+    )
   }
 
   const { hero, layout } = page
 
   return (
     <article>
+      <SchemaOrganizer
+        items={schemas}
+        baseUrl={baseUrl}
+        tenantId={tenant?.id}
+        domain={domain}
+        siteSettings={siteSettings}
+        disableGlobalSchema={disableGlobalSchema}
+        contentBlocks={layout}
+        extractFAQs={extractFAQs}
+      />
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />

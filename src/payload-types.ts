@@ -226,6 +226,27 @@ export interface Page {
   slug?: string | null;
   slugLock?: boolean | null;
   fullPath?: string | null;
+  /**
+   * Configure structured data (schema.org) for this content
+   */
+  structuredData: {
+    /**
+     * Select the primary schema type for this content
+     */
+    type: 'auto' | 'BlogPosting' | 'WebPage' | 'Product' | 'FAQPage' | 'manual';
+    /**
+     * Manually enter JSON-LD schema data
+     */
+    manualSchema?: string | null;
+    /**
+     * Disable global organization schema on this page
+     */
+    disableGlobalSchema?: boolean | null;
+    /**
+     * Enable FAQ schema extraction from content. Create FAQs using dedicated FAQ blocks (recommended) or with H3 headings followed by paragraph text in the rich text editor (avoid empty paragraphs between Q&A pairs).
+     */
+    extractFAQs?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -298,78 +319,53 @@ export interface Hero1Fields {
   /**
    * The title of the Hero section
    */
-  hero: {
-    /**
-     * Feature title
-     */
-    title: string;
-    /**
-     * Subtitle text
-     */
-    subtitle?: string | null;
-    /**
-     * Hero image
-     */
-    image: string | Media;
-    /**
-     * Badge text displayed above title
-     */
-    badge?: string | null;
-    /**
-     * Hero buttons
-     */
-    links?:
-      | {
-          'link-1': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            newTab?: boolean | null;
-          };
-          'link-2': {
-            type?: ('reference' | 'custom' | 'popup') | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            popup?: (string | null) | Popup;
-            label: string;
-            prefixIcon?: string | null;
-            suffixIcon?: string | null;
-            newTab?: boolean | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
+  title: string;
+  /**
+   * The subtitle of the Hero section
+   */
+  subtitle?: string | null;
+  /**
+   * The hero image
+   */
+  image?: (string | null) | Media;
+  /**
+   * The text displayed in the badge
+   */
+  badge: string;
+  /**
+   * Hero buttons
+   */
+  links?:
+    | {
+        /**
+         * Hero buttons
+         */
+        link: {
+          type?: ('reference' | 'custom' | 'popup') | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          popup?: (string | null) | Popup;
+          label: string;
+          prefixIcon?: string | null;
+          suffixIcon?: string | null;
+          newTab?: boolean | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
-
 /**
  * Upload and manage media files
  *
@@ -511,6 +507,27 @@ export interface Post {
   slug?: string | null;
   slugLock?: boolean | null;
   fullPath?: string | null;
+  /**
+   * Configure structured data (schema.org) for this content
+   */
+  structuredData: {
+    /**
+     * Select the primary schema type for this content
+     */
+    type: 'auto' | 'BlogPosting' | 'WebPage' | 'Product' | 'FAQPage' | 'manual';
+    /**
+     * Manually enter JSON-LD schema data
+     */
+    manualSchema?: string | null;
+    /**
+     * Disable global organization schema on this page
+     */
+    disableGlobalSchema?: boolean | null;
+    /**
+     * Enable FAQ schema extraction from content. Create FAQs using dedicated FAQ blocks (recommended) or with H3 headings followed by paragraph text in the rich text editor (avoid empty paragraphs between Q&A pairs).
+     */
+    extractFAQs?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -675,7 +692,10 @@ export interface Hero3Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -690,10 +710,7 @@ export interface Hero3Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -726,7 +743,10 @@ export interface Hero5Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -741,16 +761,12 @@ export interface Hero5Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
     | null;
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero6Fields".
@@ -784,7 +800,10 @@ export interface Hero6Fields {
     | {
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -799,10 +818,7 @@ export interface Hero6Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -820,7 +836,6 @@ export interface Hero6Fields {
       }[]
     | null;
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero7Fields".
@@ -839,7 +854,10 @@ export interface Hero7Fields {
    */
   link: {
     type?: ('reference' | 'custom' | 'popup') | null;
-    newTab?: boolean | null;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
     reference?:
       | ({
           relationTo: 'pages';
@@ -854,10 +872,7 @@ export interface Hero7Fields {
     label: string;
     prefixIcon?: string | null;
     suffixIcon?: string | null;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+    newTab?: boolean | null;
   };
   /**
    * Rating information
@@ -885,7 +900,6 @@ export interface Hero7Fields {
       | null;
   };
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero8Fields".
@@ -900,93 +914,9 @@ export interface Hero8Fields {
    */
   subtitle?: string | null;
   /**
-   * Partner logo image
-   */
-  logo: string | Media;
-  /**
-   * Badge text displayed above title
-   */
-  badge?: string | null;
-  /**
-   * Hero button
-   */
-  links?:
-    | {
-        /**
-         * Hero button with MoveRight suffix icon
-         */
-        link: {
-          type?: ('reference' | 'custom' | 'popup') | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          popup?: (string | null) | Popup;
-          label: string;
-          prefixIcon?: string | null;
-          suffixIcon?: string | null;
-          newTab?: boolean | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Feature list (exactly 4 items)
-   */
-  features?:
-    | {
-        /**
-         * Lucide icon name
-         */
-        icon: string;
-        /**
-         * Feature title
-         */
-        title: string;
-        /**
-         * Feature description
-         */
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
-}
-
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero25Fields".
- */
-export interface Hero25Fields {
-  /**
-   * The title of the Hero section
-   */
-  title: string;
-  /**
-   * The subtitle of the Hero section
-   */
-  subtitle?: string | null;
-  /**
    * The hero image
    */
   image?: (string | null) | Media;
-  /**
-   * Partner logo image
-   */
-  logo: string | Media;
-  /**
-   * Badge text displayed above title
-   */
-  badge?: string | null;
   /**
    * Hero buttons (exactly 2)
    */
@@ -997,7 +927,10 @@ export interface Hero25Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -1012,36 +945,12 @@ export interface Hero25Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
     | null;
-  /**
-   * Feature list (1-4 items)
-   */
-  features?:
-    | {
-        /**
-         * Lucide icon name
-         */
-        icon: string;
-        /**
-         * Feature title
-         */
-        title: string;
-        /**
-         * Feature description
-         */
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero12Fields".
@@ -1070,7 +979,10 @@ export interface Hero12Fields {
     | {
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -1085,10 +997,7 @@ export interface Hero12Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -1106,7 +1015,6 @@ export interface Hero12Fields {
       }[]
     | null;
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero24Fields".
@@ -1138,7 +1046,10 @@ export interface Hero24Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -1153,10 +1064,7 @@ export interface Hero24Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -1182,7 +1090,6 @@ export interface Hero24Fields {
       }[]
     | null;
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero25Fields".
@@ -1210,7 +1117,10 @@ export interface Hero25Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -1225,10 +1135,7 @@ export interface Hero25Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -1250,7 +1157,6 @@ export interface Hero25Fields {
       }[]
     | null;
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero32Fields".
@@ -1278,18 +1184,6 @@ export interface Hero32Fields {
     url: string;
   };
   /**
-   * Avatar images (exactly 5)
-   */
-  avatars?:
-    | {
-        /**
-         * Hero image
-         */
-        image: string | Media;
-        id?: string | null;
-      }[]
-    | null;
-  /**
    * Integration images (exactly 15)
    */
   integrations?:
@@ -1301,63 +1195,7 @@ export interface Hero32Fields {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Hero buttons (exactly 2)
-   */
-  links?:
-    | {
-        'link-1': {
-          type?: ('reference' | 'custom' | 'popup') | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          popup?: (string | null) | Popup;
-          label: string;
-          prefixIcon?: string | null;
-          suffixIcon?: string | null;
-          newTab?: boolean | null;
-        };
-        /**
-         * Hero button with ArrowDownRight suffix icon
-         */
-        'link-2': {
-          type?: ('reference' | 'custom' | 'popup') | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          popup?: (string | null) | Popup;
-          label: string;
-          prefixIcon?: string | null;
-          suffixIcon?: string | null;
-          newTab?: boolean | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero34Fields".
@@ -1386,7 +1224,10 @@ export interface Hero34Fields {
     | {
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -1401,10 +1242,7 @@ export interface Hero34Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -1479,7 +1317,10 @@ export interface Hero115Fields {
          */
         link: {
           type?: ('reference' | 'custom' | 'popup') | null;
-          newTab?: boolean | null;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -1494,16 +1335,12 @@ export interface Hero115Fields {
           label: string;
           prefixIcon?: string | null;
           suffixIcon?: string | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'secondary' | 'outline' | 'ghost' | 'link') | null;
+          newTab?: boolean | null;
         };
         id?: string | null;
       }[]
     | null;
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AboutBlock".
@@ -2863,6 +2700,27 @@ export interface Product {
         name?: string | null;
       }[]
     | null;
+  /**
+   * Configure structured data (schema.org) for this content
+   */
+  structuredData: {
+    /**
+     * Select the primary schema type for this content
+     */
+    type: 'auto' | 'BlogPosting' | 'WebPage' | 'Product' | 'FAQPage' | 'manual';
+    /**
+     * Manually enter JSON-LD schema data
+     */
+    manualSchema?: string | null;
+    /**
+     * Disable global organization schema on this page
+     */
+    disableGlobalSchema?: boolean | null;
+    /**
+     * Enable FAQ schema extraction from content. Create FAQs using dedicated FAQ blocks (recommended) or with H3 headings followed by paragraph text in the rich text editor (avoid empty paragraphs between Q&A pairs).
+     */
+    extractFAQs?: boolean | null;
+  };
   slug?: string | null;
   slugLock?: boolean | null;
   fullPath?: string | null;
@@ -2923,6 +2781,27 @@ export interface Service {
   slug?: string | null;
   slugLock?: boolean | null;
   fullPath?: string | null;
+  /**
+   * Configure structured data (schema.org) for this content
+   */
+  structuredData: {
+    /**
+     * Select the primary schema type for this content
+     */
+    type: 'auto' | 'BlogPosting' | 'WebPage' | 'Product' | 'FAQPage' | 'manual';
+    /**
+     * Manually enter JSON-LD schema data
+     */
+    manualSchema?: string | null;
+    /**
+     * Disable global organization schema on this page
+     */
+    disableGlobalSchema?: boolean | null;
+    /**
+     * Enable FAQ schema extraction from content. Create FAQs using dedicated FAQ blocks (recommended) or with H3 headings followed by paragraph text in the rich text editor (avoid empty paragraphs between Q&A pairs).
+     */
+    extractFAQs?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -8997,6 +8876,14 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   fullPath?: T;
+  structuredData?:
+    | T
+    | {
+        type?: T;
+        manualSchema?: T;
+        disableGlobalSchema?: T;
+        extractFAQs?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -9021,53 +8908,6 @@ export interface HeroFieldSelect<T extends boolean = true> {
   'hero-45'?: T | Hero45FieldsSelect<T>;
   'hero-115'?: T | Hero115FieldsSelect<T>;
 }
-
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero1Fields_select".
- */
-export interface Hero1FieldsSelect<T extends boolean = true> {
-  hero?:
-    | T
-    | {
-        title?: T;
-        subtitle?: T;
-        image?: T;
-        badge?: T;
-        links?:
-          | T
-          | {
-              'link-1'?:
-                | T
-                | {
-                    type?: T;
-                    appearance?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    newTab?: T;
-                  };
-              'link-2'?:
-                | T
-                | {
-                    type?: T;
-                    appearance?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    newTab?: T;
-                  };
-              id?: T;
-            };
-      };
-}
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero1Fields_select".
@@ -9084,19 +8924,18 @@ export interface Hero1FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero3Fields_select".
@@ -9147,19 +8986,18 @@ export interface Hero5FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero6Fields_select".
@@ -9171,10 +9009,6 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
   secondaryImage?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        logo?: T;
-        badge?: T;
         image?: T;
       };
   links?:
@@ -9184,14 +9018,14 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -9202,7 +9036,6 @@ export interface Hero6FieldsSelect<T extends boolean = true> {
         id?: T;
       };
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero7Fields_select".
@@ -9214,14 +9047,14 @@ export interface Hero7FieldsSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        newTab?: T;
+        appearance?: T;
         reference?: T;
         url?: T;
         popup?: T;
         label?: T;
         prefixIcon?: T;
         suffixIcon?: T;
-        appearance?: T;
+        newTab?: T;
       };
   rating?:
     | T
@@ -9235,16 +9068,7 @@ export interface Hero7FieldsSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  features?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        icon?: T;
-        id?: T;
-      };
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero8Fields_select".
@@ -9260,19 +9084,18 @@ export interface Hero8FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero12Fields_select".
@@ -9323,14 +9146,14 @@ export interface Hero24FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -9358,14 +9181,14 @@ export interface Hero25FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
@@ -9377,7 +9200,6 @@ export interface Hero25FieldsSelect<T extends boolean = true> {
         id?: T;
       };
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero32Fields_select".
@@ -9395,38 +9217,9 @@ export interface Hero32FieldsSelect<T extends boolean = true> {
     | T
     | {
         image?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    appearance?: T;
-                    reference?: T;
-                    url?: T;
-                    popup?: T;
-                    label?: T;
-                    prefixIcon?: T;
-                    suffixIcon?: T;
-                    newTab?: T;
-                  };
-              id?: T;
-            };
-        partners?:
-          | T
-          | {
-              logo?: T;
-              id?: T;
-            };
-        secondaryImage?:
-          | T
-          | {
-              image?: T;
-            };
+        id?: T;
       };
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero34Fields_select".
@@ -9443,38 +9236,18 @@ export interface Hero34FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
-  avatars?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
-  review?:
-    | T
-    | {
-        rate?: T;
-        count?: T;
-      };
-  media?:
-    | T
-    | {
-        type?: T;
-        content?: T;
-        id?: T;
-      };
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Hero45Fields_select".
@@ -9508,19 +9281,18 @@ export interface Hero115FieldsSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
+              appearance?: T;
               reference?: T;
               url?: T;
               popup?: T;
               label?: T;
               prefixIcon?: T;
               suffixIcon?: T;
-              appearance?: T;
+              newTab?: T;
             };
         id?: T;
       };
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AboutBlock_select".
@@ -11996,6 +11768,14 @@ export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   fullPath?: T;
+  structuredData?:
+    | T
+    | {
+        type?: T;
+        manualSchema?: T;
+        disableGlobalSchema?: T;
+        extractFAQs?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -13405,6 +13185,14 @@ export interface ServicesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   fullPath?: T;
+  structuredData?:
+    | T
+    | {
+        type?: T;
+        manualSchema?: T;
+        disableGlobalSchema?: T;
+        extractFAQs?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -13456,6 +13244,14 @@ export interface ProductsSelect<T extends boolean = true> {
     | {
         id?: T;
         name?: T;
+      };
+  structuredData?:
+    | T
+    | {
+        type?: T;
+        manualSchema?: T;
+        disableGlobalSchema?: T;
+        extractFAQs?: T;
       };
   slug?: T;
   slugLock?: T;

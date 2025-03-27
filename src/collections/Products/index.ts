@@ -17,6 +17,7 @@ import {
 import type { CollectionConfig } from 'payload'
 import { link } from '@/fields/link'
 import { slugField } from '@/fields/slug'
+import { structuredDataField } from '@/fields/structuredData'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
@@ -39,6 +40,7 @@ export const Products: CollectionConfig = {
     slug: true,
     categories: true,
     meta: { image: true, description: true },
+    structuredData: true,
   },
   admin: {
     group: 'Content',
@@ -248,6 +250,7 @@ export const Products: CollectionConfig = {
         { name: 'name', type: 'text' },
       ],
     },
+    structuredDataField,
     ...slugField('products'),
   ],
   hooks: {

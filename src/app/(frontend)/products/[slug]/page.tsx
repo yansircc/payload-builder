@@ -1,15 +1,17 @@
 import configPromise from '@payload-config'
 import { ChevronRight } from 'lucide-react'
 import { getPayload } from 'payload'
+import { Thing, WithContext } from 'schema-dts'
 import React, { cache } from 'react'
 import type { Metadata } from 'next'
-import { draftMode } from 'next/headers'
+import { draftMode, headers } from 'next/headers'
 import Link from 'next/link'
 import { CMSLink } from '@/components/Link'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Media } from '@/components/Media'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import RichText from '@/components/RichText'
+import SchemaOrganizer from '@/components/SchemaOrganizer'
 import {
   Card,
   CardContent,
@@ -21,7 +23,9 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { Product } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
+import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
 import { getTenantFromDomain } from '@/utilities/getTenant'
+import { generateProductSchema } from '@/utilities/schema'
 import { ImageGallery } from './ImageGallery'
 import PageClient from './page.client'
 
@@ -65,11 +69,51 @@ export default async function Product({ params: paramsPromise }: Args) {
 
   if (!product) return <PayloadRedirects url={url} />
 
+  // Generate schema for the product
+  const siteSettings = await getSiteSettingsFromDomain()
+
+  // Get the appropriate domain for schema URLs
+  const headersList = await headers()
+  const host = headersList.get('host') || ''
+  const domain = host.split(':')[0]
+  const port = host.includes(':') ? ':' + host.split(':')[1] : ''
+
+  // Use the tenant domain for the baseUrl
+  const protocol = host.includes('localhost') ? 'http://' : 'https://'
+  const baseUrl = `${protocol}${domain}${port}`
+
+  // Create product schema
+  const productSchema = generateProductSchema(product, { siteSettings, baseUrl })
+
+  // Prepare schemas array with product schema
+  const schemas: WithContext<Thing>[] = [productSchema]
+
+  // Check if disableGlobalSchema is true
+  const disableGlobalSchema = product.structuredData?.disableGlobalSchema === true
+  // Check extractFAQs setting (default to true if not explicitly set to false)
+  const extractFAQs = product.structuredData?.extractFAQs !== false
+
+  // Collect content blocks that might contain FAQs
+  const contentBlocks = [
+    ...(product.content ? [product.content] : []),
+    ...(product.specifications ? [product.specifications] : []),
+  ]
+
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
       <PageClient />
       <PayloadRedirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
+      <SchemaOrganizer
+        items={schemas}
+        baseUrl={baseUrl}
+        tenantId={tenant?.id}
+        domain={domain}
+        siteSettings={siteSettings}
+        disableGlobalSchema={disableGlobalSchema}
+        contentBlocks={contentBlocks}
+        extractFAQs={extractFAQs}
+      />
 
       {/* Breadcrumb Navigation */}
       <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
@@ -121,7 +165,7 @@ export default async function Product({ params: paramsPromise }: Args) {
           </div>
         </div>
         {/* Product Details Tabs */}
-        <div className="container  mb-8">
+        <div className="container mb-8">
           <Tabs defaultValue="description" className="w-full">
             <TabsList className="w-full justify-start border-b rounded-none h-auto p-0">
               <TabsTrigger
@@ -220,14 +264,12 @@ const queryProductBySlugAndTenant = cache(
     const { isEnabled: draft } = await draftMode()
 
     const payload = await getPayload({ config: configPromise })
-
     const result = await payload.find({
       collection: 'products',
       draft,
       limit: 1,
-      overrideAccess: draft,
-      depth: 2,
       pagination: false,
+      overrideAccess: draft,
       where: {
         and: [
           {

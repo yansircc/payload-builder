@@ -1,101 +1,22 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import React, { cache } from 'react'
+import { Thing, WithContext } from 'schema-dts'
+import React from 'react'
 import type { Metadata } from 'next'
-import { draftMode, headers } from 'next/headers'
-import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
-import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { PayloadRedirects } from '@/components/PayloadRedirects'
+import { headers } from 'next/headers'
+import Image from 'next/image'
+import { notFound } from 'next/navigation'
 import RichText from '@/components/RichText'
-import { PostHero } from '@/heros/components/PostHero'
-import type { Post } from '@/payload-types'
+import SchemaOrganizer from '@/components/SchemaOrganizer'
 import { generateMeta } from '@/utilities/generateMeta'
-import PageClient from './page.client'
+import { getSiteSettingsFromDomain } from '@/utilities/getSiteSettings'
+import { generateBlogPostingSchema } from '@/utilities/schema'
 
-export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
-  const posts = await payload.find({
-    collection: 'posts',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  })
-
-  const params = posts.docs.map(({ slug }) => {
-    return { slug }
-  })
-
-  return params
+interface Args {
+  params: Promise<{ slug: string }>
 }
 
-type Args = {
-  params: Promise<{
-    slug?: string
-  }>
-}
-
-export default async function Post({ params: paramsPromise }: Args) {
-  const { isEnabled: draft } = await draftMode()
-  const { slug = '' } = await paramsPromise
-  const url = '/posts/' + slug
-
-  // Get tenant from domain
-  const headersList = headers()
-  const host = (await headersList).get('host') || ''
-  const domain = host.split(':')[0]
-
-  let post: Post | null = null
-  const payload = await getPayload({ config: configPromise })
-
-  // First, find the tenant by domain
-  const tenantQuery = await payload.find({
-    collection: 'tenants',
-    where: {
-      domain: {
-        equals: domain,
-      },
-    },
-  })
-
-  const tenant = tenantQuery.docs[0]
-
-  if (tenant) {
-    // Then query the post with both slug and tenant
-    post = await queryPostBySlugAndTenant({ slug, tenantId: tenant.id })
-  }
-
-  if (!post) return <PayloadRedirects url={url} />
-
-  return (
-    <article className="pt-16 pb-16">
-      <PageClient />
-
-      {/* Allows redirects for valid pages too */}
-      <PayloadRedirects disableNotFound url={url} />
-
-      {draft && <LivePreviewListener />}
-
-      <PostHero item={post} />
-
-      <div className="flex flex-col items-center gap-4 pt-8">
-        <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
-          {post.relatedPosts && post.relatedPosts.length > 0 && (
-            <RelatedPosts
-              className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-              docs={post.relatedPosts.filter((post): post is Post => typeof post === 'object')}
-            />
-          )}
-        </div>
-      </div>
-    </article>
-  )
-}
-
+// Generate metadata function
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { slug = 'home' } = await paramsPromise
   const headersList = headers()
@@ -114,13 +35,29 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 
   const tenant = tenantQuery.docs[0]
   const post = tenant
-    ? await queryPostBySlugAndTenant({
-        slug,
-        tenantId: tenant.id,
-      })
+    ? await payload
+        .find({
+          collection: 'posts',
+          where: {
+            and: [
+              {
+                slug: {
+                  equals: slug,
+                },
+              },
+              {
+                tenant: {
+                  equals: tenant.id,
+                },
+              },
+            ],
+          },
+          depth: 1,
+        })
+        .then((result) => result.docs[0] || null)
     : null
 
-  const meta = generateMeta({ doc: post })
+  const meta = generateMeta({ doc: post || null })
 
   // Add robots meta tag if noindex is true
   if (post?.meta?.noindex) {
@@ -136,34 +73,107 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   return meta
 }
 
-const queryPostBySlugAndTenant = cache(
-  async ({ slug, tenantId }: { slug: string; tenantId: string }) => {
-    const { isEnabled: draft } = await draftMode()
+// Post component with schema implementation
+export default async function Post({ params: paramsPromise }: Args) {
+  const { slug } = await paramsPromise
+  const headersList = headers()
+  const host = (await headersList).get('host') || ''
+  const domain = host.split(':')[0]
+  const port = host.includes(':') ? ':' + host.split(':')[1] : ''
 
-    const payload = await getPayload({ config: configPromise })
-
-    const result = await payload.find({
-      collection: 'posts',
-      draft,
-      limit: 1,
-      overrideAccess: draft,
-      pagination: false,
-      where: {
-        and: [
-          {
-            slug: {
-              equals: slug,
-            },
-          },
-          {
-            tenant: {
-              equals: tenantId,
-            },
-          },
-        ],
+  const payload = await getPayload({ config: configPromise })
+  const tenantQuery = await payload.find({
+    collection: 'tenants',
+    where: {
+      domain: {
+        equals: domain,
       },
-    })
+    },
+  })
 
-    return result.docs?.[0] || null
-  },
-)
+  const tenant = tenantQuery.docs[0]
+  const post = tenant
+    ? await payload
+        .find({
+          collection: 'posts',
+          where: {
+            and: [
+              {
+                slug: {
+                  equals: slug,
+                },
+              },
+              {
+                tenant: {
+                  equals: tenant.id,
+                },
+              },
+            ],
+          },
+          depth: 2,
+        })
+        .then((result) => result.docs[0])
+    : null
+
+  if (!post) {
+    return notFound()
+  }
+
+  // Generate schema for the post
+  const siteSettings = await getSiteSettingsFromDomain()
+
+  // Use the tenant domain for the baseUrl
+  const protocol = host.includes('localhost') ? 'http://' : 'https://'
+  const baseUrl = `${protocol}${domain}${port}`
+
+  // Create blog post schema
+  const postSchema = generateBlogPostingSchema(post, { siteSettings, baseUrl })
+
+  // Create schemas array with post schema
+  const schemas: WithContext<Thing>[] = [postSchema]
+
+  // Determine if global schema should be disabled
+  const disableGlobalSchema = post.structuredData?.disableGlobalSchema === true
+  // Check extractFAQs setting (default to true if not explicitly set to false)
+  const extractFAQs = post.structuredData?.extractFAQs !== false
+
+  // For posts, content blocks might be embedded in the content
+  // or structured differently than pages. We'll pass content as is.
+  const contentBlocks = post.content ? [post.content] : []
+
+  return (
+    <article className="pt-16 pb-16">
+      <SchemaOrganizer
+        items={schemas}
+        baseUrl={baseUrl}
+        tenantId={tenant?.id}
+        domain={domain}
+        siteSettings={siteSettings}
+        disableGlobalSchema={disableGlobalSchema}
+        contentBlocks={contentBlocks}
+        extractFAQs={extractFAQs}
+      />
+      <div className="container mx-auto py-8">
+        <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+        {post.heroImage && (
+          <div className="mb-6">
+            {typeof post.heroImage === 'object' && post.heroImage.url && (
+              <Image
+                src={post.heroImage.url}
+                alt={post.heroImage.alt || post.title}
+                className="w-full h-auto rounded-lg"
+                width={post.heroImage.width || 1200}
+                height={post.heroImage.height || 630}
+              />
+            )}
+          </div>
+        )}
+        {post.content && (
+          <div className="mt-8">
+            <RichText data={post.content} enableGutter={false} enableProse={true} />
+          </div>
+        )}
+      </div>
+    </article>
+  )
+}

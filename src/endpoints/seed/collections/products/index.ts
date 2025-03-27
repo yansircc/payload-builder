@@ -81,6 +81,11 @@ export async function seedProducts({
         },
         categories: [categories.design.id],
         tenant: tenant.id,
+        structuredData: {
+          type: 'Product' as const,
+          disableGlobalSchema: false,
+          extractFAQs: true,
+        },
       },
     }),
     payload.create({
@@ -145,6 +150,11 @@ export async function seedProducts({
         },
         categories: [categories['product-technology'].id],
         tenant: tenant.id,
+        structuredData: {
+          type: 'Product' as const,
+          disableGlobalSchema: false,
+          extractFAQs: true,
+        },
       },
     }),
     payload.create({
@@ -210,6 +220,11 @@ export async function seedProducts({
         },
         categories: [categories['product-technology'].id],
         tenant: tenant.id,
+        structuredData: {
+          type: 'Product' as const,
+          disableGlobalSchema: false,
+          extractFAQs: true,
+        },
       },
     }),
   ])

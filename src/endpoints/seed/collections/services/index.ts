@@ -65,6 +65,10 @@ export async function seedServices({
           { name: 'SLA Level', description: '99.9% uptime guaranteed' },
           { name: 'Team Size', description: 'Dedicated team of 5 specialists' },
         ],
+        structuredData: {
+          type: 'auto',
+          extractFAQs: true,
+        },
       },
     }),
     payload.create({
@@ -113,6 +117,10 @@ export async function seedServices({
           { name: 'Platforms', description: 'AWS, Azure, Google Cloud' },
           { name: 'Post-Migration', description: '3 months support included' },
         ],
+        structuredData: {
+          type: 'auto',
+          extractFAQs: true,
+        },
       },
     }),
     payload.create({
@@ -160,6 +168,10 @@ export async function seedServices({
           { name: 'Team Access', description: 'Senior strategist + 2 specialists' },
           { name: 'Review Cycles', description: 'Bi-weekly progress reviews' },
         ],
+        structuredData: {
+          type: 'auto',
+          extractFAQs: true,
+        },
       },
     }),
   ])
