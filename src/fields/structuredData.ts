@@ -72,7 +72,8 @@ export const structuredDataField = {
       name: 'extractFAQs',
       type: 'checkbox' as const,
       admin: {
-        description: 'Automatically extract FAQs from page content',
+        description:
+          'Enable FAQ schema extraction from content. Create FAQs using dedicated FAQ blocks (recommended) or with H3 headings followed by paragraph text in the rich text editor (avoid empty paragraphs between Q&A pairs).',
         condition: (data: Record<string, unknown>, siblingData: Record<string, unknown>) =>
           siblingData?.type === 'auto' || siblingData?.type === 'FAQPage',
       },

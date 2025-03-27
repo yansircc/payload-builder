@@ -243,7 +243,7 @@ export interface Page {
      */
     disableGlobalSchema?: boolean | null;
     /**
-     * Automatically extract FAQs from page content
+     * Enable FAQ schema extraction from content. Create FAQs using dedicated FAQ blocks (recommended) or with H3 headings followed by paragraph text in the rich text editor (avoid empty paragraphs between Q&A pairs).
      */
     extractFAQs?: boolean | null;
   };
@@ -524,7 +524,7 @@ export interface Post {
      */
     disableGlobalSchema?: boolean | null;
     /**
-     * Automatically extract FAQs from page content
+     * Enable FAQ schema extraction from content. Create FAQs using dedicated FAQ blocks (recommended) or with H3 headings followed by paragraph text in the rich text editor (avoid empty paragraphs between Q&A pairs).
      */
     extractFAQs?: boolean | null;
   };
@@ -2717,7 +2717,7 @@ export interface Product {
      */
     disableGlobalSchema?: boolean | null;
     /**
-     * Automatically extract FAQs from page content
+     * Enable FAQ schema extraction from content. Create FAQs using dedicated FAQ blocks (recommended) or with H3 headings followed by paragraph text in the rich text editor (avoid empty paragraphs between Q&A pairs).
      */
     extractFAQs?: boolean | null;
   };
@@ -2798,7 +2798,7 @@ export interface Service {
      */
     disableGlobalSchema?: boolean | null;
     /**
-     * Automatically extract FAQs from page content
+     * Enable FAQ schema extraction from content. Create FAQs using dedicated FAQ blocks (recommended) or with H3 headings followed by paragraph text in the rich text editor (avoid empty paragraphs between Q&A pairs).
      */
     extractFAQs?: boolean | null;
   };
