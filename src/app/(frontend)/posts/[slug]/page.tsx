@@ -134,6 +134,12 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   // Determine if global schema should be disabled
   const disableGlobalSchema = post.structuredData?.disableGlobalSchema === true
+  // Check extractFAQs setting (default to true if not explicitly set to false)
+  const extractFAQs = post.structuredData?.extractFAQs !== false
+
+  // For posts, content blocks might be embedded in the content
+  // or structured differently than pages. We'll pass content as is.
+  const contentBlocks = post.content ? [post.content] : []
 
   return (
     <article className="pt-16 pb-16">
@@ -144,6 +150,8 @@ export default async function Post({ params: paramsPromise }: Args) {
         domain={domain}
         siteSettings={siteSettings}
         disableGlobalSchema={disableGlobalSchema}
+        contentBlocks={contentBlocks}
+        extractFAQs={extractFAQs}
       />
       <div className="container mx-auto py-8">
         <h1 className="text-3xl font-bold mb-4">{post.title}</h1>

@@ -1,6 +1,10 @@
 import { Thing, WithContext } from 'schema-dts'
 import type { SiteSetting } from '@/payload-types'
-import { generateOrganizationSchema } from '@/utilities/schema'
+import {
+  extractFAQsFromBlocks,
+  generateFAQSchema,
+  generateOrganizationSchema,
+} from '@/utilities/schema'
 import SchemaMarkup from './SchemaMarkup'
 
 interface Schema {
@@ -29,6 +33,10 @@ interface SchemaOrganizerProps {
   siteSettings?: SiteSetting | null
   /** Set to true to disable global organization schema inclusion */
   disableGlobalSchema?: boolean
+  /** Content that may include FAQ blocks to extract */
+  contentBlocks?: any[]
+  /** Set to false to disable automatic FAQ extraction (default: true) */
+  extractFAQs?: boolean
 }
 
 /**
@@ -36,6 +44,7 @@ interface SchemaOrganizerProps {
  *
  * Handles organizing, deduplication and prioritization of schema.org data
  * Can automatically add organization schema if not disabled
+ * Can extract FAQs from content blocks if enabled
  *
  * @example
  * ```tsx
@@ -43,6 +52,8 @@ interface SchemaOrganizerProps {
  *   items={[productSchema, breadcrumbSchema]}
  *   baseUrl="https://example.com"
  *   siteSettings={siteSettings}
+ *   contentBlocks={page.layout}
+ *   extractFAQs={page.structuredData?.extractFAQs !== false}
  * />
  * ```
  */
@@ -53,6 +64,8 @@ export function SchemaOrganizer({
   domain,
   siteSettings = null,
   disableGlobalSchema = false,
+  contentBlocks = [],
+  extractFAQs = true,
 }: SchemaOrganizerProps) {
   // Skip if no items
   if (items.length === 0) return null
@@ -67,6 +80,29 @@ export function SchemaOrganizer({
     // Only add if no Organization schema already exists
     if (!schemas.some((schema) => hasType(schema) && schema['@type'] === 'Organization')) {
       schemas.push(orgSchema)
+    }
+  }
+
+  // Extract and add FAQ schema if enabled and we have content blocks
+  if (extractFAQs && contentBlocks && contentBlocks.length > 0 && baseUrl) {
+    // Extract FAQs from content blocks
+    const faqs = extractFAQsFromBlocks(contentBlocks)
+
+    // Only add FAQ schema if we found FAQs
+    if (faqs.length > 0) {
+      // Check if we already have a FAQ schema
+      const hasFAQSchema = schemas.some(
+        (schema) => hasType(schema) && schema['@type'] === 'FAQPage',
+      )
+
+      // Only add if no FAQ schema already exists
+      if (!hasFAQSchema) {
+        const faqSchema = generateFAQSchema(faqs, {
+          siteSettings,
+          baseUrl,
+        })
+        schemas.push(faqSchema)
+      }
     }
   }
 

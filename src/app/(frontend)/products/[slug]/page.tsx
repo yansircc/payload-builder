@@ -90,6 +90,14 @@ export default async function Product({ params: paramsPromise }: Args) {
 
   // Check if disableGlobalSchema is true
   const disableGlobalSchema = product.structuredData?.disableGlobalSchema === true
+  // Check extractFAQs setting (default to true if not explicitly set to false)
+  const extractFAQs = product.structuredData?.extractFAQs !== false
+
+  // Collect content blocks that might contain FAQs
+  const contentBlocks = [
+    ...(product.content ? [product.content] : []),
+    ...(product.specifications ? [product.specifications] : []),
+  ]
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
@@ -103,6 +111,8 @@ export default async function Product({ params: paramsPromise }: Args) {
         domain={domain}
         siteSettings={siteSettings}
         disableGlobalSchema={disableGlobalSchema}
+        contentBlocks={contentBlocks}
+        extractFAQs={extractFAQs}
       />
 
       {/* Breadcrumb Navigation */}

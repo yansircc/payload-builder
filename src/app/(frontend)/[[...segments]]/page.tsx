@@ -96,6 +96,8 @@ export default async function Page({ params: paramsPromise }: Args) {
   // Prepare schemas based on whether a page was found or not
   const schemas: WithContext<Thing>[] = []
   const disableGlobalSchema = page?.structuredData?.disableGlobalSchema === true
+  // Check extractFAQs setting (default to true if not explicitly set to false)
+  const extractFAQs = page?.structuredData?.extractFAQs !== false
 
   if (page) {
     // If page is found, use page-specific schema
@@ -121,6 +123,7 @@ export default async function Page({ params: paramsPromise }: Args) {
           domain={domain}
           siteSettings={siteSettings}
           disableGlobalSchema={disableGlobalSchema}
+          // Not passing contentBlocks since we don't have a page
         />
         <PageClient />
         <PayloadRedirects url={url} />
@@ -139,6 +142,8 @@ export default async function Page({ params: paramsPromise }: Args) {
         domain={domain}
         siteSettings={siteSettings}
         disableGlobalSchema={disableGlobalSchema}
+        contentBlocks={layout}
+        extractFAQs={extractFAQs}
       />
       <PageClient />
       {/* Allows redirects for valid pages too */}

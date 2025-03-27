@@ -84,13 +84,23 @@ export default async function Service({ params: paramsPromise }: Args) {
 
   // Safely access structuredData field
   const structuredData = service.structuredData || {}
-  const schemaType = structuredData.type || 'auto'
-  const disableGlobalSchema = structuredData.disableGlobalSchema === true
 
-  // Add appropriate schema based on type
-  // For all types, we'll use the service schema since SchemaOrganizer will handle organization schema
+  const disableGlobalSchema = structuredData.disableGlobalSchema === true
+  // Check extractFAQs setting (default to true if not explicitly set to false)
+  const extractFAQs = structuredData.extractFAQs !== false
+
+  // Add service schema
   const serviceSchema = generateServiceSchema(service, { siteSettings, baseUrl })
   schemas.push(serviceSchema)
+
+  // Collect all blocks that might contain FAQs
+  const contentBlocks = [
+    ...(service.content ? [service.content] : []),
+    // Include specifications if they exist and have a structure that might contain FAQs
+    ...(service.specifications && Array.isArray(service.specifications)
+      ? service.specifications
+      : []),
+  ]
 
   return (
     <article className="pt-16 pb-16">
@@ -101,6 +111,8 @@ export default async function Service({ params: paramsPromise }: Args) {
         domain={domain}
         siteSettings={siteSettings}
         disableGlobalSchema={disableGlobalSchema}
+        contentBlocks={contentBlocks}
+        extractFAQs={extractFAQs}
       />
       <PageClient />
 

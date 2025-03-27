@@ -373,22 +373,102 @@ export function extractFAQsFromBlocks(blocks: any[]): Array<{ question: string; 
 
   if (!blocks || !Array.isArray(blocks)) return faqs
 
+  // Process each block or content item
   blocks.forEach((block) => {
-    if (block.blockType === 'faq') {
-      // Extract FAQs based on the specific FAQ structure
-      const faqItems = block.faqItems || []
-      faqItems.forEach((item: any) => {
-        if (item.question && item.answer) {
-          faqs.push({
-            question: item.question,
-            answer: item.answer,
-          })
-        }
-      })
+    // Case 1: Direct FAQ block type
+    if (block && block.blockType === 'faq') {
+      // Get the style field name (e.g. 'faq-1')
+      const styleField = block.style || 'faq-1'
+
+      // Get the FAQ data from the corresponding style field
+      const faqData = block[styleField]
+
+      // Extract FAQs from the style-specific field
+      if (faqData && Array.isArray(faqData.faqs)) {
+        faqData.faqs.forEach((item: any) => {
+          if (item.question && item.answer) {
+            faqs.push({
+              question: item.question,
+              answer: typeof item.answer === 'string' ? item.answer : JSON.stringify(item.answer),
+            })
+          }
+        })
+      }
+    }
+
+    // Case 2: Lexical content that might have FAQ nodes
+    if (block && typeof block === 'object' && block.root && block.root.children) {
+      // Try to extract FAQs from lexical content
+      try {
+        extractFAQsFromLexical(block, faqs)
+      } catch (error) {
+        console.error('Error extracting FAQs from Lexical content:', error)
+      }
+    }
+
+    // Case 3: Nested blocks (e.g., in layout)
+    if (block && Array.isArray(block.children)) {
+      const nestedFaqs = extractFAQsFromBlocks(block.children)
+      faqs.push(...nestedFaqs)
     }
   })
 
   return faqs
+}
+
+// Helper function to extract FAQs from Lexical content
+function extractFAQsFromLexical(content: any, faqs: Array<{ question: string; answer: string }>) {
+  if (!content || typeof content !== 'object' || !content.root) return
+
+  // Process nodes recursively
+  const processNode = (node: any) => {
+    // Check if this is a heading followed by paragraph (potential Q&A pair)
+    if (
+      node.type === 'heading' &&
+      node.tag === 'h3' &&
+      node.next &&
+      node.next.type === 'paragraph'
+    ) {
+      const question = getTextFromNode(node)
+      const answer = getTextFromNode(node.next)
+
+      if (question && answer) {
+        faqs.push({ question, answer })
+      }
+    }
+
+    // Process children recursively
+    if (node.children && Array.isArray(node.children)) {
+      node.children.forEach(processNode)
+    }
+
+    // Process siblings
+    if (node.next) {
+      processNode(node.next)
+    }
+  }
+
+  // Start processing from root's children
+  if (content.root.children && Array.isArray(content.root.children)) {
+    content.root.children.forEach(processNode)
+  }
+}
+
+// Extract plain text from a Lexical node
+function getTextFromNode(node: any): string {
+  if (!node) return ''
+
+  // Text node
+  if (node.type === 'text' && typeof node.text === 'string') {
+    return node.text
+  }
+
+  // Node with children
+  if (node.children && Array.isArray(node.children)) {
+    return node.children.map(getTextFromNode).join(' ')
+  }
+
+  return ''
 }
 
 // For backward compatibility with string JSON-LD formats
